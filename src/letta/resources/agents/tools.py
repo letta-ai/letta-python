@@ -90,7 +90,7 @@ class ToolsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Agentstate:
         """
-        Add tools to an existing agent
+        Add tools to an exsiting agent
 
         Args:
           extra_headers: Send extra headers
@@ -128,7 +128,7 @@ class ToolsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Agentstate:
         """
-        Add tools to an existing agent
+        Add tools to an exsiting agent
 
         Args:
           extra_headers: Send extra headers
@@ -222,7 +222,7 @@ class AsyncToolsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Agentstate:
         """
-        Add tools to an existing agent
+        Add tools to an exsiting agent
 
         Args:
           extra_headers: Send extra headers
@@ -260,7 +260,7 @@ class AsyncToolsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Agentstate:
         """
-        Add tools to an existing agent
+        Add tools to an exsiting agent
 
         Args:
           extra_headers: Send extra headers

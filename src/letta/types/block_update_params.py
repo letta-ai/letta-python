@@ -26,11 +26,11 @@ class BlockUpdateParams(TypedDict, total=False):
     metadata: Annotated[Optional[object], PropertyInfo(alias="metadata_")]
     """Metadata of the block."""
 
-    name: Optional[str]
-    """Name of the block if it is a template."""
-
     template: bool
     """Whether the block is a template (e.g. saved human/persona options)."""
+
+    template_name: Optional[str]
+    """Name of the block if it is a template."""
 
     user_id: Optional[str]
     """The unique identifier of the user associated with the block."""

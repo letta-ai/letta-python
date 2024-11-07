@@ -28,11 +28,11 @@ class Block(BaseModel):
     metadata: Optional[object] = FieldInfo(alias="metadata_", default=None)
     """Metadata of the block."""
 
-    name: Optional[str] = None
-    """Name of the block if it is a template."""
-
     template: Optional[bool] = None
     """Whether the block is a template (e.g. saved human/persona options)."""
+
+    template_name: Optional[str] = None
+    """Name of the block if it is a template."""
 
     user_id: Optional[str] = None
     """The unique identifier of the user associated with the block."""

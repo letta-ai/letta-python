@@ -61,10 +61,6 @@ class Letta(SyncAPIClient):
     blocks: resources.BlocksResource
     jobs: resources.JobsResource
     health: resources.HealthResource
-    admin_users: resources.AdminUsersResource
-    admin_orgs: resources.AdminOrgsResource
-    admin_organizations: resources.AdminOrganizationsResource
-    auth: resources.AuthResource
     with_raw_response: LettaWithRawResponse
     with_streaming_response: LettaWithStreamedResponse
 
@@ -140,10 +136,6 @@ class Letta(SyncAPIClient):
         self.blocks = resources.BlocksResource(self)
         self.jobs = resources.JobsResource(self)
         self.health = resources.HealthResource(self)
-        self.admin_users = resources.AdminUsersResource(self)
-        self.admin_orgs = resources.AdminOrgsResource(self)
-        self.admin_organizations = resources.AdminOrganizationsResource(self)
-        self.auth = resources.AuthResource(self)
         self.with_raw_response = LettaWithRawResponse(self)
         self.with_streaming_response = LettaWithStreamedResponse(self)
 
@@ -254,10 +246,6 @@ class AsyncLetta(AsyncAPIClient):
     blocks: resources.AsyncBlocksResource
     jobs: resources.AsyncJobsResource
     health: resources.AsyncHealthResource
-    admin_users: resources.AsyncAdminUsersResource
-    admin_orgs: resources.AsyncAdminOrgsResource
-    admin_organizations: resources.AsyncAdminOrganizationsResource
-    auth: resources.AsyncAuthResource
     with_raw_response: AsyncLettaWithRawResponse
     with_streaming_response: AsyncLettaWithStreamedResponse
 
@@ -333,10 +321,6 @@ class AsyncLetta(AsyncAPIClient):
         self.blocks = resources.AsyncBlocksResource(self)
         self.jobs = resources.AsyncJobsResource(self)
         self.health = resources.AsyncHealthResource(self)
-        self.admin_users = resources.AsyncAdminUsersResource(self)
-        self.admin_orgs = resources.AsyncAdminOrgsResource(self)
-        self.admin_organizations = resources.AsyncAdminOrganizationsResource(self)
-        self.auth = resources.AsyncAuthResource(self)
         self.with_raw_response = AsyncLettaWithRawResponse(self)
         self.with_streaming_response = AsyncLettaWithStreamedResponse(self)
 
@@ -448,10 +432,6 @@ class LettaWithRawResponse:
         self.blocks = resources.BlocksResourceWithRawResponse(client.blocks)
         self.jobs = resources.JobsResourceWithRawResponse(client.jobs)
         self.health = resources.HealthResourceWithRawResponse(client.health)
-        self.admin_users = resources.AdminUsersResourceWithRawResponse(client.admin_users)
-        self.admin_orgs = resources.AdminOrgsResourceWithRawResponse(client.admin_orgs)
-        self.admin_organizations = resources.AdminOrganizationsResourceWithRawResponse(client.admin_organizations)
-        self.auth = resources.AuthResourceWithRawResponse(client.auth)
 
 
 class AsyncLettaWithRawResponse:
@@ -463,10 +443,6 @@ class AsyncLettaWithRawResponse:
         self.blocks = resources.AsyncBlocksResourceWithRawResponse(client.blocks)
         self.jobs = resources.AsyncJobsResourceWithRawResponse(client.jobs)
         self.health = resources.AsyncHealthResourceWithRawResponse(client.health)
-        self.admin_users = resources.AsyncAdminUsersResourceWithRawResponse(client.admin_users)
-        self.admin_orgs = resources.AsyncAdminOrgsResourceWithRawResponse(client.admin_orgs)
-        self.admin_organizations = resources.AsyncAdminOrganizationsResourceWithRawResponse(client.admin_organizations)
-        self.auth = resources.AsyncAuthResourceWithRawResponse(client.auth)
 
 
 class LettaWithStreamedResponse:
@@ -478,10 +454,6 @@ class LettaWithStreamedResponse:
         self.blocks = resources.BlocksResourceWithStreamingResponse(client.blocks)
         self.jobs = resources.JobsResourceWithStreamingResponse(client.jobs)
         self.health = resources.HealthResourceWithStreamingResponse(client.health)
-        self.admin_users = resources.AdminUsersResourceWithStreamingResponse(client.admin_users)
-        self.admin_orgs = resources.AdminOrgsResourceWithStreamingResponse(client.admin_orgs)
-        self.admin_organizations = resources.AdminOrganizationsResourceWithStreamingResponse(client.admin_organizations)
-        self.auth = resources.AuthResourceWithStreamingResponse(client.auth)
 
 
 class AsyncLettaWithStreamedResponse:
@@ -493,12 +465,6 @@ class AsyncLettaWithStreamedResponse:
         self.blocks = resources.AsyncBlocksResourceWithStreamingResponse(client.blocks)
         self.jobs = resources.AsyncJobsResourceWithStreamingResponse(client.jobs)
         self.health = resources.AsyncHealthResourceWithStreamingResponse(client.health)
-        self.admin_users = resources.AsyncAdminUsersResourceWithStreamingResponse(client.admin_users)
-        self.admin_orgs = resources.AsyncAdminOrgsResourceWithStreamingResponse(client.admin_orgs)
-        self.admin_organizations = resources.AsyncAdminOrganizationsResourceWithStreamingResponse(
-            client.admin_organizations
-        )
-        self.auth = resources.AsyncAuthResourceWithStreamingResponse(client.auth)
 
 
 Client = Letta

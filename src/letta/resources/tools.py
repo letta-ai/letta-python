@@ -53,11 +53,11 @@ class ToolsResource(SyncAPIResource):
         self,
         *,
         source_code: str,
+        source_type: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         json_schema: Optional[object] | NotGiven = NOT_GIVEN,
         module: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        source_type: str | NotGiven = NOT_GIVEN,
         tags: List[str] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -73,6 +73,8 @@ class ToolsResource(SyncAPIResource):
         Args:
           source_code: The source code of the function.
 
+          source_type: The source type of the function.
+
           description: The description of the tool.
 
           json_schema: The JSON schema of the function (auto-generated from source_code if not
@@ -81,8 +83,6 @@ class ToolsResource(SyncAPIResource):
           module: The source code of the function.
 
           name: The name of the function (auto-generated from source_code if not provided).
-
-          source_type: The source type of the function.
 
           tags: Metadata tags.
 
@@ -100,11 +100,11 @@ class ToolsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "source_code": source_code,
+                    "source_type": source_type,
                     "description": description,
                     "json_schema": json_schema,
                     "module": module,
                     "name": name,
-                    "source_type": source_type,
                     "tags": tags,
                 },
                 tool_create_params.ToolCreateParams,
@@ -267,6 +267,7 @@ class ToolsResource(SyncAPIResource):
         self,
         tool_id: str,
         *,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -288,6 +289,7 @@ class ToolsResource(SyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._delete(
             f"/v1/tools/{tool_id}",
             options=make_request_options(
@@ -388,11 +390,11 @@ class AsyncToolsResource(AsyncAPIResource):
         self,
         *,
         source_code: str,
+        source_type: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         json_schema: Optional[object] | NotGiven = NOT_GIVEN,
         module: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        source_type: str | NotGiven = NOT_GIVEN,
         tags: List[str] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -408,6 +410,8 @@ class AsyncToolsResource(AsyncAPIResource):
         Args:
           source_code: The source code of the function.
 
+          source_type: The source type of the function.
+
           description: The description of the tool.
 
           json_schema: The JSON schema of the function (auto-generated from source_code if not
@@ -416,8 +420,6 @@ class AsyncToolsResource(AsyncAPIResource):
           module: The source code of the function.
 
           name: The name of the function (auto-generated from source_code if not provided).
-
-          source_type: The source type of the function.
 
           tags: Metadata tags.
 
@@ -435,11 +437,11 @@ class AsyncToolsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "source_code": source_code,
+                    "source_type": source_type,
                     "description": description,
                     "json_schema": json_schema,
                     "module": module,
                     "name": name,
-                    "source_type": source_type,
                     "tags": tags,
                 },
                 tool_create_params.ToolCreateParams,
@@ -602,6 +604,7 @@ class AsyncToolsResource(AsyncAPIResource):
         self,
         tool_id: str,
         *,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -623,6 +626,7 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._delete(
             f"/v1/tools/{tool_id}",
             options=make_request_options(

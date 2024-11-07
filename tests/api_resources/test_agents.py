@@ -171,8 +171,8 @@ class TestAgents:
                         "label": "label",
                         "limit": 0,
                         "metadata": {},
-                        "name": "name",
                         "template": True,
+                        "template_name": "template_name",
                         "user_id": "user_id",
                     }
                 },
@@ -182,7 +182,6 @@ class TestAgents:
             metadata={},
             name="name",
             system="system",
-            tags=["string", "string", "string"],
             tool_rules=[{"tool_name": "tool_name"}, {"tool_name": "tool_name"}, {"tool_name": "tool_name"}],
             tools=["string", "string", "string"],
             body_user_id="user_id",
@@ -297,8 +296,8 @@ class TestAgents:
                         "label": "label",
                         "limit": 0,
                         "metadata": {},
-                        "name": "name",
                         "template": True,
+                        "template_name": "template_name",
                         "user_id": "user_id",
                     }
                 },
@@ -308,7 +307,6 @@ class TestAgents:
             metadata={},
             name="name",
             system="system",
-            tags=["string", "string", "string"],
             tools=["string", "string", "string"],
             body_user_id="user_id",
             header_user_id="user_id",
@@ -357,8 +355,6 @@ class TestAgents:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         agent = client.agents.list(
-            name="name",
-            tags=["string", "string", "string"],
             user_id="user_id",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
@@ -583,8 +579,8 @@ class TestAsyncAgents:
                         "label": "label",
                         "limit": 0,
                         "metadata": {},
-                        "name": "name",
                         "template": True,
+                        "template_name": "template_name",
                         "user_id": "user_id",
                     }
                 },
@@ -594,7 +590,6 @@ class TestAsyncAgents:
             metadata={},
             name="name",
             system="system",
-            tags=["string", "string", "string"],
             tool_rules=[{"tool_name": "tool_name"}, {"tool_name": "tool_name"}, {"tool_name": "tool_name"}],
             tools=["string", "string", "string"],
             body_user_id="user_id",
@@ -709,8 +704,8 @@ class TestAsyncAgents:
                         "label": "label",
                         "limit": 0,
                         "metadata": {},
-                        "name": "name",
                         "template": True,
+                        "template_name": "template_name",
                         "user_id": "user_id",
                     }
                 },
@@ -720,7 +715,6 @@ class TestAsyncAgents:
             metadata={},
             name="name",
             system="system",
-            tags=["string", "string", "string"],
             tools=["string", "string", "string"],
             body_user_id="user_id",
             header_user_id="user_id",
@@ -769,8 +763,6 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.list(
-            name="name",
-            tags=["string", "string", "string"],
             user_id="user_id",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])

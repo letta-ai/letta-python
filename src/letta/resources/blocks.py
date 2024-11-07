@@ -55,8 +55,8 @@ class BlocksResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
         template: bool | NotGiven = NOT_GIVEN,
+        template_name: Optional[str] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
         value: Optional[str] | NotGiven = NOT_GIVEN,
         header_user_id: str | NotGiven = NOT_GIVEN,
@@ -79,7 +79,7 @@ class BlocksResource(SyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: Name of the block if it is a template.
+          template_name: Name of the block if it is a template.
 
           body_user_id: The unique identifier of the user associated with the block.
 
@@ -102,8 +102,8 @@ class BlocksResource(SyncAPIResource):
                     "description": description,
                     "limit": limit,
                     "metadata": metadata,
-                    "name": name,
                     "template": template,
+                    "template_name": template_name,
                     "user_id": body_user_id,
                     "value": value,
                 },
@@ -157,8 +157,8 @@ class BlocksResource(SyncAPIResource):
         label: str | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
         template: bool | NotGiven = NOT_GIVEN,
+        template_name: Optional[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         value: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -182,9 +182,9 @@ class BlocksResource(SyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: Name of the block if it is a template.
-
           template: Whether the block is a template (e.g. saved human/persona options).
+
+          template_name: Name of the block if it is a template.
 
           user_id: The unique identifier of the user associated with the block.
 
@@ -209,8 +209,8 @@ class BlocksResource(SyncAPIResource):
                     "label": label,
                     "limit": limit,
                     "metadata": metadata,
-                    "name": name,
                     "template": template,
+                    "template_name": template_name,
                     "user_id": user_id,
                     "value": value,
                 },
@@ -336,8 +336,8 @@ class AsyncBlocksResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
         template: bool | NotGiven = NOT_GIVEN,
+        template_name: Optional[str] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
         value: Optional[str] | NotGiven = NOT_GIVEN,
         header_user_id: str | NotGiven = NOT_GIVEN,
@@ -360,7 +360,7 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: Name of the block if it is a template.
+          template_name: Name of the block if it is a template.
 
           body_user_id: The unique identifier of the user associated with the block.
 
@@ -383,8 +383,8 @@ class AsyncBlocksResource(AsyncAPIResource):
                     "description": description,
                     "limit": limit,
                     "metadata": metadata,
-                    "name": name,
                     "template": template,
+                    "template_name": template_name,
                     "user_id": body_user_id,
                     "value": value,
                 },
@@ -438,8 +438,8 @@ class AsyncBlocksResource(AsyncAPIResource):
         label: str | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
         template: bool | NotGiven = NOT_GIVEN,
+        template_name: Optional[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         value: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -463,9 +463,9 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: Name of the block if it is a template.
-
           template: Whether the block is a template (e.g. saved human/persona options).
+
+          template_name: Name of the block if it is a template.
 
           user_id: The unique identifier of the user associated with the block.
 
@@ -490,8 +490,8 @@ class AsyncBlocksResource(AsyncAPIResource):
                     "label": label,
                     "limit": limit,
                     "metadata": metadata,
-                    "name": name,
                     "template": template,
+                    "template_name": template_name,
                     "user_id": user_id,
                     "value": value,
                 },

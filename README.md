@@ -36,6 +36,7 @@ client = Letta(
 
 tool = client.tools.create(
     source_code="source_code",
+    source_type="source_type",
 )
 print(tool.id)
 ```
@@ -57,6 +58,7 @@ client = AsyncLetta(
 async def main() -> None:
     tool = await client.tools.create(
         source_code="source_code",
+        source_type="source_type",
     )
     print(tool.id)
 
@@ -93,6 +95,7 @@ client = Letta()
 try:
     client.tools.create(
         source_code="source_code",
+        source_type="source_type",
     )
 except letta.APIConnectionError as e:
     print("The server could not be reached")
@@ -138,6 +141,7 @@ client = Letta(
 # Or, configure per-request:
 client.with_options(max_retries=5).tools.create(
     source_code="source_code",
+    source_type="source_type",
 )
 ```
 
@@ -163,6 +167,7 @@ client = Letta(
 # Override per-request:
 client.with_options(timeout=5.0).tools.create(
     source_code="source_code",
+    source_type="source_type",
 )
 ```
 
@@ -204,6 +209,7 @@ from letta import Letta
 client = Letta()
 response = client.tools.with_raw_response.create(
     source_code="source_code",
+    source_type="source_type",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -224,6 +230,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.tools.with_streaming_response.create(
     source_code="source_code",
+    source_type="source_type",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

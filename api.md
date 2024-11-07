@@ -84,7 +84,7 @@ Methods:
 - <code title="post /v1/agents/">client.agents.<a href="./src/letta/resources/agents/agents.py">create</a>(\*\*<a href="src/letta/types/agent_create_params.py">params</a>) -> <a href="./src/letta/types/agentstate.py">Agentstate</a></code>
 - <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/letta/resources/agents/agents.py">retrieve</a>(agent_id) -> <a href="./src/letta/types/agentstate.py">Agentstate</a></code>
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/letta/resources/agents/agents.py">update</a>(agent_id, \*\*<a href="src/letta/types/agent_update_params.py">params</a>) -> <a href="./src/letta/types/agentstate.py">Agentstate</a></code>
-- <code title="get /v1/agents/">client.agents.<a href="./src/letta/resources/agents/agents.py">list</a>(\*\*<a href="src/letta/types/agent_list_params.py">params</a>) -> <a href="./src/letta/types/agent_list_response.py">AgentListResponse</a></code>
+- <code title="get /v1/agents/">client.agents.<a href="./src/letta/resources/agents/agents.py">list</a>() -> <a href="./src/letta/types/agent_list_response.py">AgentListResponse</a></code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/letta/resources/agents/agents.py">delete</a>(agent_id) -> <a href="./src/letta/types/agent_delete_response.py">object</a></code>
 
 ## Context
@@ -251,41 +251,16 @@ Methods:
 Types:
 
 ```python
-from letta.types import User, AdminUserListResponse
+from letta.types import User
 ```
-
-Methods:
-
-- <code title="post /v1/admin/users/">client.admin_users.<a href="./src/letta/resources/admin_users/admin_users.py">create</a>(\*\*<a href="src/letta/types/admin_user_create_params.py">params</a>) -> <a href="./src/letta/types/user.py">User</a></code>
-- <code title="put /v1/admin/users/">client.admin_users.<a href="./src/letta/resources/admin_users/admin_users.py">update</a>(\*\*<a href="src/letta/types/admin_user_update_params.py">params</a>) -> <a href="./src/letta/types/user.py">User</a></code>
-- <code title="get /v1/admin/users/">client.admin_users.<a href="./src/letta/resources/admin_users/admin_users.py">list</a>(\*\*<a href="src/letta/types/admin_user_list_params.py">params</a>) -> <a href="./src/letta/types/admin_user_list_response.py">AdminUserListResponse</a></code>
-- <code title="delete /v1/admin/users/">client.admin_users.<a href="./src/letta/resources/admin_users/admin_users.py">delete</a>(\*\*<a href="src/letta/types/admin_user_delete_params.py">params</a>) -> <a href="./src/letta/types/user.py">User</a></code>
 
 ## Keys
 
 Types:
 
 ```python
-from letta.types.admin_users import APIKey, KeyListResponse
+from letta.types.admin_users import APIKey
 ```
-
-Methods:
-
-- <code title="post /v1/admin/users/keys">client.admin_users.keys.<a href="./src/letta/resources/admin_users/keys.py">create</a>(\*\*<a href="src/letta/types/admin_users/key_create_params.py">params</a>) -> <a href="./src/letta/types/admin_users/api_key.py">APIKey</a></code>
-- <code title="get /v1/admin/users/keys">client.admin_users.keys.<a href="./src/letta/resources/admin_users/keys.py">list</a>(\*\*<a href="src/letta/types/admin_users/key_list_params.py">params</a>) -> <a href="./src/letta/types/admin_users/key_list_response.py">KeyListResponse</a></code>
-- <code title="delete /v1/admin/users/keys">client.admin_users.keys.<a href="./src/letta/resources/admin_users/keys.py">delete</a>(\*\*<a href="src/letta/types/admin_users/key_delete_params.py">params</a>) -> <a href="./src/letta/types/admin_users/api_key.py">APIKey</a></code>
-
-# AdminOrgs
-
-Types:
-
-```python
-from letta.types import AdminOrgListResponse
-```
-
-Methods:
-
-- <code title="get /v1/admin/orgs/">client.admin_orgs.<a href="./src/letta/resources/admin_orgs.py">list</a>(\*\*<a href="src/letta/types/admin_org_list_params.py">params</a>) -> <a href="./src/letta/types/admin_org_list_response.py">AdminOrgListResponse</a></code>
 
 # AdminOrganizations
 
@@ -295,11 +270,6 @@ Types:
 from letta.types import Organization
 ```
 
-Methods:
-
-- <code title="post /v1/admin/orgs/">client.admin_organizations.<a href="./src/letta/resources/admin_organizations.py">create</a>(\*\*<a href="src/letta/types/admin_organization_create_params.py">params</a>) -> <a href="./src/letta/types/organization.py">Organization</a></code>
-- <code title="delete /v1/admin/orgs/">client.admin_organizations.<a href="./src/letta/resources/admin_organizations.py">delete</a>(\*\*<a href="src/letta/types/admin_organization_delete_params.py">params</a>) -> <a href="./src/letta/types/organization.py">Organization</a></code>
-
 # Auth
 
 Types:
@@ -307,7 +277,3 @@ Types:
 ```python
 from letta.types import AuthResponse
 ```
-
-Methods:
-
-- <code title="post /v1/auth">client.auth.<a href="./src/letta/resources/auth.py">authenticate</a>(\*\*<a href="src/letta/types/auth_authenticate_params.py">params</a>) -> <a href="./src/letta/types/auth_response.py">AuthResponse</a></code>
