@@ -1,13 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .auth import (
-    AuthResource,
-    AsyncAuthResource,
-    AuthResourceWithRawResponse,
-    AsyncAuthResourceWithRawResponse,
-    AuthResourceWithStreamingResponse,
-    AsyncAuthResourceWithStreamingResponse,
-)
 from .jobs import (
     JobsResource,
     AsyncJobsResource,
@@ -64,30 +56,6 @@ from .sources import (
     SourcesResourceWithStreamingResponse,
     AsyncSourcesResourceWithStreamingResponse,
 )
-from .admin_orgs import (
-    AdminOrgsResource,
-    AsyncAdminOrgsResource,
-    AdminOrgsResourceWithRawResponse,
-    AsyncAdminOrgsResourceWithRawResponse,
-    AdminOrgsResourceWithStreamingResponse,
-    AsyncAdminOrgsResourceWithStreamingResponse,
-)
-from .admin_users import (
-    AdminUsersResource,
-    AsyncAdminUsersResource,
-    AdminUsersResourceWithRawResponse,
-    AsyncAdminUsersResourceWithRawResponse,
-    AdminUsersResourceWithStreamingResponse,
-    AsyncAdminUsersResourceWithStreamingResponse,
-)
-from .admin_organizations import (
-    AdminOrganizationsResource,
-    AsyncAdminOrganizationsResource,
-    AdminOrganizationsResourceWithRawResponse,
-    AsyncAdminOrganizationsResourceWithRawResponse,
-    AdminOrganizationsResourceWithStreamingResponse,
-    AsyncAdminOrganizationsResourceWithStreamingResponse,
-)
 
 __all__ = [
     "ToolsResource",
@@ -132,28 +100,4 @@ __all__ = [
     "AsyncHealthResourceWithRawResponse",
     "HealthResourceWithStreamingResponse",
     "AsyncHealthResourceWithStreamingResponse",
-    "AdminUsersResource",
-    "AsyncAdminUsersResource",
-    "AdminUsersResourceWithRawResponse",
-    "AsyncAdminUsersResourceWithRawResponse",
-    "AdminUsersResourceWithStreamingResponse",
-    "AsyncAdminUsersResourceWithStreamingResponse",
-    "AdminOrgsResource",
-    "AsyncAdminOrgsResource",
-    "AdminOrgsResourceWithRawResponse",
-    "AsyncAdminOrgsResourceWithRawResponse",
-    "AdminOrgsResourceWithStreamingResponse",
-    "AsyncAdminOrgsResourceWithStreamingResponse",
-    "AdminOrganizationsResource",
-    "AsyncAdminOrganizationsResource",
-    "AdminOrganizationsResourceWithRawResponse",
-    "AsyncAdminOrganizationsResourceWithRawResponse",
-    "AdminOrganizationsResourceWithStreamingResponse",
-    "AsyncAdminOrganizationsResourceWithStreamingResponse",
-    "AuthResource",
-    "AsyncAuthResource",
-    "AuthResourceWithRawResponse",
-    "AsyncAuthResourceWithRawResponse",
-    "AuthResourceWithStreamingResponse",
-    "AsyncAuthResourceWithStreamingResponse",
 ]

@@ -63,9 +63,6 @@ class Agentstate(BaseModel):
     metadata: Optional[object] = FieldInfo(alias="metadata_", default=None)
     """The metadata of the agent."""
 
-    tags: Optional[List[str]] = None
-    """The tags associated with the agent."""
-
     tool_rules: Optional[List[ToolRule]] = None
     """The list of tool rules."""
 

@@ -25,6 +25,7 @@ class TestTools:
     def test_method_create(self, client: Letta) -> None:
         tool = client.tools.create(
             source_code="source_code",
+            source_type="source_type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -32,11 +33,11 @@ class TestTools:
     def test_method_create_with_all_params(self, client: Letta) -> None:
         tool = client.tools.create(
             source_code="source_code",
+            source_type="source_type",
             description="description",
             json_schema={},
             module="module",
             name="name",
-            source_type="source_type",
             tags=["string", "string", "string"],
             user_id="user_id",
         )
@@ -46,6 +47,7 @@ class TestTools:
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.tools.with_raw_response.create(
             source_code="source_code",
+            source_type="source_type",
         )
 
         assert response.is_closed is True
@@ -57,6 +59,7 @@ class TestTools:
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.tools.with_streaming_response.create(
             source_code="source_code",
+            source_type="source_type",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -202,14 +205,22 @@ class TestTools:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         tool = client.tools.delete(
-            "tool_id",
+            tool_id="tool_id",
+        )
+        assert_matches_type(object, tool, path=["response"])
+
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        tool = client.tools.delete(
+            tool_id="tool_id",
+            user_id="user_id",
         )
         assert_matches_type(object, tool, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.tools.with_raw_response.delete(
-            "tool_id",
+            tool_id="tool_id",
         )
 
         assert response.is_closed is True
@@ -220,7 +231,7 @@ class TestTools:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.tools.with_streaming_response.delete(
-            "tool_id",
+            tool_id="tool_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -234,7 +245,7 @@ class TestTools:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             client.tools.with_raw_response.delete(
-                "",
+                tool_id="",
             )
 
     @parametrize
@@ -323,6 +334,7 @@ class TestAsyncTools:
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         tool = await async_client.tools.create(
             source_code="source_code",
+            source_type="source_type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -330,11 +342,11 @@ class TestAsyncTools:
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         tool = await async_client.tools.create(
             source_code="source_code",
+            source_type="source_type",
             description="description",
             json_schema={},
             module="module",
             name="name",
-            source_type="source_type",
             tags=["string", "string", "string"],
             user_id="user_id",
         )
@@ -344,6 +356,7 @@ class TestAsyncTools:
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.tools.with_raw_response.create(
             source_code="source_code",
+            source_type="source_type",
         )
 
         assert response.is_closed is True
@@ -355,6 +368,7 @@ class TestAsyncTools:
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.tools.with_streaming_response.create(
             source_code="source_code",
+            source_type="source_type",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -500,14 +514,22 @@ class TestAsyncTools:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         tool = await async_client.tools.delete(
-            "tool_id",
+            tool_id="tool_id",
+        )
+        assert_matches_type(object, tool, path=["response"])
+
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.tools.delete(
+            tool_id="tool_id",
+            user_id="user_id",
         )
         assert_matches_type(object, tool, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.tools.with_raw_response.delete(
-            "tool_id",
+            tool_id="tool_id",
         )
 
         assert response.is_closed is True
@@ -518,7 +540,7 @@ class TestAsyncTools:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.tools.with_streaming_response.delete(
-            "tool_id",
+            tool_id="tool_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -532,7 +554,7 @@ class TestAsyncTools:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             await async_client.tools.with_raw_response.delete(
-                "",
+                tool_id="",
             )
 
     @parametrize

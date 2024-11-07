@@ -23,10 +23,10 @@ class BlockCreateParams(TypedDict, total=False):
     metadata: Annotated[Optional[object], PropertyInfo(alias="metadata_")]
     """Metadata of the block."""
 
-    name: Optional[str]
-    """Name of the block if it is a template."""
-
     template: bool
+
+    template_name: Optional[str]
+    """Name of the block if it is a template."""
 
     body_user_id: Annotated[Optional[str], PropertyInfo(alias="user_id")]
     """The unique identifier of the user associated with the block."""

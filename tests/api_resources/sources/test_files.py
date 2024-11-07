@@ -30,6 +30,7 @@ class TestFiles:
             source_id="source_id",
             cursor="cursor",
             limit=0,
+            user_id="user_id",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
@@ -81,6 +82,7 @@ class TestAsyncFiles:
             source_id="source_id",
             cursor="cursor",
             limit=0,
+            user_id="user_id",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 

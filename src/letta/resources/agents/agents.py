@@ -23,11 +23,7 @@ from .memory import (
     MemoryResourceWithStreamingResponse,
     AsyncMemoryResourceWithStreamingResponse,
 )
-from ...types import (
-    agent_list_params,
-    agent_create_params,
-    agent_update_params,
-)
+from ...types import agent_create_params, agent_update_params
 from .context import (
     ContextResource,
     AsyncContextResource,
@@ -142,7 +138,6 @@ class AgentsResource(SyncAPIResource):
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -186,7 +181,7 @@ class AgentsResource(SyncAPIResource):
               additional text around the input/output of the model. This is useful for
               text-to-text completions, such as the Completions API in OpenAI. context_window
               (int): The context window size for the model. put_inner_thoughts_in_kwargs
-              (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+              (bool): Puts 'inner_thoughts' as a kwarg in the function call if this is set to
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
@@ -203,8 +198,6 @@ class AgentsResource(SyncAPIResource):
           name: The name of the agent.
 
           system: The system prompt used by the agent.
-
-          tags: The tags associated with the agent.
 
           tool_rules: The tool rules governing the agent.
 
@@ -235,7 +228,6 @@ class AgentsResource(SyncAPIResource):
                     "metadata": metadata,
                     "name": name,
                     "system": system,
-                    "tags": tags,
                     "tool_rules": tool_rules,
                     "tools": tools,
                     "user_id": body_user_id,
@@ -296,7 +288,6 @@ class AgentsResource(SyncAPIResource):
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
         header_user_id: str | NotGiven = NOT_GIVEN,
@@ -337,7 +328,7 @@ class AgentsResource(SyncAPIResource):
               additional text around the input/output of the model. This is useful for
               text-to-text completions, such as the Completions API in OpenAI. context_window
               (int): The context window size for the model. put_inner_thoughts_in_kwargs
-              (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+              (bool): Puts 'inner_thoughts' as a kwarg in the function call if this is set to
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
@@ -354,8 +345,6 @@ class AgentsResource(SyncAPIResource):
           name: The name of the agent.
 
           system: The system prompt used by the agent.
-
-          tags: The tags associated with the agent.
 
           tools: The tools used by the agent.
 
@@ -385,7 +374,6 @@ class AgentsResource(SyncAPIResource):
                     "metadata": metadata,
                     "name": name,
                     "system": system,
-                    "tags": tags,
                     "tools": tools,
                     "user_id": body_user_id,
                 },
@@ -400,8 +388,6 @@ class AgentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -416,10 +402,6 @@ class AgentsResource(SyncAPIResource):
         all agents and their configurations associated with the specified user ID.
 
         Args:
-          name: Name of the agent
-
-          tags: List of tags to filter agents by
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -432,17 +414,7 @@ class AgentsResource(SyncAPIResource):
         return self._get(
             "/v1/agents/",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "name": name,
-                        "tags": tags,
-                    },
-                    agent_list_params.AgentListParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentListResponse,
         )
@@ -540,7 +512,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -584,7 +555,7 @@ class AsyncAgentsResource(AsyncAPIResource):
               additional text around the input/output of the model. This is useful for
               text-to-text completions, such as the Completions API in OpenAI. context_window
               (int): The context window size for the model. put_inner_thoughts_in_kwargs
-              (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+              (bool): Puts 'inner_thoughts' as a kwarg in the function call if this is set to
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
@@ -601,8 +572,6 @@ class AsyncAgentsResource(AsyncAPIResource):
           name: The name of the agent.
 
           system: The system prompt used by the agent.
-
-          tags: The tags associated with the agent.
 
           tool_rules: The tool rules governing the agent.
 
@@ -633,7 +602,6 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "metadata": metadata,
                     "name": name,
                     "system": system,
-                    "tags": tags,
                     "tool_rules": tool_rules,
                     "tools": tools,
                     "user_id": body_user_id,
@@ -694,7 +662,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
         header_user_id: str | NotGiven = NOT_GIVEN,
@@ -735,7 +702,7 @@ class AsyncAgentsResource(AsyncAPIResource):
               additional text around the input/output of the model. This is useful for
               text-to-text completions, such as the Completions API in OpenAI. context_window
               (int): The context window size for the model. put_inner_thoughts_in_kwargs
-              (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+              (bool): Puts 'inner_thoughts' as a kwarg in the function call if this is set to
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
@@ -752,8 +719,6 @@ class AsyncAgentsResource(AsyncAPIResource):
           name: The name of the agent.
 
           system: The system prompt used by the agent.
-
-          tags: The tags associated with the agent.
 
           tools: The tools used by the agent.
 
@@ -783,7 +748,6 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "metadata": metadata,
                     "name": name,
                     "system": system,
-                    "tags": tags,
                     "tools": tools,
                     "user_id": body_user_id,
                 },
@@ -798,8 +762,6 @@ class AsyncAgentsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -814,10 +776,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         all agents and their configurations associated with the specified user ID.
 
         Args:
-          name: Name of the agent
-
-          tags: List of tags to filter agents by
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -830,17 +788,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         return await self._get(
             "/v1/agents/",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "name": name,
-                        "tags": tags,
-                    },
-                    agent_list_params.AgentListParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentListResponse,
         )

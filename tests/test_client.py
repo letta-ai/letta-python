@@ -676,7 +676,7 @@ class TestLetta:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/v1/tools/",
-                body=cast(object, dict(source_code="source_code")),
+                body=cast(object, dict(source_code="source_code", source_type="source_type")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -691,7 +691,7 @@ class TestLetta:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/v1/tools/",
-                body=cast(object, dict(source_code="source_code")),
+                body=cast(object, dict(source_code="source_code", source_type="source_type")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -724,7 +724,7 @@ class TestLetta:
 
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
-        response = client.tools.with_raw_response.create(source_code="source_code")
+        response = client.tools.with_raw_response.create(source_code="source_code", source_type="source_type")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -747,7 +747,7 @@ class TestLetta:
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
         response = client.tools.with_raw_response.create(
-            source_code="source_code", extra_headers={"x-stainless-retry-count": Omit()}
+            source_code="source_code", source_type="source_type", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -772,7 +772,7 @@ class TestLetta:
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
         response = client.tools.with_raw_response.create(
-            source_code="source_code", extra_headers={"x-stainless-retry-count": "42"}
+            source_code="source_code", source_type="source_type", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1413,7 +1413,7 @@ class TestAsyncLetta:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/v1/tools/",
-                body=cast(object, dict(source_code="source_code")),
+                body=cast(object, dict(source_code="source_code", source_type="source_type")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1428,7 +1428,7 @@ class TestAsyncLetta:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/v1/tools/",
-                body=cast(object, dict(source_code="source_code")),
+                body=cast(object, dict(source_code="source_code", source_type="source_type")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1462,7 +1462,7 @@ class TestAsyncLetta:
 
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
-        response = await client.tools.with_raw_response.create(source_code="source_code")
+        response = await client.tools.with_raw_response.create(source_code="source_code", source_type="source_type")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1488,7 +1488,7 @@ class TestAsyncLetta:
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
         response = await client.tools.with_raw_response.create(
-            source_code="source_code", extra_headers={"x-stainless-retry-count": Omit()}
+            source_code="source_code", source_type="source_type", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1514,7 +1514,7 @@ class TestAsyncLetta:
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
         response = await client.tools.with_raw_response.create(
-            source_code="source_code", extra_headers={"x-stainless-retry-count": "42"}
+            source_code="source_code", source_type="source_type", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

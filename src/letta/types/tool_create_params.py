@@ -12,6 +12,9 @@ class ToolCreateParams(TypedDict, total=False):
     source_code: Required[str]
     """The source code of the function."""
 
+    source_type: Required[str]
+    """The source type of the function."""
+
     description: Optional[str]
     """The description of the tool."""
 
@@ -26,9 +29,6 @@ class ToolCreateParams(TypedDict, total=False):
 
     name: Optional[str]
     """The name of the function (auto-generated from source_code if not provided)."""
-
-    source_type: str
-    """The source type of the function."""
 
     tags: List[str]
     """Metadata tags."""
