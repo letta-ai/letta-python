@@ -4,10 +4,10 @@ from typing import Optional
 
 from .._models import BaseModel
 
-__all__ = ["Embeddingconfig"]
+__all__ = ["EmbeddingConfig"]
 
 
-class Embeddingconfig(BaseModel):
+class EmbeddingConfig(BaseModel):
     embedding_dim: int
     """The dimension of the embedding."""
 

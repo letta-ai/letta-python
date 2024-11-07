@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .llmconfig import Llmconfig
+from .llm_config import LlmConfig
 
 __all__ = ["ModelListResponse"]
 
-ModelListResponse: TypeAlias = List[Llmconfig]
+ModelListResponse: TypeAlias = List[LlmConfig]

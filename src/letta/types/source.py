@@ -5,14 +5,14 @@ from datetime import datetime
 
 from pydantic import Field as FieldInfo
 
-from ..._models import BaseModel
-from ..embeddingconfig import Embeddingconfig
+from .._models import BaseModel
+from .embedding_config import EmbeddingConfig
 
 __all__ = ["Source"]
 
 
 class Source(BaseModel):
-    embedding_config: Embeddingconfig
+    embedding_config: EmbeddingConfig
     """The embedding configuration used by the source."""
 
     name: str

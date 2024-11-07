@@ -27,10 +27,13 @@ pip install git+ssh://git@github.com/stainless-sdks/letta-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from letta import Letta
 
 client = Letta(
-    # or 'production' | 'environment_2' | 'environment_3'; defaults to "production".
+    # This is the default and can be omitted
+    bearer_token=os.environ.get("BEARER_TOKEN"),
+    # defaults to "production".
     environment="environment_1",
 )
 
@@ -41,16 +44,24 @@ tool = client.tools.create(
 print(tool.id)
 ```
 
+While you can provide a `bearer_token` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `BEARER_TOKEN="My Bearer Token"` to your `.env` file
+so that your Bearer Token is not stored in source control.
+
 ## Async usage
 
 Simply import `AsyncLetta` instead of `Letta` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from letta import AsyncLetta
 
 client = AsyncLetta(
-    # or 'production' | 'environment_2' | 'environment_3'; defaults to "production".
+    # This is the default and can be omitted
+    bearer_token=os.environ.get("BEARER_TOKEN"),
+    # defaults to "production".
     environment="environment_1",
 )
 

@@ -6,12 +6,12 @@ from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
+from .memory import Memory
 from .._models import BaseModel
-from .llmconfig import Llmconfig
-from .shared.memory import Memory
-from .embeddingconfig import Embeddingconfig
+from .llm_config import LlmConfig
+from .embedding_config import EmbeddingConfig
 
-__all__ = ["Agentstate", "ToolRule"]
+__all__ = ["AgentState", "ToolRule"]
 
 
 class ToolRule(BaseModel):
@@ -19,14 +19,14 @@ class ToolRule(BaseModel):
     """The name of the tool. Must exist in the database for the user's organization."""
 
 
-class Agentstate(BaseModel):
+class AgentState(BaseModel):
     agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent"]
     """The type of agent."""
 
-    embedding_config: Embeddingconfig
+    embedding_config: EmbeddingConfig
     """The embedding configuration used by the agent."""
 
-    llm_config: Llmconfig
+    llm_config: LlmConfig
     """The LLM configuration used by the agent."""
 
     name: str

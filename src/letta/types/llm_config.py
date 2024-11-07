@@ -7,10 +7,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["Llmconfig"]
+__all__ = ["LlmConfig"]
 
 
-class Llmconfig(BaseModel):
+class LlmConfig(BaseModel):
     context_window: int
     """The context window size for the model."""
 

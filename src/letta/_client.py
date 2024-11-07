@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError
+from ._exceptions import LettaError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -46,10 +46,8 @@ __all__ = [
 ]
 
 ENVIRONMENTS: Dict[str, str] = {
-    "production": "http://letta.localhost",
+    "production": "https://app.letta.com",
     "environment_1": "http://localhost:8283",
-    "environment_2": "http://localhost:8083",
-    "environment_3": "http://localhost:3000",
 }
 
 
@@ -65,13 +63,15 @@ class Letta(SyncAPIClient):
     with_streaming_response: LettaWithStreamedResponse
 
     # client options
+    bearer_token: str
 
-    _environment: Literal["production", "environment_1", "environment_2", "environment_3"] | NotGiven
+    _environment: Literal["production", "environment_1"] | NotGiven
 
     def __init__(
         self,
         *,
-        environment: Literal["production", "environment_1", "environment_2", "environment_3"] | NotGiven = NOT_GIVEN,
+        bearer_token: str | None = None,
+        environment: Literal["production", "environment_1"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -91,7 +91,18 @@ class Letta(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous letta client instance."""
+        """Construct a new synchronous letta client instance.
+
+        This automatically infers the `bearer_token` argument from the `BEARER_TOKEN` environment variable if it is not provided.
+        """
+        if bearer_token is None:
+            bearer_token = os.environ.get("BEARER_TOKEN")
+        if bearer_token is None:
+            raise LettaError(
+                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the BEARER_TOKEN environment variable"
+            )
+        self.bearer_token = bearer_token
+
         self._environment = environment
 
         base_url_env = os.environ.get("LETTA_BASE_URL")
@@ -146,6 +157,12 @@ class Letta(SyncAPIClient):
 
     @property
     @override
+    def auth_headers(self) -> dict[str, str]:
+        bearer_token = self.bearer_token
+        return {"Authorization": f"Bearer {bearer_token}"}
+
+    @property
+    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
@@ -156,7 +173,8 @@ class Letta(SyncAPIClient):
     def copy(
         self,
         *,
-        environment: Literal["production", "environment_1", "environment_2", "environment_3"] | None = None,
+        bearer_token: str | None = None,
+        environment: Literal["production", "environment_1"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -190,6 +208,7 @@ class Letta(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
+            bearer_token=bearer_token or self.bearer_token,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -250,13 +269,15 @@ class AsyncLetta(AsyncAPIClient):
     with_streaming_response: AsyncLettaWithStreamedResponse
 
     # client options
+    bearer_token: str
 
-    _environment: Literal["production", "environment_1", "environment_2", "environment_3"] | NotGiven
+    _environment: Literal["production", "environment_1"] | NotGiven
 
     def __init__(
         self,
         *,
-        environment: Literal["production", "environment_1", "environment_2", "environment_3"] | NotGiven = NOT_GIVEN,
+        bearer_token: str | None = None,
+        environment: Literal["production", "environment_1"] | NotGiven = NOT_GIVEN,
         base_url: str | httpx.URL | None | NotGiven = NOT_GIVEN,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -276,7 +297,18 @@ class AsyncLetta(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async letta client instance."""
+        """Construct a new async letta client instance.
+
+        This automatically infers the `bearer_token` argument from the `BEARER_TOKEN` environment variable if it is not provided.
+        """
+        if bearer_token is None:
+            bearer_token = os.environ.get("BEARER_TOKEN")
+        if bearer_token is None:
+            raise LettaError(
+                "The bearer_token client option must be set either by passing bearer_token to the client or by setting the BEARER_TOKEN environment variable"
+            )
+        self.bearer_token = bearer_token
+
         self._environment = environment
 
         base_url_env = os.environ.get("LETTA_BASE_URL")
@@ -331,6 +363,12 @@ class AsyncLetta(AsyncAPIClient):
 
     @property
     @override
+    def auth_headers(self) -> dict[str, str]:
+        bearer_token = self.bearer_token
+        return {"Authorization": f"Bearer {bearer_token}"}
+
+    @property
+    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
@@ -341,7 +379,8 @@ class AsyncLetta(AsyncAPIClient):
     def copy(
         self,
         *,
-        environment: Literal["production", "environment_1", "environment_2", "environment_3"] | None = None,
+        bearer_token: str | None = None,
+        environment: Literal["production", "environment_1"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -375,6 +414,7 @@ class AsyncLetta(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
+            bearer_token=bearer_token or self.bearer_token,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,

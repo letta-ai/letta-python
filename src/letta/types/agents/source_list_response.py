@@ -3,7 +3,7 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from ..shared.source import Source
+from ..source import Source
 
 __all__ = ["SourceListResponse"]
 

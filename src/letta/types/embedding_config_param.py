@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["EmbeddingconfigParam"]
+__all__ = ["EmbeddingConfigParam"]
 
 
-class EmbeddingconfigParam(TypedDict, total=False):
+class EmbeddingConfigParam(TypedDict, total=False):
     embedding_dim: Required[int]
     """The dimension of the embedding."""
 

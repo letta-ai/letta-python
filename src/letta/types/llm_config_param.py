@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["LlmconfigParam"]
+__all__ = ["LlmConfigParam"]
 
 
-class LlmconfigParam(TypedDict, total=False):
+class LlmConfigParam(TypedDict, total=False):
     context_window: Required[int]
     """The context window size for the model."""
 

@@ -9,7 +9,7 @@ import pytest
 
 from letta import Letta, AsyncLetta
 from tests.utils import assert_matches_type
-from letta.types.agents import Recallmemorysummary
+from letta.types.agents import RecallMemorySummary
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -22,7 +22,7 @@ class TestRecall:
         recall = client.agents.memory.recall.retrieve(
             "agent_id",
         )
-        assert_matches_type(Recallmemorysummary, recall, path=["response"])
+        assert_matches_type(RecallMemorySummary, recall, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
@@ -33,7 +33,7 @@ class TestRecall:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         recall = response.parse()
-        assert_matches_type(Recallmemorysummary, recall, path=["response"])
+        assert_matches_type(RecallMemorySummary, recall, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
@@ -44,7 +44,7 @@ class TestRecall:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             recall = response.parse()
-            assert_matches_type(Recallmemorysummary, recall, path=["response"])
+            assert_matches_type(RecallMemorySummary, recall, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -64,7 +64,7 @@ class TestAsyncRecall:
         recall = await async_client.agents.memory.recall.retrieve(
             "agent_id",
         )
-        assert_matches_type(Recallmemorysummary, recall, path=["response"])
+        assert_matches_type(RecallMemorySummary, recall, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
@@ -75,7 +75,7 @@ class TestAsyncRecall:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         recall = await response.parse()
-        assert_matches_type(Recallmemorysummary, recall, path=["response"])
+        assert_matches_type(RecallMemorySummary, recall, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
@@ -86,7 +86,7 @@ class TestAsyncRecall:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             recall = await response.parse()
-            assert_matches_type(Recallmemorysummary, recall, path=["response"])
+            assert_matches_type(RecallMemorySummary, recall, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

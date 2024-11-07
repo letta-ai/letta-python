@@ -6,9 +6,9 @@ from typing import List, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .llmconfig_param import LlmconfigParam
-from .shared_params.memory import Memory
-from .embeddingconfig_param import EmbeddingconfigParam
+from .memory_param import MemoryParam
+from .llm_config_param import LlmConfigParam
+from .embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["AgentUpdateParams"]
 
@@ -20,7 +20,7 @@ class AgentUpdateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the agent."""
 
-    embedding_config: Optional[EmbeddingconfigParam]
+    embedding_config: Optional[EmbeddingConfigParam]
     """Embedding model configuration.
 
     This object specifies all the information necessary to access an embedding model
@@ -35,7 +35,7 @@ class AgentUpdateParams(TypedDict, total=False):
     azure_deployment (str): The Azure deployment for the model (Azure only).
     """
 
-    llm_config: Optional[LlmconfigParam]
+    llm_config: Optional[LlmConfigParam]
     """Configuration for a Language Model (LLM) model.
 
     This object specifies all the information necessary to access an LLM model to
@@ -52,7 +52,7 @@ class AgentUpdateParams(TypedDict, total=False):
     inner thoughts.
     """
 
-    memory: Optional[Memory]
+    memory: Optional[MemoryParam]
     """Represents the in-context memory of the agent.
 
     This includes both the `Block` objects (labelled by sections), as well as tools

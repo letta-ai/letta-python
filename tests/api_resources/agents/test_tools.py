@@ -8,7 +8,7 @@ from typing import Any, cast
 import pytest
 
 from letta import Letta, AsyncLetta
-from letta.types import Agentstate
+from letta.types import AgentState
 from tests.utils import assert_matches_type
 from letta.types.agents import ToolListResponse
 
@@ -70,7 +70,7 @@ class TestTools:
             tool_id="tool_id",
             agent_id="agent_id",
         )
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     def test_method_add_with_all_params(self, client: Letta) -> None:
@@ -79,7 +79,7 @@ class TestTools:
             agent_id="agent_id",
             user_id="user_id",
         )
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     def test_raw_response_add(self, client: Letta) -> None:
@@ -91,7 +91,7 @@ class TestTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     def test_streaming_response_add(self, client: Letta) -> None:
@@ -103,7 +103,7 @@ class TestTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(Agentstate, tool, path=["response"])
+            assert_matches_type(AgentState, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -127,7 +127,7 @@ class TestTools:
             tool_id="tool_id",
             agent_id="agent_id",
         )
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     def test_method_remove_with_all_params(self, client: Letta) -> None:
@@ -136,7 +136,7 @@ class TestTools:
             agent_id="agent_id",
             user_id="user_id",
         )
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     def test_raw_response_remove(self, client: Letta) -> None:
@@ -148,7 +148,7 @@ class TestTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     def test_streaming_response_remove(self, client: Letta) -> None:
@@ -160,7 +160,7 @@ class TestTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(Agentstate, tool, path=["response"])
+            assert_matches_type(AgentState, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -234,7 +234,7 @@ class TestAsyncTools:
             tool_id="tool_id",
             agent_id="agent_id",
         )
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     async def test_method_add_with_all_params(self, async_client: AsyncLetta) -> None:
@@ -243,7 +243,7 @@ class TestAsyncTools:
             agent_id="agent_id",
             user_id="user_id",
         )
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     async def test_raw_response_add(self, async_client: AsyncLetta) -> None:
@@ -255,7 +255,7 @@ class TestAsyncTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     async def test_streaming_response_add(self, async_client: AsyncLetta) -> None:
@@ -267,7 +267,7 @@ class TestAsyncTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(Agentstate, tool, path=["response"])
+            assert_matches_type(AgentState, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -291,7 +291,7 @@ class TestAsyncTools:
             tool_id="tool_id",
             agent_id="agent_id",
         )
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     async def test_method_remove_with_all_params(self, async_client: AsyncLetta) -> None:
@@ -300,7 +300,7 @@ class TestAsyncTools:
             agent_id="agent_id",
             user_id="user_id",
         )
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     async def test_raw_response_remove(self, async_client: AsyncLetta) -> None:
@@ -312,7 +312,7 @@ class TestAsyncTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(Agentstate, tool, path=["response"])
+        assert_matches_type(AgentState, tool, path=["response"])
 
     @parametrize
     async def test_streaming_response_remove(self, async_client: AsyncLetta) -> None:
@@ -324,7 +324,7 @@ class TestAsyncTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(Agentstate, tool, path=["response"])
+            assert_matches_type(AgentState, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
