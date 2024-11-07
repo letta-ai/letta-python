@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .agentstate import Agentstate
+from .agent_state import AgentState
 
 __all__ = ["AgentListResponse"]
 
-AgentListResponse: TypeAlias = List[Agentstate]
+AgentListResponse: TypeAlias = List[AgentState]

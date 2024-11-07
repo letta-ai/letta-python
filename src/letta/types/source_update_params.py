@@ -6,7 +6,7 @@ from typing import Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .embeddingconfig_param import EmbeddingconfigParam
+from .embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["SourceUpdateParams"]
 
@@ -18,7 +18,7 @@ class SourceUpdateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the source."""
 
-    embedding_config: Optional[EmbeddingconfigParam]
+    embedding_config: Optional[EmbeddingConfigParam]
     """Embedding model configuration.
 
     This object specifies all the information necessary to access an embedding model

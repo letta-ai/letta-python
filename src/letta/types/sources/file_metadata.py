@@ -5,10 +5,10 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["Filemetadata"]
+__all__ = ["FileMetadata"]
 
 
-class Filemetadata(BaseModel):
+class FileMetadata(BaseModel):
     source_id: str
     """The unique identifier of the source associated with the document."""
 

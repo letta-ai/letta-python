@@ -3,9 +3,9 @@
 
 from ..._models import BaseModel
 
-__all__ = ["Recallmemorysummary"]
+__all__ = ["ArchivalMemorySummary"]
 
 
-class Recallmemorysummary(BaseModel):
+class ArchivalMemorySummary(BaseModel):
     size: int
-    """Number of rows in recall memory"""
+    """Number of rows in archival memory"""

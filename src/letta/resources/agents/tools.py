@@ -15,7 +15,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.agentstate import Agentstate
+from ...types.agent_state import AgentState
 from ...types.agents.tool_list_response import ToolListResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
@@ -88,7 +88,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Agentstate:
+    ) -> AgentState:
         """
         Add tools to an exsiting agent
 
@@ -111,7 +111,7 @@ class ToolsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Agentstate,
+            cast_to=AgentState,
         )
 
     def remove(
@@ -126,7 +126,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Agentstate:
+    ) -> AgentState:
         """
         Add tools to an exsiting agent
 
@@ -149,7 +149,7 @@ class ToolsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Agentstate,
+            cast_to=AgentState,
         )
 
 
@@ -220,7 +220,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Agentstate:
+    ) -> AgentState:
         """
         Add tools to an exsiting agent
 
@@ -243,7 +243,7 @@ class AsyncToolsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Agentstate,
+            cast_to=AgentState,
         )
 
     async def remove(
@@ -258,7 +258,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Agentstate:
+    ) -> AgentState:
         """
         Add tools to an exsiting agent
 
@@ -281,7 +281,7 @@ class AsyncToolsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Agentstate,
+            cast_to=AgentState,
         )
 
 

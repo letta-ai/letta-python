@@ -9,7 +9,7 @@ import pytest
 
 from letta import Letta, AsyncLetta
 from tests.utils import assert_matches_type
-from letta.types.agents import Contextwindowoverview
+from letta.types.agents import ContextWindowOverview
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -22,7 +22,7 @@ class TestContext:
         context = client.agents.context.retrieve(
             agent_id="agent_id",
         )
-        assert_matches_type(Contextwindowoverview, context, path=["response"])
+        assert_matches_type(ContextWindowOverview, context, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Letta) -> None:
@@ -30,7 +30,7 @@ class TestContext:
             agent_id="agent_id",
             user_id="user_id",
         )
-        assert_matches_type(Contextwindowoverview, context, path=["response"])
+        assert_matches_type(ContextWindowOverview, context, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
@@ -41,7 +41,7 @@ class TestContext:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         context = response.parse()
-        assert_matches_type(Contextwindowoverview, context, path=["response"])
+        assert_matches_type(ContextWindowOverview, context, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
@@ -52,7 +52,7 @@ class TestContext:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             context = response.parse()
-            assert_matches_type(Contextwindowoverview, context, path=["response"])
+            assert_matches_type(ContextWindowOverview, context, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -72,7 +72,7 @@ class TestAsyncContext:
         context = await async_client.agents.context.retrieve(
             agent_id="agent_id",
         )
-        assert_matches_type(Contextwindowoverview, context, path=["response"])
+        assert_matches_type(ContextWindowOverview, context, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
@@ -80,7 +80,7 @@ class TestAsyncContext:
             agent_id="agent_id",
             user_id="user_id",
         )
-        assert_matches_type(Contextwindowoverview, context, path=["response"])
+        assert_matches_type(ContextWindowOverview, context, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
@@ -91,7 +91,7 @@ class TestAsyncContext:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         context = await response.parse()
-        assert_matches_type(Contextwindowoverview, context, path=["response"])
+        assert_matches_type(ContextWindowOverview, context, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
@@ -102,7 +102,7 @@ class TestAsyncContext:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             context = await response.parse()
-            assert_matches_type(Contextwindowoverview, context, path=["response"])
+            assert_matches_type(ContextWindowOverview, context, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

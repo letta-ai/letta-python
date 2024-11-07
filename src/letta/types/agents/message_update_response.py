@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["Messageoutput", "ToolCall", "ToolCallFunction"]
+__all__ = ["MessageUpdateResponse", "ToolCall", "ToolCallFunction"]
 
 
 class ToolCallFunction(BaseModel):
@@ -27,7 +27,7 @@ class ToolCall(BaseModel):
     type: Optional[str] = None
 
 
-class Messageoutput(BaseModel):
+class MessageUpdateResponse(BaseModel):
     role: Literal["assistant", "user", "tool", "function", "system"]
     """The role of the participant."""
 

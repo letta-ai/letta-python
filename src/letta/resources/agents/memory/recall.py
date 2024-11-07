@@ -14,7 +14,7 @@ from ...._response import (
     async_to_streamed_response_wrapper,
 )
 from ...._base_client import make_request_options
-from ....types.agents.recallmemorysummary import Recallmemorysummary
+from ....types.agents.recall_memory_summary import RecallMemorySummary
 
 __all__ = ["RecallResource", "AsyncRecallResource"]
 
@@ -49,7 +49,7 @@ class RecallResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Recallmemorysummary:
+    ) -> RecallMemorySummary:
         """
         Retrieve the summary of the recall memory of a specific agent.
 
@@ -69,7 +69,7 @@ class RecallResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Recallmemorysummary,
+            cast_to=RecallMemorySummary,
         )
 
 
@@ -103,7 +103,7 @@ class AsyncRecallResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Recallmemorysummary:
+    ) -> RecallMemorySummary:
         """
         Retrieve the summary of the recall memory of a specific agent.
 
@@ -123,7 +123,7 @@ class AsyncRecallResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Recallmemorysummary,
+            cast_to=RecallMemorySummary,
         )
 
 

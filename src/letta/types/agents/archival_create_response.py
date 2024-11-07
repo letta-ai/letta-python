@@ -3,7 +3,7 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from ..shared.passage import Passage
+from ..sources.passage import Passage
 
 __all__ = ["ArchivalCreateResponse"]
 

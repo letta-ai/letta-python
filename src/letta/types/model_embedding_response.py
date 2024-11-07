@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .embeddingconfig import Embeddingconfig
+from .embedding_config import EmbeddingConfig
 
 __all__ = ["ModelEmbeddingResponse"]
 
-ModelEmbeddingResponse: TypeAlias = List[Embeddingconfig]
+ModelEmbeddingResponse: TypeAlias = List[EmbeddingConfig]

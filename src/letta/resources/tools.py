@@ -21,8 +21,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..types.tool import Tool
 from .._base_client import make_request_options
-from ..types.shared.tool import Tool
 from ..types.tool_list_response import ToolListResponse
 from ..types.tool_add_base_tools_response import ToolAddBaseToolsResponse
 

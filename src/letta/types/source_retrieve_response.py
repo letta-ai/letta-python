@@ -2,6 +2,6 @@
 
 from typing_extensions import TypeAlias
 
-__all__ = ["SourceRetrieveByNameResponse"]
+__all__ = ["SourceRetrieveResponse"]
 
-SourceRetrieveByNameResponse: TypeAlias = str
+SourceRetrieveResponse: TypeAlias = str

@@ -7,9 +7,9 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .llmconfig_param import LlmconfigParam
-from .shared_params.memory import Memory
-from .embeddingconfig_param import EmbeddingconfigParam
+from .memory_param import MemoryParam
+from .llm_config_param import LlmConfigParam
+from .embedding_config_param import EmbeddingConfigParam
 
 __all__ = [
     "AgentCreateParams",
@@ -27,7 +27,7 @@ class AgentCreateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the agent."""
 
-    embedding_config: Optional[EmbeddingconfigParam]
+    embedding_config: Optional[EmbeddingConfigParam]
     """Embedding model configuration.
 
     This object specifies all the information necessary to access an embedding model
@@ -45,7 +45,7 @@ class AgentCreateParams(TypedDict, total=False):
     initial_message_sequence: Optional[Iterable[InitialMessageSequence]]
     """The initial set of messages to put in the agent's in-context memory."""
 
-    llm_config: Optional[LlmconfigParam]
+    llm_config: Optional[LlmConfigParam]
     """Configuration for a Language Model (LLM) model.
 
     This object specifies all the information necessary to access an LLM model to
@@ -62,7 +62,7 @@ class AgentCreateParams(TypedDict, total=False):
     inner thoughts.
     """
 
-    memory: Optional[Memory]
+    memory: Optional[MemoryParam]
     """Represents the in-context memory of the agent.
 
     This includes both the `Block` objects (labelled by sections), as well as tools

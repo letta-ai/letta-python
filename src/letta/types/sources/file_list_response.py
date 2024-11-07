@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .filemetadata import Filemetadata
+from .file_metadata import FileMetadata
 
 __all__ = ["FileListResponse"]
 
-FileListResponse: TypeAlias = List[Filemetadata]
+FileListResponse: TypeAlias = List[FileMetadata]

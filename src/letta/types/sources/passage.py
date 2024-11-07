@@ -6,7 +6,7 @@ from datetime import datetime
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
-from ..embeddingconfig import Embeddingconfig
+from ..embedding_config import EmbeddingConfig
 
 __all__ = ["Passage"]
 
@@ -15,7 +15,7 @@ class Passage(BaseModel):
     embedding: Optional[List[float]] = None
     """The embedding of the passage."""
 
-    embedding_config: Optional[Embeddingconfig] = None
+    embedding_config: Optional[EmbeddingConfig] = None
     """Embedding model configuration.
 
     This object specifies all the information necessary to access an embedding model

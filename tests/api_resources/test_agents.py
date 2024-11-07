@@ -9,8 +9,9 @@ import pytest
 
 from letta import Letta, AsyncLetta
 from letta.types import (
-    Agentstate,
+    AgentState,
     AgentListResponse,
+    AgentMigrateResponse,
 )
 from tests.utils import assert_matches_type
 from letta._utils import parse_datetime
@@ -24,7 +25,7 @@ class TestAgents:
     @parametrize
     def test_method_create(self, client: Letta) -> None:
         agent = client.agents.create()
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Letta) -> None:
@@ -187,7 +188,7 @@ class TestAgents:
             body_user_id="user_id",
             header_user_id="user_id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
@@ -196,7 +197,7 @@ class TestAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = response.parse()
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
@@ -205,7 +206,7 @@ class TestAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = response.parse()
-            assert_matches_type(Agentstate, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -214,7 +215,7 @@ class TestAgents:
         agent = client.agents.retrieve(
             agent_id="agent_id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Letta) -> None:
@@ -222,7 +223,7 @@ class TestAgents:
             agent_id="agent_id",
             user_id="user_id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
@@ -233,7 +234,7 @@ class TestAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = response.parse()
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
@@ -244,7 +245,7 @@ class TestAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = response.parse()
-            assert_matches_type(Agentstate, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -261,7 +262,7 @@ class TestAgents:
             agent_id="agent_id",
             id="id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Letta) -> None:
@@ -311,7 +312,7 @@ class TestAgents:
             body_user_id="user_id",
             header_user_id="user_id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
@@ -323,7 +324,7 @@ class TestAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = response.parse()
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_streaming_response_update(self, client: Letta) -> None:
@@ -335,7 +336,7 @@ class TestAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = response.parse()
-            assert_matches_type(Agentstate, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -425,6 +426,62 @@ class TestAgents:
                 agent_id="",
             )
 
+    @parametrize
+    def test_method_migrate(self, client: Letta) -> None:
+        agent = client.agents.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        )
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    def test_method_migrate_with_all_params(self, client: Letta) -> None:
+        agent = client.agents.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+            variables={"foo": "string"},
+        )
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    def test_raw_response_migrate(self, client: Letta) -> None:
+        response = client.agents.with_raw_response.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = response.parse()
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    def test_streaming_response_migrate(self, client: Letta) -> None:
+        with client.agents.with_streaming_response.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = response.parse()
+            assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_migrate(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.with_raw_response.migrate(
+                agent_id="",
+                preserve_core_memories=True,
+                to_template="to_template",
+            )
+
 
 class TestAsyncAgents:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -432,7 +489,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.create()
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
@@ -595,7 +652,7 @@ class TestAsyncAgents:
             body_user_id="user_id",
             header_user_id="user_id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
@@ -604,7 +661,7 @@ class TestAsyncAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = await response.parse()
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
@@ -613,7 +670,7 @@ class TestAsyncAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = await response.parse()
-            assert_matches_type(Agentstate, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -622,7 +679,7 @@ class TestAsyncAgents:
         agent = await async_client.agents.retrieve(
             agent_id="agent_id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
@@ -630,7 +687,7 @@ class TestAsyncAgents:
             agent_id="agent_id",
             user_id="user_id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
@@ -641,7 +698,7 @@ class TestAsyncAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = await response.parse()
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
@@ -652,7 +709,7 @@ class TestAsyncAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = await response.parse()
-            assert_matches_type(Agentstate, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -669,7 +726,7 @@ class TestAsyncAgents:
             agent_id="agent_id",
             id="id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
@@ -719,7 +776,7 @@ class TestAsyncAgents:
             body_user_id="user_id",
             header_user_id="user_id",
         )
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
@@ -731,7 +788,7 @@ class TestAsyncAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = await response.parse()
-        assert_matches_type(Agentstate, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
@@ -743,7 +800,7 @@ class TestAsyncAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = await response.parse()
-            assert_matches_type(Agentstate, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -831,4 +888,60 @@ class TestAsyncAgents:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.with_raw_response.delete(
                 agent_id="",
+            )
+
+    @parametrize
+    async def test_method_migrate(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        )
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    async def test_method_migrate_with_all_params(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+            variables={"foo": "string"},
+        )
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    async def test_raw_response_migrate(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.with_raw_response.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = await response.parse()
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_migrate(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.with_streaming_response.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = await response.parse()
+            assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_migrate(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.with_raw_response.migrate(
+                agent_id="",
+                preserve_core_memories=True,
+                to_template="to_template",
             )

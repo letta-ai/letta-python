@@ -14,7 +14,7 @@ from ...._response import (
     async_to_streamed_response_wrapper,
 )
 from ...._base_client import make_request_options
-from ....types.agents.archivalmemorysummary import Archivalmemorysummary
+from ....types.agents.archival_memory_summary import ArchivalMemorySummary
 
 __all__ = ["ArchivalResource", "AsyncArchivalResource"]
 
@@ -49,7 +49,7 @@ class ArchivalResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Archivalmemorysummary:
+    ) -> ArchivalMemorySummary:
         """
         Retrieve the summary of the archival memory of a specific agent.
 
@@ -69,7 +69,7 @@ class ArchivalResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Archivalmemorysummary,
+            cast_to=ArchivalMemorySummary,
         )
 
 
@@ -103,7 +103,7 @@ class AsyncArchivalResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Archivalmemorysummary:
+    ) -> ArchivalMemorySummary:
         """
         Retrieve the summary of the archival memory of a specific agent.
 
@@ -123,7 +123,7 @@ class AsyncArchivalResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Archivalmemorysummary,
+            cast_to=ArchivalMemorySummary,
         )
 
 

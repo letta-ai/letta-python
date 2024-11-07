@@ -44,7 +44,7 @@ from ...._response import (
 )
 from ...._base_client import make_request_options
 from ....types.agents import memory_update_params
-from ....types.shared.memory import Memory
+from ....types.memory import Memory
 
 __all__ = ["MemoryResource", "AsyncMemoryResource"]
 

@@ -15,7 +15,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.agents.contextwindowoverview import Contextwindowoverview
+from ...types.agents.context_window_overview import ContextWindowOverview
 
 __all__ = ["ContextResource", "AsyncContextResource"]
 
@@ -51,7 +51,7 @@ class ContextResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Contextwindowoverview:
+    ) -> ContextWindowOverview:
         """
         Retrieve the context window of a specific agent.
 
@@ -72,7 +72,7 @@ class ContextResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Contextwindowoverview,
+            cast_to=ContextWindowOverview,
         )
 
 
@@ -107,7 +107,7 @@ class AsyncContextResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Contextwindowoverview:
+    ) -> ContextWindowOverview:
         """
         Retrieve the context window of a specific agent.
 
@@ -128,7 +128,7 @@ class AsyncContextResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Contextwindowoverview,
+            cast_to=ContextWindowOverview,
         )
 
 
