@@ -31,8 +31,7 @@ import os
 from letta import Letta
 
 client = Letta(
-    # This is the default and can be omitted
-    bearer_token=os.environ.get("BEARER_TOKEN"),
+    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
     environment="environment_1",
 )
@@ -59,8 +58,7 @@ import asyncio
 from letta import AsyncLetta
 
 client = AsyncLetta(
-    # This is the default and can be omitted
-    bearer_token=os.environ.get("BEARER_TOKEN"),
+    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
     environment="environment_1",
 )
