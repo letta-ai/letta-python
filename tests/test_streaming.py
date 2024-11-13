@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from letta import Letta, AsyncLetta
-from letta._streaming import Stream, AsyncStream, ServerSentEvent
+from letta_client import Letta, AsyncLetta
+from letta_client._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio

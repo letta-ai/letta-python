@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from letta import Letta, AsyncLetta
-from letta.types import Block, BlockListResponse
 from tests.utils import assert_matches_type
+from letta_client import Letta, AsyncLetta
+from letta_client.types import Block, BlockListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -31,8 +31,8 @@ class TestBlocks:
             description="description",
             limit=0,
             metadata={},
+            name="name",
             template=True,
-            template_name="template_name",
             body_user_id="user_id",
             value="value",
             header_user_id="user_id",
@@ -118,8 +118,8 @@ class TestBlocks:
             label="label",
             limit=0,
             metadata={},
+            name="name",
             template=True,
-            template_name="template_name",
             user_id="user_id",
             value="value",
         )
@@ -250,8 +250,8 @@ class TestAsyncBlocks:
             description="description",
             limit=0,
             metadata={},
+            name="name",
             template=True,
-            template_name="template_name",
             body_user_id="user_id",
             value="value",
             header_user_id="user_id",
@@ -337,8 +337,8 @@ class TestAsyncBlocks:
             label="label",
             limit=0,
             metadata={},
+            name="name",
             template=True,
-            template_name="template_name",
             user_id="user_id",
             value="value",
         )
