@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from letta import Letta, AsyncLetta
-from letta.types import JobListResponse, JobActiveResponse
 from tests.utils import assert_matches_type
-from letta.types.shared import Job
+from letta_client import Letta, AsyncLetta
+from letta_client.types import JobListResponse, JobActiveResponse
+from letta_client.types.shared import Job
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

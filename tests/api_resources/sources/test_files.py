@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from letta import Letta, AsyncLetta
 from tests.utils import assert_matches_type
-from letta.types.sources import FileListResponse
+from letta_client import Letta, AsyncLetta
+from letta_client.types.sources import FileListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

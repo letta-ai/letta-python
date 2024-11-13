@@ -1,6 +1,6 @@
 # Letta Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/letta.svg)](https://pypi.org/project/letta/)
+[![PyPI version](https://img.shields.io/pypi/v/letta-client.svg)](https://pypi.org/project/letta-client/)
 
 The Letta Python library provides convenient access to the Letta REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -20,54 +20,45 @@ pip install git+ssh://git@github.com/stainless-sdks/letta-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre letta`
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre letta-client`
 
 ## Usage
 
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
-    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
     environment="environment_1",
+    bearer_token="My Bearer Token",
 )
 
 tool = client.tools.create(
     source_code="source_code",
-    source_type="source_type",
 )
 print(tool.id)
 ```
-
-While you can provide a `bearer_token` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `BEARER_TOKEN="My Bearer Token"` to your `.env` file
-so that your Bearer Token is not stored in source control.
 
 ## Async usage
 
 Simply import `AsyncLetta` instead of `Letta` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
-from letta import AsyncLetta
+from letta_client import AsyncLetta
 
 client = AsyncLetta(
-    bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
     environment="environment_1",
+    bearer_token="My Bearer Token",
 )
 
 
 async def main() -> None:
     tool = await client.tools.create(
         source_code="source_code",
-        source_type="source_type",
     )
     print(tool.id)
 
@@ -88,30 +79,31 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `letta.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `letta_client.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `letta.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `letta_client.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `letta.APIError`.
+All errors inherit from `letta_client.APIError`.
 
 ```python
-import letta
-from letta import Letta
+import letta_client
+from letta_client import Letta
 
-client = Letta()
+client = Letta(
+    bearer_token="My Bearer Token",
+)
 
 try:
     client.tools.create(
         source_code="source_code",
-        source_type="source_type",
     )
-except letta.APIConnectionError as e:
+except letta_client.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except letta.RateLimitError as e:
+except letta_client.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except letta.APIStatusError as e:
+except letta_client.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -139,18 +131,18 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 # Configure the default for all requests:
 client = Letta(
     # default is 2
     max_retries=0,
+    bearer_token="My Bearer Token",
 )
 
 # Or, configure per-request:
 client.with_options(max_retries=5).tools.create(
     source_code="source_code",
-    source_type="source_type",
 )
 ```
 
@@ -160,23 +152,24 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 # Configure the default for all requests:
 client = Letta(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
+    bearer_token="My Bearer Token",
 )
 
 # More granular control:
 client = Letta(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+    bearer_token="My Bearer Token",
 )
 
 # Override per-request:
 client.with_options(timeout=5.0).tools.create(
     source_code="source_code",
-    source_type="source_type",
 )
 ```
 
@@ -213,12 +206,13 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from letta import Letta
+from letta_client import Letta
 
-client = Letta()
+client = Letta(
+    bearer_token="My Bearer Token",
+)
 response = client.tools.with_raw_response.create(
     source_code="source_code",
-    source_type="source_type",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -226,9 +220,9 @@ tool = response.parse()  # get the object that `tools.create()` would have retur
 print(tool.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/letta-python/tree/main/src/letta/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/letta-python/tree/main/src/letta_client/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/letta-python/tree/main/src/letta/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/letta-python/tree/main/src/letta_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -239,7 +233,6 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.tools.with_streaming_response.create(
     source_code="source_code",
-    source_type="source_type",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -293,7 +286,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 - Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
 
 ```python
-from letta import Letta, DefaultHttpxClient
+from letta_client import Letta, DefaultHttpxClient
 
 client = Letta(
     # Or use the `LETTA_BASE_URL` env var
@@ -302,6 +295,7 @@ client = Letta(
         proxies="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
+    bearer_token="My Bearer Token",
 )
 ```
 
@@ -334,8 +328,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import letta
-print(letta.__version__)
+import letta_client
+print(letta_client.__version__)
 ```
 
 ## Requirements

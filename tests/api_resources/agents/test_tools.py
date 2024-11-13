@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from letta import Letta, AsyncLetta
-from letta.types import AgentState
 from tests.utils import assert_matches_type
-from letta.types.agents import ToolListResponse
+from letta_client import Letta, AsyncLetta
+from letta_client.types import AgentState
+from letta_client.types.agents import ToolListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

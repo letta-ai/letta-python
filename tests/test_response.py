@@ -6,8 +6,8 @@ import httpx
 import pytest
 import pydantic
 
-from letta import Letta, BaseModel, AsyncLetta
-from letta._response import (
+from letta_client import Letta, BaseModel, AsyncLetta
+from letta_client._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -15,8 +15,8 @@ from letta._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from letta._streaming import Stream
-from letta._base_client import FinalRequestOptions
+from letta_client._streaming import Stream
+from letta_client._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]): ...
@@ -37,7 +37,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'letta._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'letta_client._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -68,7 +68,7 @@ def test_response_parse_mismatched_basemodel(client: Letta) -> None:
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from letta import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from letta_client import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
@@ -86,7 +86,7 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncLett
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from letta import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from letta_client import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 

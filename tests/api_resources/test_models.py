@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from letta import Letta, AsyncLetta
-from letta.types import ModelListResponse, ModelEmbeddingResponse
 from tests.utils import assert_matches_type
+from letta_client import Letta, AsyncLetta
+from letta_client.types import ModelListResponse, ModelEmbeddingResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

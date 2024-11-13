@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from letta import Letta, AsyncLetta
 from tests.utils import assert_matches_type
-from letta.types.agents import (
+from letta_client import Letta, AsyncLetta
+from letta_client.types.agents import (
     MessageUpdateResponse,
     MessageRetrieveResponse,
 )

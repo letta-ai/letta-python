@@ -17,12 +17,17 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from letta import Letta, AsyncLetta, APIResponseValidationError
-from letta._types import Omit
-from letta._models import BaseModel, FinalRequestOptions
-from letta._constants import RAW_RESPONSE_HEADER
-from letta._exceptions import LettaError, APIStatusError, APITimeoutError, APIResponseValidationError
-from letta._base_client import DEFAULT_TIMEOUT, HTTPX_DEFAULT_TIMEOUT, BaseClient, make_request_options
+from letta_client import Letta, AsyncLetta, APIResponseValidationError
+from letta_client._types import Omit
+from letta_client._models import BaseModel, FinalRequestOptions
+from letta_client._constants import RAW_RESPONSE_HEADER
+from letta_client._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from letta_client._base_client import (
+    DEFAULT_TIMEOUT,
+    HTTPX_DEFAULT_TIMEOUT,
+    BaseClient,
+    make_request_options,
+)
 
 from .utils import update_env
 
@@ -224,10 +229,10 @@ class TestLetta:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "letta/_legacy_response.py",
-                        "letta/_response.py",
+                        "letta_client/_legacy_response.py",
+                        "letta_client/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "letta/_compat.py",
+                        "letta_client/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -330,16 +335,6 @@ class TestLetta:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = Letta(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
-
-        with pytest.raises(LettaError):
-            with update_env(**{"BEARER_TOKEN": Omit()}):
-                client2 = Letta(base_url=base_url, bearer_token=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Letta(
@@ -738,7 +733,7 @@ class TestLetta:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/tools/").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -746,14 +741,14 @@ class TestLetta:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/v1/tools/",
-                body=cast(object, dict(source_code="source_code", source_type="source_type")),
+                body=cast(object, dict(source_code="source_code")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/tools/").mock(return_value=httpx.Response(500))
@@ -761,7 +756,7 @@ class TestLetta:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/v1/tools/",
-                body=cast(object, dict(source_code="source_code", source_type="source_type")),
+                body=cast(object, dict(source_code="source_code")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -769,7 +764,7 @@ class TestLetta:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -794,13 +789,13 @@ class TestLetta:
 
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
-        response = client.tools.with_raw_response.create(source_code="source_code", source_type="source_type")
+        response = client.tools.with_raw_response.create(source_code="source_code")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(self, client: Letta, failures_before_success: int, respx_mock: MockRouter) -> None:
         client = client.with_options(max_retries=4)
@@ -817,13 +812,13 @@ class TestLetta:
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
         response = client.tools.with_raw_response.create(
-            source_code="source_code", source_type="source_type", extra_headers={"x-stainless-retry-count": Omit()}
+            source_code="source_code", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: Letta, failures_before_success: int, respx_mock: MockRouter
@@ -842,7 +837,7 @@ class TestLetta:
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
         response = client.tools.with_raw_response.create(
-            source_code="source_code", source_type="source_type", extra_headers={"x-stainless-retry-count": "42"}
+            source_code="source_code", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1026,10 +1021,10 @@ class TestAsyncLetta:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "letta/_legacy_response.py",
-                        "letta/_response.py",
+                        "letta_client/_legacy_response.py",
+                        "letta_client/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "letta/_compat.py",
+                        "letta_client/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1132,16 +1127,6 @@ class TestAsyncLetta:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
-
-    def test_validate_headers(self) -> None:
-        client = AsyncLetta(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {bearer_token}"
-
-        with pytest.raises(LettaError):
-            with update_env(**{"BEARER_TOKEN": Omit()}):
-                client2 = AsyncLetta(base_url=base_url, bearer_token=None, _strict_response_validation=True)
-            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncLetta(
@@ -1544,7 +1529,7 @@ class TestAsyncLetta:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/tools/").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1552,14 +1537,14 @@ class TestAsyncLetta:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/v1/tools/",
-                body=cast(object, dict(source_code="source_code", source_type="source_type")),
+                body=cast(object, dict(source_code="source_code")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/tools/").mock(return_value=httpx.Response(500))
@@ -1567,7 +1552,7 @@ class TestAsyncLetta:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/v1/tools/",
-                body=cast(object, dict(source_code="source_code", source_type="source_type")),
+                body=cast(object, dict(source_code="source_code")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1575,7 +1560,7 @@ class TestAsyncLetta:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
@@ -1601,13 +1586,13 @@ class TestAsyncLetta:
 
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
-        response = await client.tools.with_raw_response.create(source_code="source_code", source_type="source_type")
+        response = await client.tools.with_raw_response.create(source_code="source_code")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
@@ -1627,13 +1612,13 @@ class TestAsyncLetta:
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
         response = await client.tools.with_raw_response.create(
-            source_code="source_code", source_type="source_type", extra_headers={"x-stainless-retry-count": Omit()}
+            source_code="source_code", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
@@ -1653,7 +1638,7 @@ class TestAsyncLetta:
         respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
 
         response = await client.tools.with_raw_response.create(
-            source_code="source_code", source_type="source_type", extra_headers={"x-stainless-retry-count": "42"}
+            source_code="source_code", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
