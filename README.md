@@ -1,6 +1,6 @@
 # Letta Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/letta-client.svg)](https://pypi.org/project/letta-client/)
+[![PyPI version](https://img.shields.io/pypi/v/letta_client.svg)](https://pypi.org/project/letta_client/)
 
 The Letta Python library provides convenient access to the Letta REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/stainless-sdks/letta-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre letta-client`
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install --pre letta_client`
 
 ## Usage
 

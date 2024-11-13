@@ -1,5 +1,5 @@
 [project]
-name = "letta-client"
+name = "letta_client"
 version = "0.0.1-alpha.0"
 description = "The official Python library for the letta API"
 dynamic = ["readme"]
