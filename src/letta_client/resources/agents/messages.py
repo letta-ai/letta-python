@@ -23,6 +23,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.agents import message_create_params, message_update_params, message_retrieve_params
+from ...types.agents.message_create_response import MessageCreateResponse
 from ...types.agents.message_update_response import MessageUpdateResponse
 from ...types.agents.message_retrieve_response import MessageRetrieveResponse
 
@@ -68,7 +69,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> MessageCreateResponse:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -128,7 +129,7 @@ class MessagesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=MessageCreateResponse,
         )
 
     def retrieve(
@@ -312,7 +313,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> MessageCreateResponse:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -372,7 +373,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=MessageCreateResponse,
         )
 
     async def retrieve(
