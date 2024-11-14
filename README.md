@@ -32,7 +32,6 @@ from letta_client import Letta
 client = Letta(
     # defaults to "production".
     environment="environment_1",
-    bearer_token="My Bearer Token",
 )
 
 tool = client.tools.create(
@@ -52,7 +51,6 @@ from letta_client import AsyncLetta
 client = AsyncLetta(
     # defaults to "production".
     environment="environment_1",
-    bearer_token="My Bearer Token",
 )
 
 
@@ -90,9 +88,7 @@ All errors inherit from `letta_client.APIError`.
 import letta_client
 from letta_client import Letta
 
-client = Letta(
-    bearer_token="My Bearer Token",
-)
+client = Letta()
 
 try:
     client.tools.create(
@@ -137,7 +133,6 @@ from letta_client import Letta
 client = Letta(
     # default is 2
     max_retries=0,
-    bearer_token="My Bearer Token",
 )
 
 # Or, configure per-request:
@@ -158,13 +153,11 @@ from letta_client import Letta
 client = Letta(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
-    bearer_token="My Bearer Token",
 )
 
 # More granular control:
 client = Letta(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
-    bearer_token="My Bearer Token",
 )
 
 # Override per-request:
@@ -208,9 +201,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from letta_client import Letta
 
-client = Letta(
-    bearer_token="My Bearer Token",
-)
+client = Letta()
 response = client.tools.with_raw_response.create(
     source_code="source_code",
 )
@@ -295,7 +286,6 @@ client = Letta(
         proxies="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
-    bearer_token="My Bearer Token",
 )
 ```
 
