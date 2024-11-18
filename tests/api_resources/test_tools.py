@@ -37,7 +37,7 @@ class TestTools:
             module="module",
             name="name",
             source_type="source_type",
-            tags=["string", "string", "string"],
+            tags=["string"],
             user_id="user_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
@@ -129,7 +129,7 @@ class TestTools:
             name="name",
             source_code="source_code",
             source_type="source_type",
-            tags=["string", "string", "string"],
+            tags=["string"],
             user_id="user_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
@@ -335,7 +335,7 @@ class TestAsyncTools:
             module="module",
             name="name",
             source_type="source_type",
-            tags=["string", "string", "string"],
+            tags=["string"],
             user_id="user_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
@@ -427,7 +427,7 @@ class TestAsyncTools:
             name="name",
             source_code="source_code",
             source_type="source_type",
-            tags=["string", "string", "string"],
+            tags=["string"],
             user_id="user_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
