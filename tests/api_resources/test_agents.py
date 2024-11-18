@@ -59,100 +59,10 @@ class TestAgents:
                                 "name": "name",
                             },
                             "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
+                        }
                     ],
                     "user_id": "user_id",
-                },
-                {
-                    "role": "assistant",
-                    "id": "id",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
-                    "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                    ],
-                    "user_id": "user_id",
-                },
-                {
-                    "role": "assistant",
-                    "id": "id",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
-                    "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                    ],
-                    "user_id": "user_id",
-                },
+                }
             ],
             llm_config={
                 "context_window": 0,
@@ -178,13 +88,13 @@ class TestAgents:
                 },
                 "prompt_template": "prompt_template",
             },
-            message_ids=["string", "string", "string"],
+            message_ids=["string"],
             metadata={},
             name="name",
             system="system",
-            tags=["string", "string", "string"],
-            tool_rules=[{"tool_name": "tool_name"}, {"tool_name": "tool_name"}, {"tool_name": "tool_name"}],
-            tools=["string", "string", "string"],
+            tags=["string"],
+            tool_rules=[{"tool_name": "tool_name"}],
+            tools=["string"],
             body_user_id="user_id",
             header_user_id="user_id",
         )
@@ -304,12 +214,12 @@ class TestAgents:
                 },
                 "prompt_template": "prompt_template",
             },
-            message_ids=["string", "string", "string"],
+            message_ids=["string"],
             metadata={},
             name="name",
             system="system",
-            tags=["string", "string", "string"],
-            tools=["string", "string", "string"],
+            tags=["string"],
+            tools=["string"],
             body_user_id="user_id",
             header_user_id="user_id",
         )
@@ -358,7 +268,7 @@ class TestAgents:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         agent = client.agents.list(
             name="name",
-            tags=["string", "string", "string"],
+            tags=["string"],
             user_id="user_id",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
@@ -471,100 +381,10 @@ class TestAsyncAgents:
                                 "name": "name",
                             },
                             "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
+                        }
                     ],
                     "user_id": "user_id",
-                },
-                {
-                    "role": "assistant",
-                    "id": "id",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
-                    "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                    ],
-                    "user_id": "user_id",
-                },
-                {
-                    "role": "assistant",
-                    "id": "id",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
-                    "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        },
-                    ],
-                    "user_id": "user_id",
-                },
+                }
             ],
             llm_config={
                 "context_window": 0,
@@ -590,13 +410,13 @@ class TestAsyncAgents:
                 },
                 "prompt_template": "prompt_template",
             },
-            message_ids=["string", "string", "string"],
+            message_ids=["string"],
             metadata={},
             name="name",
             system="system",
-            tags=["string", "string", "string"],
-            tool_rules=[{"tool_name": "tool_name"}, {"tool_name": "tool_name"}, {"tool_name": "tool_name"}],
-            tools=["string", "string", "string"],
+            tags=["string"],
+            tool_rules=[{"tool_name": "tool_name"}],
+            tools=["string"],
             body_user_id="user_id",
             header_user_id="user_id",
         )
@@ -716,12 +536,12 @@ class TestAsyncAgents:
                 },
                 "prompt_template": "prompt_template",
             },
-            message_ids=["string", "string", "string"],
+            message_ids=["string"],
             metadata={},
             name="name",
             system="system",
-            tags=["string", "string", "string"],
-            tools=["string", "string", "string"],
+            tags=["string"],
+            tools=["string"],
             body_user_id="user_id",
             header_user_id="user_id",
         )
@@ -770,7 +590,7 @@ class TestAsyncAgents:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.list(
             name="name",
-            tags=["string", "string", "string"],
+            tags=["string"],
             user_id="user_id",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])

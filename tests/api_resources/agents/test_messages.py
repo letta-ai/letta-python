@@ -29,15 +29,7 @@ class TestMessages:
                 {
                     "role": "user",
                     "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
+                }
             ],
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
@@ -51,17 +43,7 @@ class TestMessages:
                     "role": "user",
                     "text": "text",
                     "name": "name",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                    "name": "name",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                    "name": "name",
-                },
+                }
             ],
             assistant_message_function_kwarg="assistant_message_function_kwarg",
             assistant_message_function_name="assistant_message_function_name",
@@ -82,15 +64,7 @@ class TestMessages:
                 {
                     "role": "user",
                     "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
+                }
             ],
         )
 
@@ -107,15 +81,7 @@ class TestMessages:
                 {
                     "role": "user",
                     "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
+                }
             ],
         ) as response:
             assert not response.is_closed
@@ -135,15 +101,7 @@ class TestMessages:
                     {
                         "role": "user",
                         "text": "text",
-                    },
-                    {
-                        "role": "user",
-                        "text": "text",
-                    },
-                    {
-                        "role": "user",
-                        "text": "text",
-                    },
+                    }
                 ],
             )
 
@@ -226,23 +184,7 @@ class TestMessages:
                         "name": "name",
                     },
                     "type": "type",
-                },
-                {
-                    "id": "id",
-                    "function": {
-                        "arguments": "arguments",
-                        "name": "name",
-                    },
-                    "type": "type",
-                },
-                {
-                    "id": "id",
-                    "function": {
-                        "arguments": "arguments",
-                        "name": "name",
-                    },
-                    "type": "type",
-                },
+                }
             ],
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
@@ -303,15 +245,7 @@ class TestAsyncMessages:
                 {
                     "role": "user",
                     "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
+                }
             ],
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
@@ -325,17 +259,7 @@ class TestAsyncMessages:
                     "role": "user",
                     "text": "text",
                     "name": "name",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                    "name": "name",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                    "name": "name",
-                },
+                }
             ],
             assistant_message_function_kwarg="assistant_message_function_kwarg",
             assistant_message_function_name="assistant_message_function_name",
@@ -356,15 +280,7 @@ class TestAsyncMessages:
                 {
                     "role": "user",
                     "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
+                }
             ],
         )
 
@@ -381,15 +297,7 @@ class TestAsyncMessages:
                 {
                     "role": "user",
                     "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
-                {
-                    "role": "user",
-                    "text": "text",
-                },
+                }
             ],
         ) as response:
             assert not response.is_closed
@@ -409,15 +317,7 @@ class TestAsyncMessages:
                     {
                         "role": "user",
                         "text": "text",
-                    },
-                    {
-                        "role": "user",
-                        "text": "text",
-                    },
-                    {
-                        "role": "user",
-                        "text": "text",
-                    },
+                    }
                 ],
             )
 
@@ -500,23 +400,7 @@ class TestAsyncMessages:
                         "name": "name",
                     },
                     "type": "type",
-                },
-                {
-                    "id": "id",
-                    "function": {
-                        "arguments": "arguments",
-                        "name": "name",
-                    },
-                    "type": "type",
-                },
-                {
-                    "id": "id",
-                    "function": {
-                        "arguments": "arguments",
-                        "name": "name",
-                    },
-                    "type": "type",
-                },
+                }
             ],
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
