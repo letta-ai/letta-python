@@ -345,63 +345,6 @@ class TestAgents:
             )
 
     @parametrize
-    def test_method_add_tool(self, client: Letta) -> None:
-        agent = client.agents.add_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    def test_method_add_tool_with_all_params(self, client: Letta) -> None:
-        agent = client.agents.add_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-            user_id="user_id",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    def test_raw_response_add_tool(self, client: Letta) -> None:
-        response = client.agents.with_raw_response.add_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    def test_streaming_response_add_tool(self, client: Letta) -> None:
-        with client.agents.with_streaming_response.add_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_add_tool(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.with_raw_response.add_tool(
-                tool_id="tool_id",
-                agent_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
-            client.agents.with_raw_response.add_tool(
-                tool_id="",
-                agent_id="agent_id",
-            )
-
-    @parametrize
     def test_method_migrate(self, client: Letta) -> None:
         agent = client.agents.migrate(
             agent_id="agent_id",
@@ -455,63 +398,6 @@ class TestAgents:
                 agent_id="",
                 preserve_core_memories=True,
                 to_template="to_template",
-            )
-
-    @parametrize
-    def test_method_remove_tool(self, client: Letta) -> None:
-        agent = client.agents.remove_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    def test_method_remove_tool_with_all_params(self, client: Letta) -> None:
-        agent = client.agents.remove_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-            user_id="user_id",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    def test_raw_response_remove_tool(self, client: Letta) -> None:
-        response = client.agents.with_raw_response.remove_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    def test_streaming_response_remove_tool(self, client: Letta) -> None:
-        with client.agents.with_streaming_response.remove_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_remove_tool(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.with_raw_response.remove_tool(
-                tool_id="tool_id",
-                agent_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
-            client.agents.with_raw_response.remove_tool(
-                tool_id="",
-                agent_id="agent_id",
             )
 
 
@@ -841,63 +727,6 @@ class TestAsyncAgents:
             )
 
     @parametrize
-    async def test_method_add_tool(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.add_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    async def test_method_add_tool_with_all_params(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.add_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-            user_id="user_id",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    async def test_raw_response_add_tool(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.with_raw_response.add_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = await response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_add_tool(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.with_streaming_response.add_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = await response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_add_tool(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.with_raw_response.add_tool(
-                tool_id="tool_id",
-                agent_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
-            await async_client.agents.with_raw_response.add_tool(
-                tool_id="",
-                agent_id="agent_id",
-            )
-
-    @parametrize
     async def test_method_migrate(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.migrate(
             agent_id="agent_id",
@@ -951,61 +780,4 @@ class TestAsyncAgents:
                 agent_id="",
                 preserve_core_memories=True,
                 to_template="to_template",
-            )
-
-    @parametrize
-    async def test_method_remove_tool(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.remove_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    async def test_method_remove_tool_with_all_params(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.remove_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-            user_id="user_id",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    async def test_raw_response_remove_tool(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.with_raw_response.remove_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = await response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_remove_tool(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.with_streaming_response.remove_tool(
-            tool_id="tool_id",
-            agent_id="agent_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = await response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_remove_tool(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.with_raw_response.remove_tool(
-                tool_id="tool_id",
-                agent_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
-            await async_client.agents.with_raw_response.remove_tool(
-                tool_id="",
-                agent_id="agent_id",
             )

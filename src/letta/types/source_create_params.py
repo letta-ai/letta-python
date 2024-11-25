@@ -6,9 +6,8 @@ from typing import Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .embedding_config_param import EmbeddingConfigParam
 
-__all__ = ["SourceCreateParams"]
+__all__ = ["SourceCreateParams", "EmbeddingConfig"]
 
 
 class SourceCreateParams(TypedDict, total=False):
@@ -18,7 +17,7 @@ class SourceCreateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the source."""
 
-    embedding_config: Optional[EmbeddingConfigParam]
+    embedding_config: Optional[EmbeddingConfig]
     """Embedding model configuration.
 
     This object specifies all the information necessary to access an embedding model
@@ -37,3 +36,29 @@ class SourceCreateParams(TypedDict, total=False):
     """Metadata associated with the source."""
 
     user_id: str
+
+
+class EmbeddingConfig(TypedDict, total=False):
+    embedding_dim: Required[int]
+    """The dimension of the embedding."""
+
+    embedding_endpoint_type: Required[str]
+    """The endpoint type for the model."""
+
+    embedding_model: Required[str]
+    """The model for the embedding."""
+
+    azure_deployment: Optional[str]
+    """The Azure deployment for the model."""
+
+    azure_endpoint: Optional[str]
+    """The Azure endpoint for the model."""
+
+    azure_version: Optional[str]
+    """The Azure version for the model."""
+
+    embedding_chunk_size: Optional[int]
+    """The chunk size of the embedding."""
+
+    embedding_endpoint: Optional[str]
+    """The endpoint for the model (`None` if local)."""
