@@ -23,13 +23,6 @@ class TestActive:
         assert_matches_type(ActiveListResponse, active, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: Letta) -> None:
-        active = client.jobs.active.list(
-            user_id="user_id",
-        )
-        assert_matches_type(ActiveListResponse, active, path=["response"])
-
-    @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.jobs.active.with_raw_response.list()
 
@@ -56,13 +49,6 @@ class TestAsyncActive:
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         active = await async_client.jobs.active.list()
-        assert_matches_type(ActiveListResponse, active, path=["response"])
-
-    @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
-        active = await async_client.jobs.active.list(
-            user_id="user_id",
-        )
         assert_matches_type(ActiveListResponse, active, path=["response"])
 
     @parametrize

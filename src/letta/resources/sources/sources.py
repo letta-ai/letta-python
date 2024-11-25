@@ -25,7 +25,6 @@ from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven, FileTypes
 from ..._utils import (
     extract_files,
     maybe_transform,
-    strip_not_given,
     deepcopy_minimal,
     async_maybe_transform,
 )
@@ -89,7 +88,6 @@ class SourcesResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[EmbeddingconfigParam] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -127,7 +125,6 @@ class SourcesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             "/v1/sources/",
             body=maybe_transform(
@@ -147,18 +144,17 @@ class SourcesResource(SyncAPIResource):
 
     def retrieve(
         self,
-        source_name: str,
+        source_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> Source:
         """
-        Get a source by name
+        Get all sources
 
         Args:
           extra_headers: Send extra headers
@@ -169,15 +165,14 @@ class SourcesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not source_name:
-            raise ValueError(f"Expected a non-empty value for `source_name` but received {source_name!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
+        if not source_id:
+            raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
         return self._get(
-            f"/v1/sources/name/{source_name}",
+            f"/v1/sources/{source_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=Source,
         )
 
     def update(
@@ -188,7 +183,6 @@ class SourcesResource(SyncAPIResource):
         embedding_config: Optional[EmbeddingconfigParam] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -228,7 +222,6 @@ class SourcesResource(SyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._patch(
             f"/v1/sources/{source_id}",
             body=maybe_transform(
@@ -249,7 +242,6 @@ class SourcesResource(SyncAPIResource):
     def list(
         self,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -257,19 +249,7 @@ class SourcesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SourceListResponse:
-        """
-        List all data sources created by a user.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
+        """List all data sources created by a user."""
         return self._get(
             "/v1/sources/",
             options=make_request_options(
@@ -282,7 +262,6 @@ class SourcesResource(SyncAPIResource):
         self,
         source_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -304,7 +283,6 @@ class SourcesResource(SyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._delete(
             f"/v1/sources/{source_id}",
             options=make_request_options(
@@ -318,7 +296,6 @@ class SourcesResource(SyncAPIResource):
         source_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -342,7 +319,6 @@ class SourcesResource(SyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             f"/v1/sources/{source_id}/attach",
             options=make_request_options(
@@ -360,7 +336,6 @@ class SourcesResource(SyncAPIResource):
         source_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -384,7 +359,6 @@ class SourcesResource(SyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             f"/v1/sources/{source_id}/detach",
             options=make_request_options(
@@ -402,7 +376,6 @@ class SourcesResource(SyncAPIResource):
         source_id: str,
         *,
         file: FileTypes,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -424,7 +397,6 @@ class SourcesResource(SyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         body = deepcopy_minimal({"file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
@@ -477,7 +449,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[EmbeddingconfigParam] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -515,7 +486,6 @@ class AsyncSourcesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             "/v1/sources/",
             body=await async_maybe_transform(
@@ -535,18 +505,17 @@ class AsyncSourcesResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        source_name: str,
+        source_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> Source:
         """
-        Get a source by name
+        Get all sources
 
         Args:
           extra_headers: Send extra headers
@@ -557,15 +526,14 @@ class AsyncSourcesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not source_name:
-            raise ValueError(f"Expected a non-empty value for `source_name` but received {source_name!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
+        if not source_id:
+            raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
         return await self._get(
-            f"/v1/sources/name/{source_name}",
+            f"/v1/sources/{source_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=str,
+            cast_to=Source,
         )
 
     async def update(
@@ -576,7 +544,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         embedding_config: Optional[EmbeddingconfigParam] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -616,7 +583,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._patch(
             f"/v1/sources/{source_id}",
             body=await async_maybe_transform(
@@ -637,7 +603,6 @@ class AsyncSourcesResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -645,19 +610,7 @@ class AsyncSourcesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> SourceListResponse:
-        """
-        List all data sources created by a user.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
+        """List all data sources created by a user."""
         return await self._get(
             "/v1/sources/",
             options=make_request_options(
@@ -670,7 +623,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         self,
         source_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -692,7 +644,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._delete(
             f"/v1/sources/{source_id}",
             options=make_request_options(
@@ -706,7 +657,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         source_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -730,7 +680,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             f"/v1/sources/{source_id}/attach",
             options=make_request_options(
@@ -748,7 +697,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         source_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -772,7 +720,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             f"/v1/sources/{source_id}/detach",
             options=make_request_options(
@@ -790,7 +737,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         source_id: str,
         *,
         file: FileTypes,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -812,7 +758,6 @@ class AsyncSourcesResource(AsyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         body = deepcopy_minimal({"file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be

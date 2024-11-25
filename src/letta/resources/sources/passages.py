@@ -5,7 +5,6 @@ from __future__ import annotations
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import strip_not_given
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -44,7 +43,6 @@ class PassagesResource(SyncAPIResource):
         self,
         source_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -66,7 +64,6 @@ class PassagesResource(SyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             f"/v1/sources/{source_id}/passages",
             options=make_request_options(
@@ -100,7 +97,6 @@ class AsyncPassagesResource(AsyncAPIResource):
         self,
         source_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -122,7 +118,6 @@ class AsyncPassagesResource(AsyncAPIResource):
         """
         if not source_id:
             raise ValueError(f"Expected a non-empty value for `source_id` but received {source_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             f"/v1/sources/{source_id}/passages",
             options=make_request_options(

@@ -5,7 +5,6 @@ from __future__ import annotations
 import httpx
 
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import strip_not_given
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -43,7 +42,6 @@ class ToolsNameResource(SyncAPIResource):
         self,
         tool_name: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -65,7 +63,6 @@ class ToolsNameResource(SyncAPIResource):
         """
         if not tool_name:
             raise ValueError(f"Expected a non-empty value for `tool_name` but received {tool_name!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             f"/v1/tools/name/{tool_name}",
             options=make_request_options(
@@ -99,7 +96,6 @@ class AsyncToolsNameResource(AsyncAPIResource):
         self,
         tool_name: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -121,7 +117,6 @@ class AsyncToolsNameResource(AsyncAPIResource):
         """
         if not tool_name:
             raise ValueError(f"Expected a non-empty value for `tool_name` but received {tool_name!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             f"/v1/tools/name/{tool_name}",
             options=make_request_options(

@@ -11,5 +11,3 @@ __all__ = ["SourceUploadParams"]
 
 class SourceUploadParams(TypedDict, total=False):
     file: Required[FileTypes]
-
-    user_id: str

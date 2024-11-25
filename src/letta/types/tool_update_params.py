@@ -32,5 +32,3 @@ class ToolUpdateParams(TypedDict, total=False):
 
     tags: Optional[List[str]]
     """Metadata tags."""
-
-    user_id: str

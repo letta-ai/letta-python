@@ -35,5 +35,3 @@ class SourceCreateParams(TypedDict, total=False):
 
     metadata: Annotated[Optional[object], PropertyInfo(alias="metadata_")]
     """Metadata associated with the source."""
-
-    user_id: str

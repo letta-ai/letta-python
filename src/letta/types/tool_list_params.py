@@ -12,5 +12,3 @@ class ToolListParams(TypedDict, total=False):
     cursor: Optional[str]
 
     limit: Optional[int]
-
-    user_id: str

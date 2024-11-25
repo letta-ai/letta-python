@@ -44,7 +44,6 @@ class TestSources:
                 "embedding_endpoint": "embedding_endpoint",
             },
             metadata={},
-            user_id="user_id",
         )
         assert_matches_type(Source, source, path=["response"])
 
@@ -75,47 +74,39 @@ class TestSources:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         source = client.sources.retrieve(
-            source_name="source_name",
+            "source_id",
         )
-        assert_matches_type(str, source, path=["response"])
-
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
-        source = client.sources.retrieve(
-            source_name="source_name",
-            user_id="user_id",
-        )
-        assert_matches_type(str, source, path=["response"])
+        assert_matches_type(Source, source, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.sources.with_raw_response.retrieve(
-            source_name="source_name",
+            "source_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         source = response.parse()
-        assert_matches_type(str, source, path=["response"])
+        assert_matches_type(Source, source, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.sources.with_streaming_response.retrieve(
-            source_name="source_name",
+            "source_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             source = response.parse()
-            assert_matches_type(str, source, path=["response"])
+            assert_matches_type(Source, source, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_retrieve(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_name` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
             client.sources.with_raw_response.retrieve(
-                source_name="",
+                "",
             )
 
     @parametrize
@@ -142,7 +133,6 @@ class TestSources:
             },
             metadata={},
             name="name",
-            user_id="user_id",
         )
         assert_matches_type(Source, source, path=["response"])
 
@@ -183,13 +173,6 @@ class TestSources:
         assert_matches_type(SourceListResponse, source, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: Letta) -> None:
-        source = client.sources.list(
-            user_id="user_id",
-        )
-        assert_matches_type(SourceListResponse, source, path=["response"])
-
-    @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.sources.with_raw_response.list()
 
@@ -212,22 +195,14 @@ class TestSources:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         source = client.sources.delete(
-            source_id="source_id",
-        )
-        assert_matches_type(object, source, path=["response"])
-
-    @parametrize
-    def test_method_delete_with_all_params(self, client: Letta) -> None:
-        source = client.sources.delete(
-            source_id="source_id",
-            user_id="user_id",
+            "source_id",
         )
         assert_matches_type(object, source, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.sources.with_raw_response.delete(
-            source_id="source_id",
+            "source_id",
         )
 
         assert response.is_closed is True
@@ -238,7 +213,7 @@ class TestSources:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.sources.with_streaming_response.delete(
-            source_id="source_id",
+            "source_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -252,7 +227,7 @@ class TestSources:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
             client.sources.with_raw_response.delete(
-                source_id="",
+                "",
             )
 
     @parametrize
@@ -260,15 +235,6 @@ class TestSources:
         source = client.sources.attach(
             source_id="source_id",
             agent_id="agent_id",
-        )
-        assert_matches_type(Source, source, path=["response"])
-
-    @parametrize
-    def test_method_attach_with_all_params(self, client: Letta) -> None:
-        source = client.sources.attach(
-            source_id="source_id",
-            agent_id="agent_id",
-            user_id="user_id",
         )
         assert_matches_type(Source, source, path=["response"])
 
@@ -315,15 +281,6 @@ class TestSources:
         assert_matches_type(Source, source, path=["response"])
 
     @parametrize
-    def test_method_detach_with_all_params(self, client: Letta) -> None:
-        source = client.sources.detach(
-            source_id="source_id",
-            agent_id="agent_id",
-            user_id="user_id",
-        )
-        assert_matches_type(Source, source, path=["response"])
-
-    @parametrize
     def test_raw_response_detach(self, client: Letta) -> None:
         response = client.sources.with_raw_response.detach(
             source_id="source_id",
@@ -362,15 +319,6 @@ class TestSources:
         source = client.sources.upload(
             source_id="source_id",
             file=b"raw file contents",
-        )
-        assert_matches_type(Job, source, path=["response"])
-
-    @parametrize
-    def test_method_upload_with_all_params(self, client: Letta) -> None:
-        source = client.sources.upload(
-            source_id="source_id",
-            file=b"raw file contents",
-            user_id="user_id",
         )
         assert_matches_type(Job, source, path=["response"])
 
@@ -435,7 +383,6 @@ class TestAsyncSources:
                 "embedding_endpoint": "embedding_endpoint",
             },
             metadata={},
-            user_id="user_id",
         )
         assert_matches_type(Source, source, path=["response"])
 
@@ -466,47 +413,39 @@ class TestAsyncSources:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         source = await async_client.sources.retrieve(
-            source_name="source_name",
+            "source_id",
         )
-        assert_matches_type(str, source, path=["response"])
-
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
-        source = await async_client.sources.retrieve(
-            source_name="source_name",
-            user_id="user_id",
-        )
-        assert_matches_type(str, source, path=["response"])
+        assert_matches_type(Source, source, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.sources.with_raw_response.retrieve(
-            source_name="source_name",
+            "source_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         source = await response.parse()
-        assert_matches_type(str, source, path=["response"])
+        assert_matches_type(Source, source, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.sources.with_streaming_response.retrieve(
-            source_name="source_name",
+            "source_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             source = await response.parse()
-            assert_matches_type(str, source, path=["response"])
+            assert_matches_type(Source, source, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_name` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
             await async_client.sources.with_raw_response.retrieve(
-                source_name="",
+                "",
             )
 
     @parametrize
@@ -533,7 +472,6 @@ class TestAsyncSources:
             },
             metadata={},
             name="name",
-            user_id="user_id",
         )
         assert_matches_type(Source, source, path=["response"])
 
@@ -574,13 +512,6 @@ class TestAsyncSources:
         assert_matches_type(SourceListResponse, source, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
-        source = await async_client.sources.list(
-            user_id="user_id",
-        )
-        assert_matches_type(SourceListResponse, source, path=["response"])
-
-    @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.sources.with_raw_response.list()
 
@@ -603,22 +534,14 @@ class TestAsyncSources:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         source = await async_client.sources.delete(
-            source_id="source_id",
-        )
-        assert_matches_type(object, source, path=["response"])
-
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
-        source = await async_client.sources.delete(
-            source_id="source_id",
-            user_id="user_id",
+            "source_id",
         )
         assert_matches_type(object, source, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.sources.with_raw_response.delete(
-            source_id="source_id",
+            "source_id",
         )
 
         assert response.is_closed is True
@@ -629,7 +552,7 @@ class TestAsyncSources:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.sources.with_streaming_response.delete(
-            source_id="source_id",
+            "source_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -643,7 +566,7 @@ class TestAsyncSources:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
             await async_client.sources.with_raw_response.delete(
-                source_id="",
+                "",
             )
 
     @parametrize
@@ -651,15 +574,6 @@ class TestAsyncSources:
         source = await async_client.sources.attach(
             source_id="source_id",
             agent_id="agent_id",
-        )
-        assert_matches_type(Source, source, path=["response"])
-
-    @parametrize
-    async def test_method_attach_with_all_params(self, async_client: AsyncLetta) -> None:
-        source = await async_client.sources.attach(
-            source_id="source_id",
-            agent_id="agent_id",
-            user_id="user_id",
         )
         assert_matches_type(Source, source, path=["response"])
 
@@ -706,15 +620,6 @@ class TestAsyncSources:
         assert_matches_type(Source, source, path=["response"])
 
     @parametrize
-    async def test_method_detach_with_all_params(self, async_client: AsyncLetta) -> None:
-        source = await async_client.sources.detach(
-            source_id="source_id",
-            agent_id="agent_id",
-            user_id="user_id",
-        )
-        assert_matches_type(Source, source, path=["response"])
-
-    @parametrize
     async def test_raw_response_detach(self, async_client: AsyncLetta) -> None:
         response = await async_client.sources.with_raw_response.detach(
             source_id="source_id",
@@ -753,15 +658,6 @@ class TestAsyncSources:
         source = await async_client.sources.upload(
             source_id="source_id",
             file=b"raw file contents",
-        )
-        assert_matches_type(Job, source, path=["response"])
-
-    @parametrize
-    async def test_method_upload_with_all_params(self, async_client: AsyncLetta) -> None:
-        source = await async_client.sources.upload(
-            source_id="source_id",
-            file=b"raw file contents",
-            user_id="user_id",
         )
         assert_matches_type(Job, source, path=["response"])
 

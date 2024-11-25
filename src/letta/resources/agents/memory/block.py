@@ -9,7 +9,6 @@ import httpx
 from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ...._utils import (
     maybe_transform,
-    strip_not_given,
     async_maybe_transform,
 )
 from ...._compat import cached_property
@@ -58,7 +57,6 @@ class BlockResource(SyncAPIResource):
         limit: int | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -92,7 +90,6 @@ class BlockResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             f"/v1/agents/{agent_id}/memory/block",
             body=maybe_transform(
@@ -118,7 +115,6 @@ class BlockResource(SyncAPIResource):
         block_label: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,7 +140,6 @@ class BlockResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_label:
             raise ValueError(f"Expected a non-empty value for `block_label` but received {block_label!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._delete(
             f"/v1/agents/{agent_id}/memory/block/{block_label}",
             options=make_request_options(
@@ -185,7 +180,6 @@ class AsyncBlockResource(AsyncAPIResource):
         limit: int | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -219,7 +213,6 @@ class AsyncBlockResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             f"/v1/agents/{agent_id}/memory/block",
             body=await async_maybe_transform(
@@ -245,7 +238,6 @@ class AsyncBlockResource(AsyncAPIResource):
         block_label: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -271,7 +263,6 @@ class AsyncBlockResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_label:
             raise ValueError(f"Expected a non-empty value for `block_label` but received {block_label!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._delete(
             f"/v1/agents/{agent_id}/memory/block/{block_label}",
             options=make_request_options(

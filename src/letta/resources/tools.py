@@ -10,7 +10,6 @@ from ..types import tool_list_params, tool_create_params, tool_update_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
-    strip_not_given,
     async_maybe_transform,
 )
 from .._compat import cached_property
@@ -59,7 +58,6 @@ class ToolsResource(SyncAPIResource):
         name: Optional[str] | NotGiven = NOT_GIVEN,
         source_type: str | NotGiven = NOT_GIVEN,
         tags: List[str] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -94,7 +92,6 @@ class ToolsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             "/v1/tools/",
             body=maybe_transform(
@@ -119,7 +116,6 @@ class ToolsResource(SyncAPIResource):
         self,
         tool_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,7 +137,6 @@ class ToolsResource(SyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             f"/v1/tools/{tool_id}",
             options=make_request_options(
@@ -161,7 +156,6 @@ class ToolsResource(SyncAPIResource):
         source_code: Optional[str] | NotGiven = NOT_GIVEN,
         source_type: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -198,7 +192,6 @@ class ToolsResource(SyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._patch(
             f"/v1/tools/{tool_id}",
             body=maybe_transform(
@@ -224,7 +217,6 @@ class ToolsResource(SyncAPIResource):
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -244,7 +236,6 @@ class ToolsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             "/v1/tools/",
             options=make_request_options(
@@ -299,7 +290,6 @@ class ToolsResource(SyncAPIResource):
     def add_base_tools(
         self,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -307,19 +297,7 @@ class ToolsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ToolAddBaseToolsResponse:
-        """
-        Add base tools
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
+        """Add base tools"""
         return self._post(
             "/v1/tools/add-base-tools",
             options=make_request_options(
@@ -359,7 +337,6 @@ class AsyncToolsResource(AsyncAPIResource):
         name: Optional[str] | NotGiven = NOT_GIVEN,
         source_type: str | NotGiven = NOT_GIVEN,
         tags: List[str] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -394,7 +371,6 @@ class AsyncToolsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             "/v1/tools/",
             body=await async_maybe_transform(
@@ -419,7 +395,6 @@ class AsyncToolsResource(AsyncAPIResource):
         self,
         tool_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -441,7 +416,6 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             f"/v1/tools/{tool_id}",
             options=make_request_options(
@@ -461,7 +435,6 @@ class AsyncToolsResource(AsyncAPIResource):
         source_code: Optional[str] | NotGiven = NOT_GIVEN,
         source_type: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -498,7 +471,6 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._patch(
             f"/v1/tools/{tool_id}",
             body=await async_maybe_transform(
@@ -524,7 +496,6 @@ class AsyncToolsResource(AsyncAPIResource):
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -544,7 +515,6 @@ class AsyncToolsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             "/v1/tools/",
             options=make_request_options(
@@ -599,7 +569,6 @@ class AsyncToolsResource(AsyncAPIResource):
     async def add_base_tools(
         self,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -607,19 +576,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ToolAddBaseToolsResponse:
-        """
-        Add base tools
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
+        """Add base tools"""
         return await self._post(
             "/v1/tools/add-base-tools",
             options=make_request_options(

@@ -19,22 +19,14 @@ class TestToolsName:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         tools_name = client.tools_name.retrieve(
-            tool_name="tool_name",
-        )
-        assert_matches_type(str, tools_name, path=["response"])
-
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
-        tools_name = client.tools_name.retrieve(
-            tool_name="tool_name",
-            user_id="user_id",
+            "tool_name",
         )
         assert_matches_type(str, tools_name, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.tools_name.with_raw_response.retrieve(
-            tool_name="tool_name",
+            "tool_name",
         )
 
         assert response.is_closed is True
@@ -45,7 +37,7 @@ class TestToolsName:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.tools_name.with_streaming_response.retrieve(
-            tool_name="tool_name",
+            "tool_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -59,7 +51,7 @@ class TestToolsName:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
             client.tools_name.with_raw_response.retrieve(
-                tool_name="",
+                "",
             )
 
 
@@ -69,22 +61,14 @@ class TestAsyncToolsName:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         tools_name = await async_client.tools_name.retrieve(
-            tool_name="tool_name",
-        )
-        assert_matches_type(str, tools_name, path=["response"])
-
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
-        tools_name = await async_client.tools_name.retrieve(
-            tool_name="tool_name",
-            user_id="user_id",
+            "tool_name",
         )
         assert_matches_type(str, tools_name, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.tools_name.with_raw_response.retrieve(
-            tool_name="tool_name",
+            "tool_name",
         )
 
         assert response.is_closed is True
@@ -95,7 +79,7 @@ class TestAsyncToolsName:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.tools_name.with_streaming_response.retrieve(
-            tool_name="tool_name",
+            "tool_name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -109,5 +93,5 @@ class TestAsyncToolsName:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
             await async_client.tools_name.with_raw_response.retrieve(
-                tool_name="",
+                "",
             )

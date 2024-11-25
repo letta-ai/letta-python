@@ -32,5 +32,3 @@ class ToolCreateParams(TypedDict, total=False):
 
     tags: List[str]
     """Metadata tags."""
-
-    user_id: str

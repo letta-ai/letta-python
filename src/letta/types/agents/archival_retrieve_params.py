@@ -17,5 +17,3 @@ class ArchivalRetrieveParams(TypedDict, total=False):
 
     limit: Optional[int]
     """How many results to include in the response."""
-
-    user_id: str

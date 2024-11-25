@@ -14,5 +14,3 @@ class FileListParams(TypedDict, total=False):
 
     limit: int
     """Number of files to return"""
-
-    user_id: str

@@ -9,7 +9,6 @@ import httpx
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import (
     maybe_transform,
-    strip_not_given,
     async_maybe_transform,
 )
 from ..._compat import cached_property
@@ -53,7 +52,6 @@ class ArchivalResource(SyncAPIResource):
         agent_id: str,
         *,
         text: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,7 +75,6 @@ class ArchivalResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             f"/v1/agents/{agent_id}/archival",
             body=maybe_transform({"text": text}, archival_create_params.ArchivalCreateParams),
@@ -94,7 +91,6 @@ class ArchivalResource(SyncAPIResource):
         after: Optional[int] | NotGiven = NOT_GIVEN,
         before: Optional[int] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -122,7 +118,6 @@ class ArchivalResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             f"/v1/agents/{agent_id}/archival",
             options=make_request_options(
@@ -147,7 +142,6 @@ class ArchivalResource(SyncAPIResource):
         memory_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,7 +165,6 @@ class ArchivalResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not memory_id:
             raise ValueError(f"Expected a non-empty value for `memory_id` but received {memory_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._delete(
             f"/v1/agents/{agent_id}/archival/{memory_id}",
             options=make_request_options(
@@ -206,7 +199,6 @@ class AsyncArchivalResource(AsyncAPIResource):
         agent_id: str,
         *,
         text: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -230,7 +222,6 @@ class AsyncArchivalResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             f"/v1/agents/{agent_id}/archival",
             body=await async_maybe_transform({"text": text}, archival_create_params.ArchivalCreateParams),
@@ -247,7 +238,6 @@ class AsyncArchivalResource(AsyncAPIResource):
         after: Optional[int] | NotGiven = NOT_GIVEN,
         before: Optional[int] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -275,7 +265,6 @@ class AsyncArchivalResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             f"/v1/agents/{agent_id}/archival",
             options=make_request_options(
@@ -300,7 +289,6 @@ class AsyncArchivalResource(AsyncAPIResource):
         memory_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -324,7 +312,6 @@ class AsyncArchivalResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not memory_id:
             raise ValueError(f"Expected a non-empty value for `memory_id` but received {memory_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._delete(
             f"/v1/agents/{agent_id}/archival/{memory_id}",
             options=make_request_options(

@@ -29,15 +29,6 @@ class TestArchival:
         assert_matches_type(ArchivalCreateResponse, archival, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: Letta) -> None:
-        archival = client.agents.archival.create(
-            agent_id="agent_id",
-            text="text",
-            user_id="user_id",
-        )
-        assert_matches_type(ArchivalCreateResponse, archival, path=["response"])
-
-    @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.agents.archival.with_raw_response.create(
             agent_id="agent_id",
@@ -85,7 +76,6 @@ class TestArchival:
             after=0,
             before=0,
             limit=0,
-            user_id="user_id",
         )
         assert_matches_type(ArchivalRetrieveResponse, archival, path=["response"])
 
@@ -125,15 +115,6 @@ class TestArchival:
         archival = client.agents.archival.delete(
             memory_id="memory_id",
             agent_id="agent_id",
-        )
-        assert_matches_type(object, archival, path=["response"])
-
-    @parametrize
-    def test_method_delete_with_all_params(self, client: Letta) -> None:
-        archival = client.agents.archival.delete(
-            memory_id="memory_id",
-            agent_id="agent_id",
-            user_id="user_id",
         )
         assert_matches_type(object, archival, path=["response"])
 
@@ -190,15 +171,6 @@ class TestAsyncArchival:
         assert_matches_type(ArchivalCreateResponse, archival, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
-        archival = await async_client.agents.archival.create(
-            agent_id="agent_id",
-            text="text",
-            user_id="user_id",
-        )
-        assert_matches_type(ArchivalCreateResponse, archival, path=["response"])
-
-    @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.archival.with_raw_response.create(
             agent_id="agent_id",
@@ -246,7 +218,6 @@ class TestAsyncArchival:
             after=0,
             before=0,
             limit=0,
-            user_id="user_id",
         )
         assert_matches_type(ArchivalRetrieveResponse, archival, path=["response"])
 
@@ -286,15 +257,6 @@ class TestAsyncArchival:
         archival = await async_client.agents.archival.delete(
             memory_id="memory_id",
             agent_id="agent_id",
-        )
-        assert_matches_type(object, archival, path=["response"])
-
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
-        archival = await async_client.agents.archival.delete(
-            memory_id="memory_id",
-            agent_id="agent_id",
-            user_id="user_id",
         )
         assert_matches_type(object, archival, path=["response"])
 

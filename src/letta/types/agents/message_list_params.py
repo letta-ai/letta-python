@@ -36,5 +36,3 @@ class MessageListParams(TypedDict, total=False):
     objects when the agent calls a designated message tool. If false, return
     FunctionCallMessage objects for all tool calls.
     """
-
-    user_id: str

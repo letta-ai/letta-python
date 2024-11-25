@@ -80,7 +80,5 @@ class AgentUpdateParams(TypedDict, total=False):
     tools: Optional[List[str]]
     """The tools used by the agent."""
 
-    body_user_id: Annotated[Optional[str], PropertyInfo(alias="user_id")]
+    user_id: Optional[str]
     """The user id of the agent."""
-
-    header_user_id: Annotated[str, PropertyInfo(alias="user_id")]
