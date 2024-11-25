@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 import pytest
 from pytest_asyncio import is_async_test
 
-from letta_client import Letta, AsyncLetta
+from letta import Letta, AsyncLetta
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("letta_client").setLevel(logging.DEBUG)
+logging.getLogger("letta").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
@@ -28,6 +28,8 @@ def pytest_collection_modifyitems(items: list[pytest.Function]) -> None:
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
+bearer_token = "My Bearer Token"
+
 
 @pytest.fixture(scope="session")
 def client(request: FixtureRequest) -> Iterator[Letta]:
@@ -35,7 +37,7 @@ def client(request: FixtureRequest) -> Iterator[Letta]:
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with Letta(base_url=base_url, _strict_response_validation=strict) as client:
+    with Letta(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
         yield client
 
 
@@ -45,5 +47,5 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLetta]:
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    async with AsyncLetta(base_url=base_url, _strict_response_validation=strict) as client:
+    async with AsyncLetta(base_url=base_url, bearer_token=bearer_token, _strict_response_validation=strict) as client:
         yield client

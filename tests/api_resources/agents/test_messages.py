@@ -7,13 +7,11 @@ from typing import Any, cast
 
 import pytest
 
+from letta import Letta, AsyncLetta
+from letta.types import LettaResponse
 from tests.utils import assert_matches_type
-from letta_client import Letta, AsyncLetta
-from letta_client.types.agents import (
-    MessageCreateResponse,
-    MessageUpdateResponse,
-    MessageRetrieveResponse,
-)
+from letta.types.agents import MessageListResponse
+from letta.types.agents.memory import MessageOutput
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -22,149 +20,13 @@ class TestMessages:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: Letta) -> None:
-        message = client.agents.messages.create(
-            agent_id="agent_id",
-            messages=[
-                {
-                    "role": "user",
-                    "text": "text",
-                }
-            ],
-        )
-        assert_matches_type(MessageCreateResponse, message, path=["response"])
-
-    @parametrize
-    def test_method_create_with_all_params(self, client: Letta) -> None:
-        message = client.agents.messages.create(
-            agent_id="agent_id",
-            messages=[
-                {
-                    "role": "user",
-                    "text": "text",
-                    "name": "name",
-                }
-            ],
-            assistant_message_function_kwarg="assistant_message_function_kwarg",
-            assistant_message_function_name="assistant_message_function_name",
-            return_message_object=True,
-            run_async=True,
-            stream_steps=True,
-            stream_tokens=True,
-            use_assistant_message=True,
-            user_id="user_id",
-        )
-        assert_matches_type(MessageCreateResponse, message, path=["response"])
-
-    @parametrize
-    def test_raw_response_create(self, client: Letta) -> None:
-        response = client.agents.messages.with_raw_response.create(
-            agent_id="agent_id",
-            messages=[
-                {
-                    "role": "user",
-                    "text": "text",
-                }
-            ],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = response.parse()
-        assert_matches_type(MessageCreateResponse, message, path=["response"])
-
-    @parametrize
-    def test_streaming_response_create(self, client: Letta) -> None:
-        with client.agents.messages.with_streaming_response.create(
-            agent_id="agent_id",
-            messages=[
-                {
-                    "role": "user",
-                    "text": "text",
-                }
-            ],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = response.parse()
-            assert_matches_type(MessageCreateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_create(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.messages.with_raw_response.create(
-                agent_id="",
-                messages=[
-                    {
-                        "role": "user",
-                        "text": "text",
-                    }
-                ],
-            )
-
-    @parametrize
-    def test_method_retrieve(self, client: Letta) -> None:
-        message = client.agents.messages.retrieve(
-            agent_id="agent_id",
-        )
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
-        message = client.agents.messages.retrieve(
-            agent_id="agent_id",
-            assistant_message_function_kwarg="assistant_message_function_kwarg",
-            assistant_message_function_name="assistant_message_function_name",
-            before="before",
-            limit=0,
-            msg_object=True,
-            use_assistant_message=True,
-            user_id="user_id",
-        )
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-    @parametrize
-    def test_raw_response_retrieve(self, client: Letta) -> None:
-        response = client.agents.messages.with_raw_response.retrieve(
-            agent_id="agent_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = response.parse()
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-    @parametrize
-    def test_streaming_response_retrieve(self, client: Letta) -> None:
-        with client.agents.messages.with_streaming_response.retrieve(
-            agent_id="agent_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = response.parse()
-            assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_retrieve(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.messages.with_raw_response.retrieve(
-                agent_id="",
-            )
-
-    @parametrize
     def test_method_update(self, client: Letta) -> None:
         message = client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
             id="id",
         )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
+        assert_matches_type(MessageOutput, message, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Letta) -> None:
@@ -187,7 +49,7 @@ class TestMessages:
                 }
             ],
         )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
+        assert_matches_type(MessageOutput, message, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
@@ -200,7 +62,7 @@ class TestMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
+        assert_matches_type(MessageOutput, message, path=["response"])
 
     @parametrize
     def test_streaming_response_update(self, client: Letta) -> None:
@@ -213,7 +75,7 @@ class TestMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
+            assert_matches_type(MessageOutput, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -233,13 +95,61 @@ class TestMessages:
                 id="id",
             )
 
-
-class TestAsyncMessages:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    @parametrize
+    def test_method_list(self, client: Letta) -> None:
+        message = client.agents.messages.list(
+            agent_id="agent_id",
+        )
+        assert_matches_type(MessageListResponse, message, path=["response"])
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.create(
+    def test_method_list_with_all_params(self, client: Letta) -> None:
+        message = client.agents.messages.list(
+            agent_id="agent_id",
+            assistant_message_function_kwarg="assistant_message_function_kwarg",
+            assistant_message_function_name="assistant_message_function_name",
+            before="before",
+            limit=0,
+            msg_object=True,
+            use_assistant_message=True,
+            user_id="user_id",
+        )
+        assert_matches_type(MessageListResponse, message, path=["response"])
+
+    @parametrize
+    def test_raw_response_list(self, client: Letta) -> None:
+        response = client.agents.messages.with_raw_response.list(
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = response.parse()
+        assert_matches_type(MessageListResponse, message, path=["response"])
+
+    @parametrize
+    def test_streaming_response_list(self, client: Letta) -> None:
+        with client.agents.messages.with_streaming_response.list(
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = response.parse()
+            assert_matches_type(MessageListResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_list(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.messages.with_raw_response.list(
+                agent_id="",
+            )
+
+    @parametrize
+    def test_method_process(self, client: Letta) -> None:
+        message = client.agents.messages.process(
             agent_id="agent_id",
             messages=[
                 {
@@ -248,11 +158,11 @@ class TestAsyncMessages:
                 }
             ],
         )
-        assert_matches_type(MessageCreateResponse, message, path=["response"])
+        assert_matches_type(LettaResponse, message, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.create(
+    def test_method_process_with_all_params(self, client: Letta) -> None:
+        message = client.agents.messages.process(
             agent_id="agent_id",
             messages=[
                 {
@@ -270,11 +180,11 @@ class TestAsyncMessages:
             use_assistant_message=True,
             user_id="user_id",
         )
-        assert_matches_type(MessageCreateResponse, message, path=["response"])
+        assert_matches_type(LettaResponse, message, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.messages.with_raw_response.create(
+    def test_raw_response_process(self, client: Letta) -> None:
+        response = client.agents.messages.with_raw_response.process(
             agent_id="agent_id",
             messages=[
                 {
@@ -286,12 +196,12 @@ class TestAsyncMessages:
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = await response.parse()
-        assert_matches_type(MessageCreateResponse, message, path=["response"])
+        message = response.parse()
+        assert_matches_type(LettaResponse, message, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.messages.with_streaming_response.create(
+    def test_streaming_response_process(self, client: Letta) -> None:
+        with client.agents.messages.with_streaming_response.process(
             agent_id="agent_id",
             messages=[
                 {
@@ -303,15 +213,15 @@ class TestAsyncMessages:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            message = await response.parse()
-            assert_matches_type(MessageCreateResponse, message, path=["response"])
+            message = response.parse()
+            assert_matches_type(LettaResponse, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_create(self, async_client: AsyncLetta) -> None:
+    def test_path_params_process(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.create(
+            client.agents.messages.with_raw_response.process(
                 agent_id="",
                 messages=[
                     {
@@ -321,57 +231,9 @@ class TestAsyncMessages:
                 ],
             )
 
-    @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.retrieve(
-            agent_id="agent_id",
-        )
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.retrieve(
-            agent_id="agent_id",
-            assistant_message_function_kwarg="assistant_message_function_kwarg",
-            assistant_message_function_name="assistant_message_function_name",
-            before="before",
-            limit=0,
-            msg_object=True,
-            use_assistant_message=True,
-            user_id="user_id",
-        )
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-    @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.messages.with_raw_response.retrieve(
-            agent_id="agent_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = await response.parse()
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.messages.with_streaming_response.retrieve(
-            agent_id="agent_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = await response.parse()
-            assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.retrieve(
-                agent_id="",
-            )
+class TestAsyncMessages:
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
     async def test_method_update(self, async_client: AsyncLetta) -> None:
@@ -380,7 +242,7 @@ class TestAsyncMessages:
             agent_id="agent_id",
             id="id",
         )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
+        assert_matches_type(MessageOutput, message, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
@@ -403,7 +265,7 @@ class TestAsyncMessages:
                 }
             ],
         )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
+        assert_matches_type(MessageOutput, message, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
@@ -416,7 +278,7 @@ class TestAsyncMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
+        assert_matches_type(MessageOutput, message, path=["response"])
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
@@ -429,7 +291,7 @@ class TestAsyncMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
+            assert_matches_type(MessageOutput, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -447,4 +309,140 @@ class TestAsyncMessages:
                 message_id="",
                 agent_id="agent_id",
                 id="id",
+            )
+
+    @parametrize
+    async def test_method_list(self, async_client: AsyncLetta) -> None:
+        message = await async_client.agents.messages.list(
+            agent_id="agent_id",
+        )
+        assert_matches_type(MessageListResponse, message, path=["response"])
+
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
+        message = await async_client.agents.messages.list(
+            agent_id="agent_id",
+            assistant_message_function_kwarg="assistant_message_function_kwarg",
+            assistant_message_function_name="assistant_message_function_name",
+            before="before",
+            limit=0,
+            msg_object=True,
+            use_assistant_message=True,
+            user_id="user_id",
+        )
+        assert_matches_type(MessageListResponse, message, path=["response"])
+
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.messages.with_raw_response.list(
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert_matches_type(MessageListResponse, message, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.messages.with_streaming_response.list(
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert_matches_type(MessageListResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_list(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.messages.with_raw_response.list(
+                agent_id="",
+            )
+
+    @parametrize
+    async def test_method_process(self, async_client: AsyncLetta) -> None:
+        message = await async_client.agents.messages.process(
+            agent_id="agent_id",
+            messages=[
+                {
+                    "role": "user",
+                    "text": "text",
+                }
+            ],
+        )
+        assert_matches_type(LettaResponse, message, path=["response"])
+
+    @parametrize
+    async def test_method_process_with_all_params(self, async_client: AsyncLetta) -> None:
+        message = await async_client.agents.messages.process(
+            agent_id="agent_id",
+            messages=[
+                {
+                    "role": "user",
+                    "text": "text",
+                    "name": "name",
+                }
+            ],
+            assistant_message_function_kwarg="assistant_message_function_kwarg",
+            assistant_message_function_name="assistant_message_function_name",
+            return_message_object=True,
+            run_async=True,
+            stream_steps=True,
+            stream_tokens=True,
+            use_assistant_message=True,
+            user_id="user_id",
+        )
+        assert_matches_type(LettaResponse, message, path=["response"])
+
+    @parametrize
+    async def test_raw_response_process(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.messages.with_raw_response.process(
+            agent_id="agent_id",
+            messages=[
+                {
+                    "role": "user",
+                    "text": "text",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert_matches_type(LettaResponse, message, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_process(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.messages.with_streaming_response.process(
+            agent_id="agent_id",
+            messages=[
+                {
+                    "role": "user",
+                    "text": "text",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert_matches_type(LettaResponse, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_process(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.messages.with_raw_response.process(
+                agent_id="",
+                messages=[
+                    {
+                        "role": "user",
+                        "text": "text",
+                    }
+                ],
             )

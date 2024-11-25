@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from letta import Letta, AsyncLetta
 from tests.utils import assert_matches_type
-from letta_client import Letta, AsyncLetta
-from letta_client.types.sources import FileListResponse
+from letta.types.sources import FileListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -65,63 +65,6 @@ class TestFiles:
                 source_id="",
             )
 
-    @parametrize
-    def test_method_delete(self, client: Letta) -> None:
-        file = client.sources.files.delete(
-            file_id="file_id",
-            source_id="source_id",
-        )
-        assert file is None
-
-    @parametrize
-    def test_method_delete_with_all_params(self, client: Letta) -> None:
-        file = client.sources.files.delete(
-            file_id="file_id",
-            source_id="source_id",
-            user_id="user_id",
-        )
-        assert file is None
-
-    @parametrize
-    def test_raw_response_delete(self, client: Letta) -> None:
-        response = client.sources.files.with_raw_response.delete(
-            file_id="file_id",
-            source_id="source_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        file = response.parse()
-        assert file is None
-
-    @parametrize
-    def test_streaming_response_delete(self, client: Letta) -> None:
-        with client.sources.files.with_streaming_response.delete(
-            file_id="file_id",
-            source_id="source_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            file = response.parse()
-            assert file is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_delete(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
-            client.sources.files.with_raw_response.delete(
-                file_id="file_id",
-                source_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.sources.files.with_raw_response.delete(
-                file_id="",
-                source_id="source_id",
-            )
-
 
 class TestAsyncFiles:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -172,61 +115,4 @@ class TestAsyncFiles:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
             await async_client.sources.files.with_raw_response.list(
                 source_id="",
-            )
-
-    @parametrize
-    async def test_method_delete(self, async_client: AsyncLetta) -> None:
-        file = await async_client.sources.files.delete(
-            file_id="file_id",
-            source_id="source_id",
-        )
-        assert file is None
-
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
-        file = await async_client.sources.files.delete(
-            file_id="file_id",
-            source_id="source_id",
-            user_id="user_id",
-        )
-        assert file is None
-
-    @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
-        response = await async_client.sources.files.with_raw_response.delete(
-            file_id="file_id",
-            source_id="source_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        file = await response.parse()
-        assert file is None
-
-    @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
-        async with async_client.sources.files.with_streaming_response.delete(
-            file_id="file_id",
-            source_id="source_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            file = await response.parse()
-            assert file is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
-            await async_client.sources.files.with_raw_response.delete(
-                file_id="file_id",
-                source_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.sources.files.with_raw_response.delete(
-                file_id="",
-                source_id="source_id",
             )
