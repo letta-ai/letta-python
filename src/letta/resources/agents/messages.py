@@ -22,10 +22,10 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.agents import message_list_params, message_update_params, message_process_params
-from ...types.letta_response import LettaResponse
-from ...types.agents.memory.message_output import MessageOutput
+from ...types.agents import message_list_params, message_create_params, message_update_params
 from ...types.agents.message_list_response import MessageListResponse
+from ...types.agents.message_create_response import MessageCreateResponse
+from ...types.agents.message_update_response import MessageUpdateResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -50,6 +50,90 @@ class MessagesResource(SyncAPIResource):
         """
         return MessagesResourceWithStreamingResponse(self)
 
+    def create(
+        self,
+        agent_id: str,
+        *,
+        messages: Union[
+            Iterable[message_create_params.MessagesUnionMember0], Iterable[message_create_params.MessagesUnionMember1]
+        ],
+        assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
+        assistant_message_function_name: str | NotGiven = NOT_GIVEN,
+        return_message_object: bool | NotGiven = NOT_GIVEN,
+        run_async: bool | NotGiven = NOT_GIVEN,
+        stream_steps: bool | NotGiven = NOT_GIVEN,
+        stream_tokens: bool | NotGiven = NOT_GIVEN,
+        use_assistant_message: bool | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> MessageCreateResponse:
+        """Process a user message and return the agent's response.
+
+        This endpoint accepts a
+        message from a user and processes it through the agent. It can optionally stream
+        the response if 'stream_steps' or 'stream_tokens' is set to True.
+
+        Args:
+          messages: The messages to be sent to the agent.
+
+          assistant_message_function_kwarg: [Only applicable if use_assistant_message is True] The name of the message
+              argument in the designated message tool.
+
+          assistant_message_function_name: [Only applicable if use_assistant_message is True] The name of the designated
+              message tool.
+
+          return_message_object: Set True to return the raw Message object. Set False to return the Message in
+              the format of the Letta API.
+
+          run_async: Whether to asynchronously send the messages to the agent.
+
+          stream_steps: Flag to determine if the response should be streamed. Set to True for streaming
+              agent steps.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed. Set to True for token
+              streaming (requires stream_steps = True).
+
+          use_assistant_message: [Only applicable if return_message_object is False] If true, returns
+              AssistantMessage objects when the agent calls a designated message tool. If
+              false, return FunctionCallMessage objects for all tool calls.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
+        return self._post(
+            f"/v1/agents/{agent_id}/messages",
+            body=maybe_transform(
+                {
+                    "messages": messages,
+                    "assistant_message_function_kwarg": assistant_message_function_kwarg,
+                    "assistant_message_function_name": assistant_message_function_name,
+                    "return_message_object": return_message_object,
+                    "run_async": run_async,
+                    "stream_steps": stream_steps,
+                    "stream_tokens": stream_tokens,
+                    "use_assistant_message": use_assistant_message,
+                },
+                message_create_params.MessageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageCreateResponse,
+        )
+
     def update(
         self,
         message_id: str,
@@ -67,7 +151,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MessageOutput:
+    ) -> MessageUpdateResponse:
         """
         Update the details of a message associated with an agent.
 
@@ -112,7 +196,7 @@ class MessagesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MessageOutput,
+            cast_to=MessageUpdateResponse,
         )
 
     def list(
@@ -191,12 +275,33 @@ class MessagesResource(SyncAPIResource):
             ),
         )
 
-    def process(
+
+class AsyncMessagesResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncMessagesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/letta-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncMessagesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncMessagesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/letta-python#with_streaming_response
+        """
+        return AsyncMessagesResourceWithStreamingResponse(self)
+
+    async def create(
         self,
         agent_id: str,
         *,
         messages: Union[
-            Iterable[message_process_params.MessagesUnionMember0], Iterable[message_process_params.MessagesUnionMember1]
+            Iterable[message_create_params.MessagesUnionMember0], Iterable[message_create_params.MessagesUnionMember1]
         ],
         assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_function_name: str | NotGiven = NOT_GIVEN,
@@ -212,7 +317,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> LettaResponse:
+    ) -> MessageCreateResponse:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -254,9 +359,9 @@ class MessagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
-        return self._post(
+        return await self._post(
             f"/v1/agents/{agent_id}/messages",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "messages": messages,
                     "assistant_message_function_kwarg": assistant_message_function_kwarg,
@@ -267,34 +372,13 @@ class MessagesResource(SyncAPIResource):
                     "stream_tokens": stream_tokens,
                     "use_assistant_message": use_assistant_message,
                 },
-                message_process_params.MessageProcessParams,
+                message_create_params.MessageCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=LettaResponse,
+            cast_to=MessageCreateResponse,
         )
-
-
-class AsyncMessagesResource(AsyncAPIResource):
-    @cached_property
-    def with_raw_response(self) -> AsyncMessagesResourceWithRawResponse:
-        """
-        This property can be used as a prefix for any HTTP method call to return the
-        the raw response object instead of the parsed content.
-
-        For more information, see https://www.github.com/stainless-sdks/letta-python#accessing-raw-response-data-eg-headers
-        """
-        return AsyncMessagesResourceWithRawResponse(self)
-
-    @cached_property
-    def with_streaming_response(self) -> AsyncMessagesResourceWithStreamingResponse:
-        """
-        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
-
-        For more information, see https://www.github.com/stainless-sdks/letta-python#with_streaming_response
-        """
-        return AsyncMessagesResourceWithStreamingResponse(self)
 
     async def update(
         self,
@@ -313,7 +397,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> MessageOutput:
+    ) -> MessageUpdateResponse:
         """
         Update the details of a message associated with an agent.
 
@@ -358,7 +442,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MessageOutput,
+            cast_to=MessageUpdateResponse,
         )
 
     async def list(
@@ -437,103 +521,19 @@ class AsyncMessagesResource(AsyncAPIResource):
             ),
         )
 
-    async def process(
-        self,
-        agent_id: str,
-        *,
-        messages: Union[
-            Iterable[message_process_params.MessagesUnionMember0], Iterable[message_process_params.MessagesUnionMember1]
-        ],
-        assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
-        assistant_message_function_name: str | NotGiven = NOT_GIVEN,
-        return_message_object: bool | NotGiven = NOT_GIVEN,
-        run_async: bool | NotGiven = NOT_GIVEN,
-        stream_steps: bool | NotGiven = NOT_GIVEN,
-        stream_tokens: bool | NotGiven = NOT_GIVEN,
-        use_assistant_message: bool | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> LettaResponse:
-        """Process a user message and return the agent's response.
-
-        This endpoint accepts a
-        message from a user and processes it through the agent. It can optionally stream
-        the response if 'stream_steps' or 'stream_tokens' is set to True.
-
-        Args:
-          messages: The messages to be sent to the agent.
-
-          assistant_message_function_kwarg: [Only applicable if use_assistant_message is True] The name of the message
-              argument in the designated message tool.
-
-          assistant_message_function_name: [Only applicable if use_assistant_message is True] The name of the designated
-              message tool.
-
-          return_message_object: Set True to return the raw Message object. Set False to return the Message in
-              the format of the Letta API.
-
-          run_async: Whether to asynchronously send the messages to the agent.
-
-          stream_steps: Flag to determine if the response should be streamed. Set to True for streaming
-              agent steps.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed. Set to True for token
-              streaming (requires stream_steps = True).
-
-          use_assistant_message: [Only applicable if return_message_object is False] If true, returns
-              AssistantMessage objects when the agent calls a designated message tool. If
-              false, return FunctionCallMessage objects for all tool calls.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
-        return await self._post(
-            f"/v1/agents/{agent_id}/messages",
-            body=await async_maybe_transform(
-                {
-                    "messages": messages,
-                    "assistant_message_function_kwarg": assistant_message_function_kwarg,
-                    "assistant_message_function_name": assistant_message_function_name,
-                    "return_message_object": return_message_object,
-                    "run_async": run_async,
-                    "stream_steps": stream_steps,
-                    "stream_tokens": stream_tokens,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_process_params.MessageProcessParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=LettaResponse,
-        )
-
 
 class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
 
+        self.create = to_raw_response_wrapper(
+            messages.create,
+        )
         self.update = to_raw_response_wrapper(
             messages.update,
         )
         self.list = to_raw_response_wrapper(
             messages.list,
-        )
-        self.process = to_raw_response_wrapper(
-            messages.process,
         )
 
 
@@ -541,14 +541,14 @@ class AsyncMessagesResourceWithRawResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
 
+        self.create = async_to_raw_response_wrapper(
+            messages.create,
+        )
         self.update = async_to_raw_response_wrapper(
             messages.update,
         )
         self.list = async_to_raw_response_wrapper(
             messages.list,
-        )
-        self.process = async_to_raw_response_wrapper(
-            messages.process,
         )
 
 
@@ -556,14 +556,14 @@ class MessagesResourceWithStreamingResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
 
+        self.create = to_streamed_response_wrapper(
+            messages.create,
+        )
         self.update = to_streamed_response_wrapper(
             messages.update,
         )
         self.list = to_streamed_response_wrapper(
             messages.list,
-        )
-        self.process = to_streamed_response_wrapper(
-            messages.process,
         )
 
 
@@ -571,12 +571,12 @@ class AsyncMessagesResourceWithStreamingResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
 
+        self.create = async_to_streamed_response_wrapper(
+            messages.create,
+        )
         self.update = async_to_streamed_response_wrapper(
             messages.update,
         )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
-        )
-        self.process = async_to_streamed_response_wrapper(
-            messages.process,
         )

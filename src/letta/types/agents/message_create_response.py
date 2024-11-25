@@ -6,10 +6,10 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
 __all__ = [
-    "LettaResponse",
+    "MessageCreateResponse",
     "AssistantMessage",
     "FunctionCall",
     "FunctionCallDelta",
@@ -213,7 +213,7 @@ class UserMessage(BaseModel):
     message_type: Optional[Literal["user_message"]] = None
 
 
-class LettaResponse(BaseModel):
+class MessageCreateResponse(BaseModel):
     assistant_message: Optional[AssistantMessage] = FieldInfo(alias="AssistantMessage", default=None)
 
     function_call: Optional[FunctionCall] = FieldInfo(alias="FunctionCall", default=None)

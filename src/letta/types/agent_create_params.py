@@ -2,20 +2,21 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .memory_param import MemoryParam
-from .llm_config_param import LlmConfigParam
-from .embedding_config_param import EmbeddingConfigParam
+from .shared_params.block import Block
 
 __all__ = [
     "AgentCreateParams",
+    "EmbeddingConfig",
     "InitialMessageSequence",
     "InitialMessageSequenceToolCall",
     "InitialMessageSequenceToolCallFunction",
+    "LlmConfig",
+    "Memory",
     "ToolRule",
 ]
 
@@ -27,7 +28,7 @@ class AgentCreateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the agent."""
 
-    embedding_config: Optional[EmbeddingConfigParam]
+    embedding_config: Optional[EmbeddingConfig]
     """Embedding model configuration.
 
     This object specifies all the information necessary to access an embedding model
@@ -45,7 +46,7 @@ class AgentCreateParams(TypedDict, total=False):
     initial_message_sequence: Optional[Iterable[InitialMessageSequence]]
     """The initial set of messages to put in the agent's in-context memory."""
 
-    llm_config: Optional[LlmConfigParam]
+    llm_config: Optional[LlmConfig]
     """Configuration for a Language Model (LLM) model.
 
     This object specifies all the information necessary to access an LLM model to
@@ -62,7 +63,7 @@ class AgentCreateParams(TypedDict, total=False):
     inner thoughts.
     """
 
-    memory: Optional[MemoryParam]
+    memory: Optional[Memory]
     """Represents the in-context memory of the agent.
 
     This includes both the `Block` objects (labelled by sections), as well as tools
@@ -97,6 +98,32 @@ class AgentCreateParams(TypedDict, total=False):
     """The user id of the agent."""
 
     header_user_id: Annotated[str, PropertyInfo(alias="user_id")]
+
+
+class EmbeddingConfig(TypedDict, total=False):
+    embedding_dim: Required[int]
+    """The dimension of the embedding."""
+
+    embedding_endpoint_type: Required[str]
+    """The endpoint type for the model."""
+
+    embedding_model: Required[str]
+    """The model for the embedding."""
+
+    azure_deployment: Optional[str]
+    """The Azure deployment for the model."""
+
+    azure_endpoint: Optional[str]
+    """The Azure endpoint for the model."""
+
+    azure_version: Optional[str]
+    """The Azure version for the model."""
+
+    embedding_chunk_size: Optional[int]
+    """The chunk size of the embedding."""
+
+    embedding_endpoint: Optional[str]
+    """The endpoint for the model (`None` if local)."""
 
 
 class InitialMessageSequenceToolCallFunction(TypedDict, total=False):
@@ -147,6 +174,58 @@ class InitialMessageSequence(TypedDict, total=False):
 
     user_id: Optional[str]
     """The unique identifier of the user."""
+
+
+class LlmConfig(TypedDict, total=False):
+    context_window: Required[int]
+    """The context window size for the model."""
+
+    model: Required[str]
+    """LLM model name."""
+
+    model_endpoint_type: Required[
+        Literal[
+            "openai",
+            "anthropic",
+            "cohere",
+            "google_ai",
+            "azure",
+            "groq",
+            "ollama",
+            "webui",
+            "webui-legacy",
+            "lmstudio",
+            "lmstudio-legacy",
+            "llamacpp",
+            "koboldcpp",
+            "vllm",
+            "hugging-face",
+            "mistral",
+            "together",
+        ]
+    ]
+    """The endpoint type for the model."""
+
+    model_endpoint: Optional[str]
+    """The endpoint for the model."""
+
+    model_wrapper: Optional[str]
+    """The wrapper for the model."""
+
+    put_inner_thoughts_in_kwargs: Optional[bool]
+    """Puts 'inner_thoughts' as a kwarg in the function call if this is set to True.
+
+    This helps with function calling performance and also the generation of inner
+    thoughts.
+    """
+
+
+class Memory(TypedDict, total=False):
+    memory: Dict[str, Block]
+    """Mapping from memory block section to memory block."""
+
+    prompt_template: str
+    """Jinja2 template for compiling memory blocks into a prompt string"""
 
 
 class ToolRule(TypedDict, total=False):

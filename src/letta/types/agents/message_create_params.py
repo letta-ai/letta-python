@@ -9,7 +9,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 from ..._utils import PropertyInfo
 
 __all__ = [
-    "MessageProcessParams",
+    "MessageCreateParams",
     "MessagesUnionMember0",
     "MessagesUnionMember1",
     "MessagesUnionMember1ToolCall",
@@ -17,7 +17,7 @@ __all__ = [
 ]
 
 
-class MessageProcessParams(TypedDict, total=False):
+class MessageCreateParams(TypedDict, total=False):
     messages: Required[Union[Iterable[MessagesUnionMember0], Iterable[MessagesUnionMember1]]]
     """The messages to be sent to the agent."""
 

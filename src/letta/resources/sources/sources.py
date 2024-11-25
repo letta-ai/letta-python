@@ -49,7 +49,6 @@ from ..._base_client import make_request_options
 from ...types.source import Source
 from ...types.shared.job import Job
 from ...types.source_list_response import SourceListResponse
-from ...types.embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["SourcesResource", "AsyncSourcesResource"]
 
@@ -87,7 +86,7 @@ class SourcesResource(SyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        embedding_config: Optional[EmbeddingConfigParam] | NotGiven = NOT_GIVEN,
+        embedding_config: Optional[source_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -185,7 +184,7 @@ class SourcesResource(SyncAPIResource):
         source_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        embedding_config: Optional[EmbeddingConfigParam] | NotGiven = NOT_GIVEN,
+        embedding_config: Optional[source_update_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
@@ -479,7 +478,7 @@ class AsyncSourcesResource(AsyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        embedding_config: Optional[EmbeddingConfigParam] | NotGiven = NOT_GIVEN,
+        embedding_config: Optional[source_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -577,7 +576,7 @@ class AsyncSourcesResource(AsyncAPIResource):
         source_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        embedding_config: Optional[EmbeddingConfigParam] | NotGiven = NOT_GIVEN,
+        embedding_config: Optional[source_update_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
