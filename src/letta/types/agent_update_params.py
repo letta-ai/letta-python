@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing import List, Optional
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .shared_params.block import Block
+from .memory_param import MemoryParam
+from .llmconfig_param import LlmconfigParam
+from .embeddingconfig_param import EmbeddingconfigParam
 
-__all__ = ["AgentUpdateParams", "EmbeddingConfig", "LlmConfig", "Memory"]
+__all__ = ["AgentUpdateParams"]
 
 
 class AgentUpdateParams(TypedDict, total=False):
@@ -18,7 +20,7 @@ class AgentUpdateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the agent."""
 
-    embedding_config: Optional[EmbeddingConfig]
+    embedding_config: Optional[EmbeddingconfigParam]
     """Embedding model configuration.
 
     This object specifies all the information necessary to access an embedding model
@@ -33,7 +35,7 @@ class AgentUpdateParams(TypedDict, total=False):
     azure_deployment (str): The Azure deployment for the model (Azure only).
     """
 
-    llm_config: Optional[LlmConfig]
+    llm_config: Optional[LlmconfigParam]
     """Configuration for a Language Model (LLM) model.
 
     This object specifies all the information necessary to access an LLM model to
@@ -50,7 +52,7 @@ class AgentUpdateParams(TypedDict, total=False):
     inner thoughts.
     """
 
-    memory: Optional[Memory]
+    memory: Optional[MemoryParam]
     """Represents the in-context memory of the agent.
 
     This includes both the `Block` objects (labelled by sections), as well as tools
@@ -82,81 +84,3 @@ class AgentUpdateParams(TypedDict, total=False):
     """The user id of the agent."""
 
     header_user_id: Annotated[str, PropertyInfo(alias="user_id")]
-
-
-class EmbeddingConfig(TypedDict, total=False):
-    embedding_dim: Required[int]
-    """The dimension of the embedding."""
-
-    embedding_endpoint_type: Required[str]
-    """The endpoint type for the model."""
-
-    embedding_model: Required[str]
-    """The model for the embedding."""
-
-    azure_deployment: Optional[str]
-    """The Azure deployment for the model."""
-
-    azure_endpoint: Optional[str]
-    """The Azure endpoint for the model."""
-
-    azure_version: Optional[str]
-    """The Azure version for the model."""
-
-    embedding_chunk_size: Optional[int]
-    """The chunk size of the embedding."""
-
-    embedding_endpoint: Optional[str]
-    """The endpoint for the model (`None` if local)."""
-
-
-class LlmConfig(TypedDict, total=False):
-    context_window: Required[int]
-    """The context window size for the model."""
-
-    model: Required[str]
-    """LLM model name."""
-
-    model_endpoint_type: Required[
-        Literal[
-            "openai",
-            "anthropic",
-            "cohere",
-            "google_ai",
-            "azure",
-            "groq",
-            "ollama",
-            "webui",
-            "webui-legacy",
-            "lmstudio",
-            "lmstudio-legacy",
-            "llamacpp",
-            "koboldcpp",
-            "vllm",
-            "hugging-face",
-            "mistral",
-            "together",
-        ]
-    ]
-    """The endpoint type for the model."""
-
-    model_endpoint: Optional[str]
-    """The endpoint for the model."""
-
-    model_wrapper: Optional[str]
-    """The wrapper for the model."""
-
-    put_inner_thoughts_in_kwargs: Optional[bool]
-    """Puts 'inner_thoughts' as a kwarg in the function call if this is set to True.
-
-    This helps with function calling performance and also the generation of inner
-    thoughts.
-    """
-
-
-class Memory(TypedDict, total=False):
-    memory: Dict[str, Block]
-    """Mapping from memory block section to memory block."""
-
-    prompt_template: str
-    """Jinja2 template for compiling memory blocks into a prompt string"""

@@ -1,91 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
+from .memory import Memory
 from .._models import BaseModel
-from .shared.block import Block
+from .llmconfig import Llmconfig
+from .embeddingconfig import Embeddingconfig
 
-__all__ = ["AgentState", "EmbeddingConfig", "LlmConfig", "Memory", "ToolRule"]
-
-
-class EmbeddingConfig(BaseModel):
-    embedding_dim: int
-    """The dimension of the embedding."""
-
-    embedding_endpoint_type: str
-    """The endpoint type for the model."""
-
-    embedding_model: str
-    """The model for the embedding."""
-
-    azure_deployment: Optional[str] = None
-    """The Azure deployment for the model."""
-
-    azure_endpoint: Optional[str] = None
-    """The Azure endpoint for the model."""
-
-    azure_version: Optional[str] = None
-    """The Azure version for the model."""
-
-    embedding_chunk_size: Optional[int] = None
-    """The chunk size of the embedding."""
-
-    embedding_endpoint: Optional[str] = None
-    """The endpoint for the model (`None` if local)."""
-
-
-class LlmConfig(BaseModel):
-    context_window: int
-    """The context window size for the model."""
-
-    model: str
-    """LLM model name."""
-
-    api_model_endpoint_type: Literal[
-        "openai",
-        "anthropic",
-        "cohere",
-        "google_ai",
-        "azure",
-        "groq",
-        "ollama",
-        "webui",
-        "webui-legacy",
-        "lmstudio",
-        "lmstudio-legacy",
-        "llamacpp",
-        "koboldcpp",
-        "vllm",
-        "hugging-face",
-        "mistral",
-        "together",
-    ] = FieldInfo(alias="model_endpoint_type")
-    """The endpoint type for the model."""
-
-    api_model_endpoint: Optional[str] = FieldInfo(alias="model_endpoint", default=None)
-    """The endpoint for the model."""
-
-    api_model_wrapper: Optional[str] = FieldInfo(alias="model_wrapper", default=None)
-    """The wrapper for the model."""
-
-    put_inner_thoughts_in_kwargs: Optional[bool] = None
-    """Puts 'inner_thoughts' as a kwarg in the function call if this is set to True.
-
-    This helps with function calling performance and also the generation of inner
-    thoughts.
-    """
-
-
-class Memory(BaseModel):
-    memory: Optional[Dict[str, Block]] = None
-    """Mapping from memory block section to memory block."""
-
-    prompt_template: Optional[str] = None
-    """Jinja2 template for compiling memory blocks into a prompt string"""
+__all__ = ["AgentState", "ToolRule"]
 
 
 class ToolRule(BaseModel):
@@ -97,10 +23,10 @@ class AgentState(BaseModel):
     agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent"]
     """The type of agent."""
 
-    embedding_config: EmbeddingConfig
+    embedding_config: Embeddingconfig
     """The embedding configuration used by the agent."""
 
-    llm_config: LlmConfig
+    llm_config: Llmconfig
     """The LLM configuration used by the agent."""
 
     name: str
