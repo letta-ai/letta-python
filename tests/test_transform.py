@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from letta_client._types import Base64FileInput
-from letta_client._utils import (
+from letta._types import Base64FileInput
+from letta._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from letta_client._compat import PYDANTIC_V2
-from letta_client._models import BaseModel
+from letta._compat import PYDANTIC_V2
+from letta._models import BaseModel
 
 _T = TypeVar("_T")
 

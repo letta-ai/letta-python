@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
+from letta import Letta, AsyncLetta
+from letta.types import ModelListResponse
 from tests.utils import assert_matches_type
-from letta_client import Letta, AsyncLetta
-from letta_client.types import ModelListResponse, ModelEmbeddingResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -42,31 +42,6 @@ class TestModels:
 
         assert cast(Any, response.is_closed) is True
 
-    @parametrize
-    def test_method_embedding(self, client: Letta) -> None:
-        model = client.models.embedding()
-        assert_matches_type(ModelEmbeddingResponse, model, path=["response"])
-
-    @parametrize
-    def test_raw_response_embedding(self, client: Letta) -> None:
-        response = client.models.with_raw_response.embedding()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        model = response.parse()
-        assert_matches_type(ModelEmbeddingResponse, model, path=["response"])
-
-    @parametrize
-    def test_streaming_response_embedding(self, client: Letta) -> None:
-        with client.models.with_streaming_response.embedding() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            model = response.parse()
-            assert_matches_type(ModelEmbeddingResponse, model, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncModels:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -93,30 +68,5 @@ class TestAsyncModels:
 
             model = await response.parse()
             assert_matches_type(ModelListResponse, model, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_method_embedding(self, async_client: AsyncLetta) -> None:
-        model = await async_client.models.embedding()
-        assert_matches_type(ModelEmbeddingResponse, model, path=["response"])
-
-    @parametrize
-    async def test_raw_response_embedding(self, async_client: AsyncLetta) -> None:
-        response = await async_client.models.with_raw_response.embedding()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        model = await response.parse()
-        assert_matches_type(ModelEmbeddingResponse, model, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_embedding(self, async_client: AsyncLetta) -> None:
-        async with async_client.models.with_streaming_response.embedding() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            model = await response.parse()
-            assert_matches_type(ModelEmbeddingResponse, model, path=["response"])
 
         assert cast(Any, response.is_closed) is True

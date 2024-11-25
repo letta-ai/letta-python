@@ -7,13 +7,13 @@ from typing import Any, cast
 
 import pytest
 
-from tests.utils import assert_matches_type
-from letta_client import Letta, AsyncLetta
-from letta_client.types import (
+from letta import Letta, AsyncLetta
+from letta.types import (
     Tool,
     ToolListResponse,
     ToolAddBaseToolsResponse,
 )
+from tests.utils import assert_matches_type
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

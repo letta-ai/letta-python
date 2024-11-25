@@ -8,8 +8,8 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from letta_client._types import Omit, NoneType
-from letta_client._utils import (
+from letta._types import Omit, NoneType
+from letta._utils import (
     is_dict,
     is_list,
     is_list_type,
@@ -17,8 +17,8 @@ from letta_client._utils import (
     extract_type_arg,
     is_annotated_type,
 )
-from letta_client._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from letta_client._models import BaseModel
+from letta._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from letta._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 

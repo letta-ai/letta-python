@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
+from letta import Letta, AsyncLetta
+from letta.types import JobListResponse
 from tests.utils import assert_matches_type
-from letta_client import Letta, AsyncLetta
-from letta_client.types import JobListResponse, JobActiveResponse
-from letta_client.types.shared import Job
+from letta.types.shared import Job
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -127,38 +127,6 @@ class TestJobs:
                 "",
             )
 
-    @parametrize
-    def test_method_active(self, client: Letta) -> None:
-        job = client.jobs.active()
-        assert_matches_type(JobActiveResponse, job, path=["response"])
-
-    @parametrize
-    def test_method_active_with_all_params(self, client: Letta) -> None:
-        job = client.jobs.active(
-            user_id="user_id",
-        )
-        assert_matches_type(JobActiveResponse, job, path=["response"])
-
-    @parametrize
-    def test_raw_response_active(self, client: Letta) -> None:
-        response = client.jobs.with_raw_response.active()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        job = response.parse()
-        assert_matches_type(JobActiveResponse, job, path=["response"])
-
-    @parametrize
-    def test_streaming_response_active(self, client: Letta) -> None:
-        with client.jobs.with_streaming_response.active() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            job = response.parse()
-            assert_matches_type(JobActiveResponse, job, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncJobs:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -271,35 +239,3 @@ class TestAsyncJobs:
             await async_client.jobs.with_raw_response.delete(
                 "",
             )
-
-    @parametrize
-    async def test_method_active(self, async_client: AsyncLetta) -> None:
-        job = await async_client.jobs.active()
-        assert_matches_type(JobActiveResponse, job, path=["response"])
-
-    @parametrize
-    async def test_method_active_with_all_params(self, async_client: AsyncLetta) -> None:
-        job = await async_client.jobs.active(
-            user_id="user_id",
-        )
-        assert_matches_type(JobActiveResponse, job, path=["response"])
-
-    @parametrize
-    async def test_raw_response_active(self, async_client: AsyncLetta) -> None:
-        response = await async_client.jobs.with_raw_response.active()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        job = await response.parse()
-        assert_matches_type(JobActiveResponse, job, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_active(self, async_client: AsyncLetta) -> None:
-        async with async_client.jobs.with_streaming_response.active() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            job = await response.parse()
-            assert_matches_type(JobActiveResponse, job, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
