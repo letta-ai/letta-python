@@ -36,8 +36,7 @@ client = Letta(
     environment="environment_1",
 )
 
-agent_state = client.agents.create()
-print(agent_state.id)
+agent_states = client.agents.list()
 ```
 
 While you can provide a `bearer_token` keyword argument,
@@ -62,8 +61,7 @@ client = AsyncLetta(
 
 
 async def main() -> None:
-    agent_state = await client.agents.create()
-    print(agent_state.id)
+    agent_states = await client.agents.list()
 
 
 asyncio.run(main())
@@ -96,7 +94,7 @@ from letta import Letta
 client = Letta()
 
 try:
-    client.agents.create()
+    client.agents.list()
 except letta.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -139,7 +137,7 @@ client = Letta(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).agents.create()
+client.with_options(max_retries=5).agents.list()
 ```
 
 ### Timeouts
@@ -162,7 +160,7 @@ client = Letta(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).agents.create()
+client.with_options(timeout=5.0).agents.list()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -203,11 +201,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from letta import Letta
 
 client = Letta()
-response = client.agents.with_raw_response.create()
+response = client.agents.with_raw_response.list()
 print(response.headers.get('X-My-Header'))
 
-agent = response.parse()  # get the object that `agents.create()` would have returned
-print(agent.id)
+agent = response.parse()  # get the object that `agents.list()` would have returned
+print(agent)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/letta-python/tree/main/src/letta/_response.py) object.
@@ -221,7 +219,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.agents.with_streaming_response.create() as response:
+with client.agents.with_streaming_response.list() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
