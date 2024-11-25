@@ -184,6 +184,7 @@ class SourcesResource(SyncAPIResource):
         self,
         source_id: str,
         *,
+        id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[EmbeddingConfigParam] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
@@ -200,6 +201,8 @@ class SourcesResource(SyncAPIResource):
         Update the name or documentation of an existing data source.
 
         Args:
+          id: The ID of the source.
+
           description: The description of the source.
 
           embedding_config: Embedding model configuration. This object specifies all the information
@@ -233,6 +236,7 @@ class SourcesResource(SyncAPIResource):
             f"/v1/sources/{source_id}",
             body=maybe_transform(
                 {
+                    "id": id,
                     "description": description,
                     "embedding_config": embedding_config,
                     "metadata": metadata,
@@ -572,6 +576,7 @@ class AsyncSourcesResource(AsyncAPIResource):
         self,
         source_id: str,
         *,
+        id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[EmbeddingConfigParam] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
@@ -588,6 +593,8 @@ class AsyncSourcesResource(AsyncAPIResource):
         Update the name or documentation of an existing data source.
 
         Args:
+          id: The ID of the source.
+
           description: The description of the source.
 
           embedding_config: Embedding model configuration. This object specifies all the information
@@ -621,6 +628,7 @@ class AsyncSourcesResource(AsyncAPIResource):
             f"/v1/sources/{source_id}",
             body=await async_maybe_transform(
                 {
+                    "id": id,
                     "description": description,
                     "embedding_config": embedding_config,
                     "metadata": metadata,

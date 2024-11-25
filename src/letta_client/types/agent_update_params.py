@@ -46,10 +46,7 @@ class AgentUpdateParams(TypedDict, total=False):
     model. model_wrapper (str): The wrapper for the model. This is used to wrap
     additional text around the input/output of the model. This is useful for
     text-to-text completions, such as the Completions API in OpenAI. context_window
-    (int): The context window size for the model. put_inner_thoughts_in_kwargs
-    (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
-    True. This helps with function calling performance and also the generation of
-    inner thoughts.
+    (int): The context window size for the model.
     """
 
     memory: Optional[MemoryParam]
@@ -73,9 +70,6 @@ class AgentUpdateParams(TypedDict, total=False):
 
     system: Optional[str]
     """The system prompt used by the agent."""
-
-    tags: Optional[List[str]]
-    """The tags associated with the agent."""
 
     tools: Optional[List[str]]
     """The tools used by the agent."""

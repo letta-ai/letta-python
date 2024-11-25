@@ -24,7 +24,7 @@ class BlockCreateParams(TypedDict, total=False):
     """Metadata of the block."""
 
     name: Optional[str]
-    """Name of the block if it is a template."""
+    """Name of the block."""
 
     template: bool
 

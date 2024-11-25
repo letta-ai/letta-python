@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from .tool_list_response import ToolListResponse as ToolListResponse
 from .archival_list_params import ArchivalListParams as ArchivalListParams
 from .memory_update_params import MemoryUpdateParams as MemoryUpdateParams
 from .source_list_response import SourceListResponse as SourceListResponse
@@ -18,3 +17,5 @@ from .message_retrieve_params import MessageRetrieveParams as MessageRetrievePar
 from .message_update_response import MessageUpdateResponse as MessageUpdateResponse
 from .archival_create_response import ArchivalCreateResponse as ArchivalCreateResponse
 from .message_retrieve_response import MessageRetrieveResponse as MessageRetrieveResponse
+from .version_template_create_params import VersionTemplateCreateParams as VersionTemplateCreateParams
+from .version_template_create_response import VersionTemplateCreateResponse as VersionTemplateCreateResponse

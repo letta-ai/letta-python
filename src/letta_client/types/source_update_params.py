@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 from .embedding_config_param import EmbeddingConfigParam
@@ -12,6 +12,9 @@ __all__ = ["SourceUpdateParams"]
 
 
 class SourceUpdateParams(TypedDict, total=False):
+    id: Required[str]
+    """The ID of the source."""
+
     description: Optional[str]
     """The description of the source."""
 

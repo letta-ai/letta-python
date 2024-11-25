@@ -20,7 +20,7 @@ class Block(BaseModel):
     """Description of the block."""
 
     label: Optional[str] = None
-    """Label of the block (e.g. 'human', 'persona') in the context window."""
+    """Label of the block (e.g. 'human', 'persona')."""
 
     limit: Optional[int] = None
     """Character limit of the block."""
@@ -29,7 +29,7 @@ class Block(BaseModel):
     """Metadata of the block."""
 
     name: Optional[str] = None
-    """Name of the block if it is a template."""
+    """Name of the block."""
 
     template: Optional[bool] = None
     """Whether the block is a template (e.g. saved human/persona options)."""

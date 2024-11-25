@@ -20,8 +20,8 @@ class BlockParam(TypedDict, total=False):
     description: Optional[str]
     """Description of the block."""
 
-    label: str
-    """Label of the block (e.g. 'human', 'persona') in the context window."""
+    label: Optional[str]
+    """Label of the block (e.g. 'human', 'persona')."""
 
     limit: int
     """Character limit of the block."""
@@ -30,7 +30,7 @@ class BlockParam(TypedDict, total=False):
     """Metadata of the block."""
 
     name: Optional[str]
-    """Name of the block if it is a template."""
+    """Name of the block."""
 
     template: bool
     """Whether the block is a template (e.g. saved human/persona options)."""
