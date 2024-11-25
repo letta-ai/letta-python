@@ -52,14 +52,13 @@ class BlocksResource(SyncAPIResource):
         self,
         *,
         label: str,
+        value: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        is_template: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        template: bool | NotGiven = NOT_GIVEN,
-        body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        value: Optional[str] | NotGiven = NOT_GIVEN,
-        header_user_id: str | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -73,17 +72,15 @@ class BlocksResource(SyncAPIResource):
         Args:
           label: Label of the block.
 
+          value: Value of the block.
+
           description: Description of the block.
 
           limit: Character limit of the block.
 
           metadata: Metadata of the block.
 
-          name: Name of the block.
-
-          body_user_id: The unique identifier of the user associated with the block.
-
-          value: Value of the block.
+          name: Name of the block if it is a template.
 
           extra_headers: Send extra headers
 
@@ -93,19 +90,18 @@ class BlocksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": header_user_id}), **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             "/v1/blocks/",
             body=maybe_transform(
                 {
                     "label": label,
+                    "value": value,
                     "description": description,
+                    "is_template": is_template,
                     "limit": limit,
                     "metadata": metadata,
                     "name": name,
-                    "template": template,
-                    "body_user_id": body_user_id,
-                    "value": value,
                 },
                 block_create_params.BlockCreateParams,
             ),
@@ -119,6 +115,7 @@ class BlocksResource(SyncAPIResource):
         self,
         block_id: str,
         *,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -140,6 +137,7 @@ class BlocksResource(SyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             f"/v1/blocks/{block_id}",
             options=make_request_options(
@@ -152,15 +150,14 @@ class BlocksResource(SyncAPIResource):
         self,
         block_id: str,
         *,
-        id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        is_template: bool | NotGiven = NOT_GIVEN,
         label: Optional[str] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        template: bool | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         value: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -172,21 +169,17 @@ class BlocksResource(SyncAPIResource):
         Update Block
 
         Args:
-          id: The unique identifier of the block.
-
           description: Description of the block.
 
-          label: Label of the block (e.g. 'human', 'persona').
+          is_template: Whether the block is a template (e.g. saved human/persona options).
+
+          label: Label of the block (e.g. 'human', 'persona') in the context window.
 
           limit: Character limit of the block.
 
           metadata: Metadata of the block.
 
-          name: Name of the block.
-
-          template: Whether the block is a template (e.g. saved human/persona options).
-
-          user_id: The unique identifier of the user associated with the block.
+          name: Name of the block if it is a template.
 
           value: Value of the block.
 
@@ -200,18 +193,17 @@ class BlocksResource(SyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._patch(
             f"/v1/blocks/{block_id}",
             body=maybe_transform(
                 {
-                    "id": id,
                     "description": description,
+                    "is_template": is_template,
                     "label": label,
                     "limit": limit,
                     "metadata": metadata,
                     "name": name,
-                    "template": template,
-                    "user_id": user_id,
                     "value": value,
                 },
                 block_update_params.BlockUpdateParams,
@@ -279,6 +271,7 @@ class BlocksResource(SyncAPIResource):
         self,
         block_id: str,
         *,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -300,6 +293,7 @@ class BlocksResource(SyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._delete(
             f"/v1/blocks/{block_id}",
             options=make_request_options(
@@ -333,14 +327,13 @@ class AsyncBlocksResource(AsyncAPIResource):
         self,
         *,
         label: str,
+        value: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        is_template: bool | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        template: bool | NotGiven = NOT_GIVEN,
-        body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        value: Optional[str] | NotGiven = NOT_GIVEN,
-        header_user_id: str | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -354,17 +347,15 @@ class AsyncBlocksResource(AsyncAPIResource):
         Args:
           label: Label of the block.
 
+          value: Value of the block.
+
           description: Description of the block.
 
           limit: Character limit of the block.
 
           metadata: Metadata of the block.
 
-          name: Name of the block.
-
-          body_user_id: The unique identifier of the user associated with the block.
-
-          value: Value of the block.
+          name: Name of the block if it is a template.
 
           extra_headers: Send extra headers
 
@@ -374,19 +365,18 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": header_user_id}), **(extra_headers or {})}
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             "/v1/blocks/",
             body=await async_maybe_transform(
                 {
                     "label": label,
+                    "value": value,
                     "description": description,
+                    "is_template": is_template,
                     "limit": limit,
                     "metadata": metadata,
                     "name": name,
-                    "template": template,
-                    "body_user_id": body_user_id,
-                    "value": value,
                 },
                 block_create_params.BlockCreateParams,
             ),
@@ -400,6 +390,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         self,
         block_id: str,
         *,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -421,6 +412,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             f"/v1/blocks/{block_id}",
             options=make_request_options(
@@ -433,15 +425,14 @@ class AsyncBlocksResource(AsyncAPIResource):
         self,
         block_id: str,
         *,
-        id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        is_template: bool | NotGiven = NOT_GIVEN,
         label: Optional[str] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        template: bool | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         value: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -453,21 +444,17 @@ class AsyncBlocksResource(AsyncAPIResource):
         Update Block
 
         Args:
-          id: The unique identifier of the block.
-
           description: Description of the block.
 
-          label: Label of the block (e.g. 'human', 'persona').
+          is_template: Whether the block is a template (e.g. saved human/persona options).
+
+          label: Label of the block (e.g. 'human', 'persona') in the context window.
 
           limit: Character limit of the block.
 
           metadata: Metadata of the block.
 
-          name: Name of the block.
-
-          template: Whether the block is a template (e.g. saved human/persona options).
-
-          user_id: The unique identifier of the user associated with the block.
+          name: Name of the block if it is a template.
 
           value: Value of the block.
 
@@ -481,18 +468,17 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._patch(
             f"/v1/blocks/{block_id}",
             body=await async_maybe_transform(
                 {
-                    "id": id,
                     "description": description,
+                    "is_template": is_template,
                     "label": label,
                     "limit": limit,
                     "metadata": metadata,
                     "name": name,
-                    "template": template,
-                    "user_id": user_id,
                     "value": value,
                 },
                 block_update_params.BlockUpdateParams,
@@ -560,6 +546,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         self,
         block_id: str,
         *,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -581,6 +568,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._delete(
             f"/v1/blocks/{block_id}",
             options=make_request_options(

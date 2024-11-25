@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Dict
 from typing_extensions import TypedDict
 
-from .block_param import BlockParam
+from ...block_param import BlockParam
 
 __all__ = ["MemoryParam"]
 

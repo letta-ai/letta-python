@@ -6,9 +6,9 @@ from typing import List, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .memory_param import MemoryParam
 from .llm_config_param import LlmConfigParam
 from .embedding_config_param import EmbeddingConfigParam
+from .agents.memory.memory_param import MemoryParam
 
 __all__ = ["AgentUpdateParams"]
 
@@ -46,7 +46,10 @@ class AgentUpdateParams(TypedDict, total=False):
     model. model_wrapper (str): The wrapper for the model. This is used to wrap
     additional text around the input/output of the model. This is useful for
     text-to-text completions, such as the Completions API in OpenAI. context_window
-    (int): The context window size for the model.
+    (int): The context window size for the model. put_inner_thoughts_in_kwargs
+    (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+    True. This helps with function calling performance and also the generation of
+    inner thoughts.
     """
 
     memory: Optional[MemoryParam]
@@ -70,6 +73,9 @@ class AgentUpdateParams(TypedDict, total=False):
 
     system: Optional[str]
     """The system prompt used by the agent."""
+
+    tags: Optional[List[str]]
+    """The tags associated with the agent."""
 
     tools: Optional[List[str]]
     """The tools used by the agent."""

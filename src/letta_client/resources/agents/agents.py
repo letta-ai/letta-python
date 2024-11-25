@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -24,6 +24,7 @@ from .memory import (
     AsyncMemoryResourceWithStreamingResponse,
 )
 from ...types import (
+    agent_list_params,
     agent_create_params,
     agent_update_params,
     agent_migrate_params,
@@ -85,11 +86,11 @@ from .version_template import (
     AsyncVersionTemplateResourceWithStreamingResponse,
 )
 from ...types.agent_state import AgentState
-from ...types.memory_param import MemoryParam
 from ...types.llm_config_param import LlmConfigParam
 from ...types.agent_list_response import AgentListResponse
 from ...types.agent_migrate_response import AgentMigrateResponse
 from ...types.embedding_config_param import EmbeddingConfigParam
+from ...types.agents.memory.memory_param import MemoryParam
 
 __all__ = ["AgentsResource", "AsyncAgentsResource"]
 
@@ -145,15 +146,18 @@ class AgentsResource(SyncAPIResource):
     def create(
         self,
         *,
-        agent_type: Optional[Literal["memgpt_agent", "split_thread_agent"]] | NotGiven = NOT_GIVEN,
+        agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[EmbeddingConfigParam] | NotGiven = NOT_GIVEN,
+        initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
         llm_config: Optional[LlmConfigParam] | NotGiven = NOT_GIVEN,
         memory: Optional[MemoryParam] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
         header_user_id: str | NotGiven = NOT_GIVEN,
@@ -184,6 +188,8 @@ class AgentsResource(SyncAPIResource):
               azure_version (str): The Azure version for the model (Azure only).
               azure_deployment (str): The Azure deployment for the model (Azure only).
 
+          initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
+
           llm_config: Configuration for a Language Model (LLM) model. This object specifies all the
               information necessary to access an LLM model to usage with Letta, except for
               secret keys.
@@ -193,7 +199,10 @@ class AgentsResource(SyncAPIResource):
               model. model_wrapper (str): The wrapper for the model. This is used to wrap
               additional text around the input/output of the model. This is useful for
               text-to-text completions, such as the Completions API in OpenAI. context_window
-              (int): The context window size for the model.
+              (int): The context window size for the model. put_inner_thoughts_in_kwargs
+              (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+              True. This helps with function calling performance and also the generation of
+              inner thoughts.
 
           memory: Represents the in-context memory of the agent. This includes both the `Block`
               objects (labelled by sections), as well as tools to edit the blocks.
@@ -208,6 +217,10 @@ class AgentsResource(SyncAPIResource):
           name: The name of the agent.
 
           system: The system prompt used by the agent.
+
+          tags: The tags associated with the agent.
+
+          tool_rules: The tool rules governing the agent.
 
           tools: The tools used by the agent.
 
@@ -229,12 +242,15 @@ class AgentsResource(SyncAPIResource):
                     "agent_type": agent_type,
                     "description": description,
                     "embedding_config": embedding_config,
+                    "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
                     "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
                     "system": system,
+                    "tags": tags,
+                    "tool_rules": tool_rules,
                     "tools": tools,
                     "body_user_id": body_user_id,
                 },
@@ -294,6 +310,7 @@ class AgentsResource(SyncAPIResource):
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
         header_user_id: str | NotGiven = NOT_GIVEN,
@@ -333,7 +350,10 @@ class AgentsResource(SyncAPIResource):
               model. model_wrapper (str): The wrapper for the model. This is used to wrap
               additional text around the input/output of the model. This is useful for
               text-to-text completions, such as the Completions API in OpenAI. context_window
-              (int): The context window size for the model.
+              (int): The context window size for the model. put_inner_thoughts_in_kwargs
+              (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+              True. This helps with function calling performance and also the generation of
+              inner thoughts.
 
           memory: Represents the in-context memory of the agent. This includes both the `Block`
               objects (labelled by sections), as well as tools to edit the blocks.
@@ -348,6 +368,8 @@ class AgentsResource(SyncAPIResource):
           name: The name of the agent.
 
           system: The system prompt used by the agent.
+
+          tags: The tags associated with the agent.
 
           tools: The tools used by the agent.
 
@@ -377,6 +399,7 @@ class AgentsResource(SyncAPIResource):
                     "metadata": metadata,
                     "name": name,
                     "system": system,
+                    "tags": tags,
                     "tools": tools,
                     "body_user_id": body_user_id,
                 },
@@ -391,6 +414,8 @@ class AgentsResource(SyncAPIResource):
     def list(
         self,
         *,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -405,6 +430,10 @@ class AgentsResource(SyncAPIResource):
         all agents and their configurations associated with the specified user ID.
 
         Args:
+          name: Name of the agent
+
+          tags: List of tags to filter agents by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -417,7 +446,17 @@ class AgentsResource(SyncAPIResource):
         return self._get(
             "/v1/agents/",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "name": name,
+                        "tags": tags,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
             ),
             cast_to=AgentListResponse,
         )
@@ -556,15 +595,18 @@ class AsyncAgentsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        agent_type: Optional[Literal["memgpt_agent", "split_thread_agent"]] | NotGiven = NOT_GIVEN,
+        agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[EmbeddingConfigParam] | NotGiven = NOT_GIVEN,
+        initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
         llm_config: Optional[LlmConfigParam] | NotGiven = NOT_GIVEN,
         memory: Optional[MemoryParam] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
         header_user_id: str | NotGiven = NOT_GIVEN,
@@ -595,6 +637,8 @@ class AsyncAgentsResource(AsyncAPIResource):
               azure_version (str): The Azure version for the model (Azure only).
               azure_deployment (str): The Azure deployment for the model (Azure only).
 
+          initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
+
           llm_config: Configuration for a Language Model (LLM) model. This object specifies all the
               information necessary to access an LLM model to usage with Letta, except for
               secret keys.
@@ -604,7 +648,10 @@ class AsyncAgentsResource(AsyncAPIResource):
               model. model_wrapper (str): The wrapper for the model. This is used to wrap
               additional text around the input/output of the model. This is useful for
               text-to-text completions, such as the Completions API in OpenAI. context_window
-              (int): The context window size for the model.
+              (int): The context window size for the model. put_inner_thoughts_in_kwargs
+              (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+              True. This helps with function calling performance and also the generation of
+              inner thoughts.
 
           memory: Represents the in-context memory of the agent. This includes both the `Block`
               objects (labelled by sections), as well as tools to edit the blocks.
@@ -619,6 +666,10 @@ class AsyncAgentsResource(AsyncAPIResource):
           name: The name of the agent.
 
           system: The system prompt used by the agent.
+
+          tags: The tags associated with the agent.
+
+          tool_rules: The tool rules governing the agent.
 
           tools: The tools used by the agent.
 
@@ -640,12 +691,15 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "agent_type": agent_type,
                     "description": description,
                     "embedding_config": embedding_config,
+                    "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
                     "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
                     "system": system,
+                    "tags": tags,
+                    "tool_rules": tool_rules,
                     "tools": tools,
                     "body_user_id": body_user_id,
                 },
@@ -705,6 +759,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
         header_user_id: str | NotGiven = NOT_GIVEN,
@@ -744,7 +799,10 @@ class AsyncAgentsResource(AsyncAPIResource):
               model. model_wrapper (str): The wrapper for the model. This is used to wrap
               additional text around the input/output of the model. This is useful for
               text-to-text completions, such as the Completions API in OpenAI. context_window
-              (int): The context window size for the model.
+              (int): The context window size for the model. put_inner_thoughts_in_kwargs
+              (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+              True. This helps with function calling performance and also the generation of
+              inner thoughts.
 
           memory: Represents the in-context memory of the agent. This includes both the `Block`
               objects (labelled by sections), as well as tools to edit the blocks.
@@ -759,6 +817,8 @@ class AsyncAgentsResource(AsyncAPIResource):
           name: The name of the agent.
 
           system: The system prompt used by the agent.
+
+          tags: The tags associated with the agent.
 
           tools: The tools used by the agent.
 
@@ -788,6 +848,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "metadata": metadata,
                     "name": name,
                     "system": system,
+                    "tags": tags,
                     "tools": tools,
                     "body_user_id": body_user_id,
                 },
@@ -802,6 +863,8 @@ class AsyncAgentsResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -816,6 +879,10 @@ class AsyncAgentsResource(AsyncAPIResource):
         all agents and their configurations associated with the specified user ID.
 
         Args:
+          name: Name of the agent
+
+          tags: List of tags to filter agents by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -828,7 +895,17 @@ class AsyncAgentsResource(AsyncAPIResource):
         return await self._get(
             "/v1/agents/",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "name": name,
+                        "tags": tags,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
             ),
             cast_to=AgentListResponse,
         )

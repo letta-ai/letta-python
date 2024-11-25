@@ -6,16 +6,21 @@ from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
-from .memory import Memory
 from .._models import BaseModel
 from .llm_config import LlmConfig
 from .embedding_config import EmbeddingConfig
+from .agents.memory.memory import Memory
 
-__all__ = ["AgentState"]
+__all__ = ["AgentState", "ToolRule"]
+
+
+class ToolRule(BaseModel):
+    tool_name: str
+    """The name of the tool. Must exist in the database for the user's organization."""
 
 
 class AgentState(BaseModel):
-    agent_type: Literal["memgpt_agent", "split_thread_agent"]
+    agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent"]
     """The type of agent."""
 
     embedding_config: EmbeddingConfig
@@ -43,13 +48,26 @@ class AgentState(BaseModel):
     """The description of the agent."""
 
     memory: Optional[Memory] = None
-    """The in-context memory of the agent."""
+    """Represents the in-context memory of the agent.
+
+    This includes both the `Block` objects (labelled by sections), as well as tools
+    to edit the blocks.
+
+    Attributes: memory (Dict[str, Block]): Mapping from memory block section to
+    memory block.
+    """
 
     message_ids: Optional[List[str]] = None
     """The ids of the messages in the agent's in-context memory."""
 
     metadata: Optional[object] = FieldInfo(alias="metadata_", default=None)
     """The metadata of the agent."""
+
+    tags: Optional[List[str]] = None
+    """The tags associated with the agent."""
+
+    tool_rules: Optional[List[ToolRule]] = None
+    """The list of tool rules."""
 
     user_id: Optional[str] = None
     """The user id of the agent."""

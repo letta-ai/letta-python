@@ -16,11 +16,20 @@ class Block(BaseModel):
     id: Optional[str] = None
     """The human-friendly ID of the Block"""
 
+    created_by_id: Optional[str] = None
+    """The id of the user that made this Block."""
+
     description: Optional[str] = None
     """Description of the block."""
 
+    is_template: Optional[bool] = None
+    """Whether the block is a template (e.g. saved human/persona options)."""
+
     label: Optional[str] = None
-    """Label of the block (e.g. 'human', 'persona')."""
+    """Label of the block (e.g. 'human', 'persona') in the context window."""
+
+    last_updated_by_id: Optional[str] = None
+    """The id of the user that last updated this Block."""
 
     limit: Optional[int] = None
     """Character limit of the block."""
@@ -29,10 +38,7 @@ class Block(BaseModel):
     """Metadata of the block."""
 
     name: Optional[str] = None
-    """Name of the block."""
+    """Name of the block if it is a template."""
 
-    template: Optional[bool] = None
-    """Whether the block is a template (e.g. saved human/persona options)."""
-
-    user_id: Optional[str] = None
-    """The unique identifier of the user associated with the block."""
+    organization_id: Optional[str] = None
+    """The unique identifier of the organization associated with the block."""

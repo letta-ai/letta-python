@@ -48,8 +48,8 @@ class VersionTemplateResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        body: object,
         return_agent_id: bool | NotGiven = NOT_GIVEN,
+        migrate_deployed_agents: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -73,7 +73,10 @@ class VersionTemplateResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
             f"/v1/agents/{agent_id}/version-template",
-            body=maybe_transform(body, version_template_create_params.VersionTemplateCreateParams),
+            body=maybe_transform(
+                {"migrate_deployed_agents": migrate_deployed_agents},
+                version_template_create_params.VersionTemplateCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -111,8 +114,8 @@ class AsyncVersionTemplateResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        body: object,
         return_agent_id: bool | NotGiven = NOT_GIVEN,
+        migrate_deployed_agents: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -136,7 +139,10 @@ class AsyncVersionTemplateResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
             f"/v1/agents/{agent_id}/version-template",
-            body=await async_maybe_transform(body, version_template_create_params.VersionTemplateCreateParams),
+            body=await async_maybe_transform(
+                {"migrate_deployed_agents": migrate_deployed_agents},
+                version_template_create_params.VersionTemplateCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
