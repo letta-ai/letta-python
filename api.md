@@ -176,13 +176,13 @@ Methods:
 Types:
 
 ```python
-from letta.types import Source, SourceRetrieveResponse, SourceListResponse, SourceDeleteResponse
+from letta.types import Source, SourceListResponse, SourceDeleteResponse
 ```
 
 Methods:
 
 - <code title="post /v1/sources/">client.sources.<a href="./src/letta/resources/sources/sources.py">create</a>(\*\*<a href="src/letta/types/source_create_params.py">params</a>) -> <a href="./src/letta/types/source.py">Source</a></code>
-- <code title="get /v1/sources/name/{source_name}">client.sources.<a href="./src/letta/resources/sources/sources.py">retrieve</a>(source_name) -> str</code>
+- <code title="get /v1/sources/{source_id}">client.sources.<a href="./src/letta/resources/sources/sources.py">retrieve</a>(source_id) -> <a href="./src/letta/types/source.py">Source</a></code>
 - <code title="patch /v1/sources/{source_id}">client.sources.<a href="./src/letta/resources/sources/sources.py">update</a>(source_id, \*\*<a href="src/letta/types/source_update_params.py">params</a>) -> <a href="./src/letta/types/source.py">Source</a></code>
 - <code title="get /v1/sources/">client.sources.<a href="./src/letta/resources/sources/sources.py">list</a>() -> <a href="./src/letta/types/source_list_response.py">SourceListResponse</a></code>
 - <code title="delete /v1/sources/{source_id}">client.sources.<a href="./src/letta/resources/sources/sources.py">delete</a>(source_id) -> <a href="./src/letta/types/source_delete_response.py">object</a></code>

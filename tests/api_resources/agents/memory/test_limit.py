@@ -27,16 +27,6 @@ class TestLimit:
         assert_matches_type(Memory, limit, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: Letta) -> None:
-        limit = client.agents.memory.limit.update(
-            agent_id="agent_id",
-            label="label",
-            limit=0,
-            user_id="user_id",
-        )
-        assert_matches_type(Memory, limit, path=["response"])
-
-    @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
         response = client.agents.memory.limit.with_raw_response.update(
             agent_id="agent_id",
@@ -83,16 +73,6 @@ class TestAsyncLimit:
             agent_id="agent_id",
             label="label",
             limit=0,
-        )
-        assert_matches_type(Memory, limit, path=["response"])
-
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
-        limit = await async_client.agents.memory.limit.update(
-            agent_id="agent_id",
-            label="label",
-            limit=0,
-            user_id="user_id",
         )
         assert_matches_type(Memory, limit, path=["response"])
 

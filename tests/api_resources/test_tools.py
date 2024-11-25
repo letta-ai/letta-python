@@ -38,7 +38,6 @@ class TestTools:
             name="name",
             source_type="source_type",
             tags=["string"],
-            user_id="user_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -69,22 +68,14 @@ class TestTools:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         tool = client.tools.retrieve(
-            tool_id="tool_id",
-        )
-        assert_matches_type(Tool, tool, path=["response"])
-
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
-        tool = client.tools.retrieve(
-            tool_id="tool_id",
-            user_id="user_id",
+            "tool_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.tools.with_raw_response.retrieve(
-            tool_id="tool_id",
+            "tool_id",
         )
 
         assert response.is_closed is True
@@ -95,7 +86,7 @@ class TestTools:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.tools.with_streaming_response.retrieve(
-            tool_id="tool_id",
+            "tool_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -109,7 +100,7 @@ class TestTools:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             client.tools.with_raw_response.retrieve(
-                tool_id="",
+                "",
             )
 
     @parametrize
@@ -130,7 +121,6 @@ class TestTools:
             source_code="source_code",
             source_type="source_type",
             tags=["string"],
-            user_id="user_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -175,7 +165,6 @@ class TestTools:
         tool = client.tools.list(
             cursor="cursor",
             limit=0,
-            user_id="user_id",
         )
         assert_matches_type(ToolListResponse, tool, path=["response"])
 
@@ -243,13 +232,6 @@ class TestTools:
         assert_matches_type(ToolAddBaseToolsResponse, tool, path=["response"])
 
     @parametrize
-    def test_method_add_base_tools_with_all_params(self, client: Letta) -> None:
-        tool = client.tools.add_base_tools(
-            user_id="user_id",
-        )
-        assert_matches_type(ToolAddBaseToolsResponse, tool, path=["response"])
-
-    @parametrize
     def test_raw_response_add_base_tools(self, client: Letta) -> None:
         response = client.tools.with_raw_response.add_base_tools()
 
@@ -290,7 +272,6 @@ class TestAsyncTools:
             name="name",
             source_type="source_type",
             tags=["string"],
-            user_id="user_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -321,22 +302,14 @@ class TestAsyncTools:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         tool = await async_client.tools.retrieve(
-            tool_id="tool_id",
-        )
-        assert_matches_type(Tool, tool, path=["response"])
-
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
-        tool = await async_client.tools.retrieve(
-            tool_id="tool_id",
-            user_id="user_id",
+            "tool_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.tools.with_raw_response.retrieve(
-            tool_id="tool_id",
+            "tool_id",
         )
 
         assert response.is_closed is True
@@ -347,7 +320,7 @@ class TestAsyncTools:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.tools.with_streaming_response.retrieve(
-            tool_id="tool_id",
+            "tool_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -361,7 +334,7 @@ class TestAsyncTools:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             await async_client.tools.with_raw_response.retrieve(
-                tool_id="",
+                "",
             )
 
     @parametrize
@@ -382,7 +355,6 @@ class TestAsyncTools:
             source_code="source_code",
             source_type="source_type",
             tags=["string"],
-            user_id="user_id",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -427,7 +399,6 @@ class TestAsyncTools:
         tool = await async_client.tools.list(
             cursor="cursor",
             limit=0,
-            user_id="user_id",
         )
         assert_matches_type(ToolListResponse, tool, path=["response"])
 
@@ -492,13 +463,6 @@ class TestAsyncTools:
     @parametrize
     async def test_method_add_base_tools(self, async_client: AsyncLetta) -> None:
         tool = await async_client.tools.add_base_tools()
-        assert_matches_type(ToolAddBaseToolsResponse, tool, path=["response"])
-
-    @parametrize
-    async def test_method_add_base_tools_with_all_params(self, async_client: AsyncLetta) -> None:
-        tool = await async_client.tools.add_base_tools(
-            user_id="user_id",
-        )
         assert_matches_type(ToolAddBaseToolsResponse, tool, path=["response"])
 
     @parametrize

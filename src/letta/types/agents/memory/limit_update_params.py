@@ -13,5 +13,3 @@ class LimitUpdateParams(TypedDict, total=False):
 
     limit: Required[int]
     """New limit of the block."""
-
-    user_id: str

@@ -64,15 +64,6 @@ class TestMemory:
         assert_matches_type(Memory, memory, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: Letta) -> None:
-        memory = client.agents.memory.update(
-            agent_id="agent_id",
-            body={},
-            user_id="user_id",
-        )
-        assert_matches_type(Memory, memory, path=["response"])
-
-    @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
         response = client.agents.memory.with_raw_response.update(
             agent_id="agent_id",
@@ -153,15 +144,6 @@ class TestAsyncMemory:
         memory = await async_client.agents.memory.update(
             agent_id="agent_id",
             body={},
-        )
-        assert_matches_type(Memory, memory, path=["response"])
-
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
-        memory = await async_client.agents.memory.update(
-            agent_id="agent_id",
-            body={},
-            user_id="user_id",
         )
         assert_matches_type(Memory, memory, path=["response"])
 

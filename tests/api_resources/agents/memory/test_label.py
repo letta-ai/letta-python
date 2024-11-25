@@ -27,16 +27,6 @@ class TestLabel:
         assert_matches_type(Memory, label, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: Letta) -> None:
-        label = client.agents.memory.label.update(
-            agent_id="agent_id",
-            current_label="current_label",
-            new_label="new_label",
-            user_id="user_id",
-        )
-        assert_matches_type(Memory, label, path=["response"])
-
-    @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
         response = client.agents.memory.label.with_raw_response.update(
             agent_id="agent_id",
@@ -83,16 +73,6 @@ class TestAsyncLabel:
             agent_id="agent_id",
             current_label="current_label",
             new_label="new_label",
-        )
-        assert_matches_type(Memory, label, path=["response"])
-
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
-        label = await async_client.agents.memory.label.update(
-            agent_id="agent_id",
-            current_label="current_label",
-            new_label="new_label",
-            user_id="user_id",
         )
         assert_matches_type(Memory, label, path=["response"])
 

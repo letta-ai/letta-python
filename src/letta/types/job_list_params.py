@@ -11,5 +11,3 @@ __all__ = ["JobListParams"]
 class JobListParams(TypedDict, total=False):
     source_id: Optional[str]
     """Only list jobs associated with the source."""
-
-    user_id: str

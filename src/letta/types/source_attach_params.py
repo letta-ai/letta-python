@@ -10,5 +10,3 @@ __all__ = ["SourceAttachParams"]
 class SourceAttachParams(TypedDict, total=False):
     agent_id: Required[str]
     """The unique identifier of the agent to attach the source to."""
-
-    user_id: str

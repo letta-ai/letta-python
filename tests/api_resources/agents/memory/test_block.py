@@ -37,7 +37,6 @@ class TestBlock:
             limit=0,
             metadata={},
             name="name",
-            user_id="user_id",
         )
         assert_matches_type(Memory, block, path=["response"])
 
@@ -83,15 +82,6 @@ class TestBlock:
         block = client.agents.memory.block.delete(
             block_label="block_label",
             agent_id="agent_id",
-        )
-        assert_matches_type(Memory, block, path=["response"])
-
-    @parametrize
-    def test_method_delete_with_all_params(self, client: Letta) -> None:
-        block = client.agents.memory.block.delete(
-            block_label="block_label",
-            agent_id="agent_id",
-            user_id="user_id",
         )
         assert_matches_type(Memory, block, path=["response"])
 
@@ -159,7 +149,6 @@ class TestAsyncBlock:
             limit=0,
             metadata={},
             name="name",
-            user_id="user_id",
         )
         assert_matches_type(Memory, block, path=["response"])
 
@@ -205,15 +194,6 @@ class TestAsyncBlock:
         block = await async_client.agents.memory.block.delete(
             block_label="block_label",
             agent_id="agent_id",
-        )
-        assert_matches_type(Memory, block, path=["response"])
-
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
-        block = await async_client.agents.memory.block.delete(
-            block_label="block_label",
-            agent_id="agent_id",
-            user_id="user_id",
         )
         assert_matches_type(Memory, block, path=["response"])
 

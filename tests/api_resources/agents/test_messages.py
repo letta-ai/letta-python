@@ -52,7 +52,6 @@ class TestMessages:
             stream_steps=True,
             stream_tokens=True,
             use_assistant_message=True,
-            user_id="user_id",
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
 
@@ -198,7 +197,6 @@ class TestMessages:
             limit=0,
             msg_object=True,
             use_assistant_message=True,
-            user_id="user_id",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
@@ -268,7 +266,6 @@ class TestAsyncMessages:
             stream_steps=True,
             stream_tokens=True,
             use_assistant_message=True,
-            user_id="user_id",
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
 
@@ -414,7 +411,6 @@ class TestAsyncMessages:
             limit=0,
             msg_object=True,
             use_assistant_message=True,
-            user_id="user_id",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 

@@ -7,7 +7,6 @@ import httpx
 from ...._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ...._utils import (
     maybe_transform,
-    strip_not_given,
     async_maybe_transform,
 )
 from ...._compat import cached_property
@@ -51,7 +50,6 @@ class LimitResource(SyncAPIResource):
         *,
         label: str,
         limit: int,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,7 +75,6 @@ class LimitResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._patch(
             f"/v1/agents/{agent_id}/memory/limit",
             body=maybe_transform(
@@ -120,7 +117,6 @@ class AsyncLimitResource(AsyncAPIResource):
         *,
         label: str,
         limit: int,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -146,7 +142,6 @@ class AsyncLimitResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._patch(
             f"/v1/agents/{agent_id}/memory/limit",
             body=await async_maybe_transform(

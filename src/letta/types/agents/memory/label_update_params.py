@@ -13,5 +13,3 @@ class LabelUpdateParams(TypedDict, total=False):
 
     new_label: Required[str]
     """New label of the block."""
-
-    user_id: str

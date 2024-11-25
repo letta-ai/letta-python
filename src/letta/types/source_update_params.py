@@ -35,5 +35,3 @@ class SourceUpdateParams(TypedDict, total=False):
 
     name: Optional[str]
     """The name of the source."""
-
-    user_id: str

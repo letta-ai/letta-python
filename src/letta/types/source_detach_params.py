@@ -10,5 +10,3 @@ __all__ = ["SourceDetachParams"]
 class SourceDetachParams(TypedDict, total=False):
     agent_id: Required[str]
     """The unique identifier of the agent to detach the source from."""
-
-    user_id: str

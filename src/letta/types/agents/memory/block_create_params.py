@@ -30,5 +30,3 @@ class BlockCreateParams(TypedDict, total=False):
 
     name: Optional[str]
     """Name of the block if it is a template."""
-
-    user_id: str

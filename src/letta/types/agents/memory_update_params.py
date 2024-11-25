@@ -9,5 +9,3 @@ __all__ = ["MemoryUpdateParams"]
 
 class MemoryUpdateParams(TypedDict, total=False):
     body: Required[object]
-
-    user_id: str

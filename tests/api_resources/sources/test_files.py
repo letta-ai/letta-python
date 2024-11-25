@@ -30,7 +30,6 @@ class TestFiles:
             source_id="source_id",
             cursor="cursor",
             limit=0,
-            user_id="user_id",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
@@ -70,15 +69,6 @@ class TestFiles:
         file = client.sources.files.delete(
             file_id="file_id",
             source_id="source_id",
-        )
-        assert file is None
-
-    @parametrize
-    def test_method_delete_with_all_params(self, client: Letta) -> None:
-        file = client.sources.files.delete(
-            file_id="file_id",
-            source_id="source_id",
-            user_id="user_id",
         )
         assert file is None
 
@@ -139,7 +129,6 @@ class TestAsyncFiles:
             source_id="source_id",
             cursor="cursor",
             limit=0,
-            user_id="user_id",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
@@ -179,15 +168,6 @@ class TestAsyncFiles:
         file = await async_client.sources.files.delete(
             file_id="file_id",
             source_id="source_id",
-        )
-        assert file is None
-
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
-        file = await async_client.sources.files.delete(
-            file_id="file_id",
-            source_id="source_id",
-            user_id="user_id",
         )
         assert file is None
 

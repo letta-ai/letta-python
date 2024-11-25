@@ -14,5 +14,3 @@ class AgentListParams(TypedDict, total=False):
 
     tags: Optional[List[str]]
     """List of tags to filter agents by"""
-
-    user_id: str

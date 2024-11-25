@@ -65,7 +65,6 @@ class TestJobs:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         job = client.jobs.list(
             source_id="source_id",
-            user_id="user_id",
         )
         assert_matches_type(JobListResponse, job, path=["response"])
 
@@ -178,7 +177,6 @@ class TestAsyncJobs:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         job = await async_client.jobs.list(
             source_id="source_id",
-            user_id="user_id",
         )
         assert_matches_type(JobListResponse, job, path=["response"])
 

@@ -41,7 +41,6 @@ from .sources import (
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import (
     maybe_transform,
-    strip_not_given,
     async_maybe_transform,
 )
 from .archival import (
@@ -138,8 +137,7 @@ class AgentsResource(SyncAPIResource):
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        header_user_id: str | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -203,7 +201,7 @@ class AgentsResource(SyncAPIResource):
 
           tools: The tools used by the agent.
 
-          body_user_id: The user id of the agent.
+          user_id: The user id of the agent.
 
           extra_headers: Send extra headers
 
@@ -213,7 +211,6 @@ class AgentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": header_user_id}), **(extra_headers or {})}
         return self._post(
             "/v1/agents/",
             body=maybe_transform(
@@ -231,7 +228,7 @@ class AgentsResource(SyncAPIResource):
                     "tags": tags,
                     "tool_rules": tool_rules,
                     "tools": tools,
-                    "body_user_id": body_user_id,
+                    "user_id": user_id,
                 },
                 agent_create_params.AgentCreateParams,
             ),
@@ -245,7 +242,6 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -267,7 +263,6 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             f"/v1/agents/{agent_id}",
             options=make_request_options(
@@ -291,8 +286,7 @@ class AgentsResource(SyncAPIResource):
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        header_user_id: str | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -352,7 +346,7 @@ class AgentsResource(SyncAPIResource):
 
           tools: The tools used by the agent.
 
-          body_user_id: The user id of the agent.
+          user_id: The user id of the agent.
 
           extra_headers: Send extra headers
 
@@ -364,7 +358,6 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": header_user_id}), **(extra_headers or {})}
         return self._patch(
             f"/v1/agents/{agent_id}",
             body=maybe_transform(
@@ -380,7 +373,7 @@ class AgentsResource(SyncAPIResource):
                     "system": system,
                     "tags": tags,
                     "tools": tools,
-                    "body_user_id": body_user_id,
+                    "user_id": user_id,
                 },
                 agent_update_params.AgentUpdateParams,
             ),
@@ -395,7 +388,6 @@ class AgentsResource(SyncAPIResource):
         *,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -421,7 +413,6 @@ class AgentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             "/v1/agents/",
             options=make_request_options(
@@ -444,7 +435,6 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -466,7 +456,6 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._delete(
             f"/v1/agents/{agent_id}",
             options=make_request_options(
@@ -480,7 +469,6 @@ class AgentsResource(SyncAPIResource):
         tool_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -504,7 +492,6 @@ class AgentsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._patch(
             f"/v1/agents/{agent_id}/add-tool/{tool_id}",
             options=make_request_options(
@@ -517,7 +504,6 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -539,7 +525,6 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._get(
             f"/v1/agents/{agent_id}/context",
             options=make_request_options(
@@ -600,7 +585,6 @@ class AgentsResource(SyncAPIResource):
         tool_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -624,7 +608,6 @@ class AgentsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._patch(
             f"/v1/agents/{agent_id}/remove-tool/{tool_id}",
             options=make_request_options(
@@ -735,8 +718,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        header_user_id: str | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -800,7 +782,7 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           tools: The tools used by the agent.
 
-          body_user_id: The user id of the agent.
+          user_id: The user id of the agent.
 
           extra_headers: Send extra headers
 
@@ -810,7 +792,6 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": header_user_id}), **(extra_headers or {})}
         return await self._post(
             "/v1/agents/",
             body=await async_maybe_transform(
@@ -828,7 +809,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "tags": tags,
                     "tool_rules": tool_rules,
                     "tools": tools,
-                    "body_user_id": body_user_id,
+                    "user_id": user_id,
                 },
                 agent_create_params.AgentCreateParams,
             ),
@@ -842,7 +823,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -864,7 +844,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             f"/v1/agents/{agent_id}",
             options=make_request_options(
@@ -888,8 +867,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        body_user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        header_user_id: str | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -949,7 +927,7 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           tools: The tools used by the agent.
 
-          body_user_id: The user id of the agent.
+          user_id: The user id of the agent.
 
           extra_headers: Send extra headers
 
@@ -961,7 +939,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": header_user_id}), **(extra_headers or {})}
         return await self._patch(
             f"/v1/agents/{agent_id}",
             body=await async_maybe_transform(
@@ -977,7 +954,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "system": system,
                     "tags": tags,
                     "tools": tools,
-                    "body_user_id": body_user_id,
+                    "user_id": user_id,
                 },
                 agent_update_params.AgentUpdateParams,
             ),
@@ -992,7 +969,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1018,7 +994,6 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             "/v1/agents/",
             options=make_request_options(
@@ -1041,7 +1016,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1063,7 +1037,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._delete(
             f"/v1/agents/{agent_id}",
             options=make_request_options(
@@ -1077,7 +1050,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         tool_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1101,7 +1073,6 @@ class AsyncAgentsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._patch(
             f"/v1/agents/{agent_id}/add-tool/{tool_id}",
             options=make_request_options(
@@ -1114,7 +1085,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1136,7 +1106,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._get(
             f"/v1/agents/{agent_id}/context",
             options=make_request_options(
@@ -1197,7 +1166,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         tool_id: str,
         *,
         agent_id: str,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1221,7 +1189,6 @@ class AsyncAgentsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._patch(
             f"/v1/agents/{agent_id}/remove-tool/{tool_id}",
             options=make_request_options(

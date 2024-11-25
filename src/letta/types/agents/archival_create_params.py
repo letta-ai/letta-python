@@ -10,5 +10,3 @@ __all__ = ["ArchivalCreateParams"]
 class ArchivalCreateParams(TypedDict, total=False):
     text: Required[str]
     """Text to write to archival memory."""
-
-    user_id: str

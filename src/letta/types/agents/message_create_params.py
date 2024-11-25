@@ -61,8 +61,6 @@ class MessageCreateParams(TypedDict, total=False):
     false, return FunctionCallMessage objects for all tool calls.
     """
 
-    user_id: str
-
 
 class MessagesUnionMember0(TypedDict, total=False):
     role: Required[Literal["user", "system"]]

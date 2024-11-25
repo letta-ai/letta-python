@@ -31,5 +31,3 @@ class BlockUpdateParams(TypedDict, total=False):
 
     value: Optional[str]
     """Value of the block."""
-
-    user_id: str

@@ -17,5 +17,3 @@ class BlockListParams(TypedDict, total=False):
 
     templates_only: bool
     """Whether to include only templates"""
-
-    user_id: str
