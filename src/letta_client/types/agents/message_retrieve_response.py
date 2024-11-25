@@ -9,23 +9,23 @@ from ..._models import BaseModel
 
 __all__ = [
     "MessageRetrieveResponse",
-    "MessageListResponse",
-    "MessageListResponseToolCall",
-    "MessageListResponseToolCallFunction",
-    "LettaMessageListResponse",
-    "LettaMessageListResponseSystemMessageOutput",
-    "LettaMessageListResponseUserMessageOutput",
-    "LettaMessageListResponseInternalMonologue",
-    "LettaMessageListResponseFunctionCallMessage",
-    "LettaMessageListResponseFunctionCallMessageFunctionCall",
-    "LettaMessageListResponseFunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall",
-    "LettaMessageListResponseFunctionCallMessageFunctionCallFunctionCallDelta",
-    "LettaMessageListResponseFunctionReturn",
-    "LettaMessageListResponseAssistantMessageOutput",
+    "UnionMember0",
+    "UnionMember0ToolCall",
+    "UnionMember0ToolCallFunction",
+    "UnionMember1",
+    "UnionMember1SystemMessageOutput",
+    "UnionMember1UserMessageOutput",
+    "UnionMember1InternalMonologue",
+    "UnionMember1FunctionCallMessage",
+    "UnionMember1FunctionCallMessageFunctionCall",
+    "UnionMember1FunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall",
+    "UnionMember1FunctionCallMessageFunctionCallFunctionCallDelta",
+    "UnionMember1FunctionReturn",
+    "UnionMember1AssistantMessageOutput",
 ]
 
 
-class MessageListResponseToolCallFunction(BaseModel):
+class UnionMember0ToolCallFunction(BaseModel):
     arguments: str
     """The arguments to pass to the function (JSON dump)"""
 
@@ -33,17 +33,17 @@ class MessageListResponseToolCallFunction(BaseModel):
     """The name of the function to call"""
 
 
-class MessageListResponseToolCall(BaseModel):
+class UnionMember0ToolCall(BaseModel):
     id: str
     """The ID of the tool call"""
 
-    function: MessageListResponseToolCallFunction
+    function: UnionMember0ToolCallFunction
     """The arguments and name for the function"""
 
     type: Optional[str] = None
 
 
-class MessageListResponse(BaseModel):
+class UnionMember0(BaseModel):
     role: Literal["assistant", "user", "tool", "function", "system"]
     """The role of the participant."""
 
@@ -68,14 +68,14 @@ class MessageListResponse(BaseModel):
     tool_call_id: Optional[str] = None
     """The id of the tool call."""
 
-    tool_calls: Optional[List[MessageListResponseToolCall]] = None
+    tool_calls: Optional[List[UnionMember0ToolCall]] = None
     """The list of tool calls requested."""
 
     user_id: Optional[str] = None
     """The unique identifier of the user."""
 
 
-class LettaMessageListResponseSystemMessageOutput(BaseModel):
+class UnionMember1SystemMessageOutput(BaseModel):
     id: str
 
     date: datetime
@@ -85,7 +85,7 @@ class LettaMessageListResponseSystemMessageOutput(BaseModel):
     message_type: Optional[Literal["system_message"]] = None
 
 
-class LettaMessageListResponseUserMessageOutput(BaseModel):
+class UnionMember1UserMessageOutput(BaseModel):
     id: str
 
     date: datetime
@@ -95,7 +95,7 @@ class LettaMessageListResponseUserMessageOutput(BaseModel):
     message_type: Optional[Literal["user_message"]] = None
 
 
-class LettaMessageListResponseInternalMonologue(BaseModel):
+class UnionMember1InternalMonologue(BaseModel):
     id: str
 
     date: datetime
@@ -105,44 +105,38 @@ class LettaMessageListResponseInternalMonologue(BaseModel):
     message_type: Optional[Literal["internal_monologue"]] = None
 
 
-class LettaMessageListResponseFunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall(BaseModel):
+class UnionMember1FunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall(BaseModel):
     arguments: str
-
-    function_call_id: str
 
     name: str
 
 
-class LettaMessageListResponseFunctionCallMessageFunctionCallFunctionCallDelta(BaseModel):
+class UnionMember1FunctionCallMessageFunctionCallFunctionCallDelta(BaseModel):
     arguments: Optional[str] = None
-
-    function_call_id: Optional[str] = None
 
     name: Optional[str] = None
 
 
-LettaMessageListResponseFunctionCallMessageFunctionCall: TypeAlias = Union[
-    LettaMessageListResponseFunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall,
-    LettaMessageListResponseFunctionCallMessageFunctionCallFunctionCallDelta,
+UnionMember1FunctionCallMessageFunctionCall: TypeAlias = Union[
+    UnionMember1FunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall,
+    UnionMember1FunctionCallMessageFunctionCallFunctionCallDelta,
 ]
 
 
-class LettaMessageListResponseFunctionCallMessage(BaseModel):
+class UnionMember1FunctionCallMessage(BaseModel):
     id: str
 
     date: datetime
 
-    function_call: LettaMessageListResponseFunctionCallMessageFunctionCall
+    function_call: UnionMember1FunctionCallMessageFunctionCall
 
     message_type: Optional[Literal["function_call"]] = None
 
 
-class LettaMessageListResponseFunctionReturn(BaseModel):
+class UnionMember1FunctionReturn(BaseModel):
     id: str
 
     date: datetime
-
-    function_call_id: str
 
     function_return: str
 
@@ -151,7 +145,7 @@ class LettaMessageListResponseFunctionReturn(BaseModel):
     message_type: Optional[Literal["function_return"]] = None
 
 
-class LettaMessageListResponseAssistantMessageOutput(BaseModel):
+class UnionMember1AssistantMessageOutput(BaseModel):
     id: str
 
     assistant_message: str
@@ -161,16 +155,16 @@ class LettaMessageListResponseAssistantMessageOutput(BaseModel):
     message_type: Optional[Literal["assistant_message"]] = None
 
 
-LettaMessageListResponse: TypeAlias = Annotated[
+UnionMember1: TypeAlias = Annotated[
     Union[
-        LettaMessageListResponseSystemMessageOutput,
-        LettaMessageListResponseUserMessageOutput,
-        LettaMessageListResponseInternalMonologue,
-        LettaMessageListResponseFunctionCallMessage,
-        LettaMessageListResponseFunctionReturn,
-        LettaMessageListResponseAssistantMessageOutput,
+        UnionMember1SystemMessageOutput,
+        UnionMember1UserMessageOutput,
+        UnionMember1InternalMonologue,
+        UnionMember1FunctionCallMessage,
+        UnionMember1FunctionReturn,
+        UnionMember1AssistantMessageOutput,
     ],
     PropertyInfo(discriminator="message_type"),
 ]
 
-MessageRetrieveResponse: TypeAlias = Union[List[MessageListResponse], List[LettaMessageListResponse]]
+MessageRetrieveResponse: TypeAlias = Union[List[UnionMember0], List[UnionMember1]]

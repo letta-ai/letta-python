@@ -79,7 +79,7 @@ class BlocksResource(SyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: Name of the block if it is a template.
+          name: Name of the block.
 
           body_user_id: The unique identifier of the user associated with the block.
 
@@ -154,7 +154,7 @@ class BlocksResource(SyncAPIResource):
         *,
         id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        label: str | NotGiven = NOT_GIVEN,
+        label: Optional[str] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -176,13 +176,13 @@ class BlocksResource(SyncAPIResource):
 
           description: Description of the block.
 
-          label: Label of the block (e.g. 'human', 'persona') in the context window.
+          label: Label of the block (e.g. 'human', 'persona').
 
           limit: Character limit of the block.
 
           metadata: Metadata of the block.
 
-          name: Name of the block if it is a template.
+          name: Name of the block.
 
           template: Whether the block is a template (e.g. saved human/persona options).
 
@@ -360,7 +360,7 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: Name of the block if it is a template.
+          name: Name of the block.
 
           body_user_id: The unique identifier of the user associated with the block.
 
@@ -435,7 +435,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         *,
         id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        label: str | NotGiven = NOT_GIVEN,
+        label: Optional[str] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -457,13 +457,13 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           description: Description of the block.
 
-          label: Label of the block (e.g. 'human', 'persona') in the context window.
+          label: Label of the block (e.g. 'human', 'persona').
 
           limit: Character limit of the block.
 
           metadata: Metadata of the block.
 
-          name: Name of the block if it is a template.
+          name: Name of the block.
 
           template: Whether the block is a template (e.g. saved human/persona options).
 

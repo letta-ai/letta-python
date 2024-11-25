@@ -56,6 +56,14 @@ from .messages import (
     MessagesResourceWithStreamingResponse,
     AsyncMessagesResourceWithStreamingResponse,
 )
+from .version_template import (
+    VersionTemplateResource,
+    AsyncVersionTemplateResource,
+    VersionTemplateResourceWithRawResponse,
+    AsyncVersionTemplateResourceWithRawResponse,
+    VersionTemplateResourceWithStreamingResponse,
+    AsyncVersionTemplateResourceWithStreamingResponse,
+)
 
 __all__ = [
     "ContextResource",
@@ -94,6 +102,12 @@ __all__ = [
     "AsyncMessagesResourceWithRawResponse",
     "MessagesResourceWithStreamingResponse",
     "AsyncMessagesResourceWithStreamingResponse",
+    "VersionTemplateResource",
+    "AsyncVersionTemplateResource",
+    "VersionTemplateResourceWithRawResponse",
+    "AsyncVersionTemplateResourceWithRawResponse",
+    "VersionTemplateResourceWithStreamingResponse",
+    "AsyncVersionTemplateResourceWithStreamingResponse",
     "AgentsResource",
     "AsyncAgentsResource",
     "AgentsResourceWithRawResponse",

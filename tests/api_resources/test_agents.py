@@ -12,8 +12,8 @@ from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     AgentState,
     AgentListResponse,
+    AgentMigrateResponse,
 )
-from letta_client._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -41,36 +41,12 @@ class TestAgents:
                 "embedding_chunk_size": 0,
                 "embedding_endpoint": "embedding_endpoint",
             },
-            initial_message_sequence=[
-                {
-                    "role": "assistant",
-                    "id": "id",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
-                    "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        }
-                    ],
-                    "user_id": "user_id",
-                }
-            ],
             llm_config={
                 "context_window": 0,
                 "model": "model",
                 "model_endpoint_type": "openai",
                 "model_endpoint": "model_endpoint",
                 "model_wrapper": "model_wrapper",
-                "put_inner_thoughts_in_kwargs": True,
             },
             memory={
                 "memory": {
@@ -88,12 +64,10 @@ class TestAgents:
                 },
                 "prompt_template": "prompt_template",
             },
-            message_ids=["string"],
+            message_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             metadata={},
             name="name",
             system="system",
-            tags=["string"],
-            tool_rules=[{"tool_name": "tool_name"}],
             tools=["string"],
             body_user_id="user_id",
             header_user_id="user_id",
@@ -196,7 +170,6 @@ class TestAgents:
                 "model_endpoint_type": "openai",
                 "model_endpoint": "model_endpoint",
                 "model_wrapper": "model_wrapper",
-                "put_inner_thoughts_in_kwargs": True,
             },
             memory={
                 "memory": {
@@ -218,7 +191,6 @@ class TestAgents:
             metadata={},
             name="name",
             system="system",
-            tags=["string"],
             tools=["string"],
             body_user_id="user_id",
             header_user_id="user_id",
@@ -267,8 +239,6 @@ class TestAgents:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         agent = client.agents.list(
-            name="name",
-            tags=["string"],
             user_id="user_id",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
@@ -339,6 +309,62 @@ class TestAgents:
                 agent_id="",
             )
 
+    @parametrize
+    def test_method_migrate(self, client: Letta) -> None:
+        agent = client.agents.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        )
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    def test_method_migrate_with_all_params(self, client: Letta) -> None:
+        agent = client.agents.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+            variables={"foo": "string"},
+        )
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    def test_raw_response_migrate(self, client: Letta) -> None:
+        response = client.agents.with_raw_response.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = response.parse()
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    def test_streaming_response_migrate(self, client: Letta) -> None:
+        with client.agents.with_streaming_response.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = response.parse()
+            assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_migrate(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.with_raw_response.migrate(
+                agent_id="",
+                preserve_core_memories=True,
+                to_template="to_template",
+            )
+
 
 class TestAsyncAgents:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -363,36 +389,12 @@ class TestAsyncAgents:
                 "embedding_chunk_size": 0,
                 "embedding_endpoint": "embedding_endpoint",
             },
-            initial_message_sequence=[
-                {
-                    "role": "assistant",
-                    "id": "id",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
-                    "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        }
-                    ],
-                    "user_id": "user_id",
-                }
-            ],
             llm_config={
                 "context_window": 0,
                 "model": "model",
                 "model_endpoint_type": "openai",
                 "model_endpoint": "model_endpoint",
                 "model_wrapper": "model_wrapper",
-                "put_inner_thoughts_in_kwargs": True,
             },
             memory={
                 "memory": {
@@ -410,12 +412,10 @@ class TestAsyncAgents:
                 },
                 "prompt_template": "prompt_template",
             },
-            message_ids=["string"],
+            message_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             metadata={},
             name="name",
             system="system",
-            tags=["string"],
-            tool_rules=[{"tool_name": "tool_name"}],
             tools=["string"],
             body_user_id="user_id",
             header_user_id="user_id",
@@ -518,7 +518,6 @@ class TestAsyncAgents:
                 "model_endpoint_type": "openai",
                 "model_endpoint": "model_endpoint",
                 "model_wrapper": "model_wrapper",
-                "put_inner_thoughts_in_kwargs": True,
             },
             memory={
                 "memory": {
@@ -540,7 +539,6 @@ class TestAsyncAgents:
             metadata={},
             name="name",
             system="system",
-            tags=["string"],
             tools=["string"],
             body_user_id="user_id",
             header_user_id="user_id",
@@ -589,8 +587,6 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.list(
-            name="name",
-            tags=["string"],
             user_id="user_id",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
@@ -659,4 +655,60 @@ class TestAsyncAgents:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.with_raw_response.delete(
                 agent_id="",
+            )
+
+    @parametrize
+    async def test_method_migrate(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        )
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    async def test_method_migrate_with_all_params(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+            variables={"foo": "string"},
+        )
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    async def test_raw_response_migrate(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.with_raw_response.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = await response.parse()
+        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_migrate(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.with_streaming_response.migrate(
+            agent_id="agent_id",
+            preserve_core_memories=True,
+            to_template="to_template",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = await response.parse()
+            assert_matches_type(AgentMigrateResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_migrate(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.with_raw_response.migrate(
+                agent_id="",
+                preserve_core_memories=True,
+                to_template="to_template",
             )

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterable, Optional, cast
+from typing import Any, Union, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -54,7 +54,9 @@ class MessagesResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        messages: Iterable[message_create_params.Message],
+        messages: Union[
+            Iterable[message_create_params.MessagesUnionMember0], Iterable[message_create_params.MessagesUnionMember1]
+        ],
         assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_function_name: str | NotGiven = NOT_GIVEN,
         return_message_object: bool | NotGiven = NOT_GIVEN,
@@ -298,7 +300,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        messages: Iterable[message_create_params.Message],
+        messages: Union[
+            Iterable[message_create_params.MessagesUnionMember0], Iterable[message_create_params.MessagesUnionMember1]
+        ],
         assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_function_name: str | NotGiven = NOT_GIVEN,
         return_message_object: bool | NotGiven = NOT_GIVEN,

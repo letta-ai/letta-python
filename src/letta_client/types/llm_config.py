@@ -42,10 +42,3 @@ class LlmConfig(BaseModel):
 
     api_model_wrapper: Optional[str] = FieldInfo(alias="model_wrapper", default=None)
     """The wrapper for the model."""
-
-    put_inner_thoughts_in_kwargs: Optional[bool] = None
-    """Puts 'inner_thoughts' as a kwarg in the function call if this is set to True.
-
-    This helps with function calling performance and also the generation of inner
-    thoughts.
-    """

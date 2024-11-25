@@ -6,28 +6,7 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = [
-    "ContextWindowOverview",
-    "FunctionsDefinition",
-    "FunctionsDefinitionFunction",
-    "Message",
-    "MessageToolCall",
-    "MessageToolCallFunction",
-]
-
-
-class FunctionsDefinitionFunction(BaseModel):
-    name: str
-
-    description: Optional[str] = None
-
-    parameters: Optional[object] = None
-
-
-class FunctionsDefinition(BaseModel):
-    function: FunctionsDefinitionFunction
-
-    type: Optional[Literal["function"]] = None
+__all__ = ["ContextWindowOverview", "Message", "MessageToolCall", "MessageToolCallFunction"]
 
 
 class MessageToolCallFunction(BaseModel):
@@ -90,9 +69,6 @@ class ContextWindowOverview(BaseModel):
     core_memory: str
     """The content of the core memory."""
 
-    functions_definitions: Optional[List[FunctionsDefinition]] = None
-    """The content of the functions definitions."""
-
     messages: List[Message]
     """The messages in the context window."""
 
@@ -113,9 +89,6 @@ class ContextWindowOverview(BaseModel):
     The number of tokens in the external memory summary (archival + recall
     metadata).
     """
-
-    num_tokens_functions_definitions: int
-    """The number of tokens in the functions definitions."""
 
     num_tokens_messages: int
     """The number of tokens in the messages list."""

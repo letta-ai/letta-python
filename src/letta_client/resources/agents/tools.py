@@ -16,7 +16,6 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.agent_state import AgentState
-from ...types.agents.tool_list_response import ToolListResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
 
@@ -41,41 +40,6 @@ class ToolsResource(SyncAPIResource):
         """
         return ToolsResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        agent_id: str,
-        *,
-        user_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ToolListResponse:
-        """
-        Get tools from an existing agent
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
-        return self._get(
-            f"/v1/agents/{agent_id}/tools",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ToolListResponse,
-        )
-
     def add(
         self,
         tool_id: str,
@@ -90,7 +54,7 @@ class ToolsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentState:
         """
-        Add tools to an existing agent
+        Add tools to an exsiting agent
 
         Args:
           extra_headers: Send extra headers
@@ -128,7 +92,7 @@ class ToolsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentState:
         """
-        Add tools to an existing agent
+        Add tools to an exsiting agent
 
         Args:
           extra_headers: Send extra headers
@@ -173,41 +137,6 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         return AsyncToolsResourceWithStreamingResponse(self)
 
-    async def list(
-        self,
-        agent_id: str,
-        *,
-        user_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ToolListResponse:
-        """
-        Get tools from an existing agent
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
-        return await self._get(
-            f"/v1/agents/{agent_id}/tools",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ToolListResponse,
-        )
-
     async def add(
         self,
         tool_id: str,
@@ -222,7 +151,7 @@ class AsyncToolsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentState:
         """
-        Add tools to an existing agent
+        Add tools to an exsiting agent
 
         Args:
           extra_headers: Send extra headers
@@ -260,7 +189,7 @@ class AsyncToolsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> AgentState:
         """
-        Add tools to an existing agent
+        Add tools to an exsiting agent
 
         Args:
           extra_headers: Send extra headers
@@ -289,9 +218,6 @@ class ToolsResourceWithRawResponse:
     def __init__(self, tools: ToolsResource) -> None:
         self._tools = tools
 
-        self.list = to_raw_response_wrapper(
-            tools.list,
-        )
         self.add = to_raw_response_wrapper(
             tools.add,
         )
@@ -304,9 +230,6 @@ class AsyncToolsResourceWithRawResponse:
     def __init__(self, tools: AsyncToolsResource) -> None:
         self._tools = tools
 
-        self.list = async_to_raw_response_wrapper(
-            tools.list,
-        )
         self.add = async_to_raw_response_wrapper(
             tools.add,
         )
@@ -319,9 +242,6 @@ class ToolsResourceWithStreamingResponse:
     def __init__(self, tools: ToolsResource) -> None:
         self._tools = tools
 
-        self.list = to_streamed_response_wrapper(
-            tools.list,
-        )
         self.add = to_streamed_response_wrapper(
             tools.add,
         )
@@ -334,9 +254,6 @@ class AsyncToolsResourceWithStreamingResponse:
     def __init__(self, tools: AsyncToolsResource) -> None:
         self._tools = tools
 
-        self.list = async_to_streamed_response_wrapper(
-            tools.list,
-        )
         self.add = async_to_streamed_response_wrapper(
             tools.add,
         )

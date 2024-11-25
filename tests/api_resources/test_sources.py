@@ -122,6 +122,7 @@ class TestSources:
     def test_method_update(self, client: Letta) -> None:
         source = client.sources.update(
             source_id="source_id",
+            id="id",
         )
         assert_matches_type(Source, source, path=["response"])
 
@@ -129,6 +130,7 @@ class TestSources:
     def test_method_update_with_all_params(self, client: Letta) -> None:
         source = client.sources.update(
             source_id="source_id",
+            id="id",
             description="description",
             embedding_config={
                 "embedding_dim": 0,
@@ -150,6 +152,7 @@ class TestSources:
     def test_raw_response_update(self, client: Letta) -> None:
         response = client.sources.with_raw_response.update(
             source_id="source_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -161,6 +164,7 @@ class TestSources:
     def test_streaming_response_update(self, client: Letta) -> None:
         with client.sources.with_streaming_response.update(
             source_id="source_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -175,6 +179,7 @@ class TestSources:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
             client.sources.with_raw_response.update(
                 source_id="",
+                id="id",
             )
 
     @parametrize
@@ -513,6 +518,7 @@ class TestAsyncSources:
     async def test_method_update(self, async_client: AsyncLetta) -> None:
         source = await async_client.sources.update(
             source_id="source_id",
+            id="id",
         )
         assert_matches_type(Source, source, path=["response"])
 
@@ -520,6 +526,7 @@ class TestAsyncSources:
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
         source = await async_client.sources.update(
             source_id="source_id",
+            id="id",
             description="description",
             embedding_config={
                 "embedding_dim": 0,
@@ -541,6 +548,7 @@ class TestAsyncSources:
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
         response = await async_client.sources.with_raw_response.update(
             source_id="source_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -552,6 +560,7 @@ class TestAsyncSources:
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
         async with async_client.sources.with_streaming_response.update(
             source_id="source_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -566,6 +575,7 @@ class TestAsyncSources:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `source_id` but received ''"):
             await async_client.sources.with_raw_response.update(
                 source_id="",
+                id="id",
             )
 
     @parametrize

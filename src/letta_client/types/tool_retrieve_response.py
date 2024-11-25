@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
-from typing_extensions import TypeAlias
 
 from .._models import BaseModel
 
-__all__ = ["ToolListResponse", "ToolListResponseItem"]
+__all__ = ["ToolRetrieveResponse"]
 
 
-class ToolListResponseItem(BaseModel):
+class ToolRetrieveResponse(BaseModel):
     name: str
     """The name of the function."""
 
@@ -35,6 +34,3 @@ class ToolListResponseItem(BaseModel):
 
     user_id: Optional[str] = None
     """The unique identifier of the user associated with the function."""
-
-
-ToolListResponse: TypeAlias = List[ToolListResponseItem]
