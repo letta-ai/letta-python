@@ -5,12 +5,12 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, Annotated, TypedDict
 
-from ..._utils import PropertyInfo
+from .._utils import PropertyInfo
 
-__all__ = ["Block"]
+__all__ = ["BlockParam"]
 
 
-class Block(TypedDict, total=False):
+class BlockParam(TypedDict, total=False):
     value: Required[str]
     """Value of the block."""
 
