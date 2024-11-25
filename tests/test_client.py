@@ -744,12 +744,12 @@ class TestLetta:
     @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v1/tools/").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v1/agents/").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             self.client.post(
-                "/v1/tools/",
-                body=cast(object, dict(source_code="source_code")),
+                "/v1/agents/",
+                body=cast(object, dict()),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -759,12 +759,12 @@ class TestLetta:
     @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v1/tools/").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v1/agents/").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             self.client.post(
-                "/v1/tools/",
-                body=cast(object, dict(source_code="source_code")),
+                "/v1/agents/",
+                body=cast(object, dict()),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -795,9 +795,9 @@ class TestLetta:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/agents/").mock(side_effect=retry_handler)
 
-        response = client.tools.with_raw_response.create(source_code="source_code")
+        response = client.agents.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -817,11 +817,9 @@ class TestLetta:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/agents/").mock(side_effect=retry_handler)
 
-        response = client.tools.with_raw_response.create(
-            source_code="source_code", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = client.agents.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -842,11 +840,9 @@ class TestLetta:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/agents/").mock(side_effect=retry_handler)
 
-        response = client.tools.with_raw_response.create(
-            source_code="source_code", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = client.agents.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1550,12 +1546,12 @@ class TestAsyncLetta:
     @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v1/tools/").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/v1/agents/").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await self.client.post(
-                "/v1/tools/",
-                body=cast(object, dict(source_code="source_code")),
+                "/v1/agents/",
+                body=cast(object, dict()),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1565,12 +1561,12 @@ class TestAsyncLetta:
     @mock.patch("letta._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
-        respx_mock.post("/v1/tools/").mock(return_value=httpx.Response(500))
+        respx_mock.post("/v1/agents/").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await self.client.post(
-                "/v1/tools/",
-                body=cast(object, dict(source_code="source_code")),
+                "/v1/agents/",
+                body=cast(object, dict()),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1602,9 +1598,9 @@ class TestAsyncLetta:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/agents/").mock(side_effect=retry_handler)
 
-        response = await client.tools.with_raw_response.create(source_code="source_code")
+        response = await client.agents.with_raw_response.create()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1627,11 +1623,9 @@ class TestAsyncLetta:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/agents/").mock(side_effect=retry_handler)
 
-        response = await client.tools.with_raw_response.create(
-            source_code="source_code", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = await client.agents.with_raw_response.create(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1653,11 +1647,9 @@ class TestAsyncLetta:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/v1/tools/").mock(side_effect=retry_handler)
+        respx_mock.post("/v1/agents/").mock(side_effect=retry_handler)
 
-        response = await client.tools.with_raw_response.create(
-            source_code="source_code", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = await client.agents.with_raw_response.create(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 

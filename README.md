@@ -36,10 +36,8 @@ client = Letta(
     environment="environment_1",
 )
 
-tool = client.tools.create(
-    source_code="source_code",
-)
-print(tool.id)
+agent_state = client.agents.create()
+print(agent_state.id)
 ```
 
 While you can provide a `bearer_token` keyword argument,
@@ -64,10 +62,8 @@ client = AsyncLetta(
 
 
 async def main() -> None:
-    tool = await client.tools.create(
-        source_code="source_code",
-    )
-    print(tool.id)
+    agent_state = await client.agents.create()
+    print(agent_state.id)
 
 
 asyncio.run(main())
@@ -100,9 +96,7 @@ from letta import Letta
 client = Letta()
 
 try:
-    client.tools.create(
-        source_code="source_code",
-    )
+    client.agents.create()
 except letta.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -145,9 +139,7 @@ client = Letta(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).tools.create(
-    source_code="source_code",
-)
+client.with_options(max_retries=5).agents.create()
 ```
 
 ### Timeouts
@@ -170,9 +162,7 @@ client = Letta(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).tools.create(
-    source_code="source_code",
-)
+client.with_options(timeout=5.0).agents.create()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -213,13 +203,11 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from letta import Letta
 
 client = Letta()
-response = client.tools.with_raw_response.create(
-    source_code="source_code",
-)
+response = client.agents.with_raw_response.create()
 print(response.headers.get('X-My-Header'))
 
-tool = response.parse()  # get the object that `tools.create()` would have returned
-print(tool.id)
+agent = response.parse()  # get the object that `agents.create()` would have returned
+print(agent.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/letta-python/tree/main/src/letta/_response.py) object.
@@ -233,9 +221,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.tools.with_streaming_response.create(
-    source_code="source_code",
-) as response:
+with client.agents.with_streaming_response.create() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():

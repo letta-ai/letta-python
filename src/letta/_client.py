@@ -52,8 +52,6 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Letta(SyncAPIClient):
-    tools: resources.ToolsResource
-    sources: resources.SourcesResource
     agents: resources.AgentsResource
     with_raw_response: LettaWithRawResponse
     with_streaming_response: LettaWithStreamedResponse
@@ -136,8 +134,6 @@ class Letta(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.tools = resources.ToolsResource(self)
-        self.sources = resources.SourcesResource(self)
         self.agents = resources.AgentsResource(self)
         self.with_raw_response = LettaWithRawResponse(self)
         self.with_streaming_response = LettaWithStreamedResponse(self)
@@ -250,8 +246,6 @@ class Letta(SyncAPIClient):
 
 
 class AsyncLetta(AsyncAPIClient):
-    tools: resources.AsyncToolsResource
-    sources: resources.AsyncSourcesResource
     agents: resources.AsyncAgentsResource
     with_raw_response: AsyncLettaWithRawResponse
     with_streaming_response: AsyncLettaWithStreamedResponse
@@ -334,8 +328,6 @@ class AsyncLetta(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.tools = resources.AsyncToolsResource(self)
-        self.sources = resources.AsyncSourcesResource(self)
         self.agents = resources.AsyncAgentsResource(self)
         self.with_raw_response = AsyncLettaWithRawResponse(self)
         self.with_streaming_response = AsyncLettaWithStreamedResponse(self)
@@ -449,29 +441,21 @@ class AsyncLetta(AsyncAPIClient):
 
 class LettaWithRawResponse:
     def __init__(self, client: Letta) -> None:
-        self.tools = resources.ToolsResourceWithRawResponse(client.tools)
-        self.sources = resources.SourcesResourceWithRawResponse(client.sources)
         self.agents = resources.AgentsResourceWithRawResponse(client.agents)
 
 
 class AsyncLettaWithRawResponse:
     def __init__(self, client: AsyncLetta) -> None:
-        self.tools = resources.AsyncToolsResourceWithRawResponse(client.tools)
-        self.sources = resources.AsyncSourcesResourceWithRawResponse(client.sources)
         self.agents = resources.AsyncAgentsResourceWithRawResponse(client.agents)
 
 
 class LettaWithStreamedResponse:
     def __init__(self, client: Letta) -> None:
-        self.tools = resources.ToolsResourceWithStreamingResponse(client.tools)
-        self.sources = resources.SourcesResourceWithStreamingResponse(client.sources)
         self.agents = resources.AgentsResourceWithStreamingResponse(client.agents)
 
 
 class AsyncLettaWithStreamedResponse:
     def __init__(self, client: AsyncLetta) -> None:
-        self.tools = resources.AsyncToolsResourceWithStreamingResponse(client.tools)
-        self.sources = resources.AsyncSourcesResourceWithStreamingResponse(client.sources)
         self.agents = resources.AsyncAgentsResourceWithStreamingResponse(client.agents)
 
 
