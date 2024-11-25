@@ -10,22 +10,22 @@ Types:
 
 ```python
 from letta_client.types import (
-    ToolCreateResponse,
-    ToolRetrieveResponse,
-    ToolUpdateResponse,
+    Tool,
     ToolListResponse,
     ToolDeleteResponse,
+    ToolAddBaseToolsResponse,
     ToolRetrieveByNameResponse,
 )
 ```
 
 Methods:
 
-- <code title="post /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">create</a>(\*\*<a href="src/letta_client/types/tool_create_params.py">params</a>) -> <a href="./src/letta_client/types/tool_create_response.py">ToolCreateResponse</a></code>
-- <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">retrieve</a>(tool_id) -> <a href="./src/letta_client/types/tool_retrieve_response.py">ToolRetrieveResponse</a></code>
-- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">update</a>(tool_id, \*\*<a href="src/letta_client/types/tool_update_params.py">params</a>) -> <a href="./src/letta_client/types/tool_update_response.py">ToolUpdateResponse</a></code>
-- <code title="get /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">list</a>() -> <a href="./src/letta_client/types/tool_list_response.py">ToolListResponse</a></code>
+- <code title="post /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">create</a>(\*\*<a href="src/letta_client/types/tool_create_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
+- <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">retrieve</a>(tool_id) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
+- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">update</a>(tool_id, \*\*<a href="src/letta_client/types/tool_update_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
+- <code title="get /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">list</a>(\*\*<a href="src/letta_client/types/tool_list_params.py">params</a>) -> <a href="./src/letta_client/types/tool_list_response.py">ToolListResponse</a></code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">delete</a>(tool_id) -> <a href="./src/letta_client/types/tool_delete_response.py">object</a></code>
+- <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/letta_client/resources/tools.py">add_base_tools</a>() -> <a href="./src/letta_client/types/tool_add_base_tools_response.py">ToolAddBaseToolsResponse</a></code>
 - <code title="get /v1/tools/name/{tool_name}">client.tools.<a href="./src/letta_client/resources/tools.py">retrieve_by_name</a>(tool_name) -> str</code>
 
 # Sources
@@ -96,7 +96,7 @@ Methods:
 - <code title="post /v1/agents/">client.agents.<a href="./src/letta_client/resources/agents/agents.py">create</a>(\*\*<a href="src/letta_client/types/agent_create_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 - <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/letta_client/resources/agents/agents.py">retrieve</a>(agent_id) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/letta_client/resources/agents/agents.py">update</a>(agent_id, \*\*<a href="src/letta_client/types/agent_update_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
-- <code title="get /v1/agents/">client.agents.<a href="./src/letta_client/resources/agents/agents.py">list</a>() -> <a href="./src/letta_client/types/agent_list_response.py">AgentListResponse</a></code>
+- <code title="get /v1/agents/">client.agents.<a href="./src/letta_client/resources/agents/agents.py">list</a>(\*\*<a href="src/letta_client/types/agent_list_params.py">params</a>) -> <a href="./src/letta_client/types/agent_list_response.py">AgentListResponse</a></code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/letta_client/resources/agents/agents.py">delete</a>(agent_id) -> <a href="./src/letta_client/types/agent_delete_response.py">object</a></code>
 - <code title="post /v1/agents/{agent_id}/migrate">client.agents.<a href="./src/letta_client/resources/agents/agents.py">migrate</a>(agent_id, \*\*<a href="src/letta_client/types/agent_migrate_params.py">params</a>) -> <a href="./src/letta_client/types/agent_migrate_response.py">AgentMigrateResponse</a></code>
 
@@ -114,8 +114,15 @@ Methods:
 
 ## Tools
 
+Types:
+
+```python
+from letta_client.types.agents import ToolListResponse
+```
+
 Methods:
 
+- <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">list</a>(agent_id) -> <a href="./src/letta_client/types/agents/tool_list_response.py">ToolListResponse</a></code>
 - <code title="patch /v1/agents/{agent_id}/add-tool/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">add</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 - <code title="patch /v1/agents/{agent_id}/remove-tool/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">remove</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 
@@ -136,13 +143,13 @@ Methods:
 Types:
 
 ```python
-from letta_client.types.agents import ArchivalMemorySummary, RecallMemorySummary
+from letta_client.types.agents import ArchivalMemorySummary, Memory, RecallMemorySummary
 ```
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/memory">client.agents.memory.<a href="./src/letta_client/resources/agents/memory/memory.py">retrieve</a>(agent_id) -> <a href="./src/letta_client/types/memory.py">Memory</a></code>
-- <code title="patch /v1/agents/{agent_id}/memory">client.agents.memory.<a href="./src/letta_client/resources/agents/memory/memory.py">update</a>(agent_id, \*\*<a href="src/letta_client/types/agents/memory_update_params.py">params</a>) -> <a href="./src/letta_client/types/memory.py">Memory</a></code>
+- <code title="get /v1/agents/{agent_id}/memory">client.agents.memory.<a href="./src/letta_client/resources/agents/memory/memory.py">retrieve</a>(agent_id) -> <a href="./src/letta_client/types/agents/memory/memory.py">Memory</a></code>
+- <code title="patch /v1/agents/{agent_id}/memory">client.agents.memory.<a href="./src/letta_client/resources/agents/memory/memory.py">update</a>(agent_id, \*\*<a href="src/letta_client/types/agents/memory_update_params.py">params</a>) -> <a href="./src/letta_client/types/agents/memory/memory.py">Memory</a></code>
 
 ### Messages
 
@@ -167,6 +174,25 @@ Methods:
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/memory/archival">client.agents.memory.archival.<a href="./src/letta_client/resources/agents/memory/archival.py">retrieve</a>(agent_id) -> <a href="./src/letta_client/types/agents/archival_memory_summary.py">ArchivalMemorySummary</a></code>
+
+### Label
+
+Methods:
+
+- <code title="patch /v1/agents/{agent_id}/memory/label">client.agents.memory.label.<a href="./src/letta_client/resources/agents/memory/label.py">update</a>(agent_id, \*\*<a href="src/letta_client/types/agents/memory/label_update_params.py">params</a>) -> <a href="./src/letta_client/types/agents/memory/memory.py">Memory</a></code>
+
+### Block
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/memory/block">client.agents.memory.block.<a href="./src/letta_client/resources/agents/memory/block.py">create</a>(agent_id, \*\*<a href="src/letta_client/types/agents/memory/block_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/memory/memory.py">Memory</a></code>
+- <code title="delete /v1/agents/{agent_id}/memory/block/{block_label}">client.agents.memory.block.<a href="./src/letta_client/resources/agents/memory/block.py">delete</a>(block_label, \*, agent_id) -> <a href="./src/letta_client/types/agents/memory/memory.py">Memory</a></code>
+
+### Limit
+
+Methods:
+
+- <code title="patch /v1/agents/{agent_id}/memory/limit">client.agents.memory.limit.<a href="./src/letta_client/resources/agents/memory/limit.py">update</a>(agent_id, \*\*<a href="src/letta_client/types/agents/memory/limit_update_params.py">params</a>) -> <a href="./src/letta_client/types/agents/memory/memory.py">Memory</a></code>
 
 ## Archival
 

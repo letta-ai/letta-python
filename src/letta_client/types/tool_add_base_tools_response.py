@@ -5,6 +5,6 @@ from typing_extensions import TypeAlias
 
 from .tool import Tool
 
-__all__ = ["ToolListResponse"]
+__all__ = ["ToolAddBaseToolsResponse"]
 
-ToolListResponse: TypeAlias = List[Tool]
+ToolAddBaseToolsResponse: TypeAlias = List[Tool]

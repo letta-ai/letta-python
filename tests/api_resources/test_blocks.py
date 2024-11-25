@@ -21,6 +21,7 @@ class TestBlocks:
     def test_method_create(self, client: Letta) -> None:
         block = client.blocks.create(
             label="label",
+            value="value",
         )
         assert_matches_type(Block, block, path=["response"])
 
@@ -28,14 +29,13 @@ class TestBlocks:
     def test_method_create_with_all_params(self, client: Letta) -> None:
         block = client.blocks.create(
             label="label",
+            value="value",
             description="description",
+            is_template=True,
             limit=0,
             metadata={},
             name="name",
-            template=True,
-            body_user_id="user_id",
-            value="value",
-            header_user_id="user_id",
+            user_id="user_id",
         )
         assert_matches_type(Block, block, path=["response"])
 
@@ -43,6 +43,7 @@ class TestBlocks:
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.blocks.with_raw_response.create(
             label="label",
+            value="value",
         )
 
         assert response.is_closed is True
@@ -54,6 +55,7 @@ class TestBlocks:
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.create(
             label="label",
+            value="value",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -66,14 +68,22 @@ class TestBlocks:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         block = client.blocks.retrieve(
-            "block_id",
+            block_id="block_id",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
+        block = client.blocks.retrieve(
+            block_id="block_id",
+            user_id="user_id",
         )
         assert_matches_type(Block, block, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.blocks.with_raw_response.retrieve(
-            "block_id",
+            block_id="block_id",
         )
 
         assert response.is_closed is True
@@ -84,7 +94,7 @@ class TestBlocks:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.retrieve(
-            "block_id",
+            block_id="block_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -98,14 +108,13 @@ class TestBlocks:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             client.blocks.with_raw_response.retrieve(
-                "",
+                block_id="",
             )
 
     @parametrize
     def test_method_update(self, client: Letta) -> None:
         block = client.blocks.update(
             block_id="block_id",
-            id="id",
         )
         assert_matches_type(Block, block, path=["response"])
 
@@ -113,15 +122,14 @@ class TestBlocks:
     def test_method_update_with_all_params(self, client: Letta) -> None:
         block = client.blocks.update(
             block_id="block_id",
-            id="id",
             description="description",
+            is_template=True,
             label="label",
             limit=0,
             metadata={},
             name="name",
-            template=True,
-            user_id="user_id",
             value="value",
+            user_id="user_id",
         )
         assert_matches_type(Block, block, path=["response"])
 
@@ -129,7 +137,6 @@ class TestBlocks:
     def test_raw_response_update(self, client: Letta) -> None:
         response = client.blocks.with_raw_response.update(
             block_id="block_id",
-            id="id",
         )
 
         assert response.is_closed is True
@@ -141,7 +148,6 @@ class TestBlocks:
     def test_streaming_response_update(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.update(
             block_id="block_id",
-            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -156,7 +162,6 @@ class TestBlocks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             client.blocks.with_raw_response.update(
                 block_id="",
-                id="id",
             )
 
     @parametrize
@@ -197,14 +202,22 @@ class TestBlocks:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         block = client.blocks.delete(
-            "block_id",
+            block_id="block_id",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        block = client.blocks.delete(
+            block_id="block_id",
+            user_id="user_id",
         )
         assert_matches_type(Block, block, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.blocks.with_raw_response.delete(
-            "block_id",
+            block_id="block_id",
         )
 
         assert response.is_closed is True
@@ -215,7 +228,7 @@ class TestBlocks:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.delete(
-            "block_id",
+            block_id="block_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -229,7 +242,7 @@ class TestBlocks:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             client.blocks.with_raw_response.delete(
-                "",
+                block_id="",
             )
 
 
@@ -240,6 +253,7 @@ class TestAsyncBlocks:
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.create(
             label="label",
+            value="value",
         )
         assert_matches_type(Block, block, path=["response"])
 
@@ -247,14 +261,13 @@ class TestAsyncBlocks:
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.create(
             label="label",
+            value="value",
             description="description",
+            is_template=True,
             limit=0,
             metadata={},
             name="name",
-            template=True,
-            body_user_id="user_id",
-            value="value",
-            header_user_id="user_id",
+            user_id="user_id",
         )
         assert_matches_type(Block, block, path=["response"])
 
@@ -262,6 +275,7 @@ class TestAsyncBlocks:
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.blocks.with_raw_response.create(
             label="label",
+            value="value",
         )
 
         assert response.is_closed is True
@@ -273,6 +287,7 @@ class TestAsyncBlocks:
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.create(
             label="label",
+            value="value",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -285,14 +300,22 @@ class TestAsyncBlocks:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.retrieve(
-            "block_id",
+            block_id="block_id",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
+        block = await async_client.blocks.retrieve(
+            block_id="block_id",
+            user_id="user_id",
         )
         assert_matches_type(Block, block, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.blocks.with_raw_response.retrieve(
-            "block_id",
+            block_id="block_id",
         )
 
         assert response.is_closed is True
@@ -303,7 +326,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.retrieve(
-            "block_id",
+            block_id="block_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -317,14 +340,13 @@ class TestAsyncBlocks:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             await async_client.blocks.with_raw_response.retrieve(
-                "",
+                block_id="",
             )
 
     @parametrize
     async def test_method_update(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.update(
             block_id="block_id",
-            id="id",
         )
         assert_matches_type(Block, block, path=["response"])
 
@@ -332,15 +354,14 @@ class TestAsyncBlocks:
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.update(
             block_id="block_id",
-            id="id",
             description="description",
+            is_template=True,
             label="label",
             limit=0,
             metadata={},
             name="name",
-            template=True,
-            user_id="user_id",
             value="value",
+            user_id="user_id",
         )
         assert_matches_type(Block, block, path=["response"])
 
@@ -348,7 +369,6 @@ class TestAsyncBlocks:
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
         response = await async_client.blocks.with_raw_response.update(
             block_id="block_id",
-            id="id",
         )
 
         assert response.is_closed is True
@@ -360,7 +380,6 @@ class TestAsyncBlocks:
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.update(
             block_id="block_id",
-            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -375,7 +394,6 @@ class TestAsyncBlocks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             await async_client.blocks.with_raw_response.update(
                 block_id="",
-                id="id",
             )
 
     @parametrize
@@ -416,14 +434,22 @@ class TestAsyncBlocks:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.delete(
-            "block_id",
+            block_id="block_id",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        block = await async_client.blocks.delete(
+            block_id="block_id",
+            user_id="user_id",
         )
         assert_matches_type(Block, block, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.blocks.with_raw_response.delete(
-            "block_id",
+            block_id="block_id",
         )
 
         assert response.is_closed is True
@@ -434,7 +460,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.delete(
-            "block_id",
+            block_id="block_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -448,5 +474,5 @@ class TestAsyncBlocks:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             await async_client.blocks.with_raw_response.delete(
-                "",
+                block_id="",
             )

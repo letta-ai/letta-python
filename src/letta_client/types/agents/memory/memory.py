@@ -2,8 +2,8 @@
 
 from typing import Dict, Optional
 
-from .block import Block
-from .._models import BaseModel
+from ...block import Block
+from ...._models import BaseModel
 
 __all__ = ["Memory"]
 

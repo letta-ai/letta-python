@@ -14,8 +14,13 @@ class BlockCreateParams(TypedDict, total=False):
     label: Required[str]
     """Label of the block."""
 
+    value: Required[str]
+    """Value of the block."""
+
     description: Optional[str]
     """Description of the block."""
+
+    is_template: bool
 
     limit: int
     """Character limit of the block."""
@@ -24,14 +29,6 @@ class BlockCreateParams(TypedDict, total=False):
     """Metadata of the block."""
 
     name: Optional[str]
-    """Name of the block."""
+    """Name of the block if it is a template."""
 
-    template: bool
-
-    body_user_id: Annotated[Optional[str], PropertyInfo(alias="user_id")]
-    """The unique identifier of the user associated with the block."""
-
-    value: Optional[str]
-    """Value of the block."""
-
-    header_user_id: Annotated[str, PropertyInfo(alias="user_id")]
+    user_id: str

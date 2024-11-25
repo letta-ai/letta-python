@@ -21,7 +21,6 @@ class TestVersionTemplate:
     def test_method_create(self, client: Letta) -> None:
         version_template = client.agents.version_template.create(
             agent_id="agent_id",
-            body={},
         )
         assert_matches_type(VersionTemplateCreateResponse, version_template, path=["response"])
 
@@ -29,8 +28,8 @@ class TestVersionTemplate:
     def test_method_create_with_all_params(self, client: Letta) -> None:
         version_template = client.agents.version_template.create(
             agent_id="agent_id",
-            body={},
             return_agent_id=True,
+            migrate_deployed_agents=True,
         )
         assert_matches_type(VersionTemplateCreateResponse, version_template, path=["response"])
 
@@ -38,7 +37,6 @@ class TestVersionTemplate:
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.agents.version_template.with_raw_response.create(
             agent_id="agent_id",
-            body={},
         )
 
         assert response.is_closed is True
@@ -50,7 +48,6 @@ class TestVersionTemplate:
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.agents.version_template.with_streaming_response.create(
             agent_id="agent_id",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -65,7 +62,6 @@ class TestVersionTemplate:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.version_template.with_raw_response.create(
                 agent_id="",
-                body={},
             )
 
 
@@ -76,7 +72,6 @@ class TestAsyncVersionTemplate:
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         version_template = await async_client.agents.version_template.create(
             agent_id="agent_id",
-            body={},
         )
         assert_matches_type(VersionTemplateCreateResponse, version_template, path=["response"])
 
@@ -84,8 +79,8 @@ class TestAsyncVersionTemplate:
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         version_template = await async_client.agents.version_template.create(
             agent_id="agent_id",
-            body={},
             return_agent_id=True,
+            migrate_deployed_agents=True,
         )
         assert_matches_type(VersionTemplateCreateResponse, version_template, path=["response"])
 
@@ -93,7 +88,6 @@ class TestAsyncVersionTemplate:
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.version_template.with_raw_response.create(
             agent_id="agent_id",
-            body={},
         )
 
         assert response.is_closed is True
@@ -105,7 +99,6 @@ class TestAsyncVersionTemplate:
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.version_template.with_streaming_response.create(
             agent_id="agent_id",
-            body={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -120,5 +113,4 @@ class TestAsyncVersionTemplate:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.version_template.with_raw_response.create(
                 agent_id="",
-                body={},
             )

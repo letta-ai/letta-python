@@ -2,19 +2,26 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal, Annotated, TypedDict
+from typing import List, Union, Iterable, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .memory_param import MemoryParam
 from .llm_config_param import LlmConfigParam
 from .embedding_config_param import EmbeddingConfigParam
+from .agents.memory.memory_param import MemoryParam
 
-__all__ = ["AgentCreateParams"]
+__all__ = [
+    "AgentCreateParams",
+    "InitialMessageSequence",
+    "InitialMessageSequenceToolCall",
+    "InitialMessageSequenceToolCallFunction",
+    "ToolRule",
+]
 
 
 class AgentCreateParams(TypedDict, total=False):
-    agent_type: Optional[Literal["memgpt_agent", "split_thread_agent"]]
+    agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]]
     """Enum to represent the type of agent."""
 
     description: Optional[str]
@@ -35,6 +42,9 @@ class AgentCreateParams(TypedDict, total=False):
     azure_deployment (str): The Azure deployment for the model (Azure only).
     """
 
+    initial_message_sequence: Optional[Iterable[InitialMessageSequence]]
+    """The initial set of messages to put in the agent's in-context memory."""
+
     llm_config: Optional[LlmConfigParam]
     """Configuration for a Language Model (LLM) model.
 
@@ -46,7 +56,10 @@ class AgentCreateParams(TypedDict, total=False):
     model. model_wrapper (str): The wrapper for the model. This is used to wrap
     additional text around the input/output of the model. This is useful for
     text-to-text completions, such as the Completions API in OpenAI. context_window
-    (int): The context window size for the model.
+    (int): The context window size for the model. put_inner_thoughts_in_kwargs
+    (bool): Puts `inner_thoughts` as a kwarg in the function call if this is set to
+    True. This helps with function calling performance and also the generation of
+    inner thoughts.
     """
 
     memory: Optional[MemoryParam]
@@ -71,6 +84,12 @@ class AgentCreateParams(TypedDict, total=False):
     system: Optional[str]
     """The system prompt used by the agent."""
 
+    tags: Optional[List[str]]
+    """The tags associated with the agent."""
+
+    tool_rules: Optional[Iterable[ToolRule]]
+    """The tool rules governing the agent."""
+
     tools: Optional[List[str]]
     """The tools used by the agent."""
 
@@ -78,3 +97,58 @@ class AgentCreateParams(TypedDict, total=False):
     """The user id of the agent."""
 
     header_user_id: Annotated[str, PropertyInfo(alias="user_id")]
+
+
+class InitialMessageSequenceToolCallFunction(TypedDict, total=False):
+    arguments: Required[str]
+    """The arguments to pass to the function (JSON dump)"""
+
+    name: Required[str]
+    """The name of the function to call"""
+
+
+class InitialMessageSequenceToolCall(TypedDict, total=False):
+    id: Required[str]
+    """The ID of the tool call"""
+
+    function: Required[InitialMessageSequenceToolCallFunction]
+    """The arguments and name for the function"""
+
+    type: str
+
+
+class InitialMessageSequence(TypedDict, total=False):
+    role: Required[Literal["assistant", "user", "tool", "function", "system"]]
+    """The role of the participant."""
+
+    id: str
+    """The human-friendly ID of the Message"""
+
+    agent_id: Optional[str]
+    """The unique identifier of the agent."""
+
+    created_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """The time the message was created."""
+
+    model: Optional[str]
+    """The model used to make the function call."""
+
+    name: Optional[str]
+    """The name of the participant."""
+
+    text: Optional[str]
+    """The text of the message."""
+
+    tool_call_id: Optional[str]
+    """The id of the tool call."""
+
+    tool_calls: Optional[Iterable[InitialMessageSequenceToolCall]]
+    """The list of tool calls requested."""
+
+    user_id: Optional[str]
+    """The unique identifier of the user."""
+
+
+class ToolRule(TypedDict, total=False):
+    tool_name: Required[str]
+    """The name of the tool. Must exist in the database for the user's organization."""

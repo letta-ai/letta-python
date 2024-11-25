@@ -4,6 +4,30 @@ from __future__ import annotations
 
 import httpx
 
+from .block import (
+    BlockResource,
+    AsyncBlockResource,
+    BlockResourceWithRawResponse,
+    AsyncBlockResourceWithRawResponse,
+    BlockResourceWithStreamingResponse,
+    AsyncBlockResourceWithStreamingResponse,
+)
+from .label import (
+    LabelResource,
+    AsyncLabelResource,
+    LabelResourceWithRawResponse,
+    AsyncLabelResourceWithRawResponse,
+    LabelResourceWithStreamingResponse,
+    AsyncLabelResourceWithStreamingResponse,
+)
+from .limit import (
+    LimitResource,
+    AsyncLimitResource,
+    LimitResourceWithRawResponse,
+    AsyncLimitResourceWithRawResponse,
+    LimitResourceWithStreamingResponse,
+    AsyncLimitResourceWithStreamingResponse,
+)
 from .recall import (
     RecallResource,
     AsyncRecallResource,
@@ -44,7 +68,7 @@ from ...._response import (
 )
 from ...._base_client import make_request_options
 from ....types.agents import memory_update_params
-from ....types.memory import Memory
+from ....types.agents.memory.memory import Memory
 
 __all__ = ["MemoryResource", "AsyncMemoryResource"]
 
@@ -61,6 +85,18 @@ class MemoryResource(SyncAPIResource):
     @cached_property
     def archival(self) -> ArchivalResource:
         return ArchivalResource(self._client)
+
+    @cached_property
+    def label(self) -> LabelResource:
+        return LabelResource(self._client)
+
+    @cached_property
+    def block(self) -> BlockResource:
+        return BlockResource(self._client)
+
+    @cached_property
+    def limit(self) -> LimitResource:
+        return LimitResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> MemoryResourceWithRawResponse:
@@ -132,8 +168,11 @@ class MemoryResource(SyncAPIResource):
         """Update the core memory of a specific agent.
 
         This endpoint accepts new memory
-        contents (human and persona) and updates the core memory of the agent identified
-        by the user ID and agent ID.
+        contents (labels as keys, and values as values) and updates the core memory of
+        the agent identified by the user ID and agent ID. This endpoint accepts new
+        memory contents to update the core memory of the agent. This endpoint only
+        supports modifying existing blocks; it does not support deleting/unlinking or
+        creating/linking blocks.
 
         Args:
           extra_headers: Send extra headers
@@ -169,6 +208,18 @@ class AsyncMemoryResource(AsyncAPIResource):
     @cached_property
     def archival(self) -> AsyncArchivalResource:
         return AsyncArchivalResource(self._client)
+
+    @cached_property
+    def label(self) -> AsyncLabelResource:
+        return AsyncLabelResource(self._client)
+
+    @cached_property
+    def block(self) -> AsyncBlockResource:
+        return AsyncBlockResource(self._client)
+
+    @cached_property
+    def limit(self) -> AsyncLimitResource:
+        return AsyncLimitResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncMemoryResourceWithRawResponse:
@@ -240,8 +291,11 @@ class AsyncMemoryResource(AsyncAPIResource):
         """Update the core memory of a specific agent.
 
         This endpoint accepts new memory
-        contents (human and persona) and updates the core memory of the agent identified
-        by the user ID and agent ID.
+        contents (labels as keys, and values as values) and updates the core memory of
+        the agent identified by the user ID and agent ID. This endpoint accepts new
+        memory contents to update the core memory of the agent. This endpoint only
+        supports modifying existing blocks; it does not support deleting/unlinking or
+        creating/linking blocks.
 
         Args:
           extra_headers: Send extra headers
@@ -288,6 +342,18 @@ class MemoryResourceWithRawResponse:
     def archival(self) -> ArchivalResourceWithRawResponse:
         return ArchivalResourceWithRawResponse(self._memory.archival)
 
+    @cached_property
+    def label(self) -> LabelResourceWithRawResponse:
+        return LabelResourceWithRawResponse(self._memory.label)
+
+    @cached_property
+    def block(self) -> BlockResourceWithRawResponse:
+        return BlockResourceWithRawResponse(self._memory.block)
+
+    @cached_property
+    def limit(self) -> LimitResourceWithRawResponse:
+        return LimitResourceWithRawResponse(self._memory.limit)
+
 
 class AsyncMemoryResourceWithRawResponse:
     def __init__(self, memory: AsyncMemoryResource) -> None:
@@ -311,6 +377,18 @@ class AsyncMemoryResourceWithRawResponse:
     @cached_property
     def archival(self) -> AsyncArchivalResourceWithRawResponse:
         return AsyncArchivalResourceWithRawResponse(self._memory.archival)
+
+    @cached_property
+    def label(self) -> AsyncLabelResourceWithRawResponse:
+        return AsyncLabelResourceWithRawResponse(self._memory.label)
+
+    @cached_property
+    def block(self) -> AsyncBlockResourceWithRawResponse:
+        return AsyncBlockResourceWithRawResponse(self._memory.block)
+
+    @cached_property
+    def limit(self) -> AsyncLimitResourceWithRawResponse:
+        return AsyncLimitResourceWithRawResponse(self._memory.limit)
 
 
 class MemoryResourceWithStreamingResponse:
@@ -336,6 +414,18 @@ class MemoryResourceWithStreamingResponse:
     def archival(self) -> ArchivalResourceWithStreamingResponse:
         return ArchivalResourceWithStreamingResponse(self._memory.archival)
 
+    @cached_property
+    def label(self) -> LabelResourceWithStreamingResponse:
+        return LabelResourceWithStreamingResponse(self._memory.label)
+
+    @cached_property
+    def block(self) -> BlockResourceWithStreamingResponse:
+        return BlockResourceWithStreamingResponse(self._memory.block)
+
+    @cached_property
+    def limit(self) -> LimitResourceWithStreamingResponse:
+        return LimitResourceWithStreamingResponse(self._memory.limit)
+
 
 class AsyncMemoryResourceWithStreamingResponse:
     def __init__(self, memory: AsyncMemoryResource) -> None:
@@ -359,3 +449,15 @@ class AsyncMemoryResourceWithStreamingResponse:
     @cached_property
     def archival(self) -> AsyncArchivalResourceWithStreamingResponse:
         return AsyncArchivalResourceWithStreamingResponse(self._memory.archival)
+
+    @cached_property
+    def label(self) -> AsyncLabelResourceWithStreamingResponse:
+        return AsyncLabelResourceWithStreamingResponse(self._memory.label)
+
+    @cached_property
+    def block(self) -> AsyncBlockResourceWithStreamingResponse:
+        return AsyncBlockResourceWithStreamingResponse(self._memory.block)
+
+    @cached_property
+    def limit(self) -> AsyncLimitResourceWithStreamingResponse:
+        return AsyncLimitResourceWithStreamingResponse(self._memory.limit)

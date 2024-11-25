@@ -108,11 +108,15 @@ class UnionMember1InternalMonologue(BaseModel):
 class UnionMember1FunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall(BaseModel):
     arguments: str
 
+    function_call_id: str
+
     name: str
 
 
 class UnionMember1FunctionCallMessageFunctionCallFunctionCallDelta(BaseModel):
     arguments: Optional[str] = None
+
+    function_call_id: Optional[str] = None
 
     name: Optional[str] = None
 
@@ -137,6 +141,8 @@ class UnionMember1FunctionReturn(BaseModel):
     id: str
 
     date: datetime
+
+    function_call_id: str
 
     function_return: str
 
