@@ -33,7 +33,7 @@ from letta import Letta
 client = Letta(
     bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
-    environment="environment_1",
+    environment="local",
 )
 
 agent_states = client.agents.list()
@@ -56,7 +56,7 @@ from letta import AsyncLetta
 client = AsyncLetta(
     bearer_token=os.environ.get("BEARER_TOKEN"),  # This is the default and can be omitted
     # defaults to "production".
-    environment="environment_1",
+    environment="local",
 )
 
 

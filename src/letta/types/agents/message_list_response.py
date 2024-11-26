@@ -6,10 +6,12 @@ from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
-from .memory.messageoutput import Messageoutput
 
 __all__ = [
     "MessageListResponse",
+    "UnionMember0",
+    "UnionMember0ToolCall",
+    "UnionMember0ToolCallFunction",
     "UnionMember1",
     "UnionMember1SystemMessageOutput",
     "UnionMember1UserMessageOutput",
@@ -21,6 +23,56 @@ __all__ = [
     "UnionMember1FunctionReturn",
     "UnionMember1AssistantMessageOutput",
 ]
+
+
+class UnionMember0ToolCallFunction(BaseModel):
+    arguments: str
+    """The arguments to pass to the function (JSON dump)"""
+
+    name: str
+    """The name of the function to call"""
+
+
+class UnionMember0ToolCall(BaseModel):
+    id: str
+    """The ID of the tool call"""
+
+    function: UnionMember0ToolCallFunction
+    """The arguments and name for the function"""
+
+    type: Optional[str] = None
+
+
+class UnionMember0(BaseModel):
+    role: Literal["assistant", "user", "tool", "function", "system"]
+    """The role of the participant."""
+
+    id: Optional[str] = None
+    """The human-friendly ID of the Message"""
+
+    agent_id: Optional[str] = None
+    """The unique identifier of the agent."""
+
+    created_at: Optional[datetime] = None
+    """The time the message was created."""
+
+    model: Optional[str] = None
+    """The model used to make the function call."""
+
+    name: Optional[str] = None
+    """The name of the participant."""
+
+    text: Optional[str] = None
+    """The text of the message."""
+
+    tool_call_id: Optional[str] = None
+    """The id of the tool call."""
+
+    tool_calls: Optional[List[UnionMember0ToolCall]] = None
+    """The list of tool calls requested."""
+
+    user_id: Optional[str] = None
+    """The unique identifier of the user."""
 
 
 class UnionMember1SystemMessageOutput(BaseModel):
@@ -121,4 +173,4 @@ UnionMember1: TypeAlias = Annotated[
     PropertyInfo(discriminator="message_type"),
 ]
 
-MessageListResponse: TypeAlias = Union[List[Messageoutput], List[UnionMember1]]
+MessageListResponse: TypeAlias = Union[List[UnionMember0], List[UnionMember1]]
