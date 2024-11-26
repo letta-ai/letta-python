@@ -12,8 +12,8 @@ from tests.utils import assert_matches_type
 from letta.types.agents import (
     MessageListResponse,
     MessageCreateResponse,
+    MessageUpdateResponse,
 )
-from letta.types.agents.memory import Messageoutput
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -111,7 +111,7 @@ class TestMessages:
             agent_id="agent_id",
             id="id",
         )
-        assert_matches_type(Messageoutput, message, path=["response"])
+        assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Letta) -> None:
@@ -134,7 +134,7 @@ class TestMessages:
                 }
             ],
         )
-        assert_matches_type(Messageoutput, message, path=["response"])
+        assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
@@ -147,7 +147,7 @@ class TestMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(Messageoutput, message, path=["response"])
+        assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @parametrize
     def test_streaming_response_update(self, client: Letta) -> None:
@@ -160,7 +160,7 @@ class TestMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(Messageoutput, message, path=["response"])
+            assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -325,7 +325,7 @@ class TestAsyncMessages:
             agent_id="agent_id",
             id="id",
         )
-        assert_matches_type(Messageoutput, message, path=["response"])
+        assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
@@ -348,7 +348,7 @@ class TestAsyncMessages:
                 }
             ],
         )
-        assert_matches_type(Messageoutput, message, path=["response"])
+        assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
@@ -361,7 +361,7 @@ class TestAsyncMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(Messageoutput, message, path=["response"])
+        assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
@@ -374,7 +374,7 @@ class TestAsyncMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(Messageoutput, message, path=["response"])
+            assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
