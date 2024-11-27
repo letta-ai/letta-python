@@ -45,13 +45,8 @@ class TestMessages:
                     "name": "name",
                 }
             ],
-            assistant_message_function_kwarg="assistant_message_function_kwarg",
-            assistant_message_function_name="assistant_message_function_name",
-            return_message_object=True,
-            run_async=True,
-            stream_steps=True,
-            stream_tokens=True,
-            use_assistant_message=True,
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
 
@@ -191,12 +186,11 @@ class TestMessages:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.list(
             agent_id="agent_id",
-            assistant_message_function_kwarg="assistant_message_function_kwarg",
-            assistant_message_function_name="assistant_message_function_name",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
             before="before",
             limit=0,
             msg_object=True,
-            use_assistant_message=True,
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
@@ -259,13 +253,8 @@ class TestAsyncMessages:
                     "name": "name",
                 }
             ],
-            assistant_message_function_kwarg="assistant_message_function_kwarg",
-            assistant_message_function_name="assistant_message_function_name",
-            return_message_object=True,
-            run_async=True,
-            stream_steps=True,
-            stream_tokens=True,
-            use_assistant_message=True,
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
 
@@ -405,12 +394,11 @@ class TestAsyncMessages:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.list(
             agent_id="agent_id",
-            assistant_message_function_kwarg="assistant_message_function_kwarg",
-            assistant_message_function_name="assistant_message_function_name",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
             before="before",
             limit=0,
             msg_object=True,
-            use_assistant_message=True,
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
