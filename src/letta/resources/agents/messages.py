@@ -36,7 +36,7 @@ class MessagesResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/letta-ai/letta-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/stainless-sdks/letta-python#accessing-raw-response-data-eg-headers
         """
         return MessagesResourceWithRawResponse(self)
 
@@ -45,7 +45,7 @@ class MessagesResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
+        For more information, see https://www.github.com/stainless-sdks/letta-python#with_streaming_response
         """
         return MessagesResourceWithStreamingResponse(self)
 
@@ -56,13 +56,8 @@ class MessagesResource(SyncAPIResource):
         messages: Union[
             Iterable[message_create_params.MessagesUnionMember0], Iterable[message_create_params.MessagesUnionMember1]
         ],
-        assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
-        assistant_message_function_name: str | NotGiven = NOT_GIVEN,
-        return_message_object: bool | NotGiven = NOT_GIVEN,
-        run_async: bool | NotGiven = NOT_GIVEN,
-        stream_steps: bool | NotGiven = NOT_GIVEN,
-        stream_tokens: bool | NotGiven = NOT_GIVEN,
-        use_assistant_message: bool | NotGiven = NOT_GIVEN,
+        assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
+        assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -73,32 +68,14 @@ class MessagesResource(SyncAPIResource):
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
-        message from a user and processes it through the agent. It can optionally stream
-        the response if 'stream_steps' or 'stream_tokens' is set to True.
+        message from a user and processes it through the agent.
 
         Args:
           messages: The messages to be sent to the agent.
 
-          assistant_message_function_kwarg: [Only applicable if use_assistant_message is True] The name of the message
-              argument in the designated message tool.
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool.
 
-          assistant_message_function_name: [Only applicable if use_assistant_message is True] The name of the designated
-              message tool.
-
-          return_message_object: Set True to return the raw Message object. Set False to return the Message in
-              the format of the Letta API.
-
-          run_async: Whether to asynchronously send the messages to the agent.
-
-          stream_steps: Flag to determine if the response should be streamed. Set to True for streaming
-              agent steps.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed. Set to True for token
-              streaming (requires stream_steps = True).
-
-          use_assistant_message: [Only applicable if return_message_object is False] If true, returns
-              AssistantMessage objects when the agent calls a designated message tool. If
-              false, return FunctionCallMessage objects for all tool calls.
+          assistant_message_tool_name: The name of the designated message tool.
 
           extra_headers: Send extra headers
 
@@ -115,13 +92,8 @@ class MessagesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "messages": messages,
-                    "assistant_message_function_kwarg": assistant_message_function_kwarg,
-                    "assistant_message_function_name": assistant_message_function_name,
-                    "return_message_object": return_message_object,
-                    "run_async": run_async,
-                    "stream_steps": stream_steps,
-                    "stream_tokens": stream_tokens,
-                    "use_assistant_message": use_assistant_message,
+                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                    "assistant_message_tool_name": assistant_message_tool_name,
                 },
                 message_create_params.MessageCreateParams,
             ),
@@ -200,12 +172,11 @@ class MessagesResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
-        assistant_message_function_name: str | NotGiven = NOT_GIVEN,
+        assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
+        assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
         before: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         msg_object: bool | NotGiven = NOT_GIVEN,
-        use_assistant_message: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,21 +188,15 @@ class MessagesResource(SyncAPIResource):
         Retrieve message history for an agent.
 
         Args:
-          assistant_message_function_kwarg: [Only applicable if use_assistant_message is True] The name of the message
-              argument in the designated message tool.
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool.
 
-          assistant_message_function_name: [Only applicable if use_assistant_message is True] The name of the designated
-              message tool.
+          assistant_message_tool_name: The name of the designated message tool.
 
           before: Message before which to retrieve the returned messages.
 
           limit: Maximum number of messages to retrieve.
 
           msg_object: If true, returns Message objects. If false, return LettaMessage objects.
-
-          use_assistant_message: [Only applicable if msg_object is False] If true, returns AssistantMessage
-              objects when the agent calls a designated message tool. If false, return
-              FunctionCallMessage objects for all tool calls.
 
           extra_headers: Send extra headers
 
@@ -254,12 +219,11 @@ class MessagesResource(SyncAPIResource):
                     timeout=timeout,
                     query=maybe_transform(
                         {
-                            "assistant_message_function_kwarg": assistant_message_function_kwarg,
-                            "assistant_message_function_name": assistant_message_function_name,
+                            "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                            "assistant_message_tool_name": assistant_message_tool_name,
                             "before": before,
                             "limit": limit,
                             "msg_object": msg_object,
-                            "use_assistant_message": use_assistant_message,
                         },
                         message_list_params.MessageListParams,
                     ),
@@ -278,7 +242,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/letta-ai/letta-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/stainless-sdks/letta-python#accessing-raw-response-data-eg-headers
         """
         return AsyncMessagesResourceWithRawResponse(self)
 
@@ -287,7 +251,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
+        For more information, see https://www.github.com/stainless-sdks/letta-python#with_streaming_response
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
@@ -298,13 +262,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         messages: Union[
             Iterable[message_create_params.MessagesUnionMember0], Iterable[message_create_params.MessagesUnionMember1]
         ],
-        assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
-        assistant_message_function_name: str | NotGiven = NOT_GIVEN,
-        return_message_object: bool | NotGiven = NOT_GIVEN,
-        run_async: bool | NotGiven = NOT_GIVEN,
-        stream_steps: bool | NotGiven = NOT_GIVEN,
-        stream_tokens: bool | NotGiven = NOT_GIVEN,
-        use_assistant_message: bool | NotGiven = NOT_GIVEN,
+        assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
+        assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -315,32 +274,14 @@ class AsyncMessagesResource(AsyncAPIResource):
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
-        message from a user and processes it through the agent. It can optionally stream
-        the response if 'stream_steps' or 'stream_tokens' is set to True.
+        message from a user and processes it through the agent.
 
         Args:
           messages: The messages to be sent to the agent.
 
-          assistant_message_function_kwarg: [Only applicable if use_assistant_message is True] The name of the message
-              argument in the designated message tool.
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool.
 
-          assistant_message_function_name: [Only applicable if use_assistant_message is True] The name of the designated
-              message tool.
-
-          return_message_object: Set True to return the raw Message object. Set False to return the Message in
-              the format of the Letta API.
-
-          run_async: Whether to asynchronously send the messages to the agent.
-
-          stream_steps: Flag to determine if the response should be streamed. Set to True for streaming
-              agent steps.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed. Set to True for token
-              streaming (requires stream_steps = True).
-
-          use_assistant_message: [Only applicable if return_message_object is False] If true, returns
-              AssistantMessage objects when the agent calls a designated message tool. If
-              false, return FunctionCallMessage objects for all tool calls.
+          assistant_message_tool_name: The name of the designated message tool.
 
           extra_headers: Send extra headers
 
@@ -357,13 +298,8 @@ class AsyncMessagesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "messages": messages,
-                    "assistant_message_function_kwarg": assistant_message_function_kwarg,
-                    "assistant_message_function_name": assistant_message_function_name,
-                    "return_message_object": return_message_object,
-                    "run_async": run_async,
-                    "stream_steps": stream_steps,
-                    "stream_tokens": stream_tokens,
-                    "use_assistant_message": use_assistant_message,
+                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                    "assistant_message_tool_name": assistant_message_tool_name,
                 },
                 message_create_params.MessageCreateParams,
             ),
@@ -442,12 +378,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        assistant_message_function_kwarg: str | NotGiven = NOT_GIVEN,
-        assistant_message_function_name: str | NotGiven = NOT_GIVEN,
+        assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
+        assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
         before: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         msg_object: bool | NotGiven = NOT_GIVEN,
-        use_assistant_message: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -459,21 +394,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         Retrieve message history for an agent.
 
         Args:
-          assistant_message_function_kwarg: [Only applicable if use_assistant_message is True] The name of the message
-              argument in the designated message tool.
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool.
 
-          assistant_message_function_name: [Only applicable if use_assistant_message is True] The name of the designated
-              message tool.
+          assistant_message_tool_name: The name of the designated message tool.
 
           before: Message before which to retrieve the returned messages.
 
           limit: Maximum number of messages to retrieve.
 
           msg_object: If true, returns Message objects. If false, return LettaMessage objects.
-
-          use_assistant_message: [Only applicable if msg_object is False] If true, returns AssistantMessage
-              objects when the agent calls a designated message tool. If false, return
-              FunctionCallMessage objects for all tool calls.
 
           extra_headers: Send extra headers
 
@@ -496,12 +425,11 @@ class AsyncMessagesResource(AsyncAPIResource):
                     timeout=timeout,
                     query=await async_maybe_transform(
                         {
-                            "assistant_message_function_kwarg": assistant_message_function_kwarg,
-                            "assistant_message_function_name": assistant_message_function_name,
+                            "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                            "assistant_message_tool_name": assistant_message_tool_name,
                             "before": before,
                             "limit": limit,
                             "msg_object": msg_object,
-                            "use_assistant_message": use_assistant_message,
                         },
                         message_list_params.MessageListParams,
                     ),

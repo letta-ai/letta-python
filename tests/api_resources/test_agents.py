@@ -45,7 +45,7 @@ class TestAgents:
             initial_message_sequence=[
                 {
                     "role": "assistant",
-                    "id": "id",
+                    "id": "message-123e4567-e89b-12d3-a456-426614174000",
                     "agent_id": "agent_id",
                     "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "model": "model",
@@ -77,7 +77,7 @@ class TestAgents:
                 "memory": {
                     "foo": {
                         "value": "value",
-                        "id": "id",
+                        "id": "block-123e4567-e89b-12d3-a456-426614174000",
                         "created_by_id": "created_by_id",
                         "description": "description",
                         "is_template": True,
@@ -196,7 +196,7 @@ class TestAgents:
                 "memory": {
                     "foo": {
                         "value": "value",
-                        "id": "id",
+                        "id": "block-123e4567-e89b-12d3-a456-426614174000",
                         "created_by_id": "created_by_id",
                         "description": "description",
                         "is_template": True,
@@ -408,7 +408,7 @@ class TestAsyncAgents:
             initial_message_sequence=[
                 {
                     "role": "assistant",
-                    "id": "id",
+                    "id": "message-123e4567-e89b-12d3-a456-426614174000",
                     "agent_id": "agent_id",
                     "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                     "model": "model",
@@ -440,7 +440,7 @@ class TestAsyncAgents:
                 "memory": {
                     "foo": {
                         "value": "value",
-                        "id": "id",
+                        "id": "block-123e4567-e89b-12d3-a456-426614174000",
                         "created_by_id": "created_by_id",
                         "description": "description",
                         "is_template": True,
@@ -559,7 +559,7 @@ class TestAsyncAgents:
                 "memory": {
                     "foo": {
                         "value": "value",
-                        "id": "id",
+                        "id": "block-123e4567-e89b-12d3-a456-426614174000",
                         "created_by_id": "created_by_id",
                         "description": "description",
                         "is_template": True,
