@@ -64,12 +64,12 @@ class AgentsResource(SyncAPIResource):
     def create(
         self,
         *,
+        memory_blocks: Iterable[agent_create_params.MemoryBlock],
         agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_create_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        memory: Optional[agent_create_params.Memory] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -89,6 +89,8 @@ class AgentsResource(SyncAPIResource):
         Create a new agent with the specified configuration.
 
         Args:
+          memory_blocks: The blocks to create in the agent's in-context memory.
+
           agent_type: Enum to represent the type of agent.
 
           description: The description of the agent.
@@ -121,12 +123,6 @@ class AgentsResource(SyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          memory: Represents the in-context memory of the agent. This includes both the `Block`
-              objects (labelled by sections), as well as tools to edit the blocks.
-
-              Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-              memory block.
-
           message_ids: The ids of the messages in the agent's in-context memory.
 
           metadata: The metadata of the agent.
@@ -155,12 +151,12 @@ class AgentsResource(SyncAPIResource):
             "/v1/agents/",
             body=maybe_transform(
                 {
+                    "memory_blocks": memory_blocks,
                     "agent_type": agent_type,
                     "description": description,
                     "embedding_config": embedding_config,
                     "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
-                    "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
@@ -219,13 +215,12 @@ class AgentsResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_update_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_update_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        memory: Optional[agent_update_params.Memory] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -268,12 +263,6 @@ class AgentsResource(SyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          memory: Represents the in-context memory of the agent. This includes both the `Block`
-              objects (labelled by sections), as well as tools to edit the blocks.
-
-              Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-              memory block.
-
           message_ids: The ids of the messages in the agent's in-context memory.
 
           metadata: The metadata of the agent.
@@ -284,7 +273,7 @@ class AgentsResource(SyncAPIResource):
 
           tags: The tags associated with the agent.
 
-          tools: The tools used by the agent.
+          tool_names: The tools used by the agent.
 
           user_id: The user id of the agent.
 
@@ -306,13 +295,12 @@ class AgentsResource(SyncAPIResource):
                     "description": description,
                     "embedding_config": embedding_config,
                     "llm_config": llm_config,
-                    "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
                     "system": system,
                     "tags": tags,
-                    "tools": tools,
+                    "tool_names": tool_names,
                     "user_id": user_id,
                 },
                 agent_update_params.AgentUpdateParams,
@@ -479,12 +467,12 @@ class AsyncAgentsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        memory_blocks: Iterable[agent_create_params.MemoryBlock],
         agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_create_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        memory: Optional[agent_create_params.Memory] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -504,6 +492,8 @@ class AsyncAgentsResource(AsyncAPIResource):
         Create a new agent with the specified configuration.
 
         Args:
+          memory_blocks: The blocks to create in the agent's in-context memory.
+
           agent_type: Enum to represent the type of agent.
 
           description: The description of the agent.
@@ -536,12 +526,6 @@ class AsyncAgentsResource(AsyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          memory: Represents the in-context memory of the agent. This includes both the `Block`
-              objects (labelled by sections), as well as tools to edit the blocks.
-
-              Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-              memory block.
-
           message_ids: The ids of the messages in the agent's in-context memory.
 
           metadata: The metadata of the agent.
@@ -570,12 +554,12 @@ class AsyncAgentsResource(AsyncAPIResource):
             "/v1/agents/",
             body=await async_maybe_transform(
                 {
+                    "memory_blocks": memory_blocks,
                     "agent_type": agent_type,
                     "description": description,
                     "embedding_config": embedding_config,
                     "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
-                    "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
@@ -634,13 +618,12 @@ class AsyncAgentsResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_update_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_update_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        memory: Optional[agent_update_params.Memory] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -683,12 +666,6 @@ class AsyncAgentsResource(AsyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          memory: Represents the in-context memory of the agent. This includes both the `Block`
-              objects (labelled by sections), as well as tools to edit the blocks.
-
-              Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-              memory block.
-
           message_ids: The ids of the messages in the agent's in-context memory.
 
           metadata: The metadata of the agent.
@@ -699,7 +676,7 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           tags: The tags associated with the agent.
 
-          tools: The tools used by the agent.
+          tool_names: The tools used by the agent.
 
           user_id: The user id of the agent.
 
@@ -721,13 +698,12 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "description": description,
                     "embedding_config": embedding_config,
                     "llm_config": llm_config,
-                    "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
                     "system": system,
                     "tags": tags,
-                    "tools": tools,
+                    "tool_names": tool_names,
                     "user_id": user_id,
                 },
                 agent_update_params.AgentUpdateParams,
