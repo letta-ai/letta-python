@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Union, Iterable, Optional, cast
-from datetime import datetime
+from typing import Any, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -11,6 +10,7 @@ import httpx
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import (
     maybe_transform,
+    strip_not_given,
     async_maybe_transform,
 )
 from ..._compat import cached_property
@@ -57,6 +57,7 @@ class MessagesResource(SyncAPIResource):
         messages: Iterable[message_create_params.Message],
         assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -86,6 +87,7 @@ class MessagesResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             f"/v1/agents/{agent_id}/messages",
             body=maybe_transform(
@@ -107,15 +109,11 @@ class MessagesResource(SyncAPIResource):
         message_id: str,
         *,
         agent_id: str,
-        created_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        created_by_id: Optional[str] | NotGiven = NOT_GIVEN,
-        last_updated_by_id: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         role: Optional[Literal["assistant", "user", "tool", "function", "system"]] | NotGiven = NOT_GIVEN,
         text: Optional[str] | NotGiven = NOT_GIVEN,
         tool_call_id: Optional[str] | NotGiven = NOT_GIVEN,
         tool_calls: Optional[Iterable[message_update_params.ToolCall]] | NotGiven = NOT_GIVEN,
-        updated_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -127,12 +125,6 @@ class MessagesResource(SyncAPIResource):
         Update the details of a message associated with an agent.
 
         Args:
-          created_at: The timestamp when the object was created.
-
-          created_by_id: The id of the user that made this object.
-
-          last_updated_by_id: The id of the user that made this object.
-
           name: The name of the participant.
 
           role: The role of the participant.
@@ -142,8 +134,6 @@ class MessagesResource(SyncAPIResource):
           tool_call_id: The id of the tool call.
 
           tool_calls: The list of tool calls requested.
-
-          updated_at: The timestamp when the object was last updated.
 
           extra_headers: Send extra headers
 
@@ -161,15 +151,11 @@ class MessagesResource(SyncAPIResource):
             f"/v1/agents/{agent_id}/messages/{message_id}",
             body=maybe_transform(
                 {
-                    "created_at": created_at,
-                    "created_by_id": created_by_id,
-                    "last_updated_by_id": last_updated_by_id,
                     "name": name,
                     "role": role,
                     "text": text,
                     "tool_call_id": tool_call_id,
                     "tool_calls": tool_calls,
-                    "updated_at": updated_at,
                 },
                 message_update_params.MessageUpdateParams,
             ),
@@ -188,6 +174,7 @@ class MessagesResource(SyncAPIResource):
         before: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         msg_object: bool | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -219,6 +206,7 @@ class MessagesResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return cast(
             MessageListResponse,
             self._get(
@@ -273,6 +261,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         messages: Iterable[message_create_params.Message],
         assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -302,6 +291,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             f"/v1/agents/{agent_id}/messages",
             body=await async_maybe_transform(
@@ -323,15 +313,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         message_id: str,
         *,
         agent_id: str,
-        created_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        created_by_id: Optional[str] | NotGiven = NOT_GIVEN,
-        last_updated_by_id: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         role: Optional[Literal["assistant", "user", "tool", "function", "system"]] | NotGiven = NOT_GIVEN,
         text: Optional[str] | NotGiven = NOT_GIVEN,
         tool_call_id: Optional[str] | NotGiven = NOT_GIVEN,
         tool_calls: Optional[Iterable[message_update_params.ToolCall]] | NotGiven = NOT_GIVEN,
-        updated_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -343,12 +329,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         Update the details of a message associated with an agent.
 
         Args:
-          created_at: The timestamp when the object was created.
-
-          created_by_id: The id of the user that made this object.
-
-          last_updated_by_id: The id of the user that made this object.
-
           name: The name of the participant.
 
           role: The role of the participant.
@@ -358,8 +338,6 @@ class AsyncMessagesResource(AsyncAPIResource):
           tool_call_id: The id of the tool call.
 
           tool_calls: The list of tool calls requested.
-
-          updated_at: The timestamp when the object was last updated.
 
           extra_headers: Send extra headers
 
@@ -377,15 +355,11 @@ class AsyncMessagesResource(AsyncAPIResource):
             f"/v1/agents/{agent_id}/messages/{message_id}",
             body=await async_maybe_transform(
                 {
-                    "created_at": created_at,
-                    "created_by_id": created_by_id,
-                    "last_updated_by_id": last_updated_by_id,
                     "name": name,
                     "role": role,
                     "text": text,
                     "tool_call_id": tool_call_id,
                     "tool_calls": tool_calls,
-                    "updated_at": updated_at,
                 },
                 message_update_params.MessageUpdateParams,
             ),
@@ -404,6 +378,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         before: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         msg_object: bool | NotGiven = NOT_GIVEN,
+        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -435,6 +410,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return cast(
             MessageListResponse,
             await self._get(

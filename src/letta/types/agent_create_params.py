@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
@@ -87,7 +86,9 @@ class AgentCreateParams(TypedDict, total=False):
     tools: List[str]
     """The tools used by the agent."""
 
-    user_id: Optional[str]
+    body_user_id: Annotated[Optional[str], PropertyInfo(alias="user_id")]
+
+    header_user_id: Annotated[str, PropertyInfo(alias="user_id")]
 
 
 class MemoryBlock(TypedDict, total=False):
@@ -145,20 +146,8 @@ class InitialMessageSequence(TypedDict, total=False):
     text: Required[str]
     """The text of the message."""
 
-    created_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The timestamp when the object was created."""
-
-    created_by_id: Optional[str]
-    """The id of the user that made this object."""
-
-    last_updated_by_id: Optional[str]
-    """The id of the user that made this object."""
-
     name: Optional[str]
     """The name of the participant."""
-
-    updated_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """The timestamp when the object was last updated."""
 
 
 class LlmConfig(TypedDict, total=False):

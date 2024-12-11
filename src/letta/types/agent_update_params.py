@@ -67,8 +67,10 @@ class AgentUpdateParams(TypedDict, total=False):
     tool_names: Optional[List[str]]
     """The tools used by the agent."""
 
-    user_id: Optional[str]
+    body_user_id: Annotated[Optional[str], PropertyInfo(alias="user_id")]
     """The user id of the agent."""
+
+    header_user_id: Annotated[str, PropertyInfo(alias="user_id")]
 
 
 class EmbeddingConfig(TypedDict, total=False):

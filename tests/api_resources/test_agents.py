@@ -8,13 +8,8 @@ from typing import Any, cast
 import pytest
 
 from letta import Letta, AsyncLetta
-from letta.types import (
-    AgentState,
-    AgentListResponse,
-    AgentMigrateResponse,
-)
+from letta.types import AgentState, AgentListResponse
 from tests.utils import assert_matches_type
-from letta._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -64,11 +59,7 @@ class TestAgents:
                 {
                     "role": "user",
                     "text": "text",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "created_by_id": "created_by_id",
-                    "last_updated_by_id": "last_updated_by_id",
                     "name": "name",
-                    "updated_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             llm_config={
@@ -92,7 +83,8 @@ class TestAgents:
                 }
             ],
             tools=["string"],
-            user_id="user_id",
+            body_user_id="user_id",
+            header_user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -133,14 +125,22 @@ class TestAgents:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         agent = client.agents.retrieve(
-            "agent_id",
+            agent_id="agent_id",
+        )
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
+        agent = client.agents.retrieve(
+            agent_id="agent_id",
+            user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.agents.with_raw_response.retrieve(
-            "agent_id",
+            agent_id="agent_id",
         )
 
         assert response.is_closed is True
@@ -151,7 +151,7 @@ class TestAgents:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.agents.with_streaming_response.retrieve(
-            "agent_id",
+            agent_id="agent_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -165,7 +165,7 @@ class TestAgents:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.with_raw_response.retrieve(
-                "",
+                agent_id="",
             )
 
     @parametrize
@@ -206,7 +206,8 @@ class TestAgents:
             system="system",
             tags=["string"],
             tool_names=["string"],
-            user_id="user_id",
+            body_user_id="user_id",
+            header_user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -254,6 +255,7 @@ class TestAgents:
         agent = client.agents.list(
             name="name",
             tags=["string"],
+            user_id="user_id",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
@@ -280,14 +282,22 @@ class TestAgents:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         agent = client.agents.delete(
-            "agent_id",
+            agent_id="agent_id",
+        )
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        agent = client.agents.delete(
+            agent_id="agent_id",
+            user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.agents.with_raw_response.delete(
-            "agent_id",
+            agent_id="agent_id",
         )
 
         assert response.is_closed is True
@@ -298,7 +308,7 @@ class TestAgents:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.agents.with_streaming_response.delete(
-            "agent_id",
+            agent_id="agent_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -312,63 +322,7 @@ class TestAgents:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.with_raw_response.delete(
-                "",
-            )
-
-    @parametrize
-    def test_method_migrate(self, client: Letta) -> None:
-        agent = client.agents.migrate(
-            agent_id="agent_id",
-            preserve_core_memories=True,
-            to_template="to_template",
-        )
-        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
-
-    @parametrize
-    def test_method_migrate_with_all_params(self, client: Letta) -> None:
-        agent = client.agents.migrate(
-            agent_id="agent_id",
-            preserve_core_memories=True,
-            to_template="to_template",
-            variables={"foo": "string"},
-        )
-        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
-
-    @parametrize
-    def test_raw_response_migrate(self, client: Letta) -> None:
-        response = client.agents.with_raw_response.migrate(
-            agent_id="agent_id",
-            preserve_core_memories=True,
-            to_template="to_template",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = response.parse()
-        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
-
-    @parametrize
-    def test_streaming_response_migrate(self, client: Letta) -> None:
-        with client.agents.with_streaming_response.migrate(
-            agent_id="agent_id",
-            preserve_core_memories=True,
-            to_template="to_template",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = response.parse()
-            assert_matches_type(AgentMigrateResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_migrate(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.with_raw_response.migrate(
                 agent_id="",
-                preserve_core_memories=True,
-                to_template="to_template",
             )
 
 
@@ -417,11 +371,7 @@ class TestAsyncAgents:
                 {
                     "role": "user",
                     "text": "text",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "created_by_id": "created_by_id",
-                    "last_updated_by_id": "last_updated_by_id",
                     "name": "name",
-                    "updated_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             llm_config={
@@ -445,7 +395,8 @@ class TestAsyncAgents:
                 }
             ],
             tools=["string"],
-            user_id="user_id",
+            body_user_id="user_id",
+            header_user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -486,14 +437,22 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.retrieve(
-            "agent_id",
+            agent_id="agent_id",
+        )
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.retrieve(
+            agent_id="agent_id",
+            user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.with_raw_response.retrieve(
-            "agent_id",
+            agent_id="agent_id",
         )
 
         assert response.is_closed is True
@@ -504,7 +463,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.with_streaming_response.retrieve(
-            "agent_id",
+            agent_id="agent_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -518,7 +477,7 @@ class TestAsyncAgents:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.with_raw_response.retrieve(
-                "",
+                agent_id="",
             )
 
     @parametrize
@@ -559,7 +518,8 @@ class TestAsyncAgents:
             system="system",
             tags=["string"],
             tool_names=["string"],
-            user_id="user_id",
+            body_user_id="user_id",
+            header_user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -607,6 +567,7 @@ class TestAsyncAgents:
         agent = await async_client.agents.list(
             name="name",
             tags=["string"],
+            user_id="user_id",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
@@ -633,14 +594,22 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.delete(
-            "agent_id",
+            agent_id="agent_id",
+        )
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.delete(
+            agent_id="agent_id",
+            user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.with_raw_response.delete(
-            "agent_id",
+            agent_id="agent_id",
         )
 
         assert response.is_closed is True
@@ -651,7 +620,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.with_streaming_response.delete(
-            "agent_id",
+            agent_id="agent_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -665,61 +634,5 @@ class TestAsyncAgents:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.with_raw_response.delete(
-                "",
-            )
-
-    @parametrize
-    async def test_method_migrate(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.migrate(
-            agent_id="agent_id",
-            preserve_core_memories=True,
-            to_template="to_template",
-        )
-        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
-
-    @parametrize
-    async def test_method_migrate_with_all_params(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.migrate(
-            agent_id="agent_id",
-            preserve_core_memories=True,
-            to_template="to_template",
-            variables={"foo": "string"},
-        )
-        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
-
-    @parametrize
-    async def test_raw_response_migrate(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.with_raw_response.migrate(
-            agent_id="agent_id",
-            preserve_core_memories=True,
-            to_template="to_template",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = await response.parse()
-        assert_matches_type(AgentMigrateResponse, agent, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_migrate(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.with_streaming_response.migrate(
-            agent_id="agent_id",
-            preserve_core_memories=True,
-            to_template="to_template",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = await response.parse()
-            assert_matches_type(AgentMigrateResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_migrate(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.with_raw_response.migrate(
                 agent_id="",
-                preserve_core_memories=True,
-                to_template="to_template",
             )

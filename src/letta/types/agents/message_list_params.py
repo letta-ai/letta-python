@@ -23,3 +23,5 @@ class MessageListParams(TypedDict, total=False):
 
     msg_object: bool
     """If true, returns Message objects. If false, return LettaMessage objects."""
+
+    user_id: str
