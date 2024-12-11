@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
@@ -95,6 +95,10 @@ class FunctionReturn(BaseModel):
 
     message_type: Optional[Literal["function_return"]] = None
 
+    stderr: Optional[List[str]] = None
+
+    stdout: Optional[List[str]] = None
+
 
 class InternalMonologue(BaseModel):
     id: str
@@ -166,7 +170,9 @@ class MessageCreateResponse(BaseModel):
     (Literal["success", "error"]): The status of the function call id (str): The ID
     of the message date (datetime): The date the message was created in ISO format
     function_call_id (str): A unique identifier for the function call that generated
-    this message
+    this message stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs)
+    from the function invocation stderr (Optional[List(str)]): Captured stderr from
+    the function invocation
     """
 
     internal_monologue: Optional[InternalMonologue] = FieldInfo(alias="InternalMonologue", default=None)

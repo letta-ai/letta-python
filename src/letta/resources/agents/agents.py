@@ -65,7 +65,8 @@ class AgentsResource(SyncAPIResource):
         self,
         *,
         memory_blocks: Iterable[agent_create_params.MemoryBlock],
-        agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]] | NotGiven = NOT_GIVEN,
+        agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
+        | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
@@ -76,7 +77,7 @@ class AgentsResource(SyncAPIResource):
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
-        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tools: List[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -91,7 +92,7 @@ class AgentsResource(SyncAPIResource):
         Args:
           memory_blocks: The blocks to create in the agent's in-context memory.
 
-          agent_type: Enum to represent the type of agent.
+          agent_type: The type of agent.
 
           description: The description of the agent.
 
@@ -136,8 +137,6 @@ class AgentsResource(SyncAPIResource):
           tool_rules: The tool rules governing the agent.
 
           tools: The tools used by the agent.
-
-          user_id: The user id of the agent.
 
           extra_headers: Send extra headers
 
@@ -369,7 +368,7 @@ class AgentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> AgentState:
         """
         Delete an agent.
 
@@ -389,7 +388,7 @@ class AgentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=AgentState,
         )
 
     def migrate(
@@ -468,7 +467,8 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         *,
         memory_blocks: Iterable[agent_create_params.MemoryBlock],
-        agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]] | NotGiven = NOT_GIVEN,
+        agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
+        | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
@@ -479,7 +479,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
-        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tools: List[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -494,7 +494,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         Args:
           memory_blocks: The blocks to create in the agent's in-context memory.
 
-          agent_type: Enum to represent the type of agent.
+          agent_type: The type of agent.
 
           description: The description of the agent.
 
@@ -539,8 +539,6 @@ class AsyncAgentsResource(AsyncAPIResource):
           tool_rules: The tool rules governing the agent.
 
           tools: The tools used by the agent.
-
-          user_id: The user id of the agent.
 
           extra_headers: Send extra headers
 
@@ -772,7 +770,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> AgentState:
         """
         Delete an agent.
 
@@ -792,7 +790,7 @@ class AsyncAgentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=AgentState,
         )
 
     async def migrate(

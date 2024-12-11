@@ -221,6 +221,9 @@ class Tool(BaseModel):
     organization_id: Optional[str] = None
     """The unique identifier of the organization associated with the tool."""
 
+    return_char_limit: Optional[int] = None
+    """The maximum number of characters in the response."""
+
     source_type: Optional[str] = None
     """The type of the source code."""
 
@@ -265,7 +268,7 @@ ToolRule: TypeAlias = Union[ToolRuleChildToolRule, ToolRuleInitToolRule, ToolRul
 
 
 class AgentState(BaseModel):
-    agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent"]
+    agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
     """The type of agent."""
 
     embedding_config: EmbeddingConfig

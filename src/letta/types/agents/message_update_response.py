@@ -38,13 +38,22 @@ class MessageUpdateResponse(BaseModel):
     """The unique identifier of the agent."""
 
     created_at: Optional[datetime] = None
-    """The time the message was created."""
+    """The timestamp when the object was created."""
+
+    created_by_id: Optional[str] = None
+    """The id of the user that made this object."""
+
+    last_updated_by_id: Optional[str] = None
+    """The id of the user that made this object."""
 
     model: Optional[str] = None
     """The model used to make the function call."""
 
     name: Optional[str] = None
     """The name of the participant."""
+
+    organization_id: Optional[str] = None
+    """The unique identifier of the organization."""
 
     text: Optional[str] = None
     """The text of the message."""
@@ -55,5 +64,5 @@ class MessageUpdateResponse(BaseModel):
     tool_calls: Optional[List[ToolCall]] = None
     """The list of tool calls requested."""
 
-    user_id: Optional[str] = None
-    """The unique identifier of the user."""
+    updated_at: Optional[datetime] = None
+    """The timestamp when the object was last updated."""
