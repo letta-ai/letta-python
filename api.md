@@ -3,7 +3,7 @@
 Types:
 
 ```python
-from letta.types import AgentState, AgentListResponse, AgentMigrateResponse
+from letta.types import AgentState, AgentListResponse
 ```
 
 Methods:
@@ -13,7 +13,6 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/letta/resources/agents/agents.py">update</a>(agent_id, \*\*<a href="src/letta/types/agent_update_params.py">params</a>) -> <a href="./src/letta/types/agent_state.py">AgentState</a></code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/letta/resources/agents/agents.py">list</a>(\*\*<a href="src/letta/types/agent_list_params.py">params</a>) -> <a href="./src/letta/types/agent_list_response.py">AgentListResponse</a></code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/letta/resources/agents/agents.py">delete</a>(agent_id) -> <a href="./src/letta/types/agent_state.py">AgentState</a></code>
-- <code title="post /v1/agents/{agent_id}/migrate">client.agents.<a href="./src/letta/resources/agents/agents.py">migrate</a>(agent_id, \*\*<a href="src/letta/types/agent_migrate_params.py">params</a>) -> <a href="./src/letta/types/agent_migrate_response.py">AgentMigrateResponse</a></code>
 
 ## Messages
 

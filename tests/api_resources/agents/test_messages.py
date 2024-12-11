@@ -9,7 +9,6 @@ import pytest
 
 from letta import Letta, AsyncLetta
 from tests.utils import assert_matches_type
-from letta._utils import parse_datetime
 from letta.types.agents import (
     MessageListResponse,
     MessageCreateResponse,
@@ -43,15 +42,12 @@ class TestMessages:
                 {
                     "role": "user",
                     "text": "text",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "created_by_id": "created_by_id",
-                    "last_updated_by_id": "last_updated_by_id",
                     "name": "name",
-                    "updated_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
+            user_id="user_id",
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
 
@@ -117,9 +113,6 @@ class TestMessages:
         message = client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            created_by_id="created_by_id",
-            last_updated_by_id="last_updated_by_id",
             name="name",
             role="assistant",
             text="text",
@@ -134,7 +127,6 @@ class TestMessages:
                     "type": "type",
                 }
             ],
-            updated_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
@@ -194,6 +186,7 @@ class TestMessages:
             before="before",
             limit=0,
             msg_object=True,
+            user_id="user_id",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
@@ -253,15 +246,12 @@ class TestAsyncMessages:
                 {
                     "role": "user",
                     "text": "text",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "created_by_id": "created_by_id",
-                    "last_updated_by_id": "last_updated_by_id",
                     "name": "name",
-                    "updated_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
+            user_id="user_id",
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
 
@@ -327,9 +317,6 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            created_by_id="created_by_id",
-            last_updated_by_id="last_updated_by_id",
             name="name",
             role="assistant",
             text="text",
@@ -344,7 +331,6 @@ class TestAsyncMessages:
                     "type": "type",
                 }
             ],
-            updated_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
@@ -404,6 +390,7 @@ class TestAsyncMessages:
             before="before",
             limit=0,
             msg_object=True,
+            user_id="user_id",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
