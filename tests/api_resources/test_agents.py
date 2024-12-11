@@ -62,25 +62,13 @@ class TestAgents:
             },
             initial_message_sequence=[
                 {
-                    "role": "assistant",
-                    "id": "message-123e4567-e89b-12d3-a456-426614174000",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
+                    "role": "user",
                     "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        }
-                    ],
-                    "user_id": "user_id",
+                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "created_by_id": "created_by_id",
+                    "last_updated_by_id": "last_updated_by_id",
+                    "name": "name",
+                    "updated_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             llm_config={
@@ -294,7 +282,7 @@ class TestAgents:
         agent = client.agents.delete(
             "agent_id",
         )
-        assert_matches_type(object, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
@@ -305,7 +293,7 @@ class TestAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = response.parse()
-        assert_matches_type(object, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
@@ -316,7 +304,7 @@ class TestAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = response.parse()
-            assert_matches_type(object, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -427,25 +415,13 @@ class TestAsyncAgents:
             },
             initial_message_sequence=[
                 {
-                    "role": "assistant",
-                    "id": "message-123e4567-e89b-12d3-a456-426614174000",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
+                    "role": "user",
                     "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        }
-                    ],
-                    "user_id": "user_id",
+                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "created_by_id": "created_by_id",
+                    "last_updated_by_id": "last_updated_by_id",
+                    "name": "name",
+                    "updated_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             llm_config={
@@ -659,7 +635,7 @@ class TestAsyncAgents:
         agent = await async_client.agents.delete(
             "agent_id",
         )
-        assert_matches_type(object, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
@@ -670,7 +646,7 @@ class TestAsyncAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = await response.parse()
-        assert_matches_type(object, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
@@ -681,7 +657,7 @@ class TestAsyncAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = await response.parse()
-            assert_matches_type(object, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

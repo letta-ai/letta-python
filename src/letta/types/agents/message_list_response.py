@@ -54,13 +54,22 @@ class UnionMember0(BaseModel):
     """The unique identifier of the agent."""
 
     created_at: Optional[datetime] = None
-    """The time the message was created."""
+    """The timestamp when the object was created."""
+
+    created_by_id: Optional[str] = None
+    """The id of the user that made this object."""
+
+    last_updated_by_id: Optional[str] = None
+    """The id of the user that made this object."""
 
     model: Optional[str] = None
     """The model used to make the function call."""
 
     name: Optional[str] = None
     """The name of the participant."""
+
+    organization_id: Optional[str] = None
+    """The unique identifier of the organization."""
 
     text: Optional[str] = None
     """The text of the message."""
@@ -71,8 +80,8 @@ class UnionMember0(BaseModel):
     tool_calls: Optional[List[UnionMember0ToolCall]] = None
     """The list of tool calls requested."""
 
-    user_id: Optional[str] = None
-    """The unique identifier of the user."""
+    updated_at: Optional[datetime] = None
+    """The timestamp when the object was last updated."""
 
 
 class UnionMember1SystemMessageOutput(BaseModel):
@@ -149,6 +158,10 @@ class UnionMember1FunctionReturn(BaseModel):
     status: Literal["success", "error"]
 
     message_type: Optional[Literal["function_return"]] = None
+
+    stderr: Optional[List[str]] = None
+
+    stdout: Optional[List[str]] = None
 
 
 class UnionMember1AssistantMessageOutput(BaseModel):

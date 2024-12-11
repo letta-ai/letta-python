@@ -9,6 +9,7 @@ import pytest
 
 from letta import Letta, AsyncLetta
 from tests.utils import assert_matches_type
+from letta._utils import parse_datetime
 from letta.types.agents import (
     MessageListResponse,
     MessageCreateResponse,
@@ -42,7 +43,11 @@ class TestMessages:
                 {
                     "role": "user",
                     "text": "text",
+                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "created_by_id": "created_by_id",
+                    "last_updated_by_id": "last_updated_by_id",
                     "name": "name",
+                    "updated_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
@@ -104,7 +109,6 @@ class TestMessages:
         message = client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
@@ -113,7 +117,9 @@ class TestMessages:
         message = client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
+            created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_by_id="created_by_id",
+            last_updated_by_id="last_updated_by_id",
             name="name",
             role="assistant",
             text="text",
@@ -128,6 +134,7 @@ class TestMessages:
                     "type": "type",
                 }
             ],
+            updated_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
@@ -136,7 +143,6 @@ class TestMessages:
         response = client.agents.messages.with_raw_response.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         )
 
         assert response.is_closed is True
@@ -149,7 +155,6 @@ class TestMessages:
         with client.agents.messages.with_streaming_response.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -165,14 +170,12 @@ class TestMessages:
             client.agents.messages.with_raw_response.update(
                 message_id="message_id",
                 agent_id="",
-                id="id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.agents.messages.with_raw_response.update(
                 message_id="",
                 agent_id="agent_id",
-                id="id",
             )
 
     @parametrize
@@ -250,7 +253,11 @@ class TestAsyncMessages:
                 {
                     "role": "user",
                     "text": "text",
+                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
+                    "created_by_id": "created_by_id",
+                    "last_updated_by_id": "last_updated_by_id",
                     "name": "name",
+                    "updated_at": parse_datetime("2019-12-27T18:11:19.117Z"),
                 }
             ],
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
@@ -312,7 +319,6 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
@@ -321,7 +327,9 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
+            created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_by_id="created_by_id",
+            last_updated_by_id="last_updated_by_id",
             name="name",
             role="assistant",
             text="text",
@@ -336,6 +344,7 @@ class TestAsyncMessages:
                     "type": "type",
                 }
             ],
+            updated_at=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
@@ -344,7 +353,6 @@ class TestAsyncMessages:
         response = await async_client.agents.messages.with_raw_response.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         )
 
         assert response.is_closed is True
@@ -357,7 +365,6 @@ class TestAsyncMessages:
         async with async_client.agents.messages.with_streaming_response.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -373,14 +380,12 @@ class TestAsyncMessages:
             await async_client.agents.messages.with_raw_response.update(
                 message_id="message_id",
                 agent_id="",
-                id="id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.agents.messages.with_raw_response.update(
                 message_id="",
                 agent_id="agent_id",
-                id="id",
             )
 
     @parametrize

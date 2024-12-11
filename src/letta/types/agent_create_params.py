@@ -13,8 +13,6 @@ __all__ = [
     "MemoryBlock",
     "EmbeddingConfig",
     "InitialMessageSequence",
-    "InitialMessageSequenceToolCall",
-    "InitialMessageSequenceToolCallFunction",
     "LlmConfig",
     "ToolRule",
     "ToolRuleChildToolRule",
@@ -27,8 +25,8 @@ class AgentCreateParams(TypedDict, total=False):
     memory_blocks: Required[Iterable[MemoryBlock]]
     """The blocks to create in the agent's in-context memory."""
 
-    agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]]
-    """Enum to represent the type of agent."""
+    agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
+    """The type of agent."""
 
     description: Optional[str]
     """The description of the agent."""
@@ -86,11 +84,10 @@ class AgentCreateParams(TypedDict, total=False):
     tool_rules: Optional[Iterable[ToolRule]]
     """The tool rules governing the agent."""
 
-    tools: Optional[List[str]]
+    tools: List[str]
     """The tools used by the agent."""
 
     user_id: Optional[str]
-    """The user id of the agent."""
 
 
 class MemoryBlock(TypedDict, total=False):
@@ -141,54 +138,27 @@ class EmbeddingConfig(TypedDict, total=False):
     """The endpoint for the model (`None` if local)."""
 
 
-class InitialMessageSequenceToolCallFunction(TypedDict, total=False):
-    arguments: Required[str]
-    """The arguments to pass to the function (JSON dump)"""
-
-    name: Required[str]
-    """The name of the function to call"""
-
-
-class InitialMessageSequenceToolCall(TypedDict, total=False):
-    id: Required[str]
-    """The ID of the tool call"""
-
-    function: Required[InitialMessageSequenceToolCallFunction]
-    """The arguments and name for the function"""
-
-    type: str
-
-
 class InitialMessageSequence(TypedDict, total=False):
-    role: Required[Literal["assistant", "user", "tool", "function", "system"]]
+    role: Required[Literal["user", "system"]]
     """The role of the participant."""
 
-    id: str
-    """The human-friendly ID of the Message"""
+    text: Required[str]
+    """The text of the message."""
 
-    agent_id: Optional[str]
-    """The unique identifier of the agent."""
+    created_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The timestamp when the object was created."""
 
-    created_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """The time the message was created."""
+    created_by_id: Optional[str]
+    """The id of the user that made this object."""
 
-    model: Optional[str]
-    """The model used to make the function call."""
+    last_updated_by_id: Optional[str]
+    """The id of the user that made this object."""
 
     name: Optional[str]
     """The name of the participant."""
 
-    text: Optional[str]
-    """The text of the message."""
-
-    tool_call_id: Optional[str]
-    """The id of the tool call."""
-
-    tool_calls: Optional[Iterable[InitialMessageSequenceToolCall]]
-    """The list of tool calls requested."""
-
-    user_id: Optional[str]
-    """The unique identifier of the user."""
+    updated_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The timestamp when the object was last updated."""
 
 
 class LlmConfig(TypedDict, total=False):
