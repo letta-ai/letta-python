@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import List, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["AgentUpdateParams", "EmbeddingConfig", "LlmConfig", "Memory", "MemoryMemory"]
+__all__ = ["AgentUpdateParams", "EmbeddingConfig", "LlmConfig"]
 
 
 class AgentUpdateParams(TypedDict, total=False):
@@ -49,16 +49,6 @@ class AgentUpdateParams(TypedDict, total=False):
     inner thoughts.
     """
 
-    memory: Optional[Memory]
-    """Represents the in-context memory of the agent.
-
-    This includes both the `Block` objects (labelled by sections), as well as tools
-    to edit the blocks.
-
-    Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-    memory block.
-    """
-
     message_ids: Optional[List[str]]
     """The ids of the messages in the agent's in-context memory."""
 
@@ -74,7 +64,7 @@ class AgentUpdateParams(TypedDict, total=False):
     tags: Optional[List[str]]
     """The tags associated with the agent."""
 
-    tools: Optional[List[str]]
+    tool_names: Optional[List[str]]
     """The tools used by the agent."""
 
     user_id: Optional[str]
@@ -149,46 +139,3 @@ class LlmConfig(TypedDict, total=False):
     This helps with function calling performance and also the generation of inner
     thoughts.
     """
-
-
-class MemoryMemory(TypedDict, total=False):
-    value: Required[str]
-    """Value of the block."""
-
-    id: str
-    """The human-friendly ID of the Block"""
-
-    created_by_id: Optional[str]
-    """The id of the user that made this Block."""
-
-    description: Optional[str]
-    """Description of the block."""
-
-    is_template: bool
-    """Whether the block is a template (e.g. saved human/persona options)."""
-
-    label: Optional[str]
-    """Label of the block (e.g. 'human', 'persona') in the context window."""
-
-    last_updated_by_id: Optional[str]
-    """The id of the user that last updated this Block."""
-
-    limit: int
-    """Character limit of the block."""
-
-    metadata: Annotated[Optional[object], PropertyInfo(alias="metadata_")]
-    """Metadata of the block."""
-
-    name: Optional[str]
-    """Name of the block if it is a template."""
-
-    organization_id: Optional[str]
-    """The unique identifier of the organization associated with the block."""
-
-
-class Memory(TypedDict, total=False):
-    memory: Dict[str, MemoryMemory]
-    """Mapping from memory block section to memory block."""
-
-    prompt_template: str
-    """Jinja2 template for compiling memory blocks into a prompt string"""

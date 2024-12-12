@@ -1,14 +1,27 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["AgentState", "EmbeddingConfig", "LlmConfig", "Memory", "MemoryMemory", "ToolRule"]
+__all__ = [
+    "AgentState",
+    "EmbeddingConfig",
+    "LlmConfig",
+    "Memory",
+    "MemoryBlock",
+    "Source",
+    "SourceEmbeddingConfig",
+    "Tool",
+    "ToolRule",
+    "ToolRuleChildToolRule",
+    "ToolRuleInitToolRule",
+    "ToolRuleTerminalToolRule",
+]
 
 
 class EmbeddingConfig(BaseModel):
@@ -79,7 +92,7 @@ class LlmConfig(BaseModel):
     """
 
 
-class MemoryMemory(BaseModel):
+class MemoryBlock(BaseModel):
     value: str
     """Value of the block."""
 
@@ -115,20 +128,147 @@ class MemoryMemory(BaseModel):
 
 
 class Memory(BaseModel):
-    memory: Optional[Dict[str, MemoryMemory]] = None
-    """Mapping from memory block section to memory block."""
+    blocks: List[MemoryBlock]
+    """Memory blocks contained in the agent's in-context memory"""
 
     prompt_template: Optional[str] = None
     """Jinja2 template for compiling memory blocks into a prompt string"""
 
 
-class ToolRule(BaseModel):
+class SourceEmbeddingConfig(BaseModel):
+    embedding_dim: int
+    """The dimension of the embedding."""
+
+    embedding_endpoint_type: str
+    """The endpoint type for the model."""
+
+    embedding_model: str
+    """The model for the embedding."""
+
+    azure_deployment: Optional[str] = None
+    """The Azure deployment for the model."""
+
+    azure_endpoint: Optional[str] = None
+    """The Azure endpoint for the model."""
+
+    azure_version: Optional[str] = None
+    """The Azure version for the model."""
+
+    embedding_chunk_size: Optional[int] = None
+    """The chunk size of the embedding."""
+
+    embedding_endpoint: Optional[str] = None
+    """The endpoint for the model (`None` if local)."""
+
+
+class Source(BaseModel):
+    embedding_config: SourceEmbeddingConfig
+    """The embedding configuration used by the source."""
+
+    name: str
+    """The name of the source."""
+
+    id: Optional[str] = None
+    """The human-friendly ID of the Source"""
+
+    created_at: Optional[datetime] = None
+    """The timestamp when the source was created."""
+
+    created_by_id: Optional[str] = None
+    """The id of the user that made this Tool."""
+
+    description: Optional[str] = None
+    """The description of the source."""
+
+    last_updated_by_id: Optional[str] = None
+    """The id of the user that made this Tool."""
+
+    metadata: Optional[object] = FieldInfo(alias="metadata_", default=None)
+    """Metadata associated with the source."""
+
+    organization_id: Optional[str] = None
+    """The ID of the organization that created the source."""
+
+    updated_at: Optional[datetime] = None
+    """The timestamp when the source was last updated."""
+
+
+class Tool(BaseModel):
+    source_code: str
+    """The source code of the function."""
+
+    id: Optional[str] = None
+    """The human-friendly ID of the Tool"""
+
+    created_by_id: Optional[str] = None
+    """The id of the user that made this Tool."""
+
+    description: Optional[str] = None
+    """The description of the tool."""
+
+    json_schema: Optional[object] = None
+    """The JSON schema of the function."""
+
+    last_updated_by_id: Optional[str] = None
+    """The id of the user that made this Tool."""
+
+    module: Optional[str] = None
+    """The module of the function."""
+
+    name: Optional[str] = None
+    """The name of the function."""
+
+    organization_id: Optional[str] = None
+    """The unique identifier of the organization associated with the tool."""
+
+    return_char_limit: Optional[int] = None
+    """The maximum number of characters in the response."""
+
+    source_type: Optional[str] = None
+    """The type of the source code."""
+
+    tags: Optional[List[str]] = None
+    """Metadata tags."""
+
+
+class ToolRuleChildToolRule(BaseModel):
+    children: List[str]
+    """The children tools that can be invoked."""
+
     tool_name: str
     """The name of the tool. Must exist in the database for the user's organization."""
 
+    type: Optional[Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]] = (
+        None
+    )
+    """Type of tool rule."""
+
+
+class ToolRuleInitToolRule(BaseModel):
+    tool_name: str
+    """The name of the tool. Must exist in the database for the user's organization."""
+
+    type: Optional[Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]] = (
+        None
+    )
+    """Type of tool rule."""
+
+
+class ToolRuleTerminalToolRule(BaseModel):
+    tool_name: str
+    """The name of the tool. Must exist in the database for the user's organization."""
+
+    type: Optional[Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]] = (
+        None
+    )
+    """Type of tool rule."""
+
+
+ToolRule: TypeAlias = Union[ToolRuleChildToolRule, ToolRuleInitToolRule, ToolRuleTerminalToolRule]
+
 
 class AgentState(BaseModel):
-    agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent"]
+    agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
     """The type of agent."""
 
     embedding_config: EmbeddingConfig
@@ -137,13 +277,25 @@ class AgentState(BaseModel):
     llm_config: LlmConfig
     """The LLM configuration used by the agent."""
 
+    memory: Memory
+    """The in-context memory of the agent."""
+
     name: str
     """The name of the agent."""
+
+    sources: List[Source]
+    """The sources used by the agent."""
 
     system: str
     """The system prompt used by the agent."""
 
-    tools: List[str]
+    tags: List[str]
+    """The tags associated with the agent."""
+
+    tool_names: List[str]
+    """The tools used by the agent."""
+
+    tools: List[Tool]
     """The tools used by the agent."""
 
     id: Optional[str] = None
@@ -155,24 +307,11 @@ class AgentState(BaseModel):
     description: Optional[str] = None
     """The description of the agent."""
 
-    memory: Optional[Memory] = None
-    """Represents the in-context memory of the agent.
-
-    This includes both the `Block` objects (labelled by sections), as well as tools
-    to edit the blocks.
-
-    Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-    memory block.
-    """
-
     message_ids: Optional[List[str]] = None
     """The ids of the messages in the agent's in-context memory."""
 
     metadata: Optional[object] = FieldInfo(alias="metadata_", default=None)
     """The metadata of the agent."""
-
-    tags: Optional[List[str]] = None
-    """The tags associated with the agent."""
 
     tool_rules: Optional[List[ToolRule]] = None
     """The list of tool rules."""

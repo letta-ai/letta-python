@@ -15,8 +15,8 @@ The REST API documentation can be found on [docs.letta.com](https://docs.letta.c
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/letta-python.git
+# install from the production repo
+pip install git+ssh://git@github.com/letta-ai/letta-python.git
 ```
 
 > [!NOTE]
@@ -208,9 +208,9 @@ agent = response.parse()  # get the object that `agents.list()` would have retur
 print(agent)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/letta-python/tree/main/src/letta/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/letta-ai/letta-python/tree/main/src/letta/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/letta-python/tree/main/src/letta/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/letta-ai/letta-python/tree/main/src/letta/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -267,18 +267,19 @@ can also get all the extra fields on the Pydantic model as a dict with
 
 You can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including:
 
-- Support for proxies
-- Custom transports
+- Support for [proxies](https://www.python-httpx.org/advanced/proxies/)
+- Custom [transports](https://www.python-httpx.org/advanced/transports/)
 - Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
 
 ```python
+import httpx
 from letta import Letta, DefaultHttpxClient
 
 client = Letta(
     # Or use the `LETTA_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
-        proxies="http://my.test.proxy.example.com",
+        proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
 )
@@ -304,7 +305,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/letta-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/letta-ai/letta-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 

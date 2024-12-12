@@ -104,7 +104,6 @@ class TestMessages:
         message = client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
@@ -113,7 +112,6 @@ class TestMessages:
         message = client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
             name="name",
             role="assistant",
             text="text",
@@ -136,7 +134,6 @@ class TestMessages:
         response = client.agents.messages.with_raw_response.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         )
 
         assert response.is_closed is True
@@ -149,7 +146,6 @@ class TestMessages:
         with client.agents.messages.with_streaming_response.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -165,14 +161,12 @@ class TestMessages:
             client.agents.messages.with_raw_response.update(
                 message_id="message_id",
                 agent_id="",
-                id="id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.agents.messages.with_raw_response.update(
                 message_id="",
                 agent_id="agent_id",
-                id="id",
             )
 
     @parametrize
@@ -312,7 +306,6 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
@@ -321,7 +314,6 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
             name="name",
             role="assistant",
             text="text",
@@ -344,7 +336,6 @@ class TestAsyncMessages:
         response = await async_client.agents.messages.with_raw_response.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         )
 
         assert response.is_closed is True
@@ -357,7 +348,6 @@ class TestAsyncMessages:
         async with async_client.agents.messages.with_streaming_response.update(
             message_id="message_id",
             agent_id="agent_id",
-            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -373,14 +363,12 @@ class TestAsyncMessages:
             await async_client.agents.messages.with_raw_response.update(
                 message_id="message_id",
                 agent_id="",
-                id="id",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.agents.messages.with_raw_response.update(
                 message_id="",
                 agent_id="agent_id",
-                id="id",
             )
 
     @parametrize

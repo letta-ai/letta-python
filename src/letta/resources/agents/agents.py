@@ -48,7 +48,7 @@ class AgentsResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/letta-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/letta-ai/letta-python#accessing-raw-response-data-eg-headers
         """
         return AgentsResourceWithRawResponse(self)
 
@@ -57,26 +57,27 @@ class AgentsResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/letta-python#with_streaming_response
+        For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return AgentsResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]] | NotGiven = NOT_GIVEN,
+        memory_blocks: Iterable[agent_create_params.MemoryBlock],
+        agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
+        | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_create_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        memory: Optional[agent_create_params.Memory] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
-        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tools: List[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -89,7 +90,9 @@ class AgentsResource(SyncAPIResource):
         Create a new agent with the specified configuration.
 
         Args:
-          agent_type: Enum to represent the type of agent.
+          memory_blocks: The blocks to create in the agent's in-context memory.
+
+          agent_type: The type of agent.
 
           description: The description of the agent.
 
@@ -121,12 +124,6 @@ class AgentsResource(SyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          memory: Represents the in-context memory of the agent. This includes both the `Block`
-              objects (labelled by sections), as well as tools to edit the blocks.
-
-              Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-              memory block.
-
           message_ids: The ids of the messages in the agent's in-context memory.
 
           metadata: The metadata of the agent.
@@ -141,8 +138,6 @@ class AgentsResource(SyncAPIResource):
 
           tools: The tools used by the agent.
 
-          user_id: The user id of the agent.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -155,12 +150,12 @@ class AgentsResource(SyncAPIResource):
             "/v1/agents/",
             body=maybe_transform(
                 {
+                    "memory_blocks": memory_blocks,
                     "agent_type": agent_type,
                     "description": description,
                     "embedding_config": embedding_config,
                     "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
-                    "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
@@ -219,13 +214,12 @@ class AgentsResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_update_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_update_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        memory: Optional[agent_update_params.Memory] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -268,12 +262,6 @@ class AgentsResource(SyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          memory: Represents the in-context memory of the agent. This includes both the `Block`
-              objects (labelled by sections), as well as tools to edit the blocks.
-
-              Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-              memory block.
-
           message_ids: The ids of the messages in the agent's in-context memory.
 
           metadata: The metadata of the agent.
@@ -284,7 +272,7 @@ class AgentsResource(SyncAPIResource):
 
           tags: The tags associated with the agent.
 
-          tools: The tools used by the agent.
+          tool_names: The tools used by the agent.
 
           user_id: The user id of the agent.
 
@@ -306,13 +294,12 @@ class AgentsResource(SyncAPIResource):
                     "description": description,
                     "embedding_config": embedding_config,
                     "llm_config": llm_config,
-                    "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
                     "system": system,
                     "tags": tags,
-                    "tools": tools,
+                    "tool_names": tool_names,
                     "user_id": user_id,
                 },
                 agent_update_params.AgentUpdateParams,
@@ -381,7 +368,7 @@ class AgentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> AgentState:
         """
         Delete an agent.
 
@@ -401,7 +388,7 @@ class AgentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=AgentState,
         )
 
     def migrate(
@@ -463,7 +450,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/letta-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/letta-ai/letta-python#accessing-raw-response-data-eg-headers
         """
         return AsyncAgentsResourceWithRawResponse(self)
 
@@ -472,26 +459,27 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/letta-python#with_streaming_response
+        For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return AsyncAgentsResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
-        agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]] | NotGiven = NOT_GIVEN,
+        memory_blocks: Iterable[agent_create_params.MemoryBlock],
+        agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
+        | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_create_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        memory: Optional[agent_create_params.Memory] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
-        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tools: List[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -504,7 +492,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         Create a new agent with the specified configuration.
 
         Args:
-          agent_type: Enum to represent the type of agent.
+          memory_blocks: The blocks to create in the agent's in-context memory.
+
+          agent_type: The type of agent.
 
           description: The description of the agent.
 
@@ -536,12 +526,6 @@ class AsyncAgentsResource(AsyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          memory: Represents the in-context memory of the agent. This includes both the `Block`
-              objects (labelled by sections), as well as tools to edit the blocks.
-
-              Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-              memory block.
-
           message_ids: The ids of the messages in the agent's in-context memory.
 
           metadata: The metadata of the agent.
@@ -556,8 +540,6 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           tools: The tools used by the agent.
 
-          user_id: The user id of the agent.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -570,12 +552,12 @@ class AsyncAgentsResource(AsyncAPIResource):
             "/v1/agents/",
             body=await async_maybe_transform(
                 {
+                    "memory_blocks": memory_blocks,
                     "agent_type": agent_type,
                     "description": description,
                     "embedding_config": embedding_config,
                     "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
-                    "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
@@ -634,13 +616,12 @@ class AsyncAgentsResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_update_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_update_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        memory: Optional[agent_update_params.Memory] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -683,12 +664,6 @@ class AsyncAgentsResource(AsyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          memory: Represents the in-context memory of the agent. This includes both the `Block`
-              objects (labelled by sections), as well as tools to edit the blocks.
-
-              Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-              memory block.
-
           message_ids: The ids of the messages in the agent's in-context memory.
 
           metadata: The metadata of the agent.
@@ -699,7 +674,7 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           tags: The tags associated with the agent.
 
-          tools: The tools used by the agent.
+          tool_names: The tools used by the agent.
 
           user_id: The user id of the agent.
 
@@ -721,13 +696,12 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "description": description,
                     "embedding_config": embedding_config,
                     "llm_config": llm_config,
-                    "memory": memory,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
                     "system": system,
                     "tags": tags,
-                    "tools": tools,
+                    "tool_names": tool_names,
                     "user_id": user_id,
                 },
                 agent_update_params.AgentUpdateParams,
@@ -796,7 +770,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> object:
+    ) -> AgentState:
         """
         Delete an agent.
 
@@ -816,7 +790,7 @@ class AsyncAgentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=AgentState,
         )
 
     async def migrate(

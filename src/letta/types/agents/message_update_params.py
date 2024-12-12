@@ -11,9 +11,6 @@ __all__ = ["MessageUpdateParams", "ToolCall", "ToolCallFunction"]
 class MessageUpdateParams(TypedDict, total=False):
     agent_id: Required[str]
 
-    id: Required[str]
-    """The id of the message."""
-
     name: Optional[str]
     """The name of the participant."""
 

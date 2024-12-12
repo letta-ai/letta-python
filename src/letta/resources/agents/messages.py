@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Union, Iterable, Optional, cast
+from typing import Any, Iterable, Optional, cast
 from typing_extensions import Literal
 
 import httpx
@@ -36,7 +36,7 @@ class MessagesResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/letta-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/letta-ai/letta-python#accessing-raw-response-data-eg-headers
         """
         return MessagesResourceWithRawResponse(self)
 
@@ -45,7 +45,7 @@ class MessagesResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/letta-python#with_streaming_response
+        For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return MessagesResourceWithStreamingResponse(self)
 
@@ -53,9 +53,7 @@ class MessagesResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        messages: Union[
-            Iterable[message_create_params.MessagesUnionMember0], Iterable[message_create_params.MessagesUnionMember1]
-        ],
+        messages: Iterable[message_create_params.Message],
         assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -108,7 +106,6 @@ class MessagesResource(SyncAPIResource):
         message_id: str,
         *,
         agent_id: str,
-        id: str,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         role: Optional[Literal["assistant", "user", "tool", "function", "system"]] | NotGiven = NOT_GIVEN,
         text: Optional[str] | NotGiven = NOT_GIVEN,
@@ -125,8 +122,6 @@ class MessagesResource(SyncAPIResource):
         Update the details of a message associated with an agent.
 
         Args:
-          id: The id of the message.
-
           name: The name of the participant.
 
           role: The role of the participant.
@@ -153,7 +148,6 @@ class MessagesResource(SyncAPIResource):
             f"/v1/agents/{agent_id}/messages/{message_id}",
             body=maybe_transform(
                 {
-                    "id": id,
                     "name": name,
                     "role": role,
                     "text": text,
@@ -242,7 +236,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/letta-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/letta-ai/letta-python#accessing-raw-response-data-eg-headers
         """
         return AsyncMessagesResourceWithRawResponse(self)
 
@@ -251,7 +245,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/letta-python#with_streaming_response
+        For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
@@ -259,9 +253,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        messages: Union[
-            Iterable[message_create_params.MessagesUnionMember0], Iterable[message_create_params.MessagesUnionMember1]
-        ],
+        messages: Iterable[message_create_params.Message],
         assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -314,7 +306,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         message_id: str,
         *,
         agent_id: str,
-        id: str,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         role: Optional[Literal["assistant", "user", "tool", "function", "system"]] | NotGiven = NOT_GIVEN,
         text: Optional[str] | NotGiven = NOT_GIVEN,
@@ -331,8 +322,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         Update the details of a message associated with an agent.
 
         Args:
-          id: The id of the message.
-
           name: The name of the participant.
 
           role: The role of the participant.
@@ -359,7 +348,6 @@ class AsyncMessagesResource(AsyncAPIResource):
             f"/v1/agents/{agent_id}/messages/{message_id}",
             body=await async_maybe_transform(
                 {
-                    "id": id,
                     "name": name,
                     "role": role,
                     "text": text,

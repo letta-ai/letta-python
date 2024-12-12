@@ -14,7 +14,6 @@ from letta.types import (
     AgentMigrateResponse,
 )
 from tests.utils import assert_matches_type
-from letta._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -24,12 +23,30 @@ class TestAgents:
 
     @parametrize
     def test_method_create(self, client: Letta) -> None:
-        agent = client.agents.create()
+        agent = client.agents.create(
+            memory_blocks=[
+                {
+                    "label": "label",
+                    "value": "value",
+                }
+            ],
+        )
         assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Letta) -> None:
         agent = client.agents.create(
+            memory_blocks=[
+                {
+                    "label": "label",
+                    "value": "value",
+                    "description": "description",
+                    "is_template": True,
+                    "limit": 0,
+                    "metadata": {},
+                    "name": "name",
+                }
+            ],
             agent_type="memgpt_agent",
             description="description",
             embedding_config={
@@ -44,25 +61,9 @@ class TestAgents:
             },
             initial_message_sequence=[
                 {
-                    "role": "assistant",
-                    "id": "message-123e4567-e89b-12d3-a456-426614174000",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
+                    "role": "user",
                     "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        }
-                    ],
-                    "user_id": "user_id",
+                    "name": "name",
                 }
             ],
             llm_config={
@@ -73,30 +74,18 @@ class TestAgents:
                 "model_wrapper": "model_wrapper",
                 "put_inner_thoughts_in_kwargs": True,
             },
-            memory={
-                "memory": {
-                    "foo": {
-                        "value": "value",
-                        "id": "block-123e4567-e89b-12d3-a456-426614174000",
-                        "created_by_id": "created_by_id",
-                        "description": "description",
-                        "is_template": True,
-                        "label": "label",
-                        "last_updated_by_id": "last_updated_by_id",
-                        "limit": 0,
-                        "metadata": {},
-                        "name": "name",
-                        "organization_id": "organization_id",
-                    }
-                },
-                "prompt_template": "prompt_template",
-            },
             message_ids=["string"],
             metadata={},
             name="name",
             system="system",
             tags=["string"],
-            tool_rules=[{"tool_name": "tool_name"}],
+            tool_rules=[
+                {
+                    "children": ["string"],
+                    "tool_name": "tool_name",
+                    "type": "InitToolRule",
+                }
+            ],
             tools=["string"],
             user_id="user_id",
         )
@@ -104,7 +93,14 @@ class TestAgents:
 
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
-        response = client.agents.with_raw_response.create()
+        response = client.agents.with_raw_response.create(
+            memory_blocks=[
+                {
+                    "label": "label",
+                    "value": "value",
+                }
+            ],
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -113,7 +109,14 @@ class TestAgents:
 
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
-        with client.agents.with_streaming_response.create() as response:
+        with client.agents.with_streaming_response.create(
+            memory_blocks=[
+                {
+                    "label": "label",
+                    "value": "value",
+                }
+            ],
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -192,30 +195,12 @@ class TestAgents:
                 "model_wrapper": "model_wrapper",
                 "put_inner_thoughts_in_kwargs": True,
             },
-            memory={
-                "memory": {
-                    "foo": {
-                        "value": "value",
-                        "id": "block-123e4567-e89b-12d3-a456-426614174000",
-                        "created_by_id": "created_by_id",
-                        "description": "description",
-                        "is_template": True,
-                        "label": "label",
-                        "last_updated_by_id": "last_updated_by_id",
-                        "limit": 0,
-                        "metadata": {},
-                        "name": "name",
-                        "organization_id": "organization_id",
-                    }
-                },
-                "prompt_template": "prompt_template",
-            },
             message_ids=["string"],
             metadata={},
             name="name",
             system="system",
             tags=["string"],
-            tools=["string"],
+            tool_names=["string"],
             user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
@@ -292,7 +277,7 @@ class TestAgents:
         agent = client.agents.delete(
             "agent_id",
         )
-        assert_matches_type(object, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
@@ -303,7 +288,7 @@ class TestAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = response.parse()
-        assert_matches_type(object, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
@@ -314,7 +299,7 @@ class TestAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = response.parse()
-            assert_matches_type(object, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -387,12 +372,30 @@ class TestAsyncAgents:
 
     @parametrize
     async def test_method_create(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.create()
+        agent = await async_client.agents.create(
+            memory_blocks=[
+                {
+                    "label": "label",
+                    "value": "value",
+                }
+            ],
+        )
         assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.create(
+            memory_blocks=[
+                {
+                    "label": "label",
+                    "value": "value",
+                    "description": "description",
+                    "is_template": True,
+                    "limit": 0,
+                    "metadata": {},
+                    "name": "name",
+                }
+            ],
             agent_type="memgpt_agent",
             description="description",
             embedding_config={
@@ -407,25 +410,9 @@ class TestAsyncAgents:
             },
             initial_message_sequence=[
                 {
-                    "role": "assistant",
-                    "id": "message-123e4567-e89b-12d3-a456-426614174000",
-                    "agent_id": "agent_id",
-                    "created_at": parse_datetime("2019-12-27T18:11:19.117Z"),
-                    "model": "model",
-                    "name": "name",
+                    "role": "user",
                     "text": "text",
-                    "tool_call_id": "tool_call_id",
-                    "tool_calls": [
-                        {
-                            "id": "id",
-                            "function": {
-                                "arguments": "arguments",
-                                "name": "name",
-                            },
-                            "type": "type",
-                        }
-                    ],
-                    "user_id": "user_id",
+                    "name": "name",
                 }
             ],
             llm_config={
@@ -436,30 +423,18 @@ class TestAsyncAgents:
                 "model_wrapper": "model_wrapper",
                 "put_inner_thoughts_in_kwargs": True,
             },
-            memory={
-                "memory": {
-                    "foo": {
-                        "value": "value",
-                        "id": "block-123e4567-e89b-12d3-a456-426614174000",
-                        "created_by_id": "created_by_id",
-                        "description": "description",
-                        "is_template": True,
-                        "label": "label",
-                        "last_updated_by_id": "last_updated_by_id",
-                        "limit": 0,
-                        "metadata": {},
-                        "name": "name",
-                        "organization_id": "organization_id",
-                    }
-                },
-                "prompt_template": "prompt_template",
-            },
             message_ids=["string"],
             metadata={},
             name="name",
             system="system",
             tags=["string"],
-            tool_rules=[{"tool_name": "tool_name"}],
+            tool_rules=[
+                {
+                    "children": ["string"],
+                    "tool_name": "tool_name",
+                    "type": "InitToolRule",
+                }
+            ],
             tools=["string"],
             user_id="user_id",
         )
@@ -467,7 +442,14 @@ class TestAsyncAgents:
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.with_raw_response.create()
+        response = await async_client.agents.with_raw_response.create(
+            memory_blocks=[
+                {
+                    "label": "label",
+                    "value": "value",
+                }
+            ],
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -476,7 +458,14 @@ class TestAsyncAgents:
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.with_streaming_response.create() as response:
+        async with async_client.agents.with_streaming_response.create(
+            memory_blocks=[
+                {
+                    "label": "label",
+                    "value": "value",
+                }
+            ],
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -555,30 +544,12 @@ class TestAsyncAgents:
                 "model_wrapper": "model_wrapper",
                 "put_inner_thoughts_in_kwargs": True,
             },
-            memory={
-                "memory": {
-                    "foo": {
-                        "value": "value",
-                        "id": "block-123e4567-e89b-12d3-a456-426614174000",
-                        "created_by_id": "created_by_id",
-                        "description": "description",
-                        "is_template": True,
-                        "label": "label",
-                        "last_updated_by_id": "last_updated_by_id",
-                        "limit": 0,
-                        "metadata": {},
-                        "name": "name",
-                        "organization_id": "organization_id",
-                    }
-                },
-                "prompt_template": "prompt_template",
-            },
             message_ids=["string"],
             metadata={},
             name="name",
             system="system",
             tags=["string"],
-            tools=["string"],
+            tool_names=["string"],
             user_id="user_id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
@@ -655,7 +626,7 @@ class TestAsyncAgents:
         agent = await async_client.agents.delete(
             "agent_id",
         )
-        assert_matches_type(object, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
@@ -666,7 +637,7 @@ class TestAsyncAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = await response.parse()
-        assert_matches_type(object, agent, path=["response"])
+        assert_matches_type(AgentState, agent, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
@@ -677,7 +648,7 @@ class TestAsyncAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = await response.parse()
-            assert_matches_type(object, agent, path=["response"])
+            assert_matches_type(AgentState, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

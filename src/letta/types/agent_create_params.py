@@ -2,28 +2,30 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing import List, Union, Iterable, Optional
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
 __all__ = [
     "AgentCreateParams",
+    "MemoryBlock",
     "EmbeddingConfig",
     "InitialMessageSequence",
-    "InitialMessageSequenceToolCall",
-    "InitialMessageSequenceToolCallFunction",
     "LlmConfig",
-    "Memory",
-    "MemoryMemory",
     "ToolRule",
+    "ToolRuleChildToolRule",
+    "ToolRuleInitToolRule",
+    "ToolRuleTerminalToolRule",
 ]
 
 
 class AgentCreateParams(TypedDict, total=False):
-    agent_type: Optional[Literal["memgpt_agent", "split_thread_agent", "o1_agent"]]
-    """Enum to represent the type of agent."""
+    memory_blocks: Required[Iterable[MemoryBlock]]
+    """The blocks to create in the agent's in-context memory."""
+
+    agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
+    """The type of agent."""
 
     description: Optional[str]
     """The description of the agent."""
@@ -63,16 +65,6 @@ class AgentCreateParams(TypedDict, total=False):
     inner thoughts.
     """
 
-    memory: Optional[Memory]
-    """Represents the in-context memory of the agent.
-
-    This includes both the `Block` objects (labelled by sections), as well as tools
-    to edit the blocks.
-
-    Attributes: memory (Dict[str, Block]): Mapping from memory block section to
-    memory block.
-    """
-
     message_ids: Optional[List[str]]
     """The ids of the messages in the agent's in-context memory."""
 
@@ -91,11 +83,32 @@ class AgentCreateParams(TypedDict, total=False):
     tool_rules: Optional[Iterable[ToolRule]]
     """The tool rules governing the agent."""
 
-    tools: Optional[List[str]]
+    tools: List[str]
     """The tools used by the agent."""
 
     user_id: Optional[str]
-    """The user id of the agent."""
+
+
+class MemoryBlock(TypedDict, total=False):
+    label: Required[str]
+    """Label of the block."""
+
+    value: Required[str]
+    """Value of the block."""
+
+    description: Optional[str]
+    """Description of the block."""
+
+    is_template: bool
+
+    limit: int
+    """Character limit of the block."""
+
+    metadata: Annotated[Optional[object], PropertyInfo(alias="metadata_")]
+    """Metadata of the block."""
+
+    name: Optional[str]
+    """Name of the block if it is a template."""
 
 
 class EmbeddingConfig(TypedDict, total=False):
@@ -124,54 +137,15 @@ class EmbeddingConfig(TypedDict, total=False):
     """The endpoint for the model (`None` if local)."""
 
 
-class InitialMessageSequenceToolCallFunction(TypedDict, total=False):
-    arguments: Required[str]
-    """The arguments to pass to the function (JSON dump)"""
-
-    name: Required[str]
-    """The name of the function to call"""
-
-
-class InitialMessageSequenceToolCall(TypedDict, total=False):
-    id: Required[str]
-    """The ID of the tool call"""
-
-    function: Required[InitialMessageSequenceToolCallFunction]
-    """The arguments and name for the function"""
-
-    type: str
-
-
 class InitialMessageSequence(TypedDict, total=False):
-    role: Required[Literal["assistant", "user", "tool", "function", "system"]]
+    role: Required[Literal["user", "system"]]
     """The role of the participant."""
 
-    id: str
-    """The human-friendly ID of the Message"""
-
-    agent_id: Optional[str]
-    """The unique identifier of the agent."""
-
-    created_at: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """The time the message was created."""
-
-    model: Optional[str]
-    """The model used to make the function call."""
+    text: Required[str]
+    """The text of the message."""
 
     name: Optional[str]
     """The name of the participant."""
-
-    text: Optional[str]
-    """The text of the message."""
-
-    tool_call_id: Optional[str]
-    """The id of the tool call."""
-
-    tool_calls: Optional[Iterable[InitialMessageSequenceToolCall]]
-    """The list of tool calls requested."""
-
-    user_id: Optional[str]
-    """The unique identifier of the user."""
 
 
 class LlmConfig(TypedDict, total=False):
@@ -218,49 +192,31 @@ class LlmConfig(TypedDict, total=False):
     """
 
 
-class MemoryMemory(TypedDict, total=False):
-    value: Required[str]
-    """Value of the block."""
+class ToolRuleChildToolRule(TypedDict, total=False):
+    children: Required[List[str]]
+    """The children tools that can be invoked."""
 
-    id: str
-    """The human-friendly ID of the Block"""
-
-    created_by_id: Optional[str]
-    """The id of the user that made this Block."""
-
-    description: Optional[str]
-    """Description of the block."""
-
-    is_template: bool
-    """Whether the block is a template (e.g. saved human/persona options)."""
-
-    label: Optional[str]
-    """Label of the block (e.g. 'human', 'persona') in the context window."""
-
-    last_updated_by_id: Optional[str]
-    """The id of the user that last updated this Block."""
-
-    limit: int
-    """Character limit of the block."""
-
-    metadata: Annotated[Optional[object], PropertyInfo(alias="metadata_")]
-    """Metadata of the block."""
-
-    name: Optional[str]
-    """Name of the block if it is a template."""
-
-    organization_id: Optional[str]
-    """The unique identifier of the organization associated with the block."""
-
-
-class Memory(TypedDict, total=False):
-    memory: Dict[str, MemoryMemory]
-    """Mapping from memory block section to memory block."""
-
-    prompt_template: str
-    """Jinja2 template for compiling memory blocks into a prompt string"""
-
-
-class ToolRule(TypedDict, total=False):
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
+
+    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    """Type of tool rule."""
+
+
+class ToolRuleInitToolRule(TypedDict, total=False):
+    tool_name: Required[str]
+    """The name of the tool. Must exist in the database for the user's organization."""
+
+    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    """Type of tool rule."""
+
+
+class ToolRuleTerminalToolRule(TypedDict, total=False):
+    tool_name: Required[str]
+    """The name of the tool. Must exist in the database for the user's organization."""
+
+    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    """Type of tool rule."""
+
+
+ToolRule: TypeAlias = Union[ToolRuleChildToolRule, ToolRuleInitToolRule, ToolRuleTerminalToolRule]
