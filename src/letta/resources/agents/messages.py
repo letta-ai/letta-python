@@ -10,7 +10,6 @@ import httpx
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import (
     maybe_transform,
-    strip_not_given,
     async_maybe_transform,
 )
 from ..._compat import cached_property
@@ -57,7 +56,6 @@ class MessagesResource(SyncAPIResource):
         messages: Iterable[message_create_params.Message],
         assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -87,7 +85,6 @@ class MessagesResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return self._post(
             f"/v1/agents/{agent_id}/messages",
             body=maybe_transform(
@@ -174,7 +171,6 @@ class MessagesResource(SyncAPIResource):
         before: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         msg_object: bool | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -206,7 +202,6 @@ class MessagesResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return cast(
             MessageListResponse,
             self._get(
@@ -261,7 +256,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         messages: Iterable[message_create_params.Message],
         assistant_message_tool_kwarg: str | NotGiven = NOT_GIVEN,
         assistant_message_tool_name: str | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -291,7 +285,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return await self._post(
             f"/v1/agents/{agent_id}/messages",
             body=await async_maybe_transform(
@@ -378,7 +371,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         before: Optional[str] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         msg_object: bool | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -410,7 +402,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {**strip_not_given({"user_id": user_id}), **(extra_headers or {})}
         return cast(
             MessageListResponse,
             await self._get(

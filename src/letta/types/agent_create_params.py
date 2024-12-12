@@ -86,9 +86,7 @@ class AgentCreateParams(TypedDict, total=False):
     tools: List[str]
     """The tools used by the agent."""
 
-    body_user_id: Annotated[Optional[str], PropertyInfo(alias="user_id")]
-
-    header_user_id: Annotated[str, PropertyInfo(alias="user_id")]
+    user_id: Optional[str]
 
 
 class MemoryBlock(TypedDict, total=False):
