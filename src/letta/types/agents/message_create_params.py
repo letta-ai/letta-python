@@ -18,8 +18,6 @@ class MessageCreateParams(TypedDict, total=False):
     assistant_message_tool_name: str
     """The name of the designated message tool."""
 
-    user_id: str
-
 
 class Message(TypedDict, total=False):
     role: Required[Literal["user", "system"]]

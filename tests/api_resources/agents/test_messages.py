@@ -47,7 +47,6 @@ class TestMessages:
             ],
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
-            user_id="user_id",
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
 
@@ -186,7 +185,6 @@ class TestMessages:
             before="before",
             limit=0,
             msg_object=True,
-            user_id="user_id",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
@@ -251,7 +249,6 @@ class TestAsyncMessages:
             ],
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
-            user_id="user_id",
         )
         assert_matches_type(MessageCreateResponse, message, path=["response"])
 
@@ -390,7 +387,6 @@ class TestAsyncMessages:
             before="before",
             limit=0,
             msg_object=True,
-            user_id="user_id",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
