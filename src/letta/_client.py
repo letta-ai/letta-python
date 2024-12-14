@@ -8,7 +8,7 @@ from typing_extensions import Self, Literal, override
 
 import httpx
 
-from . import resources, _exceptions
+from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
@@ -31,6 +31,7 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.agents import agents
 
 __all__ = [
     "ENVIRONMENTS",
@@ -38,7 +39,6 @@ __all__ = [
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "resources",
     "Letta",
     "AsyncLetta",
     "Client",
@@ -52,7 +52,7 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Letta(SyncAPIClient):
-    agents: resources.AgentsResource
+    agents: agents.AgentsResource
     with_raw_response: LettaWithRawResponse
     with_streaming_response: LettaWithStreamedResponse
 
@@ -134,7 +134,7 @@ class Letta(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.agents = resources.AgentsResource(self)
+        self.agents = agents.AgentsResource(self)
         self.with_raw_response = LettaWithRawResponse(self)
         self.with_streaming_response = LettaWithStreamedResponse(self)
 
@@ -246,7 +246,7 @@ class Letta(SyncAPIClient):
 
 
 class AsyncLetta(AsyncAPIClient):
-    agents: resources.AsyncAgentsResource
+    agents: agents.AsyncAgentsResource
     with_raw_response: AsyncLettaWithRawResponse
     with_streaming_response: AsyncLettaWithStreamedResponse
 
@@ -328,7 +328,7 @@ class AsyncLetta(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.agents = resources.AsyncAgentsResource(self)
+        self.agents = agents.AsyncAgentsResource(self)
         self.with_raw_response = AsyncLettaWithRawResponse(self)
         self.with_streaming_response = AsyncLettaWithStreamedResponse(self)
 
@@ -441,22 +441,22 @@ class AsyncLetta(AsyncAPIClient):
 
 class LettaWithRawResponse:
     def __init__(self, client: Letta) -> None:
-        self.agents = resources.AgentsResourceWithRawResponse(client.agents)
+        self.agents = agents.AgentsResourceWithRawResponse(client.agents)
 
 
 class AsyncLettaWithRawResponse:
     def __init__(self, client: AsyncLetta) -> None:
-        self.agents = resources.AsyncAgentsResourceWithRawResponse(client.agents)
+        self.agents = agents.AsyncAgentsResourceWithRawResponse(client.agents)
 
 
 class LettaWithStreamedResponse:
     def __init__(self, client: Letta) -> None:
-        self.agents = resources.AgentsResourceWithStreamingResponse(client.agents)
+        self.agents = agents.AgentsResourceWithStreamingResponse(client.agents)
 
 
 class AsyncLettaWithStreamedResponse:
     def __init__(self, client: AsyncLetta) -> None:
-        self.agents = resources.AsyncAgentsResourceWithStreamingResponse(client.agents)
+        self.agents = agents.AsyncAgentsResourceWithStreamingResponse(client.agents)
 
 
 Client = Letta
