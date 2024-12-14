@@ -35,7 +35,7 @@ class Letta:
 
 
 
-        Defaults to LettaEnvironment.DEFAULT
+        Defaults to LettaEnvironment.LETTA_HOSTED
 
 
 
@@ -62,7 +62,7 @@ class Letta:
         self,
         *,
         base_url: typing.Optional[str] = None,
-        environment: LettaEnvironment = LettaEnvironment.DEFAULT,
+        environment: LettaEnvironment = LettaEnvironment.LETTA_HOSTED,
         token: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
@@ -102,7 +102,7 @@ class AsyncLetta:
 
 
 
-        Defaults to LettaEnvironment.DEFAULT
+        Defaults to LettaEnvironment.LETTA_HOSTED
 
 
 
@@ -129,7 +129,7 @@ class AsyncLetta:
         self,
         *,
         base_url: typing.Optional[str] = None,
-        environment: LettaEnvironment = LettaEnvironment.DEFAULT,
+        environment: LettaEnvironment = LettaEnvironment.LETTA_HOSTED,
         token: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,

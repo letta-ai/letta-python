@@ -30,6 +30,8 @@ from ..types.letta_response import LettaResponse
 from ..types.message_role import MessageRole
 from ..types.letta_schemas_openai_chat_completions_tool_call_input import LettaSchemasOpenaiChatCompletionsToolCallInput
 from .types.letta_streaming_request_messages import LettaStreamingRequestMessages
+import httpx_sse
+import json
 from .types.agents_version_template_response import AgentsVersionTemplateResponse
 from ..errors.not_found_error import NotFoundError
 from ..errors.internal_server_error import InternalServerError
@@ -1847,7 +1849,7 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_message_stream(
+    def stream_message(
         self,
         agent_id: str,
         *,
@@ -1856,7 +1858,7 @@ class AgentsClient:
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
+    ) -> typing.Iterator[typing.Optional[typing.Any]]:
         """
         Process a user message and return the agent's response.
         This endpoint accepts a message from a user and processes it through the agent.
@@ -1881,28 +1883,12 @@ class AgentsClient:
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta import Letta, MessageCreate
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.create_message_stream(
-            agent_id="agent_id",
-            messages=[
-                MessageCreate(
-                    role="user",
-                    text="text",
-                )
-            ],
-        )
+        Yields
+        ------
+        typing.Iterator[typing.Optional[typing.Any]]
+            Successful response
         """
-        _response = self._client_wrapper.httpx_client.request(
+        with self._client_wrapper.httpx_client.stream(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/stream",
             method="POST",
             json={
@@ -1918,24 +1904,37 @@ class AgentsClient:
             },
             request_options=request_options,
             omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
+        ) as _response:
+            try:
+                if 200 <= _response.status_code < 300:
+                    _event_source = httpx_sse.EventSource(_response)
+                    for _sse in _event_source.iter_sse():
+                        try:
+                            yield typing.cast(
+                                typing.Optional[typing.Any],
+                                parse_obj_as(
+                                    type_=typing.Optional[typing.Any],  # type: ignore
+                                    object_=json.loads(_sse.data),
+                                ),
+                            )
+                        except:
+                            pass
+                    return
+                _response.read()
+                if _response.status_code == 422:
+                    raise UnprocessableEntityError(
+                        typing.cast(
+                            HttpValidationError,
+                            parse_obj_as(
+                                type_=HttpValidationError,  # type: ignore
+                                object_=_response.json(),
+                            ),
+                        )
                     )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+                _response_json = _response.json()
+            except JSONDecodeError:
+                raise ApiError(status_code=_response.status_code, body=_response.text)
+            raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def version_template(
         self,
@@ -4127,7 +4126,7 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def create_message_stream(
+    async def stream_message(
         self,
         agent_id: str,
         *,
@@ -4136,7 +4135,7 @@ class AsyncAgentsClient:
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
+    ) -> typing.AsyncIterator[typing.Optional[typing.Any]]:
         """
         Process a user message and return the agent's response.
         This endpoint accepts a message from a user and processes it through the agent.
@@ -4161,36 +4160,12 @@ class AsyncAgentsClient:
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta, MessageCreate
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.create_message_stream(
-                agent_id="agent_id",
-                messages=[
-                    MessageCreate(
-                        role="user",
-                        text="text",
-                    )
-                ],
-            )
-
-
-        asyncio.run(main())
+        Yields
+        ------
+        typing.AsyncIterator[typing.Optional[typing.Any]]
+            Successful response
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        async with self._client_wrapper.httpx_client.stream(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/stream",
             method="POST",
             json={
@@ -4206,24 +4181,37 @@ class AsyncAgentsClient:
             },
             request_options=request_options,
             omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
+        ) as _response:
+            try:
+                if 200 <= _response.status_code < 300:
+                    _event_source = httpx_sse.EventSource(_response)
+                    async for _sse in _event_source.aiter_sse():
+                        try:
+                            yield typing.cast(
+                                typing.Optional[typing.Any],
+                                parse_obj_as(
+                                    type_=typing.Optional[typing.Any],  # type: ignore
+                                    object_=json.loads(_sse.data),
+                                ),
+                            )
+                        except:
+                            pass
+                    return
+                await _response.aread()
+                if _response.status_code == 422:
+                    raise UnprocessableEntityError(
+                        typing.cast(
+                            HttpValidationError,
+                            parse_obj_as(
+                                type_=HttpValidationError,  # type: ignore
+                                object_=_response.json(),
+                            ),
+                        )
                     )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+                _response_json = _response.json()
+            except JSONDecodeError:
+                raise ApiError(status_code=_response.status_code, body=_response.text)
+            raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def version_template(
         self,

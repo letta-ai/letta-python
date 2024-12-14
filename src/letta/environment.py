@@ -4,4 +4,5 @@ import enum
 
 
 class LettaEnvironment(enum.Enum):
-    DEFAULT = "https://app.letta.com"
+    LETTA_HOSTED = "https://app.letta.com"
+    SELF_HOSTED = "http://localhost:8283"
