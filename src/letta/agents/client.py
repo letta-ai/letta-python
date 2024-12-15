@@ -30,6 +30,7 @@ from ..types.letta_response import LettaResponse
 from ..types.message_role import MessageRole
 from ..types.letta_schemas_openai_chat_completions_tool_call_input import LettaSchemasOpenaiChatCompletionsToolCallInput
 from .types.letta_streaming_request_messages import LettaStreamingRequestMessages
+from .types.letta_streaming_response import LettaStreamingResponse
 import httpx_sse
 import json
 from .types.agents_version_template_response import AgentsVersionTemplateResponse
@@ -1858,7 +1859,7 @@ class AgentsClient:
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Iterator[typing.Optional[typing.Any]]:
+    ) -> typing.Iterator[LettaStreamingResponse]:
         """
         Process a user message and return the agent's response.
         This endpoint accepts a message from a user and processes it through the agent.
@@ -1885,7 +1886,7 @@ class AgentsClient:
 
         Yields
         ------
-        typing.Iterator[typing.Optional[typing.Any]]
+        typing.Iterator[LettaStreamingResponse]
             Successful response
         """
         with self._client_wrapper.httpx_client.stream(
@@ -1911,9 +1912,9 @@ class AgentsClient:
                     for _sse in _event_source.iter_sse():
                         try:
                             yield typing.cast(
-                                typing.Optional[typing.Any],
+                                LettaStreamingResponse,
                                 parse_obj_as(
-                                    type_=typing.Optional[typing.Any],  # type: ignore
+                                    type_=LettaStreamingResponse,  # type: ignore
                                     object_=json.loads(_sse.data),
                                 ),
                             )
@@ -4135,7 +4136,7 @@ class AsyncAgentsClient:
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.AsyncIterator[typing.Optional[typing.Any]]:
+    ) -> typing.AsyncIterator[LettaStreamingResponse]:
         """
         Process a user message and return the agent's response.
         This endpoint accepts a message from a user and processes it through the agent.
@@ -4162,7 +4163,7 @@ class AsyncAgentsClient:
 
         Yields
         ------
-        typing.AsyncIterator[typing.Optional[typing.Any]]
+        typing.AsyncIterator[LettaStreamingResponse]
             Successful response
         """
         async with self._client_wrapper.httpx_client.stream(
@@ -4188,9 +4189,9 @@ class AsyncAgentsClient:
                     async for _sse in _event_source.aiter_sse():
                         try:
                             yield typing.cast(
-                                typing.Optional[typing.Any],
+                                LettaStreamingResponse,
                                 parse_obj_as(
-                                    type_=typing.Optional[typing.Any],  # type: ignore
+                                    type_=LettaStreamingResponse,  # type: ignore
                                     object_=json.loads(_sse.data),
                                 ),
                             )

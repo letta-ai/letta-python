@@ -14,6 +14,7 @@ from .agents_migrate_response import AgentsMigrateResponse
 from .agents_version_template_response import AgentsVersionTemplateResponse
 from .letta_request_messages import LettaRequestMessages
 from .letta_streaming_request_messages import LettaStreamingRequestMessages
+from .letta_streaming_response import LettaStreamingResponse
 
 __all__ = [
     "AgentsListMessagesResponse",
@@ -28,4 +29,5 @@ __all__ = [
     "AgentsVersionTemplateResponse",
     "LettaRequestMessages",
     "LettaStreamingRequestMessages",
+    "LettaStreamingResponse",
 ]

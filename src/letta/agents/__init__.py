@@ -13,6 +13,7 @@ from .types import (
     AgentsVersionTemplateResponse,
     LettaRequestMessages,
     LettaStreamingRequestMessages,
+    LettaStreamingResponse,
 )
 
 __all__ = [
@@ -28,4 +29,5 @@ __all__ = [
     "AgentsVersionTemplateResponse",
     "LettaRequestMessages",
     "LettaStreamingRequestMessages",
+    "LettaStreamingResponse",
 ]

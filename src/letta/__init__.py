@@ -157,6 +157,7 @@ from .agents import (
     AgentsVersionTemplateResponse,
     LettaRequestMessages,
     LettaStreamingRequestMessages,
+    LettaStreamingResponse,
 )
 from .client import AsyncLetta, Letta
 from .environment import LettaEnvironment
@@ -256,6 +257,7 @@ __all__ = [
     "LettaSchemasOpenaiOpenaiToolCall",
     "LettaSchemasToolTool",
     "LettaStreamingRequestMessages",
+    "LettaStreamingResponse",
     "LettaUsageStatistics",
     "ListMessagesResponse",
     "LlmConfig",
