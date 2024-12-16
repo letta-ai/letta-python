@@ -1888,6 +1888,25 @@ class AgentsClient:
         ------
         typing.Iterator[LettaStreamingResponse]
             Successful response
+
+        Examples
+        --------
+        from letta import Letta, MessageCreate
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        response = client.agents.stream_message(
+            agent_id="agent_id",
+            messages=[
+                MessageCreate(
+                    role="user",
+                    text="text",
+                )
+            ],
+        )
+        for chunk in response:
+            yield chunk
         """
         with self._client_wrapper.httpx_client.stream(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/stream",
@@ -4165,6 +4184,33 @@ class AsyncAgentsClient:
         ------
         typing.AsyncIterator[LettaStreamingResponse]
             Successful response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta, MessageCreate
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.agents.stream_message(
+                agent_id="agent_id",
+                messages=[
+                    MessageCreate(
+                        role="user",
+                        text="text",
+                    )
+                ],
+            )
+            async for chunk in response:
+                yield chunk
+
+
+        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/stream",
