@@ -9,6 +9,12 @@ __all__ = ["AgentListParams"]
 
 
 class AgentListParams(TypedDict, total=False):
+    match_all_tags: bool
+    """If True, only returns agents that match ALL given tags.
+
+    Otherwise, return agents that have ANY of the passed in tags.
+    """
+
     name: Optional[str]
     """Name of the agent"""
 

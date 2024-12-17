@@ -27,8 +27,23 @@ class AgentCreateParams(TypedDict, total=False):
     agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
     """The type of agent."""
 
+    block_ids: Optional[List[str]]
+    """The ids of the blocks used by the agent."""
+
+    context_window_limit: Optional[int]
+    """The context window limit used by the agent."""
+
     description: Optional[str]
     """The description of the agent."""
+
+    embedding: Optional[str]
+    """
+    The embedding configuration handle used by the agent, specified in the format
+    provider/model-name.
+    """
+
+    embedding_chunk_size: Optional[int]
+    """The embedding chunk size used by the agent."""
 
     embedding_config: Optional[EmbeddingConfig]
     """Embedding model configuration.
@@ -45,8 +60,17 @@ class AgentCreateParams(TypedDict, total=False):
     azure_deployment (str): The Azure deployment for the model (Azure only).
     """
 
+    include_base_tools: bool
+    """The LLM configuration used by the agent."""
+
     initial_message_sequence: Optional[Iterable[InitialMessageSequence]]
     """The initial set of messages to put in the agent's in-context memory."""
+
+    llm: Optional[str]
+    """
+    The LLM configuration handle used by the agent, specified in the format
+    provider/model-name, as an alternative to specifying llm_config.
+    """
 
     llm_config: Optional[LlmConfig]
     """Configuration for a Language Model (LLM) model.
@@ -65,14 +89,14 @@ class AgentCreateParams(TypedDict, total=False):
     inner thoughts.
     """
 
-    message_ids: Optional[List[str]]
-    """The ids of the messages in the agent's in-context memory."""
-
     metadata: Annotated[Optional[object], PropertyInfo(alias="metadata_")]
     """The metadata of the agent."""
 
-    name: Optional[str]
+    name: str
     """The name of the agent."""
+
+    source_ids: Optional[List[str]]
+    """The ids of the sources used by the agent."""
 
     system: Optional[str]
     """The system prompt used by the agent."""
@@ -80,10 +104,13 @@ class AgentCreateParams(TypedDict, total=False):
     tags: Optional[List[str]]
     """The tags associated with the agent."""
 
+    tool_ids: Optional[List[str]]
+    """The ids of the tools used by the agent."""
+
     tool_rules: Optional[Iterable[ToolRule]]
     """The tool rules governing the agent."""
 
-    tools: List[str]
+    tools: Optional[List[str]]
     """The tools used by the agent."""
 
     user_id: Optional[str]
@@ -115,7 +142,27 @@ class EmbeddingConfig(TypedDict, total=False):
     embedding_dim: Required[int]
     """The dimension of the embedding."""
 
-    embedding_endpoint_type: Required[str]
+    embedding_endpoint_type: Required[
+        Literal[
+            "openai",
+            "anthropic",
+            "cohere",
+            "google_ai",
+            "azure",
+            "groq",
+            "ollama",
+            "webui",
+            "webui-legacy",
+            "lmstudio",
+            "lmstudio-legacy",
+            "llamacpp",
+            "koboldcpp",
+            "vllm",
+            "hugging-face",
+            "mistral",
+            "together",
+        ]
+    ]
     """The endpoint type for the model."""
 
     embedding_model: Required[str]

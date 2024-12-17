@@ -2,17 +2,25 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing import List, Union, Iterable, Optional
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["AgentUpdateParams", "EmbeddingConfig", "LlmConfig"]
+__all__ = [
+    "AgentUpdateParams",
+    "EmbeddingConfig",
+    "LlmConfig",
+    "ToolRule",
+    "ToolRuleChildToolRule",
+    "ToolRuleInitToolRule",
+    "ToolRuleTerminalToolRule",
+]
 
 
 class AgentUpdateParams(TypedDict, total=False):
-    id: Required[str]
-    """The id of the agent."""
+    block_ids: Optional[List[str]]
+    """The ids of the blocks used by the agent."""
 
     description: Optional[str]
     """The description of the agent."""
@@ -58,24 +66,47 @@ class AgentUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """The name of the agent."""
 
+    source_ids: Optional[List[str]]
+    """The ids of the sources used by the agent."""
+
     system: Optional[str]
     """The system prompt used by the agent."""
 
     tags: Optional[List[str]]
     """The tags associated with the agent."""
 
-    tool_names: Optional[List[str]]
-    """The tools used by the agent."""
+    tool_ids: Optional[List[str]]
+    """The ids of the tools used by the agent."""
 
-    user_id: Optional[str]
-    """The user id of the agent."""
+    tool_rules: Optional[Iterable[ToolRule]]
+    """The tool rules governing the agent."""
 
 
 class EmbeddingConfig(TypedDict, total=False):
     embedding_dim: Required[int]
     """The dimension of the embedding."""
 
-    embedding_endpoint_type: Required[str]
+    embedding_endpoint_type: Required[
+        Literal[
+            "openai",
+            "anthropic",
+            "cohere",
+            "google_ai",
+            "azure",
+            "groq",
+            "ollama",
+            "webui",
+            "webui-legacy",
+            "lmstudio",
+            "lmstudio-legacy",
+            "llamacpp",
+            "koboldcpp",
+            "vllm",
+            "hugging-face",
+            "mistral",
+            "together",
+        ]
+    ]
     """The endpoint type for the model."""
 
     embedding_model: Required[str]
@@ -139,3 +170,33 @@ class LlmConfig(TypedDict, total=False):
     This helps with function calling performance and also the generation of inner
     thoughts.
     """
+
+
+class ToolRuleChildToolRule(TypedDict, total=False):
+    children: Required[List[str]]
+    """The children tools that can be invoked."""
+
+    tool_name: Required[str]
+    """The name of the tool. Must exist in the database for the user's organization."""
+
+    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    """Type of tool rule."""
+
+
+class ToolRuleInitToolRule(TypedDict, total=False):
+    tool_name: Required[str]
+    """The name of the tool. Must exist in the database for the user's organization."""
+
+    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    """Type of tool rule."""
+
+
+class ToolRuleTerminalToolRule(TypedDict, total=False):
+    tool_name: Required[str]
+    """The name of the tool. Must exist in the database for the user's organization."""
+
+    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    """Type of tool rule."""
+
+
+ToolRule: TypeAlias = Union[ToolRuleChildToolRule, ToolRuleInitToolRule, ToolRuleTerminalToolRule]

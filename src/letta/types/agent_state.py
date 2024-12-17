@@ -28,7 +28,25 @@ class EmbeddingConfig(BaseModel):
     embedding_dim: int
     """The dimension of the embedding."""
 
-    embedding_endpoint_type: str
+    embedding_endpoint_type: Literal[
+        "openai",
+        "anthropic",
+        "cohere",
+        "google_ai",
+        "azure",
+        "groq",
+        "ollama",
+        "webui",
+        "webui-legacy",
+        "lmstudio",
+        "lmstudio-legacy",
+        "llamacpp",
+        "koboldcpp",
+        "vllm",
+        "hugging-face",
+        "mistral",
+        "together",
+    ]
     """The endpoint type for the model."""
 
     embedding_model: str
@@ -139,7 +157,25 @@ class SourceEmbeddingConfig(BaseModel):
     embedding_dim: int
     """The dimension of the embedding."""
 
-    embedding_endpoint_type: str
+    embedding_endpoint_type: Literal[
+        "openai",
+        "anthropic",
+        "cohere",
+        "google_ai",
+        "azure",
+        "groq",
+        "ollama",
+        "webui",
+        "webui-legacy",
+        "lmstudio",
+        "lmstudio-legacy",
+        "llamacpp",
+        "koboldcpp",
+        "vllm",
+        "hugging-face",
+        "mistral",
+        "together",
+    ]
     """The endpoint type for the model."""
 
     embedding_model: str
@@ -268,6 +304,9 @@ ToolRule: TypeAlias = Union[ToolRuleChildToolRule, ToolRuleInitToolRule, ToolRul
 
 
 class AgentState(BaseModel):
+    id: str
+    """The id of the agent. Assigned by the database."""
+
     agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
     """The type of agent."""
 
@@ -292,20 +331,20 @@ class AgentState(BaseModel):
     tags: List[str]
     """The tags associated with the agent."""
 
-    tool_names: List[str]
-    """The tools used by the agent."""
-
     tools: List[Tool]
     """The tools used by the agent."""
 
-    id: Optional[str] = None
-    """The human-friendly ID of the Agent"""
-
     created_at: Optional[datetime] = None
-    """The datetime the agent was created."""
+    """The timestamp when the object was created."""
+
+    created_by_id: Optional[str] = None
+    """The id of the user that made this object."""
 
     description: Optional[str] = None
     """The description of the agent."""
+
+    last_updated_by_id: Optional[str] = None
+    """The id of the user that made this object."""
 
     message_ids: Optional[List[str]] = None
     """The ids of the messages in the agent's in-context memory."""
@@ -313,8 +352,11 @@ class AgentState(BaseModel):
     metadata: Optional[object] = FieldInfo(alias="metadata_", default=None)
     """The metadata of the agent."""
 
+    organization_id: Optional[str] = None
+    """The unique identifier of the organization associated with the agent."""
+
     tool_rules: Optional[List[ToolRule]] = None
     """The list of tool rules."""
 
-    user_id: Optional[str] = None
-    """The user id of the agent."""
+    updated_at: Optional[datetime] = None
+    """The timestamp when the object was last updated."""
