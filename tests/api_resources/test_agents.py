@@ -48,10 +48,14 @@ class TestAgents:
                 }
             ],
             agent_type="memgpt_agent",
+            block_ids=["string"],
+            context_window_limit=0,
             description="description",
+            embedding="embedding",
+            embedding_chunk_size=0,
             embedding_config={
                 "embedding_dim": 0,
-                "embedding_endpoint_type": "embedding_endpoint_type",
+                "embedding_endpoint_type": "openai",
                 "embedding_model": "embedding_model",
                 "azure_deployment": "azure_deployment",
                 "azure_endpoint": "azure_endpoint",
@@ -59,6 +63,7 @@ class TestAgents:
                 "embedding_chunk_size": 0,
                 "embedding_endpoint": "embedding_endpoint",
             },
+            include_base_tools=True,
             initial_message_sequence=[
                 {
                     "role": "user",
@@ -66,6 +71,7 @@ class TestAgents:
                     "name": "name",
                 }
             ],
+            llm="llm",
             llm_config={
                 "context_window": 0,
                 "model": "model",
@@ -74,11 +80,12 @@ class TestAgents:
                 "model_wrapper": "model_wrapper",
                 "put_inner_thoughts_in_kwargs": True,
             },
-            message_ids=["string"],
             metadata={},
             name="name",
+            source_ids=["string"],
             system="system",
             tags=["string"],
+            tool_ids=["string"],
             tool_rules=[
                 {
                     "children": ["string"],
@@ -167,7 +174,6 @@ class TestAgents:
     def test_method_update(self, client: Letta) -> None:
         agent = client.agents.update(
             agent_id="agent_id",
-            id="id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -175,11 +181,11 @@ class TestAgents:
     def test_method_update_with_all_params(self, client: Letta) -> None:
         agent = client.agents.update(
             agent_id="agent_id",
-            id="id",
+            block_ids=["string"],
             description="description",
             embedding_config={
                 "embedding_dim": 0,
-                "embedding_endpoint_type": "embedding_endpoint_type",
+                "embedding_endpoint_type": "openai",
                 "embedding_model": "embedding_model",
                 "azure_deployment": "azure_deployment",
                 "azure_endpoint": "azure_endpoint",
@@ -198,10 +204,17 @@ class TestAgents:
             message_ids=["string"],
             metadata={},
             name="name",
+            source_ids=["string"],
             system="system",
             tags=["string"],
-            tool_names=["string"],
-            user_id="user_id",
+            tool_ids=["string"],
+            tool_rules=[
+                {
+                    "children": ["string"],
+                    "tool_name": "tool_name",
+                    "type": "InitToolRule",
+                }
+            ],
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -209,7 +222,6 @@ class TestAgents:
     def test_raw_response_update(self, client: Letta) -> None:
         response = client.agents.with_raw_response.update(
             agent_id="agent_id",
-            id="id",
         )
 
         assert response.is_closed is True
@@ -221,7 +233,6 @@ class TestAgents:
     def test_streaming_response_update(self, client: Letta) -> None:
         with client.agents.with_streaming_response.update(
             agent_id="agent_id",
-            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -236,7 +247,6 @@ class TestAgents:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.with_raw_response.update(
                 agent_id="",
-                id="id",
             )
 
     @parametrize
@@ -247,6 +257,7 @@ class TestAgents:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         agent = client.agents.list(
+            match_all_tags=True,
             name="name",
             tags=["string"],
         )
@@ -397,10 +408,14 @@ class TestAsyncAgents:
                 }
             ],
             agent_type="memgpt_agent",
+            block_ids=["string"],
+            context_window_limit=0,
             description="description",
+            embedding="embedding",
+            embedding_chunk_size=0,
             embedding_config={
                 "embedding_dim": 0,
-                "embedding_endpoint_type": "embedding_endpoint_type",
+                "embedding_endpoint_type": "openai",
                 "embedding_model": "embedding_model",
                 "azure_deployment": "azure_deployment",
                 "azure_endpoint": "azure_endpoint",
@@ -408,6 +423,7 @@ class TestAsyncAgents:
                 "embedding_chunk_size": 0,
                 "embedding_endpoint": "embedding_endpoint",
             },
+            include_base_tools=True,
             initial_message_sequence=[
                 {
                     "role": "user",
@@ -415,6 +431,7 @@ class TestAsyncAgents:
                     "name": "name",
                 }
             ],
+            llm="llm",
             llm_config={
                 "context_window": 0,
                 "model": "model",
@@ -423,11 +440,12 @@ class TestAsyncAgents:
                 "model_wrapper": "model_wrapper",
                 "put_inner_thoughts_in_kwargs": True,
             },
-            message_ids=["string"],
             metadata={},
             name="name",
+            source_ids=["string"],
             system="system",
             tags=["string"],
+            tool_ids=["string"],
             tool_rules=[
                 {
                     "children": ["string"],
@@ -516,7 +534,6 @@ class TestAsyncAgents:
     async def test_method_update(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.update(
             agent_id="agent_id",
-            id="id",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -524,11 +541,11 @@ class TestAsyncAgents:
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.update(
             agent_id="agent_id",
-            id="id",
+            block_ids=["string"],
             description="description",
             embedding_config={
                 "embedding_dim": 0,
-                "embedding_endpoint_type": "embedding_endpoint_type",
+                "embedding_endpoint_type": "openai",
                 "embedding_model": "embedding_model",
                 "azure_deployment": "azure_deployment",
                 "azure_endpoint": "azure_endpoint",
@@ -547,10 +564,17 @@ class TestAsyncAgents:
             message_ids=["string"],
             metadata={},
             name="name",
+            source_ids=["string"],
             system="system",
             tags=["string"],
-            tool_names=["string"],
-            user_id="user_id",
+            tool_ids=["string"],
+            tool_rules=[
+                {
+                    "children": ["string"],
+                    "tool_name": "tool_name",
+                    "type": "InitToolRule",
+                }
+            ],
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -558,7 +582,6 @@ class TestAsyncAgents:
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.with_raw_response.update(
             agent_id="agent_id",
-            id="id",
         )
 
         assert response.is_closed is True
@@ -570,7 +593,6 @@ class TestAsyncAgents:
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.with_streaming_response.update(
             agent_id="agent_id",
-            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -585,7 +607,6 @@ class TestAsyncAgents:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.with_raw_response.update(
                 agent_id="",
-                id="id",
             )
 
     @parametrize
@@ -596,6 +617,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.list(
+            match_all_tags=True,
             name="name",
             tags=["string"],
         )

@@ -67,17 +67,24 @@ class AgentsResource(SyncAPIResource):
         memory_blocks: Iterable[agent_create_params.MemoryBlock],
         agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
         | NotGiven = NOT_GIVEN,
+        block_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        context_window_limit: Optional[int] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        embedding: Optional[str] | NotGiven = NOT_GIVEN,
+        embedding_chunk_size: Optional[int] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
+        include_base_tools: bool | NotGiven = NOT_GIVEN,
         initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
+        llm: Optional[str] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_create_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        name: str | NotGiven = NOT_GIVEN,
+        source_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
-        tools: List[str] | NotGiven = NOT_GIVEN,
+        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -94,7 +101,16 @@ class AgentsResource(SyncAPIResource):
 
           agent_type: The type of agent.
 
+          block_ids: The ids of the blocks used by the agent.
+
+          context_window_limit: The context window limit used by the agent.
+
           description: The description of the agent.
+
+          embedding: The embedding configuration handle used by the agent, specified in the format
+              provider/model-name.
+
+          embedding_chunk_size: The embedding chunk size used by the agent.
 
           embedding_config: Embedding model configuration. This object specifies all the information
               necessary to access an embedding model to usage with Letta, except for secret
@@ -108,7 +124,12 @@ class AgentsResource(SyncAPIResource):
               azure_version (str): The Azure version for the model (Azure only).
               azure_deployment (str): The Azure deployment for the model (Azure only).
 
+          include_base_tools: The LLM configuration used by the agent.
+
           initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
+
+          llm: The LLM configuration handle used by the agent, specified in the format
+              provider/model-name, as an alternative to specifying llm_config.
 
           llm_config: Configuration for a Language Model (LLM) model. This object specifies all the
               information necessary to access an LLM model to usage with Letta, except for
@@ -124,15 +145,17 @@ class AgentsResource(SyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          message_ids: The ids of the messages in the agent's in-context memory.
-
           metadata: The metadata of the agent.
 
           name: The name of the agent.
 
+          source_ids: The ids of the sources used by the agent.
+
           system: The system prompt used by the agent.
 
           tags: The tags associated with the agent.
+
+          tool_ids: The ids of the tools used by the agent.
 
           tool_rules: The tool rules governing the agent.
 
@@ -152,15 +175,22 @@ class AgentsResource(SyncAPIResource):
                 {
                     "memory_blocks": memory_blocks,
                     "agent_type": agent_type,
+                    "block_ids": block_ids,
+                    "context_window_limit": context_window_limit,
                     "description": description,
+                    "embedding": embedding,
+                    "embedding_chunk_size": embedding_chunk_size,
                     "embedding_config": embedding_config,
+                    "include_base_tools": include_base_tools,
                     "initial_message_sequence": initial_message_sequence,
+                    "llm": llm,
                     "llm_config": llm_config,
-                    "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
+                    "source_ids": source_ids,
                     "system": system,
                     "tags": tags,
+                    "tool_ids": tool_ids,
                     "tool_rules": tool_rules,
                     "tools": tools,
                     "user_id": user_id,
@@ -210,17 +240,18 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        id: str,
+        block_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_update_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_update_params.LlmConfig] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
+        source_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        tool_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        tool_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -232,7 +263,7 @@ class AgentsResource(SyncAPIResource):
         Update an exsiting agent
 
         Args:
-          id: The id of the agent.
+          block_ids: The ids of the blocks used by the agent.
 
           description: The description of the agent.
 
@@ -268,13 +299,15 @@ class AgentsResource(SyncAPIResource):
 
           name: The name of the agent.
 
+          source_ids: The ids of the sources used by the agent.
+
           system: The system prompt used by the agent.
 
           tags: The tags associated with the agent.
 
-          tool_names: The tools used by the agent.
+          tool_ids: The ids of the tools used by the agent.
 
-          user_id: The user id of the agent.
+          tool_rules: The tool rules governing the agent.
 
           extra_headers: Send extra headers
 
@@ -290,17 +323,18 @@ class AgentsResource(SyncAPIResource):
             f"/v1/agents/{agent_id}",
             body=maybe_transform(
                 {
-                    "id": id,
+                    "block_ids": block_ids,
                     "description": description,
                     "embedding_config": embedding_config,
                     "llm_config": llm_config,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
+                    "source_ids": source_ids,
                     "system": system,
                     "tags": tags,
-                    "tool_names": tool_names,
-                    "user_id": user_id,
+                    "tool_ids": tool_ids,
+                    "tool_rules": tool_rules,
                 },
                 agent_update_params.AgentUpdateParams,
             ),
@@ -313,6 +347,7 @@ class AgentsResource(SyncAPIResource):
     def list(
         self,
         *,
+        match_all_tags: bool | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -328,6 +363,9 @@ class AgentsResource(SyncAPIResource):
         all agents and their configurations associated with the specified user ID.
 
         Args:
+          match_all_tags: If True, only returns agents that match ALL given tags. Otherwise, return agents
+              that have ANY of the passed in tags.
+
           name: Name of the agent
 
           tags: List of tags to filter agents by
@@ -349,6 +387,7 @@ class AgentsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "match_all_tags": match_all_tags,
                         "name": name,
                         "tags": tags,
                     },
@@ -469,17 +508,24 @@ class AsyncAgentsResource(AsyncAPIResource):
         memory_blocks: Iterable[agent_create_params.MemoryBlock],
         agent_type: Literal["memgpt_agent", "split_thread_agent", "o1_agent", "offline_memory_agent", "chat_only_agent"]
         | NotGiven = NOT_GIVEN,
+        block_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        context_window_limit: Optional[int] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        embedding: Optional[str] | NotGiven = NOT_GIVEN,
+        embedding_chunk_size: Optional[int] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_create_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
+        include_base_tools: bool | NotGiven = NOT_GIVEN,
         initial_message_sequence: Optional[Iterable[agent_create_params.InitialMessageSequence]] | NotGiven = NOT_GIVEN,
+        llm: Optional[str] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_create_params.LlmConfig] | NotGiven = NOT_GIVEN,
-        message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        name: str | NotGiven = NOT_GIVEN,
+        source_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | NotGiven = NOT_GIVEN,
-        tools: List[str] | NotGiven = NOT_GIVEN,
+        tools: Optional[List[str]] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -496,7 +542,16 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           agent_type: The type of agent.
 
+          block_ids: The ids of the blocks used by the agent.
+
+          context_window_limit: The context window limit used by the agent.
+
           description: The description of the agent.
+
+          embedding: The embedding configuration handle used by the agent, specified in the format
+              provider/model-name.
+
+          embedding_chunk_size: The embedding chunk size used by the agent.
 
           embedding_config: Embedding model configuration. This object specifies all the information
               necessary to access an embedding model to usage with Letta, except for secret
@@ -510,7 +565,12 @@ class AsyncAgentsResource(AsyncAPIResource):
               azure_version (str): The Azure version for the model (Azure only).
               azure_deployment (str): The Azure deployment for the model (Azure only).
 
+          include_base_tools: The LLM configuration used by the agent.
+
           initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
+
+          llm: The LLM configuration handle used by the agent, specified in the format
+              provider/model-name, as an alternative to specifying llm_config.
 
           llm_config: Configuration for a Language Model (LLM) model. This object specifies all the
               information necessary to access an LLM model to usage with Letta, except for
@@ -526,15 +586,17 @@ class AsyncAgentsResource(AsyncAPIResource):
               True. This helps with function calling performance and also the generation of
               inner thoughts.
 
-          message_ids: The ids of the messages in the agent's in-context memory.
-
           metadata: The metadata of the agent.
 
           name: The name of the agent.
 
+          source_ids: The ids of the sources used by the agent.
+
           system: The system prompt used by the agent.
 
           tags: The tags associated with the agent.
+
+          tool_ids: The ids of the tools used by the agent.
 
           tool_rules: The tool rules governing the agent.
 
@@ -554,15 +616,22 @@ class AsyncAgentsResource(AsyncAPIResource):
                 {
                     "memory_blocks": memory_blocks,
                     "agent_type": agent_type,
+                    "block_ids": block_ids,
+                    "context_window_limit": context_window_limit,
                     "description": description,
+                    "embedding": embedding,
+                    "embedding_chunk_size": embedding_chunk_size,
                     "embedding_config": embedding_config,
+                    "include_base_tools": include_base_tools,
                     "initial_message_sequence": initial_message_sequence,
+                    "llm": llm,
                     "llm_config": llm_config,
-                    "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
+                    "source_ids": source_ids,
                     "system": system,
                     "tags": tags,
+                    "tool_ids": tool_ids,
                     "tool_rules": tool_rules,
                     "tools": tools,
                     "user_id": user_id,
@@ -612,17 +681,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        id: str,
+        block_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         embedding_config: Optional[agent_update_params.EmbeddingConfig] | NotGiven = NOT_GIVEN,
         llm_config: Optional[agent_update_params.LlmConfig] | NotGiven = NOT_GIVEN,
         message_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         metadata: Optional[object] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
+        source_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
         system: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        tool_names: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        tool_ids: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -634,7 +704,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         Update an exsiting agent
 
         Args:
-          id: The id of the agent.
+          block_ids: The ids of the blocks used by the agent.
 
           description: The description of the agent.
 
@@ -670,13 +740,15 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           name: The name of the agent.
 
+          source_ids: The ids of the sources used by the agent.
+
           system: The system prompt used by the agent.
 
           tags: The tags associated with the agent.
 
-          tool_names: The tools used by the agent.
+          tool_ids: The ids of the tools used by the agent.
 
-          user_id: The user id of the agent.
+          tool_rules: The tool rules governing the agent.
 
           extra_headers: Send extra headers
 
@@ -692,17 +764,18 @@ class AsyncAgentsResource(AsyncAPIResource):
             f"/v1/agents/{agent_id}",
             body=await async_maybe_transform(
                 {
-                    "id": id,
+                    "block_ids": block_ids,
                     "description": description,
                     "embedding_config": embedding_config,
                     "llm_config": llm_config,
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "name": name,
+                    "source_ids": source_ids,
                     "system": system,
                     "tags": tags,
-                    "tool_names": tool_names,
-                    "user_id": user_id,
+                    "tool_ids": tool_ids,
+                    "tool_rules": tool_rules,
                 },
                 agent_update_params.AgentUpdateParams,
             ),
@@ -715,6 +788,7 @@ class AsyncAgentsResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        match_all_tags: bool | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -730,6 +804,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         all agents and their configurations associated with the specified user ID.
 
         Args:
+          match_all_tags: If True, only returns agents that match ALL given tags. Otherwise, return agents
+              that have ANY of the passed in tags.
+
           name: Name of the agent
 
           tags: List of tags to filter agents by
@@ -751,6 +828,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "match_all_tags": match_all_tags,
                         "name": name,
                         "tags": tags,
                     },
