@@ -16,11 +16,11 @@ __all__ = [
     "UnionMember1SystemMessageOutput",
     "UnionMember1UserMessageOutput",
     "UnionMember1InternalMonologue",
-    "UnionMember1FunctionCallMessage",
-    "UnionMember1FunctionCallMessageFunctionCall",
-    "UnionMember1FunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall",
-    "UnionMember1FunctionCallMessageFunctionCallFunctionCallDelta",
-    "UnionMember1FunctionReturn",
+    "UnionMember1ToolCallMessage",
+    "UnionMember1ToolCallMessageToolCall",
+    "UnionMember1ToolCallMessageToolCallLettaSchemasLettaMessageToolCall",
+    "UnionMember1ToolCallMessageToolCallToolCallDelta",
+    "UnionMember1ToolReturnMessage",
     "UnionMember1AssistantMessageOutput",
 ]
 
@@ -114,50 +114,50 @@ class UnionMember1InternalMonologue(BaseModel):
     message_type: Optional[Literal["internal_monologue"]] = None
 
 
-class UnionMember1FunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall(BaseModel):
+class UnionMember1ToolCallMessageToolCallLettaSchemasLettaMessageToolCall(BaseModel):
     arguments: str
-
-    function_call_id: str
 
     name: str
 
+    tool_call_id: str
 
-class UnionMember1FunctionCallMessageFunctionCallFunctionCallDelta(BaseModel):
+
+class UnionMember1ToolCallMessageToolCallToolCallDelta(BaseModel):
     arguments: Optional[str] = None
-
-    function_call_id: Optional[str] = None
 
     name: Optional[str] = None
 
+    tool_call_id: Optional[str] = None
 
-UnionMember1FunctionCallMessageFunctionCall: TypeAlias = Union[
-    UnionMember1FunctionCallMessageFunctionCallLettaSchemasLettaMessageFunctionCall,
-    UnionMember1FunctionCallMessageFunctionCallFunctionCallDelta,
+
+UnionMember1ToolCallMessageToolCall: TypeAlias = Union[
+    UnionMember1ToolCallMessageToolCallLettaSchemasLettaMessageToolCall,
+    UnionMember1ToolCallMessageToolCallToolCallDelta,
 ]
 
 
-class UnionMember1FunctionCallMessage(BaseModel):
+class UnionMember1ToolCallMessage(BaseModel):
     id: str
 
     date: datetime
 
-    function_call: UnionMember1FunctionCallMessageFunctionCall
+    tool_call: UnionMember1ToolCallMessageToolCall
 
-    message_type: Optional[Literal["function_call"]] = None
+    message_type: Optional[Literal["tool_call_message"]] = None
 
 
-class UnionMember1FunctionReturn(BaseModel):
+class UnionMember1ToolReturnMessage(BaseModel):
     id: str
 
     date: datetime
-
-    function_call_id: str
-
-    function_return: str
 
     status: Literal["success", "error"]
 
-    message_type: Optional[Literal["function_return"]] = None
+    tool_call_id: str
+
+    tool_return: str
+
+    message_type: Optional[Literal["tool_return_message"]] = None
 
     stderr: Optional[List[str]] = None
 
@@ -179,8 +179,8 @@ UnionMember1: TypeAlias = Annotated[
         UnionMember1SystemMessageOutput,
         UnionMember1UserMessageOutput,
         UnionMember1InternalMonologue,
-        UnionMember1FunctionCallMessage,
-        UnionMember1FunctionReturn,
+        UnionMember1ToolCallMessage,
+        UnionMember1ToolReturnMessage,
         UnionMember1AssistantMessageOutput,
     ],
     PropertyInfo(discriminator="message_type"),
