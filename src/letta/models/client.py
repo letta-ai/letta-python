@@ -15,7 +15,7 @@ class ModelsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[LlmConfig]:
+    def list_llms(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[LlmConfig]:
         """
         Parameters
         ----------
@@ -34,7 +34,7 @@ class ModelsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.models.list()
+        client.models.list_llms()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/models/",
@@ -102,7 +102,7 @@ class AsyncModelsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[LlmConfig]:
+    async def list_llms(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[LlmConfig]:
         """
         Parameters
         ----------
@@ -126,7 +126,7 @@ class AsyncModelsClient:
 
 
         async def main() -> None:
-            await client.models.list()
+            await client.models.list_llms()
 
 
         asyncio.run(main())

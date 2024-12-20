@@ -236,7 +236,7 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_id_by_name(self, tool_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    def get_by_name(self, tool_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Get a tool ID by name
 
@@ -259,7 +259,7 @@ class ToolsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.tools.get_id_by_name(
+        client.tools.get_by_name(
             tool_name="tool_name",
         )
         """
@@ -550,7 +550,7 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def add_bases(
+    def add_base_tool(
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[LettaSchemasToolTool]:
         """
@@ -573,7 +573,7 @@ class ToolsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.tools.add_bases()
+        client.tools.add_base_tool()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/tools/add-base-tools",
@@ -851,7 +851,7 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_id_by_name(self, tool_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    async def get_by_name(self, tool_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Get a tool ID by name
 
@@ -879,7 +879,7 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.get_id_by_name(
+            await client.tools.get_by_name(
                 tool_name="tool_name",
             )
 
@@ -1197,7 +1197,7 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def add_bases(
+    async def add_base_tool(
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[LettaSchemasToolTool]:
         """
@@ -1225,7 +1225,7 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.add_bases()
+            await client.tools.add_base_tool()
 
 
         asyncio.run(main())

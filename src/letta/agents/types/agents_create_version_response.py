@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class AgentsVersionTemplateResponse(UniversalBaseModel):
+class AgentsCreateVersionResponse(UniversalBaseModel):
     version: str
     agent_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="agentId")] = None
 

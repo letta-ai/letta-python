@@ -144,21 +144,7 @@ from .types import (
 )
 from .errors import ConflictError, InternalServerError, NotFoundError, UnprocessableEntityError
 from . import agents, blocks, health, jobs, models, sources, tools
-from .agents import (
-    AgentsListMessagesResponse,
-    AgentsListMessagesResponseItem,
-    AgentsListMessagesResponseItem_AssistantMessage,
-    AgentsListMessagesResponseItem_FunctionCall,
-    AgentsListMessagesResponseItem_FunctionReturn,
-    AgentsListMessagesResponseItem_InternalMonologue,
-    AgentsListMessagesResponseItem_SystemMessage,
-    AgentsListMessagesResponseItem_UserMessage,
-    AgentsMigrateResponse,
-    AgentsVersionTemplateResponse,
-    LettaRequestMessages,
-    LettaStreamingRequestMessages,
-    LettaStreamingResponse,
-)
+from .agents import AgentsCreateVersionResponse, AgentsMigrateResponse
 from .client import AsyncLetta, Letta
 from .environment import LettaEnvironment
 from .version import __version__
@@ -166,16 +152,8 @@ from .version import __version__
 __all__ = [
     "AgentState",
     "AgentType",
-    "AgentsListMessagesResponse",
-    "AgentsListMessagesResponseItem",
-    "AgentsListMessagesResponseItem_AssistantMessage",
-    "AgentsListMessagesResponseItem_FunctionCall",
-    "AgentsListMessagesResponseItem_FunctionReturn",
-    "AgentsListMessagesResponseItem_InternalMonologue",
-    "AgentsListMessagesResponseItem_SystemMessage",
-    "AgentsListMessagesResponseItem_UserMessage",
+    "AgentsCreateVersionResponse",
     "AgentsMigrateResponse",
-    "AgentsVersionTemplateResponse",
     "ApiKey",
     "ApiKeyCreate",
     "ArchivalMemorySummary",
@@ -228,7 +206,6 @@ __all__ = [
     "JobStatus",
     "Letta",
     "LettaEnvironment",
-    "LettaRequestMessages",
     "LettaResponse",
     "LettaResponseAssistantMessage",
     "LettaResponseFunctionCall",
@@ -256,8 +233,6 @@ __all__ = [
     "LettaSchemasOpenaiChatCompletionsToolCallOutput",
     "LettaSchemasOpenaiOpenaiToolCall",
     "LettaSchemasToolTool",
-    "LettaStreamingRequestMessages",
-    "LettaStreamingResponse",
     "LettaUsageStatistics",
     "ListMessagesResponse",
     "LlmConfig",

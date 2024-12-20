@@ -2,6 +2,8 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
+from .files.client import FilesClient
+from .passages.client import PassagesClient
 from ..core.request_options import RequestOptions
 from ..types.source import Source
 from ..core.jsonable_encoder import jsonable_encoder
@@ -12,11 +14,9 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..types.embedding_config import EmbeddingConfig
 from ..core.serialization import convert_and_respect_annotation_metadata
-from .. import core
-from ..types.job import Job
-from ..types.passage import Passage
-from ..types.file_metadata import FileMetadata
 from ..core.client_wrapper import AsyncClientWrapper
+from .files.client import AsyncFilesClient
+from .passages.client import AsyncPassagesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -25,6 +25,8 @@ OMIT = typing.cast(typing.Any, ...)
 class SourcesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+        self.files = FilesClient(client_wrapper=self._client_wrapper)
+        self.passages = PassagesClient(client_wrapper=self._client_wrapper)
 
     def get(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Source:
         """
@@ -229,7 +231,7 @@ class SourcesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_id_by_name(self, source_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    def get_by_name(self, source_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Get a source by name
 
@@ -252,7 +254,7 @@ class SourcesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.sources.get_id_by_name(
+        client.sources.get_by_name(
             source_name="source_name",
         )
         """
@@ -553,261 +555,12 @@ class SourcesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def upload_file(
-        self, source_id: str, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
-    ) -> Job:
-        """
-        Upload a file to a data source.
-
-        Parameters
-        ----------
-        source_id : str
-
-        file : core.File
-            See core.File for more documentation
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Job
-            Successful Response
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.sources.upload_file(
-            source_id="source_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/upload",
-            method="POST",
-            data={},
-            files={
-                "file": file,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Job,
-                    parse_obj_as(
-                        type_=Job,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def list_passages(
-        self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[Passage]:
-        """
-        List all passages associated with a data source.
-
-        Parameters
-        ----------
-        source_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Passage]
-            Successful Response
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.sources.list_passages(
-            source_id="source_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/passages",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[Passage],
-                    parse_obj_as(
-                        type_=typing.List[Passage],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def list_files(
-        self,
-        source_id: str,
-        *,
-        limit: typing.Optional[int] = None,
-        cursor: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[FileMetadata]:
-        """
-        List paginated files associated with a data source.
-
-        Parameters
-        ----------
-        source_id : str
-
-        limit : typing.Optional[int]
-            Number of files to return
-
-        cursor : typing.Optional[str]
-            Pagination cursor to fetch the next set of results
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[FileMetadata]
-            Successful Response
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.sources.list_files(
-            source_id="source_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/files",
-            method="GET",
-            params={
-                "limit": limit,
-                "cursor": cursor,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[FileMetadata],
-                    parse_obj_as(
-                        type_=typing.List[FileMetadata],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def delete_file(
-        self, source_id: str, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> None:
-        """
-        Delete a data source.
-
-        Parameters
-        ----------
-        source_id : str
-
-        file_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.sources.delete_file(
-            source_id="source_id",
-            file_id="file_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/{jsonable_encoder(file_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
 
 class AsyncSourcesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+        self.files = AsyncFilesClient(client_wrapper=self._client_wrapper)
+        self.passages = AsyncPassagesClient(client_wrapper=self._client_wrapper)
 
     async def get(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Source:
         """
@@ -1036,7 +789,7 @@ class AsyncSourcesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_id_by_name(self, source_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    async def get_by_name(self, source_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Get a source by name
 
@@ -1064,7 +817,7 @@ class AsyncSourcesClient:
 
 
         async def main() -> None:
-            await client.sources.get_id_by_name(
+            await client.sources.get_by_name(
                 source_name="source_name",
             )
 
@@ -1385,289 +1138,6 @@ class AsyncSourcesClient:
                         object_=_response.json(),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def upload_file(
-        self, source_id: str, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
-    ) -> Job:
-        """
-        Upload a file to a data source.
-
-        Parameters
-        ----------
-        source_id : str
-
-        file : core.File
-            See core.File for more documentation
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Job
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.sources.upload_file(
-                source_id="source_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/upload",
-            method="POST",
-            data={},
-            files={
-                "file": file,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Job,
-                    parse_obj_as(
-                        type_=Job,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def list_passages(
-        self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[Passage]:
-        """
-        List all passages associated with a data source.
-
-        Parameters
-        ----------
-        source_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Passage]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.sources.list_passages(
-                source_id="source_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/passages",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[Passage],
-                    parse_obj_as(
-                        type_=typing.List[Passage],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def list_files(
-        self,
-        source_id: str,
-        *,
-        limit: typing.Optional[int] = None,
-        cursor: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[FileMetadata]:
-        """
-        List paginated files associated with a data source.
-
-        Parameters
-        ----------
-        source_id : str
-
-        limit : typing.Optional[int]
-            Number of files to return
-
-        cursor : typing.Optional[str]
-            Pagination cursor to fetch the next set of results
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[FileMetadata]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.sources.list_files(
-                source_id="source_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/files",
-            method="GET",
-            params={
-                "limit": limit,
-                "cursor": cursor,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[FileMetadata],
-                    parse_obj_as(
-                        type_=typing.List[FileMetadata],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def delete_file(
-        self, source_id: str, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> None:
-        """
-        Delete a data source.
-
-        Parameters
-        ----------
-        source_id : str
-
-        file_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.sources.delete_file(
-                source_id="source_id",
-                file_id="file_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/{jsonable_encoder(file_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     typing.cast(

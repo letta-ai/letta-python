@@ -78,7 +78,7 @@ from letta import Letta, MessageCreate
 client = Letta(
     token="YOUR_TOKEN",
 )
-response = client.agents.stream_message(
+response = client.agents.messages.stream(
     agent_id="agent_id",
     messages=[
         MessageCreate(

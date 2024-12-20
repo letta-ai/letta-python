@@ -20,7 +20,7 @@ class BlocksClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list_memory(
+    def list(
         self,
         *,
         label: typing.Optional[str] = None,
@@ -55,7 +55,7 @@ class BlocksClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.blocks.list_memory()
+        client.blocks.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/blocks/",
@@ -91,7 +91,7 @@ class BlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_memory(
+    def create(
         self,
         *,
         value: str,
@@ -141,7 +141,7 @@ class BlocksClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.blocks.create_memory(
+        client.blocks.create(
             value="value",
             label="label",
         )
@@ -185,7 +185,7 @@ class BlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_memory(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
+    def get(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
         """
         Parameters
         ----------
@@ -206,7 +206,7 @@ class BlocksClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.blocks.get_memory(
+        client.blocks.get(
             block_id="block_id",
         )
         """
@@ -239,7 +239,7 @@ class BlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete_memory(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
+    def delete(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
         """
         Parameters
         ----------
@@ -260,7 +260,7 @@ class BlocksClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.blocks.delete_memory(
+        client.blocks.delete(
             block_id="block_id",
         )
         """
@@ -293,7 +293,7 @@ class BlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def update_memory(
+    def update(
         self,
         block_id: str,
         *,
@@ -347,7 +347,7 @@ class BlocksClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.blocks.update_memory(
+        client.blocks.update(
             block_id="block_id",
         )
         """
@@ -398,7 +398,7 @@ class AsyncBlocksClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list_memory(
+    async def list(
         self,
         *,
         label: typing.Optional[str] = None,
@@ -438,7 +438,7 @@ class AsyncBlocksClient:
 
 
         async def main() -> None:
-            await client.blocks.list_memory()
+            await client.blocks.list()
 
 
         asyncio.run(main())
@@ -477,7 +477,7 @@ class AsyncBlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def create_memory(
+    async def create(
         self,
         *,
         value: str,
@@ -532,7 +532,7 @@ class AsyncBlocksClient:
 
 
         async def main() -> None:
-            await client.blocks.create_memory(
+            await client.blocks.create(
                 value="value",
                 label="label",
             )
@@ -579,7 +579,7 @@ class AsyncBlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_memory(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
+    async def get(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
         """
         Parameters
         ----------
@@ -605,7 +605,7 @@ class AsyncBlocksClient:
 
 
         async def main() -> None:
-            await client.blocks.get_memory(
+            await client.blocks.get(
                 block_id="block_id",
             )
 
@@ -641,7 +641,7 @@ class AsyncBlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete_memory(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
+    async def delete(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
         """
         Parameters
         ----------
@@ -667,7 +667,7 @@ class AsyncBlocksClient:
 
 
         async def main() -> None:
-            await client.blocks.delete_memory(
+            await client.blocks.delete(
                 block_id="block_id",
             )
 
@@ -703,7 +703,7 @@ class AsyncBlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def update_memory(
+    async def update(
         self,
         block_id: str,
         *,
@@ -762,7 +762,7 @@ class AsyncBlocksClient:
 
 
         async def main() -> None:
-            await client.blocks.update_memory(
+            await client.blocks.update(
                 block_id="block_id",
             )
 
