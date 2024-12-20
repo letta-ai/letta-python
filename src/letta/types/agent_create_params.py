@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
@@ -17,6 +17,7 @@ __all__ = [
     "ToolRuleChildToolRule",
     "ToolRuleInitToolRule",
     "ToolRuleTerminalToolRule",
+    "ToolRuleConditionalToolRule",
 ]
 
 
@@ -246,7 +247,9 @@ class ToolRuleChildToolRule(TypedDict, total=False):
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 
-    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    type: Literal[
+        "InitToolRule", "TerminalToolRule", "continue_loop", "conditional", "ToolRule", "require_parent_tools"
+    ]
     """Type of tool rule."""
 
 
@@ -254,7 +257,9 @@ class ToolRuleInitToolRule(TypedDict, total=False):
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 
-    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    type: Literal[
+        "InitToolRule", "TerminalToolRule", "continue_loop", "conditional", "ToolRule", "require_parent_tools"
+    ]
     """Type of tool rule."""
 
 
@@ -262,8 +267,31 @@ class ToolRuleTerminalToolRule(TypedDict, total=False):
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 
-    type: Literal["InitToolRule", "TerminalToolRule", "continue_loop", "ToolRule", "require_parent_tools"]
+    type: Literal[
+        "InitToolRule", "TerminalToolRule", "continue_loop", "conditional", "ToolRule", "require_parent_tools"
+    ]
     """Type of tool rule."""
 
 
-ToolRule: TypeAlias = Union[ToolRuleChildToolRule, ToolRuleInitToolRule, ToolRuleTerminalToolRule]
+class ToolRuleConditionalToolRule(TypedDict, total=False):
+    child_output_mapping: Required[Dict[str, str]]
+    """The output case to check for mapping"""
+
+    tool_name: Required[str]
+    """The name of the tool. Must exist in the database for the user's organization."""
+
+    default_child: Optional[str]
+    """The default child tool to be called. If None, any tool can be called."""
+
+    require_output_mapping: bool
+    """Whether to throw an error when output doesn't match any case"""
+
+    type: Literal[
+        "InitToolRule", "TerminalToolRule", "continue_loop", "conditional", "ToolRule", "require_parent_tools"
+    ]
+    """Type of tool rule."""
+
+
+ToolRule: TypeAlias = Union[
+    ToolRuleChildToolRule, ToolRuleInitToolRule, ToolRuleTerminalToolRule, ToolRuleConditionalToolRule
+]

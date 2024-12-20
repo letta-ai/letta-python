@@ -15,7 +15,7 @@ __all__ = [
     "UnionMember1",
     "UnionMember1SystemMessageOutput",
     "UnionMember1UserMessageOutput",
-    "UnionMember1InternalMonologue",
+    "UnionMember1ReasoningMessage",
     "UnionMember1ToolCallMessage",
     "UnionMember1ToolCallMessageToolCall",
     "UnionMember1ToolCallMessageToolCallLettaSchemasLettaMessageToolCall",
@@ -104,14 +104,14 @@ class UnionMember1UserMessageOutput(BaseModel):
     message_type: Optional[Literal["user_message"]] = None
 
 
-class UnionMember1InternalMonologue(BaseModel):
+class UnionMember1ReasoningMessage(BaseModel):
     id: str
 
     date: datetime
 
-    internal_monologue: str
+    reasoning: str
 
-    message_type: Optional[Literal["internal_monologue"]] = None
+    message_type: Optional[Literal["reasoning_message"]] = None
 
 
 class UnionMember1ToolCallMessageToolCallLettaSchemasLettaMessageToolCall(BaseModel):
@@ -178,7 +178,7 @@ UnionMember1: TypeAlias = Annotated[
     Union[
         UnionMember1SystemMessageOutput,
         UnionMember1UserMessageOutput,
-        UnionMember1InternalMonologue,
+        UnionMember1ReasoningMessage,
         UnionMember1ToolCallMessage,
         UnionMember1ToolReturnMessage,
         UnionMember1AssistantMessageOutput,
