@@ -128,6 +128,9 @@ class EmbeddingConfig(TypedDict, total=False):
     embedding_endpoint: Optional[str]
     """The endpoint for the model (`None` if local)."""
 
+    handle: Optional[str]
+    """The handle for this config, in the format provider/model-name."""
+
 
 class LlmConfig(TypedDict, total=False):
     context_window: Required[int]
@@ -158,6 +161,9 @@ class LlmConfig(TypedDict, total=False):
         ]
     ]
     """The endpoint type for the model."""
+
+    handle: Optional[str]
+    """The handle for this config, in the format provider/model-name."""
 
     model_endpoint: Optional[str]
     """The endpoint for the model."""
