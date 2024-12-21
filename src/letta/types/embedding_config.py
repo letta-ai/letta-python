@@ -47,6 +47,11 @@ class EmbeddingConfig(UniversalBaseModel):
     The chunk size of the embedding.
     """
 
+    handle: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The handle for this config, in the format provider/model-name.
+    """
+
     azure_endpoint: typing.Optional[str] = pydantic.Field(default=None)
     """
     The Azure endpoint for the model.

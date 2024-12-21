@@ -50,6 +50,11 @@ class LlmConfig(UniversalBaseModel):
     Puts 'inner_thoughts' as a kwarg in the function call if this is set to True. This helps with function calling performance and also the generation of inner thoughts.
     """
 
+    handle: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The handle for this config, in the format provider/model-name.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

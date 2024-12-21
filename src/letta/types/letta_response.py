@@ -13,7 +13,6 @@ from .letta_response_tool_call import LettaResponseToolCall
 from .letta_response_tool_call_delta import LettaResponseToolCallDelta
 from .letta_response_tool_call_message import LettaResponseToolCallMessage
 from .letta_response_tool_return_message import LettaResponseToolReturnMessage
-from .letta_response_usage_message import LettaResponseUsageMessage
 from .letta_response_user_message import LettaResponseUserMessage
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -91,16 +90,6 @@ class LettaResponse(UniversalBaseModel):
     tool_call_id (str): A unique identifier for the tool call that generated this message
     stdout (Optional[List(str)]): Captured stdout (e.g. prints, logs) from the tool invocation
     stderr (Optional[List(str)]): Captured stderr from the tool invocation
-    """
-
-    usage_message: typing_extensions.Annotated[
-        typing.Optional[LettaResponseUsageMessage], FieldMetadata(alias="UsageMessage")
-    ] = pydantic.Field(default=None)
-    """
-    A message representint the usage statistics for the agent interaction.
-    
-    Attributes:
-    usage (LettaUsageStatistics): Usage statistics for the agent interaction.
     """
 
     user_message: typing_extensions.Annotated[
