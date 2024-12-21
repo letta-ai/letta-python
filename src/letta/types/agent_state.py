@@ -68,6 +68,9 @@ class EmbeddingConfig(BaseModel):
     embedding_endpoint: Optional[str] = None
     """The endpoint for the model (`None` if local)."""
 
+    handle: Optional[str] = None
+    """The handle for this config, in the format provider/model-name."""
+
 
 class LlmConfig(BaseModel):
     context_window: int
@@ -96,6 +99,9 @@ class LlmConfig(BaseModel):
         "together",
     ] = FieldInfo(alias="model_endpoint_type")
     """The endpoint type for the model."""
+
+    handle: Optional[str] = None
+    """The handle for this config, in the format provider/model-name."""
 
     api_model_endpoint: Optional[str] = FieldInfo(alias="model_endpoint", default=None)
     """The endpoint for the model."""
@@ -196,6 +202,9 @@ class SourceEmbeddingConfig(BaseModel):
 
     embedding_endpoint: Optional[str] = None
     """The endpoint for the model (`None` if local)."""
+
+    handle: Optional[str] = None
+    """The handle for this config, in the format provider/model-name."""
 
 
 class Source(BaseModel):
