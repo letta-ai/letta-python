@@ -4,7 +4,7 @@ from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
 from .letta_schemas_openai_chat_completion_request_tool import LettaSchemasOpenaiChatCompletionRequestTool
-from .letta_schemas_message_message_output import LettaSchemasMessageMessageOutput
+from .letta_schemas_message_message import LettaSchemasMessageMessage
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -90,7 +90,7 @@ class ContextWindowOverview(UniversalBaseModel):
     The number of tokens in the messages list.
     """
 
-    messages: typing.List[LettaSchemasMessageMessageOutput] = pydantic.Field()
+    messages: typing.List[LettaSchemasMessageMessage] = pydantic.Field()
     """
     The messages in the context window.
     """

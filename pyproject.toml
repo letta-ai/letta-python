@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "letta"
-version = "0.6.6"
+name = "letta-client"
+version = "0.1.0"
 description = ""
 readme = "README.md"
 authors = []
@@ -28,7 +28,7 @@ packages = [
 ]
 
 [project.urls]
-Repository = 'https://github.com/fern-demo/letta-python-sdk'
+Repository = 'https://github.com/letta-ai/letta-python'
 
 [tool.poetry.dependencies]
 python = "^3.8"

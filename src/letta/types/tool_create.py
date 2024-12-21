@@ -42,6 +42,11 @@ class ToolCreate(UniversalBaseModel):
     The JSON schema of the function (auto-generated from source_code if not provided)
     """
 
+    return_char_limit: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The maximum number of characters in the response.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

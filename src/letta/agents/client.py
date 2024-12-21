@@ -17,14 +17,17 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from ..types.memory import Memory
-from ..types.base_tool_rule import BaseToolRule
+from ..types.create_block import CreateBlock
+from .types.create_agent_request_tool_rules_item import CreateAgentRequestToolRulesItem
 from ..types.agent_type import AgentType
 from ..types.llm_config import LlmConfig
 from ..types.embedding_config import EmbeddingConfig
-from ..types.message_input import MessageInput
+from ..types.message_create import MessageCreate
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
+from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
+from ..types.block import Block
+from ..types.job import Job
 from .types.agents_create_version_response import AgentsCreateVersionResponse
 from ..errors.not_found_error import NotFoundError
 from ..errors.internal_server_error import InternalServerError
@@ -62,6 +65,7 @@ class AgentsClient:
         *,
         name: typing.Optional[str] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        match_all_tags: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -75,6 +79,9 @@ class AgentsClient:
 
         tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             List of tags to filter agents by
+
+        match_all_tags : typing.Optional[bool]
+            If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -99,6 +106,7 @@ class AgentsClient:
             params={
                 "name": name,
                 "tags": tags,
+                "match_all_tags": match_all_tags,
             },
             request_options=request_options,
         )
@@ -129,20 +137,27 @@ class AgentsClient:
     def create(
         self,
         *,
-        description: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        user_id: typing.Optional[str] = OMIT,
+        memory_blocks: typing.Sequence[CreateBlock],
         name: typing.Optional[str] = OMIT,
-        message_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        memory: typing.Optional[Memory] = OMIT,
         tools: typing.Optional[typing.Sequence[str]] = OMIT,
-        tool_rules: typing.Optional[typing.Sequence[BaseToolRule]] = OMIT,
+        tool_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        source_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        tool_rules: typing.Optional[typing.Sequence[CreateAgentRequestToolRulesItem]] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         system: typing.Optional[str] = OMIT,
         agent_type: typing.Optional[AgentType] = OMIT,
         llm_config: typing.Optional[LlmConfig] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
-        initial_message_sequence: typing.Optional[typing.Sequence[MessageInput]] = OMIT,
+        initial_message_sequence: typing.Optional[typing.Sequence[MessageCreate]] = OMIT,
+        include_base_tools: typing.Optional[bool] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        llm: typing.Optional[str] = OMIT,
+        embedding: typing.Optional[str] = OMIT,
+        context_window_limit: typing.Optional[int] = OMIT,
+        embedding_chunk_size: typing.Optional[int] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -150,28 +165,25 @@ class AgentsClient:
 
         Parameters
         ----------
-        description : typing.Optional[str]
-            The description of the agent.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the agent.
-
-        user_id : typing.Optional[str]
-            The user id of the agent.
+        memory_blocks : typing.Sequence[CreateBlock]
+            The blocks to create in the agent's in-context memory.
 
         name : typing.Optional[str]
             The name of the agent.
 
-        message_ids : typing.Optional[typing.Sequence[str]]
-            The ids of the messages in the agent's in-context memory.
-
-        memory : typing.Optional[Memory]
-            The in-context memory of the agent.
-
         tools : typing.Optional[typing.Sequence[str]]
             The tools used by the agent.
 
-        tool_rules : typing.Optional[typing.Sequence[BaseToolRule]]
+        tool_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the tools used by the agent.
+
+        source_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the sources used by the agent.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the blocks used by the agent.
+
+        tool_rules : typing.Optional[typing.Sequence[CreateAgentRequestToolRulesItem]]
             The tool rules governing the agent.
 
         tags : typing.Optional[typing.Sequence[str]]
@@ -189,8 +201,31 @@ class AgentsClient:
         embedding_config : typing.Optional[EmbeddingConfig]
             The embedding configuration used by the agent.
 
-        initial_message_sequence : typing.Optional[typing.Sequence[MessageInput]]
+        initial_message_sequence : typing.Optional[typing.Sequence[MessageCreate]]
             The initial set of messages to put in the agent's in-context memory.
+
+        include_base_tools : typing.Optional[bool]
+            The LLM configuration used by the agent.
+
+        description : typing.Optional[str]
+            The description of the agent.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The metadata of the agent.
+
+        llm : typing.Optional[str]
+            The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
+
+        embedding : typing.Optional[str]
+            The embedding configuration handle used by the agent, specified in the format provider/model-name.
+
+        context_window_limit : typing.Optional[int]
+            The context window limit used by the agent.
+
+        embedding_chunk_size : typing.Optional[int]
+            The embedding chunk size used by the agent.
+
+        user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -202,26 +237,34 @@ class AgentsClient:
 
         Examples
         --------
-        from letta import Letta
+        from letta import CreateBlock, Letta
 
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.create()
+        client.agents.create(
+            memory_blocks=[
+                CreateBlock(
+                    value="value",
+                    label="label",
+                )
+            ],
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/agents/",
             method="POST",
             json={
-                "description": description,
-                "metadata_": metadata,
-                "user_id": user_id,
                 "name": name,
-                "message_ids": message_ids,
-                "memory": convert_and_respect_annotation_metadata(object_=memory, annotation=Memory, direction="write"),
+                "memory_blocks": convert_and_respect_annotation_metadata(
+                    object_=memory_blocks, annotation=typing.Sequence[CreateBlock], direction="write"
+                ),
                 "tools": tools,
+                "tool_ids": tool_ids,
+                "source_ids": source_ids,
+                "block_ids": block_ids,
                 "tool_rules": convert_and_respect_annotation_metadata(
-                    object_=tool_rules, annotation=typing.Sequence[BaseToolRule], direction="write"
+                    object_=tool_rules, annotation=typing.Sequence[CreateAgentRequestToolRulesItem], direction="write"
                 ),
                 "tags": tags,
                 "system": system,
@@ -233,8 +276,16 @@ class AgentsClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
                 "initial_message_sequence": convert_and_respect_annotation_metadata(
-                    object_=initial_message_sequence, annotation=typing.Sequence[MessageInput], direction="write"
+                    object_=initial_message_sequence, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "include_base_tools": include_base_tools,
+                "description": description,
+                "metadata_": metadata,
+                "llm": llm,
+                "embedding": embedding,
+                "context_window_limit": context_window_limit,
+                "embedding_chunk_size": embedding_chunk_size,
+                "user_id": user_id,
             },
             headers={
                 "content-type": "application/json",
@@ -322,9 +373,7 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    def delete(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AgentState:
         """
         Delete an agent.
 
@@ -337,7 +386,7 @@ class AgentsClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        AgentState
             Successful Response
 
         Examples
@@ -359,9 +408,9 @@ class AgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    AgentState,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -384,18 +433,18 @@ class AgentsClient:
         self,
         agent_id: str,
         *,
-        id: str,
-        description: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        user_id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        tools: typing.Optional[typing.Sequence[str]] = OMIT,
+        tool_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        source_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         system: typing.Optional[str] = OMIT,
+        tool_rules: typing.Optional[typing.Sequence[UpdateAgentToolRulesItem]] = OMIT,
         llm_config: typing.Optional[LlmConfig] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         message_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        memory: typing.Optional[Memory] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -405,29 +454,26 @@ class AgentsClient:
         ----------
         agent_id : str
 
-        id : str
-            The id of the agent.
-
-        description : typing.Optional[str]
-            The description of the agent.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the agent.
-
-        user_id : typing.Optional[str]
-            The user id of the agent.
-
         name : typing.Optional[str]
             The name of the agent.
 
-        tools : typing.Optional[typing.Sequence[str]]
-            The tools used by the agent.
+        tool_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the tools used by the agent.
+
+        source_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the sources used by the agent.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the blocks used by the agent.
 
         tags : typing.Optional[typing.Sequence[str]]
             The tags associated with the agent.
 
         system : typing.Optional[str]
             The system prompt used by the agent.
+
+        tool_rules : typing.Optional[typing.Sequence[UpdateAgentToolRulesItem]]
+            The tool rules governing the agent.
 
         llm_config : typing.Optional[LlmConfig]
             The LLM configuration used by the agent.
@@ -438,8 +484,11 @@ class AgentsClient:
         message_ids : typing.Optional[typing.Sequence[str]]
             The ids of the messages in the agent's in-context memory.
 
-        memory : typing.Optional[Memory]
-            The in-context memory of the agent.
+        description : typing.Optional[str]
+            The description of the agent.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The metadata of the agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -458,21 +507,21 @@ class AgentsClient:
         )
         client.agents.update(
             agent_id="agent_id",
-            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}",
             method="PATCH",
             json={
-                "description": description,
-                "metadata_": metadata,
-                "user_id": user_id,
-                "id": id,
                 "name": name,
-                "tools": tools,
+                "tool_ids": tool_ids,
+                "source_ids": source_ids,
+                "block_ids": block_ids,
                 "tags": tags,
                 "system": system,
+                "tool_rules": convert_and_respect_annotation_metadata(
+                    object_=tool_rules, annotation=typing.Sequence[UpdateAgentToolRulesItem], direction="write"
+                ),
                 "llm_config": convert_and_respect_annotation_metadata(
                     object_=llm_config, annotation=LlmConfig, direction="write"
                 ),
@@ -480,7 +529,8 @@ class AgentsClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
                 "message_ids": message_ids,
-                "memory": convert_and_respect_annotation_metadata(object_=memory, annotation=Memory, direction="write"),
+                "description": description,
+                "metadata_": metadata,
             },
             headers={
                 "content-type": "application/json",
@@ -494,6 +544,316 @@ class AgentsClient:
                     AgentState,
                     parse_obj_as(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_agent_memory_block(
+        self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> Block:
+        """
+        Retrieve a memory block from an agent.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        block_label : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Block
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.get_agent_memory_block(
+            agent_id="agent_id",
+            block_label="block_label",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Block,
+                    parse_obj_as(
+                        type_=Block,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def update_agent_memory_block_by_label(
+        self,
+        agent_id: str,
+        block_label: str,
+        *,
+        value: typing.Optional[str] = OMIT,
+        limit: typing.Optional[int] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        is_template: typing.Optional[bool] = OMIT,
+        label: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Block:
+        """
+        Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        block_label : str
+
+        value : typing.Optional[str]
+            Value of the block.
+
+        limit : typing.Optional[int]
+            Character limit of the block.
+
+        name : typing.Optional[str]
+            Name of the block if it is a template.
+
+        is_template : typing.Optional[bool]
+            Whether the block is a template (e.g. saved human/persona options).
+
+        label : typing.Optional[str]
+            Label of the block (e.g. 'human', 'persona') in the context window.
+
+        description : typing.Optional[str]
+            Description of the block.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Metadata of the block.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Block
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.update_agent_memory_block_by_label(
+            agent_id="agent_id",
+            block_label="block_label",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            method="PATCH",
+            json={
+                "value": value,
+                "limit": limit,
+                "name": name,
+                "is_template": is_template,
+                "label": label,
+                "description": description,
+                "metadata_": metadata,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Block,
+                    parse_obj_as(
+                        type_=Block,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_agent_memory_blocks(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[Block]:
+        """
+        Retrieve the memory blocks of a specific agent.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[Block]
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.get_agent_memory_blocks(
+            agent_id="agent_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[Block],
+                    parse_obj_as(
+                        type_=typing.List[Block],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def create_agent_message_async(
+        self,
+        agent_id: str,
+        *,
+        messages: typing.Sequence[MessageCreate],
+        assistant_message_tool_name: typing.Optional[str] = OMIT,
+        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Job:
+        """
+        Asynchronously process a user message and return a job ID.
+        The actual processing happens in the background, and the status can be checked using the job ID.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        messages : typing.Sequence[MessageCreate]
+            The messages to be sent to the agent.
+
+        assistant_message_tool_name : typing.Optional[str]
+            The name of the designated message tool.
+
+        assistant_message_tool_kwarg : typing.Optional[str]
+            The name of the message argument in the designated message tool.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Job
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta, MessageCreate
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.create_agent_message_async(
+            agent_id="agent_id",
+            messages=[
+                MessageCreate(
+                    role="user",
+                    text="text",
+                )
+            ],
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
+            method="POST",
+            json={
+                "messages": convert_and_respect_annotation_metadata(
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
+                ),
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Job,
+                    parse_obj_as(
+                        type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -720,6 +1080,7 @@ class AsyncAgentsClient:
         *,
         name: typing.Optional[str] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        match_all_tags: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -733,6 +1094,9 @@ class AsyncAgentsClient:
 
         tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             List of tags to filter agents by
+
+        match_all_tags : typing.Optional[bool]
+            If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -765,6 +1129,7 @@ class AsyncAgentsClient:
             params={
                 "name": name,
                 "tags": tags,
+                "match_all_tags": match_all_tags,
             },
             request_options=request_options,
         )
@@ -795,20 +1160,27 @@ class AsyncAgentsClient:
     async def create(
         self,
         *,
-        description: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        user_id: typing.Optional[str] = OMIT,
+        memory_blocks: typing.Sequence[CreateBlock],
         name: typing.Optional[str] = OMIT,
-        message_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        memory: typing.Optional[Memory] = OMIT,
         tools: typing.Optional[typing.Sequence[str]] = OMIT,
-        tool_rules: typing.Optional[typing.Sequence[BaseToolRule]] = OMIT,
+        tool_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        source_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        tool_rules: typing.Optional[typing.Sequence[CreateAgentRequestToolRulesItem]] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         system: typing.Optional[str] = OMIT,
         agent_type: typing.Optional[AgentType] = OMIT,
         llm_config: typing.Optional[LlmConfig] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
-        initial_message_sequence: typing.Optional[typing.Sequence[MessageInput]] = OMIT,
+        initial_message_sequence: typing.Optional[typing.Sequence[MessageCreate]] = OMIT,
+        include_base_tools: typing.Optional[bool] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        llm: typing.Optional[str] = OMIT,
+        embedding: typing.Optional[str] = OMIT,
+        context_window_limit: typing.Optional[int] = OMIT,
+        embedding_chunk_size: typing.Optional[int] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -816,28 +1188,25 @@ class AsyncAgentsClient:
 
         Parameters
         ----------
-        description : typing.Optional[str]
-            The description of the agent.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the agent.
-
-        user_id : typing.Optional[str]
-            The user id of the agent.
+        memory_blocks : typing.Sequence[CreateBlock]
+            The blocks to create in the agent's in-context memory.
 
         name : typing.Optional[str]
             The name of the agent.
 
-        message_ids : typing.Optional[typing.Sequence[str]]
-            The ids of the messages in the agent's in-context memory.
-
-        memory : typing.Optional[Memory]
-            The in-context memory of the agent.
-
         tools : typing.Optional[typing.Sequence[str]]
             The tools used by the agent.
 
-        tool_rules : typing.Optional[typing.Sequence[BaseToolRule]]
+        tool_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the tools used by the agent.
+
+        source_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the sources used by the agent.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the blocks used by the agent.
+
+        tool_rules : typing.Optional[typing.Sequence[CreateAgentRequestToolRulesItem]]
             The tool rules governing the agent.
 
         tags : typing.Optional[typing.Sequence[str]]
@@ -855,8 +1224,31 @@ class AsyncAgentsClient:
         embedding_config : typing.Optional[EmbeddingConfig]
             The embedding configuration used by the agent.
 
-        initial_message_sequence : typing.Optional[typing.Sequence[MessageInput]]
+        initial_message_sequence : typing.Optional[typing.Sequence[MessageCreate]]
             The initial set of messages to put in the agent's in-context memory.
+
+        include_base_tools : typing.Optional[bool]
+            The LLM configuration used by the agent.
+
+        description : typing.Optional[str]
+            The description of the agent.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The metadata of the agent.
+
+        llm : typing.Optional[str]
+            The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
+
+        embedding : typing.Optional[str]
+            The embedding configuration handle used by the agent, specified in the format provider/model-name.
+
+        context_window_limit : typing.Optional[int]
+            The context window limit used by the agent.
+
+        embedding_chunk_size : typing.Optional[int]
+            The embedding chunk size used by the agent.
+
+        user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -870,7 +1262,7 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from letta import AsyncLetta
+        from letta import AsyncLetta, CreateBlock
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -878,7 +1270,14 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.create()
+            await client.agents.create(
+                memory_blocks=[
+                    CreateBlock(
+                        value="value",
+                        label="label",
+                    )
+                ],
+            )
 
 
         asyncio.run(main())
@@ -887,15 +1286,16 @@ class AsyncAgentsClient:
             "v1/agents/",
             method="POST",
             json={
-                "description": description,
-                "metadata_": metadata,
-                "user_id": user_id,
                 "name": name,
-                "message_ids": message_ids,
-                "memory": convert_and_respect_annotation_metadata(object_=memory, annotation=Memory, direction="write"),
+                "memory_blocks": convert_and_respect_annotation_metadata(
+                    object_=memory_blocks, annotation=typing.Sequence[CreateBlock], direction="write"
+                ),
                 "tools": tools,
+                "tool_ids": tool_ids,
+                "source_ids": source_ids,
+                "block_ids": block_ids,
                 "tool_rules": convert_and_respect_annotation_metadata(
-                    object_=tool_rules, annotation=typing.Sequence[BaseToolRule], direction="write"
+                    object_=tool_rules, annotation=typing.Sequence[CreateAgentRequestToolRulesItem], direction="write"
                 ),
                 "tags": tags,
                 "system": system,
@@ -907,8 +1307,16 @@ class AsyncAgentsClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
                 "initial_message_sequence": convert_and_respect_annotation_metadata(
-                    object_=initial_message_sequence, annotation=typing.Sequence[MessageInput], direction="write"
+                    object_=initial_message_sequence, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "include_base_tools": include_base_tools,
+                "description": description,
+                "metadata_": metadata,
+                "llm": llm,
+                "embedding": embedding,
+                "context_window_limit": context_window_limit,
+                "embedding_chunk_size": embedding_chunk_size,
+                "user_id": user_id,
             },
             headers={
                 "content-type": "application/json",
@@ -1004,9 +1412,7 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    async def delete(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AgentState:
         """
         Delete an agent.
 
@@ -1019,7 +1425,7 @@ class AsyncAgentsClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        AgentState
             Successful Response
 
         Examples
@@ -1049,9 +1455,9 @@ class AsyncAgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    AgentState,
                     parse_obj_as(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1074,18 +1480,18 @@ class AsyncAgentsClient:
         self,
         agent_id: str,
         *,
-        id: str,
-        description: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        user_id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        tools: typing.Optional[typing.Sequence[str]] = OMIT,
+        tool_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        source_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         system: typing.Optional[str] = OMIT,
+        tool_rules: typing.Optional[typing.Sequence[UpdateAgentToolRulesItem]] = OMIT,
         llm_config: typing.Optional[LlmConfig] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         message_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        memory: typing.Optional[Memory] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1095,29 +1501,26 @@ class AsyncAgentsClient:
         ----------
         agent_id : str
 
-        id : str
-            The id of the agent.
-
-        description : typing.Optional[str]
-            The description of the agent.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the agent.
-
-        user_id : typing.Optional[str]
-            The user id of the agent.
-
         name : typing.Optional[str]
             The name of the agent.
 
-        tools : typing.Optional[typing.Sequence[str]]
-            The tools used by the agent.
+        tool_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the tools used by the agent.
+
+        source_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the sources used by the agent.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The ids of the blocks used by the agent.
 
         tags : typing.Optional[typing.Sequence[str]]
             The tags associated with the agent.
 
         system : typing.Optional[str]
             The system prompt used by the agent.
+
+        tool_rules : typing.Optional[typing.Sequence[UpdateAgentToolRulesItem]]
+            The tool rules governing the agent.
 
         llm_config : typing.Optional[LlmConfig]
             The LLM configuration used by the agent.
@@ -1128,8 +1531,11 @@ class AsyncAgentsClient:
         message_ids : typing.Optional[typing.Sequence[str]]
             The ids of the messages in the agent's in-context memory.
 
-        memory : typing.Optional[Memory]
-            The in-context memory of the agent.
+        description : typing.Optional[str]
+            The description of the agent.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The metadata of the agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1153,7 +1559,6 @@ class AsyncAgentsClient:
         async def main() -> None:
             await client.agents.update(
                 agent_id="agent_id",
-                id="id",
             )
 
 
@@ -1163,14 +1568,15 @@ class AsyncAgentsClient:
             f"v1/agents/{jsonable_encoder(agent_id)}",
             method="PATCH",
             json={
-                "description": description,
-                "metadata_": metadata,
-                "user_id": user_id,
-                "id": id,
                 "name": name,
-                "tools": tools,
+                "tool_ids": tool_ids,
+                "source_ids": source_ids,
+                "block_ids": block_ids,
                 "tags": tags,
                 "system": system,
+                "tool_rules": convert_and_respect_annotation_metadata(
+                    object_=tool_rules, annotation=typing.Sequence[UpdateAgentToolRulesItem], direction="write"
+                ),
                 "llm_config": convert_and_respect_annotation_metadata(
                     object_=llm_config, annotation=LlmConfig, direction="write"
                 ),
@@ -1178,7 +1584,8 @@ class AsyncAgentsClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
                 "message_ids": message_ids,
-                "memory": convert_and_respect_annotation_metadata(object_=memory, annotation=Memory, direction="write"),
+                "description": description,
+                "metadata_": metadata,
             },
             headers={
                 "content-type": "application/json",
@@ -1192,6 +1599,348 @@ class AsyncAgentsClient:
                     AgentState,
                     parse_obj_as(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_agent_memory_block(
+        self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> Block:
+        """
+        Retrieve a memory block from an agent.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        block_label : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Block
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.get_agent_memory_block(
+                agent_id="agent_id",
+                block_label="block_label",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Block,
+                    parse_obj_as(
+                        type_=Block,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def update_agent_memory_block_by_label(
+        self,
+        agent_id: str,
+        block_label: str,
+        *,
+        value: typing.Optional[str] = OMIT,
+        limit: typing.Optional[int] = OMIT,
+        name: typing.Optional[str] = OMIT,
+        is_template: typing.Optional[bool] = OMIT,
+        label: typing.Optional[str] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Block:
+        """
+        Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        block_label : str
+
+        value : typing.Optional[str]
+            Value of the block.
+
+        limit : typing.Optional[int]
+            Character limit of the block.
+
+        name : typing.Optional[str]
+            Name of the block if it is a template.
+
+        is_template : typing.Optional[bool]
+            Whether the block is a template (e.g. saved human/persona options).
+
+        label : typing.Optional[str]
+            Label of the block (e.g. 'human', 'persona') in the context window.
+
+        description : typing.Optional[str]
+            Description of the block.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Metadata of the block.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Block
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.update_agent_memory_block_by_label(
+                agent_id="agent_id",
+                block_label="block_label",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            method="PATCH",
+            json={
+                "value": value,
+                "limit": limit,
+                "name": name,
+                "is_template": is_template,
+                "label": label,
+                "description": description,
+                "metadata_": metadata,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Block,
+                    parse_obj_as(
+                        type_=Block,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_agent_memory_blocks(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[Block]:
+        """
+        Retrieve the memory blocks of a specific agent.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[Block]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.get_agent_memory_blocks(
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[Block],
+                    parse_obj_as(
+                        type_=typing.List[Block],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def create_agent_message_async(
+        self,
+        agent_id: str,
+        *,
+        messages: typing.Sequence[MessageCreate],
+        assistant_message_tool_name: typing.Optional[str] = OMIT,
+        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Job:
+        """
+        Asynchronously process a user message and return a job ID.
+        The actual processing happens in the background, and the status can be checked using the job ID.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        messages : typing.Sequence[MessageCreate]
+            The messages to be sent to the agent.
+
+        assistant_message_tool_name : typing.Optional[str]
+            The name of the designated message tool.
+
+        assistant_message_tool_kwarg : typing.Optional[str]
+            The name of the message argument in the designated message tool.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Job
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta, MessageCreate
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.create_agent_message_async(
+                agent_id="agent_id",
+                messages=[
+                    MessageCreate(
+                        role="user",
+                        text="text",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
+            method="POST",
+            json={
+                "messages": convert_and_respect_annotation_metadata(
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
+                ),
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Job,
+                    parse_obj_as(
+                        type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -2,14 +2,15 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import datetime as dt
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
 class AssistantMessageOutput(UniversalBaseModel):
     id: str
     date: dt.datetime
+    message_type: typing.Literal["assistant_message"] = "assistant_message"
     assistant_message: str
 
     if IS_PYDANTIC_V2:

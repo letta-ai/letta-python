@@ -2,14 +2,24 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class LocalSandboxConfig(UniversalBaseModel):
     sandbox_dir: str = pydantic.Field()
     """
     Directory for the sandbox environment.
+    """
+
+    use_venv: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether or not to use the venv, or run directly in the same run loop.
+    """
+
+    venv_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The name for the venv in the sandbox directory. We first search for an existing venv with this name, otherwise, we make it from the requirements.txt.
     """
 
     if IS_PYDANTIC_V2:

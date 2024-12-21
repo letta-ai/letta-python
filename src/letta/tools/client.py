@@ -10,6 +10,9 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.tool_return_message import ToolReturnMessage
+from ..types.app_model import AppModel
+from ..types.action_model import ActionModel
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -368,6 +371,7 @@ class ToolsClient:
         module: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaSchemasToolTool:
         """
@@ -395,6 +399,9 @@ class ToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        return_char_limit : typing.Optional[int]
+            The maximum number of characters in the response.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -426,6 +433,7 @@ class ToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "return_char_limit": return_char_limit,
             },
             request_options=request_options,
             omit=OMIT,
@@ -464,6 +472,7 @@ class ToolsClient:
         module: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaSchemasToolTool:
         """
@@ -491,6 +500,9 @@ class ToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        return_char_limit : typing.Optional[int]
+            The maximum number of characters in the response.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -522,6 +534,7 @@ class ToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "return_char_limit": return_char_limit,
             },
             request_options=request_options,
             omit=OMIT,
@@ -554,7 +567,7 @@ class ToolsClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[LettaSchemasToolTool]:
         """
-        Add base tools
+        Upsert base tools
 
         Parameters
         ----------
@@ -586,6 +599,259 @@ class ToolsClient:
                     typing.List[LettaSchemasToolTool],
                     parse_obj_as(
                         type_=typing.List[LettaSchemasToolTool],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def run_tool_from_source(
+        self,
+        *,
+        source_code: str,
+        args: str,
+        name: typing.Optional[str] = OMIT,
+        source_type: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ToolReturnMessage:
+        """
+        Attempt to build a tool from source, then run it on the provided arguments
+
+        Parameters
+        ----------
+        source_code : str
+            The source code of the function.
+
+        args : str
+            The arguments to pass to the tool (as stringified JSON).
+
+        name : typing.Optional[str]
+            The name of the tool to run.
+
+        source_type : typing.Optional[str]
+            The type of the source code.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ToolReturnMessage
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.run_tool_from_source(
+            source_code="source_code",
+            args="args",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/tools/run",
+            method="POST",
+            json={
+                "source_code": source_code,
+                "args": args,
+                "name": name,
+                "source_type": source_type,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ToolReturnMessage,
+                    parse_obj_as(
+                        type_=ToolReturnMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def list_composio_apps(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[AppModel]:
+        """
+        Get a list of all Composio apps
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[AppModel]
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.list_composio_apps()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/tools/composio/apps",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[AppModel],
+                    parse_obj_as(
+                        type_=typing.List[AppModel],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def list_composio_actions_by_app(
+        self, composio_app_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ActionModel]:
+        """
+        Get a list of all Composio actions for a specific app
+
+        Parameters
+        ----------
+        composio_app_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ActionModel]
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.list_composio_actions_by_app(
+            composio_app_name="composio_app_name",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/tools/composio/apps/{jsonable_encoder(composio_app_name)}/actions",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[ActionModel],
+                    parse_obj_as(
+                        type_=typing.List[ActionModel],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def add_composio_tool(
+        self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LettaSchemasToolTool:
+        """
+        Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
+
+        Parameters
+        ----------
+        composio_action_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LettaSchemasToolTool
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.add_composio_tool(
+            composio_action_name="composio_action_name",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/tools/composio/{jsonable_encoder(composio_action_name)}",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    LettaSchemasToolTool,
+                    parse_obj_as(
+                        type_=LettaSchemasToolTool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -999,6 +1265,7 @@ class AsyncToolsClient:
         module: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaSchemasToolTool:
         """
@@ -1026,6 +1293,9 @@ class AsyncToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        return_char_limit : typing.Optional[int]
+            The maximum number of characters in the response.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1065,6 +1335,7 @@ class AsyncToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "return_char_limit": return_char_limit,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1103,6 +1374,7 @@ class AsyncToolsClient:
         module: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaSchemasToolTool:
         """
@@ -1130,6 +1402,9 @@ class AsyncToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        return_char_limit : typing.Optional[int]
+            The maximum number of characters in the response.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1169,6 +1444,7 @@ class AsyncToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "return_char_limit": return_char_limit,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1201,7 +1477,7 @@ class AsyncToolsClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[LettaSchemasToolTool]:
         """
-        Add base tools
+        Upsert base tools
 
         Parameters
         ----------
@@ -1241,6 +1517,293 @@ class AsyncToolsClient:
                     typing.List[LettaSchemasToolTool],
                     parse_obj_as(
                         type_=typing.List[LettaSchemasToolTool],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def run_tool_from_source(
+        self,
+        *,
+        source_code: str,
+        args: str,
+        name: typing.Optional[str] = OMIT,
+        source_type: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ToolReturnMessage:
+        """
+        Attempt to build a tool from source, then run it on the provided arguments
+
+        Parameters
+        ----------
+        source_code : str
+            The source code of the function.
+
+        args : str
+            The arguments to pass to the tool (as stringified JSON).
+
+        name : typing.Optional[str]
+            The name of the tool to run.
+
+        source_type : typing.Optional[str]
+            The type of the source code.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ToolReturnMessage
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.run_tool_from_source(
+                source_code="source_code",
+                args="args",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/tools/run",
+            method="POST",
+            json={
+                "source_code": source_code,
+                "args": args,
+                "name": name,
+                "source_type": source_type,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ToolReturnMessage,
+                    parse_obj_as(
+                        type_=ToolReturnMessage,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def list_composio_apps(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[AppModel]:
+        """
+        Get a list of all Composio apps
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[AppModel]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.list_composio_apps()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/tools/composio/apps",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[AppModel],
+                    parse_obj_as(
+                        type_=typing.List[AppModel],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def list_composio_actions_by_app(
+        self, composio_app_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[ActionModel]:
+        """
+        Get a list of all Composio actions for a specific app
+
+        Parameters
+        ----------
+        composio_app_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[ActionModel]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.list_composio_actions_by_app(
+                composio_app_name="composio_app_name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/tools/composio/apps/{jsonable_encoder(composio_app_name)}/actions",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[ActionModel],
+                    parse_obj_as(
+                        type_=typing.List[ActionModel],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def add_composio_tool(
+        self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LettaSchemasToolTool:
+        """
+        Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
+
+        Parameters
+        ----------
+        composio_action_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LettaSchemasToolTool
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.add_composio_tool(
+                composio_action_name="composio_action_name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/tools/composio/{jsonable_encoder(composio_action_name)}",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    LettaSchemasToolTool,
+                    parse_obj_as(
+                        type_=LettaSchemasToolTool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

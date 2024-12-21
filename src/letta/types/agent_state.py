@@ -3,14 +3,16 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
-import typing_extensions
-from ..core.serialization import FieldMetadata
 import datetime as dt
-from .memory import Memory
-from .base_tool_rule import BaseToolRule
+from .agent_state_tool_rules_item import AgentStateToolRulesItem
 from .agent_type import AgentType
 from .llm_config import LlmConfig
 from .embedding_config import EmbeddingConfig
+import typing_extensions
+from ..core.serialization import FieldMetadata
+from .memory import Memory
+from .letta_schemas_tool_tool import LettaSchemasToolTool
+from .source import Source
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -19,37 +21,40 @@ class AgentState(UniversalBaseModel):
     Representation of an agent's state. This is the state of the agent at a given time, and is persisted in the DB backend. The state has all the information needed to recreate a persisted agent.
 
     Parameters:
-        id (str): The unique identifier of the agent.
-        name (str): The name of the agent (must be unique to the user).
-        created_at (datetime): The datetime the agent was created.
-        message_ids (List[str]): The ids of the messages in the agent's in-context memory.
-        memory (Memory): The in-context memory of the agent.
-        tools (List[str]): The tools used by the agent. This includes any memory editing functions specified in `memory`.
-        system (str): The system prompt used by the agent.
-        llm_config (LLMConfig): The LLM configuration used by the agent.
-        embedding_config (EmbeddingConfig): The embedding configuration used by the agent.
+    id (str): The unique identifier of the agent.
+    name (str): The name of the agent (must be unique to the user).
+    created_at (datetime): The datetime the agent was created.
+    message_ids (List[str]): The ids of the messages in the agent's in-context memory.
+    memory (Memory): The in-context memory of the agent.
+    tools (List[str]): The tools used by the agent. This includes any memory editing functions specified in `memory`.
+    system (str): The system prompt used by the agent.
+    llm_config (LLMConfig): The LLM configuration used by the agent.
+    embedding_config (EmbeddingConfig): The embedding configuration used by the agent.
     """
 
-    description: typing.Optional[str] = pydantic.Field(default=None)
+    created_by_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The description of the agent.
-    """
-
-    metadata: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
-    ] = pydantic.Field(default=None)
-    """
-    The metadata of the agent.
+    The id of the user that made this object.
     """
 
-    user_id: typing.Optional[str] = pydantic.Field(default=None)
+    last_updated_by_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The user id of the agent.
+    The id of the user that made this object.
     """
 
-    id: typing.Optional[str] = pydantic.Field(default=None)
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    The human-friendly ID of the Agent
+    The timestamp when the object was created.
+    """
+
+    updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    The timestamp when the object was last updated.
+    """
+
+    id: str = pydantic.Field()
+    """
+    The id of the agent. Assigned by the database.
     """
 
     name: str = pydantic.Field()
@@ -57,30 +62,14 @@ class AgentState(UniversalBaseModel):
     The name of the agent.
     """
 
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    tool_rules: typing.Optional[typing.List[AgentStateToolRulesItem]] = pydantic.Field(default=None)
     """
-    The datetime the agent was created.
+    The list of tool rules.
     """
 
     message_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     The ids of the messages in the agent's in-context memory.
-    """
-
-    memory: typing.Optional[Memory] = None
-    tools: typing.List[str] = pydantic.Field()
-    """
-    The tools used by the agent.
-    """
-
-    tool_rules: typing.Optional[typing.List[BaseToolRule]] = pydantic.Field(default=None)
-    """
-    The list of tool rules.
-    """
-
-    tags: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
-    """
-    The tags associated with the agent.
     """
 
     system: str = pydantic.Field()
@@ -101,6 +90,43 @@ class AgentState(UniversalBaseModel):
     embedding_config: EmbeddingConfig = pydantic.Field()
     """
     The embedding configuration used by the agent.
+    """
+
+    organization_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The unique identifier of the organization associated with the agent.
+    """
+
+    description: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The description of the agent.
+    """
+
+    metadata: typing_extensions.Annotated[
+        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
+    ] = pydantic.Field(default=None)
+    """
+    The metadata of the agent.
+    """
+
+    memory: Memory = pydantic.Field()
+    """
+    The in-context memory of the agent.
+    """
+
+    tools: typing.List[LettaSchemasToolTool] = pydantic.Field()
+    """
+    The tools used by the agent.
+    """
+
+    sources: typing.List[Source] = pydantic.Field()
+    """
+    The sources used by the agent.
+    """
+
+    tags: typing.List[str] = pydantic.Field()
+    """
+    The tags associated with the agent.
     """
 
     if IS_PYDANTIC_V2:

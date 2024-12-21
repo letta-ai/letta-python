@@ -20,6 +20,67 @@ class MemoryBlocksClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
+    def remove(
+        self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> Memory:
+        """
+        Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        block_label : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Memory
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.memory_blocks.remove(
+            agent_id="agent_id",
+            block_label="block_label",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Memory,
+                    parse_obj_as(
+                        type_=Memory,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def add(
         self,
         agent_id: str,
@@ -120,7 +181,12 @@ class MemoryBlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def remove(
+
+class AsyncMemoryBlocksClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._client_wrapper = client_wrapper
+
+    async def remove(
         self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> Memory:
         """
@@ -142,17 +208,25 @@ class MemoryBlocksClient:
 
         Examples
         --------
-        from letta import Letta
+        import asyncio
 
-        client = Letta(
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
             token="YOUR_TOKEN",
         )
-        client.agents.memory_blocks.remove(
-            agent_id="agent_id",
-            block_label="block_label",
-        )
+
+
+        async def main() -> None:
+            await client.agents.memory_blocks.remove(
+                agent_id="agent_id",
+                block_label="block_label",
+            )
+
+
+        asyncio.run(main())
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
             method="DELETE",
             request_options=request_options,
@@ -180,11 +254,6 @@ class MemoryBlocksClient:
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
-
-
-class AsyncMemoryBlocksClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
 
     async def add(
         self,
@@ -269,75 +338,6 @@ class AsyncMemoryBlocksClient:
             },
             request_options=request_options,
             omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Memory,
-                    parse_obj_as(
-                        type_=Memory,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def remove(
-        self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Memory:
-        """
-        Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        block_label : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Memory
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.memory_blocks.remove(
-                agent_id="agent_id",
-                block_label="block_label",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
-            method="DELETE",
-            request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:

@@ -518,6 +518,14 @@ client.tools.create(
 <dl>
 <dd>
 
+**return_char_limit:** `typing.Optional[int]` — The maximum number of characters in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -636,6 +644,14 @@ client.tools.upsert(
 <dl>
 <dd>
 
+**return_char_limit:** `typing.Optional[int]` — The maximum number of characters in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -660,7 +676,7 @@ client.tools.upsert(
 <dl>
 <dd>
 
-Add base tools
+Upsert base tools
 </dd>
 </dl>
 </dd>
@@ -692,6 +708,301 @@ client.tools.add_base_tool()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="src/letta/tools/client.py">run_tool_from_source</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Attempt to build a tool from source, then run it on the provided arguments
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.run_tool_from_source(
+    source_code="source_code",
+    args="args",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**source_code:** `str` — The source code of the function.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**args:** `str` — The arguments to pass to the tool (as stringified JSON).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — The name of the tool to run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_type:** `typing.Optional[str]` — The type of the source code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="src/letta/tools/client.py">list_composio_apps</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of all Composio apps
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.list_composio_apps()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="src/letta/tools/client.py">list_composio_actions_by_app</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of all Composio actions for a specific app
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.list_composio_actions_by_app(
+    composio_app_name="composio_app_name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**composio_app_name:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="src/letta/tools/client.py">add_composio_tool</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.add_composio_tool(
+    composio_action_name="composio_action_name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**composio_action_name:** `str` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -1399,6 +1710,14 @@ client.agents.list()
 <dl>
 <dd>
 
+**match_all_tags:** `typing.Optional[bool]` — If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -1438,12 +1757,19 @@ Create a new agent with the specified configuration.
 <dd>
 
 ```python
-from letta import Letta
+from letta import CreateBlock, Letta
 
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.create()
+client.agents.create(
+    memory_blocks=[
+        CreateBlock(
+            value="value",
+            label="label",
+        )
+    ],
+)
 
 ```
 </dd>
@@ -1459,23 +1785,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**description:** `typing.Optional[str]` — The description of the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_id:** `typing.Optional[str]` — The user id of the agent.
+**memory_blocks:** `typing.Sequence[CreateBlock]` — The blocks to create in the agent's in-context memory.
     
 </dd>
 </dl>
@@ -1491,22 +1801,6 @@ client.agents.create()
 <dl>
 <dd>
 
-**message_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the messages in the agent's in-context memory.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**memory:** `typing.Optional[Memory]` — The in-context memory of the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **tools:** `typing.Optional[typing.Sequence[str]]` — The tools used by the agent.
     
 </dd>
@@ -1515,7 +1809,31 @@ client.agents.create()
 <dl>
 <dd>
 
-**tool_rules:** `typing.Optional[typing.Sequence[BaseToolRule]]` — The tool rules governing the agent.
+**tool_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the tools used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the sources used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**block_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the blocks used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_rules:** `typing.Optional[typing.Sequence[CreateAgentRequestToolRulesItem]]` — The tool rules governing the agent.
     
 </dd>
 </dl>
@@ -1563,7 +1881,71 @@ client.agents.create()
 <dl>
 <dd>
 
-**initial_message_sequence:** `typing.Optional[typing.Sequence[MessageInput]]` — The initial set of messages to put in the agent's in-context memory.
+**initial_message_sequence:** `typing.Optional[typing.Sequence[MessageCreate]]` — The initial set of messages to put in the agent's in-context memory.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_base_tools:** `typing.Optional[bool]` — The LLM configuration used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — The description of the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**llm:** `typing.Optional[str]` — The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding:** `typing.Optional[str]` — The embedding configuration handle used by the agent, specified in the format provider/model-name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**context_window_limit:** `typing.Optional[int]` — The context window limit used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_chunk_size:** `typing.Optional[int]` — The embedding chunk size used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -1757,7 +2139,6 @@ client = Letta(
 )
 client.agents.update(
     agent_id="agent_id",
-    id="id",
 )
 
 ```
@@ -1782,38 +2163,6 @@ client.agents.update(
 <dl>
 <dd>
 
-**id:** `str` — The id of the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**description:** `typing.Optional[str]` — The description of the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_id:** `typing.Optional[str]` — The user id of the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **name:** `typing.Optional[str]` — The name of the agent.
     
 </dd>
@@ -1822,7 +2171,23 @@ client.agents.update(
 <dl>
 <dd>
 
-**tools:** `typing.Optional[typing.Sequence[str]]` — The tools used by the agent.
+**tool_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the tools used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the sources used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**block_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the blocks used by the agent.
     
 </dd>
 </dl>
@@ -1839,6 +2204,14 @@ client.agents.update(
 <dd>
 
 **system:** `typing.Optional[str]` — The system prompt used by the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_rules:** `typing.Optional[typing.Sequence[UpdateAgentToolRulesItem]]` — The tool rules governing the agent.
     
 </dd>
 </dl>
@@ -1870,7 +2243,400 @@ client.agents.update(
 <dl>
 <dd>
 
-**memory:** `typing.Optional[Memory]` — The in-context memory of the agent.
+**description:** `typing.Optional[str]` — The description of the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta/agents/client.py">get_agent_memory_block</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a memory block from an agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.get_agent_memory_block(
+    agent_id="agent_id",
+    block_label="block_label",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**block_label:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta/agents/client.py">update_agent_memory_block_by_label</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.update_agent_memory_block_by_label(
+    agent_id="agent_id",
+    block_label="block_label",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**block_label:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**value:** `typing.Optional[str]` — Value of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Character limit of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Name of the block if it is a template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_template:** `typing.Optional[bool]` — Whether the block is a template (e.g. saved human/persona options).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**label:** `typing.Optional[str]` — Label of the block (e.g. 'human', 'persona') in the context window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — Description of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta/agents/client.py">get_agent_memory_blocks</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the memory blocks of a specific agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.get_agent_memory_blocks(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta/agents/client.py">create_agent_message_async</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Asynchronously process a user message and return a job ID.
+The actual processing happens in the background, and the status can be checked using the job ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta, MessageCreate
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.create_agent_message_async(
+    agent_id="agent_id",
+    messages=[
+        MessageCreate(
+            role="user",
+            text="text",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
     
 </dd>
 </dl>
@@ -2546,6 +3312,164 @@ client.blocks.update(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">link_agent_memory_block</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Link a memory block to an agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.blocks.link_agent_memory_block(
+    block_id="block_id",
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**block_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `str` — The unique identifier of the agent to attach the source to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">unlink_agent_memory_block</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Unlink a memory block from an agent
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.blocks.unlink_agent_memory_block(
+    block_id="block_id",
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**block_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `str` — The unique identifier of the agent to attach the source to.
     
 </dd>
 </dl>
@@ -3324,265 +4248,86 @@ client.agents.memory.get(
 </dl>
 </details>
 
-<details><summary><code>client.agents.memory.<a href="src/letta/agents/memory/client.py">update</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update the core memory of a specific agent.
-    This endpoint accepts new memory contents (labels as keys, and values as values) and updates the core memory of the agent identified by the user ID and agent ID.
-This endpoint accepts new memory contents to update the core memory of the agent.
-This endpoint only supports modifying existing blocks; it does not support deleting/unlinking or creating/linking blocks.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.memory.update(
-    agent_id="agent_id",
-    request={"key": "value"},
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `typing.Dict[str, typing.Optional[typing.Any]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.memory.<a href="src/letta/agents/memory/client.py">update_label</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update the label of a block in an agent's memory.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.memory.update_label(
-    agent_id="agent_id",
-    current_label="current_label",
-    new_label="new_label",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**current_label:** `str` — Current label of the block.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**new_label:** `str` — New label of the block.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.memory.<a href="src/letta/agents/memory/client.py">update_limit</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update the limit of a block in an agent's memory.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.memory.update_limit(
-    agent_id="agent_id",
-    label="label",
-    limit=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**label:** `str` — Label of the block.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `int` — New limit of the block.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Agents MemoryBlocks
+<details><summary><code>client.agents.memory_blocks.<a href="src/letta/agents/memory_blocks/client.py">remove</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.memory_blocks.remove(
+    agent_id="agent_id",
+    block_label="block_label",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**block_label:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.memory_blocks.<a href="src/letta/agents/memory_blocks/client.py">add</a>(...)</code></summary>
 <dl>
 <dd>
@@ -3692,85 +4437,6 @@ client.agents.memory_blocks.add(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.memory_blocks.<a href="src/letta/agents/memory_blocks/client.py">remove</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.memory_blocks.remove(
-    agent_id="agent_id",
-    block_label="block_label",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**block_label:** `str` 
     
 </dd>
 </dl>
@@ -4360,7 +5026,7 @@ client.agents.messages.create(
 <dl>
 <dd>
 
-**messages:** `LettaRequestMessages` — The messages to be sent to the agent.
+**messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
     
 </dd>
 </dl>
@@ -4431,7 +5097,6 @@ client = Letta(
 client.agents.messages.update(
     agent_id="agent_id",
     message_id="message_id",
-    id="id",
 )
 
 ```
@@ -4457,14 +5122,6 @@ client.agents.messages.update(
 <dd>
 
 **message_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id:** `str` — The id of the message.
     
 </dd>
 </dl>
@@ -4505,118 +5162,6 @@ client.agents.messages.update(
 <dd>
 
 **tool_call_id:** `typing.Optional[str]` — The id of the tool call.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.messages.<a href="src/letta/agents/messages/client.py">stream</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Process a user message and return the agent's response.
-This endpoint accepts a message from a user and processes it through the agent.
-It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta import Letta, MessageCreate
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-response = client.agents.messages.stream(
-    agent_id="agent_id",
-    messages=[
-        MessageCreate(
-            role="user",
-            text="text",
-        )
-    ],
-)
-for chunk in response:
-    yield chunk
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**messages:** `LettaStreamingRequestMessages` — The messages to be sent to the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
     
 </dd>
 </dl>

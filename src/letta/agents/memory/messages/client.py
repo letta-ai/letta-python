@@ -3,7 +3,7 @@
 from ....core.client_wrapper import SyncClientWrapper
 import typing
 from ....core.request_options import RequestOptions
-from ....types.letta_schemas_message_message_output import LettaSchemasMessageMessageOutput
+from ....types.letta_schemas_message_message import LettaSchemasMessageMessage
 from ....core.jsonable_encoder import jsonable_encoder
 from ....core.pydantic_utilities import parse_obj_as
 from ....errors.unprocessable_entity_error import UnprocessableEntityError
@@ -19,7 +19,7 @@ class MessagesClient:
 
     def list_in_context(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[LettaSchemasMessageMessageOutput]:
+    ) -> typing.List[LettaSchemasMessageMessage]:
         """
         Retrieve the messages in the context of a specific agent.
 
@@ -32,7 +32,7 @@ class MessagesClient:
 
         Returns
         -------
-        typing.List[LettaSchemasMessageMessageOutput]
+        typing.List[LettaSchemasMessageMessage]
             Successful Response
 
         Examples
@@ -54,9 +54,9 @@ class MessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasMessageMessageOutput],
+                    typing.List[LettaSchemasMessageMessage],
                     parse_obj_as(
-                        type_=typing.List[LettaSchemasMessageMessageOutput],  # type: ignore
+                        type_=typing.List[LettaSchemasMessageMessage],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -82,7 +82,7 @@ class AsyncMessagesClient:
 
     async def list_in_context(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[LettaSchemasMessageMessageOutput]:
+    ) -> typing.List[LettaSchemasMessageMessage]:
         """
         Retrieve the messages in the context of a specific agent.
 
@@ -95,7 +95,7 @@ class AsyncMessagesClient:
 
         Returns
         -------
-        typing.List[LettaSchemasMessageMessageOutput]
+        typing.List[LettaSchemasMessageMessage]
             Successful Response
 
         Examples
@@ -125,9 +125,9 @@ class AsyncMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasMessageMessageOutput],
+                    typing.List[LettaSchemasMessageMessage],
                     parse_obj_as(
-                        type_=typing.List[LettaSchemasMessageMessageOutput],  # type: ignore
+                        type_=typing.List[LettaSchemasMessageMessage],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

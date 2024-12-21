@@ -2,9 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
-from .letta_schemas_openai_chat_completion_response_function_call import (
-    LettaSchemasOpenaiChatCompletionResponseFunctionCall,
-)
+from .function_call_output import FunctionCallOutput
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -12,7 +10,7 @@ import pydantic
 class LettaSchemasOpenaiChatCompletionResponseToolCall(UniversalBaseModel):
     id: str
     type: typing.Optional[typing.Literal["function"]] = None
-    function: LettaSchemasOpenaiChatCompletionResponseFunctionCall
+    function: FunctionCallOutput
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -12,9 +12,9 @@ class LettaResponseUserMessage(UniversalBaseModel):
     A message sent by the user. Never streamed back on a response, only used for cursor pagination.
 
     Attributes:
-        message (str): The message sent by the user
-        id (str): The ID of the message
-        date (datetime): The date the message was created in ISO format
+    message (str): The message sent by the user
+    id (str): The ID of the message
+    date (datetime): The date the message was created in ISO format
     """
 
     id: str

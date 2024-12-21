@@ -2,8 +2,8 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import datetime as dt
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
@@ -12,13 +12,14 @@ class UserMessageOutput(UniversalBaseModel):
     A message sent by the user. Never streamed back on a response, only used for cursor pagination.
 
     Attributes:
-        message (str): The message sent by the user
-        id (str): The ID of the message
-        date (datetime): The date the message was created in ISO format
+    message (str): The message sent by the user
+    id (str): The ID of the message
+    date (datetime): The date the message was created in ISO format
     """
 
     id: str
     date: dt.datetime
+    message_type: typing.Literal["user_message"] = "user_message"
     message: str
 
     if IS_PYDANTIC_V2:

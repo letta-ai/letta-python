@@ -3,10 +3,10 @@
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
+import datetime as dt
 import typing_extensions
 from ..core.serialization import FieldMetadata
 from .embedding_config import EmbeddingConfig
-import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -15,17 +15,42 @@ class Passage(UniversalBaseModel):
     Representation of a passage, which is stored in archival memory.
 
     Parameters:
-        text (str): The text of the passage.
-        embedding (List[float]): The embedding of the passage.
-        embedding_config (EmbeddingConfig): The embedding configuration used by the passage.
-        created_at (datetime): The creation date of the passage.
-        user_id (str): The unique identifier of the user associated with the passage.
-        agent_id (str): The unique identifier of the agent associated with the passage.
-        source_id (str): The data source of the passage.
-        file_id (str): The unique identifier of the file associated with the passage.
+    text (str): The text of the passage.
+    embedding (List[float]): The embedding of the passage.
+    embedding_config (EmbeddingConfig): The embedding configuration used by the passage.
+    created_at (datetime): The creation date of the passage.
+    user_id (str): The unique identifier of the user associated with the passage.
+    agent_id (str): The unique identifier of the agent associated with the passage.
+    source_id (str): The data source of the passage.
+    file_id (str): The unique identifier of the file associated with the passage.
     """
 
-    user_id: typing.Optional[str] = pydantic.Field(default=None)
+    created_by_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the user that made this object.
+    """
+
+    last_updated_by_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the user that made this object.
+    """
+
+    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    The creation date of the passage.
+    """
+
+    updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    The timestamp when the object was last updated.
+    """
+
+    is_deleted: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether this passage is deleted or not.
+    """
+
+    organization_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique identifier of the user associated with the passage.
     """
@@ -70,11 +95,6 @@ class Passage(UniversalBaseModel):
     embedding_config: typing.Optional[EmbeddingConfig] = pydantic.Field(default=None)
     """
     The embedding configuration used by the passage.
-    """
-
-    created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
-    """
-    The creation date of the passage.
     """
 
     if IS_PYDANTIC_V2:

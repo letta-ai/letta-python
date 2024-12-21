@@ -9,15 +9,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 class Memory(UniversalBaseModel):
     """
-    Represents the in-context memory of the agent. This includes both the `Block` objects (labelled by sections), as well as tools to edit the blocks.
-
-    Attributes:
-        memory (Dict[str, Block]): Mapping from memory block section to memory block.
+    Represents the in-context memory (i.e. Core memory) of the agent. This includes both the `Block` objects (labelled by sections), as well as tools to edit the blocks.
     """
 
-    memory: typing.Optional[typing.Dict[str, Block]] = pydantic.Field(default=None)
+    blocks: typing.List[Block] = pydantic.Field()
     """
-    Mapping from memory block section to memory block.
+    Memory blocks contained in the agent's in-context memory
     """
 
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)

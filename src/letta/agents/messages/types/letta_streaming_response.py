@@ -3,18 +3,18 @@
 import typing
 from ....types.system_message_output import SystemMessageOutput
 from ....types.user_message_output import UserMessageOutput
-from ....types.internal_monologue import InternalMonologue
-from ....types.function_call_message import FunctionCallMessage
-from ....types.function_return import FunctionReturn
+from ....types.reasoning_message import ReasoningMessage
+from ....types.tool_call_message import ToolCallMessage
+from ....types.tool_return_message import ToolReturnMessage
 from ....types.assistant_message_output import AssistantMessageOutput
 from ....types.letta_usage_statistics import LettaUsageStatistics
 
 LettaStreamingResponse = typing.Union[
     SystemMessageOutput,
     UserMessageOutput,
-    InternalMonologue,
-    FunctionCallMessage,
-    FunctionReturn,
+    ReasoningMessage,
+    ToolCallMessage,
+    ToolReturnMessage,
     AssistantMessageOutput,
     LettaUsageStatistics,
 ]

@@ -10,15 +10,14 @@ from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
-from .types.letta_request_messages import LettaRequestMessages
+from ...types.message_create import MessageCreate
 from ...types.letta_response import LettaResponse
 from ...core.serialization import convert_and_respect_annotation_metadata
 from ...types.message_role import MessageRole
 from ...types.letta_schemas_openai_chat_completions_tool_call_input import (
     LettaSchemasOpenaiChatCompletionsToolCallInput,
 )
-from ...types.letta_schemas_message_message_output import LettaSchemasMessageMessageOutput
-from .types.letta_streaming_request_messages import LettaStreamingRequestMessages
+from ...types.letta_schemas_message_message import LettaSchemasMessageMessage
 from .types.letta_streaming_response import LettaStreamingResponse
 import httpx_sse
 import json
@@ -124,7 +123,7 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
-        messages: LettaRequestMessages,
+        messages: typing.Sequence[MessageCreate],
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -137,7 +136,7 @@ class MessagesClient:
         ----------
         agent_id : str
 
-        messages : LettaRequestMessages
+        messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
         assistant_message_tool_name : typing.Optional[str]
@@ -176,13 +175,10 @@ class MessagesClient:
             method="POST",
             json={
                 "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=LettaRequestMessages, direction="write"
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -216,14 +212,13 @@ class MessagesClient:
         agent_id: str,
         message_id: str,
         *,
-        id: str,
         role: typing.Optional[MessageRole] = OMIT,
         text: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tool_calls: typing.Optional[typing.Sequence[LettaSchemasOpenaiChatCompletionsToolCallInput]] = OMIT,
         tool_call_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasMessageMessageOutput:
+    ) -> LettaSchemasMessageMessage:
         """
         Update the details of a message associated with an agent.
 
@@ -232,9 +227,6 @@ class MessagesClient:
         agent_id : str
 
         message_id : str
-
-        id : str
-            The id of the message.
 
         role : typing.Optional[MessageRole]
             The role of the participant.
@@ -256,7 +248,7 @@ class MessagesClient:
 
         Returns
         -------
-        LettaSchemasMessageMessageOutput
+        LettaSchemasMessageMessage
             Successful Response
 
         Examples
@@ -269,14 +261,12 @@ class MessagesClient:
         client.agents.messages.update(
             agent_id="agent_id",
             message_id="message_id",
-            id="id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/{jsonable_encoder(message_id)}",
             method="PATCH",
             json={
-                "id": id,
                 "role": role,
                 "text": text,
                 "name": name,
@@ -296,9 +286,9 @@ class MessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasMessageMessageOutput,
+                    LettaSchemasMessageMessage,
                     parse_obj_as(
-                        type_=LettaSchemasMessageMessageOutput,  # type: ignore
+                        type_=LettaSchemasMessageMessage,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -321,7 +311,7 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
-        messages: LettaStreamingRequestMessages,
+        messages: typing.Sequence[MessageCreate],
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
@@ -336,7 +326,7 @@ class MessagesClient:
         ----------
         agent_id : str
 
-        messages : LettaStreamingRequestMessages
+        messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
         assistant_message_tool_name : typing.Optional[str]
@@ -355,32 +345,13 @@ class MessagesClient:
         ------
         typing.Iterator[LettaStreamingResponse]
             Successful response
-
-        Examples
-        --------
-        from letta import Letta, MessageCreate
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        response = client.agents.messages.stream(
-            agent_id="agent_id",
-            messages=[
-                MessageCreate(
-                    role="user",
-                    text="text",
-                )
-            ],
-        )
-        for chunk in response:
-            yield chunk
         """
         with self._client_wrapper.httpx_client.stream(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/stream",
             method="POST",
             json={
                 "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=LettaStreamingRequestMessages, direction="write"
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -528,7 +499,7 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
-        messages: LettaRequestMessages,
+        messages: typing.Sequence[MessageCreate],
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -541,7 +512,7 @@ class AsyncMessagesClient:
         ----------
         agent_id : str
 
-        messages : LettaRequestMessages
+        messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
         assistant_message_tool_name : typing.Optional[str]
@@ -588,13 +559,10 @@ class AsyncMessagesClient:
             method="POST",
             json={
                 "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=LettaRequestMessages, direction="write"
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -628,14 +596,13 @@ class AsyncMessagesClient:
         agent_id: str,
         message_id: str,
         *,
-        id: str,
         role: typing.Optional[MessageRole] = OMIT,
         text: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tool_calls: typing.Optional[typing.Sequence[LettaSchemasOpenaiChatCompletionsToolCallInput]] = OMIT,
         tool_call_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasMessageMessageOutput:
+    ) -> LettaSchemasMessageMessage:
         """
         Update the details of a message associated with an agent.
 
@@ -644,9 +611,6 @@ class AsyncMessagesClient:
         agent_id : str
 
         message_id : str
-
-        id : str
-            The id of the message.
 
         role : typing.Optional[MessageRole]
             The role of the participant.
@@ -668,7 +632,7 @@ class AsyncMessagesClient:
 
         Returns
         -------
-        LettaSchemasMessageMessageOutput
+        LettaSchemasMessageMessage
             Successful Response
 
         Examples
@@ -686,7 +650,6 @@ class AsyncMessagesClient:
             await client.agents.messages.update(
                 agent_id="agent_id",
                 message_id="message_id",
-                id="id",
             )
 
 
@@ -696,7 +659,6 @@ class AsyncMessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/{jsonable_encoder(message_id)}",
             method="PATCH",
             json={
-                "id": id,
                 "role": role,
                 "text": text,
                 "name": name,
@@ -716,9 +678,9 @@ class AsyncMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasMessageMessageOutput,
+                    LettaSchemasMessageMessage,
                     parse_obj_as(
-                        type_=LettaSchemasMessageMessageOutput,  # type: ignore
+                        type_=LettaSchemasMessageMessage,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -741,7 +703,7 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
-        messages: LettaStreamingRequestMessages,
+        messages: typing.Sequence[MessageCreate],
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
@@ -756,7 +718,7 @@ class AsyncMessagesClient:
         ----------
         agent_id : str
 
-        messages : LettaStreamingRequestMessages
+        messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
         assistant_message_tool_name : typing.Optional[str]
@@ -775,40 +737,13 @@ class AsyncMessagesClient:
         ------
         typing.AsyncIterator[LettaStreamingResponse]
             Successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta, MessageCreate
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            response = await client.agents.messages.stream(
-                agent_id="agent_id",
-                messages=[
-                    MessageCreate(
-                        role="user",
-                        text="text",
-                    )
-                ],
-            )
-            async for chunk in response:
-                yield chunk
-
-
-        asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/stream",
             method="POST",
             json={
                 "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=LettaStreamingRequestMessages, direction="write"
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
