@@ -1,3 +1,4 @@
+import os
 import pytest
 from letta import (
     AgentState,
@@ -80,7 +81,7 @@ def test_create_agent_with_template(client) -> None:
                 label="human",
             )
         ],
-        from_template="cautious-violet-llama:latest",
+        from_template="personalAssistant",
     )
     assert agent is not None
     agents = client.agents.list()
@@ -175,7 +176,7 @@ def test_send_message_with_streaming(client, agent) -> None:
         messages.append(chunk)
 
     assert len(messages) == 4
-    assert messages.pop().usage.step_count == 1
+    assert messages.pop().step_count == 1
     assert [message.message_type for message in messages] == [
         "reasoning_message",
         "tool_call_message",
