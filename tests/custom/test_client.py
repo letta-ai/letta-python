@@ -1,5 +1,6 @@
 import os
 import pytest
+from typing import Generator
 from letta import (
     AgentState,
     CreateBlock,
@@ -13,10 +14,14 @@ from letta import (
 
 
 @pytest.fixture(scope="session")
-def client() -> Letta:
+def client() -> Generator[Letta, None, None]:
+    api_key = os.getenv('LETTA_API_KEY')
+    if not api_key:
+        raise ValueError("LETTA_API_KEY environment variable must be set")
+    
     client = Letta(
         environment=LettaEnvironment.LETTA_HOSTED,
-        token=os.getenv('LETTA_API_KEY'),
+        token=api_key,
     )
     yield client
 
@@ -48,8 +53,7 @@ def test_create_agent_default(client) -> None:
     agents = client.agents.list()
     assert len([a for a in agents if a.id == agent.id]) == 1
 
-    # TODO: Fix error to enable this line, delete() api has incorrect return type
-    # client.agents.delete(agent_id=agent.id)
+    client.agents.delete(agent_id=agent.id)
 
 
 def test_create_agent_with_handle(client) -> None:
@@ -67,12 +71,9 @@ def test_create_agent_with_handle(client) -> None:
     agents = client.agents.list()
     assert len([a for a in agents if a.id == agent.id]) == 1
 
-    # TODO: Fix error to enable this line, delete() api has incorrect return type
-    # client.agents.delete(agent_id=agent.id)
+    client.agents.delete(agent_id=agent.id)
 
 
-"""
-TODO: Fix error to enable this test, from_template field not part of create() api
 def test_create_agent_with_template(client) -> None:
     agent = client.agents.create(
         memory_blocks=[
@@ -87,13 +88,9 @@ def test_create_agent_with_template(client) -> None:
     agents = client.agents.list()
     assert len([a for a in agents if a.id == agent.id]) == 1
 
-    # TODO: Fix error to enable this line, delete() api has incorrect return type
-    # client.agents.delete(agent_id=agent.id)
-"""
+    client.agents.delete(agent_id=agent.id)
 
 
-"""
-TODO: Fix error to enable this test, delete() api has incorrect return type
 def test_delete_agent(client) -> None:
     agent = client.agents.create(
         memory_blocks=[
@@ -113,11 +110,10 @@ def test_delete_agent(client) -> None:
 
     agents = client.agents.list()
     assert len([a for a in agents if a.id == agent.id]) == 0
-"""
 
 
 @pytest.fixture(scope="module")
-def agent(client) -> AgentState:
+def agent(client) -> Generator[AgentState, None, None]:
     agent = client.agents.create(
         memory_blocks=[
             CreateBlock(
@@ -131,8 +127,7 @@ def agent(client) -> AgentState:
 
     yield agent
 
-    # TODO: Fix error to enable this line, delete() api has incorrect return type
-    # client.agents.delete(agent_id=agent.id)
+    client.agents.delete(agent_id=agent.id)
 
 
 def test_send_message(client, agent) -> None:
