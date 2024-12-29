@@ -7,7 +7,7 @@ import pydantic
 
 
 class InternalServerErrorBody(UniversalBaseModel):
-    message: typing.Literal["Migration failed"] = "Migration failed"
+    message: typing.Literal["Failed to create agent template"] = "Failed to create agent template"
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

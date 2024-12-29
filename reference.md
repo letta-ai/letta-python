@@ -1945,6 +1945,22 @@ client.agents.create(
 <dl>
 <dd>
 
+**from_template:** `typing.Optional[str]` — The template id used to configure the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The project id that the agent will be associated with.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **user_id:** `typing.Optional[str]` 
     
 </dd>
@@ -2656,6 +2672,106 @@ client.agents.create_agent_message_async(
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="src/letta/agents/client.py">searchdeployedagents</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search deployed agents
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.searchdeployedagents()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**search:** `typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**combinator:** `typing.Optional[AgentsSearchDeployedAgentsRequestCombinator]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[float]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**offset:** `typing.Optional[float]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="src/letta/agents/client.py">create_version</a>(...)</code></summary>
 <dl>
 <dd>
@@ -2714,7 +2830,7 @@ client.agents.create_version(
 <dl>
 <dd>
 
-**return_agent_id:** `typing.Optional[bool]` 
+**return_agent_state:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -2819,6 +2935,154 @@ client.agents.migrate(
 <dd>
 
 **variables:** `typing.Optional[typing.Dict[str, str]]` — If you chose to not preserve core memories, you should provide the new variables for the core memories
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta/agents/client.py">createtemplatefromagent</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a template from an agent
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.createtemplatefromagent(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta/agents/client.py">getagentvariables</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the variables associated with an agent
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.getagentvariables(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
     
 </dd>
 </dl>
