@@ -28,12 +28,14 @@ from ..core.jsonable_encoder import jsonable_encoder
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
 from ..types.block import Block
 from ..types.job import Job
-from .types.agents_create_version_response import AgentsCreateVersionResponse
+from .types.agents_search_deployed_agents_request_search_item import AgentsSearchDeployedAgentsRequestSearchItem
+from .types.agents_search_deployed_agents_request_combinator import AgentsSearchDeployedAgentsRequestCombinator
 from ..errors.not_found_error import NotFoundError
 from ..errors.internal_server_error import InternalServerError
 from .types.agents_migrate_response import AgentsMigrateResponse
 from ..errors.conflict_error import ConflictError
 from ..types.conflict_error_body import ConflictErrorBody
+from .types.agents_get_agent_variables_response import AgentsGetAgentVariablesResponse
 from ..core.client_wrapper import AsyncClientWrapper
 from .context.client import AsyncContextClient
 from .tools.client import AsyncToolsClient
@@ -157,6 +159,8 @@ class AgentsClient:
         embedding: typing.Optional[str] = OMIT,
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
+        from_template: typing.Optional[str] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
@@ -225,6 +229,12 @@ class AgentsClient:
         embedding_chunk_size : typing.Optional[int]
             The embedding chunk size used by the agent.
 
+        from_template : typing.Optional[str]
+            The template id used to configure the agent
+
+        project_id : typing.Optional[str]
+            The project id that the agent will be associated with.
+
         user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
@@ -285,6 +295,8 @@ class AgentsClient:
                 "embedding": embedding,
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
+                "from_template": from_template,
+                "project_id": project_id,
                 "user_id": user_id,
             },
             headers={
@@ -373,7 +385,9 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AgentState:
+    def delete(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
         """
         Delete an agent.
 
@@ -386,7 +400,7 @@ class AgentsClient:
 
         Returns
         -------
-        AgentState
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -408,9 +422,9 @@ class AgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    AgentState,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=AgentState,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -872,14 +886,83 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def searchdeployedagents(
+        self,
+        *,
+        search: typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
+        combinator: typing.Optional[AgentsSearchDeployedAgentsRequestCombinator] = OMIT,
+        limit: typing.Optional[float] = OMIT,
+        offset: typing.Optional[float] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Search deployed agents
+
+        Parameters
+        ----------
+        search : typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]]
+
+        project_id : typing.Optional[str]
+
+        combinator : typing.Optional[AgentsSearchDeployedAgentsRequestCombinator]
+
+        limit : typing.Optional[float]
+
+        offset : typing.Optional[float]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.searchdeployedagents()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/agents/search",
+            method="POST",
+            json={
+                "search": convert_and_respect_annotation_metadata(
+                    object_=search,
+                    annotation=typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem],
+                    direction="write",
+                ),
+                "project_id": project_id,
+                "combinator": combinator,
+                "limit": limit,
+                "offset": offset,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def create_version(
         self,
         agent_id: str,
         *,
-        return_agent_id: typing.Optional[bool] = None,
+        return_agent_state: typing.Optional[bool] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentsCreateVersionResponse:
+    ) -> None:
         """
         Creates a versioned version of an agent
 
@@ -888,7 +971,7 @@ class AgentsClient:
         agent_id : str
             The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
 
-        return_agent_id : typing.Optional[bool]
+        return_agent_state : typing.Optional[bool]
 
         migrate_deployed_agents : typing.Optional[bool]
 
@@ -897,8 +980,7 @@ class AgentsClient:
 
         Returns
         -------
-        AgentsCreateVersionResponse
-            201
+        None
 
         Examples
         --------
@@ -915,7 +997,7 @@ class AgentsClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/version-template",
             method="POST",
             params={
-                "returnAgentId": return_agent_id,
+                "returnAgentState": return_agent_state,
             },
             json={
                 "migrate_deployed_agents": migrate_deployed_agents,
@@ -928,13 +1010,7 @@ class AgentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentsCreateVersionResponse,
-                    parse_obj_as(
-                        type_=AgentsCreateVersionResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             if _response.status_code == 404:
                 raise NotFoundError(
                     typing.cast(
@@ -1049,6 +1125,138 @@ class AgentsClient:
                 )
             if _response.status_code == 500:
                 raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def createtemplatefromagent(
+        self,
+        agent_id: str,
+        *,
+        project_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Create a template from an agent
+
+        Parameters
+        ----------
+        agent_id : str
+
+        project_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.createtemplatefromagent(
+            agent_id="agent_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/template",
+            method="POST",
+            json={
+                "project_id": project_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def getagentvariables(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AgentsGetAgentVariablesResponse:
+        """
+        Get the variables associated with an agent
+
+        Parameters
+        ----------
+        agent_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AgentsGetAgentVariablesResponse
+            200
+
+        Examples
+        --------
+        from letta import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.getagentvariables(
+            agent_id="agent_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/variables",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AgentsGetAgentVariablesResponse,
+                    parse_obj_as(
+                        type_=AgentsGetAgentVariablesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     typing.cast(
                         typing.Optional[typing.Any],
                         parse_obj_as(
@@ -1180,6 +1388,8 @@ class AsyncAgentsClient:
         embedding: typing.Optional[str] = OMIT,
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
+        from_template: typing.Optional[str] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
@@ -1247,6 +1457,12 @@ class AsyncAgentsClient:
 
         embedding_chunk_size : typing.Optional[int]
             The embedding chunk size used by the agent.
+
+        from_template : typing.Optional[str]
+            The template id used to configure the agent
+
+        project_id : typing.Optional[str]
+            The project id that the agent will be associated with.
 
         user_id : typing.Optional[str]
 
@@ -1316,6 +1532,8 @@ class AsyncAgentsClient:
                 "embedding": embedding,
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
+                "from_template": from_template,
+                "project_id": project_id,
                 "user_id": user_id,
             },
             headers={
@@ -1412,7 +1630,9 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AgentState:
+    async def delete(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
         """
         Delete an agent.
 
@@ -1425,7 +1645,7 @@ class AsyncAgentsClient:
 
         Returns
         -------
-        AgentState
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -1455,9 +1675,9 @@ class AsyncAgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    AgentState,
+                    typing.Optional[typing.Any],
                     parse_obj_as(
-                        type_=AgentState,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1959,14 +2179,91 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def searchdeployedagents(
+        self,
+        *,
+        search: typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
+        combinator: typing.Optional[AgentsSearchDeployedAgentsRequestCombinator] = OMIT,
+        limit: typing.Optional[float] = OMIT,
+        offset: typing.Optional[float] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Search deployed agents
+
+        Parameters
+        ----------
+        search : typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]]
+
+        project_id : typing.Optional[str]
+
+        combinator : typing.Optional[AgentsSearchDeployedAgentsRequestCombinator]
+
+        limit : typing.Optional[float]
+
+        offset : typing.Optional[float]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.searchdeployedagents()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/agents/search",
+            method="POST",
+            json={
+                "search": convert_and_respect_annotation_metadata(
+                    object_=search,
+                    annotation=typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem],
+                    direction="write",
+                ),
+                "project_id": project_id,
+                "combinator": combinator,
+                "limit": limit,
+                "offset": offset,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def create_version(
         self,
         agent_id: str,
         *,
-        return_agent_id: typing.Optional[bool] = None,
+        return_agent_state: typing.Optional[bool] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentsCreateVersionResponse:
+    ) -> None:
         """
         Creates a versioned version of an agent
 
@@ -1975,7 +2272,7 @@ class AsyncAgentsClient:
         agent_id : str
             The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
 
-        return_agent_id : typing.Optional[bool]
+        return_agent_state : typing.Optional[bool]
 
         migrate_deployed_agents : typing.Optional[bool]
 
@@ -1984,8 +2281,7 @@ class AsyncAgentsClient:
 
         Returns
         -------
-        AgentsCreateVersionResponse
-            201
+        None
 
         Examples
         --------
@@ -2010,7 +2306,7 @@ class AsyncAgentsClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/version-template",
             method="POST",
             params={
-                "returnAgentId": return_agent_id,
+                "returnAgentState": return_agent_state,
             },
             json={
                 "migrate_deployed_agents": migrate_deployed_agents,
@@ -2023,13 +2319,7 @@ class AsyncAgentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentsCreateVersionResponse,
-                    parse_obj_as(
-                        type_=AgentsCreateVersionResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             if _response.status_code == 404:
                 raise NotFoundError(
                     typing.cast(
@@ -2152,6 +2442,154 @@ class AsyncAgentsClient:
                 )
             if _response.status_code == 500:
                 raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def createtemplatefromagent(
+        self,
+        agent_id: str,
+        *,
+        project_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Create a template from an agent
+
+        Parameters
+        ----------
+        agent_id : str
+
+        project_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.createtemplatefromagent(
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/template",
+            method="POST",
+            json={
+                "project_id": project_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        parse_obj_as(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def getagentvariables(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AgentsGetAgentVariablesResponse:
+        """
+        Get the variables associated with an agent
+
+        Parameters
+        ----------
+        agent_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AgentsGetAgentVariablesResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.getagentvariables(
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/variables",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AgentsGetAgentVariablesResponse,
+                    parse_obj_as(
+                        type_=AgentsGetAgentVariablesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     typing.cast(
                         typing.Optional[typing.Any],
                         parse_obj_as(
