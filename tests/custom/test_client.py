@@ -8,9 +8,9 @@ from letta import (
     Letta,
     LettaEnvironment,
     LlmConfig,
-    LettaResponseLettaUsageStatistics,
     MessageCreate,
 )
+from letta.core.request_options import RequestOptions
 
 
 @pytest.fixture(scope="session")
@@ -20,7 +20,7 @@ def client() -> Generator[Letta, None, None]:
         raise ValueError("LETTA_API_KEY environment variable must be set")
     
     client = Letta(
-        environment=LettaEnvironment.LETTA_HOSTED,
+        environment=LettaEnvironment.LETTA_CLOUD,
         token=api_key,
     )
     yield client
@@ -82,7 +82,7 @@ def test_create_agent_with_template(client) -> None:
                 label="human",
             )
         ],
-        from_template="personalAssistant",
+        from_template="fern-testing:latest",
     )
     assert agent is not None
     agents = client.agents.list()
@@ -142,7 +142,7 @@ def test_send_message(client, agent) -> None:
         ],
     )
     assert len(response.messages) == 3
-    assert LettaResponseLettaUsageStatistics(**response.usage).step_count == 1
+    assert response.usage.step_count == 1
     assert [message["message_type"] for message in response.messages] == [
         "reasoning_message",
         "tool_call_message",
@@ -165,6 +165,7 @@ def test_send_message_with_streaming(client, agent) -> None:
                 text=message_text,
             ),
         ],
+        request_options=RequestOptions(additional_headers={"Accept": "text/event-stream"}),
     )
     messages = []
     for chunk in response:
