@@ -11,11 +11,11 @@ class LettaSchemasToolTool(UniversalBaseModel):
     Representation of a tool, which is a function that can be called by the agent.
 
     Parameters:
-    id (str): The unique identifier of the tool.
-    name (str): The name of the function.
-    tags (List[str]): Metadata tags.
-    source_code (str): The source code of the function.
-    json_schema (Dict): The JSON schema of the function.
+        id (str): The unique identifier of the tool.
+        name (str): The name of the function.
+        tags (List[str]): Metadata tags.
+        source_code (str): The source code of the function.
+        json_schema (Dict): The JSON schema of the function.
     """
 
     id: typing.Optional[str] = pydantic.Field(default=None)

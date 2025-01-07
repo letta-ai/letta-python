@@ -2,6 +2,6 @@
 
 import typing
 
-AgentsSearchDeployedAgentsRequestSearchItemDirectionValue = typing.Union[
+AgentsSearchDeployedAgentsRequestSearchItemOrderByValue = typing.Union[
     typing.Literal["created_at", "updated_at"], typing.Any
 ]

@@ -12,9 +12,9 @@ class User(UniversalBaseModel):
     Representation of a user.
 
     Parameters:
-    id (str): The unique identifier of the user.
-    name (str): The name of the user.
-    created_at (datetime): The creation date of the user.
+        id (str): The unique identifier of the user.
+        name (str): The name of the user.
+        created_at (datetime): The creation date of the user.
     """
 
     id: typing.Optional[str] = pydantic.Field(default=None)

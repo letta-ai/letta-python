@@ -7,7 +7,7 @@ import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class SandboxEnvironmentVariable(UniversalBaseModel):
+class AgentEnvironmentVariable(UniversalBaseModel):
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the user that made this object.
@@ -30,7 +30,7 @@ class SandboxEnvironmentVariable(UniversalBaseModel):
 
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The human-friendly ID of the Sandbox-env
+    The human-friendly ID of the Agent-env
     """
 
     key: str = pydantic.Field()
@@ -53,9 +53,9 @@ class SandboxEnvironmentVariable(UniversalBaseModel):
     The ID of the organization this environment variable belongs to.
     """
 
-    sandbox_config_id: str = pydantic.Field()
+    agent_id: str = pydantic.Field()
     """
-    The ID of the sandbox config this environment variable belongs to.
+    The ID of the agent this environment variable belongs to.
     """
 
     if IS_PYDANTIC_V2:

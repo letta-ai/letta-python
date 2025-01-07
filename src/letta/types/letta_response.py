@@ -2,6 +2,7 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import typing
+from .letta_response_messages_item import LettaResponseMessagesItem
 import pydantic
 from .letta_usage_statistics import LettaUsageStatistics
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
@@ -13,11 +14,11 @@ class LettaResponse(UniversalBaseModel):
     The type of the returned messages can be either `Message` or `LettaMessage`, depending on what was specified in the request.
 
     Attributes:
-    messages (List[Union[Message, LettaMessage]]): The messages returned by the agent.
-    usage (LettaUsageStatistics): The usage statistics
+        messages (List[Union[Message, LettaMessage]]): The messages returned by the agent.
+        usage (LettaUsageStatistics): The usage statistics
     """
 
-    messages: typing.List[typing.Optional[typing.Any]] = pydantic.Field()
+    messages: typing.List[LettaResponseMessagesItem] = pydantic.Field()
     """
     The messages returned by the agent.
     """

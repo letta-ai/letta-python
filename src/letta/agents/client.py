@@ -68,6 +68,8 @@ class AgentsClient:
         name: typing.Optional[str] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         match_all_tags: typing.Optional[bool] = None,
+        cursor: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -84,6 +86,12 @@ class AgentsClient:
 
         match_all_tags : typing.Optional[bool]
             If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
+
+        cursor : typing.Optional[int]
+            Cursor for pagination
+
+        limit : typing.Optional[int]
+            Limit for pagination
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -109,6 +117,8 @@ class AgentsClient:
                 "name": name,
                 "tags": tags,
                 "match_all_tags": match_all_tags,
+                "cursor": cursor,
+                "limit": limit,
             },
             request_options=request_options,
         )
@@ -161,6 +171,7 @@ class AgentsClient:
         embedding_chunk_size: typing.Optional[int] = OMIT,
         from_template: typing.Optional[str] = OMIT,
         project_id: typing.Optional[str] = OMIT,
+        tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
@@ -235,6 +246,9 @@ class AgentsClient:
         project_id : typing.Optional[str]
             The project id that the agent will be associated with.
 
+        tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            The environment variables for tool execution specific to this agent.
+
         user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
@@ -297,6 +311,7 @@ class AgentsClient:
                 "embedding_chunk_size": embedding_chunk_size,
                 "from_template": from_template,
                 "project_id": project_id,
+                "tool_exec_environment_variables": tool_exec_environment_variables,
                 "user_id": user_id,
             },
             headers={
@@ -459,6 +474,7 @@ class AgentsClient:
         message_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -504,6 +520,9 @@ class AgentsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The metadata of the agent.
 
+        tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            The environment variables for tool execution specific to this agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -545,6 +564,7 @@ class AgentsClient:
                 "message_ids": message_ids,
                 "description": description,
                 "metadata_": metadata,
+                "tool_exec_environment_variables": tool_exec_environment_variables,
             },
             headers={
                 "content-type": "application/json",
@@ -1289,6 +1309,8 @@ class AsyncAgentsClient:
         name: typing.Optional[str] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         match_all_tags: typing.Optional[bool] = None,
+        cursor: typing.Optional[int] = None,
+        limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -1305,6 +1327,12 @@ class AsyncAgentsClient:
 
         match_all_tags : typing.Optional[bool]
             If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
+
+        cursor : typing.Optional[int]
+            Cursor for pagination
+
+        limit : typing.Optional[int]
+            Limit for pagination
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1338,6 +1366,8 @@ class AsyncAgentsClient:
                 "name": name,
                 "tags": tags,
                 "match_all_tags": match_all_tags,
+                "cursor": cursor,
+                "limit": limit,
             },
             request_options=request_options,
         )
@@ -1390,6 +1420,7 @@ class AsyncAgentsClient:
         embedding_chunk_size: typing.Optional[int] = OMIT,
         from_template: typing.Optional[str] = OMIT,
         project_id: typing.Optional[str] = OMIT,
+        tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
@@ -1464,6 +1495,9 @@ class AsyncAgentsClient:
         project_id : typing.Optional[str]
             The project id that the agent will be associated with.
 
+        tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            The environment variables for tool execution specific to this agent.
+
         user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
@@ -1534,6 +1568,7 @@ class AsyncAgentsClient:
                 "embedding_chunk_size": embedding_chunk_size,
                 "from_template": from_template,
                 "project_id": project_id,
+                "tool_exec_environment_variables": tool_exec_environment_variables,
                 "user_id": user_id,
             },
             headers={
@@ -1712,6 +1747,7 @@ class AsyncAgentsClient:
         message_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1756,6 +1792,9 @@ class AsyncAgentsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The metadata of the agent.
+
+        tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            The environment variables for tool execution specific to this agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1806,6 +1845,7 @@ class AsyncAgentsClient:
                 "message_ids": message_ids,
                 "description": description,
                 "metadata_": metadata,
+                "tool_exec_environment_variables": tool_exec_environment_variables,
             },
             headers={
                 "content-type": "application/json",

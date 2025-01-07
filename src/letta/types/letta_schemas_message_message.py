@@ -14,16 +14,16 @@ class LettaSchemasMessageMessage(UniversalBaseModel):
     Letta's internal representation of a message. Includes methods to convert to/from LLM provider formats.
 
     Attributes:
-    id (str): The unique identifier of the message.
-    role (MessageRole): The role of the participant.
-    text (str): The text of the message.
-    user_id (str): The unique identifier of the user.
-    agent_id (str): The unique identifier of the agent.
-    model (str): The model used to make the function call.
-    name (str): The name of the participant.
-    created_at (datetime): The time the message was created.
-    tool_calls (List[ToolCall]): The list of tool calls requested.
-    tool_call_id (str): The id of the tool call.
+        id (str): The unique identifier of the message.
+        role (MessageRole): The role of the participant.
+        text (str): The text of the message.
+        user_id (str): The unique identifier of the user.
+        agent_id (str): The unique identifier of the agent.
+        model (str): The model used to make the function call.
+        name (str): The name of the participant.
+        created_at (datetime): The time the message was created.
+        tool_calls (List[ToolCall]): The list of tool calls requested.
+        tool_call_id (str): The id of the tool call.
     """
 
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)

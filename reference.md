@@ -1718,6 +1718,22 @@ client.agents.list()
 <dl>
 <dd>
 
+**cursor:** `typing.Optional[int]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Limit for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -1954,6 +1970,14 @@ client.agents.create(
 <dd>
 
 **project_id:** `typing.Optional[str]` — The project id that the agent will be associated with.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_exec_environment_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The environment variables for tool execution specific to this agent.
     
 </dd>
 </dl>
@@ -2268,6 +2292,14 @@ client.agents.update(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_exec_environment_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The environment variables for tool execution specific to this agent.
     
 </dd>
 </dl>
@@ -5426,6 +5458,118 @@ client.agents.messages.update(
 <dd>
 
 **tool_call_id:** `typing.Optional[str]` — The id of the tool call.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.messages.<a href="src/letta/agents/messages/client.py">stream</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Process a user message and return the agent's response.
+This endpoint accepts a message from a user and processes it through the agent.
+It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta, MessageCreate
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+response = client.agents.messages.stream(
+    agent_id="agent_id",
+    messages=[
+        MessageCreate(
+            role="user",
+            text="text",
+        )
+    ],
+)
+for chunk in response:
+    yield chunk
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
     
 </dd>
 </dl>

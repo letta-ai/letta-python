@@ -2,8 +2,8 @@
 
 from ..core.pydantic_utilities import UniversalBaseModel
 import datetime as dt
-import typing
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
+import typing
 import pydantic
 
 
@@ -12,14 +12,13 @@ class ReasoningMessage(UniversalBaseModel):
     Representation of an agent's internal reasoning.
 
     Attributes:
-    reasoning (str): The internal reasoning of the agent
-    id (str): The ID of the message
-    date (datetime): The date the message was created in ISO format
+        reasoning (str): The internal reasoning of the agent
+        id (str): The ID of the message
+        date (datetime): The date the message was created in ISO format
     """
 
     id: str
     date: dt.datetime
-    message_type: typing.Literal["reasoning_message"] = "reasoning_message"
     reasoning: str
 
     if IS_PYDANTIC_V2:

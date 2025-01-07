@@ -2,6 +2,6 @@
 
 import typing
 
-AgentsSearchDeployedAgentsRequestSearchItemOperatorOperator = typing.Union[
+AgentsSearchDeployedAgentsRequestSearchItemNameOperator = typing.Union[
     typing.Literal["eq", "neq", "contains"], typing.Any
 ]

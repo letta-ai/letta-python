@@ -3,6 +3,7 @@
 from .action_model import ActionModel
 from .action_parameters_model import ActionParametersModel
 from .action_response_model import ActionResponseModel
+from .agent_environment_variable import AgentEnvironmentVariable
 from .agent_state import AgentState
 from .agent_state_tool_rules_item import AgentStateToolRulesItem
 from .agent_type import AgentType
@@ -49,6 +50,15 @@ from .job import Job
 from .job_status import JobStatus
 from .letta_request import LettaRequest
 from .letta_response import LettaResponse
+from .letta_response_messages_item import (
+    LettaResponseMessagesItem,
+    LettaResponseMessagesItem_AssistantMessage,
+    LettaResponseMessagesItem_ReasoningMessage,
+    LettaResponseMessagesItem_SystemMessage,
+    LettaResponseMessagesItem_ToolCallMessage,
+    LettaResponseMessagesItem_ToolReturnMessage,
+    LettaResponseMessagesItem_UserMessage,
+)
 from .letta_schemas_letta_message_tool_call import LettaSchemasLettaMessageToolCall
 from .letta_schemas_message_message import LettaSchemasMessageMessage
 from .letta_schemas_openai_chat_completion_request_tool import LettaSchemasOpenaiChatCompletionRequestTool
@@ -119,6 +129,7 @@ __all__ = [
     "ActionModel",
     "ActionParametersModel",
     "ActionResponseModel",
+    "AgentEnvironmentVariable",
     "AgentState",
     "AgentStateToolRulesItem",
     "AgentType",
@@ -165,6 +176,13 @@ __all__ = [
     "JobStatus",
     "LettaRequest",
     "LettaResponse",
+    "LettaResponseMessagesItem",
+    "LettaResponseMessagesItem_AssistantMessage",
+    "LettaResponseMessagesItem_ReasoningMessage",
+    "LettaResponseMessagesItem_SystemMessage",
+    "LettaResponseMessagesItem_ToolCallMessage",
+    "LettaResponseMessagesItem_ToolReturnMessage",
+    "LettaResponseMessagesItem_UserMessage",
     "LettaSchemasLettaMessageToolCall",
     "LettaSchemasMessageMessage",
     "LettaSchemasOpenaiChatCompletionRequestTool",

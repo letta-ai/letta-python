@@ -7,10 +7,6 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class SandboxEnvironmentVariableUpdate(UniversalBaseModel):
-    """
-    Pydantic model for updating SandboxEnvironmentVariable fields.
-    """
-
     key: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the environment variable.

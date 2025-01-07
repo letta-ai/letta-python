@@ -39,7 +39,7 @@ class Letta:
 
 
 
-    token : typing.Union[str, typing.Callable[[], str]]
+    token : typing.Optional[str]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -63,7 +63,7 @@ class Letta:
         *,
         base_url: typing.Optional[str] = None,
         environment: LettaEnvironment = LettaEnvironment.LETTA_CLOUD,
-        token: typing.Union[str, typing.Callable[[], str]],
+        token: typing.Optional[str] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
@@ -106,7 +106,7 @@ class AsyncLetta:
 
 
 
-    token : typing.Union[str, typing.Callable[[], str]]
+    token : typing.Optional[str]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
 
@@ -130,7 +130,7 @@ class AsyncLetta:
         *,
         base_url: typing.Optional[str] = None,
         environment: LettaEnvironment = LettaEnvironment.LETTA_CLOUD,
-        token: typing.Union[str, typing.Callable[[], str]],
+        token: typing.Optional[str] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,

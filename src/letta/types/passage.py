@@ -15,14 +15,14 @@ class Passage(UniversalBaseModel):
     Representation of a passage, which is stored in archival memory.
 
     Parameters:
-    text (str): The text of the passage.
-    embedding (List[float]): The embedding of the passage.
-    embedding_config (EmbeddingConfig): The embedding configuration used by the passage.
-    created_at (datetime): The creation date of the passage.
-    user_id (str): The unique identifier of the user associated with the passage.
-    agent_id (str): The unique identifier of the agent associated with the passage.
-    source_id (str): The data source of the passage.
-    file_id (str): The unique identifier of the file associated with the passage.
+        text (str): The text of the passage.
+        embedding (List[float]): The embedding of the passage.
+        embedding_config (EmbeddingConfig): The embedding configuration used by the passage.
+        created_at (datetime): The creation date of the passage.
+        user_id (str): The unique identifier of the user associated with the passage.
+        agent_id (str): The unique identifier of the agent associated with the passage.
+        source_id (str): The data source of the passage.
+        file_id (str): The unique identifier of the file associated with the passage.
     """
 
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)

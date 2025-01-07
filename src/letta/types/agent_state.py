@@ -13,6 +13,7 @@ from ..core.serialization import FieldMetadata
 from .memory import Memory
 from .letta_schemas_tool_tool import LettaSchemasToolTool
 from .source import Source
+from .agent_environment_variable import AgentEnvironmentVariable
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -21,15 +22,15 @@ class AgentState(UniversalBaseModel):
     Representation of an agent's state. This is the state of the agent at a given time, and is persisted in the DB backend. The state has all the information needed to recreate a persisted agent.
 
     Parameters:
-    id (str): The unique identifier of the agent.
-    name (str): The name of the agent (must be unique to the user).
-    created_at (datetime): The datetime the agent was created.
-    message_ids (List[str]): The ids of the messages in the agent's in-context memory.
-    memory (Memory): The in-context memory of the agent.
-    tools (List[str]): The tools used by the agent. This includes any memory editing functions specified in `memory`.
-    system (str): The system prompt used by the agent.
-    llm_config (LLMConfig): The LLM configuration used by the agent.
-    embedding_config (EmbeddingConfig): The embedding configuration used by the agent.
+        id (str): The unique identifier of the agent.
+        name (str): The name of the agent (must be unique to the user).
+        created_at (datetime): The datetime the agent was created.
+        message_ids (List[str]): The ids of the messages in the agent's in-context memory.
+        memory (Memory): The in-context memory of the agent.
+        tools (List[str]): The tools used by the agent. This includes any memory editing functions specified in `memory`.
+        system (str): The system prompt used by the agent.
+        llm_config (LLMConfig): The LLM configuration used by the agent.
+        embedding_config (EmbeddingConfig): The embedding configuration used by the agent.
     """
 
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -127,6 +128,11 @@ class AgentState(UniversalBaseModel):
     tags: typing.List[str] = pydantic.Field()
     """
     The tags associated with the agent.
+    """
+
+    tool_exec_environment_variables: typing.List[AgentEnvironmentVariable] = pydantic.Field()
+    """
+    The environment variables for tool execution specific to this agent.
     """
 
     if IS_PYDANTIC_V2:

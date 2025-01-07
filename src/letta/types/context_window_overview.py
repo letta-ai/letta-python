@@ -43,6 +43,11 @@ class ContextWindowOverview(UniversalBaseModel):
     The number of tokens in the external memory summary (archival + recall metadata).
     """
 
+    external_memory_summary: str = pydantic.Field()
+    """
+    The metadata summary of the external memory sources (archival + recall metadata).
+    """
+
     num_tokens_system: int = pydantic.Field()
     """
     The number of tokens in the system prompt.
