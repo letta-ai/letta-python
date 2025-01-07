@@ -70,7 +70,7 @@ class Letta:
     ):
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         self._client_wrapper = SyncClientWrapper(
-            base_url=_get_base_url(base_url=base_url, environment=environment),
+            base_url=_get_base_url(token=token, base_url=base_url, environment=environment),
             token=token,
             httpx_client=httpx_client
             if httpx_client is not None
@@ -137,7 +137,7 @@ class AsyncLetta:
     ):
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         self._client_wrapper = AsyncClientWrapper(
-            base_url=_get_base_url(base_url=base_url, environment=environment),
+            base_url=_get_base_url(token=token, base_url=base_url, environment=environment),
             token=token,
             httpx_client=httpx_client
             if httpx_client is not None
@@ -155,9 +155,11 @@ class AsyncLetta:
         self.health = AsyncHealthClient(client_wrapper=self._client_wrapper)
 
 
-def _get_base_url(*, base_url: typing.Optional[str] = None, environment: LettaEnvironment) -> str:
+def _get_base_url(*, token: typing.Optional[str] = None, base_url: typing.Optional[str] = None, environment: LettaEnvironment) -> str:
     if base_url is not None:
         return base_url
+    elif token is None:
+        return LettaEnvironment.SELF_HOSTED.value
     elif environment is not None:
         return environment.value
     else:
