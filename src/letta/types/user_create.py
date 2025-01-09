@@ -12,11 +12,6 @@ class UserCreate(UniversalBaseModel):
     The name of the user.
     """
 
-    organization_id: str = pydantic.Field()
-    """
-    The organization id of the user.
-    """
-
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

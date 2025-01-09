@@ -38,11 +38,6 @@ class LettaSchemasToolTool(UniversalBaseModel):
     The module of the function.
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The unique identifier of the organization associated with the tool.
-    """
-
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the function.

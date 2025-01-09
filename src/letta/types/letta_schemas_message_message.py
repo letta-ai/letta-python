@@ -61,11 +61,6 @@ class LettaSchemasMessageMessage(UniversalBaseModel):
     The text of the message.
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The unique identifier of the organization.
-    """
-
     agent_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique identifier of the agent.

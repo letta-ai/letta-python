@@ -17,11 +17,6 @@ class FileMetadata(UniversalBaseModel):
     The human-friendly ID of the File
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The unique identifier of the organization associated with the document.
-    """
-
     source_id: str = pydantic.Field()
     """
     The unique identifier of the source associated with the document.

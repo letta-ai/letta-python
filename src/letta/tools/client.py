@@ -621,7 +621,8 @@ class ToolsClient:
         self,
         *,
         source_code: str,
-        args: str,
+        args: typing.Dict[str, str],
+        env_vars: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -634,8 +635,11 @@ class ToolsClient:
         source_code : str
             The source code of the function.
 
-        args : str
-            The arguments to pass to the tool (as stringified JSON).
+        args : typing.Dict[str, str]
+            The arguments to pass to the tool.
+
+        env_vars : typing.Optional[typing.Dict[str, str]]
+            The environment variables to pass to the tool.
 
         name : typing.Optional[str]
             The name of the tool to run.
@@ -660,7 +664,7 @@ class ToolsClient:
         )
         client.tools.run_tool_from_source(
             source_code="source_code",
-            args="args",
+            args={"key": "value"},
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -669,6 +673,7 @@ class ToolsClient:
             json={
                 "source_code": source_code,
                 "args": args,
+                "env_vars": env_vars,
                 "name": name,
                 "source_type": source_type,
             },
@@ -1539,7 +1544,8 @@ class AsyncToolsClient:
         self,
         *,
         source_code: str,
-        args: str,
+        args: typing.Dict[str, str],
+        env_vars: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1552,8 +1558,11 @@ class AsyncToolsClient:
         source_code : str
             The source code of the function.
 
-        args : str
-            The arguments to pass to the tool (as stringified JSON).
+        args : typing.Dict[str, str]
+            The arguments to pass to the tool.
+
+        env_vars : typing.Optional[typing.Dict[str, str]]
+            The environment variables to pass to the tool.
 
         name : typing.Optional[str]
             The name of the tool to run.
@@ -1583,7 +1592,7 @@ class AsyncToolsClient:
         async def main() -> None:
             await client.tools.run_tool_from_source(
                 source_code="source_code",
-                args="args",
+                args={"key": "value"},
             )
 
 
@@ -1595,6 +1604,7 @@ class AsyncToolsClient:
             json={
                 "source_code": source_code,
                 "args": args,
+                "env_vars": env_vars,
                 "name": name,
                 "source_type": source_type,
             },

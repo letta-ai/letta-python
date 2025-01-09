@@ -66,11 +66,6 @@ class Block(UniversalBaseModel):
     The human-friendly ID of the Block
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The unique identifier of the organization associated with the block.
-    """
-
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the user that made this Block.

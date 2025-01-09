@@ -13,6 +13,11 @@ class LettaRequest(UniversalBaseModel):
     The messages to be sent to the agent.
     """
 
+    use_assistant_message: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    """
+
     assistant_message_tool_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the designated message tool.

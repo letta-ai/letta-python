@@ -43,11 +43,6 @@ class Source(UniversalBaseModel):
     The embedding configuration used by the source.
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The ID of the organization that created the source.
-    """
-
     metadata: typing_extensions.Annotated[
         typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
     ] = pydantic.Field(default=None)

@@ -27,7 +27,6 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
 from ..types.block import Block
-from ..types.job import Job
 from .types.agents_search_deployed_agents_request_search_item import AgentsSearchDeployedAgentsRequestSearchItem
 from .types.agents_search_deployed_agents_request_combinator import AgentsSearchDeployedAgentsRequestCombinator
 from ..errors.not_found_error import NotFoundError
@@ -172,7 +171,7 @@ class AgentsClient:
         from_template: typing.Optional[str] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
-        user_id: typing.Optional[str] = OMIT,
+        variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -249,7 +248,8 @@ class AgentsClient:
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
-        user_id : typing.Optional[str]
+        variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            The variables that should be set for the agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -312,7 +312,7 @@ class AgentsClient:
                 "from_template": from_template,
                 "project_id": project_id,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
-                "user_id": user_id,
+                "variables": variables,
             },
             headers={
                 "content-type": "application/json",
@@ -800,94 +800,6 @@ class AgentsClient:
                     typing.List[Block],
                     parse_obj_as(
                         type_=typing.List[Block],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def create_agent_message_async(
-        self,
-        agent_id: str,
-        *,
-        messages: typing.Sequence[MessageCreate],
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> Job:
-        """
-        Asynchronously process a user message and return a job ID.
-        The actual processing happens in the background, and the status can be checked using the job ID.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        messages : typing.Sequence[MessageCreate]
-            The messages to be sent to the agent.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Job
-            Successful Response
-
-        Examples
-        --------
-        from letta import Letta, MessageCreate
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.create_agent_message_async(
-            agent_id="agent_id",
-            messages=[
-                MessageCreate(
-                    role="user",
-                    text="text",
-                )
-            ],
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
-            method="POST",
-            json={
-                "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
-                ),
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Job,
-                    parse_obj_as(
-                        type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1421,7 +1333,7 @@ class AsyncAgentsClient:
         from_template: typing.Optional[str] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
-        user_id: typing.Optional[str] = OMIT,
+        variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1498,7 +1410,8 @@ class AsyncAgentsClient:
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
-        user_id : typing.Optional[str]
+        variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            The variables that should be set for the agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1569,7 +1482,7 @@ class AsyncAgentsClient:
                 "from_template": from_template,
                 "project_id": project_id,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
-                "user_id": user_id,
+                "variables": variables,
             },
             headers={
                 "content-type": "application/json",
@@ -2105,102 +2018,6 @@ class AsyncAgentsClient:
                     typing.List[Block],
                     parse_obj_as(
                         type_=typing.List[Block],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def create_agent_message_async(
-        self,
-        agent_id: str,
-        *,
-        messages: typing.Sequence[MessageCreate],
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> Job:
-        """
-        Asynchronously process a user message and return a job ID.
-        The actual processing happens in the background, and the status can be checked using the job ID.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        messages : typing.Sequence[MessageCreate]
-            The messages to be sent to the agent.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Job
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta, MessageCreate
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.create_agent_message_async(
-                agent_id="agent_id",
-                messages=[
-                    MessageCreate(
-                        role="user",
-                        text="text",
-                    )
-                ],
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
-            method="POST",
-            json={
-                "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
-                ),
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Job,
-                    parse_obj_as(
-                        type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

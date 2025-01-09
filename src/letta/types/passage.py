@@ -50,11 +50,6 @@ class Passage(UniversalBaseModel):
     Whether this passage is deleted or not.
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The unique identifier of the user associated with the passage.
-    """
-
     agent_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The unique identifier of the agent associated with the passage.

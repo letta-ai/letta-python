@@ -22,11 +22,6 @@ class User(UniversalBaseModel):
     The human-friendly ID of the User
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The organization id of the user
-    """
-
     name: str = pydantic.Field()
     """
     The name of the user.

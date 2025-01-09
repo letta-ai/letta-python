@@ -39,11 +39,6 @@ class SandboxConfig(UniversalBaseModel):
     The type of sandbox.
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The unique identifier of the organization associated with the sandbox.
-    """
-
     config: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     The JSON sandbox settings data.

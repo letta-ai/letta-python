@@ -48,11 +48,6 @@ class AgentEnvironmentVariable(UniversalBaseModel):
     An optional description of the environment variable.
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The ID of the organization this environment variable belongs to.
-    """
-
     agent_id: str = pydantic.Field()
     """
     The ID of the agent this environment variable belongs to.

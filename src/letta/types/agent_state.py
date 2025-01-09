@@ -93,11 +93,6 @@ class AgentState(UniversalBaseModel):
     The embedding configuration used by the agent.
     """
 
-    organization_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The unique identifier of the organization associated with the agent.
-    """
-
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The description of the agent.
@@ -130,7 +125,9 @@ class AgentState(UniversalBaseModel):
     The tags associated with the agent.
     """
 
-    tool_exec_environment_variables: typing.List[AgentEnvironmentVariable] = pydantic.Field()
+    tool_exec_environment_variables: typing.Optional[typing.List[AgentEnvironmentVariable]] = pydantic.Field(
+        default=None
+    )
     """
     The environment variables for tool execution specific to this agent.
     """

@@ -758,7 +758,7 @@ client = Letta(
 )
 client.tools.run_tool_from_source(
     source_code="source_code",
-    args="args",
+    args={"key": "value"},
 )
 
 ```
@@ -783,7 +783,15 @@ client.tools.run_tool_from_source(
 <dl>
 <dd>
 
-**args:** `str` — The arguments to pass to the tool (as stringified JSON).
+**args:** `typing.Dict[str, str]` — The arguments to pass to the tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**env_vars:** `typing.Optional[typing.Dict[str, str]]` — The environment variables to pass to the tool.
     
 </dd>
 </dl>
@@ -1985,7 +1993,7 @@ client.agents.create(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` 
+**variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The variables that should be set for the agent.
     
 </dd>
 </dl>
@@ -2584,107 +2592,6 @@ client.agents.get_agent_memory_blocks(
 <dd>
 
 **agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta/agents/client.py">create_agent_message_async</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Asynchronously process a user message and return a job ID.
-The actual processing happens in the background, and the status can be checked using the job ID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta import Letta, MessageCreate
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.create_agent_message_async(
-    agent_id="agent_id",
-    messages=[
-        MessageCreate(
-            role="user",
-            text="text",
-        )
-    ],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
     
 </dd>
 </dl>
@@ -5330,6 +5237,14 @@ client.agents.messages.create(
 <dl>
 <dd>
 
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
     
 </dd>
@@ -5553,6 +5468,14 @@ for chunk in response:
 <dl>
 <dd>
 
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
     
 </dd>
@@ -5570,6 +5493,115 @@ for chunk in response:
 <dd>
 
 **stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.messages.<a href="src/letta/agents/messages/client.py">create_async</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Asynchronously process a user message and return a job ID.
+The actual processing happens in the background, and the status can be checked using the job ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta import Letta, MessageCreate
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.messages.create_async(
+    agent_id="agent_id",
+    messages=[
+        MessageCreate(
+            role="user",
+            text="text",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
     
 </dd>
 </dl>

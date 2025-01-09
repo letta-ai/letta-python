@@ -21,6 +21,7 @@ from ...types.letta_schemas_message_message import LettaSchemasMessageMessage
 from .types.letta_streaming_response import LettaStreamingResponse
 import httpx_sse
 import json
+from ...types.job import Job
 from ...core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -124,6 +125,7 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -138,6 +140,9 @@ class MessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        use_assistant_message : typing.Optional[bool]
+            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
 
         assistant_message_tool_name : typing.Optional[str]
             The name of the designated message tool.
@@ -177,6 +182,7 @@ class MessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
             },
@@ -312,6 +318,7 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
@@ -328,6 +335,9 @@ class MessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        use_assistant_message : typing.Optional[bool]
+            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
 
         assistant_message_tool_name : typing.Optional[str]
             The name of the designated message tool.
@@ -372,6 +382,7 @@ class MessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "stream_tokens": stream_tokens,
@@ -412,6 +423,99 @@ class MessagesClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def create_async(
+        self,
+        agent_id: str,
+        *,
+        messages: typing.Sequence[MessageCreate],
+        use_assistant_message: typing.Optional[bool] = OMIT,
+        assistant_message_tool_name: typing.Optional[str] = OMIT,
+        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Job:
+        """
+        Asynchronously process a user message and return a job ID.
+        The actual processing happens in the background, and the status can be checked using the job ID.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        messages : typing.Sequence[MessageCreate]
+            The messages to be sent to the agent.
+
+        use_assistant_message : typing.Optional[bool]
+            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+
+        assistant_message_tool_name : typing.Optional[str]
+            The name of the designated message tool.
+
+        assistant_message_tool_kwarg : typing.Optional[str]
+            The name of the message argument in the designated message tool.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Job
+            Successful Response
+
+        Examples
+        --------
+        from letta import Letta, MessageCreate
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.messages.create_async(
+            agent_id="agent_id",
+            messages=[
+                MessageCreate(
+                    role="user",
+                    text="text",
+                )
+            ],
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
+            method="POST",
+            json={
+                "messages": convert_and_respect_annotation_metadata(
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
+                ),
+                "use_assistant_message": use_assistant_message,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Job,
+                    parse_obj_as(
+                        type_=Job,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
 class AsyncMessagesClient:
@@ -519,6 +623,7 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -533,6 +638,9 @@ class AsyncMessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        use_assistant_message : typing.Optional[bool]
+            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
 
         assistant_message_tool_name : typing.Optional[str]
             The name of the designated message tool.
@@ -580,6 +688,7 @@ class AsyncMessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
             },
@@ -723,6 +832,7 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
@@ -739,6 +849,9 @@ class AsyncMessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        use_assistant_message : typing.Optional[bool]
+            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
 
         assistant_message_tool_name : typing.Optional[str]
             The name of the designated message tool.
@@ -791,6 +904,7 @@ class AsyncMessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "stream_tokens": stream_tokens,
@@ -831,3 +945,104 @@ class AsyncMessagesClient:
             except JSONDecodeError:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def create_async(
+        self,
+        agent_id: str,
+        *,
+        messages: typing.Sequence[MessageCreate],
+        use_assistant_message: typing.Optional[bool] = OMIT,
+        assistant_message_tool_name: typing.Optional[str] = OMIT,
+        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Job:
+        """
+        Asynchronously process a user message and return a job ID.
+        The actual processing happens in the background, and the status can be checked using the job ID.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        messages : typing.Sequence[MessageCreate]
+            The messages to be sent to the agent.
+
+        use_assistant_message : typing.Optional[bool]
+            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+
+        assistant_message_tool_name : typing.Optional[str]
+            The name of the designated message tool.
+
+        assistant_message_tool_kwarg : typing.Optional[str]
+            The name of the message argument in the designated message tool.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Job
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta import AsyncLetta, MessageCreate
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.messages.create_async(
+                agent_id="agent_id",
+                messages=[
+                    MessageCreate(
+                        role="user",
+                        text="text",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
+            method="POST",
+            json={
+                "messages": convert_and_respect_annotation_metadata(
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
+                ),
+                "use_assistant_message": use_assistant_message,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Job,
+                    parse_obj_as(
+                        type_=Job,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        parse_obj_as(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
