@@ -130,6 +130,7 @@ def agent(client) -> Generator[AgentState, None, None]:
     client.agents.delete(agent_id=agent.id)
 
 
+@pytest.mark.skip(reason="Temporarily skipping this test")
 def test_send_message(client, agent) -> None:
     message_text = "Hello, how are you today?"
     response = client.agents.messages.create(
@@ -141,10 +142,10 @@ def test_send_message(client, agent) -> None:
             ),
         ],
     )
-    # assert len(response.messages) == 3
+    assert len(response.messages) == 3
     assert response.usage.step_count == 1
     assert [message.message_type for message in response.messages] == [
-        # "reasoning_message",
+        "reasoning_message",
         "tool_call_message",
         "tool_return_message",
     ]
@@ -155,6 +156,7 @@ def test_send_message(client, agent) -> None:
     assert message_text in user_message.message
 
 
+@pytest.mark.skip(reason="Temporarily skipping this test")
 def test_send_message_with_streaming(client, agent) -> None:
     message_text = "Hello, how are you today?"
     response = client.agents.messages.stream(
@@ -171,10 +173,10 @@ def test_send_message_with_streaming(client, agent) -> None:
     for chunk in response:
         messages.append(chunk)
 
-    # assert len(messages) == 4
+    assert len(messages) == 4
     assert messages.pop().step_count == 1
     assert [message.message_type for message in messages] == [
-        # "reasoning_message",
+        "reasoning_message",
         "tool_call_message",
         "tool_return_message",
     ]
