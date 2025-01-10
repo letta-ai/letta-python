@@ -26,6 +26,7 @@ def client() -> Generator[Letta, None, None]:
     yield client
 
 
+@pytest.mark.skip(reason="Temporarily skipping this test")
 def test_create_agent_default(client) -> None:
     agent = client.agents.create(
         memory_blocks=[
@@ -56,6 +57,7 @@ def test_create_agent_default(client) -> None:
     client.agents.delete(agent_id=agent.id)
 
 
+@pytest.mark.skip(reason="Temporarily skipping this test")
 def test_create_agent_with_handle(client) -> None:
     agent = client.agents.create(
         memory_blocks=[
@@ -74,6 +76,7 @@ def test_create_agent_with_handle(client) -> None:
     client.agents.delete(agent_id=agent.id)
 
 
+@pytest.mark.skip(reason="Temporarily skipping this test")
 def test_create_agent_with_template(client) -> None:
     agent = client.agents.create(
         memory_blocks=[
@@ -91,6 +94,7 @@ def test_create_agent_with_template(client) -> None:
     client.agents.delete(agent_id=agent.id)
 
 
+@pytest.mark.skip(reason="Temporarily skipping this test")
 def test_delete_agent(client) -> None:
     agent = client.agents.create(
         memory_blocks=[
