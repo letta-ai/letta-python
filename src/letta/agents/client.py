@@ -5,14 +5,15 @@ from ..core.client_wrapper import SyncClientWrapper
 from .context.client import ContextClient
 from .tools.client import ToolsClient
 from .sources.client import SourcesClient
-from .memory.client import MemoryClient
-from .memory_blocks.client import MemoryBlocksClient
+from .core_memory.client import CoreMemoryClient
 from .recall_memory.client import RecallMemoryClient
 from .archival_memory.client import ArchivalMemoryClient
 from .messages.client import MessagesClient
+from .templates.client import TemplatesClient
+from .memory_variables.client import MemoryVariablesClient
 from ..core.request_options import RequestOptions
 from ..types.agent_state import AgentState
-from ..core.pydantic_utilities import parse_obj_as
+from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
@@ -26,24 +27,18 @@ from ..types.message_create import MessageCreate
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
-from ..types.block import Block
-from .types.agents_search_deployed_agents_request_search_item import AgentsSearchDeployedAgentsRequestSearchItem
-from .types.agents_search_deployed_agents_request_combinator import AgentsSearchDeployedAgentsRequestCombinator
-from ..errors.not_found_error import NotFoundError
-from ..errors.internal_server_error import InternalServerError
-from .types.agents_migrate_response import AgentsMigrateResponse
-from ..errors.conflict_error import ConflictError
-from ..types.conflict_error_body import ConflictErrorBody
-from .types.agents_get_agent_variables_response import AgentsGetAgentVariablesResponse
+from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
+from .types.agents_search_request_combinator import AgentsSearchRequestCombinator
 from ..core.client_wrapper import AsyncClientWrapper
 from .context.client import AsyncContextClient
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
-from .memory.client import AsyncMemoryClient
-from .memory_blocks.client import AsyncMemoryBlocksClient
+from .core_memory.client import AsyncCoreMemoryClient
 from .recall_memory.client import AsyncRecallMemoryClient
 from .archival_memory.client import AsyncArchivalMemoryClient
 from .messages.client import AsyncMessagesClient
+from .templates.client import AsyncTemplatesClient
+from .memory_variables.client import AsyncMemoryVariablesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -55,11 +50,12 @@ class AgentsClient:
         self.context = ContextClient(client_wrapper=self._client_wrapper)
         self.tools = ToolsClient(client_wrapper=self._client_wrapper)
         self.sources = SourcesClient(client_wrapper=self._client_wrapper)
-        self.memory = MemoryClient(client_wrapper=self._client_wrapper)
-        self.memory_blocks = MemoryBlocksClient(client_wrapper=self._client_wrapper)
+        self.core_memory = CoreMemoryClient(client_wrapper=self._client_wrapper)
         self.recall_memory = RecallMemoryClient(client_wrapper=self._client_wrapper)
         self.archival_memory = ArchivalMemoryClient(client_wrapper=self._client_wrapper)
         self.messages = MessagesClient(client_wrapper=self._client_wrapper)
+        self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
+        self.memory_variables = MemoryVariablesClient(client_wrapper=self._client_wrapper)
 
     def list(
         self,
@@ -125,7 +121,7 @@ class AgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[AgentState],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[AgentState],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -134,7 +130,7 @@ class AgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -324,7 +320,7 @@ class AgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -333,7 +329,7 @@ class AgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -380,7 +376,7 @@ class AgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -389,7 +385,7 @@ class AgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -438,7 +434,7 @@ class AgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.Optional[typing.Any],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -447,7 +443,7 @@ class AgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -576,7 +572,7 @@ class AgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -585,7 +581,7 @@ class AgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -596,248 +592,28 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_agent_memory_block(
-        self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Block:
-        """
-        Retrieve a memory block from an agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        block_label : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Block
-            Successful Response
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.get_agent_memory_block(
-            agent_id="agent_id",
-            block_label="block_label",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Block,
-                    parse_obj_as(
-                        type_=Block,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def update_agent_memory_block_by_label(
-        self,
-        agent_id: str,
-        block_label: str,
-        *,
-        value: typing.Optional[str] = OMIT,
-        limit: typing.Optional[int] = OMIT,
-        name: typing.Optional[str] = OMIT,
-        is_template: typing.Optional[bool] = OMIT,
-        label: typing.Optional[str] = OMIT,
-        description: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> Block:
-        """
-        Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        block_label : str
-
-        value : typing.Optional[str]
-            Value of the block.
-
-        limit : typing.Optional[int]
-            Character limit of the block.
-
-        name : typing.Optional[str]
-            Name of the block if it is a template.
-
-        is_template : typing.Optional[bool]
-            Whether the block is a template (e.g. saved human/persona options).
-
-        label : typing.Optional[str]
-            Label of the block (e.g. 'human', 'persona') in the context window.
-
-        description : typing.Optional[str]
-            Description of the block.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Metadata of the block.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Block
-            Successful Response
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.update_agent_memory_block_by_label(
-            agent_id="agent_id",
-            block_label="block_label",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
-            method="PATCH",
-            json={
-                "value": value,
-                "limit": limit,
-                "name": name,
-                "is_template": is_template,
-                "label": label,
-                "description": description,
-                "metadata_": metadata,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Block,
-                    parse_obj_as(
-                        type_=Block,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def get_agent_memory_blocks(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[Block]:
-        """
-        Retrieve the memory blocks of a specific agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Block]
-            Successful Response
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.get_agent_memory_blocks(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[Block],
-                    parse_obj_as(
-                        type_=typing.List[Block],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def searchdeployedagents(
+    def search(
         self,
         *,
-        search: typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]] = OMIT,
+        search: typing.Optional[typing.Sequence[AgentsSearchRequestSearchItem]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
-        combinator: typing.Optional[AgentsSearchDeployedAgentsRequestCombinator] = OMIT,
+        combinator: typing.Optional[AgentsSearchRequestCombinator] = OMIT,
         limit: typing.Optional[float] = OMIT,
         offset: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
-        Search deployed agents
+        <Note>This endpoint is only available on Letta Cloud.</Note>
+
+        Search deployed agents.
 
         Parameters
         ----------
-        search : typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]]
+        search : typing.Optional[typing.Sequence[AgentsSearchRequestSearchItem]]
 
         project_id : typing.Optional[str]
 
-        combinator : typing.Optional[AgentsSearchDeployedAgentsRequestCombinator]
+        combinator : typing.Optional[AgentsSearchRequestCombinator]
 
         limit : typing.Optional[float]
 
@@ -857,16 +633,14 @@ class AgentsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.searchdeployedagents()
+        client.agents.search()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/agents/search",
             method="POST",
             json={
                 "search": convert_and_respect_annotation_metadata(
-                    object_=search,
-                    annotation=typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem],
-                    direction="write",
+                    object_=search, annotation=typing.Sequence[AgentsSearchRequestSearchItem], direction="write"
                 ),
                 "project_id": project_id,
                 "combinator": combinator,
@@ -887,321 +661,6 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_version(
-        self,
-        agent_id: str,
-        *,
-        return_agent_state: typing.Optional[bool] = None,
-        migrate_deployed_agents: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
-        """
-        Creates a versioned version of an agent
-
-        Parameters
-        ----------
-        agent_id : str
-            The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
-
-        return_agent_state : typing.Optional[bool]
-
-        migrate_deployed_agents : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.create_version(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/version-template",
-            method="POST",
-            params={
-                "returnAgentState": return_agent_state,
-            },
-            json={
-                "migrate_deployed_agents": migrate_deployed_agents,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def migrate(
-        self,
-        agent_id: str,
-        *,
-        to_template: str,
-        preserve_core_memories: bool,
-        variables: typing.Optional[typing.Dict[str, str]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentsMigrateResponse:
-        """
-        Migrate an agent to a new versioned agent template
-
-        Parameters
-        ----------
-        agent_id : str
-
-        to_template : str
-
-        preserve_core_memories : bool
-
-        variables : typing.Optional[typing.Dict[str, str]]
-            If you chose to not preserve core memories, you should provide the new variables for the core memories
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AgentsMigrateResponse
-            200
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.migrate(
-            agent_id="agent_id",
-            to_template="to_template",
-            preserve_core_memories=True,
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/migrate",
-            method="POST",
-            json={
-                "to_template": to_template,
-                "variables": variables,
-                "preserve_core_memories": preserve_core_memories,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentsMigrateResponse,
-                    parse_obj_as(
-                        type_=AgentsMigrateResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    typing.cast(
-                        ConflictErrorBody,
-                        parse_obj_as(
-                            type_=ConflictErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def createtemplatefromagent(
-        self,
-        agent_id: str,
-        *,
-        project_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
-        """
-        Create a template from an agent
-
-        Parameters
-        ----------
-        agent_id : str
-
-        project_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.createtemplatefromagent(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/template",
-            method="POST",
-            json={
-                "project_id": project_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def getagentvariables(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AgentsGetAgentVariablesResponse:
-        """
-        Get the variables associated with an agent
-
-        Parameters
-        ----------
-        agent_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AgentsGetAgentVariablesResponse
-            200
-
-        Examples
-        --------
-        from letta import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.getagentvariables(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/variables",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentsGetAgentVariablesResponse,
-                    parse_obj_as(
-                        type_=AgentsGetAgentVariablesResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
 
 class AsyncAgentsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1209,11 +668,12 @@ class AsyncAgentsClient:
         self.context = AsyncContextClient(client_wrapper=self._client_wrapper)
         self.tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
         self.sources = AsyncSourcesClient(client_wrapper=self._client_wrapper)
-        self.memory = AsyncMemoryClient(client_wrapper=self._client_wrapper)
-        self.memory_blocks = AsyncMemoryBlocksClient(client_wrapper=self._client_wrapper)
+        self.core_memory = AsyncCoreMemoryClient(client_wrapper=self._client_wrapper)
         self.recall_memory = AsyncRecallMemoryClient(client_wrapper=self._client_wrapper)
         self.archival_memory = AsyncArchivalMemoryClient(client_wrapper=self._client_wrapper)
         self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
+        self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
+        self.memory_variables = AsyncMemoryVariablesClient(client_wrapper=self._client_wrapper)
 
     async def list(
         self,
@@ -1287,7 +747,7 @@ class AsyncAgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[AgentState],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[AgentState],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1296,7 +756,7 @@ class AsyncAgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -1494,7 +954,7 @@ class AsyncAgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1503,7 +963,7 @@ class AsyncAgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -1558,7 +1018,7 @@ class AsyncAgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1567,7 +1027,7 @@ class AsyncAgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -1624,7 +1084,7 @@ class AsyncAgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.Optional[typing.Any],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1633,7 +1093,7 @@ class AsyncAgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -1770,7 +1230,7 @@ class AsyncAgentsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1779,7 +1239,7 @@ class AsyncAgentsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -1790,272 +1250,28 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_agent_memory_block(
-        self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Block:
-        """
-        Retrieve a memory block from an agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        block_label : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Block
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.get_agent_memory_block(
-                agent_id="agent_id",
-                block_label="block_label",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Block,
-                    parse_obj_as(
-                        type_=Block,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def update_agent_memory_block_by_label(
-        self,
-        agent_id: str,
-        block_label: str,
-        *,
-        value: typing.Optional[str] = OMIT,
-        limit: typing.Optional[int] = OMIT,
-        name: typing.Optional[str] = OMIT,
-        is_template: typing.Optional[bool] = OMIT,
-        label: typing.Optional[str] = OMIT,
-        description: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> Block:
-        """
-        Removes a memory block from an agent by unlnking it. If the block is not linked to any other agent, it is deleted.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        block_label : str
-
-        value : typing.Optional[str]
-            Value of the block.
-
-        limit : typing.Optional[int]
-            Character limit of the block.
-
-        name : typing.Optional[str]
-            Name of the block if it is a template.
-
-        is_template : typing.Optional[bool]
-            Whether the block is a template (e.g. saved human/persona options).
-
-        label : typing.Optional[str]
-            Label of the block (e.g. 'human', 'persona') in the context window.
-
-        description : typing.Optional[str]
-            Description of the block.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Metadata of the block.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Block
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.update_agent_memory_block_by_label(
-                agent_id="agent_id",
-                block_label="block_label",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
-            method="PATCH",
-            json={
-                "value": value,
-                "limit": limit,
-                "name": name,
-                "is_template": is_template,
-                "label": label,
-                "description": description,
-                "metadata_": metadata,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Block,
-                    parse_obj_as(
-                        type_=Block,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def get_agent_memory_blocks(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[Block]:
-        """
-        Retrieve the memory blocks of a specific agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Block]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.get_agent_memory_blocks(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[Block],
-                    parse_obj_as(
-                        type_=typing.List[Block],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        parse_obj_as(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def searchdeployedagents(
+    async def search(
         self,
         *,
-        search: typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]] = OMIT,
+        search: typing.Optional[typing.Sequence[AgentsSearchRequestSearchItem]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
-        combinator: typing.Optional[AgentsSearchDeployedAgentsRequestCombinator] = OMIT,
+        combinator: typing.Optional[AgentsSearchRequestCombinator] = OMIT,
         limit: typing.Optional[float] = OMIT,
         offset: typing.Optional[float] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
-        Search deployed agents
+        <Note>This endpoint is only available on Letta Cloud.</Note>
+
+        Search deployed agents.
 
         Parameters
         ----------
-        search : typing.Optional[typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem]]
+        search : typing.Optional[typing.Sequence[AgentsSearchRequestSearchItem]]
 
         project_id : typing.Optional[str]
 
-        combinator : typing.Optional[AgentsSearchDeployedAgentsRequestCombinator]
+        combinator : typing.Optional[AgentsSearchRequestCombinator]
 
         limit : typing.Optional[float]
 
@@ -2080,7 +1296,7 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.searchdeployedagents()
+            await client.agents.search()
 
 
         asyncio.run(main())
@@ -2090,9 +1306,7 @@ class AsyncAgentsClient:
             method="POST",
             json={
                 "search": convert_and_respect_annotation_metadata(
-                    object_=search,
-                    annotation=typing.Sequence[AgentsSearchDeployedAgentsRequestSearchItem],
-                    direction="write",
+                    object_=search, annotation=typing.Sequence[AgentsSearchRequestSearchItem], direction="write"
                 ),
                 "project_id": project_id,
                 "combinator": combinator,
@@ -2108,353 +1322,6 @@ class AsyncAgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def create_version(
-        self,
-        agent_id: str,
-        *,
-        return_agent_state: typing.Optional[bool] = None,
-        migrate_deployed_agents: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
-        """
-        Creates a versioned version of an agent
-
-        Parameters
-        ----------
-        agent_id : str
-            The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
-
-        return_agent_state : typing.Optional[bool]
-
-        migrate_deployed_agents : typing.Optional[bool]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.create_version(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/version-template",
-            method="POST",
-            params={
-                "returnAgentState": return_agent_state,
-            },
-            json={
-                "migrate_deployed_agents": migrate_deployed_agents,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def migrate(
-        self,
-        agent_id: str,
-        *,
-        to_template: str,
-        preserve_core_memories: bool,
-        variables: typing.Optional[typing.Dict[str, str]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentsMigrateResponse:
-        """
-        Migrate an agent to a new versioned agent template
-
-        Parameters
-        ----------
-        agent_id : str
-
-        to_template : str
-
-        preserve_core_memories : bool
-
-        variables : typing.Optional[typing.Dict[str, str]]
-            If you chose to not preserve core memories, you should provide the new variables for the core memories
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AgentsMigrateResponse
-            200
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.migrate(
-                agent_id="agent_id",
-                to_template="to_template",
-                preserve_core_memories=True,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/migrate",
-            method="POST",
-            json={
-                "to_template": to_template,
-                "variables": variables,
-                "preserve_core_memories": preserve_core_memories,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentsMigrateResponse,
-                    parse_obj_as(
-                        type_=AgentsMigrateResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    typing.cast(
-                        ConflictErrorBody,
-                        parse_obj_as(
-                            type_=ConflictErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def createtemplatefromagent(
-        self,
-        agent_id: str,
-        *,
-        project_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
-        """
-        Create a template from an agent
-
-        Parameters
-        ----------
-        agent_id : str
-
-        project_id : typing.Optional[str]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.createtemplatefromagent(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/template",
-            method="POST",
-            json={
-                "project_id": project_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def getagentvariables(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AgentsGetAgentVariablesResponse:
-        """
-        Get the variables associated with an agent
-
-        Parameters
-        ----------
-        agent_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AgentsGetAgentVariablesResponse
-            200
-
-        Examples
-        --------
-        import asyncio
-
-        from letta import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.getagentvariables(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/variables",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentsGetAgentVariablesResponse,
-                    parse_obj_as(
-                        type_=AgentsGetAgentVariablesResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        parse_obj_as(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

@@ -88,6 +88,7 @@ from .open_ai_assistant import OpenAiAssistant
 from .organization import Organization
 from .organization_create import OrganizationCreate
 from .passage import Passage
+from .provider import Provider
 from .reasoning_message import ReasoningMessage
 from .recall_memory_summary import RecallMemorySummary
 from .response_format import ResponseFormat
@@ -210,6 +211,7 @@ __all__ = [
     "Organization",
     "OrganizationCreate",
     "Passage",
+    "Provider",
     "ReasoningMessage",
     "RecallMemorySummary",
     "ResponseFormat",

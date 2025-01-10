@@ -5,7 +5,7 @@ from ...core.client_wrapper import SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.archival_memory_summary import ArchivalMemorySummary
 from ...core.jsonable_encoder import jsonable_encoder
-from ...core.pydantic_utilities import parse_obj_as
+from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
@@ -59,7 +59,7 @@ class ArchivalMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ArchivalMemorySummary,
-                    parse_obj_as(
+                    construct_type(
                         type_=ArchivalMemorySummary,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -68,7 +68,7 @@ class ArchivalMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -137,7 +137,7 @@ class ArchivalMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Passage],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Passage],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -146,7 +146,7 @@ class ArchivalMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -206,7 +206,7 @@ class ArchivalMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Passage],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Passage],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -215,7 +215,7 @@ class ArchivalMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -267,7 +267,7 @@ class ArchivalMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.Optional[typing.Any],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -276,7 +276,7 @@ class ArchivalMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -338,7 +338,7 @@ class AsyncArchivalMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     ArchivalMemorySummary,
-                    parse_obj_as(
+                    construct_type(
                         type_=ArchivalMemorySummary,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -347,7 +347,7 @@ class AsyncArchivalMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -424,7 +424,7 @@ class AsyncArchivalMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Passage],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Passage],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -433,7 +433,7 @@ class AsyncArchivalMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -501,7 +501,7 @@ class AsyncArchivalMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Passage],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Passage],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -510,7 +510,7 @@ class AsyncArchivalMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -570,7 +570,7 @@ class AsyncArchivalMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.Optional[typing.Any],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -579,7 +579,7 @@ class AsyncArchivalMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),

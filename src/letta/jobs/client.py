@@ -4,7 +4,7 @@ from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
 from ..types.job import Job
-from ..core.pydantic_utilities import parse_obj_as
+from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
@@ -57,7 +57,7 @@ class JobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Job],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Job],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -66,7 +66,7 @@ class JobsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -109,7 +109,7 @@ class JobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Job],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Job],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -118,7 +118,7 @@ class JobsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -165,7 +165,7 @@ class JobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Job,
-                    parse_obj_as(
+                    construct_type(
                         type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -174,7 +174,7 @@ class JobsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -221,7 +221,7 @@ class JobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Job,
-                    parse_obj_as(
+                    construct_type(
                         type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -230,7 +230,7 @@ class JobsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -294,7 +294,7 @@ class AsyncJobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Job],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Job],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -303,7 +303,7 @@ class AsyncJobsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -354,7 +354,7 @@ class AsyncJobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Job],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Job],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -363,7 +363,7 @@ class AsyncJobsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -418,7 +418,7 @@ class AsyncJobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Job,
-                    parse_obj_as(
+                    construct_type(
                         type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -427,7 +427,7 @@ class AsyncJobsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -482,7 +482,7 @@ class AsyncJobsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Job,
-                    parse_obj_as(
+                    construct_type(
                         type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -491,7 +491,7 @@ class AsyncJobsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),

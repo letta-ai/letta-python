@@ -5,7 +5,7 @@ import typing
 from ...core.request_options import RequestOptions
 from ...types.source import Source
 from ...core.jsonable_encoder import jsonable_encoder
-from ...core.pydantic_utilities import parse_obj_as
+from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
@@ -53,7 +53,7 @@ class SourcesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Source],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Source],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -62,7 +62,7 @@ class SourcesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -124,7 +124,7 @@ class AsyncSourcesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Source],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Source],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -133,7 +133,7 @@ class AsyncSourcesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),

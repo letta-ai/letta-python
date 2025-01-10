@@ -11,6 +11,7 @@ from .models.client import ModelsClient
 from .blocks.client import BlocksClient
 from .jobs.client import JobsClient
 from .health.client import HealthClient
+from .providers.client import ProvidersClient
 from .core.client_wrapper import AsyncClientWrapper
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
@@ -19,6 +20,7 @@ from .models.client import AsyncModelsClient
 from .blocks.client import AsyncBlocksClient
 from .jobs.client import AsyncJobsClient
 from .health.client import AsyncHealthClient
+from .providers.client import AsyncProvidersClient
 
 
 class Letta:
@@ -86,6 +88,7 @@ class Letta:
         self.blocks = BlocksClient(client_wrapper=self._client_wrapper)
         self.jobs = JobsClient(client_wrapper=self._client_wrapper)
         self.health = HealthClient(client_wrapper=self._client_wrapper)
+        self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncLetta:
@@ -153,6 +156,7 @@ class AsyncLetta:
         self.blocks = AsyncBlocksClient(client_wrapper=self._client_wrapper)
         self.jobs = AsyncJobsClient(client_wrapper=self._client_wrapper)
         self.health = AsyncHealthClient(client_wrapper=self._client_wrapper)
+        self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: LettaEnvironment) -> str:

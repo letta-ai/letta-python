@@ -4,7 +4,7 @@ import typing
 from ..core.client_wrapper import SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.block import Block
-from ..core.pydantic_utilities import parse_obj_as
+from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
@@ -71,7 +71,7 @@ class BlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Block],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Block],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -80,7 +80,7 @@ class BlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -165,7 +165,7 @@ class BlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Block,
-                    parse_obj_as(
+                    construct_type(
                         type_=Block,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -174,7 +174,7 @@ class BlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -219,7 +219,7 @@ class BlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Block,
-                    parse_obj_as(
+                    construct_type(
                         type_=Block,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -228,7 +228,7 @@ class BlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -273,7 +273,7 @@ class BlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Block,
-                    parse_obj_as(
+                    construct_type(
                         type_=Block,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -282,7 +282,7 @@ class BlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -370,7 +370,7 @@ class BlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Block,
-                    parse_obj_as(
+                    construct_type(
                         type_=Block,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -379,7 +379,7 @@ class BlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -437,7 +437,7 @@ class BlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -495,7 +495,7 @@ class BlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -570,7 +570,7 @@ class AsyncBlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[Block],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[Block],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -579,7 +579,7 @@ class AsyncBlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -672,7 +672,7 @@ class AsyncBlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Block,
-                    parse_obj_as(
+                    construct_type(
                         type_=Block,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -681,7 +681,7 @@ class AsyncBlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -734,7 +734,7 @@ class AsyncBlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Block,
-                    parse_obj_as(
+                    construct_type(
                         type_=Block,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -743,7 +743,7 @@ class AsyncBlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -796,7 +796,7 @@ class AsyncBlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Block,
-                    parse_obj_as(
+                    construct_type(
                         type_=Block,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -805,7 +805,7 @@ class AsyncBlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -901,7 +901,7 @@ class AsyncBlocksClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Block,
-                    parse_obj_as(
+                    construct_type(
                         type_=Block,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -910,7 +910,7 @@ class AsyncBlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -976,7 +976,7 @@ class AsyncBlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -1042,7 +1042,7 @@ class AsyncBlocksClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),

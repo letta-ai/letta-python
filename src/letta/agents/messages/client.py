@@ -5,7 +5,7 @@ from ...core.client_wrapper import SyncClientWrapper
 from ...core.request_options import RequestOptions
 from .types.messages_list_response import MessagesListResponse
 from ...core.jsonable_encoder import jsonable_encoder
-from ...core.pydantic_utilities import parse_obj_as
+from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
@@ -100,7 +100,7 @@ class MessagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MessagesListResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MessagesListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -109,7 +109,7 @@ class MessagesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -193,7 +193,7 @@ class MessagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     LettaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=LettaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -202,7 +202,7 @@ class MessagesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -293,7 +293,7 @@ class MessagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     LettaSchemasMessageMessage,
-                    parse_obj_as(
+                    construct_type(
                         type_=LettaSchemasMessageMessage,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -302,7 +302,7 @@ class MessagesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -400,7 +400,7 @@ class MessagesClient:
                         try:
                             yield typing.cast(
                                 LettaStreamingResponse,
-                                parse_obj_as(
+                                construct_type(
                                     type_=LettaStreamingResponse,  # type: ignore
                                     object_=json.loads(_sse.data),
                                 ),
@@ -413,7 +413,7 @@ class MessagesClient:
                     raise UnprocessableEntityError(
                         typing.cast(
                             HttpValidationError,
-                            parse_obj_as(
+                            construct_type(
                                 type_=HttpValidationError,  # type: ignore
                                 object_=_response.json(),
                             ),
@@ -497,7 +497,7 @@ class MessagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Job,
-                    parse_obj_as(
+                    construct_type(
                         type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -506,7 +506,7 @@ class MessagesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -598,7 +598,7 @@ class AsyncMessagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     MessagesListResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=MessagesListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -607,7 +607,7 @@ class AsyncMessagesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -699,7 +699,7 @@ class AsyncMessagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     LettaResponse,
-                    parse_obj_as(
+                    construct_type(
                         type_=LettaResponse,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -708,7 +708,7 @@ class AsyncMessagesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -807,7 +807,7 @@ class AsyncMessagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     LettaSchemasMessageMessage,
-                    parse_obj_as(
+                    construct_type(
                         type_=LettaSchemasMessageMessage,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -816,7 +816,7 @@ class AsyncMessagesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -922,7 +922,7 @@ class AsyncMessagesClient:
                         try:
                             yield typing.cast(
                                 LettaStreamingResponse,
-                                parse_obj_as(
+                                construct_type(
                                     type_=LettaStreamingResponse,  # type: ignore
                                     object_=json.loads(_sse.data),
                                 ),
@@ -935,7 +935,7 @@ class AsyncMessagesClient:
                     raise UnprocessableEntityError(
                         typing.cast(
                             HttpValidationError,
-                            parse_obj_as(
+                            construct_type(
                                 type_=HttpValidationError,  # type: ignore
                                 object_=_response.json(),
                             ),
@@ -1027,7 +1027,7 @@ class AsyncMessagesClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     Job,
-                    parse_obj_as(
+                    construct_type(
                         type_=Job,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -1036,7 +1036,7 @@ class AsyncMessagesClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),

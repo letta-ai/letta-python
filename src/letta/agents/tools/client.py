@@ -5,7 +5,7 @@ import typing
 from ...core.request_options import RequestOptions
 from ...types.letta_schemas_tool_tool import LettaSchemasToolTool
 from ...core.jsonable_encoder import jsonable_encoder
-from ...core.pydantic_utilities import parse_obj_as
+from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
@@ -56,7 +56,7 @@ class ToolsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[LettaSchemasToolTool],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[LettaSchemasToolTool],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -65,7 +65,7 @@ class ToolsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -117,7 +117,7 @@ class ToolsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -126,7 +126,7 @@ class ToolsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -178,7 +178,7 @@ class ToolsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -187,7 +187,7 @@ class ToolsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -249,7 +249,7 @@ class AsyncToolsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     typing.List[LettaSchemasToolTool],
-                    parse_obj_as(
+                    construct_type(
                         type_=typing.List[LettaSchemasToolTool],  # type: ignore
                         object_=_response.json(),
                     ),
@@ -258,7 +258,7 @@ class AsyncToolsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -318,7 +318,7 @@ class AsyncToolsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -327,7 +327,7 @@ class AsyncToolsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -387,7 +387,7 @@ class AsyncToolsClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     AgentState,
-                    parse_obj_as(
+                    construct_type(
                         type_=AgentState,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -396,7 +396,7 @@ class AsyncToolsClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),

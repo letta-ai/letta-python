@@ -5,7 +5,7 @@ import typing
 from ...core.request_options import RequestOptions
 from ...types.recall_memory_summary import RecallMemorySummary
 from ...core.jsonable_encoder import jsonable_encoder
-from ...core.pydantic_utilities import parse_obj_as
+from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
@@ -55,7 +55,7 @@ class RecallMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     RecallMemorySummary,
-                    parse_obj_as(
+                    construct_type(
                         type_=RecallMemorySummary,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -64,7 +64,7 @@ class RecallMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
@@ -126,7 +126,7 @@ class AsyncRecallMemoryClient:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
                     RecallMemorySummary,
-                    parse_obj_as(
+                    construct_type(
                         type_=RecallMemorySummary,  # type: ignore
                         object_=_response.json(),
                     ),
@@ -135,7 +135,7 @@ class AsyncRecallMemoryClient:
                 raise UnprocessableEntityError(
                     typing.cast(
                         HttpValidationError,
-                        parse_obj_as(
+                        construct_type(
                             type_=HttpValidationError,  # type: ignore
                             object_=_response.json(),
                         ),
