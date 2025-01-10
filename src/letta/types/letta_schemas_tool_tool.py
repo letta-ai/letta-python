@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
+from .tool_type import ToolType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -21,6 +22,11 @@ class LettaSchemasToolTool(UncheckedBaseModel):
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-friendly ID of the Tool
+    """
+
+    tool_type: typing.Optional[ToolType] = pydantic.Field(default=None)
+    """
+    The type of the tool.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)
@@ -48,7 +54,7 @@ class LettaSchemasToolTool(UncheckedBaseModel):
     Metadata tags.
     """
 
-    source_code: str = pydantic.Field()
+    source_code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The source code of the function.
     """

@@ -116,6 +116,7 @@ from .tool_message import ToolMessage
 from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
 from .tool_rule_type import ToolRuleType
+from .tool_type import ToolType
 from .usage_statistics import UsageStatistics
 from .user import User
 from .user_create import UserCreate
@@ -239,6 +240,7 @@ __all__ = [
     "ToolReturnMessage",
     "ToolReturnMessageStatus",
     "ToolRuleType",
+    "ToolType",
     "UsageStatistics",
     "User",
     "UserCreate",
