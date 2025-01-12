@@ -4,7 +4,7 @@
 
 import typing_extensions
 import typing_extensions
-from letta.core.serialization import FieldMetadata
+from letta_client.core.serialization import FieldMetadata
 
 
 class CircleParams(typing_extensions.TypedDict):

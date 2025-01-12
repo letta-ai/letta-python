@@ -1,6 +1,6 @@
 # Reference
 ## Tools
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -27,7 +27,7 @@ Get a tool by ID
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -70,7 +70,7 @@ client.tools.get(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -97,7 +97,7 @@ Delete a tool by name
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -140,7 +140,7 @@ client.tools.delete(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">update</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -167,7 +167,7 @@ Update an existing tool
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -274,7 +274,7 @@ client.tools.update(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">get_by_name</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">get_by_name</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -301,7 +301,7 @@ Get a tool ID by name
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -344,7 +344,7 @@ client.tools.get_by_name(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -371,7 +371,7 @@ Get a list of all tools available to agents belonging to the org of the user
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -420,7 +420,7 @@ client.tools.list()
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -447,7 +447,7 @@ Create a new tool
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -546,7 +546,7 @@ client.tools.create(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">upsert</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">upsert</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -573,7 +573,7 @@ Create or update a tool
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -672,7 +672,7 @@ client.tools.upsert(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">add_base_tool</a>()</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">add_base_tool</a>()</code></summary>
 <dl>
 <dd>
 
@@ -699,7 +699,7 @@ Upsert base tools
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -732,7 +732,7 @@ client.tools.add_base_tool()
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">run_tool_from_source</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">run_tool_from_source</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -759,7 +759,7 @@ Attempt to build a tool from source, then run it on the provided arguments
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -791,7 +791,7 @@ client.tools.run_tool_from_source(
 <dl>
 <dd>
 
-**args:** `typing.Dict[str, str]` — The arguments to pass to the tool.
+**args:** `typing.Dict[str, typing.Optional[typing.Any]]` — The arguments to pass to the tool.
     
 </dd>
 </dl>
@@ -835,7 +835,7 @@ client.tools.run_tool_from_source(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">list_composio_apps</a>()</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_composio_apps</a>()</code></summary>
 <dl>
 <dd>
 
@@ -862,7 +862,7 @@ Get a list of all Composio apps
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -895,7 +895,7 @@ client.tools.list_composio_apps()
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">list_composio_actions_by_app</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_composio_actions_by_app</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -922,7 +922,7 @@ Get a list of all Composio actions for a specific app
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -965,7 +965,7 @@ client.tools.list_composio_actions_by_app(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta/tools/client.py">add_composio_tool</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">add_composio_tool</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -992,7 +992,7 @@ Add a new Composio tool by action name (Composio refers to each tool as an `Acti
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1036,7 +1036,7 @@ client.tools.add_composio_tool(
 </details>
 
 ## Sources
-<details><summary><code>client.sources.<a href="src/letta/sources/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1063,7 +1063,7 @@ Get all sources
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1106,7 +1106,7 @@ client.sources.get(
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta/sources/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1133,7 +1133,7 @@ Delete a data source.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1176,7 +1176,7 @@ client.sources.delete(
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta/sources/client.py">update</a>(...)</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1203,7 +1203,7 @@ Update the name or documentation of an existing data source.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1278,7 +1278,7 @@ client.sources.update(
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta/sources/client.py">get_by_name</a>(...)</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">get_by_name</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1305,7 +1305,7 @@ Get a source by name
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1348,7 +1348,7 @@ client.sources.get_by_name(
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta/sources/client.py">list</a>()</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">list</a>()</code></summary>
 <dl>
 <dd>
 
@@ -1375,7 +1375,7 @@ List all data sources created by a user.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1408,7 +1408,7 @@ client.sources.list()
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta/sources/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1435,7 +1435,7 @@ Create a new data source.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1502,7 +1502,7 @@ client.sources.create(
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta/sources/client.py">attach</a>(...)</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">attach</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1529,7 +1529,7 @@ Attach a data source to an existing agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1581,7 +1581,7 @@ client.sources.attach(
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta/sources/client.py">detach</a>(...)</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">detach</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1608,7 +1608,7 @@ Detach a data source from an existing agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1661,7 +1661,7 @@ client.sources.detach(
 </details>
 
 ## Agents
-<details><summary><code>client.agents.<a href="src/letta/agents/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1689,7 +1689,7 @@ This endpoint retrieves a list of all agents and their configurations associated
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -1762,7 +1762,7 @@ client.agents.list()
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta/agents/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1789,7 +1789,7 @@ Create a new agent with the specified configuration.
 <dd>
 
 ```python
-from letta import CreateBlock, Letta
+from letta_client import CreateBlock, Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2021,7 +2021,7 @@ client.agents.create(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta/agents/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2048,7 +2048,7 @@ Get the state of the agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2091,7 +2091,7 @@ client.agents.get(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta/agents/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2118,7 +2118,7 @@ Delete an agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2161,7 +2161,7 @@ client.agents.delete(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta/agents/client.py">update</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2188,7 +2188,7 @@ Update an exsiting agent
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2335,7 +2335,7 @@ client.agents.update(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta/agents/client.py">search</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">search</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2364,7 +2364,7 @@ Search deployed agents.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2438,7 +2438,7 @@ client.agents.search()
 </details>
 
 ## Models
-<details><summary><code>client.models.<a href="src/letta/models/client.py">list_llms</a>()</code></summary>
+<details><summary><code>client.models.<a href="src/letta_client/models/client.py">list_llms</a>()</code></summary>
 <dl>
 <dd>
 
@@ -2451,7 +2451,7 @@ client.agents.search()
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2484,7 +2484,7 @@ client.models.list_llms()
 </dl>
 </details>
 
-<details><summary><code>client.models.<a href="src/letta/models/client.py">list_embedding_models</a>()</code></summary>
+<details><summary><code>client.models.<a href="src/letta_client/models/client.py">list_embedding_models</a>()</code></summary>
 <dl>
 <dd>
 
@@ -2497,7 +2497,7 @@ client.models.list_llms()
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2531,7 +2531,7 @@ client.models.list_embedding_models()
 </details>
 
 ## Blocks
-<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2544,7 +2544,7 @@ client.models.list_embedding_models()
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2601,7 +2601,7 @@ client.blocks.list()
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2614,7 +2614,7 @@ client.blocks.list()
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2706,7 +2706,7 @@ client.blocks.create(
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2719,7 +2719,7 @@ client.blocks.create(
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2762,7 +2762,7 @@ client.blocks.get(
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2775,7 +2775,7 @@ client.blocks.get(
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2818,7 +2818,7 @@ client.blocks.delete(
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">update</a>(...)</code></summary>
+<details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2831,7 +2831,7 @@ client.blocks.delete(
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -2930,7 +2930,7 @@ client.blocks.update(
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">link_agent_memory_block</a>(...)</code></summary>
+<details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">link_agent_memory_block</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2957,7 +2957,7 @@ Link a memory block to an agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3009,7 +3009,7 @@ client.blocks.link_agent_memory_block(
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="src/letta/blocks/client.py">unlink_agent_memory_block</a>(...)</code></summary>
+<details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">unlink_agent_memory_block</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3036,7 +3036,7 @@ Unlink a memory block from an agent
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3089,7 +3089,7 @@ client.blocks.unlink_agent_memory_block(
 </details>
 
 ## Jobs
-<details><summary><code>client.jobs.<a href="src/letta/jobs/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.jobs.<a href="src/letta_client/jobs/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3116,7 +3116,7 @@ List all jobs.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3157,7 +3157,7 @@ client.jobs.list()
 </dl>
 </details>
 
-<details><summary><code>client.jobs.<a href="src/letta/jobs/client.py">list_active</a>()</code></summary>
+<details><summary><code>client.jobs.<a href="src/letta_client/jobs/client.py">list_active</a>()</code></summary>
 <dl>
 <dd>
 
@@ -3184,7 +3184,7 @@ List all active jobs.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3217,7 +3217,7 @@ client.jobs.list_active()
 </dl>
 </details>
 
-<details><summary><code>client.jobs.<a href="src/letta/jobs/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.jobs.<a href="src/letta_client/jobs/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3244,7 +3244,7 @@ Get the status of a job.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3287,7 +3287,7 @@ client.jobs.get(
 </dl>
 </details>
 
-<details><summary><code>client.jobs.<a href="src/letta/jobs/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.jobs.<a href="src/letta_client/jobs/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3314,7 +3314,7 @@ Delete a job by its job_id.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3358,7 +3358,7 @@ client.jobs.delete(
 </details>
 
 ## Health
-<details><summary><code>client.health.<a href="src/letta/health/client.py">check</a>()</code></summary>
+<details><summary><code>client.health.<a href="src/letta_client/health/client.py">check</a>()</code></summary>
 <dl>
 <dd>
 
@@ -3371,7 +3371,7 @@ client.jobs.delete(
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3405,7 +3405,7 @@ client.health.check()
 </details>
 
 ## Providers
-<details><summary><code>client.providers.<a href="src/letta/providers/client.py">list_providers</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">list_providers</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3432,7 +3432,7 @@ Get a list of all custom providers in the database
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3481,7 +3481,7 @@ client.providers.list_providers()
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="src/letta/providers/client.py">create_provider</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">create_provider</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3508,7 +3508,7 @@ Create a new custom provider
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3560,7 +3560,7 @@ client.providers.create_provider(
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="src/letta/providers/client.py">update_provider</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">update_provider</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3587,7 +3587,7 @@ Update an existing custom provider
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3639,7 +3639,7 @@ client.providers.update_provider(
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="src/letta/providers/client.py">delete_provider</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">delete_provider</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3666,7 +3666,7 @@ Delete an existing custom provider
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3709,8 +3709,503 @@ client.providers.delete_provider(
 </dl>
 </details>
 
+## Runs
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_runs</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all runs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.runs.list_runs()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_active_runs</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all active runs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.runs.list_active_runs()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">get_run</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the status of a run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.runs.get_run(
+    run_id="run_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">delete_run</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a run by its run_id.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.runs.delete_run(
+    run_id="run_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">get_run_messages</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get messages associated with a run with filtering options.
+
+Args:
+    run_id: ID of the run
+    cursor: Cursor for pagination
+    start_date: Filter messages after this date
+    end_date: Filter messages before this date
+    limit: Maximum number of messages to return
+    query_text: Search text in message content
+    ascending: Sort order by creation time
+    tags: Filter by message tags
+    match_all_tags: If true, match all tags. If false, match any tag
+    role: Filter by message role (user/assistant/system/tool)
+    tool_name: Filter by tool call name
+    user_id: ID of the user making the request
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.runs.get_run_messages(
+    run_id="run_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `typing.Optional[dt.datetime]` — Filter messages after this date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[dt.datetime]` — Filter messages before this date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query_text:** `typing.Optional[str]` — Search text in message content
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ascending:** `typing.Optional[bool]` — Sort order by creation time
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by message tags
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match_all_tags:** `typing.Optional[bool]` — If true, match all tags. If false, match any tag
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**role:** `typing.Optional[MessageRole]` — Filter by message role
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_name:** `typing.Optional[str]` — Filter by tool call name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">get_run_usage</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get usage statistics for a run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.runs.get_run_usage(
+    run_id="run_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Agents Context
-<details><summary><code>client.agents.context.<a href="src/letta/agents/context/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.agents.context.<a href="src/letta_client/agents/context/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3737,7 +4232,7 @@ Retrieve the context window of a specific agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3781,7 +4276,7 @@ client.agents.context.get(
 </details>
 
 ## Agents Tools
-<details><summary><code>client.agents.tools.<a href="src/letta/agents/tools/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.agents.tools.<a href="src/letta_client/agents/tools/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3808,7 +4303,7 @@ Get tools from an existing agent
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3851,7 +4346,7 @@ client.agents.tools.list(
 </dl>
 </details>
 
-<details><summary><code>client.agents.tools.<a href="src/letta/agents/tools/client.py">add</a>(...)</code></summary>
+<details><summary><code>client.agents.tools.<a href="src/letta_client/agents/tools/client.py">add</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3878,7 +4373,7 @@ Add tools to an existing agent
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3930,7 +4425,7 @@ client.agents.tools.add(
 </dl>
 </details>
 
-<details><summary><code>client.agents.tools.<a href="src/letta/agents/tools/client.py">remove</a>(...)</code></summary>
+<details><summary><code>client.agents.tools.<a href="src/letta_client/agents/tools/client.py">remove</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3957,7 +4452,7 @@ Add tools to an existing agent
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4010,7 +4505,7 @@ client.agents.tools.remove(
 </details>
 
 ## Agents Sources
-<details><summary><code>client.agents.sources.<a href="src/letta/agents/sources/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.agents.sources.<a href="src/letta_client/agents/sources/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4037,7 +4532,7 @@ Get the sources associated with an agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4081,7 +4576,7 @@ client.agents.sources.get(
 </details>
 
 ## Agents CoreMemory
-<details><summary><code>client.agents.core_memory.<a href="src/letta/agents/core_memory/client.py">list_in_context</a>(...)</code></summary>
+<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">list_in_context</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4108,7 +4603,7 @@ Retrieve the messages in the context of a specific agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4151,7 +4646,7 @@ client.agents.core_memory.list_in_context(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta/agents/core_memory/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4179,7 +4674,7 @@ This endpoint fetches the current memory state of the agent identified by the us
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4222,7 +4717,7 @@ client.agents.core_memory.get(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta/agents/core_memory/client.py">get_block</a>(...)</code></summary>
+<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">get_block</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4249,7 +4744,7 @@ Retrieve a memory block from an agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4301,7 +4796,7 @@ client.agents.core_memory.get_block(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta/agents/core_memory/client.py">remove_block</a>(...)</code></summary>
+<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">remove_block</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4328,7 +4823,7 @@ Removes a memory block from an agent by unlnking it. If the block is not linked 
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4380,7 +4875,7 @@ client.agents.core_memory.remove_block(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta/agents/core_memory/client.py">update_block</a>(...)</code></summary>
+<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">update_block</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4407,7 +4902,7 @@ Removes a memory block from an agent by unlnking it. If the block is not linked 
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4515,7 +5010,7 @@ client.agents.core_memory.update_block(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta/agents/core_memory/client.py">get_blocks</a>(...)</code></summary>
+<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">get_blocks</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4542,7 +5037,7 @@ Retrieve the memory blocks of a specific agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4585,7 +5080,7 @@ client.agents.core_memory.get_blocks(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta/agents/core_memory/client.py">add_block</a>(...)</code></summary>
+<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">add_block</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4612,7 +5107,7 @@ Creates a memory block and links it to the agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4714,7 +5209,7 @@ client.agents.core_memory.add_block(
 </details>
 
 ## Agents RecallMemory
-<details><summary><code>client.agents.recall_memory.<a href="src/letta/agents/recall_memory/client.py">get_summary</a>(...)</code></summary>
+<details><summary><code>client.agents.recall_memory.<a href="src/letta_client/agents/recall_memory/client.py">get_summary</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4741,7 +5236,7 @@ Retrieve the summary of the recall memory of a specific agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4785,7 +5280,7 @@ client.agents.recall_memory.get_summary(
 </details>
 
 ## Agents ArchivalMemory
-<details><summary><code>client.agents.archival_memory.<a href="src/letta/agents/archival_memory/client.py">get_summary</a>(...)</code></summary>
+<details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">get_summary</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4812,7 +5307,7 @@ Retrieve the summary of the archival memory of a specific agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4855,7 +5350,7 @@ client.agents.archival_memory.get_summary(
 </dl>
 </details>
 
-<details><summary><code>client.agents.archival_memory.<a href="src/letta/agents/archival_memory/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4882,7 +5377,7 @@ Retrieve the memories in an agent's archival memory store (paginated query).
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -4949,7 +5444,7 @@ client.agents.archival_memory.list(
 </dl>
 </details>
 
-<details><summary><code>client.agents.archival_memory.<a href="src/letta/agents/archival_memory/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4976,7 +5471,7 @@ Insert a memory into an agent's archival memory store.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5028,7 +5523,7 @@ client.agents.archival_memory.create(
 </dl>
 </details>
 
-<details><summary><code>client.agents.archival_memory.<a href="src/letta/agents/archival_memory/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5055,7 +5550,7 @@ Delete a memory from an agent's archival memory store.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5108,7 +5603,7 @@ client.agents.archival_memory.delete(
 </details>
 
 ## Agents Messages
-<details><summary><code>client.agents.messages.<a href="src/letta/agents/messages/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5135,7 +5630,7 @@ Retrieve message history for an agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5218,7 +5713,7 @@ client.agents.messages.list(
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta/agents/messages/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5246,7 +5741,7 @@ This endpoint accepts a message from a user and processes it through the agent.
 <dd>
 
 ```python
-from letta import Letta, MessageCreate
+from letta_client import Letta, MessageCreate
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5327,7 +5822,7 @@ client.agents.messages.create(
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta/agents/messages/client.py">update</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">update</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5354,7 +5849,7 @@ Update the details of a message associated with an agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5446,7 +5941,7 @@ client.agents.messages.update(
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta/agents/messages/client.py">stream</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">stream</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5475,7 +5970,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 <dd>
 
 ```python
-from letta import Letta, MessageCreate
+from letta_client import Letta, MessageCreate
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5566,7 +6061,7 @@ for chunk in response:
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta/agents/messages/client.py">create_async</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">create_async</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5594,7 +6089,7 @@ The actual processing happens in the background, and the status can be checked u
 <dd>
 
 ```python
-from letta import Letta, MessageCreate
+from letta_client import Letta, MessageCreate
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5676,7 +6171,7 @@ client.agents.messages.create_async(
 </details>
 
 ## Agents Templates
-<details><summary><code>client.agents.templates.<a href="src/letta/agents/templates/client.py">create_version</a>(...)</code></summary>
+<details><summary><code>client.agents.templates.<a href="src/letta_client/agents/templates/client.py">create_version</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5705,7 +6200,7 @@ Creates a new version of the template version of the agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5764,7 +6259,7 @@ client.agents.templates.create_version(
 </dl>
 </details>
 
-<details><summary><code>client.agents.templates.<a href="src/letta/agents/templates/client.py">migrate</a>(...)</code></summary>
+<details><summary><code>client.agents.templates.<a href="src/letta_client/agents/templates/client.py">migrate</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5793,7 +6288,7 @@ Migrate an agent to a new versioned agent template.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5862,7 +6357,7 @@ client.agents.templates.migrate(
 </dl>
 </details>
 
-<details><summary><code>client.agents.templates.<a href="src/letta/agents/templates/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.agents.templates.<a href="src/letta_client/agents/templates/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5891,7 +6386,7 @@ Creates a template from an agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -5943,7 +6438,7 @@ client.agents.templates.create(
 </details>
 
 ## Agents MemoryVariables
-<details><summary><code>client.agents.memory_variables.<a href="src/letta/agents/memory_variables/client.py">get</a>(...)</code></summary>
+<details><summary><code>client.agents.memory_variables.<a href="src/letta_client/agents/memory_variables/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5972,7 +6467,7 @@ Returns the memory variables associated with an agent.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -6016,7 +6511,7 @@ client.agents.memory_variables.get(
 </details>
 
 ## Sources Files
-<details><summary><code>client.sources.files.<a href="src/letta/sources/files/client.py">upload</a>(...)</code></summary>
+<details><summary><code>client.sources.files.<a href="src/letta_client/sources/files/client.py">upload</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6043,7 +6538,7 @@ Upload a file to a data source.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -6096,7 +6591,7 @@ core.File` — See core.File for more documentation
 </dl>
 </details>
 
-<details><summary><code>client.sources.files.<a href="src/letta/sources/files/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.sources.files.<a href="src/letta_client/sources/files/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6123,7 +6618,7 @@ List paginated files associated with a data source.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -6182,7 +6677,7 @@ client.sources.files.list(
 </dl>
 </details>
 
-<details><summary><code>client.sources.files.<a href="src/letta/sources/files/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.sources.files.<a href="src/letta_client/sources/files/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6209,7 +6704,7 @@ Delete a data source.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -6262,7 +6757,7 @@ client.sources.files.delete(
 </details>
 
 ## Sources Passages
-<details><summary><code>client.sources.passages.<a href="src/letta/sources/passages/client.py">list</a>(...)</code></summary>
+<details><summary><code>client.sources.passages.<a href="src/letta_client/sources/passages/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6289,7 +6784,7 @@ List all passages associated with a data source.
 <dd>
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",

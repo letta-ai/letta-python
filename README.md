@@ -20,7 +20,7 @@ A full reference for this library is available [here](./reference.md).
 Instantiate and use the client with the following:
 
 ```python
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -37,7 +37,7 @@ The SDK also exports an `async` client so that you can make non-blocking calls t
 ```python
 import asyncio
 
-from letta import AsyncLetta
+from letta_client import AsyncLetta
 
 client = AsyncLetta(
     token="YOUR_TOKEN",
@@ -59,7 +59,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```python
-from letta.core.api_error import ApiError
+from letta_client.core.api_error import ApiError
 
 try:
     client.tools.create(...)
@@ -73,7 +73,7 @@ except ApiError as e:
 The SDK supports streaming responses, as well, the response will be a generator that you can loop over.
 
 ```python
-from letta import Letta, MessageCreate
+from letta_client import Letta, MessageCreate
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -119,7 +119,7 @@ The SDK defaults to a 60 second timeout. You can configure this with a timeout o
 
 ```python
 
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     ...,
@@ -139,7 +139,7 @@ You can override the `httpx` client to customize it for your use-case. Some comm
 and transports.
 ```python
 import httpx
-from letta import Letta
+from letta_client import Letta
 
 client = Letta(
     ...,

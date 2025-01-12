@@ -2,7 +2,7 @@
 
 from typing import List, Any
 
-from letta.core.serialization import convert_and_respect_annotation_metadata
+from letta_client.core.serialization import convert_and_respect_annotation_metadata
 from .assets.models import ShapeParams, ObjectWithOptionalFieldParams
 
 

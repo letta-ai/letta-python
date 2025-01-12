@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "letta-client"
-version = "0.1.9"
+version = "0.1.10"
 description = ""
 readme = "README.md"
 authors = []
@@ -24,7 +24,7 @@ classifiers = [
     "Typing :: Typed"
 ]
 packages = [
-    { include = "letta", from = "src"}
+    { include = "letta_client", from = "src"}
 ]
 
 [project.urls]
