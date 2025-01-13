@@ -22,11 +22,6 @@ class ToolCreate(UncheckedBaseModel):
     Metadata tags.
     """
 
-    module: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The source code of the function.
-    """
-
     source_code: str = pydantic.Field()
     """
     The source code of the function.

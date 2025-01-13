@@ -222,14 +222,6 @@ client.tools.update(
 <dl>
 <dd>
 
-**module:** `typing.Optional[str]` — The source code of the function.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **source_code:** `typing.Optional[str]` — The source code of the function.
     
 </dd>
@@ -502,14 +494,6 @@ client.tools.create(
 <dl>
 <dd>
 
-**module:** `typing.Optional[str]` — The source code of the function.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **source_type:** `typing.Optional[str]` — The source type of the function.
     
 </dd>
@@ -621,14 +605,6 @@ client.tools.upsert(
 <dd>
 
 **tags:** `typing.Optional[typing.Sequence[str]]` — Metadata tags.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**module:** `typing.Optional[str]` — The source code of the function.
     
 </dd>
 </dl>
@@ -1985,7 +1961,7 @@ client.agents.create(
 <dl>
 <dd>
 
-**project_id:** `typing.Optional[str]` — The project id that the agent will be associated with.
+**project:** `typing.Optional[str]` — The project slug that the agent will be associated with.
     
 </dd>
 </dl>
@@ -2316,6 +2292,84 @@ client.agents.update(
 <dd>
 
 **tool_exec_environment_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The environment variables for tool execution specific to this agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">reset_messages</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resets the messages for an agent
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.reset_messages(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**add_default_initial_messages:** `typing.Optional[bool]` — If true, adds the default initial messages after resetting.
     
 </dd>
 </dl>
@@ -6417,7 +6471,7 @@ client.agents.templates.create(
 <dl>
 <dd>
 
-**project_id:** `typing.Optional[str]` 
+**project:** `typing.Optional[str]` 
     
 </dd>
 </dl>

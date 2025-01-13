@@ -165,7 +165,7 @@ class AgentsClient:
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
         from_template: typing.Optional[str] = OMIT,
-        project_id: typing.Optional[str] = OMIT,
+        project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -238,8 +238,8 @@ class AgentsClient:
         from_template : typing.Optional[str]
             The template id used to configure the agent
 
-        project_id : typing.Optional[str]
-            The project id that the agent will be associated with.
+        project : typing.Optional[str]
+            The project slug that the agent will be associated with.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
@@ -306,7 +306,7 @@ class AgentsClient:
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
                 "from_template": from_template,
-                "project_id": project_id,
+                "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
                 "variables": variables,
             },
@@ -592,6 +592,74 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def reset_messages(
+        self,
+        agent_id: str,
+        *,
+        add_default_initial_messages: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AgentState:
+        """
+        Resets the messages for an agent
+
+        Parameters
+        ----------
+        agent_id : str
+
+        add_default_initial_messages : typing.Optional[bool]
+            If true, adds the default initial messages after resetting.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AgentState
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.reset_messages(
+            agent_id="agent_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/reset-messages",
+            method="PATCH",
+            params={
+                "add_default_initial_messages": add_default_initial_messages,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AgentState,
+                    construct_type(
+                        type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def search(
         self,
         *,
@@ -791,7 +859,7 @@ class AsyncAgentsClient:
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
         from_template: typing.Optional[str] = OMIT,
-        project_id: typing.Optional[str] = OMIT,
+        project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -864,8 +932,8 @@ class AsyncAgentsClient:
         from_template : typing.Optional[str]
             The template id used to configure the agent
 
-        project_id : typing.Optional[str]
-            The project id that the agent will be associated with.
+        project : typing.Optional[str]
+            The project slug that the agent will be associated with.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
@@ -940,7 +1008,7 @@ class AsyncAgentsClient:
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
                 "from_template": from_template,
-                "project_id": project_id,
+                "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
                 "variables": variables,
             },
@@ -1225,6 +1293,82 @@ class AsyncAgentsClient:
             },
             request_options=request_options,
             omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AgentState,
+                    construct_type(
+                        type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def reset_messages(
+        self,
+        agent_id: str,
+        *,
+        add_default_initial_messages: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AgentState:
+        """
+        Resets the messages for an agent
+
+        Parameters
+        ----------
+        agent_id : str
+
+        add_default_initial_messages : typing.Optional[bool]
+            If true, adds the default initial messages after resetting.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AgentState
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.reset_messages(
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/reset-messages",
+            method="PATCH",
+            params={
+                "add_default_initial_messages": add_default_initial_messages,
+            },
+            request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:

@@ -213,7 +213,7 @@ class TemplatesClient:
         self,
         agent_id: str,
         *,
-        project_id: typing.Optional[str] = OMIT,
+        project: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -225,7 +225,7 @@ class TemplatesClient:
         ----------
         agent_id : str
 
-        project_id : typing.Optional[str]
+        project : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -249,7 +249,7 @@ class TemplatesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/template",
             method="POST",
             json={
-                "project_id": project_id,
+                "project": project,
             },
             headers={
                 "content-type": "application/json",
@@ -497,7 +497,7 @@ class AsyncTemplatesClient:
         self,
         agent_id: str,
         *,
-        project_id: typing.Optional[str] = OMIT,
+        project: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -509,7 +509,7 @@ class AsyncTemplatesClient:
         ----------
         agent_id : str
 
-        project_id : typing.Optional[str]
+        project : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -541,7 +541,7 @@ class AsyncTemplatesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/template",
             method="POST",
             json={
-                "project_id": project_id,
+                "project": project,
             },
             headers={
                 "content-type": "application/json",

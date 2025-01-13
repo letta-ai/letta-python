@@ -144,7 +144,6 @@ class ToolsClient:
         description: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
-        module: typing.Optional[str] = OMIT,
         source_code: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
@@ -166,9 +165,6 @@ class ToolsClient:
 
         tags : typing.Optional[typing.Sequence[str]]
             Metadata tags.
-
-        module : typing.Optional[str]
-            The source code of the function.
 
         source_code : typing.Optional[str]
             The source code of the function.
@@ -208,7 +204,6 @@ class ToolsClient:
                 "description": description,
                 "name": name,
                 "tags": tags,
-                "module": module,
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
@@ -373,7 +368,6 @@ class ToolsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
-        module: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
@@ -395,9 +389,6 @@ class ToolsClient:
 
         tags : typing.Optional[typing.Sequence[str]]
             Metadata tags.
-
-        module : typing.Optional[str]
-            The source code of the function.
 
         source_type : typing.Optional[str]
             The source type of the function.
@@ -434,7 +425,6 @@ class ToolsClient:
                 "name": name,
                 "description": description,
                 "tags": tags,
-                "module": module,
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
@@ -474,7 +464,6 @@ class ToolsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
-        module: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
@@ -496,9 +485,6 @@ class ToolsClient:
 
         tags : typing.Optional[typing.Sequence[str]]
             Metadata tags.
-
-        module : typing.Optional[str]
-            The source code of the function.
 
         source_type : typing.Optional[str]
             The source type of the function.
@@ -535,7 +521,6 @@ class ToolsClient:
                 "name": name,
                 "description": description,
                 "tags": tags,
-                "module": module,
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
@@ -1024,7 +1009,6 @@ class AsyncToolsClient:
         description: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
-        module: typing.Optional[str] = OMIT,
         source_code: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
@@ -1046,9 +1030,6 @@ class AsyncToolsClient:
 
         tags : typing.Optional[typing.Sequence[str]]
             Metadata tags.
-
-        module : typing.Optional[str]
-            The source code of the function.
 
         source_code : typing.Optional[str]
             The source code of the function.
@@ -1096,7 +1077,6 @@ class AsyncToolsClient:
                 "description": description,
                 "name": name,
                 "tags": tags,
-                "module": module,
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
@@ -1277,7 +1257,6 @@ class AsyncToolsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
-        module: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
@@ -1299,9 +1278,6 @@ class AsyncToolsClient:
 
         tags : typing.Optional[typing.Sequence[str]]
             Metadata tags.
-
-        module : typing.Optional[str]
-            The source code of the function.
 
         source_type : typing.Optional[str]
             The source type of the function.
@@ -1346,7 +1322,6 @@ class AsyncToolsClient:
                 "name": name,
                 "description": description,
                 "tags": tags,
-                "module": module,
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
@@ -1386,7 +1361,6 @@ class AsyncToolsClient:
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
-        module: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
@@ -1408,9 +1382,6 @@ class AsyncToolsClient:
 
         tags : typing.Optional[typing.Sequence[str]]
             Metadata tags.
-
-        module : typing.Optional[str]
-            The source code of the function.
 
         source_type : typing.Optional[str]
             The source type of the function.
@@ -1455,7 +1426,6 @@ class AsyncToolsClient:
                 "name": name,
                 "description": description,
                 "tags": tags,
-                "module": module,
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,

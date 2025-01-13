@@ -39,11 +39,6 @@ class LettaSchemasToolTool(UncheckedBaseModel):
     The type of the source code.
     """
 
-    module: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The module of the function.
-    """
-
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the function.
