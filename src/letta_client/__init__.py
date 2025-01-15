@@ -127,7 +127,7 @@ from .types import (
     ValidationErrorLocItem,
 )
 from .errors import ConflictError, InternalServerError, NotFoundError, UnprocessableEntityError
-from . import agents, blocks, health, jobs, models, providers, runs, sources, tools
+from . import agents, blocks, health, jobs, models, providers, runs, sources, tag, tools
 from .agents import (
     AgentsSearchRequestCombinator,
     AgentsSearchRequestSearchItem,
@@ -301,5 +301,6 @@ __all__ = [
     "providers",
     "runs",
     "sources",
+    "tag",
     "tools",
 ]
