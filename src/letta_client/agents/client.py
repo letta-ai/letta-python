@@ -144,8 +144,8 @@ class AgentsClient:
     def create(
         self,
         *,
-        memory_blocks: typing.Sequence[CreateBlock],
         name: typing.Optional[str] = OMIT,
+        memory_blocks: typing.Optional[typing.Sequence[CreateBlock]] = OMIT,
         tools: typing.Optional[typing.Sequence[str]] = OMIT,
         tool_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         source_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -165,6 +165,7 @@ class AgentsClient:
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
         from_template: typing.Optional[str] = OMIT,
+        template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
@@ -175,11 +176,11 @@ class AgentsClient:
 
         Parameters
         ----------
-        memory_blocks : typing.Sequence[CreateBlock]
-            The blocks to create in the agent's in-context memory.
-
         name : typing.Optional[str]
             The name of the agent.
+
+        memory_blocks : typing.Optional[typing.Sequence[CreateBlock]]
+            The blocks to create in the agent's in-context memory.
 
         tools : typing.Optional[typing.Sequence[str]]
             The tools used by the agent.
@@ -238,6 +239,9 @@ class AgentsClient:
         from_template : typing.Optional[str]
             The template id used to configure the agent
 
+        template : typing.Optional[bool]
+            Whether the agent is a template
+
         project : typing.Optional[str]
             The project slug that the agent will be associated with.
 
@@ -257,19 +261,12 @@ class AgentsClient:
 
         Examples
         --------
-        from letta_client import CreateBlock, Letta
+        from letta_client import Letta
 
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.create(
-            memory_blocks=[
-                CreateBlock(
-                    value="value",
-                    label="label",
-                )
-            ],
-        )
+        client.agents.create()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/agents/",
@@ -306,6 +303,7 @@ class AgentsClient:
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
                 "from_template": from_template,
+                "template": template,
                 "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
                 "variables": variables,
@@ -838,8 +836,8 @@ class AsyncAgentsClient:
     async def create(
         self,
         *,
-        memory_blocks: typing.Sequence[CreateBlock],
         name: typing.Optional[str] = OMIT,
+        memory_blocks: typing.Optional[typing.Sequence[CreateBlock]] = OMIT,
         tools: typing.Optional[typing.Sequence[str]] = OMIT,
         tool_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         source_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -859,6 +857,7 @@ class AsyncAgentsClient:
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
         from_template: typing.Optional[str] = OMIT,
+        template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
@@ -869,11 +868,11 @@ class AsyncAgentsClient:
 
         Parameters
         ----------
-        memory_blocks : typing.Sequence[CreateBlock]
-            The blocks to create in the agent's in-context memory.
-
         name : typing.Optional[str]
             The name of the agent.
+
+        memory_blocks : typing.Optional[typing.Sequence[CreateBlock]]
+            The blocks to create in the agent's in-context memory.
 
         tools : typing.Optional[typing.Sequence[str]]
             The tools used by the agent.
@@ -932,6 +931,9 @@ class AsyncAgentsClient:
         from_template : typing.Optional[str]
             The template id used to configure the agent
 
+        template : typing.Optional[bool]
+            Whether the agent is a template
+
         project : typing.Optional[str]
             The project slug that the agent will be associated with.
 
@@ -953,7 +955,7 @@ class AsyncAgentsClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, CreateBlock
+        from letta_client import AsyncLetta
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -961,14 +963,7 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.create(
-                memory_blocks=[
-                    CreateBlock(
-                        value="value",
-                        label="label",
-                    )
-                ],
-            )
+            await client.agents.create()
 
 
         asyncio.run(main())
@@ -1008,6 +1003,7 @@ class AsyncAgentsClient:
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
                 "from_template": from_template,
+                "template": template,
                 "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
                 "variables": variables,

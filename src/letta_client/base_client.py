@@ -13,6 +13,7 @@ from .jobs.client import JobsClient
 from .health.client import HealthClient
 from .providers.client import ProvidersClient
 from .runs.client import RunsClient
+from .tag.client import TagClient
 from .core.client_wrapper import AsyncClientWrapper
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
@@ -23,6 +24,7 @@ from .jobs.client import AsyncJobsClient
 from .health.client import AsyncHealthClient
 from .providers.client import AsyncProvidersClient
 from .runs.client import AsyncRunsClient
+from .tag.client import AsyncTagClient
 
 
 class Letta:
@@ -92,6 +94,7 @@ class Letta:
         self.health = HealthClient(client_wrapper=self._client_wrapper)
         self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
         self.runs = RunsClient(client_wrapper=self._client_wrapper)
+        self.tag = TagClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncLetta:
@@ -161,6 +164,7 @@ class AsyncLetta:
         self.health = AsyncHealthClient(client_wrapper=self._client_wrapper)
         self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
         self.runs = AsyncRunsClient(client_wrapper=self._client_wrapper)
+        self.tag = AsyncTagClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: LettaEnvironment) -> str:
