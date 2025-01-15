@@ -27,7 +27,7 @@ from .runs.client import AsyncRunsClient
 from .tag.client import AsyncTagClient
 
 
-class Letta:
+class LettaBase:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
@@ -97,7 +97,7 @@ class Letta:
         self.tag = TagClient(client_wrapper=self._client_wrapper)
 
 
-class AsyncLetta:
+class AsyncLettaBase:
     """
     Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
