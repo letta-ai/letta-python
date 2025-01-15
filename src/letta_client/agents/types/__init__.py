@@ -5,6 +5,7 @@ from .agents_search_request_search_item import (
     AgentsSearchRequestSearchItem,
     AgentsSearchRequestSearchItem_Name,
     AgentsSearchRequestSearchItem_OrderBy,
+    AgentsSearchRequestSearchItem_Tags,
     AgentsSearchRequestSearchItem_Version,
 )
 from .agents_search_request_search_item_name import AgentsSearchRequestSearchItemName
@@ -12,6 +13,7 @@ from .agents_search_request_search_item_name_operator import AgentsSearchRequest
 from .agents_search_request_search_item_order_by import AgentsSearchRequestSearchItemOrderBy
 from .agents_search_request_search_item_order_by_direction import AgentsSearchRequestSearchItemOrderByDirection
 from .agents_search_request_search_item_order_by_value import AgentsSearchRequestSearchItemOrderByValue
+from .agents_search_request_search_item_tags import AgentsSearchRequestSearchItemTags
 from .agents_search_request_search_item_version import AgentsSearchRequestSearchItemVersion
 from .create_agent_request_tool_rules_item import CreateAgentRequestToolRulesItem
 from .update_agent_tool_rules_item import UpdateAgentToolRulesItem
@@ -24,9 +26,11 @@ __all__ = [
     "AgentsSearchRequestSearchItemOrderBy",
     "AgentsSearchRequestSearchItemOrderByDirection",
     "AgentsSearchRequestSearchItemOrderByValue",
+    "AgentsSearchRequestSearchItemTags",
     "AgentsSearchRequestSearchItemVersion",
     "AgentsSearchRequestSearchItem_Name",
     "AgentsSearchRequestSearchItem_OrderBy",
+    "AgentsSearchRequestSearchItem_Tags",
     "AgentsSearchRequestSearchItem_Version",
     "CreateAgentRequestToolRulesItem",
     "UpdateAgentToolRulesItem",

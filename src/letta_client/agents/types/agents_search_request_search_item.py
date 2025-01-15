@@ -41,6 +41,21 @@ class AgentsSearchRequestSearchItem_Name(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
+class AgentsSearchRequestSearchItem_Tags(UncheckedBaseModel):
+    field: typing.Literal["tags"] = "tags"
+    operator: typing.Literal["contains"] = "contains"
+    value: typing.List[str]
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
+
+
 class AgentsSearchRequestSearchItem_OrderBy(UncheckedBaseModel):
     field: typing.Literal["order_by"] = "order_by"
     value: AgentsSearchRequestSearchItemOrderByValue
@@ -58,7 +73,10 @@ class AgentsSearchRequestSearchItem_OrderBy(UncheckedBaseModel):
 
 AgentsSearchRequestSearchItem = typing_extensions.Annotated[
     typing.Union[
-        AgentsSearchRequestSearchItem_Version, AgentsSearchRequestSearchItem_Name, AgentsSearchRequestSearchItem_OrderBy
+        AgentsSearchRequestSearchItem_Version,
+        AgentsSearchRequestSearchItem_Name,
+        AgentsSearchRequestSearchItem_Tags,
+        AgentsSearchRequestSearchItem_OrderBy,
     ],
     UnionMetadata(discriminant="field"),
 ]
