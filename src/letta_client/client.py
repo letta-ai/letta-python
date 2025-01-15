@@ -16,14 +16,14 @@ class Letta(LettaBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.tools = ExtendedToolsClient(client_wrapper=self._client_wrapper)
+        self.tools = ToolsClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncLetta(AsyncLettaBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.tools = ExtendedToolsClient(client_wrapper=self._client_wrapper)
+        self.tools = ToolsClient(client_wrapper=self._client_wrapper)
 
 
 class ToolsClient(ToolsClientBase):
