@@ -1765,19 +1765,12 @@ Create a new agent with the specified configuration.
 <dd>
 
 ```python
-from letta_client import CreateBlock, Letta
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.create(
-    memory_blocks=[
-        CreateBlock(
-            value="value",
-            label="label",
-        )
-    ],
-)
+client.agents.create()
 
 ```
 </dd>
@@ -1793,7 +1786,7 @@ client.agents.create(
 <dl>
 <dd>
 
-**memory_blocks:** `typing.Sequence[CreateBlock]` — The blocks to create in the agent's in-context memory.
+**name:** `typing.Optional[str]` — The name of the agent.
     
 </dd>
 </dl>
@@ -1801,7 +1794,7 @@ client.agents.create(
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` — The name of the agent.
+**memory_blocks:** `typing.Optional[typing.Sequence[CreateBlock]]` — The blocks to create in the agent's in-context memory.
     
 </dd>
 </dl>
@@ -1954,6 +1947,14 @@ client.agents.create(
 <dd>
 
 **from_template:** `typing.Optional[str]` — The template id used to configure the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template:** `typing.Optional[bool]` — Whether the agent is a template
     
 </dd>
 </dl>
@@ -4239,6 +4240,91 @@ client.runs.get_run_usage(
 <dd>
 
 **run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Tag
+<details><summary><code>client.tag.<a href="src/letta_client/tag/client.py">list_tags</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of all tags in the database
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tag.list_tags()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query_text:** `typing.Optional[str]` 
     
 </dd>
 </dl>
