@@ -2,3 +2,4 @@
 
 tests/custom/test_client.py
 .github/workflows/ci.yml
+src/letta_client/client.py
