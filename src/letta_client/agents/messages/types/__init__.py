@@ -11,15 +11,6 @@ from .letta_streaming_response import (
     LettaStreamingResponse_UserMessage,
 )
 from .messages_list_response import MessagesListResponse
-from .messages_list_response_item import (
-    MessagesListResponseItem,
-    MessagesListResponseItem_AssistantMessage,
-    MessagesListResponseItem_ReasoningMessage,
-    MessagesListResponseItem_SystemMessage,
-    MessagesListResponseItem_ToolCallMessage,
-    MessagesListResponseItem_ToolReturnMessage,
-    MessagesListResponseItem_UserMessage,
-)
 
 __all__ = [
     "LettaStreamingResponse",
@@ -31,11 +22,4 @@ __all__ = [
     "LettaStreamingResponse_UsageStatistics",
     "LettaStreamingResponse_UserMessage",
     "MessagesListResponse",
-    "MessagesListResponseItem",
-    "MessagesListResponseItem_AssistantMessage",
-    "MessagesListResponseItem_ReasoningMessage",
-    "MessagesListResponseItem_SystemMessage",
-    "MessagesListResponseItem_ToolCallMessage",
-    "MessagesListResponseItem_ToolReturnMessage",
-    "MessagesListResponseItem_UserMessage",
 ]

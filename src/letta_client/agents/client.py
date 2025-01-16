@@ -163,6 +163,7 @@ class AgentsClient:
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         initial_message_sequence: typing.Optional[typing.Sequence[MessageCreate]] = OMIT,
         include_base_tools: typing.Optional[bool] = OMIT,
+        include_multi_agent_tools: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         llm: typing.Optional[str] = OMIT,
@@ -221,7 +222,10 @@ class AgentsClient:
             The initial set of messages to put in the agent's in-context memory.
 
         include_base_tools : typing.Optional[bool]
-            The LLM configuration used by the agent.
+            If true, attaches the Letta core tools (e.g. archival_memory and core_memory related functions).
+
+        include_multi_agent_tools : typing.Optional[bool]
+            If true, attaches the Letta multi-agent tools (e.g. sending a message to another agent).
 
         description : typing.Optional[str]
             The description of the agent.
@@ -301,6 +305,7 @@ class AgentsClient:
                     object_=initial_message_sequence, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
                 "include_base_tools": include_base_tools,
+                "include_multi_agent_tools": include_multi_agent_tools,
                 "description": description,
                 "metadata_": metadata,
                 "llm": llm,
@@ -860,6 +865,7 @@ class AsyncAgentsClient:
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         initial_message_sequence: typing.Optional[typing.Sequence[MessageCreate]] = OMIT,
         include_base_tools: typing.Optional[bool] = OMIT,
+        include_multi_agent_tools: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         llm: typing.Optional[str] = OMIT,
@@ -918,7 +924,10 @@ class AsyncAgentsClient:
             The initial set of messages to put in the agent's in-context memory.
 
         include_base_tools : typing.Optional[bool]
-            The LLM configuration used by the agent.
+            If true, attaches the Letta core tools (e.g. archival_memory and core_memory related functions).
+
+        include_multi_agent_tools : typing.Optional[bool]
+            If true, attaches the Letta multi-agent tools (e.g. sending a message to another agent).
 
         description : typing.Optional[str]
             The description of the agent.
@@ -1006,6 +1015,7 @@ class AsyncAgentsClient:
                     object_=initial_message_sequence, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
                 "include_base_tools": include_base_tools,
+                "include_multi_agent_tools": include_multi_agent_tools,
                 "description": description,
                 "metadata_": metadata,
                 "llm": llm,

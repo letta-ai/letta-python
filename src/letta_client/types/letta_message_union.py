@@ -12,7 +12,7 @@ import typing_extensions
 from ..core.unchecked_base_model import UnionMetadata
 
 
-class LettaResponseMessagesItem_SystemMessage(UncheckedBaseModel):
+class LettaMessageUnion_SystemMessage(UncheckedBaseModel):
     message_type: typing.Literal["system_message"] = "system_message"
     id: str
     date: dt.datetime
@@ -28,7 +28,7 @@ class LettaResponseMessagesItem_SystemMessage(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class LettaResponseMessagesItem_UserMessage(UncheckedBaseModel):
+class LettaMessageUnion_UserMessage(UncheckedBaseModel):
     message_type: typing.Literal["user_message"] = "user_message"
     id: str
     date: dt.datetime
@@ -44,7 +44,7 @@ class LettaResponseMessagesItem_UserMessage(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class LettaResponseMessagesItem_ReasoningMessage(UncheckedBaseModel):
+class LettaMessageUnion_ReasoningMessage(UncheckedBaseModel):
     message_type: typing.Literal["reasoning_message"] = "reasoning_message"
     id: str
     date: dt.datetime
@@ -60,7 +60,7 @@ class LettaResponseMessagesItem_ReasoningMessage(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class LettaResponseMessagesItem_ToolCallMessage(UncheckedBaseModel):
+class LettaMessageUnion_ToolCallMessage(UncheckedBaseModel):
     message_type: typing.Literal["tool_call_message"] = "tool_call_message"
     id: str
     date: dt.datetime
@@ -76,7 +76,7 @@ class LettaResponseMessagesItem_ToolCallMessage(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class LettaResponseMessagesItem_ToolReturnMessage(UncheckedBaseModel):
+class LettaMessageUnion_ToolReturnMessage(UncheckedBaseModel):
     message_type: typing.Literal["tool_return_message"] = "tool_return_message"
     id: str
     date: dt.datetime
@@ -96,7 +96,7 @@ class LettaResponseMessagesItem_ToolReturnMessage(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-class LettaResponseMessagesItem_AssistantMessage(UncheckedBaseModel):
+class LettaMessageUnion_AssistantMessage(UncheckedBaseModel):
     message_type: typing.Literal["assistant_message"] = "assistant_message"
     id: str
     date: dt.datetime
@@ -112,14 +112,14 @@ class LettaResponseMessagesItem_AssistantMessage(UncheckedBaseModel):
             extra = pydantic.Extra.allow
 
 
-LettaResponseMessagesItem = typing_extensions.Annotated[
+LettaMessageUnion = typing_extensions.Annotated[
     typing.Union[
-        LettaResponseMessagesItem_SystemMessage,
-        LettaResponseMessagesItem_UserMessage,
-        LettaResponseMessagesItem_ReasoningMessage,
-        LettaResponseMessagesItem_ToolCallMessage,
-        LettaResponseMessagesItem_ToolReturnMessage,
-        LettaResponseMessagesItem_AssistantMessage,
+        LettaMessageUnion_SystemMessage,
+        LettaMessageUnion_UserMessage,
+        LettaMessageUnion_ReasoningMessage,
+        LettaMessageUnion_ToolCallMessage,
+        LettaMessageUnion_ToolReturnMessage,
+        LettaMessageUnion_AssistantMessage,
     ],
     UnionMetadata(discriminant="message_type"),
 ]

@@ -2,4 +2,6 @@
 
 import typing
 
-ToolType = typing.Union[typing.Literal["custom", "letta_core", "letta_memory_core"], typing.Any]
+ToolType = typing.Union[
+    typing.Literal["custom", "letta_core", "letta_memory_core", "letta_multi_agent_core"], typing.Any
+]

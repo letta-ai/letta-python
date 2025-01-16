@@ -1898,7 +1898,15 @@ client.agents.create()
 <dl>
 <dd>
 
-**include_base_tools:** `typing.Optional[bool]` — The LLM configuration used by the agent.
+**include_base_tools:** `typing.Optional[bool]` — If true, attaches the Letta core tools (e.g. archival_memory and core_memory related functions).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_multi_agent_tools:** `typing.Optional[bool]` — If true, attaches the Letta multi-agent tools (e.g. sending a message to another agent).
     
 </dd>
 </dl>
@@ -5811,7 +5819,7 @@ client.agents.messages.list(
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">send</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5844,7 +5852,7 @@ from letta_client import Letta, MessageCreate
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.messages.create(
+client.agents.messages.send(
     agent_id="agent_id",
     messages=[
         MessageCreate(
@@ -6127,7 +6135,7 @@ for chunk in response:
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">create_async</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">send_async</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6160,7 +6168,7 @@ from letta_client import Letta, MessageCreate
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.messages.create_async(
+client.agents.messages.send_async(
     agent_id="agent_id",
     messages=[
         MessageCreate(

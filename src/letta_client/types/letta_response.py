@@ -2,7 +2,7 @@
 
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .letta_response_messages_item import LettaResponseMessagesItem
+from .letta_message_union import LettaMessageUnion
 import pydantic
 from .letta_usage_statistics import LettaUsageStatistics
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
@@ -18,7 +18,7 @@ class LettaResponse(UncheckedBaseModel):
         usage (LettaUsageStatistics): The usage statistics
     """
 
-    messages: typing.List[LettaResponseMessagesItem] = pydantic.Field()
+    messages: typing.List[LettaMessageUnion] = pydantic.Field()
     """
     The messages returned by the agent.
     """

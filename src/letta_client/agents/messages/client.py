@@ -121,7 +121,7 @@ class MessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create(
+    def send(
         self,
         agent_id: str,
         *,
@@ -158,7 +158,7 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.messages.create(
+        client.agents.messages.send(
             agent_id="agent_id",
             messages=[
                 MessageCreate(
@@ -409,7 +409,7 @@ class MessagesClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_async(
+    def send_async(
         self,
         agent_id: str,
         *,
@@ -446,7 +446,7 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.messages.create_async(
+        client.agents.messages.send_async(
             agent_id="agent_id",
             messages=[
                 MessageCreate(
@@ -595,7 +595,7 @@ class AsyncMessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def create(
+    async def send(
         self,
         agent_id: str,
         *,
@@ -637,7 +637,7 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.create(
+            await client.agents.messages.send(
                 agent_id="agent_id",
                 messages=[
                     MessageCreate(
@@ -907,7 +907,7 @@ class AsyncMessagesClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def create_async(
+    async def send_async(
         self,
         agent_id: str,
         *,
@@ -949,7 +949,7 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.create_async(
+            await client.agents.messages.send_async(
                 agent_id="agent_id",
                 messages=[
                     MessageCreate(

@@ -11,7 +11,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
 from ..types.message_role import MessageRole
-from .types.get_run_messages_response_item import GetRunMessagesResponseItem
+from ..types.letta_message_union import LettaMessageUnion
 from ..types.usage_statistics import UsageStatistics
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -245,7 +245,7 @@ class RunsClient:
         ascending: typing.Optional[bool] = None,
         role: typing.Optional[MessageRole] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[GetRunMessagesResponseItem]:
+    ) -> typing.List[LettaMessageUnion]:
         """
         Get messages associated with a run with filtering options.
 
@@ -282,7 +282,7 @@ class RunsClient:
 
         Returns
         -------
-        typing.List[GetRunMessagesResponseItem]
+        typing.List[LettaMessageUnion]
             Successful Response
 
         Examples
@@ -310,9 +310,9 @@ class RunsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[GetRunMessagesResponseItem],
+                    typing.List[LettaMessageUnion],
                     construct_type(
-                        type_=typing.List[GetRunMessagesResponseItem],  # type: ignore
+                        type_=typing.List[LettaMessageUnion],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -649,7 +649,7 @@ class AsyncRunsClient:
         ascending: typing.Optional[bool] = None,
         role: typing.Optional[MessageRole] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[GetRunMessagesResponseItem]:
+    ) -> typing.List[LettaMessageUnion]:
         """
         Get messages associated with a run with filtering options.
 
@@ -686,7 +686,7 @@ class AsyncRunsClient:
 
         Returns
         -------
-        typing.List[GetRunMessagesResponseItem]
+        typing.List[LettaMessageUnion]
             Successful Response
 
         Examples
@@ -722,9 +722,9 @@ class AsyncRunsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[GetRunMessagesResponseItem],
+                    typing.List[LettaMessageUnion],
                     construct_type(
-                        type_=typing.List[GetRunMessagesResponseItem],  # type: ignore
+                        type_=typing.List[LettaMessageUnion],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

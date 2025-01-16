@@ -2,6 +2,6 @@
 
 import typing
 from ....types.letta_schemas_message_message import LettaSchemasMessageMessage
-from .messages_list_response_item import MessagesListResponseItem
+from ....types.letta_message_union import LettaMessageUnion
 
-MessagesListResponse = typing.Union[typing.List[LettaSchemasMessageMessage], typing.List[MessagesListResponseItem]]
+MessagesListResponse = typing.Union[typing.List[LettaSchemasMessageMessage], typing.List[LettaMessageUnion]]

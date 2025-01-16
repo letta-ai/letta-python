@@ -49,18 +49,18 @@ from .internal_server_error_body import InternalServerErrorBody
 from .job import Job
 from .job_status import JobStatus
 from .job_type import JobType
+from .letta_message_union import (
+    LettaMessageUnion,
+    LettaMessageUnion_AssistantMessage,
+    LettaMessageUnion_ReasoningMessage,
+    LettaMessageUnion_SystemMessage,
+    LettaMessageUnion_ToolCallMessage,
+    LettaMessageUnion_ToolReturnMessage,
+    LettaMessageUnion_UserMessage,
+)
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
 from .letta_response import LettaResponse
-from .letta_response_messages_item import (
-    LettaResponseMessagesItem,
-    LettaResponseMessagesItem_AssistantMessage,
-    LettaResponseMessagesItem_ReasoningMessage,
-    LettaResponseMessagesItem_SystemMessage,
-    LettaResponseMessagesItem_ToolCallMessage,
-    LettaResponseMessagesItem_ToolReturnMessage,
-    LettaResponseMessagesItem_UserMessage,
-)
 from .letta_schemas_letta_message_tool_call import LettaSchemasLettaMessageToolCall
 from .letta_schemas_message_message import LettaSchemasMessageMessage
 from .letta_schemas_openai_chat_completion_request_tool import LettaSchemasOpenaiChatCompletionRequestTool
@@ -180,16 +180,16 @@ __all__ = [
     "Job",
     "JobStatus",
     "JobType",
+    "LettaMessageUnion",
+    "LettaMessageUnion_AssistantMessage",
+    "LettaMessageUnion_ReasoningMessage",
+    "LettaMessageUnion_SystemMessage",
+    "LettaMessageUnion_ToolCallMessage",
+    "LettaMessageUnion_ToolReturnMessage",
+    "LettaMessageUnion_UserMessage",
     "LettaRequest",
     "LettaRequestConfig",
     "LettaResponse",
-    "LettaResponseMessagesItem",
-    "LettaResponseMessagesItem_AssistantMessage",
-    "LettaResponseMessagesItem_ReasoningMessage",
-    "LettaResponseMessagesItem_SystemMessage",
-    "LettaResponseMessagesItem_ToolCallMessage",
-    "LettaResponseMessagesItem_ToolReturnMessage",
-    "LettaResponseMessagesItem_UserMessage",
     "LettaSchemasLettaMessageToolCall",
     "LettaSchemasMessageMessage",
     "LettaSchemasOpenaiChatCompletionRequestTool",
