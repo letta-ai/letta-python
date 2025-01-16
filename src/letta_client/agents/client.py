@@ -63,8 +63,9 @@ class AgentsClient:
         name: typing.Optional[str] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         match_all_tags: typing.Optional[bool] = None,
-        cursor: typing.Optional[int] = None,
+        cursor: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        query_text: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -82,11 +83,14 @@ class AgentsClient:
         match_all_tags : typing.Optional[bool]
             If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
 
-        cursor : typing.Optional[int]
+        cursor : typing.Optional[str]
             Cursor for pagination
 
         limit : typing.Optional[int]
             Limit for pagination
+
+        query_text : typing.Optional[str]
+            Search agents by name
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -114,6 +118,7 @@ class AgentsClient:
                 "match_all_tags": match_all_tags,
                 "cursor": cursor,
                 "limit": limit,
+                "query_text": query_text,
             },
             request_options=request_options,
         )
@@ -747,8 +752,9 @@ class AsyncAgentsClient:
         name: typing.Optional[str] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         match_all_tags: typing.Optional[bool] = None,
-        cursor: typing.Optional[int] = None,
+        cursor: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        query_text: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -766,11 +772,14 @@ class AsyncAgentsClient:
         match_all_tags : typing.Optional[bool]
             If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
 
-        cursor : typing.Optional[int]
+        cursor : typing.Optional[str]
             Cursor for pagination
 
         limit : typing.Optional[int]
             Limit for pagination
+
+        query_text : typing.Optional[str]
+            Search agents by name
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -806,6 +815,7 @@ class AsyncAgentsClient:
                 "match_all_tags": match_all_tags,
                 "cursor": cursor,
                 "limit": limit,
+                "query_text": query_text,
             },
             request_options=request_options,
         )

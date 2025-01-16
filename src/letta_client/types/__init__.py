@@ -50,6 +50,7 @@ from .job import Job
 from .job_status import JobStatus
 from .job_type import JobType
 from .letta_request import LettaRequest
+from .letta_request_config import LettaRequestConfig
 from .letta_response import LettaResponse
 from .letta_response_messages_item import (
     LettaResponseMessagesItem,
@@ -180,6 +181,7 @@ __all__ = [
     "JobStatus",
     "JobType",
     "LettaRequest",
+    "LettaRequestConfig",
     "LettaResponse",
     "LettaResponseMessagesItem",
     "LettaResponseMessagesItem_AssistantMessage",

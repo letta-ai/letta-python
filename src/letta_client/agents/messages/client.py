@@ -11,6 +11,7 @@ from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...types.message_create import MessageCreate
+from ...types.letta_request_config import LettaRequestConfig
 from ...types.letta_response import LettaResponse
 from ...core.serialization import convert_and_respect_annotation_metadata
 from ...types.message_role import MessageRole
@@ -125,9 +126,7 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        config: typing.Optional[LettaRequestConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaResponse:
         """
@@ -141,14 +140,8 @@ class MessagesClient:
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
+        config : typing.Optional[LettaRequestConfig]
+            Configuration options for the LettaRequest.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -182,9 +175,9 @@ class MessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "config": convert_and_respect_annotation_metadata(
+                    object_=config, annotation=LettaRequestConfig, direction="write"
+                ),
             },
             request_options=request_options,
             omit=OMIT,
@@ -318,9 +311,7 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        config: typing.Optional[LettaRequestConfig] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[LettaStreamingResponse]:
@@ -336,14 +327,8 @@ class MessagesClient:
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
+        config : typing.Optional[LettaRequestConfig]
+            Configuration options for the LettaRequest.
 
         stream_tokens : typing.Optional[bool]
             Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
@@ -382,9 +367,9 @@ class MessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "config": convert_and_respect_annotation_metadata(
+                    object_=config, annotation=LettaRequestConfig, direction="write"
+                ),
                 "stream_tokens": stream_tokens,
             },
             headers={
@@ -429,14 +414,12 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        config: typing.Optional[LettaRequestConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Run:
         """
-        Asynchronously process a user message and return a job ID.
-        The actual processing happens in the background, and the status can be checked using the job ID.
+        Asynchronously process a user message and return a run object.
+        The actual processing happens in the background, and the status can be checked using the run ID.
 
         Parameters
         ----------
@@ -445,14 +428,8 @@ class MessagesClient:
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
+        config : typing.Optional[LettaRequestConfig]
+            Configuration options for the LettaRequest.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -486,9 +463,9 @@ class MessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "config": convert_and_respect_annotation_metadata(
+                    object_=config, annotation=LettaRequestConfig, direction="write"
+                ),
             },
             request_options=request_options,
             omit=OMIT,
@@ -623,9 +600,7 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        config: typing.Optional[LettaRequestConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaResponse:
         """
@@ -639,14 +614,8 @@ class AsyncMessagesClient:
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
+        config : typing.Optional[LettaRequestConfig]
+            Configuration options for the LettaRequest.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -688,9 +657,9 @@ class AsyncMessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "config": convert_and_respect_annotation_metadata(
+                    object_=config, annotation=LettaRequestConfig, direction="write"
+                ),
             },
             request_options=request_options,
             omit=OMIT,
@@ -832,9 +801,7 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        config: typing.Optional[LettaRequestConfig] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[LettaStreamingResponse]:
@@ -850,14 +817,8 @@ class AsyncMessagesClient:
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
+        config : typing.Optional[LettaRequestConfig]
+            Configuration options for the LettaRequest.
 
         stream_tokens : typing.Optional[bool]
             Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
@@ -904,9 +865,9 @@ class AsyncMessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "config": convert_and_respect_annotation_metadata(
+                    object_=config, annotation=LettaRequestConfig, direction="write"
+                ),
                 "stream_tokens": stream_tokens,
             },
             headers={
@@ -951,14 +912,12 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        config: typing.Optional[LettaRequestConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Run:
         """
-        Asynchronously process a user message and return a job ID.
-        The actual processing happens in the background, and the status can be checked using the job ID.
+        Asynchronously process a user message and return a run object.
+        The actual processing happens in the background, and the status can be checked using the run ID.
 
         Parameters
         ----------
@@ -967,14 +926,8 @@ class AsyncMessagesClient:
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
 
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
+        config : typing.Optional[LettaRequestConfig]
+            Configuration options for the LettaRequest.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1016,9 +969,9 @@ class AsyncMessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "config": convert_and_respect_annotation_metadata(
+                    object_=config, annotation=LettaRequestConfig, direction="write"
+                ),
             },
             request_options=request_options,
             omit=OMIT,

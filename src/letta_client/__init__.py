@@ -51,6 +51,7 @@ from .types import (
     JobStatus,
     JobType,
     LettaRequest,
+    LettaRequestConfig,
     LettaResponse,
     LettaResponseMessagesItem,
     LettaResponseMessagesItem_AssistantMessage,
@@ -147,6 +148,15 @@ from .agents import (
 )
 from .client import AsyncLetta, Letta
 from .environment import LettaEnvironment
+from .runs import (
+    GetRunMessagesResponseItem,
+    GetRunMessagesResponseItem_AssistantMessage,
+    GetRunMessagesResponseItem_ReasoningMessage,
+    GetRunMessagesResponseItem_SystemMessage,
+    GetRunMessagesResponseItem_ToolCallMessage,
+    GetRunMessagesResponseItem_ToolReturnMessage,
+    GetRunMessagesResponseItem_UserMessage,
+)
 from .version import __version__
 
 __all__ = [
@@ -208,6 +218,13 @@ __all__ = [
     "FunctionCallInput",
     "FunctionCallOutput",
     "FunctionSchema",
+    "GetRunMessagesResponseItem",
+    "GetRunMessagesResponseItem_AssistantMessage",
+    "GetRunMessagesResponseItem_ReasoningMessage",
+    "GetRunMessagesResponseItem_SystemMessage",
+    "GetRunMessagesResponseItem_ToolCallMessage",
+    "GetRunMessagesResponseItem_ToolReturnMessage",
+    "GetRunMessagesResponseItem_UserMessage",
     "Health",
     "HttpValidationError",
     "InitToolRule",
@@ -219,6 +236,7 @@ __all__ = [
     "Letta",
     "LettaEnvironment",
     "LettaRequest",
+    "LettaRequestConfig",
     "LettaResponse",
     "LettaResponseMessagesItem",
     "LettaResponseMessagesItem_AssistantMessage",

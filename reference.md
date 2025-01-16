@@ -1710,7 +1710,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[int]` — Cursor for pagination
+**cursor:** `typing.Optional[str]` — Cursor for pagination
     
 </dd>
 </dl>
@@ -1719,6 +1719,14 @@ client.agents.list()
 <dd>
 
 **limit:** `typing.Optional[int]` — Limit for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query_text:** `typing.Optional[str]` — Search agents by name
     
 </dd>
 </dl>
@@ -4042,16 +4050,14 @@ Get messages associated with a run with filtering options.
 Args:
     run_id: ID of the run
     cursor: Cursor for pagination
-    start_date: Filter messages after this date
-    end_date: Filter messages before this date
     limit: Maximum number of messages to return
-    query_text: Search text in message content
     ascending: Sort order by creation time
-    tags: Filter by message tags
-    match_all_tags: If true, match all tags. If false, match any tag
-    role: Filter by message role (user/assistant/system/tool)
-    tool_name: Filter by tool call name
+    role: Filter by role (user/assistant/system/tool)
+    return_message_object: Whether to return Message objects or LettaMessage objects
     user_id: ID of the user making the request
+
+Returns:
+    A list of messages associated with the run. Default is List[LettaMessage].
 </dd>
 </dl>
 </dd>
@@ -4105,31 +4111,7 @@ client.runs.get_run_messages(
 <dl>
 <dd>
 
-**start_date:** `typing.Optional[dt.datetime]` — Filter messages after this date
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**end_date:** `typing.Optional[dt.datetime]` — Filter messages before this date
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **limit:** `typing.Optional[int]` — Maximum number of messages to return
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**query_text:** `typing.Optional[str]` — Search text in message content
     
 </dd>
 </dl>
@@ -4145,31 +4127,7 @@ client.runs.get_run_messages(
 <dl>
 <dd>
 
-**tags:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by message tags
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**match_all_tags:** `typing.Optional[bool]` — If true, match all tags. If false, match any tag
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**role:** `typing.Optional[MessageRole]` — Filter by message role
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tool_name:** `typing.Optional[str]` — Filter by tool call name
+**role:** `typing.Optional[MessageRole]` — Filter by role
     
 </dd>
 </dl>
@@ -5926,23 +5884,7 @@ client.agents.messages.create(
 <dl>
 <dd>
 
-**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+**config:** `typing.Optional[LettaRequestConfig]` — Configuration options for the LettaRequest.
     
 </dd>
 </dl>
@@ -6157,23 +6099,7 @@ for chunk in response:
 <dl>
 <dd>
 
-**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+**config:** `typing.Optional[LettaRequestConfig]` — Configuration options for the LettaRequest.
     
 </dd>
 </dl>
@@ -6213,8 +6139,8 @@ for chunk in response:
 <dl>
 <dd>
 
-Asynchronously process a user message and return a job ID.
-The actual processing happens in the background, and the status can be checked using the job ID.
+Asynchronously process a user message and return a run object.
+The actual processing happens in the background, and the status can be checked using the run ID.
 </dd>
 </dl>
 </dd>
@@ -6274,23 +6200,7 @@ client.agents.messages.create_async(
 <dl>
 <dd>
 
-**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+**config:** `typing.Optional[LettaRequestConfig]` — Configuration options for the LettaRequest.
     
 </dd>
 </dl>

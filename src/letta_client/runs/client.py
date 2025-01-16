@@ -10,10 +10,8 @@ from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
-import datetime as dt
 from ..types.message_role import MessageRole
-from ..types.letta_schemas_message_message import LettaSchemasMessageMessage
-from ..core.datetime_utils import serialize_datetime
+from .types.get_run_messages_response_item import GetRunMessagesResponseItem
 from ..types.usage_statistics import UsageStatistics
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -243,33 +241,25 @@ class RunsClient:
         run_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        start_date: typing.Optional[dt.datetime] = None,
-        end_date: typing.Optional[dt.datetime] = None,
         limit: typing.Optional[int] = None,
-        query_text: typing.Optional[str] = None,
         ascending: typing.Optional[bool] = None,
-        tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        match_all_tags: typing.Optional[bool] = None,
         role: typing.Optional[MessageRole] = None,
-        tool_name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[LettaSchemasMessageMessage]:
+    ) -> typing.List[GetRunMessagesResponseItem]:
         """
         Get messages associated with a run with filtering options.
 
         Args:
             run_id: ID of the run
             cursor: Cursor for pagination
-            start_date: Filter messages after this date
-            end_date: Filter messages before this date
             limit: Maximum number of messages to return
-            query_text: Search text in message content
             ascending: Sort order by creation time
-            tags: Filter by message tags
-            match_all_tags: If true, match all tags. If false, match any tag
-            role: Filter by message role (user/assistant/system/tool)
-            tool_name: Filter by tool call name
+            role: Filter by role (user/assistant/system/tool)
+            return_message_object: Whether to return Message objects or LettaMessage objects
             user_id: ID of the user making the request
+
+        Returns:
+            A list of messages associated with the run. Default is List[LettaMessage].
 
         Parameters
         ----------
@@ -278,39 +268,21 @@ class RunsClient:
         cursor : typing.Optional[str]
             Cursor for pagination
 
-        start_date : typing.Optional[dt.datetime]
-            Filter messages after this date
-
-        end_date : typing.Optional[dt.datetime]
-            Filter messages before this date
-
         limit : typing.Optional[int]
             Maximum number of messages to return
-
-        query_text : typing.Optional[str]
-            Search text in message content
 
         ascending : typing.Optional[bool]
             Sort order by creation time
 
-        tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter by message tags
-
-        match_all_tags : typing.Optional[bool]
-            If true, match all tags. If false, match any tag
-
         role : typing.Optional[MessageRole]
-            Filter by message role
-
-        tool_name : typing.Optional[str]
-            Filter by tool call name
+            Filter by role
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[LettaSchemasMessageMessage]
+        typing.List[GetRunMessagesResponseItem]
             Successful Response
 
         Examples
@@ -329,24 +301,18 @@ class RunsClient:
             method="GET",
             params={
                 "cursor": cursor,
-                "start_date": serialize_datetime(start_date) if start_date is not None else None,
-                "end_date": serialize_datetime(end_date) if end_date is not None else None,
                 "limit": limit,
-                "query_text": query_text,
                 "ascending": ascending,
-                "tags": tags,
-                "match_all_tags": match_all_tags,
                 "role": role,
-                "tool_name": tool_name,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasMessageMessage],
+                    typing.List[GetRunMessagesResponseItem],
                     construct_type(
-                        type_=typing.List[LettaSchemasMessageMessage],  # type: ignore
+                        type_=typing.List[GetRunMessagesResponseItem],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -679,33 +645,25 @@ class AsyncRunsClient:
         run_id: str,
         *,
         cursor: typing.Optional[str] = None,
-        start_date: typing.Optional[dt.datetime] = None,
-        end_date: typing.Optional[dt.datetime] = None,
         limit: typing.Optional[int] = None,
-        query_text: typing.Optional[str] = None,
         ascending: typing.Optional[bool] = None,
-        tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        match_all_tags: typing.Optional[bool] = None,
         role: typing.Optional[MessageRole] = None,
-        tool_name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[LettaSchemasMessageMessage]:
+    ) -> typing.List[GetRunMessagesResponseItem]:
         """
         Get messages associated with a run with filtering options.
 
         Args:
             run_id: ID of the run
             cursor: Cursor for pagination
-            start_date: Filter messages after this date
-            end_date: Filter messages before this date
             limit: Maximum number of messages to return
-            query_text: Search text in message content
             ascending: Sort order by creation time
-            tags: Filter by message tags
-            match_all_tags: If true, match all tags. If false, match any tag
-            role: Filter by message role (user/assistant/system/tool)
-            tool_name: Filter by tool call name
+            role: Filter by role (user/assistant/system/tool)
+            return_message_object: Whether to return Message objects or LettaMessage objects
             user_id: ID of the user making the request
+
+        Returns:
+            A list of messages associated with the run. Default is List[LettaMessage].
 
         Parameters
         ----------
@@ -714,39 +672,21 @@ class AsyncRunsClient:
         cursor : typing.Optional[str]
             Cursor for pagination
 
-        start_date : typing.Optional[dt.datetime]
-            Filter messages after this date
-
-        end_date : typing.Optional[dt.datetime]
-            Filter messages before this date
-
         limit : typing.Optional[int]
             Maximum number of messages to return
-
-        query_text : typing.Optional[str]
-            Search text in message content
 
         ascending : typing.Optional[bool]
             Sort order by creation time
 
-        tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter by message tags
-
-        match_all_tags : typing.Optional[bool]
-            If true, match all tags. If false, match any tag
-
         role : typing.Optional[MessageRole]
-            Filter by message role
-
-        tool_name : typing.Optional[str]
-            Filter by tool call name
+            Filter by role
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[LettaSchemasMessageMessage]
+        typing.List[GetRunMessagesResponseItem]
             Successful Response
 
         Examples
@@ -773,24 +713,18 @@ class AsyncRunsClient:
             method="GET",
             params={
                 "cursor": cursor,
-                "start_date": serialize_datetime(start_date) if start_date is not None else None,
-                "end_date": serialize_datetime(end_date) if end_date is not None else None,
                 "limit": limit,
-                "query_text": query_text,
                 "ascending": ascending,
-                "tags": tags,
-                "match_all_tags": match_all_tags,
                 "role": role,
-                "tool_name": tool_name,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasMessageMessage],
+                    typing.List[GetRunMessagesResponseItem],
                     construct_type(
-                        type_=typing.List[LettaSchemasMessageMessage],  # type: ignore
+                        type_=typing.List[GetRunMessagesResponseItem],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

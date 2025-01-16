@@ -8,6 +8,7 @@ from .job_status import JobStatus
 import typing_extensions
 from ..core.serialization import FieldMetadata
 from .job_type import JobType
+from .letta_request_config import LettaRequestConfig
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -65,6 +66,11 @@ class Run(UncheckedBaseModel):
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-friendly ID of the Run
+    """
+
+    request_config: typing.Optional[LettaRequestConfig] = pydantic.Field(default=None)
+    """
+    The request configuration for the run.
     """
 
     if IS_PYDANTIC_V2:
