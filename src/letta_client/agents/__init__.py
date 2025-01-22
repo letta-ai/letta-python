@@ -17,17 +17,7 @@ from .types import (
     CreateAgentRequestToolRulesItem,
     UpdateAgentToolRulesItem,
 )
-from . import (
-    archival_memory,
-    context,
-    core_memory,
-    memory_variables,
-    messages,
-    recall_memory,
-    sources,
-    templates,
-    tools,
-)
+from . import archival_memory, context, core_memory, memory_variables, messages, sources, templates, tools
 from .memory_variables import MemoryVariablesGetResponse
 from .messages import (
     LettaStreamingResponse,
@@ -74,7 +64,6 @@ __all__ = [
     "core_memory",
     "memory_variables",
     "messages",
-    "recall_memory",
     "sources",
     "templates",
     "tools",

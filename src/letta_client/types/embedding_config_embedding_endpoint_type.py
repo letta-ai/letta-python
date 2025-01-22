@@ -6,6 +6,7 @@ EmbeddingConfigEmbeddingEndpointType = typing.Union[
     typing.Literal[
         "openai",
         "anthropic",
+        "bedrock",
         "cohere",
         "google_ai",
         "azure",

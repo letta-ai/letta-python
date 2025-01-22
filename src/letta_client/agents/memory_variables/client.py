@@ -48,7 +48,7 @@ class MemoryVariablesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/variables",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/variables",
             method="GET",
             request_options=request_options,
         )
@@ -121,7 +121,7 @@ class AsyncMemoryVariablesClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/variables",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/variables",
             method="GET",
             request_options=request_options,
         )

@@ -21,6 +21,7 @@ LlmConfigModelEndpointType = typing.Union[
         "hugging-face",
         "mistral",
         "together",
+        "bedrock",
     ],
     typing.Any,
 ]

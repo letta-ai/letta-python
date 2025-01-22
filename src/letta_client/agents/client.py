@@ -6,7 +6,6 @@ from .context.client import ContextClient
 from .tools.client import ToolsClient
 from .sources.client import SourcesClient
 from .core_memory.client import CoreMemoryClient
-from .recall_memory.client import RecallMemoryClient
 from .archival_memory.client import ArchivalMemoryClient
 from .messages.client import MessagesClient
 from .templates.client import TemplatesClient
@@ -34,7 +33,6 @@ from .context.client import AsyncContextClient
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
 from .core_memory.client import AsyncCoreMemoryClient
-from .recall_memory.client import AsyncRecallMemoryClient
 from .archival_memory.client import AsyncArchivalMemoryClient
 from .messages.client import AsyncMessagesClient
 from .templates.client import AsyncTemplatesClient
@@ -51,7 +49,6 @@ class AgentsClient:
         self.tools = ToolsClient(client_wrapper=self._client_wrapper)
         self.sources = SourcesClient(client_wrapper=self._client_wrapper)
         self.core_memory = CoreMemoryClient(client_wrapper=self._client_wrapper)
-        self.recall_memory = RecallMemoryClient(client_wrapper=self._client_wrapper)
         self.archival_memory = ArchivalMemoryClient(client_wrapper=self._client_wrapper)
         self.messages = MessagesClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
@@ -166,7 +163,7 @@ class AgentsClient:
         include_multi_agent_tools: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        llm: typing.Optional[str] = OMIT,
+        model: typing.Optional[str] = OMIT,
         embedding: typing.Optional[str] = OMIT,
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
@@ -174,7 +171,7 @@ class AgentsClient:
         template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
-        variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -233,7 +230,7 @@ class AgentsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The metadata of the agent.
 
-        llm : typing.Optional[str]
+        model : typing.Optional[str]
             The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
 
         embedding : typing.Optional[str]
@@ -257,7 +254,7 @@ class AgentsClient:
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
-        variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+        memory_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The variables that should be set for the agent.
 
         request_options : typing.Optional[RequestOptions]
@@ -308,7 +305,7 @@ class AgentsClient:
                 "include_multi_agent_tools": include_multi_agent_tools,
                 "description": description,
                 "metadata_": metadata,
-                "llm": llm,
+                "model": model,
                 "embedding": embedding,
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
@@ -316,7 +313,7 @@ class AgentsClient:
                 "template": template,
                 "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
-                "variables": variables,
+                "memory_variables": memory_variables,
             },
             headers={
                 "content-type": "application/json",
@@ -482,7 +479,7 @@ class AgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
-        Update an exsiting agent
+        Update an existing agent
 
         Parameters
         ----------
@@ -745,7 +742,6 @@ class AsyncAgentsClient:
         self.tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
         self.sources = AsyncSourcesClient(client_wrapper=self._client_wrapper)
         self.core_memory = AsyncCoreMemoryClient(client_wrapper=self._client_wrapper)
-        self.recall_memory = AsyncRecallMemoryClient(client_wrapper=self._client_wrapper)
         self.archival_memory = AsyncArchivalMemoryClient(client_wrapper=self._client_wrapper)
         self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
@@ -868,7 +864,7 @@ class AsyncAgentsClient:
         include_multi_agent_tools: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        llm: typing.Optional[str] = OMIT,
+        model: typing.Optional[str] = OMIT,
         embedding: typing.Optional[str] = OMIT,
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
@@ -876,7 +872,7 @@ class AsyncAgentsClient:
         template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
-        variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -935,7 +931,7 @@ class AsyncAgentsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The metadata of the agent.
 
-        llm : typing.Optional[str]
+        model : typing.Optional[str]
             The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
 
         embedding : typing.Optional[str]
@@ -959,7 +955,7 @@ class AsyncAgentsClient:
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
-        variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+        memory_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The variables that should be set for the agent.
 
         request_options : typing.Optional[RequestOptions]
@@ -1018,7 +1014,7 @@ class AsyncAgentsClient:
                 "include_multi_agent_tools": include_multi_agent_tools,
                 "description": description,
                 "metadata_": metadata,
-                "llm": llm,
+                "model": model,
                 "embedding": embedding,
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
@@ -1026,7 +1022,7 @@ class AsyncAgentsClient:
                 "template": template,
                 "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
-                "variables": variables,
+                "memory_variables": memory_variables,
             },
             headers={
                 "content-type": "application/json",
@@ -1208,7 +1204,7 @@ class AsyncAgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
-        Update an exsiting agent
+        Update an existing agent
 
         Parameters
         ----------

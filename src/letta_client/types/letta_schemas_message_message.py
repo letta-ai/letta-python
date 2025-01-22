@@ -88,6 +88,11 @@ class LettaSchemasMessageMessage(UncheckedBaseModel):
     The id of the tool call.
     """
 
+    step_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the step that this message was created in.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

@@ -121,7 +121,7 @@ class MessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def send(
+    def create(
         self,
         agent_id: str,
         *,
@@ -158,7 +158,7 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.messages.send(
+        client.agents.messages.create(
             agent_id="agent_id",
             messages=[
                 MessageCreate(
@@ -306,7 +306,7 @@ class MessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def stream(
+    def create_stream(
         self,
         agent_id: str,
         *,
@@ -348,7 +348,7 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        response = client.agents.messages.stream(
+        response = client.agents.messages.create_stream(
             agent_id="agent_id",
             messages=[
                 MessageCreate(
@@ -409,7 +409,7 @@ class MessagesClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def send_async(
+    def create_async(
         self,
         agent_id: str,
         *,
@@ -446,7 +446,7 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.messages.send_async(
+        client.agents.messages.create_async(
             agent_id="agent_id",
             messages=[
                 MessageCreate(
@@ -595,7 +595,7 @@ class AsyncMessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def send(
+    async def create(
         self,
         agent_id: str,
         *,
@@ -637,7 +637,7 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.send(
+            await client.agents.messages.create(
                 agent_id="agent_id",
                 messages=[
                     MessageCreate(
@@ -796,7 +796,7 @@ class AsyncMessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def stream(
+    async def create_stream(
         self,
         agent_id: str,
         *,
@@ -843,7 +843,7 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            response = await client.agents.messages.stream(
+            response = await client.agents.messages.create_stream(
                 agent_id="agent_id",
                 messages=[
                     MessageCreate(
@@ -907,7 +907,7 @@ class AsyncMessagesClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def send_async(
+    async def create_async(
         self,
         agent_id: str,
         *,
@@ -949,7 +949,7 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.send_async(
+            await client.agents.messages.create_async(
                 agent_id="agent_id",
                 messages=[
                     MessageCreate(

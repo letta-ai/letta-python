@@ -3,14 +3,13 @@
 import typing
 from ...core.client_wrapper import SyncClientWrapper
 from ...core.request_options import RequestOptions
-from ...types.letta_schemas_message_message import LettaSchemasMessageMessage
+from ...types.memory import Memory
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
-from ...types.memory import Memory
 from ...types.block import Block
 from ...core.client_wrapper import AsyncClientWrapper
 
@@ -21,64 +20,6 @@ OMIT = typing.cast(typing.Any, ...)
 class CoreMemoryClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
-
-    def list_in_context(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[LettaSchemasMessageMessage]:
-        """
-        Retrieve the messages in the context of a specific agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[LettaSchemasMessageMessage]
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.core_memory.list_in_context(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/messages",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[LettaSchemasMessageMessage],
-                    construct_type(
-                        type_=typing.List[LettaSchemasMessageMessage],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Memory:
         """
@@ -109,7 +50,7 @@ class CoreMemoryClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory",
             method="GET",
             request_options=request_options,
         )
@@ -170,7 +111,7 @@ class CoreMemoryClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks/{jsonable_encoder(block_label)}",
             method="GET",
             request_options=request_options,
         )
@@ -231,7 +172,7 @@ class CoreMemoryClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks/{jsonable_encoder(block_label)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -324,7 +265,7 @@ class CoreMemoryClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks/{jsonable_encoder(block_label)}",
             method="PATCH",
             json={
                 "value": value,
@@ -362,9 +303,7 @@ class CoreMemoryClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_blocks(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[Block]:
+    def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Block]:
         """
         Retrieve the memory blocks of a specific agent.
 
@@ -387,12 +326,12 @@ class CoreMemoryClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.core_memory.get_blocks(
+        client.agents.core_memory.list(
             agent_id="agent_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks",
             method="GET",
             request_options=request_options,
         )
@@ -482,7 +421,7 @@ class CoreMemoryClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks",
             method="POST",
             json={
                 "value": value,
@@ -525,72 +464,6 @@ class AsyncCoreMemoryClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list_in_context(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[LettaSchemasMessageMessage]:
-        """
-        Retrieve the messages in the context of a specific agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[LettaSchemasMessageMessage]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.core_memory.list_in_context(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/messages",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[LettaSchemasMessageMessage],
-                    construct_type(
-                        type_=typing.List[LettaSchemasMessageMessage],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     async def get(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Memory:
         """
         Retrieve the memory state of a specific agent.
@@ -628,7 +501,7 @@ class AsyncCoreMemoryClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory",
             method="GET",
             request_options=request_options,
         )
@@ -697,7 +570,7 @@ class AsyncCoreMemoryClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks/{jsonable_encoder(block_label)}",
             method="GET",
             request_options=request_options,
         )
@@ -766,7 +639,7 @@ class AsyncCoreMemoryClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks/{jsonable_encoder(block_label)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -867,7 +740,7 @@ class AsyncCoreMemoryClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block/{jsonable_encoder(block_label)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks/{jsonable_encoder(block_label)}",
             method="PATCH",
             json={
                 "value": value,
@@ -905,7 +778,7 @@ class AsyncCoreMemoryClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_blocks(
+    async def list(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[Block]:
         """
@@ -935,7 +808,7 @@ class AsyncCoreMemoryClient:
 
 
         async def main() -> None:
-            await client.agents.core_memory.get_blocks(
+            await client.agents.core_memory.list(
                 agent_id="agent_id",
             )
 
@@ -943,7 +816,7 @@ class AsyncCoreMemoryClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks",
             method="GET",
             request_options=request_options,
         )
@@ -1041,7 +914,7 @@ class AsyncCoreMemoryClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/memory/block",
+            f"v1/agents/{jsonable_encoder(agent_id)}/core_memory/blocks",
             method="POST",
             json={
                 "value": value,

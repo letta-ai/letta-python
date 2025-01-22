@@ -266,76 +266,6 @@ client.tools.update(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">get_by_name</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a tool ID by name
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.tools.get_by_name(
-    tool_name="tool_name",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**tool_name:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
@@ -1930,7 +1860,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**llm:** `typing.Optional[str]` — The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
+**model:** `typing.Optional[str]` — The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
     
 </dd>
 </dl>
@@ -1994,7 +1924,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The variables that should be set for the agent.
+**memory_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The variables that should be set for the agent.
     
 </dd>
 </dl>
@@ -2166,7 +2096,7 @@ client.agents.delete(
 <dl>
 <dd>
 
-Update an exsiting agent
+Update an existing agent
 </dd>
 </dl>
 </dd>
@@ -3631,6 +3561,76 @@ client.providers.create_provider(
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">delete_provider</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete an existing custom provider
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.providers.delete_provider(
+    provider_id="provider_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider_id:** `str` — The provider_id key to be deleted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">update_provider</a>(...)</code></summary>
 <dl>
 <dd>
@@ -3691,76 +3691,6 @@ client.providers.update_provider(
 <dd>
 
 **api_key:** `str` — API key used for requests to the provider.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">delete_provider</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete an existing custom provider
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.providers.delete_provider(
-    provider_id="provider_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**provider_id:** `str` — The provider_id key to be deleted.
     
 </dd>
 </dl>
@@ -4682,76 +4612,6 @@ client.agents.sources.get(
 </details>
 
 ## Agents CoreMemory
-<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">list_in_context</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the messages in the context of a specific agent.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.core_memory.list_in_context(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">get</a>(...)</code></summary>
 <dl>
 <dd>
@@ -5116,7 +4976,7 @@ client.agents.core_memory.update_block(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">get_blocks</a>(...)</code></summary>
+<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5148,7 +5008,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.core_memory.get_blocks(
+client.agents.core_memory.list(
     agent_id="agent_id",
 )
 
@@ -5314,148 +5174,7 @@ client.agents.core_memory.add_block(
 </dl>
 </details>
 
-## Agents RecallMemory
-<details><summary><code>client.agents.recall_memory.<a href="src/letta_client/agents/recall_memory/client.py">get_summary</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the summary of the recall memory of a specific agent.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.recall_memory.get_summary(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Agents ArchivalMemory
-<details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">get_summary</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the summary of the archival memory of a specific agent.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.archival_memory.get_summary(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
@@ -5819,7 +5538,7 @@ client.agents.messages.list(
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">send</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5852,7 +5571,7 @@ from letta_client import Letta, MessageCreate
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.messages.send(
+client.agents.messages.create(
     agent_id="agent_id",
     messages=[
         MessageCreate(
@@ -6031,7 +5750,7 @@ client.agents.messages.update(
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">stream</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">create_stream</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6065,7 +5784,7 @@ from letta_client import Letta, MessageCreate
 client = Letta(
     token="YOUR_TOKEN",
 )
-response = client.agents.messages.stream(
+response = client.agents.messages.create_stream(
     agent_id="agent_id",
     messages=[
         MessageCreate(
@@ -6135,7 +5854,7 @@ for chunk in response:
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">send_async</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">create_async</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6168,7 +5887,7 @@ from letta_client import Letta, MessageCreate
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.messages.send_async(
+client.agents.messages.create_async(
     agent_id="agent_id",
     messages=[
         MessageCreate(
