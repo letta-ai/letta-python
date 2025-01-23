@@ -2,8 +2,8 @@
 
 from ..core.unchecked_base_model import UncheckedBaseModel
 import datetime as dt
-from .tool_return_message_status import ToolReturnMessageStatus
 import typing
+from .tool_return_message_status import ToolReturnMessageStatus
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -24,6 +24,7 @@ class ToolReturnMessage(UncheckedBaseModel):
 
     id: str
     date: dt.datetime
+    message_type: typing.Literal["tool_return_message"] = "tool_return_message"
     tool_return: str
     status: ToolReturnMessageStatus
     tool_call_id: str

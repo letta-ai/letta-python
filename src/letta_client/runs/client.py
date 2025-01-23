@@ -124,7 +124,7 @@ class RunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_run(self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Run:
+    def retrieve_run(self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Run:
         """
         Get the status of a run.
 
@@ -147,7 +147,7 @@ class RunsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.runs.get_run(
+        client.runs.retrieve_run(
             run_id="run_id",
         )
         """
@@ -236,7 +236,7 @@ class RunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_run_messages(
+    def list_run_messages(
         self,
         run_id: str,
         *,
@@ -292,7 +292,7 @@ class RunsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.runs.get_run_messages(
+        client.runs.list_run_messages(
             run_id="run_id",
         )
         """
@@ -331,7 +331,9 @@ class RunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_run_usage(self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> UsageStatistics:
+    def retrieve_run_usage(
+        self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> UsageStatistics:
         """
         Get usage statistics for a run.
 
@@ -354,7 +356,7 @@ class RunsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.runs.get_run_usage(
+        client.runs.retrieve_run_usage(
             run_id="run_id",
         )
         """
@@ -512,7 +514,7 @@ class AsyncRunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_run(self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Run:
+    async def retrieve_run(self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Run:
         """
         Get the status of a run.
 
@@ -540,7 +542,7 @@ class AsyncRunsClient:
 
 
         async def main() -> None:
-            await client.runs.get_run(
+            await client.runs.retrieve_run(
                 run_id="run_id",
             )
 
@@ -640,7 +642,7 @@ class AsyncRunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_run_messages(
+    async def list_run_messages(
         self,
         run_id: str,
         *,
@@ -701,7 +703,7 @@ class AsyncRunsClient:
 
 
         async def main() -> None:
-            await client.runs.get_run_messages(
+            await client.runs.list_run_messages(
                 run_id="run_id",
             )
 
@@ -743,7 +745,7 @@ class AsyncRunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_run_usage(
+    async def retrieve_run_usage(
         self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> UsageStatistics:
         """
@@ -773,7 +775,7 @@ class AsyncRunsClient:
 
 
         async def main() -> None:
-            await client.runs.get_run_usage(
+            await client.runs.retrieve_run_usage(
                 run_id="run_id",
             )
 

@@ -5,7 +5,7 @@ from textwrap import dedent
 from .base_client import AsyncLettaBase, LettaBase
 from .core.request_options import RequestOptions
 from .tools.client import ToolsClient as ToolsClientBase
-from .types.letta_schemas_tool_tool import LettaSchemasToolTool
+from .types.tool import Tool
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,7 +40,7 @@ class ToolsClient(ToolsClientBase):
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         source_code = dedent(inspect.getsource(func))
         return self.create(
             source_code=source_code,
@@ -66,7 +66,7 @@ class ToolsClient(ToolsClientBase):
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         source_code = dedent(inspect.getsource(func))
         return self.upsert(
             source_code=source_code,

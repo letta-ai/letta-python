@@ -4,8 +4,6 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
 import datetime as dt
-import typing_extensions
-from ..core.serialization import FieldMetadata
 from .embedding_config import EmbeddingConfig
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -65,9 +63,7 @@ class Passage(UncheckedBaseModel):
     The unique identifier of the file associated with the passage.
     """
 
-    metadata: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
-    ] = pydantic.Field(default=None)
+    metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     The metadata of the passage.
     """

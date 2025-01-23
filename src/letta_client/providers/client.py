@@ -218,7 +218,7 @@ class ProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def update_provider(
+    def modify_provider(
         self, *, id: str, api_key: str, request_options: typing.Optional[RequestOptions] = None
     ) -> Provider:
         """
@@ -247,7 +247,7 @@ class ProvidersClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.providers.update_provider(
+        client.providers.modify_provider(
             id="id",
             api_key="api_key",
         )
@@ -517,7 +517,7 @@ class AsyncProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def update_provider(
+    async def modify_provider(
         self, *, id: str, api_key: str, request_options: typing.Optional[RequestOptions] = None
     ) -> Provider:
         """
@@ -551,7 +551,7 @@ class AsyncProvidersClient:
 
 
         async def main() -> None:
-            await client.providers.update_provider(
+            await client.providers.modify_provider(
                 id="id",
                 api_key="api_key",
             )

@@ -10,37 +10,25 @@ from .agent_type import AgentType
 from .app_auth_scheme import AppAuthScheme
 from .app_auth_scheme_auth_mode import AppAuthSchemeAuthMode
 from .app_model import AppModel
-from .assistant_file import AssistantFile
-from .assistant_message_input import AssistantMessageInput
-from .assistant_message_output import AssistantMessageOutput
+from .assistant_message import AssistantMessage
 from .auth_request import AuthRequest
 from .auth_response import AuthResponse
 from .auth_scheme_field import AuthSchemeField
 from .block import Block
 from .block_update import BlockUpdate
-from .chat_completion_request import ChatCompletionRequest
-from .chat_completion_request_function_call import ChatCompletionRequestFunctionCall
-from .chat_completion_request_messages_item import ChatCompletionRequestMessagesItem
-from .chat_completion_request_stop import ChatCompletionRequestStop
-from .chat_completion_request_tool_choice import ChatCompletionRequestToolChoice
-from .chat_completion_response import ChatCompletionResponse
+from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from .child_tool_rule import ChildToolRule
-from .choice import Choice
 from .conditional_tool_rule import ConditionalToolRule
 from .conflict_error_body import ConflictErrorBody
 from .context_window_overview import ContextWindowOverview
-from .create_assistant_file_request import CreateAssistantFileRequest
-from .create_assistant_request import CreateAssistantRequest
 from .create_block import CreateBlock
-from .delete_assistant_file_response import DeleteAssistantFileResponse
-from .delete_assistant_response import DeleteAssistantResponse
 from .e_2_b_sandbox_config import E2BSandboxConfig
 from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
 from .file_metadata import FileMetadata
-from .function_call_input import FunctionCallInput
-from .function_call_output import FunctionCallOutput
-from .function_schema import FunctionSchema
+from .function import Function
+from .function_definition import FunctionDefinition
+from .function_tool import FunctionTool
 from .health import Health
 from .http_validation_error import HttpValidationError
 from .init_tool_rule import InitToolRule
@@ -48,50 +36,26 @@ from .internal_server_error_body import InternalServerErrorBody
 from .job import Job
 from .job_status import JobStatus
 from .job_type import JobType
-from .letta_message_union import (
-    LettaMessageUnion,
-    LettaMessageUnion_AssistantMessage,
-    LettaMessageUnion_ReasoningMessage,
-    LettaMessageUnion_SystemMessage,
-    LettaMessageUnion_ToolCallMessage,
-    LettaMessageUnion_ToolReturnMessage,
-    LettaMessageUnion_UserMessage,
-)
+from .letta_message_union import LettaMessageUnion
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
 from .letta_response import LettaResponse
-from .letta_schemas_letta_message_tool_call import LettaSchemasLettaMessageToolCall
-from .letta_schemas_message_message import LettaSchemasMessageMessage
-from .letta_schemas_openai_chat_completion_request_tool import LettaSchemasOpenaiChatCompletionRequestTool
-from .letta_schemas_openai_chat_completion_request_tool_call import LettaSchemasOpenaiChatCompletionRequestToolCall
-from .letta_schemas_openai_chat_completion_request_tool_call_function import (
-    LettaSchemasOpenaiChatCompletionRequestToolCallFunction,
-)
-from .letta_schemas_openai_chat_completion_response_message import LettaSchemasOpenaiChatCompletionResponseMessage
-from .letta_schemas_openai_chat_completion_response_tool_call import LettaSchemasOpenaiChatCompletionResponseToolCall
-from .letta_schemas_openai_chat_completions_tool_call_function import LettaSchemasOpenaiChatCompletionsToolCallFunction
-from .letta_schemas_openai_chat_completions_tool_call_input import LettaSchemasOpenaiChatCompletionsToolCallInput
-from .letta_schemas_openai_chat_completions_tool_call_output import LettaSchemasOpenaiChatCompletionsToolCallOutput
-from .letta_schemas_tool_tool import LettaSchemasToolTool
 from .letta_usage_statistics import LettaUsageStatistics
 from .llm_config import LlmConfig
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .local_sandbox_config import LocalSandboxConfig
-from .log_prob_token import LogProbToken
 from .memory import Memory
-from .message_content_log_prob import MessageContentLogProb
+from .message import Message
 from .message_create import MessageCreate
 from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
 from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
-from .open_ai_assistant import OpenAiAssistant
 from .organization import Organization
 from .organization_create import OrganizationCreate
 from .passage import Passage
 from .provider import Provider
 from .reasoning_message import ReasoningMessage
-from .response_format import ResponseFormat
 from .run import Run
 from .sandbox_config import SandboxConfig
 from .sandbox_config_create import SandboxConfigCreate
@@ -103,17 +67,14 @@ from .sandbox_environment_variable_create import SandboxEnvironmentVariableCreat
 from .sandbox_environment_variable_update import SandboxEnvironmentVariableUpdate
 from .sandbox_type import SandboxType
 from .source import Source
-from .system_message_input import SystemMessageInput
-from .system_message_output import SystemMessageOutput
+from .system_message import SystemMessage
 from .terminal_tool_rule import TerminalToolRule
+from .tool import Tool
+from .tool_call import ToolCall
 from .tool_call_delta import ToolCallDelta
-from .tool_call_function_output import ToolCallFunctionOutput
 from .tool_call_message import ToolCallMessage
 from .tool_call_message_tool_call import ToolCallMessageToolCall
 from .tool_create import ToolCreate
-from .tool_function_choice import ToolFunctionChoice
-from .tool_input import ToolInput
-from .tool_message import ToolMessage
 from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
 from .tool_rule_type import ToolRuleType
@@ -121,9 +82,7 @@ from .tool_type import ToolType
 from .usage_statistics import UsageStatistics
 from .user import User
 from .user_create import UserCreate
-from .user_message_input import UserMessageInput
-from .user_message_input_content import UserMessageInputContent
-from .user_message_output import UserMessageOutput
+from .user_message import UserMessage
 from .user_update import UserUpdate
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
@@ -139,37 +98,25 @@ __all__ = [
     "AppAuthScheme",
     "AppAuthSchemeAuthMode",
     "AppModel",
-    "AssistantFile",
-    "AssistantMessageInput",
-    "AssistantMessageOutput",
+    "AssistantMessage",
     "AuthRequest",
     "AuthResponse",
     "AuthSchemeField",
     "Block",
     "BlockUpdate",
-    "ChatCompletionRequest",
-    "ChatCompletionRequestFunctionCall",
-    "ChatCompletionRequestMessagesItem",
-    "ChatCompletionRequestStop",
-    "ChatCompletionRequestToolChoice",
-    "ChatCompletionResponse",
+    "ChatCompletionMessageToolCall",
     "ChildToolRule",
-    "Choice",
     "ConditionalToolRule",
     "ConflictErrorBody",
     "ContextWindowOverview",
-    "CreateAssistantFileRequest",
-    "CreateAssistantRequest",
     "CreateBlock",
-    "DeleteAssistantFileResponse",
-    "DeleteAssistantResponse",
     "E2BSandboxConfig",
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
     "FileMetadata",
-    "FunctionCallInput",
-    "FunctionCallOutput",
-    "FunctionSchema",
+    "Function",
+    "FunctionDefinition",
+    "FunctionTool",
     "Health",
     "HttpValidationError",
     "InitToolRule",
@@ -178,45 +125,25 @@ __all__ = [
     "JobStatus",
     "JobType",
     "LettaMessageUnion",
-    "LettaMessageUnion_AssistantMessage",
-    "LettaMessageUnion_ReasoningMessage",
-    "LettaMessageUnion_SystemMessage",
-    "LettaMessageUnion_ToolCallMessage",
-    "LettaMessageUnion_ToolReturnMessage",
-    "LettaMessageUnion_UserMessage",
     "LettaRequest",
     "LettaRequestConfig",
     "LettaResponse",
-    "LettaSchemasLettaMessageToolCall",
-    "LettaSchemasMessageMessage",
-    "LettaSchemasOpenaiChatCompletionRequestTool",
-    "LettaSchemasOpenaiChatCompletionRequestToolCall",
-    "LettaSchemasOpenaiChatCompletionRequestToolCallFunction",
-    "LettaSchemasOpenaiChatCompletionResponseMessage",
-    "LettaSchemasOpenaiChatCompletionResponseToolCall",
-    "LettaSchemasOpenaiChatCompletionsToolCallFunction",
-    "LettaSchemasOpenaiChatCompletionsToolCallInput",
-    "LettaSchemasOpenaiChatCompletionsToolCallOutput",
-    "LettaSchemasToolTool",
     "LettaUsageStatistics",
     "LlmConfig",
     "LlmConfigModelEndpointType",
     "LocalSandboxConfig",
-    "LogProbToken",
     "Memory",
-    "MessageContentLogProb",
+    "Message",
     "MessageCreate",
     "MessageCreateRole",
     "MessageRole",
     "NotFoundErrorBody",
     "NotFoundErrorBodyMessage",
-    "OpenAiAssistant",
     "Organization",
     "OrganizationCreate",
     "Passage",
     "Provider",
     "ReasoningMessage",
-    "ResponseFormat",
     "Run",
     "SandboxConfig",
     "SandboxConfigCreate",
@@ -228,17 +155,14 @@ __all__ = [
     "SandboxEnvironmentVariableUpdate",
     "SandboxType",
     "Source",
-    "SystemMessageInput",
-    "SystemMessageOutput",
+    "SystemMessage",
     "TerminalToolRule",
+    "Tool",
+    "ToolCall",
     "ToolCallDelta",
-    "ToolCallFunctionOutput",
     "ToolCallMessage",
     "ToolCallMessageToolCall",
     "ToolCreate",
-    "ToolFunctionChoice",
-    "ToolInput",
-    "ToolMessage",
     "ToolReturnMessage",
     "ToolReturnMessageStatus",
     "ToolRuleType",
@@ -246,9 +170,7 @@ __all__ = [
     "UsageStatistics",
     "User",
     "UserCreate",
-    "UserMessageInput",
-    "UserMessageInputContent",
-    "UserMessageOutput",
+    "UserMessage",
     "UserUpdate",
     "ValidationError",
     "ValidationErrorLocItem",

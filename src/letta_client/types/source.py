@@ -4,8 +4,6 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
 from .embedding_config import EmbeddingConfig
-import typing_extensions
-from ..core.serialization import FieldMetadata
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -19,7 +17,7 @@ class Source(UncheckedBaseModel):
         name (str): The name of the source.
         embedding_config (EmbeddingConfig): The embedding configuration used by the source.
         user_id (str): The ID of the user that created the source.
-        metadata_ (dict): Metadata associated with the source.
+        metadata (dict): Metadata associated with the source.
         description (str): The description of the source.
     """
 
@@ -43,9 +41,7 @@ class Source(UncheckedBaseModel):
     The embedding configuration used by the source.
     """
 
-    metadata: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
-    ] = pydantic.Field(default=None)
+    metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     Metadata associated with the source.
     """

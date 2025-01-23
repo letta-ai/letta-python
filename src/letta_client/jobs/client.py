@@ -129,7 +129,7 @@ class JobsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get(self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Job:
+    def retrieve(self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Job:
         """
         Get the status of a job.
 
@@ -152,7 +152,7 @@ class JobsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.jobs.get(
+        client.jobs.retrieve(
             job_id="job_id",
         )
         """
@@ -374,7 +374,7 @@ class AsyncJobsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get(self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Job:
+    async def retrieve(self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Job:
         """
         Get the status of a job.
 
@@ -402,7 +402,7 @@ class AsyncJobsClient:
 
 
         async def main() -> None:
-            await client.jobs.get(
+            await client.jobs.retrieve(
                 job_id="job_id",
             )
 

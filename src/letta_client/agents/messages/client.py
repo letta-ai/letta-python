@@ -15,10 +15,8 @@ from ...types.letta_request_config import LettaRequestConfig
 from ...types.letta_response import LettaResponse
 from ...core.serialization import convert_and_respect_annotation_metadata
 from ...types.message_role import MessageRole
-from ...types.letta_schemas_openai_chat_completions_tool_call_input import (
-    LettaSchemasOpenaiChatCompletionsToolCallInput,
-)
-from ...types.letta_schemas_message_message import LettaSchemasMessageMessage
+from ...types.chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from ...types.message import Message
 from .types.letta_streaming_response import LettaStreamingResponse
 import httpx_sse
 import json
@@ -206,7 +204,7 @@ class MessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def update(
+    def modify(
         self,
         agent_id: str,
         message_id: str,
@@ -214,10 +212,10 @@ class MessagesClient:
         role: typing.Optional[MessageRole] = OMIT,
         text: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        tool_calls: typing.Optional[typing.Sequence[LettaSchemasOpenaiChatCompletionsToolCallInput]] = OMIT,
+        tool_calls: typing.Optional[typing.Sequence[ChatCompletionMessageToolCall]] = OMIT,
         tool_call_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasMessageMessage:
+    ) -> Message:
         """
         Update the details of a message associated with an agent.
 
@@ -236,7 +234,7 @@ class MessagesClient:
         name : typing.Optional[str]
             The name of the participant.
 
-        tool_calls : typing.Optional[typing.Sequence[LettaSchemasOpenaiChatCompletionsToolCallInput]]
+        tool_calls : typing.Optional[typing.Sequence[ChatCompletionMessageToolCall]]
             The list of tool calls requested.
 
         tool_call_id : typing.Optional[str]
@@ -247,7 +245,7 @@ class MessagesClient:
 
         Returns
         -------
-        LettaSchemasMessageMessage
+        Message
             Successful Response
 
         Examples
@@ -257,7 +255,7 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.messages.update(
+        client.agents.messages.modify(
             agent_id="agent_id",
             message_id="message_id",
         )
@@ -270,9 +268,7 @@ class MessagesClient:
                 "text": text,
                 "name": name,
                 "tool_calls": convert_and_respect_annotation_metadata(
-                    object_=tool_calls,
-                    annotation=typing.Sequence[LettaSchemasOpenaiChatCompletionsToolCallInput],
-                    direction="write",
+                    object_=tool_calls, annotation=typing.Sequence[ChatCompletionMessageToolCall], direction="write"
                 ),
                 "tool_call_id": tool_call_id,
             },
@@ -285,9 +281,9 @@ class MessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasMessageMessage,
+                    Message,
                     construct_type(
-                        type_=LettaSchemasMessageMessage,  # type: ignore
+                        type_=Message,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -688,7 +684,7 @@ class AsyncMessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def update(
+    async def modify(
         self,
         agent_id: str,
         message_id: str,
@@ -696,10 +692,10 @@ class AsyncMessagesClient:
         role: typing.Optional[MessageRole] = OMIT,
         text: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
-        tool_calls: typing.Optional[typing.Sequence[LettaSchemasOpenaiChatCompletionsToolCallInput]] = OMIT,
+        tool_calls: typing.Optional[typing.Sequence[ChatCompletionMessageToolCall]] = OMIT,
         tool_call_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasMessageMessage:
+    ) -> Message:
         """
         Update the details of a message associated with an agent.
 
@@ -718,7 +714,7 @@ class AsyncMessagesClient:
         name : typing.Optional[str]
             The name of the participant.
 
-        tool_calls : typing.Optional[typing.Sequence[LettaSchemasOpenaiChatCompletionsToolCallInput]]
+        tool_calls : typing.Optional[typing.Sequence[ChatCompletionMessageToolCall]]
             The list of tool calls requested.
 
         tool_call_id : typing.Optional[str]
@@ -729,7 +725,7 @@ class AsyncMessagesClient:
 
         Returns
         -------
-        LettaSchemasMessageMessage
+        Message
             Successful Response
 
         Examples
@@ -744,7 +740,7 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.update(
+            await client.agents.messages.modify(
                 agent_id="agent_id",
                 message_id="message_id",
             )
@@ -760,9 +756,7 @@ class AsyncMessagesClient:
                 "text": text,
                 "name": name,
                 "tool_calls": convert_and_respect_annotation_metadata(
-                    object_=tool_calls,
-                    annotation=typing.Sequence[LettaSchemasOpenaiChatCompletionsToolCallInput],
-                    direction="write",
+                    object_=tool_calls, annotation=typing.Sequence[ChatCompletionMessageToolCall], direction="write"
                 ),
                 "tool_call_id": tool_call_id,
             },
@@ -775,9 +769,9 @@ class AsyncMessagesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasMessageMessage,
+                    Message,
                     construct_type(
-                        type_=LettaSchemasMessageMessage,  # type: ignore
+                        type_=Message,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
