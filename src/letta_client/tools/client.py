@@ -242,7 +242,7 @@ class ToolsClient:
     def list(
         self,
         *,
-        cursor: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Tool]:
@@ -251,7 +251,7 @@ class ToolsClient:
 
         Parameters
         ----------
-        cursor : typing.Optional[str]
+        after : typing.Optional[str]
 
         limit : typing.Optional[int]
 
@@ -276,7 +276,7 @@ class ToolsClient:
             "v1/tools/",
             method="GET",
             params={
-                "cursor": cursor,
+                "after": after,
                 "limit": limit,
             },
             request_options=request_options,
@@ -1055,7 +1055,7 @@ class AsyncToolsClient:
     async def list(
         self,
         *,
-        cursor: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Tool]:
@@ -1064,7 +1064,7 @@ class AsyncToolsClient:
 
         Parameters
         ----------
-        cursor : typing.Optional[str]
+        after : typing.Optional[str]
 
         limit : typing.Optional[int]
 
@@ -1097,7 +1097,7 @@ class AsyncToolsClient:
             "v1/tools/",
             method="GET",
             params={
-                "cursor": cursor,
+                "after": after,
                 "limit": limit,
             },
             request_options=request_options,

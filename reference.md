@@ -314,7 +314,7 @@ client.tools.list()
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` 
+**after:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -1482,7 +1482,15 @@ client.agents.list()
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` — Cursor for pagination
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination
     
 </dd>
 </dl>
@@ -3903,7 +3911,7 @@ client.providers.list_providers()
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` 
+**after:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -4436,9 +4444,10 @@ Get messages associated with a run with filtering options.
 
 Args:
     run_id: ID of the run
-    cursor: Cursor for pagination
+    before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+    after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
     limit: Maximum number of messages to return
-    ascending: Sort order by creation time
+    order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
     role: Filter by role (user/assistant/system/tool)
     return_message_object: Whether to return Message objects or LettaMessage objects
     user_id: ID of the user making the request
@@ -4490,7 +4499,15 @@ client.runs.list_run_messages(
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` — Cursor for pagination
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination
     
 </dd>
 </dl>
@@ -4506,7 +4523,7 @@ client.runs.list_run_messages(
 <dl>
 <dd>
 
-**ascending:** `typing.Optional[bool]` — Sort order by creation time
+**order:** `typing.Optional[str]` — Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
     
 </dd>
 </dl>
@@ -4653,7 +4670,7 @@ client.tag.list_tags()
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` 
+**after:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -6776,7 +6793,7 @@ client.sources.files.list(
 <dl>
 <dd>
 
-**cursor:** `typing.Optional[str]` — Pagination cursor to fetch the next set of results
+**after:** `typing.Optional[str]` — Pagination cursor to fetch the next set of results
     
 </dd>
 </dl>

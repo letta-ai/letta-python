@@ -22,7 +22,7 @@ class ProvidersClient:
     def list_providers(
         self,
         *,
-        cursor: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Provider]:
@@ -31,7 +31,7 @@ class ProvidersClient:
 
         Parameters
         ----------
-        cursor : typing.Optional[str]
+        after : typing.Optional[str]
 
         limit : typing.Optional[int]
 
@@ -56,7 +56,7 @@ class ProvidersClient:
             "v1/providers/",
             method="GET",
             params={
-                "cursor": cursor,
+                "after": after,
                 "limit": limit,
             },
             request_options=request_options,
@@ -297,7 +297,7 @@ class AsyncProvidersClient:
     async def list_providers(
         self,
         *,
-        cursor: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Provider]:
@@ -306,7 +306,7 @@ class AsyncProvidersClient:
 
         Parameters
         ----------
-        cursor : typing.Optional[str]
+        after : typing.Optional[str]
 
         limit : typing.Optional[int]
 
@@ -339,7 +339,7 @@ class AsyncProvidersClient:
             "v1/providers/",
             method="GET",
             params={
-                "cursor": cursor,
+                "after": after,
                 "limit": limit,
             },
             request_options=request_options,

@@ -63,7 +63,8 @@ class AgentsClient:
         name: typing.Optional[str] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         match_all_tags: typing.Optional[bool] = None,
-        cursor: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         query_text: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -83,7 +84,10 @@ class AgentsClient:
         match_all_tags : typing.Optional[bool]
             If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
 
-        cursor : typing.Optional[str]
+        before : typing.Optional[str]
+            Cursor for pagination
+
+        after : typing.Optional[str]
             Cursor for pagination
 
         limit : typing.Optional[int]
@@ -116,7 +120,8 @@ class AgentsClient:
                 "name": name,
                 "tags": tags,
                 "match_all_tags": match_all_tags,
-                "cursor": cursor,
+                "before": before,
+                "after": after,
                 "limit": limit,
                 "query_text": query_text,
             },
@@ -1367,7 +1372,8 @@ class AsyncAgentsClient:
         name: typing.Optional[str] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         match_all_tags: typing.Optional[bool] = None,
-        cursor: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         query_text: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1387,7 +1393,10 @@ class AsyncAgentsClient:
         match_all_tags : typing.Optional[bool]
             If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
 
-        cursor : typing.Optional[str]
+        before : typing.Optional[str]
+            Cursor for pagination
+
+        after : typing.Optional[str]
             Cursor for pagination
 
         limit : typing.Optional[int]
@@ -1428,7 +1437,8 @@ class AsyncAgentsClient:
                 "name": name,
                 "tags": tags,
                 "match_all_tags": match_all_tags,
-                "cursor": cursor,
+                "before": before,
+                "after": after,
                 "limit": limit,
                 "query_text": query_text,
             },

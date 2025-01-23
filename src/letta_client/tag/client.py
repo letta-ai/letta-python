@@ -18,7 +18,7 @@ class TagClient:
     def list_tags(
         self,
         *,
-        cursor: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         query_text: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -28,7 +28,7 @@ class TagClient:
 
         Parameters
         ----------
-        cursor : typing.Optional[str]
+        after : typing.Optional[str]
 
         limit : typing.Optional[int]
 
@@ -55,7 +55,7 @@ class TagClient:
             "v1/tags/",
             method="GET",
             params={
-                "cursor": cursor,
+                "after": after,
                 "limit": limit,
                 "query_text": query_text,
             },
@@ -93,7 +93,7 @@ class AsyncTagClient:
     async def list_tags(
         self,
         *,
-        cursor: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         query_text: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -103,7 +103,7 @@ class AsyncTagClient:
 
         Parameters
         ----------
-        cursor : typing.Optional[str]
+        after : typing.Optional[str]
 
         limit : typing.Optional[int]
 
@@ -138,7 +138,7 @@ class AsyncTagClient:
             "v1/tags/",
             method="GET",
             params={
-                "cursor": cursor,
+                "after": after,
                 "limit": limit,
                 "query_text": query_text,
             },

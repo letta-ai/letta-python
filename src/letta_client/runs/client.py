@@ -240,9 +240,10 @@ class RunsClient:
         self,
         run_id: str,
         *,
-        cursor: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        ascending: typing.Optional[bool] = None,
+        order: typing.Optional[str] = None,
         role: typing.Optional[MessageRole] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LettaMessageUnion]:
@@ -251,9 +252,10 @@ class RunsClient:
 
         Args:
             run_id: ID of the run
-            cursor: Cursor for pagination
+            before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+            after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
             limit: Maximum number of messages to return
-            ascending: Sort order by creation time
+            order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
             role: Filter by role (user/assistant/system/tool)
             return_message_object: Whether to return Message objects or LettaMessage objects
             user_id: ID of the user making the request
@@ -265,14 +267,17 @@ class RunsClient:
         ----------
         run_id : str
 
-        cursor : typing.Optional[str]
+        before : typing.Optional[str]
+            Cursor for pagination
+
+        after : typing.Optional[str]
             Cursor for pagination
 
         limit : typing.Optional[int]
             Maximum number of messages to return
 
-        ascending : typing.Optional[bool]
-            Sort order by creation time
+        order : typing.Optional[str]
+            Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
 
         role : typing.Optional[MessageRole]
             Filter by role
@@ -300,9 +305,10 @@ class RunsClient:
             f"v1/runs/{jsonable_encoder(run_id)}/messages",
             method="GET",
             params={
-                "cursor": cursor,
+                "before": before,
+                "after": after,
                 "limit": limit,
-                "ascending": ascending,
+                "order": order,
                 "role": role,
             },
             request_options=request_options,
@@ -646,9 +652,10 @@ class AsyncRunsClient:
         self,
         run_id: str,
         *,
-        cursor: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        ascending: typing.Optional[bool] = None,
+        order: typing.Optional[str] = None,
         role: typing.Optional[MessageRole] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LettaMessageUnion]:
@@ -657,9 +664,10 @@ class AsyncRunsClient:
 
         Args:
             run_id: ID of the run
-            cursor: Cursor for pagination
+            before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+            after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
             limit: Maximum number of messages to return
-            ascending: Sort order by creation time
+            order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
             role: Filter by role (user/assistant/system/tool)
             return_message_object: Whether to return Message objects or LettaMessage objects
             user_id: ID of the user making the request
@@ -671,14 +679,17 @@ class AsyncRunsClient:
         ----------
         run_id : str
 
-        cursor : typing.Optional[str]
+        before : typing.Optional[str]
+            Cursor for pagination
+
+        after : typing.Optional[str]
             Cursor for pagination
 
         limit : typing.Optional[int]
             Maximum number of messages to return
 
-        ascending : typing.Optional[bool]
-            Sort order by creation time
+        order : typing.Optional[str]
+            Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
 
         role : typing.Optional[MessageRole]
             Filter by role
@@ -714,9 +725,10 @@ class AsyncRunsClient:
             f"v1/runs/{jsonable_encoder(run_id)}/messages",
             method="GET",
             params={
-                "cursor": cursor,
+                "before": before,
+                "after": after,
                 "limit": limit,
-                "ascending": ascending,
+                "order": order,
                 "role": role,
             },
             request_options=request_options,
