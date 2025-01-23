@@ -7,7 +7,7 @@ from .tool_type import ToolType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class LettaSchemasToolTool(UncheckedBaseModel):
+class Tool(UncheckedBaseModel):
     """
     Representation of a tool, which is a function that can be called by the agent.
 

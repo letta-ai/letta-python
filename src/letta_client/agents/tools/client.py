@@ -3,7 +3,7 @@
 from ...core.client_wrapper import SyncClientWrapper
 import typing
 from ...core.request_options import RequestOptions
-from ...types.letta_schemas_tool_tool import LettaSchemasToolTool
+from ...types.tool import Tool
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
@@ -18,9 +18,7 @@ class ToolsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[LettaSchemasToolTool]:
+    def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Tool]:
         """
         Get tools from an existing agent
 
@@ -33,7 +31,7 @@ class ToolsClient:
 
         Returns
         -------
-        typing.List[LettaSchemasToolTool]
+        typing.List[Tool]
             Successful Response
 
         Examples
@@ -55,9 +53,9 @@ class ToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasToolTool],
+                    typing.List[Tool],
                     construct_type(
-                        type_=typing.List[LettaSchemasToolTool],  # type: ignore
+                        type_=typing.List[Tool],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -76,11 +74,11 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def add(
+    def attach(
         self, agent_id: str, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Add tools to an existing agent
+        Attach a tool to an agent.
 
         Parameters
         ----------
@@ -103,13 +101,13 @@ class ToolsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.tools.add(
+        client.agents.tools.attach(
             agent_id="agent_id",
             tool_id="tool_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/add-tool/{jsonable_encoder(tool_id)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/tools/attach/{jsonable_encoder(tool_id)}",
             method="PATCH",
             request_options=request_options,
         )
@@ -137,11 +135,11 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def remove(
+    def detach(
         self, agent_id: str, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Add tools to an existing agent
+        Detach a tool from an agent.
 
         Parameters
         ----------
@@ -164,13 +162,13 @@ class ToolsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.tools.remove(
+        client.agents.tools.detach(
             agent_id="agent_id",
             tool_id="tool_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/remove-tool/{jsonable_encoder(tool_id)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/tools/detach/{jsonable_encoder(tool_id)}",
             method="PATCH",
             request_options=request_options,
         )
@@ -205,7 +203,7 @@ class AsyncToolsClient:
 
     async def list(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[LettaSchemasToolTool]:
+    ) -> typing.List[Tool]:
         """
         Get tools from an existing agent
 
@@ -218,7 +216,7 @@ class AsyncToolsClient:
 
         Returns
         -------
-        typing.List[LettaSchemasToolTool]
+        typing.List[Tool]
             Successful Response
 
         Examples
@@ -248,9 +246,9 @@ class AsyncToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasToolTool],
+                    typing.List[Tool],
                     construct_type(
-                        type_=typing.List[LettaSchemasToolTool],  # type: ignore
+                        type_=typing.List[Tool],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -269,11 +267,11 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def add(
+    async def attach(
         self, agent_id: str, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Add tools to an existing agent
+        Attach a tool to an agent.
 
         Parameters
         ----------
@@ -301,7 +299,7 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.agents.tools.add(
+            await client.agents.tools.attach(
                 agent_id="agent_id",
                 tool_id="tool_id",
             )
@@ -310,7 +308,7 @@ class AsyncToolsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/add-tool/{jsonable_encoder(tool_id)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/tools/attach/{jsonable_encoder(tool_id)}",
             method="PATCH",
             request_options=request_options,
         )
@@ -338,11 +336,11 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def remove(
+    async def detach(
         self, agent_id: str, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Add tools to an existing agent
+        Detach a tool from an agent.
 
         Parameters
         ----------
@@ -370,7 +368,7 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.agents.tools.remove(
+            await client.agents.tools.detach(
                 agent_id="agent_id",
                 tool_id="tool_id",
             )
@@ -379,7 +377,7 @@ class AsyncToolsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/remove-tool/{jsonable_encoder(tool_id)}",
+            f"v1/agents/{jsonable_encoder(agent_id)}/tools/detach/{jsonable_encoder(tool_id)}",
             method="PATCH",
             request_options=request_options,
         )

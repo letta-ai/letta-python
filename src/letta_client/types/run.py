@@ -5,8 +5,6 @@ import typing
 import pydantic
 import datetime as dt
 from .job_status import JobStatus
-import typing_extensions
-from ..core.serialization import FieldMetadata
 from .job_type import JobType
 from .letta_request_config import LettaRequestConfig
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
@@ -55,9 +53,7 @@ class Run(UncheckedBaseModel):
     The unix timestamp of when the job was completed.
     """
 
-    metadata: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
-    ] = pydantic.Field(default=None)
+    metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     The metadata of the job.
     """

@@ -28,7 +28,7 @@ class SourcesClient:
         self.files = FilesClient(client_wrapper=self._client_wrapper)
         self.passages = PassagesClient(client_wrapper=self._client_wrapper)
 
-    def get(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Source:
+    def retrieve(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Source:
         """
         Get all sources
 
@@ -51,7 +51,7 @@ class SourcesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.sources.get(
+        client.sources.retrieve(
             source_id="source_id",
         )
         """
@@ -142,7 +142,7 @@ class SourcesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def update(
+    def modify(
         self,
         source_id: str,
         *,
@@ -186,7 +186,7 @@ class SourcesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.sources.update(
+        client.sources.modify(
             source_id="source_id",
         )
         """
@@ -196,7 +196,7 @@ class SourcesClient:
             json={
                 "name": name,
                 "description": description,
-                "metadata_": metadata,
+                "metadata": metadata,
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
@@ -393,143 +393,13 @@ class SourcesClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
                 "description": description,
-                "metadata_": metadata,
+                "metadata": metadata,
             },
             headers={
                 "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Source,
-                    construct_type(
-                        type_=Source,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def attach(
-        self, source_id: str, *, agent_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> Source:
-        """
-        Attach a data source to an existing agent.
-
-        Parameters
-        ----------
-        source_id : str
-
-        agent_id : str
-            The unique identifier of the agent to attach the source to.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Source
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.sources.attach(
-            source_id="source_id",
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/attach",
-            method="POST",
-            params={
-                "agent_id": agent_id,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Source,
-                    construct_type(
-                        type_=Source,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def detach(
-        self, source_id: str, *, agent_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> Source:
-        """
-        Detach a data source from an existing agent.
-
-        Parameters
-        ----------
-        source_id : str
-
-        agent_id : str
-            The unique identifier of the agent to detach the source from.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Source
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.sources.detach(
-            source_id="source_id",
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/detach",
-            method="POST",
-            params={
-                "agent_id": agent_id,
-            },
-            request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -562,7 +432,7 @@ class AsyncSourcesClient:
         self.files = AsyncFilesClient(client_wrapper=self._client_wrapper)
         self.passages = AsyncPassagesClient(client_wrapper=self._client_wrapper)
 
-    async def get(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Source:
+    async def retrieve(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Source:
         """
         Get all sources
 
@@ -590,7 +460,7 @@ class AsyncSourcesClient:
 
 
         async def main() -> None:
-            await client.sources.get(
+            await client.sources.retrieve(
                 source_id="source_id",
             )
 
@@ -692,7 +562,7 @@ class AsyncSourcesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def update(
+    async def modify(
         self,
         source_id: str,
         *,
@@ -741,7 +611,7 @@ class AsyncSourcesClient:
 
 
         async def main() -> None:
-            await client.sources.update(
+            await client.sources.modify(
                 source_id="source_id",
             )
 
@@ -754,7 +624,7 @@ class AsyncSourcesClient:
             json={
                 "name": name,
                 "description": description,
-                "metadata_": metadata,
+                "metadata": metadata,
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
@@ -975,159 +845,13 @@ class AsyncSourcesClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
                 "description": description,
-                "metadata_": metadata,
+                "metadata": metadata,
             },
             headers={
                 "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Source,
-                    construct_type(
-                        type_=Source,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def attach(
-        self, source_id: str, *, agent_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> Source:
-        """
-        Attach a data source to an existing agent.
-
-        Parameters
-        ----------
-        source_id : str
-
-        agent_id : str
-            The unique identifier of the agent to attach the source to.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Source
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.sources.attach(
-                source_id="source_id",
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/attach",
-            method="POST",
-            params={
-                "agent_id": agent_id,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Source,
-                    construct_type(
-                        type_=Source,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def detach(
-        self, source_id: str, *, agent_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> Source:
-        """
-        Detach a data source from an existing agent.
-
-        Parameters
-        ----------
-        source_id : str
-
-        agent_id : str
-            The unique identifier of the agent to detach the source from.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Source
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.sources.detach(
-                source_id="source_id",
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/sources/{jsonable_encoder(source_id)}/detach",
-            method="POST",
-            params={
-                "agent_id": agent_id,
-            },
-            request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:

@@ -5,11 +5,11 @@ import typing
 import pydantic
 import datetime as dt
 from .message_role import MessageRole
-from .letta_schemas_openai_chat_completions_tool_call_output import LettaSchemasOpenaiChatCompletionsToolCallOutput
+from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class LettaSchemasMessageMessage(UncheckedBaseModel):
+class Message(UncheckedBaseModel):
     """
     Letta's internal representation of a message. Includes methods to convert to/from LLM provider formats.
 
@@ -22,7 +22,7 @@ class LettaSchemasMessageMessage(UncheckedBaseModel):
         model (str): The model used to make the function call.
         name (str): The name of the participant.
         created_at (datetime): The time the message was created.
-        tool_calls (List[ToolCall]): The list of tool calls requested.
+        tool_calls (List[OpenAIToolCall,]): The list of tool calls requested.
         tool_call_id (str): The id of the tool call.
     """
 
@@ -76,9 +76,7 @@ class LettaSchemasMessageMessage(UncheckedBaseModel):
     The name of the participant.
     """
 
-    tool_calls: typing.Optional[typing.List[LettaSchemasOpenaiChatCompletionsToolCallOutput]] = pydantic.Field(
-        default=None
-    )
+    tool_calls: typing.Optional[typing.List[ChatCompletionMessageToolCall]] = pydantic.Field(default=None)
     """
     The list of tool calls requested.
     """

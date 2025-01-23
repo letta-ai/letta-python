@@ -2,8 +2,8 @@
 
 from ..core.unchecked_base_model import UncheckedBaseModel
 import datetime as dt
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
@@ -19,6 +19,7 @@ class ReasoningMessage(UncheckedBaseModel):
 
     id: str
     date: dt.datetime
+    message_type: typing.Literal["reasoning_message"] = "reasoning_message"
     reasoning: str
 
     if IS_PYDANTIC_V2:

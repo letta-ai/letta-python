@@ -8,10 +8,8 @@ from .agent_state_tool_rules_item import AgentStateToolRulesItem
 from .agent_type import AgentType
 from .llm_config import LlmConfig
 from .embedding_config import EmbeddingConfig
-import typing_extensions
-from ..core.serialization import FieldMetadata
 from .memory import Memory
-from .letta_schemas_tool_tool import LettaSchemasToolTool
+from .tool import Tool
 from .source import Source
 from .agent_environment_variable import AgentEnvironmentVariable
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
@@ -98,9 +96,7 @@ class AgentState(UncheckedBaseModel):
     The description of the agent.
     """
 
-    metadata: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
-    ] = pydantic.Field(default=None)
+    metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     The metadata of the agent.
     """
@@ -110,7 +106,7 @@ class AgentState(UncheckedBaseModel):
     The in-context memory of the agent.
     """
 
-    tools: typing.List[LettaSchemasToolTool] = pydantic.Field()
+    tools: typing.List[Tool] = pydantic.Field()
     """
     The tools used by the agent.
     """

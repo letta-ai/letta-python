@@ -3,8 +3,6 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 import typing
-import typing_extensions
-from ..core.serialization import FieldMetadata
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -39,9 +37,7 @@ class CreateBlock(UncheckedBaseModel):
     Description of the block.
     """
 
-    metadata: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
-    ] = pydantic.Field(default=None)
+    metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     Metadata of the block.
     """

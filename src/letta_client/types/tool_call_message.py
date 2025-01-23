@@ -2,9 +2,9 @@
 
 from ..core.unchecked_base_model import UncheckedBaseModel
 import datetime as dt
+import typing
 from .tool_call_message_tool_call import ToolCallMessageToolCall
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
-import typing
 import pydantic
 
 
@@ -20,6 +20,7 @@ class ToolCallMessage(UncheckedBaseModel):
 
     id: str
     date: dt.datetime
+    message_type: typing.Literal["tool_call_message"] = "tool_call_message"
     tool_call: ToolCallMessageToolCall
 
     if IS_PYDANTIC_V2:

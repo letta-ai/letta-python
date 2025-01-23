@@ -17,7 +17,9 @@ class ContextClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ContextWindowOverview:
+    def retrieve(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ContextWindowOverview:
         """
         Retrieve the context window of a specific agent.
 
@@ -40,7 +42,7 @@ class ContextClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.context.get(
+        client.agents.context.retrieve(
             agent_id="agent_id",
         )
         """
@@ -78,7 +80,7 @@ class AsyncContextClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get(
+    async def retrieve(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ContextWindowOverview:
         """
@@ -108,7 +110,7 @@ class AsyncContextClient:
 
 
         async def main() -> None:
-            await client.agents.context.get(
+            await client.agents.context.retrieve(
                 agent_id="agent_id",
             )
 

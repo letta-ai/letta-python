@@ -3,8 +3,8 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 import typing
-from .letta_schemas_openai_chat_completion_request_tool import LettaSchemasOpenaiChatCompletionRequestTool
-from .letta_schemas_message_message import LettaSchemasMessageMessage
+from .function_tool import FunctionTool
+from .message import Message
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -83,9 +83,7 @@ class ContextWindowOverview(UncheckedBaseModel):
     The number of tokens in the functions definitions.
     """
 
-    functions_definitions: typing.Optional[typing.List[LettaSchemasOpenaiChatCompletionRequestTool]] = pydantic.Field(
-        default=None
-    )
+    functions_definitions: typing.Optional[typing.List[FunctionTool]] = pydantic.Field(default=None)
     """
     The content of the functions definitions.
     """
@@ -95,7 +93,7 @@ class ContextWindowOverview(UncheckedBaseModel):
     The number of tokens in the messages list.
     """
 
-    messages: typing.List[LettaSchemasMessageMessage] = pydantic.Field()
+    messages: typing.List[Message] = pydantic.Field()
     """
     The messages in the context window.
     """

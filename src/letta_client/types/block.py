@@ -3,8 +3,6 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 import typing
-import typing_extensions
-from ..core.serialization import FieldMetadata
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -20,7 +18,7 @@ class Block(UncheckedBaseModel):
         label (str): The label of the block (e.g. 'human', 'persona'). This defines a category for the block.
         template_name (str): The name of the block template (if it is a template).
         description (str): Description of the block.
-        metadata_ (Dict): Metadata of the block.
+        metadata (Dict): Metadata of the block.
         user_id (str): The unique identifier of the user associated with the block.
     """
 
@@ -54,9 +52,7 @@ class Block(UncheckedBaseModel):
     Description of the block.
     """
 
-    metadata: typing_extensions.Annotated[
-        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
-    ] = pydantic.Field(default=None)
+    metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     Metadata of the block.
     """

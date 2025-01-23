@@ -3,7 +3,7 @@
 import typing
 from ..core.client_wrapper import SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.letta_schemas_tool_tool import LettaSchemasToolTool
+from ..types.tool import Tool
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
@@ -23,7 +23,7 @@ class ToolsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get(self, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> LettaSchemasToolTool:
+    def retrieve(self, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Tool:
         """
         Get a tool by ID
 
@@ -36,7 +36,7 @@ class ToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -46,7 +46,7 @@ class ToolsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.tools.get(
+        client.tools.retrieve(
             tool_id="tool_id",
         )
         """
@@ -58,9 +58,9 @@ class ToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -137,7 +137,7 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def update(
+    def modify(
         self,
         tool_id: str,
         *,
@@ -149,7 +149,7 @@ class ToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         """
         Update an existing tool
 
@@ -183,7 +183,7 @@ class ToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -193,7 +193,7 @@ class ToolsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.tools.update(
+        client.tools.modify(
             tool_id="tool_id",
         )
         """
@@ -218,9 +218,9 @@ class ToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -245,7 +245,7 @@ class ToolsClient:
         cursor: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[LettaSchemasToolTool]:
+    ) -> typing.List[Tool]:
         """
         Get a list of all tools available to agents belonging to the org of the user
 
@@ -260,7 +260,7 @@ class ToolsClient:
 
         Returns
         -------
-        typing.List[LettaSchemasToolTool]
+        typing.List[Tool]
             Successful Response
 
         Examples
@@ -284,9 +284,9 @@ class ToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasToolTool],
+                    typing.List[Tool],
                     construct_type(
-                        type_=typing.List[LettaSchemasToolTool],  # type: ignore
+                        type_=typing.List[Tool],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -316,7 +316,7 @@ class ToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         """
         Create a new tool
 
@@ -348,7 +348,7 @@ class ToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -380,9 +380,9 @@ class ToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -412,7 +412,7 @@ class ToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         """
         Create or update a tool
 
@@ -444,7 +444,7 @@ class ToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -476,9 +476,9 @@ class ToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -497,9 +497,7 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def add_base_tool(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[LettaSchemasToolTool]:
+    def add_base_tool(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Tool]:
         """
         Upsert base tools
 
@@ -510,7 +508,7 @@ class ToolsClient:
 
         Returns
         -------
-        typing.List[LettaSchemasToolTool]
+        typing.List[Tool]
             Successful Response
 
         Examples
@@ -530,9 +528,9 @@ class ToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasToolTool],
+                    typing.List[Tool],
                     construct_type(
-                        type_=typing.List[LettaSchemasToolTool],  # type: ignore
+                        type_=typing.List[Tool],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -753,7 +751,7 @@ class ToolsClient:
 
     def add_composio_tool(
         self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         """
         Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
 
@@ -766,7 +764,7 @@ class ToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -788,9 +786,9 @@ class ToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -814,9 +812,7 @@ class AsyncToolsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get(
-        self, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> LettaSchemasToolTool:
+    async def retrieve(self, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Tool:
         """
         Get a tool by ID
 
@@ -829,7 +825,7 @@ class AsyncToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -844,7 +840,7 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.get(
+            await client.tools.retrieve(
                 tool_id="tool_id",
             )
 
@@ -859,9 +855,9 @@ class AsyncToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -946,7 +942,7 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def update(
+    async def modify(
         self,
         tool_id: str,
         *,
@@ -958,7 +954,7 @@ class AsyncToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         """
         Update an existing tool
 
@@ -992,7 +988,7 @@ class AsyncToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -1007,7 +1003,7 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.update(
+            await client.tools.modify(
                 tool_id="tool_id",
             )
 
@@ -1035,9 +1031,9 @@ class AsyncToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1062,7 +1058,7 @@ class AsyncToolsClient:
         cursor: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[LettaSchemasToolTool]:
+    ) -> typing.List[Tool]:
         """
         Get a list of all tools available to agents belonging to the org of the user
 
@@ -1077,7 +1073,7 @@ class AsyncToolsClient:
 
         Returns
         -------
-        typing.List[LettaSchemasToolTool]
+        typing.List[Tool]
             Successful Response
 
         Examples
@@ -1109,9 +1105,9 @@ class AsyncToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasToolTool],
+                    typing.List[Tool],
                     construct_type(
-                        type_=typing.List[LettaSchemasToolTool],  # type: ignore
+                        type_=typing.List[Tool],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1141,7 +1137,7 @@ class AsyncToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         """
         Create a new tool
 
@@ -1173,7 +1169,7 @@ class AsyncToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -1213,9 +1209,9 @@ class AsyncToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1245,7 +1241,7 @@ class AsyncToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         """
         Create or update a tool
 
@@ -1277,7 +1273,7 @@ class AsyncToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -1317,9 +1313,9 @@ class AsyncToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1338,9 +1334,7 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def add_base_tool(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[LettaSchemasToolTool]:
+    async def add_base_tool(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Tool]:
         """
         Upsert base tools
 
@@ -1351,7 +1345,7 @@ class AsyncToolsClient:
 
         Returns
         -------
-        typing.List[LettaSchemasToolTool]
+        typing.List[Tool]
             Successful Response
 
         Examples
@@ -1379,9 +1373,9 @@ class AsyncToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.List[LettaSchemasToolTool],
+                    typing.List[Tool],
                     construct_type(
-                        type_=typing.List[LettaSchemasToolTool],  # type: ignore
+                        type_=typing.List[Tool],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1628,7 +1622,7 @@ class AsyncToolsClient:
 
     async def add_composio_tool(
         self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> LettaSchemasToolTool:
+    ) -> Tool:
         """
         Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
 
@@ -1641,7 +1635,7 @@ class AsyncToolsClient:
 
         Returns
         -------
-        LettaSchemasToolTool
+        Tool
             Successful Response
 
         Examples
@@ -1671,9 +1665,9 @@ class AsyncToolsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    LettaSchemasToolTool,
+                    Tool,
                     construct_type(
-                        type_=LettaSchemasToolTool,  # type: ignore
+                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

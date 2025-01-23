@@ -3,7 +3,7 @@
 from ...core.client_wrapper import SyncClientWrapper
 import typing
 from ...core.request_options import RequestOptions
-from .types.memory_variables_get_response import MemoryVariablesGetResponse
+from .types.memory_variables_list_response import MemoryVariablesListResponse
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.unchecked_base_model import construct_type
 from ...errors.not_found_error import NotFoundError
@@ -16,9 +16,9 @@ class MemoryVariablesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get(
+    def list(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> MemoryVariablesGetResponse:
+    ) -> MemoryVariablesListResponse:
         """
         <Note>This endpoint is only available on Letta Cloud.</Note>
 
@@ -33,7 +33,7 @@ class MemoryVariablesClient:
 
         Returns
         -------
-        MemoryVariablesGetResponse
+        MemoryVariablesListResponse
             200
 
         Examples
@@ -43,7 +43,7 @@ class MemoryVariablesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.memory_variables.get(
+        client.agents.memory_variables.list(
             agent_id="agent_id",
         )
         """
@@ -55,9 +55,9 @@ class MemoryVariablesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    MemoryVariablesGetResponse,
+                    MemoryVariablesListResponse,
                     construct_type(
-                        type_=MemoryVariablesGetResponse,  # type: ignore
+                        type_=MemoryVariablesListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -81,9 +81,9 @@ class AsyncMemoryVariablesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get(
+    async def list(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> MemoryVariablesGetResponse:
+    ) -> MemoryVariablesListResponse:
         """
         <Note>This endpoint is only available on Letta Cloud.</Note>
 
@@ -98,7 +98,7 @@ class AsyncMemoryVariablesClient:
 
         Returns
         -------
-        MemoryVariablesGetResponse
+        MemoryVariablesListResponse
             200
 
         Examples
@@ -113,7 +113,7 @@ class AsyncMemoryVariablesClient:
 
 
         async def main() -> None:
-            await client.agents.memory_variables.get(
+            await client.agents.memory_variables.list(
                 agent_id="agent_id",
             )
 
@@ -128,9 +128,9 @@ class AsyncMemoryVariablesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    MemoryVariablesGetResponse,
+                    MemoryVariablesListResponse,
                     construct_type(
-                        type_=MemoryVariablesGetResponse,  # type: ignore
+                        type_=MemoryVariablesListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
