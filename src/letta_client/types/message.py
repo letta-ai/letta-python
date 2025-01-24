@@ -5,6 +5,7 @@ import typing
 import pydantic
 import datetime as dt
 from .message_role import MessageRole
+from .text_content import TextContent
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -56,9 +57,9 @@ class Message(UncheckedBaseModel):
     The role of the participant.
     """
 
-    text: typing.Optional[str] = pydantic.Field(default=None)
+    content: typing.Optional[typing.List[TextContent]] = pydantic.Field(default=None)
     """
-    The text of the message.
+    The content of the message.
     """
 
     agent_id: typing.Optional[str] = pydantic.Field(default=None)

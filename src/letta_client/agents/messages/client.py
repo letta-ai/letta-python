@@ -15,6 +15,7 @@ from ...types.letta_request_config import LettaRequestConfig
 from ...types.letta_response import LettaResponse
 from ...core.serialization import convert_and_respect_annotation_metadata
 from ...types.message_role import MessageRole
+from .types.message_update_content import MessageUpdateContent
 from ...types.chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from ...types.message import Message
 from .types.letta_streaming_response import LettaStreamingResponse
@@ -161,7 +162,7 @@ class MessagesClient:
             messages=[
                 MessageCreate(
                     role="user",
-                    text="text",
+                    content="content",
                 )
             ],
         )
@@ -210,7 +211,7 @@ class MessagesClient:
         message_id: str,
         *,
         role: typing.Optional[MessageRole] = OMIT,
-        text: typing.Optional[str] = OMIT,
+        content: typing.Optional[MessageUpdateContent] = OMIT,
         name: typing.Optional[str] = OMIT,
         tool_calls: typing.Optional[typing.Sequence[ChatCompletionMessageToolCall]] = OMIT,
         tool_call_id: typing.Optional[str] = OMIT,
@@ -228,8 +229,8 @@ class MessagesClient:
         role : typing.Optional[MessageRole]
             The role of the participant.
 
-        text : typing.Optional[str]
-            The text of the message.
+        content : typing.Optional[MessageUpdateContent]
+            The content of the message.
 
         name : typing.Optional[str]
             The name of the participant.
@@ -265,7 +266,9 @@ class MessagesClient:
             method="PATCH",
             json={
                 "role": role,
-                "text": text,
+                "content": convert_and_respect_annotation_metadata(
+                    object_=content, annotation=MessageUpdateContent, direction="write"
+                ),
                 "name": name,
                 "tool_calls": convert_and_respect_annotation_metadata(
                     object_=tool_calls, annotation=typing.Sequence[ChatCompletionMessageToolCall], direction="write"
@@ -349,7 +352,7 @@ class MessagesClient:
             messages=[
                 MessageCreate(
                     role="user",
-                    text="text",
+                    content="content",
                 )
             ],
         )
@@ -447,7 +450,7 @@ class MessagesClient:
             messages=[
                 MessageCreate(
                     role="user",
-                    text="text",
+                    content="content",
                 )
             ],
         )
@@ -638,7 +641,7 @@ class AsyncMessagesClient:
                 messages=[
                     MessageCreate(
                         role="user",
-                        text="text",
+                        content="content",
                     )
                 ],
             )
@@ -690,7 +693,7 @@ class AsyncMessagesClient:
         message_id: str,
         *,
         role: typing.Optional[MessageRole] = OMIT,
-        text: typing.Optional[str] = OMIT,
+        content: typing.Optional[MessageUpdateContent] = OMIT,
         name: typing.Optional[str] = OMIT,
         tool_calls: typing.Optional[typing.Sequence[ChatCompletionMessageToolCall]] = OMIT,
         tool_call_id: typing.Optional[str] = OMIT,
@@ -708,8 +711,8 @@ class AsyncMessagesClient:
         role : typing.Optional[MessageRole]
             The role of the participant.
 
-        text : typing.Optional[str]
-            The text of the message.
+        content : typing.Optional[MessageUpdateContent]
+            The content of the message.
 
         name : typing.Optional[str]
             The name of the participant.
@@ -753,7 +756,9 @@ class AsyncMessagesClient:
             method="PATCH",
             json={
                 "role": role,
-                "text": text,
+                "content": convert_and_respect_annotation_metadata(
+                    object_=content, annotation=MessageUpdateContent, direction="write"
+                ),
                 "name": name,
                 "tool_calls": convert_and_respect_annotation_metadata(
                     object_=tool_calls, annotation=typing.Sequence[ChatCompletionMessageToolCall], direction="write"
@@ -842,7 +847,7 @@ class AsyncMessagesClient:
                 messages=[
                     MessageCreate(
                         role="user",
-                        text="text",
+                        content="content",
                     )
                 ],
             )
@@ -948,7 +953,7 @@ class AsyncMessagesClient:
                 messages=[
                     MessageCreate(
                         role="user",
-                        text="text",
+                        content="content",
                     )
                 ],
             )

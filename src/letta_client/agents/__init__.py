@@ -15,7 +15,7 @@ from .types import (
 )
 from . import archival_memory, context, core_memory, memory_variables, messages, sources, templates, tools
 from .memory_variables import MemoryVariablesListResponse
-from .messages import LettaStreamingResponse, MessagesListResponse
+from .messages import LettaStreamingResponse, MessageUpdateContent, MessagesListResponse
 from .templates import TemplatesMigrateResponse
 
 __all__ = [
@@ -31,6 +31,7 @@ __all__ = [
     "CreateAgentRequestToolRulesItem",
     "LettaStreamingResponse",
     "MemoryVariablesListResponse",
+    "MessageUpdateContent",
     "MessagesListResponse",
     "TemplatesMigrateResponse",
     "UpdateAgentToolRulesItem",
