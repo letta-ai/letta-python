@@ -10,6 +10,7 @@ from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
+from ..types.agent_state import AgentState
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -372,6 +373,65 @@ class BlocksClient:
                     Block,
                     construct_type(
                         type_=Block,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def list_agents_for_block(
+        self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[AgentState]:
+        """
+        Retrieves all agents associated with the specified block.
+        Raises a 404 if the block does not exist.
+
+        Parameters
+        ----------
+        block_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[AgentState]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.blocks.list_agents_for_block(
+            block_id="block_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/blocks/{jsonable_encoder(block_id)}/agents",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[AgentState],
+                    construct_type(
+                        type_=typing.List[AgentState],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -787,6 +847,73 @@ class AsyncBlocksClient:
                     Block,
                     construct_type(
                         type_=Block,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def list_agents_for_block(
+        self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[AgentState]:
+        """
+        Retrieves all agents associated with the specified block.
+        Raises a 404 if the block does not exist.
+
+        Parameters
+        ----------
+        block_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[AgentState]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.blocks.list_agents_for_block(
+                block_id="block_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/blocks/{jsonable_encoder(block_id)}/agents",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[AgentState],
+                    construct_type(
+                        type_=typing.List[AgentState],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -11,6 +11,7 @@ from .app_auth_scheme import AppAuthScheme
 from .app_auth_scheme_auth_mode import AppAuthSchemeAuthMode
 from .app_model import AppModel
 from .assistant_message import AssistantMessage
+from .assistant_message_content import AssistantMessageContent
 from .auth_request import AuthRequest
 from .auth_response import AuthResponse
 from .auth_scheme_field import AuthSchemeField
@@ -47,6 +48,7 @@ from .local_sandbox_config import LocalSandboxConfig
 from .memory import Memory
 from .message import Message
 from .message_create import MessageCreate
+from .message_create_content import MessageCreateContent
 from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
 from .not_found_error_body import NotFoundErrorBody
@@ -68,7 +70,9 @@ from .sandbox_environment_variable_update import SandboxEnvironmentVariableUpdat
 from .sandbox_type import SandboxType
 from .source import Source
 from .system_message import SystemMessage
+from .system_message_content import SystemMessageContent
 from .terminal_tool_rule import TerminalToolRule
+from .text_content import TextContent
 from .tool import Tool
 from .tool_call import ToolCall
 from .tool_call_delta import ToolCallDelta
@@ -83,6 +87,7 @@ from .usage_statistics import UsageStatistics
 from .user import User
 from .user_create import UserCreate
 from .user_message import UserMessage
+from .user_message_content import UserMessageContent
 from .user_update import UserUpdate
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
@@ -99,6 +104,7 @@ __all__ = [
     "AppAuthSchemeAuthMode",
     "AppModel",
     "AssistantMessage",
+    "AssistantMessageContent",
     "AuthRequest",
     "AuthResponse",
     "AuthSchemeField",
@@ -135,6 +141,7 @@ __all__ = [
     "Memory",
     "Message",
     "MessageCreate",
+    "MessageCreateContent",
     "MessageCreateRole",
     "MessageRole",
     "NotFoundErrorBody",
@@ -156,7 +163,9 @@ __all__ = [
     "SandboxType",
     "Source",
     "SystemMessage",
+    "SystemMessageContent",
     "TerminalToolRule",
+    "TextContent",
     "Tool",
     "ToolCall",
     "ToolCallDelta",
@@ -171,6 +180,7 @@ __all__ = [
     "User",
     "UserCreate",
     "UserMessage",
+    "UserMessageContent",
     "UserUpdate",
     "ValidationError",
     "ValidationErrorLocItem",

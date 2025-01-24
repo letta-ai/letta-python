@@ -83,7 +83,7 @@ response = client.agents.messages.create_stream(
     messages=[
         MessageCreate(
             role="user",
-            text="text",
+            content="content",
         )
     ],
 )

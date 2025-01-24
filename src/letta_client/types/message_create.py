@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .message_create_role import MessageCreateRole
 import pydantic
+from .message_create_content import MessageCreateContent
 import typing
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -17,9 +18,9 @@ class MessageCreate(UncheckedBaseModel):
     The role of the participant.
     """
 
-    text: str = pydantic.Field()
+    content: MessageCreateContent = pydantic.Field()
     """
-    The text of the message.
+    The content of the message.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)
