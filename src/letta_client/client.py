@@ -31,7 +31,6 @@ class ToolsClient(ToolsClientBase):
         self,
         *,
         func: typing.Callable,
-        name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
@@ -44,7 +43,6 @@ class ToolsClient(ToolsClientBase):
         source_code = dedent(inspect.getsource(func))
         return self.create(
             source_code=source_code,
-            name=name,
             description=description,
             tags=tags,
             source_type=source_type,
@@ -57,7 +55,6 @@ class ToolsClient(ToolsClientBase):
         self,
         *,
         func: typing.Callable,
-        name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
@@ -70,7 +67,6 @@ class ToolsClient(ToolsClientBase):
         source_code = dedent(inspect.getsource(func))
         return self.upsert(
             source_code=source_code,
-            name=name,
             description=description,
             tags=tags,
             source_type=source_type,

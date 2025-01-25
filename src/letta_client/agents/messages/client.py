@@ -36,6 +36,7 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
+        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         msg_object: typing.Optional[bool] = None,
@@ -49,6 +50,9 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+
+        after : typing.Optional[str]
+            Message after which to retrieve the returned messages.
 
         before : typing.Optional[str]
             Message before which to retrieve the returned messages.
@@ -88,6 +92,7 @@ class MessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages",
             method="GET",
             params={
+                "after": after,
                 "before": before,
                 "limit": limit,
                 "msg_object": msg_object,
@@ -502,6 +507,7 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
+        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         msg_object: typing.Optional[bool] = None,
@@ -515,6 +521,9 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+
+        after : typing.Optional[str]
+            Message after which to retrieve the returned messages.
 
         before : typing.Optional[str]
             Message before which to retrieve the returned messages.
@@ -562,6 +571,7 @@ class AsyncMessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages",
             method="GET",
             params={
+                "after": after,
                 "before": before,
                 "limit": limit,
                 "msg_object": msg_object,

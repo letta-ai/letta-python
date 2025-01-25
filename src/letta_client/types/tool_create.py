@@ -7,11 +7,6 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class ToolCreate(UncheckedBaseModel):
-    name: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The name of the function (auto-generated from source_code if not provided).
-    """
-
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     The description of the tool.
