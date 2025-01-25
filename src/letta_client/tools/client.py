@@ -142,7 +142,6 @@ class ToolsClient:
         tool_id: str,
         *,
         description: typing.Optional[str] = OMIT,
-        name: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_code: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
@@ -159,9 +158,6 @@ class ToolsClient:
 
         description : typing.Optional[str]
             The description of the tool.
-
-        name : typing.Optional[str]
-            The name of the function.
 
         tags : typing.Optional[typing.Sequence[str]]
             Metadata tags.
@@ -202,7 +198,6 @@ class ToolsClient:
             method="PATCH",
             json={
                 "description": description,
-                "name": name,
                 "tags": tags,
                 "source_code": source_code,
                 "source_type": source_type,
@@ -309,7 +304,6 @@ class ToolsClient:
         self,
         *,
         source_code: str,
-        name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
@@ -324,9 +318,6 @@ class ToolsClient:
         ----------
         source_code : str
             The source code of the function.
-
-        name : typing.Optional[str]
-            The name of the function (auto-generated from source_code if not provided).
 
         description : typing.Optional[str]
             The description of the tool.
@@ -366,7 +357,6 @@ class ToolsClient:
             "v1/tools/",
             method="POST",
             json={
-                "name": name,
                 "description": description,
                 "tags": tags,
                 "source_code": source_code,
@@ -405,7 +395,6 @@ class ToolsClient:
         self,
         *,
         source_code: str,
-        name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
@@ -420,9 +409,6 @@ class ToolsClient:
         ----------
         source_code : str
             The source code of the function.
-
-        name : typing.Optional[str]
-            The name of the function (auto-generated from source_code if not provided).
 
         description : typing.Optional[str]
             The description of the tool.
@@ -462,7 +448,6 @@ class ToolsClient:
             "v1/tools/",
             method="PUT",
             json={
-                "name": name,
                 "description": description,
                 "tags": tags,
                 "source_code": source_code,
@@ -947,7 +932,6 @@ class AsyncToolsClient:
         tool_id: str,
         *,
         description: typing.Optional[str] = OMIT,
-        name: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_code: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
@@ -964,9 +948,6 @@ class AsyncToolsClient:
 
         description : typing.Optional[str]
             The description of the tool.
-
-        name : typing.Optional[str]
-            The name of the function.
 
         tags : typing.Optional[typing.Sequence[str]]
             Metadata tags.
@@ -1015,7 +996,6 @@ class AsyncToolsClient:
             method="PATCH",
             json={
                 "description": description,
-                "name": name,
                 "tags": tags,
                 "source_code": source_code,
                 "source_type": source_type,
@@ -1130,7 +1110,6 @@ class AsyncToolsClient:
         self,
         *,
         source_code: str,
-        name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
@@ -1145,9 +1124,6 @@ class AsyncToolsClient:
         ----------
         source_code : str
             The source code of the function.
-
-        name : typing.Optional[str]
-            The name of the function (auto-generated from source_code if not provided).
 
         description : typing.Optional[str]
             The description of the tool.
@@ -1195,7 +1171,6 @@ class AsyncToolsClient:
             "v1/tools/",
             method="POST",
             json={
-                "name": name,
                 "description": description,
                 "tags": tags,
                 "source_code": source_code,
@@ -1234,7 +1209,6 @@ class AsyncToolsClient:
         self,
         *,
         source_code: str,
-        name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
@@ -1249,9 +1223,6 @@ class AsyncToolsClient:
         ----------
         source_code : str
             The source code of the function.
-
-        name : typing.Optional[str]
-            The name of the function (auto-generated from source_code if not provided).
 
         description : typing.Optional[str]
             The description of the tool.
@@ -1299,7 +1270,6 @@ class AsyncToolsClient:
             "v1/tools/",
             method="PUT",
             json={
-                "name": name,
                 "description": description,
                 "tags": tags,
                 "source_code": source_code,

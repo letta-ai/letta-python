@@ -206,14 +206,6 @@ client.tools.modify(
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` — The name of the function.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **tags:** `typing.Optional[typing.Sequence[str]]` — Metadata tags.
     
 </dd>
@@ -400,14 +392,6 @@ client.tools.create(
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` — The name of the function (auto-generated from source_code if not provided).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **description:** `typing.Optional[str]` — The description of the tool.
     
 </dd>
@@ -511,14 +495,6 @@ client.tools.upsert(
 <dd>
 
 **source_code:** `str` — The source code of the function.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — The name of the function (auto-generated from source_code if not provided).
     
 </dd>
 </dl>
@@ -5360,6 +5336,14 @@ client.agents.messages.list(
 <dd>
 
 **agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Message after which to retrieve the returned messages.
     
 </dd>
 </dl>
