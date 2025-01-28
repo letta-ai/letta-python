@@ -14,6 +14,7 @@ from .health.client import HealthClient
 from .providers.client import ProvidersClient
 from .runs.client import RunsClient
 from .tag.client import TagClient
+from .templates.client import TemplatesClient
 from .core.client_wrapper import AsyncClientWrapper
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
@@ -25,6 +26,7 @@ from .health.client import AsyncHealthClient
 from .providers.client import AsyncProvidersClient
 from .runs.client import AsyncRunsClient
 from .tag.client import AsyncTagClient
+from .templates.client import AsyncTemplatesClient
 
 
 class LettaBase:
@@ -95,6 +97,7 @@ class LettaBase:
         self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
         self.runs = RunsClient(client_wrapper=self._client_wrapper)
         self.tag = TagClient(client_wrapper=self._client_wrapper)
+        self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncLettaBase:
@@ -165,6 +168,7 @@ class AsyncLettaBase:
         self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
         self.runs = AsyncRunsClient(client_wrapper=self._client_wrapper)
         self.tag = AsyncTagClient(client_wrapper=self._client_wrapper)
+        self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: LettaEnvironment) -> str:

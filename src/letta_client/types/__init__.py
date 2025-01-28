@@ -12,13 +12,62 @@ from .app_auth_scheme_auth_mode import AppAuthSchemeAuthMode
 from .app_model import AppModel
 from .assistant_message import AssistantMessage
 from .assistant_message_content import AssistantMessageContent
+from .audio import Audio
 from .auth_request import AuthRequest
 from .auth_response import AuthResponse
 from .auth_scheme_field import AuthSchemeField
 from .block import Block
 from .block_update import BlockUpdate
-from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .chat_completion_assistant_message_param import ChatCompletionAssistantMessageParam
+from .chat_completion_assistant_message_param_content import ChatCompletionAssistantMessageParamContent
+from .chat_completion_assistant_message_param_content_item import ChatCompletionAssistantMessageParamContentItem
+from .chat_completion_audio_param import ChatCompletionAudioParam
+from .chat_completion_audio_param_format import ChatCompletionAudioParamFormat
+from .chat_completion_audio_param_voice import ChatCompletionAudioParamVoice
+from .chat_completion_content_part_image_param import ChatCompletionContentPartImageParam
+from .chat_completion_content_part_input_audio_param import ChatCompletionContentPartInputAudioParam
+from .chat_completion_content_part_refusal_param import ChatCompletionContentPartRefusalParam
+from .chat_completion_content_part_text_param import ChatCompletionContentPartTextParam
+from .chat_completion_developer_message_param import ChatCompletionDeveloperMessageParam
+from .chat_completion_developer_message_param_content import ChatCompletionDeveloperMessageParamContent
+from .chat_completion_function_call_option_param import ChatCompletionFunctionCallOptionParam
+from .chat_completion_function_message_param import ChatCompletionFunctionMessageParam
+from .chat_completion_message_tool_call_input import ChatCompletionMessageToolCallInput
+from .chat_completion_message_tool_call_output import ChatCompletionMessageToolCallOutput
+from .chat_completion_message_tool_call_param import ChatCompletionMessageToolCallParam
+from .chat_completion_named_tool_choice_param import ChatCompletionNamedToolChoiceParam
+from .chat_completion_prediction_content_param import ChatCompletionPredictionContentParam
+from .chat_completion_prediction_content_param_content import ChatCompletionPredictionContentParamContent
+from .chat_completion_stream_options_param import ChatCompletionStreamOptionsParam
+from .chat_completion_system_message_param import ChatCompletionSystemMessageParam
+from .chat_completion_system_message_param_content import ChatCompletionSystemMessageParamContent
+from .chat_completion_tool_message_param import ChatCompletionToolMessageParam
+from .chat_completion_tool_message_param_content import ChatCompletionToolMessageParamContent
+from .chat_completion_tool_param import ChatCompletionToolParam
+from .chat_completion_user_message_param import ChatCompletionUserMessageParam
+from .chat_completion_user_message_param_content import ChatCompletionUserMessageParamContent
+from .chat_completion_user_message_param_content_item import ChatCompletionUserMessageParamContentItem
 from .child_tool_rule import ChildToolRule
+from .completion_create_params_non_streaming import CompletionCreateParamsNonStreaming
+from .completion_create_params_non_streaming_function_call import CompletionCreateParamsNonStreamingFunctionCall
+from .completion_create_params_non_streaming_messages_item import CompletionCreateParamsNonStreamingMessagesItem
+from .completion_create_params_non_streaming_modalities_item import CompletionCreateParamsNonStreamingModalitiesItem
+from .completion_create_params_non_streaming_model import CompletionCreateParamsNonStreamingModel
+from .completion_create_params_non_streaming_reasoning_effort import CompletionCreateParamsNonStreamingReasoningEffort
+from .completion_create_params_non_streaming_response_format import CompletionCreateParamsNonStreamingResponseFormat
+from .completion_create_params_non_streaming_service_tier import CompletionCreateParamsNonStreamingServiceTier
+from .completion_create_params_non_streaming_stop import CompletionCreateParamsNonStreamingStop
+from .completion_create_params_non_streaming_tool_choice import CompletionCreateParamsNonStreamingToolChoice
+from .completion_create_params_streaming import CompletionCreateParamsStreaming
+from .completion_create_params_streaming_function_call import CompletionCreateParamsStreamingFunctionCall
+from .completion_create_params_streaming_messages_item import CompletionCreateParamsStreamingMessagesItem
+from .completion_create_params_streaming_modalities_item import CompletionCreateParamsStreamingModalitiesItem
+from .completion_create_params_streaming_model import CompletionCreateParamsStreamingModel
+from .completion_create_params_streaming_reasoning_effort import CompletionCreateParamsStreamingReasoningEffort
+from .completion_create_params_streaming_response_format import CompletionCreateParamsStreamingResponseFormat
+from .completion_create_params_streaming_service_tier import CompletionCreateParamsStreamingServiceTier
+from .completion_create_params_streaming_stop import CompletionCreateParamsStreamingStop
+from .completion_create_params_streaming_tool_choice import CompletionCreateParamsStreamingToolChoice
 from .conditional_tool_rule import ConditionalToolRule
 from .conflict_error_body import ConflictErrorBody
 from .context_window_overview import ContextWindowOverview
@@ -27,16 +76,23 @@ from .e_2_b_sandbox_config import E2BSandboxConfig
 from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
 from .file_metadata import FileMetadata
-from .function import Function
-from .function_definition import FunctionDefinition
+from .function_call import FunctionCall
+from .function_definition_input import FunctionDefinitionInput
+from .function_definition_output import FunctionDefinitionOutput
+from .function_output import FunctionOutput
 from .function_tool import FunctionTool
 from .health import Health
 from .http_validation_error import HttpValidationError
+from .image_url import ImageUrl
+from .image_url_detail import ImageUrlDetail
 from .init_tool_rule import InitToolRule
+from .input_audio import InputAudio
+from .input_audio_format import InputAudioFormat
 from .internal_server_error_body import InternalServerErrorBody
 from .job import Job
 from .job_status import JobStatus
 from .job_type import JobType
+from .json_schema import JsonSchema
 from .letta_message_union import LettaMessageUnion
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
@@ -53,11 +109,24 @@ from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
 from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
+from .openai_types_chat_chat_completion_message_tool_call_function import (
+    OpenaiTypesChatChatCompletionMessageToolCallFunction,
+)
+from .openai_types_chat_chat_completion_message_tool_call_param_function import (
+    OpenaiTypesChatChatCompletionMessageToolCallParamFunction,
+)
+from .openai_types_chat_chat_completion_named_tool_choice_param_function import (
+    OpenaiTypesChatChatCompletionNamedToolChoiceParamFunction,
+)
+from .openai_types_chat_completion_create_params_function import OpenaiTypesChatCompletionCreateParamsFunction
 from .organization import Organization
 from .organization_create import OrganizationCreate
 from .passage import Passage
 from .provider import Provider
 from .reasoning_message import ReasoningMessage
+from .response_format_json_object import ResponseFormatJsonObject
+from .response_format_json_schema import ResponseFormatJsonSchema
+from .response_format_text import ResponseFormatText
 from .run import Run
 from .sandbox_config import SandboxConfig
 from .sandbox_config_create import SandboxConfigCreate
@@ -105,13 +174,62 @@ __all__ = [
     "AppModel",
     "AssistantMessage",
     "AssistantMessageContent",
+    "Audio",
     "AuthRequest",
     "AuthResponse",
     "AuthSchemeField",
     "Block",
     "BlockUpdate",
-    "ChatCompletionMessageToolCall",
+    "ChatCompletionAssistantMessageParam",
+    "ChatCompletionAssistantMessageParamContent",
+    "ChatCompletionAssistantMessageParamContentItem",
+    "ChatCompletionAudioParam",
+    "ChatCompletionAudioParamFormat",
+    "ChatCompletionAudioParamVoice",
+    "ChatCompletionContentPartImageParam",
+    "ChatCompletionContentPartInputAudioParam",
+    "ChatCompletionContentPartRefusalParam",
+    "ChatCompletionContentPartTextParam",
+    "ChatCompletionDeveloperMessageParam",
+    "ChatCompletionDeveloperMessageParamContent",
+    "ChatCompletionFunctionCallOptionParam",
+    "ChatCompletionFunctionMessageParam",
+    "ChatCompletionMessageToolCallInput",
+    "ChatCompletionMessageToolCallOutput",
+    "ChatCompletionMessageToolCallParam",
+    "ChatCompletionNamedToolChoiceParam",
+    "ChatCompletionPredictionContentParam",
+    "ChatCompletionPredictionContentParamContent",
+    "ChatCompletionStreamOptionsParam",
+    "ChatCompletionSystemMessageParam",
+    "ChatCompletionSystemMessageParamContent",
+    "ChatCompletionToolMessageParam",
+    "ChatCompletionToolMessageParamContent",
+    "ChatCompletionToolParam",
+    "ChatCompletionUserMessageParam",
+    "ChatCompletionUserMessageParamContent",
+    "ChatCompletionUserMessageParamContentItem",
     "ChildToolRule",
+    "CompletionCreateParamsNonStreaming",
+    "CompletionCreateParamsNonStreamingFunctionCall",
+    "CompletionCreateParamsNonStreamingMessagesItem",
+    "CompletionCreateParamsNonStreamingModalitiesItem",
+    "CompletionCreateParamsNonStreamingModel",
+    "CompletionCreateParamsNonStreamingReasoningEffort",
+    "CompletionCreateParamsNonStreamingResponseFormat",
+    "CompletionCreateParamsNonStreamingServiceTier",
+    "CompletionCreateParamsNonStreamingStop",
+    "CompletionCreateParamsNonStreamingToolChoice",
+    "CompletionCreateParamsStreaming",
+    "CompletionCreateParamsStreamingFunctionCall",
+    "CompletionCreateParamsStreamingMessagesItem",
+    "CompletionCreateParamsStreamingModalitiesItem",
+    "CompletionCreateParamsStreamingModel",
+    "CompletionCreateParamsStreamingReasoningEffort",
+    "CompletionCreateParamsStreamingResponseFormat",
+    "CompletionCreateParamsStreamingServiceTier",
+    "CompletionCreateParamsStreamingStop",
+    "CompletionCreateParamsStreamingToolChoice",
     "ConditionalToolRule",
     "ConflictErrorBody",
     "ContextWindowOverview",
@@ -120,16 +238,23 @@ __all__ = [
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
     "FileMetadata",
-    "Function",
-    "FunctionDefinition",
+    "FunctionCall",
+    "FunctionDefinitionInput",
+    "FunctionDefinitionOutput",
+    "FunctionOutput",
     "FunctionTool",
     "Health",
     "HttpValidationError",
+    "ImageUrl",
+    "ImageUrlDetail",
     "InitToolRule",
+    "InputAudio",
+    "InputAudioFormat",
     "InternalServerErrorBody",
     "Job",
     "JobStatus",
     "JobType",
+    "JsonSchema",
     "LettaMessageUnion",
     "LettaRequest",
     "LettaRequestConfig",
@@ -146,11 +271,18 @@ __all__ = [
     "MessageRole",
     "NotFoundErrorBody",
     "NotFoundErrorBodyMessage",
+    "OpenaiTypesChatChatCompletionMessageToolCallFunction",
+    "OpenaiTypesChatChatCompletionMessageToolCallParamFunction",
+    "OpenaiTypesChatChatCompletionNamedToolChoiceParamFunction",
+    "OpenaiTypesChatCompletionCreateParamsFunction",
     "Organization",
     "OrganizationCreate",
     "Passage",
     "Provider",
     "ReasoningMessage",
+    "ResponseFormatJsonObject",
+    "ResponseFormatJsonSchema",
+    "ResponseFormatText",
     "Run",
     "SandboxConfig",
     "SandboxConfigCreate",

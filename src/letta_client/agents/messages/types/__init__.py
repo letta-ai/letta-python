@@ -2,6 +2,5 @@
 
 from .letta_streaming_response import LettaStreamingResponse
 from .message_update_content import MessageUpdateContent
-from .messages_list_response import MessagesListResponse
 
-__all__ = ["LettaStreamingResponse", "MessageUpdateContent", "MessagesListResponse"]
+__all__ = ["LettaStreamingResponse", "MessageUpdateContent"]

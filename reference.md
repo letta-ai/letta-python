@@ -3988,6 +3988,110 @@ client.tag.list_tags()
 </dl>
 </details>
 
+## Templates
+<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">createagentsfromtemplate</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates agents given a template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.templates.createagentsfromtemplate(
+    project="project",
+    template_version="template_version",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `str` — The project slug
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_version:** `str` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_name:** `typing.Optional[str]` — The name of the agent, optional otherwise a random one will be assigned
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memory_variables:** `typing.Optional[typing.Dict[str, str]]` — The memory variables to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_variables:** `typing.Optional[typing.Dict[str, str]]` — The tool variables to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Agents Context
 <details><summary><code>client.agents.context.<a href="src/letta_client/agents/context/client.py">retrieve</a>(...)</code></summary>
 <dl>
@@ -5367,7 +5471,7 @@ client.agents.messages.list(
 <dl>
 <dd>
 
-**msg_object:** `typing.Optional[bool]` — If true, returns Message objects. If false, return LettaMessage objects.
+**use_assistant_message:** `typing.Optional[bool]` — Whether to use assistant messages
     
 </dd>
 </dl>
@@ -5383,7 +5487,7 @@ client.agents.messages.list(
 <dl>
 <dd>
 
-**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument.
     
 </dd>
 </dl>
@@ -5476,7 +5580,23 @@ client.agents.messages.create(
 <dl>
 <dd>
 
-**config:** `typing.Optional[LettaRequestConfig]` — Configuration options for the LettaRequest.
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
     
 </dd>
 </dl>
@@ -5587,7 +5707,7 @@ client.agents.messages.modify(
 <dl>
 <dd>
 
-**tool_calls:** `typing.Optional[typing.Sequence[ChatCompletionMessageToolCall]]` — The list of tool calls requested.
+**tool_calls:** `typing.Optional[typing.Sequence[ChatCompletionMessageToolCallInput]]` — The list of tool calls requested.
     
 </dd>
 </dl>
@@ -5691,7 +5811,23 @@ for chunk in response:
 <dl>
 <dd>
 
-**config:** `typing.Optional[LettaRequestConfig]` — Configuration options for the LettaRequest.
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
     
 </dd>
 </dl>
@@ -5792,7 +5928,23 @@ client.agents.messages.create_async(
 <dl>
 <dd>
 
-**config:** `typing.Optional[LettaRequestConfig]` — Configuration options for the LettaRequest.
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
     
 </dd>
 </dl>

@@ -4,7 +4,6 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 from .message_create import MessageCreate
 import pydantic
-from .letta_request_config import LettaRequestConfig
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -14,9 +13,19 @@ class LettaRequest(UncheckedBaseModel):
     The messages to be sent to the agent.
     """
 
-    config: typing.Optional[LettaRequestConfig] = pydantic.Field(default=None)
+    use_assistant_message: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Configuration options for the LettaRequest.
+    Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    """
+
+    assistant_message_tool_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The name of the designated message tool.
+    """
+
+    assistant_message_tool_kwarg: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The name of the message argument in the designated message tool.
     """
 
     if IS_PYDANTIC_V2:
