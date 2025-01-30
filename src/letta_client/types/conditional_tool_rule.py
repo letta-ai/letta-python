@@ -3,7 +3,6 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 import typing
-from .tool_rule_type import ToolRuleType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -17,7 +16,7 @@ class ConditionalToolRule(UncheckedBaseModel):
     The name of the tool. Must exist in the database for the user's organization.
     """
 
-    type: typing.Optional[ToolRuleType] = None
+    type: typing.Literal["conditional"] = "conditional"
     default_child: typing.Optional[str] = pydantic.Field(default=None)
     """
     The default child tool to be called. If None, any tool can be called.

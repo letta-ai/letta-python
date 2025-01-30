@@ -13,6 +13,7 @@ from .jobs.client import JobsClient
 from .health.client import HealthClient
 from .providers.client import ProvidersClient
 from .runs.client import RunsClient
+from .steps.client import StepsClient
 from .tag.client import TagClient
 from .templates.client import TemplatesClient
 from .core.client_wrapper import AsyncClientWrapper
@@ -25,6 +26,7 @@ from .jobs.client import AsyncJobsClient
 from .health.client import AsyncHealthClient
 from .providers.client import AsyncProvidersClient
 from .runs.client import AsyncRunsClient
+from .steps.client import AsyncStepsClient
 from .tag.client import AsyncTagClient
 from .templates.client import AsyncTemplatesClient
 
@@ -96,6 +98,7 @@ class LettaBase:
         self.health = HealthClient(client_wrapper=self._client_wrapper)
         self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
         self.runs = RunsClient(client_wrapper=self._client_wrapper)
+        self.steps = StepsClient(client_wrapper=self._client_wrapper)
         self.tag = TagClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
 
@@ -167,6 +170,7 @@ class AsyncLettaBase:
         self.health = AsyncHealthClient(client_wrapper=self._client_wrapper)
         self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
         self.runs = AsyncRunsClient(client_wrapper=self._client_wrapper)
+        self.steps = AsyncStepsClient(client_wrapper=self._client_wrapper)
         self.tag = AsyncTagClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
 

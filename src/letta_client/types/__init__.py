@@ -138,6 +138,7 @@ from .sandbox_environment_variable_create import SandboxEnvironmentVariableCreat
 from .sandbox_environment_variable_update import SandboxEnvironmentVariableUpdate
 from .sandbox_type import SandboxType
 from .source import Source
+from .step import Step
 from .system_message import SystemMessage
 from .system_message_content import SystemMessageContent
 from .terminal_tool_rule import TerminalToolRule
@@ -150,7 +151,6 @@ from .tool_call_message_tool_call import ToolCallMessageToolCall
 from .tool_create import ToolCreate
 from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
-from .tool_rule_type import ToolRuleType
 from .tool_type import ToolType
 from .usage_statistics import UsageStatistics
 from .user import User
@@ -294,6 +294,7 @@ __all__ = [
     "SandboxEnvironmentVariableUpdate",
     "SandboxType",
     "Source",
+    "Step",
     "SystemMessage",
     "SystemMessageContent",
     "TerminalToolRule",
@@ -306,7 +307,6 @@ __all__ = [
     "ToolCreate",
     "ToolReturnMessage",
     "ToolReturnMessageStatus",
-    "ToolRuleType",
     "ToolType",
     "UsageStatistics",
     "User",

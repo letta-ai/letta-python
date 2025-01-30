@@ -3,7 +3,6 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 import typing
-from .tool_rule_type import ToolRuleType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -17,7 +16,7 @@ class InitToolRule(UncheckedBaseModel):
     The name of the tool. Must exist in the database for the user's organization.
     """
 
-    type: typing.Optional[ToolRuleType] = None
+    type: typing.Literal["run_first"] = "run_first"
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

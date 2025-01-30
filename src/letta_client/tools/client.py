@@ -239,6 +239,7 @@ class ToolsClient:
         *,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Tool]:
         """
@@ -249,6 +250,8 @@ class ToolsClient:
         after : typing.Optional[str]
 
         limit : typing.Optional[int]
+
+        name : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -273,6 +276,7 @@ class ToolsClient:
             params={
                 "after": after,
                 "limit": limit,
+                "name": name,
             },
             request_options=request_options,
         )
@@ -1037,6 +1041,7 @@ class AsyncToolsClient:
         *,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Tool]:
         """
@@ -1047,6 +1052,8 @@ class AsyncToolsClient:
         after : typing.Optional[str]
 
         limit : typing.Optional[int]
+
+        name : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1079,6 +1086,7 @@ class AsyncToolsClient:
             params={
                 "after": after,
                 "limit": limit,
+                "name": name,
             },
             request_options=request_options,
         )

@@ -3,11 +3,5 @@
 import typing
 
 TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwoType = typing.Union[
-    typing.Literal["InitToolRule"],
-    typing.Literal["TerminalToolRule"],
-    typing.Literal["continue_loop"],
-    typing.Literal["conditional"],
-    typing.Literal["ToolRule"],
-    typing.Literal["require_parent_tools"],
-    typing.Optional[typing.Any],
+    typing.Literal["exit_loop"], typing.Optional[typing.Any]
 ]
