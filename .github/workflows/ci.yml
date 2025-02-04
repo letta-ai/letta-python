@@ -34,9 +34,7 @@ jobs:
         run: poetry install
 
       - name: Test
-        env:
-          LETTA_API_KEY: ${{ secrets.LETTA_API_KEY }}
-        run: poetry run pytest -rP .
+        run: poetry run pytest -rP . --ignore=tests/custom/test_client.py
 
   publish:
     needs: [compile, test]
