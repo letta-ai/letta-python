@@ -64,6 +64,9 @@ class AgentsClient:
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         query_text: typing.Optional[str] = None,
+        project_id: typing.Optional[str] = None,
+        template_id: typing.Optional[str] = None,
+        base_template_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -93,6 +96,15 @@ class AgentsClient:
         query_text : typing.Optional[str]
             Search agents by name
 
+        project_id : typing.Optional[str]
+            Search agents by project id
+
+        template_id : typing.Optional[str]
+            Search agents by template id
+
+        base_template_id : typing.Optional[str]
+            Search agents by base template id
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -121,6 +133,9 @@ class AgentsClient:
                 "after": after,
                 "limit": limit,
                 "query_text": query_text,
+                "project_id": project_id,
+                "template_id": template_id,
+                "base_template_id": base_template_id,
             },
             request_options=request_options,
         )
@@ -177,6 +192,9 @@ class AgentsClient:
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
+        template_id: typing.Optional[str] = OMIT,
+        base_template_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -262,6 +280,15 @@ class AgentsClient:
         memory_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The variables that should be set for the agent.
 
+        project_id : typing.Optional[str]
+            The id of the project the agent belongs to.
+
+        template_id : typing.Optional[str]
+            The id of the template the agent belongs to.
+
+        base_template_id : typing.Optional[str]
+            The base template id of the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -319,6 +346,9 @@ class AgentsClient:
                 "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
                 "memory_variables": memory_variables,
+                "project_id": project_id,
+                "template_id": template_id,
+                "base_template_id": base_template_id,
             },
             headers={
                 "content-type": "application/json",
@@ -481,6 +511,9 @@ class AgentsClient:
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
+        template_id: typing.Optional[str] = OMIT,
+        base_template_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -529,6 +562,15 @@ class AgentsClient:
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
+        project_id : typing.Optional[str]
+            The id of the project the agent belongs to.
+
+        template_id : typing.Optional[str]
+            The id of the template the agent belongs to.
+
+        base_template_id : typing.Optional[str]
+            The base template id of the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -571,6 +613,9 @@ class AgentsClient:
                 "description": description,
                 "metadata": metadata,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
+                "project_id": project_id,
+                "template_id": template_id,
+                "base_template_id": base_template_id,
             },
             headers={
                 "content-type": "application/json",
@@ -762,6 +807,9 @@ class AsyncAgentsClient:
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         query_text: typing.Optional[str] = None,
+        project_id: typing.Optional[str] = None,
+        template_id: typing.Optional[str] = None,
+        base_template_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -790,6 +838,15 @@ class AsyncAgentsClient:
 
         query_text : typing.Optional[str]
             Search agents by name
+
+        project_id : typing.Optional[str]
+            Search agents by project id
+
+        template_id : typing.Optional[str]
+            Search agents by template id
+
+        base_template_id : typing.Optional[str]
+            Search agents by base template id
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -827,6 +884,9 @@ class AsyncAgentsClient:
                 "after": after,
                 "limit": limit,
                 "query_text": query_text,
+                "project_id": project_id,
+                "template_id": template_id,
+                "base_template_id": base_template_id,
             },
             request_options=request_options,
         )
@@ -883,6 +943,9 @@ class AsyncAgentsClient:
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
+        template_id: typing.Optional[str] = OMIT,
+        base_template_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -968,6 +1031,15 @@ class AsyncAgentsClient:
         memory_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The variables that should be set for the agent.
 
+        project_id : typing.Optional[str]
+            The id of the project the agent belongs to.
+
+        template_id : typing.Optional[str]
+            The id of the template the agent belongs to.
+
+        base_template_id : typing.Optional[str]
+            The base template id of the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1033,6 +1105,9 @@ class AsyncAgentsClient:
                 "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
                 "memory_variables": memory_variables,
+                "project_id": project_id,
+                "template_id": template_id,
+                "base_template_id": base_template_id,
             },
             headers={
                 "content-type": "application/json",
@@ -1211,6 +1286,9 @@ class AsyncAgentsClient:
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
+        template_id: typing.Optional[str] = OMIT,
+        base_template_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1258,6 +1336,15 @@ class AsyncAgentsClient:
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
+
+        project_id : typing.Optional[str]
+            The id of the project the agent belongs to.
+
+        template_id : typing.Optional[str]
+            The id of the template the agent belongs to.
+
+        base_template_id : typing.Optional[str]
+            The base template id of the agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1309,6 +1396,9 @@ class AsyncAgentsClient:
                 "description": description,
                 "metadata": metadata,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
+                "project_id": project_id,
+                "template_id": template_id,
+                "base_template_id": base_template_id,
             },
             headers={
                 "content-type": "application/json",

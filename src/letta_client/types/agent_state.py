@@ -128,6 +128,21 @@ class AgentState(UncheckedBaseModel):
     The environment variables for tool execution specific to this agent.
     """
 
+    project_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the project the agent belongs to.
+    """
+
+    template_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the template the agent belongs to.
+    """
+
+    base_template_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The base template id of the agent.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

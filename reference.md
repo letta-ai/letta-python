@@ -1498,6 +1498,30 @@ client.agents.list()
 <dl>
 <dd>
 
+**project_id:** `typing.Optional[str]` — Search agents by project id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_id:** `typing.Optional[str]` — Search agents by template id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**base_template_id:** `typing.Optional[str]` — Search agents by base template id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -1759,6 +1783,30 @@ client.agents.create()
 <dd>
 
 **memory_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The variables that should be set for the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The id of the project the agent belongs to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_id:** `typing.Optional[str]` — The id of the template the agent belongs to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**base_template_id:** `typing.Optional[str]` — The base template id of the agent.
     
 </dd>
 </dl>
@@ -2073,6 +2121,30 @@ client.agents.modify(
 <dd>
 
 **tool_exec_environment_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The environment variables for tool execution specific to this agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The id of the project the agent belongs to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_id:** `typing.Optional[str]` — The id of the template the agent belongs to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**base_template_id:** `typing.Optional[str]` — The base template id of the agent.
     
 </dd>
 </dl>

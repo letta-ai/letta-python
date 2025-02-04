@@ -3,6 +3,8 @@
 import typing
 
 TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemToolType = typing.Union[
-    typing.Literal["custom", "letta_core", "letta_memory_core", "letta_multi_agent_core", "external_composio"],
+    typing.Literal[
+        "custom", "letta_core", "letta_memory_core", "letta_multi_agent_core", "external_composio", "external_langchain"
+    ],
     typing.Any,
 ]

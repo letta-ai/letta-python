@@ -50,6 +50,15 @@ from .templates_create_agents_from_template_response_agents_item_sources_item im
 from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables,
 )
+from .templates_create_agents_from_template_response_agents_item_project_id import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId,
+)
+from .templates_create_agents_from_template_response_agents_item_template_id import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId,
+)
+from .templates_create_agents_from_template_response_agents_item_base_template_id import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId,
+)
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -77,6 +86,9 @@ class TemplatesCreateAgentsFromTemplateResponseAgentsItem(UncheckedBaseModel):
     tool_exec_environment_variables: typing.Optional[
         TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables
     ] = None
+    project_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId] = None
+    template_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId] = None
+    base_template_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

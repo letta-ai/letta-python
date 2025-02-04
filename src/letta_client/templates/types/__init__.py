@@ -7,6 +7,12 @@ from .templates_create_agents_from_template_response_agents_item import (
 from .templates_create_agents_from_template_response_agents_item_agent_type import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemAgentType,
 )
+from .templates_create_agents_from_template_response_agents_item_base_template_id import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId,
+)
+from .templates_create_agents_from_template_response_agents_item_base_template_id_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateIdItem,
+)
 from .templates_create_agents_from_template_response_agents_item_created_at import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemCreatedAt,
 )
@@ -184,6 +190,12 @@ from .templates_create_agents_from_template_response_agents_item_organization_id
 from .templates_create_agents_from_template_response_agents_item_organization_id_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemOrganizationIdItem,
 )
+from .templates_create_agents_from_template_response_agents_item_project_id import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId,
+)
+from .templates_create_agents_from_template_response_agents_item_project_id_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectIdItem,
+)
 from .templates_create_agents_from_template_response_agents_item_sources_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem,
 )
@@ -273,6 +285,12 @@ from .templates_create_agents_from_template_response_agents_item_sources_item_up
 )
 from .templates_create_agents_from_template_response_agents_item_sources_item_updated_at_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemUpdatedAtItem,
+)
+from .templates_create_agents_from_template_response_agents_item_template_id import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId,
+)
+from .templates_create_agents_from_template_response_agents_item_template_id_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateIdItem,
 )
 from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables,
@@ -459,6 +477,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponse",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemAgentType",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemCreatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemCreatedAtItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemCreatedById",
@@ -518,6 +538,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemMetadataItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemOrganizationId",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemOrganizationIdItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemCreatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemCreatedAtItem",
@@ -548,6 +570,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemOrganizationIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemUpdatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemUpdatedAtItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariables",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemCreatedAt",

@@ -122,6 +122,7 @@ from .openai_types_chat_completion_create_params_function import OpenaiTypesChat
 from .organization import Organization
 from .organization_create import OrganizationCreate
 from .passage import Passage
+from .pip_requirement import PipRequirement
 from .provider import Provider
 from .reasoning_message import ReasoningMessage
 from .response_format_json_object import ResponseFormatJsonObject
@@ -278,6 +279,7 @@ __all__ = [
     "Organization",
     "OrganizationCreate",
     "Passage",
+    "PipRequirement",
     "Provider",
     "ReasoningMessage",
     "ResponseFormatJsonObject",
