@@ -2,16 +2,16 @@
 
 from ...core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .agents_search_request_search_item_direction_value import AgentsSearchRequestSearchItemDirectionValue
-from .agents_search_request_search_item_direction_direction import AgentsSearchRequestSearchItemDirectionDirection
+from .agents_search_response_agents_item_tool_rules_item_one_type import (
+    AgentsSearchResponseAgentsItemToolRulesItemOneType,
+)
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class AgentsSearchRequestSearchItemDirection(UncheckedBaseModel):
-    field: typing.Literal["order_by"] = "order_by"
-    value: AgentsSearchRequestSearchItemDirectionValue
-    direction: AgentsSearchRequestSearchItemDirectionDirection
+class AgentsSearchResponseAgentsItemToolRulesItemOne(UncheckedBaseModel):
+    tool_name: str
+    type: typing.Optional[AgentsSearchResponseAgentsItemToolRulesItemOneType] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

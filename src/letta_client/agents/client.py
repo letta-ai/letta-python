@@ -27,7 +27,7 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
-from .types.agents_search_request_combinator import AgentsSearchRequestCombinator
+from .types.agents_search_response import AgentsSearchResponse
 from ..core.client_wrapper import AsyncClientWrapper
 from .context.client import AsyncContextClient
 from .tools.client import AsyncToolsClient
@@ -720,11 +720,11 @@ class AgentsClient:
         *,
         search: typing.Optional[typing.Sequence[AgentsSearchRequestSearchItem]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
-        combinator: typing.Optional[AgentsSearchRequestCombinator] = OMIT,
+        combinator: typing.Optional[typing.Literal["AND"]] = OMIT,
         limit: typing.Optional[float] = OMIT,
-        offset: typing.Optional[float] = OMIT,
+        after: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
+    ) -> AgentsSearchResponse:
         """
         <Note>This endpoint is only available on Letta Cloud.</Note>
 
@@ -736,18 +736,19 @@ class AgentsClient:
 
         project_id : typing.Optional[str]
 
-        combinator : typing.Optional[AgentsSearchRequestCombinator]
+        combinator : typing.Optional[typing.Literal["AND"]]
 
         limit : typing.Optional[float]
 
-        offset : typing.Optional[float]
+        after : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        AgentsSearchResponse
+            200
 
         Examples
         --------
@@ -768,7 +769,7 @@ class AgentsClient:
                 "project_id": project_id,
                 "combinator": combinator,
                 "limit": limit,
-                "offset": offset,
+                "after": after,
             },
             headers={
                 "content-type": "application/json",
@@ -778,7 +779,13 @@ class AgentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    AgentsSearchResponse,
+                    construct_type(
+                        type_=AgentsSearchResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -1511,11 +1518,11 @@ class AsyncAgentsClient:
         *,
         search: typing.Optional[typing.Sequence[AgentsSearchRequestSearchItem]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
-        combinator: typing.Optional[AgentsSearchRequestCombinator] = OMIT,
+        combinator: typing.Optional[typing.Literal["AND"]] = OMIT,
         limit: typing.Optional[float] = OMIT,
-        offset: typing.Optional[float] = OMIT,
+        after: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
+    ) -> AgentsSearchResponse:
         """
         <Note>This endpoint is only available on Letta Cloud.</Note>
 
@@ -1527,18 +1534,19 @@ class AsyncAgentsClient:
 
         project_id : typing.Optional[str]
 
-        combinator : typing.Optional[AgentsSearchRequestCombinator]
+        combinator : typing.Optional[typing.Literal["AND"]]
 
         limit : typing.Optional[float]
 
-        offset : typing.Optional[float]
+        after : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        AgentsSearchResponse
+            200
 
         Examples
         --------
@@ -1567,7 +1575,7 @@ class AsyncAgentsClient:
                 "project_id": project_id,
                 "combinator": combinator,
                 "limit": limit,
-                "offset": offset,
+                "after": after,
             },
             headers={
                 "content-type": "application/json",
@@ -1577,7 +1585,13 @@ class AsyncAgentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    AgentsSearchResponse,
+                    construct_type(
+                        type_=AgentsSearchResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

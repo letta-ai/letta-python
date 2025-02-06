@@ -12,6 +12,7 @@ from ...core.api_error import ApiError
 from .types.templates_migrate_response import TemplatesMigrateResponse
 from ...errors.conflict_error import ConflictError
 from ...types.conflict_error_body import ConflictErrorBody
+from .types.templates_create_response import TemplatesCreateResponse
 from ...core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -215,7 +216,7 @@ class TemplatesClient:
         *,
         project: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
+    ) -> TemplatesCreateResponse:
         """
         <Note>This endpoint is only available on Letta Cloud.</Note>
 
@@ -232,7 +233,8 @@ class TemplatesClient:
 
         Returns
         -------
-        None
+        TemplatesCreateResponse
+            201
 
         Examples
         --------
@@ -259,16 +261,12 @@ class TemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
+                return typing.cast(
+                    TemplatesCreateResponse,
+                    construct_type(
+                        type_=TemplatesCreateResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
                 )
             if _response.status_code == 500:
                 raise InternalServerError(
@@ -499,7 +497,7 @@ class AsyncTemplatesClient:
         *,
         project: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
+    ) -> TemplatesCreateResponse:
         """
         <Note>This endpoint is only available on Letta Cloud.</Note>
 
@@ -516,7 +514,8 @@ class AsyncTemplatesClient:
 
         Returns
         -------
-        None
+        TemplatesCreateResponse
+            201
 
         Examples
         --------
@@ -551,16 +550,12 @@ class AsyncTemplatesClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
+                return typing.cast(
+                    TemplatesCreateResponse,
+                    construct_type(
+                        type_=TemplatesCreateResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
                 )
             if _response.status_code == 500:
                 raise InternalServerError(

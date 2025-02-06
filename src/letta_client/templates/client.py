@@ -23,6 +23,7 @@ class TemplatesClient:
         project: str,
         template_version: str,
         *,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
         agent_name: typing.Optional[str] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -38,6 +39,9 @@ class TemplatesClient:
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        tags : typing.Optional[typing.Sequence[str]]
+            The tags to assign to the agent
 
         agent_name : typing.Optional[str]
             The name of the agent, optional otherwise a random one will be assigned
@@ -72,6 +76,7 @@ class TemplatesClient:
             f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_version)}/agents",
             method="POST",
             json={
+                "tags": tags,
                 "agent_name": agent_name,
                 "memory_variables": memory_variables,
                 "tool_variables": tool_variables,
@@ -106,6 +111,7 @@ class AsyncTemplatesClient:
         project: str,
         template_version: str,
         *,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
         agent_name: typing.Optional[str] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
@@ -121,6 +127,9 @@ class AsyncTemplatesClient:
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        tags : typing.Optional[typing.Sequence[str]]
+            The tags to assign to the agent
 
         agent_name : typing.Optional[str]
             The name of the agent, optional otherwise a random one will be assigned
@@ -163,6 +172,7 @@ class AsyncTemplatesClient:
             f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_version)}/agents",
             method="POST",
             json={
+                "tags": tags,
                 "agent_name": agent_name,
                 "memory_variables": memory_variables,
                 "tool_variables": tool_variables,

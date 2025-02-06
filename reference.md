@@ -2308,7 +2308,7 @@ client.agents.search()
 <dl>
 <dd>
 
-**combinator:** `typing.Optional[AgentsSearchRequestCombinator]` 
+**combinator:** `typing.Optional[typing.Literal["AND"]]` 
     
 </dd>
 </dl>
@@ -2324,7 +2324,7 @@ client.agents.search()
 <dl>
 <dd>
 
-**offset:** `typing.Optional[float]` 
+**after:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -4317,6 +4317,14 @@ client.templates.createagentsfromtemplate(
 <dd>
 
 **template_version:** `str` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Sequence[str]]` — The tags to assign to the agent
     
 </dd>
 </dl>

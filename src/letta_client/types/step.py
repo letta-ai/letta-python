@@ -38,6 +38,11 @@ class Step(UncheckedBaseModel):
     The name of the model used for this step.
     """
 
+    model_endpoint: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The model endpoint url used for this step.
+    """
+
     context_window_limit: typing.Optional[int] = pydantic.Field(default=None)
     """
     The context window limit configured for this step.
