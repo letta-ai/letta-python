@@ -20,6 +20,9 @@ from .templates_create_agents_from_template_response_agents_item_llm_config_hand
 from .templates_create_agents_from_template_response_agents_item_llm_config_temperature import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTemperature,
 )
+from .templates_create_agents_from_template_response_agents_item_llm_config_max_tokens import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens,
+)
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -35,6 +38,7 @@ class TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig(UncheckedBase
     ] = None
     handle: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandle] = None
     temperature: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTemperature] = None
+    max_tokens: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

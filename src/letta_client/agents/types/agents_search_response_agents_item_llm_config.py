@@ -18,6 +18,7 @@ from .agents_search_response_agents_item_llm_config_handle import AgentsSearchRe
 from .agents_search_response_agents_item_llm_config_temperature import (
     AgentsSearchResponseAgentsItemLlmConfigTemperature,
 )
+from .agents_search_response_agents_item_llm_config_max_tokens import AgentsSearchResponseAgentsItemLlmConfigMaxTokens
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -33,6 +34,7 @@ class AgentsSearchResponseAgentsItemLlmConfig(UncheckedBaseModel):
     )
     handle: typing.Optional[AgentsSearchResponseAgentsItemLlmConfigHandle] = None
     temperature: typing.Optional[AgentsSearchResponseAgentsItemLlmConfigTemperature] = None
+    max_tokens: typing.Optional[AgentsSearchResponseAgentsItemLlmConfigMaxTokens] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

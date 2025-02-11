@@ -88,6 +88,12 @@ from .templates_create_agents_from_template_response_agents_item_llm_config_hand
 from .templates_create_agents_from_template_response_agents_item_llm_config_handle_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandleItem,
 )
+from .templates_create_agents_from_template_response_agents_item_llm_config_max_tokens import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens,
+)
+from .templates_create_agents_from_template_response_agents_item_llm_config_max_tokens_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokensItem,
+)
 from .templates_create_agents_from_template_response_agents_item_llm_config_model_endpoint import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpoint,
 )
@@ -504,6 +510,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandle",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigHandleItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokens",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigMaxTokensItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpoint",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType",

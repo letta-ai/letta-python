@@ -63,6 +63,10 @@ from .agents_search_response_agents_item_last_updated_by_id_item import (
 from .agents_search_response_agents_item_llm_config import AgentsSearchResponseAgentsItemLlmConfig
 from .agents_search_response_agents_item_llm_config_handle import AgentsSearchResponseAgentsItemLlmConfigHandle
 from .agents_search_response_agents_item_llm_config_handle_item import AgentsSearchResponseAgentsItemLlmConfigHandleItem
+from .agents_search_response_agents_item_llm_config_max_tokens import AgentsSearchResponseAgentsItemLlmConfigMaxTokens
+from .agents_search_response_agents_item_llm_config_max_tokens_item import (
+    AgentsSearchResponseAgentsItemLlmConfigMaxTokensItem,
+)
 from .agents_search_response_agents_item_llm_config_model_endpoint import (
     AgentsSearchResponseAgentsItemLlmConfigModelEndpoint,
 )
@@ -426,6 +430,8 @@ __all__ = [
     "AgentsSearchResponseAgentsItemLlmConfig",
     "AgentsSearchResponseAgentsItemLlmConfigHandle",
     "AgentsSearchResponseAgentsItemLlmConfigHandleItem",
+    "AgentsSearchResponseAgentsItemLlmConfigMaxTokens",
+    "AgentsSearchResponseAgentsItemLlmConfigMaxTokensItem",
     "AgentsSearchResponseAgentsItemLlmConfigModelEndpoint",
     "AgentsSearchResponseAgentsItemLlmConfigModelEndpointItem",
     "AgentsSearchResponseAgentsItemLlmConfigModelEndpointType",
