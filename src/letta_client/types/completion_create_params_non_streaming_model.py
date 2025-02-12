@@ -4,8 +4,6 @@ import typing
 
 CompletionCreateParamsNonStreamingModel = typing.Union[
     str,
-    typing.Literal["o3-mini"],
-    typing.Literal["o3-mini-2025-01-31"],
     typing.Literal["o1"],
     typing.Literal["o1-2024-12-17"],
     typing.Literal["o1-preview"],
