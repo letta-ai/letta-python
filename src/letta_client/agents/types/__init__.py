@@ -145,6 +145,9 @@ from .agents_search_response_agents_item_memory_blocks_item_organization_id_item
 from .agents_search_response_agents_item_memory_prompt_template import (
     AgentsSearchResponseAgentsItemMemoryPromptTemplate,
 )
+from .agents_search_response_agents_item_message_buffer_autoclear import (
+    AgentsSearchResponseAgentsItemMessageBufferAutoclear,
+)
 from .agents_search_response_agents_item_message_ids import AgentsSearchResponseAgentsItemMessageIds
 from .agents_search_response_agents_item_message_ids_item import AgentsSearchResponseAgentsItemMessageIdsItem
 from .agents_search_response_agents_item_metadata import AgentsSearchResponseAgentsItemMetadata
@@ -460,6 +463,7 @@ __all__ = [
     "AgentsSearchResponseAgentsItemMemoryBlocksItemOrganizationId",
     "AgentsSearchResponseAgentsItemMemoryBlocksItemOrganizationIdItem",
     "AgentsSearchResponseAgentsItemMemoryPromptTemplate",
+    "AgentsSearchResponseAgentsItemMessageBufferAutoclear",
     "AgentsSearchResponseAgentsItemMessageIds",
     "AgentsSearchResponseAgentsItemMessageIdsItem",
     "AgentsSearchResponseAgentsItemMetadata",

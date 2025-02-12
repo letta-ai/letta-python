@@ -143,6 +143,11 @@ class AgentState(UncheckedBaseModel):
     The base template id of the agent.
     """
 
+    message_buffer_autoclear: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

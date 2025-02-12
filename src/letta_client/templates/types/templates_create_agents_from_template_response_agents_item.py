@@ -59,6 +59,9 @@ from .templates_create_agents_from_template_response_agents_item_template_id imp
 from .templates_create_agents_from_template_response_agents_item_base_template_id import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId,
 )
+from .templates_create_agents_from_template_response_agents_item_message_buffer_autoclear import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear,
+)
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -89,6 +92,9 @@ class TemplatesCreateAgentsFromTemplateResponseAgentsItem(UncheckedBaseModel):
     project_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId] = None
     template_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId] = None
     base_template_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId] = None
+    message_buffer_autoclear: typing.Optional[
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

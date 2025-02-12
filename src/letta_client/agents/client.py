@@ -195,6 +195,7 @@ class AgentsClient:
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
+        message_buffer_autoclear: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -289,6 +290,9 @@ class AgentsClient:
         base_template_id : typing.Optional[str]
             The base template id of the agent.
 
+        message_buffer_autoclear : typing.Optional[bool]
+            If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -349,6 +353,7 @@ class AgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "message_buffer_autoclear": message_buffer_autoclear,
             },
             headers={
                 "content-type": "application/json",
@@ -514,6 +519,7 @@ class AgentsClient:
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
+        message_buffer_autoclear: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -571,6 +577,9 @@ class AgentsClient:
         base_template_id : typing.Optional[str]
             The base template id of the agent.
 
+        message_buffer_autoclear : typing.Optional[bool]
+            If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -616,6 +625,7 @@ class AgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "message_buffer_autoclear": message_buffer_autoclear,
             },
             headers={
                 "content-type": "application/json",
@@ -953,6 +963,7 @@ class AsyncAgentsClient:
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
+        message_buffer_autoclear: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1047,6 +1058,9 @@ class AsyncAgentsClient:
         base_template_id : typing.Optional[str]
             The base template id of the agent.
 
+        message_buffer_autoclear : typing.Optional[bool]
+            If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1115,6 +1129,7 @@ class AsyncAgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "message_buffer_autoclear": message_buffer_autoclear,
             },
             headers={
                 "content-type": "application/json",
@@ -1296,6 +1311,7 @@ class AsyncAgentsClient:
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
+        message_buffer_autoclear: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1353,6 +1369,9 @@ class AsyncAgentsClient:
         base_template_id : typing.Optional[str]
             The base template id of the agent.
 
+        message_buffer_autoclear : typing.Optional[bool]
+            If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1406,6 +1425,7 @@ class AsyncAgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "message_buffer_autoclear": message_buffer_autoclear,
             },
             headers={
                 "content-type": "application/json",

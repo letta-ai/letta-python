@@ -178,6 +178,9 @@ from .templates_create_agents_from_template_response_agents_item_memory_blocks_i
 from .templates_create_agents_from_template_response_agents_item_memory_prompt_template import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemMemoryPromptTemplate,
 )
+from .templates_create_agents_from_template_response_agents_item_message_buffer_autoclear import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear,
+)
 from .templates_create_agents_from_template_response_agents_item_message_ids import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageIds,
 )
@@ -540,6 +543,7 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemMemoryBlocksItemOrganizationId",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemMemoryBlocksItemOrganizationIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemMemoryPromptTemplate",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageIds",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageIdsItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemMetadata",
