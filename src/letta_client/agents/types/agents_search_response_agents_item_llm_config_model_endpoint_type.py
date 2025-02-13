@@ -8,6 +8,7 @@ AgentsSearchResponseAgentsItemLlmConfigModelEndpointType = typing.Union[
         "anthropic",
         "cohere",
         "google_ai",
+        "google_vertex",
         "azure",
         "groq",
         "ollama",

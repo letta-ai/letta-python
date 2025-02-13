@@ -9,6 +9,7 @@ TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigEmbeddingEndpo
         "bedrock",
         "cohere",
         "google_ai",
+        "google_vertex",
         "azure",
         "groq",
         "ollama",
