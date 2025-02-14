@@ -3,5 +3,5 @@
 import typing
 
 AppAuthSchemeAuthMode = typing.Union[
-    typing.Literal["OAUTH2", "OAUTH1", "API_KEY", "BASIC", "BEARER_TOKEN", "BASIC_WITH_JWT"], typing.Any
+    typing.Literal["OAUTH2", "OAUTH1", "API_KEY", "BASIC", "BEARER_TOKEN", "BASIC_WITH_JWT", "NO_AUTH"], typing.Any
 ]
