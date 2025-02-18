@@ -16,6 +16,7 @@ AgentsSearchResponseAgentsItemLlmConfigModelEndpointType = typing.Union[
         "webui-legacy",
         "lmstudio",
         "lmstudio-legacy",
+        "lmstudio-chatcompletions",
         "llamacpp",
         "koboldcpp",
         "vllm",
@@ -23,6 +24,7 @@ AgentsSearchResponseAgentsItemLlmConfigModelEndpointType = typing.Union[
         "mistral",
         "together",
         "bedrock",
+        "deepseek",
     ],
     typing.Any,
 ]

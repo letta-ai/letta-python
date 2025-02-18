@@ -16,6 +16,7 @@ TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType = 
         "webui-legacy",
         "lmstudio",
         "lmstudio-legacy",
+        "lmstudio-chatcompletions",
         "llamacpp",
         "koboldcpp",
         "vllm",
@@ -23,6 +24,7 @@ TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType = 
         "mistral",
         "together",
         "bedrock",
+        "deepseek",
     ],
     typing.Any,
 ]

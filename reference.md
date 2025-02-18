@@ -1582,14 +1582,6 @@ client.agents.create()
 <dl>
 <dd>
 
-**project_slug:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **name:** `typing.Optional[str]` — The name of the agent.
     
 </dd>
@@ -1774,7 +1766,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**project:** `typing.Optional[str]` — Deprecated: Project should now be passed via the project-slug header instead of in the request body. If using the sdk, this can be done via the new project_slug field below.
+**project:** `typing.Optional[str]` — The project slug that the agent will be associated with.
     
 </dd>
 </dl>
