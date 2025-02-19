@@ -1522,6 +1522,14 @@ client.agents.list()
 <dl>
 <dd>
 
+**identifier_key:** `typing.Optional[str]` — Search agents by identifier key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -1807,6 +1815,14 @@ client.agents.create()
 <dd>
 
 **base_template_id:** `typing.Optional[str]` — The base template id of the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identifier_key:** `typing.Optional[str]` — The identifier key belonging to the identity associated with this agent.
     
 </dd>
 </dl>
@@ -2153,6 +2169,14 @@ client.agents.modify(
 <dd>
 
 **base_template_id:** `typing.Optional[str]` — The base template id of the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identifier_key:** `typing.Optional[str]` — The identifier key belonging to the identity associated with this agent.
     
 </dd>
 </dl>

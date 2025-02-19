@@ -59,6 +59,9 @@ from .templates_create_agents_from_template_response_agents_item_template_id imp
 from .templates_create_agents_from_template_response_agents_item_base_template_id import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId,
 )
+from .templates_create_agents_from_template_response_agents_item_identifier_key import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey,
+)
 from .templates_create_agents_from_template_response_agents_item_message_buffer_autoclear import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear,
 )
@@ -92,6 +95,7 @@ class TemplatesCreateAgentsFromTemplateResponseAgentsItem(UncheckedBaseModel):
     project_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemProjectId] = None
     template_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemTemplateId] = None
     base_template_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemBaseTemplateId] = None
+    identifier_key: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey] = None
     message_buffer_autoclear: typing.Optional[
         TemplatesCreateAgentsFromTemplateResponseAgentsItemMessageBufferAutoclear
     ] = None

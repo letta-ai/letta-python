@@ -73,6 +73,12 @@ from .templates_create_agents_from_template_response_agents_item_embedding_confi
 from .templates_create_agents_from_template_response_agents_item_embedding_config_handle_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigHandleItem,
 )
+from .templates_create_agents_from_template_response_agents_item_identifier_key import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey,
+)
+from .templates_create_agents_from_template_response_agents_item_identifier_key_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKeyItem,
+)
 from .templates_create_agents_from_template_response_agents_item_last_updated_by_id import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLastUpdatedById,
 )
@@ -508,6 +514,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigEmbeddingEndpointType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigHandle",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemEmbeddingConfigHandleItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKey",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemIdentifierKeyItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLastUpdatedById",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLastUpdatedByIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig",

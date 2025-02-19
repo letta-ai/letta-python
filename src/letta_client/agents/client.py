@@ -67,6 +67,7 @@ class AgentsClient:
         project_id: typing.Optional[str] = None,
         template_id: typing.Optional[str] = None,
         base_template_id: typing.Optional[str] = None,
+        identifier_key: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -105,6 +106,9 @@ class AgentsClient:
         base_template_id : typing.Optional[str]
             Search agents by base template id
 
+        identifier_key : typing.Optional[str]
+            Search agents by identifier key
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -136,6 +140,7 @@ class AgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "identifier_key": identifier_key,
             },
             request_options=request_options,
         )
@@ -195,6 +200,7 @@ class AgentsClient:
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
+        identifier_key: typing.Optional[str] = OMIT,
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
@@ -290,6 +296,9 @@ class AgentsClient:
         base_template_id : typing.Optional[str]
             The base template id of the agent.
 
+        identifier_key : typing.Optional[str]
+            The identifier key belonging to the identity associated with this agent.
+
         message_buffer_autoclear : typing.Optional[bool]
             If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
 
@@ -353,6 +362,7 @@ class AgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "identifier_key": identifier_key,
                 "message_buffer_autoclear": message_buffer_autoclear,
             },
             headers={
@@ -519,6 +529,7 @@ class AgentsClient:
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
+        identifier_key: typing.Optional[str] = OMIT,
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
@@ -577,6 +588,9 @@ class AgentsClient:
         base_template_id : typing.Optional[str]
             The base template id of the agent.
 
+        identifier_key : typing.Optional[str]
+            The identifier key belonging to the identity associated with this agent.
+
         message_buffer_autoclear : typing.Optional[bool]
             If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
 
@@ -625,6 +639,7 @@ class AgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "identifier_key": identifier_key,
                 "message_buffer_autoclear": message_buffer_autoclear,
             },
             headers={
@@ -827,6 +842,7 @@ class AsyncAgentsClient:
         project_id: typing.Optional[str] = None,
         template_id: typing.Optional[str] = None,
         base_template_id: typing.Optional[str] = None,
+        identifier_key: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -864,6 +880,9 @@ class AsyncAgentsClient:
 
         base_template_id : typing.Optional[str]
             Search agents by base template id
+
+        identifier_key : typing.Optional[str]
+            Search agents by identifier key
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -904,6 +923,7 @@ class AsyncAgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "identifier_key": identifier_key,
             },
             request_options=request_options,
         )
@@ -963,6 +983,7 @@ class AsyncAgentsClient:
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
+        identifier_key: typing.Optional[str] = OMIT,
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
@@ -1058,6 +1079,9 @@ class AsyncAgentsClient:
         base_template_id : typing.Optional[str]
             The base template id of the agent.
 
+        identifier_key : typing.Optional[str]
+            The identifier key belonging to the identity associated with this agent.
+
         message_buffer_autoclear : typing.Optional[bool]
             If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
 
@@ -1129,6 +1153,7 @@ class AsyncAgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "identifier_key": identifier_key,
                 "message_buffer_autoclear": message_buffer_autoclear,
             },
             headers={
@@ -1311,6 +1336,7 @@ class AsyncAgentsClient:
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
+        identifier_key: typing.Optional[str] = OMIT,
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
@@ -1369,6 +1395,9 @@ class AsyncAgentsClient:
         base_template_id : typing.Optional[str]
             The base template id of the agent.
 
+        identifier_key : typing.Optional[str]
+            The identifier key belonging to the identity associated with this agent.
+
         message_buffer_autoclear : typing.Optional[bool]
             If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
 
@@ -1425,6 +1454,7 @@ class AsyncAgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "identifier_key": identifier_key,
                 "message_buffer_autoclear": message_buffer_autoclear,
             },
             headers={
