@@ -4,16 +4,10 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 from .identity_type import IdentityType
 import typing
-from .agent_state import AgentState
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class Identity(UncheckedBaseModel):
-    id: str = pydantic.Field()
-    """
-    The internal id of the identity.
-    """
-
+class IdentityCreate(UncheckedBaseModel):
     identifier_key: str = pydantic.Field()
     """
     External, user-generated identifier key of the identity.
@@ -34,9 +28,9 @@ class Identity(UncheckedBaseModel):
     The project id of the identity, if applicable.
     """
 
-    agents: typing.List[AgentState] = pydantic.Field()
+    agent_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    The agents associated with the identity.
+    The agent ids that are associated with the identity.
     """
 
     if IS_PYDANTIC_V2:

@@ -2501,6 +2501,408 @@ client.identities.list_identities()
 </dl>
 </details>
 
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">create_identity</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.identities.create_identity(
+    identifier_key="identifier_key",
+    name="name",
+    identity_type="org",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identifier_key:** `str` — External, user-generated identifier key of the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `str` — The name of the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_type:** `IdentityType` — The type of the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_slug:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The project id of the identity, if applicable.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_ids:** `typing.Optional[typing.Sequence[str]]` — The agent ids that are associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">upsert_identity</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.identities.upsert_identity(
+    identifier_key="identifier_key",
+    name="name",
+    identity_type="org",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identifier_key:** `str` — External, user-generated identifier key of the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `str` — The name of the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_type:** `IdentityType` — The type of the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_slug:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The project id of the identity, if applicable.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_ids:** `typing.Optional[typing.Sequence[str]]` — The agent ids that are associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">get_identity_from_identifier_key</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.identities.get_identity_from_identifier_key(
+    identifier_key="identifier_key",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identifier_key:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">delete_identity</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete an identity by its identifier key
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.identities.delete_identity(
+    identifier_key="identifier_key",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identifier_key:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">update_identity</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.identities.update_identity(
+    identifier_key="identifier_key",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identifier_key:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — The name of the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_type:** `typing.Optional[IdentityType]` — The type of the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_ids:** `typing.Optional[typing.Sequence[str]]` — The agent ids that are associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Models
 <details><summary><code>client.models.<a href="src/letta_client/models/client.py">list_llms</a>()</code></summary>
 <dl>

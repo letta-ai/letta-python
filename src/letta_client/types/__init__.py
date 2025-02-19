@@ -84,6 +84,7 @@ from .function_tool import FunctionTool
 from .health import Health
 from .http_validation_error import HttpValidationError
 from .identity import Identity
+from .identity_create import IdentityCreate
 from .identity_type import IdentityType
 from .image_url import ImageUrl
 from .image_url_detail import ImageUrlDetail
@@ -249,6 +250,7 @@ __all__ = [
     "Health",
     "HttpValidationError",
     "Identity",
+    "IdentityCreate",
     "IdentityType",
     "ImageUrl",
     "ImageUrlDetail",
