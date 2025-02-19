@@ -83,6 +83,8 @@ from .function_output import FunctionOutput
 from .function_tool import FunctionTool
 from .health import Health
 from .http_validation_error import HttpValidationError
+from .identity import Identity
+from .identity_type import IdentityType
 from .image_url import ImageUrl
 from .image_url_detail import ImageUrlDetail
 from .init_tool_rule import InitToolRule
@@ -246,6 +248,8 @@ __all__ = [
     "FunctionTool",
     "Health",
     "HttpValidationError",
+    "Identity",
+    "IdentityType",
     "ImageUrl",
     "ImageUrlDetail",
     "InitToolRule",

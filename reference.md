@@ -1590,6 +1590,14 @@ client.agents.create()
 <dl>
 <dd>
 
+**project_slug:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **name:** `typing.Optional[str]` — The name of the agent.
     
 </dd>
@@ -1774,7 +1782,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**project:** `typing.Optional[str]` — The project slug that the agent will be associated with.
+**project:** `typing.Optional[str]` — Deprecated: Project should now be passed via the project-slug header instead of in the request body. If using the sdk, this can be done via the new project_slug field below.
     
 </dd>
 </dl>
@@ -2365,6 +2373,115 @@ client.agents.search()
 <dd>
 
 **after:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Identities
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">list_identities</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of all identities in the database
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.identities.list_identities()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_type:** `typing.Optional[IdentityType]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` 
     
 </dd>
 </dl>

@@ -84,6 +84,8 @@ from .types import (
     FunctionTool,
     Health,
     HttpValidationError,
+    Identity,
+    IdentityType,
     ImageUrl,
     ImageUrlDetail,
     InitToolRule,
@@ -158,7 +160,7 @@ from .types import (
     ValidationErrorLocItem,
 )
 from .errors import ConflictError, InternalServerError, NotFoundError, UnprocessableEntityError
-from . import agents, blocks, health, jobs, models, providers, runs, sources, steps, tag, templates, tools
+from . import agents, blocks, health, identities, jobs, models, providers, runs, sources, steps, tag, templates, tools
 from .agents import (
     AgentsSearchRequestSearchItem,
     AgentsSearchRequestSearchItemField,
@@ -755,6 +757,8 @@ __all__ = [
     "FunctionTool",
     "Health",
     "HttpValidationError",
+    "Identity",
+    "IdentityType",
     "ImageUrl",
     "ImageUrlDetail",
     "InitToolRule",
@@ -1000,6 +1004,7 @@ __all__ = [
     "agents",
     "blocks",
     "health",
+    "identities",
     "jobs",
     "models",
     "providers",
