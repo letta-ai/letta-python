@@ -409,6 +409,12 @@ from .templates_create_agents_from_template_response_agents_item_tool_rules_item
 from .templates_create_agents_from_template_response_agents_item_tool_rules_item_item_one_type import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOneType,
 )
+from .templates_create_agents_from_template_response_agents_item_tool_rules_item_item_tool_name import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolName,
+)
+from .templates_create_agents_from_template_response_agents_item_tool_rules_item_item_tool_name_type import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolNameType,
+)
 from .templates_create_agents_from_template_response_agents_item_tool_rules_item_item_two import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo,
 )
@@ -420,6 +426,12 @@ from .templates_create_agents_from_template_response_agents_item_tool_rules_item
 )
 from .templates_create_agents_from_template_response_agents_item_tool_rules_item_one_type import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemOneType,
+)
+from .templates_create_agents_from_template_response_agents_item_tool_rules_item_tool_name import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemToolName,
+)
+from .templates_create_agents_from_template_response_agents_item_tool_rules_item_tool_name_type import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemToolNameType,
 )
 from .templates_create_agents_from_template_response_agents_item_tool_rules_item_two import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemTwo,
@@ -626,10 +638,14 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildrenType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOne",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemOneType",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolName",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemToolNameType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwo",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemTwoType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemOne",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemOneType",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemToolName",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemToolNameType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemTwo",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemTwoType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItem",

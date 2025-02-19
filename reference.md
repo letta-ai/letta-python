@@ -1718,6 +1718,14 @@ client.agents.create()
 <dl>
 <dd>
 
+**include_base_tool_rules:** `typing.Optional[bool]` — If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly allowed).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **description:** `typing.Optional[str]` — The description of the agent.
     
 </dd>

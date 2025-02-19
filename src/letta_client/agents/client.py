@@ -187,6 +187,7 @@ class AgentsClient:
         initial_message_sequence: typing.Optional[typing.Sequence[MessageCreate]] = OMIT,
         include_base_tools: typing.Optional[bool] = OMIT,
         include_multi_agent_tools: typing.Optional[bool] = OMIT,
+        include_base_tool_rules: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         model: typing.Optional[str] = OMIT,
@@ -256,6 +257,9 @@ class AgentsClient:
 
         include_multi_agent_tools : typing.Optional[bool]
             If true, attaches the Letta multi-agent tools (e.g. sending a message to another agent).
+
+        include_base_tool_rules : typing.Optional[bool]
+            If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly allowed).
 
         description : typing.Optional[str]
             The description of the agent.
@@ -351,6 +355,7 @@ class AgentsClient:
                 ),
                 "include_base_tools": include_base_tools,
                 "include_multi_agent_tools": include_multi_agent_tools,
+                "include_base_tool_rules": include_base_tool_rules,
                 "description": description,
                 "metadata": metadata,
                 "model": model,
@@ -974,6 +979,7 @@ class AsyncAgentsClient:
         initial_message_sequence: typing.Optional[typing.Sequence[MessageCreate]] = OMIT,
         include_base_tools: typing.Optional[bool] = OMIT,
         include_multi_agent_tools: typing.Optional[bool] = OMIT,
+        include_base_tool_rules: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         model: typing.Optional[str] = OMIT,
@@ -1043,6 +1049,9 @@ class AsyncAgentsClient:
 
         include_multi_agent_tools : typing.Optional[bool]
             If true, attaches the Letta multi-agent tools (e.g. sending a message to another agent).
+
+        include_base_tool_rules : typing.Optional[bool]
+            If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly allowed).
 
         description : typing.Optional[str]
             The description of the agent.
@@ -1146,6 +1155,7 @@ class AsyncAgentsClient:
                 ),
                 "include_base_tools": include_base_tools,
                 "include_multi_agent_tools": include_multi_agent_tools,
+                "include_base_tool_rules": include_base_tool_rules,
                 "description": description,
                 "metadata": metadata,
                 "model": model,

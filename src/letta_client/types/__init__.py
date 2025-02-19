@@ -71,6 +71,7 @@ from .completion_create_params_streaming_tool_choice import CompletionCreatePara
 from .conditional_tool_rule import ConditionalToolRule
 from .conflict_error_body import ConflictErrorBody
 from .context_window_overview import ContextWindowOverview
+from .continue_tool_rule import ContinueToolRule
 from .create_block import CreateBlock
 from .e_2_b_sandbox_config import E2BSandboxConfig
 from .embedding_config import EmbeddingConfig
@@ -237,6 +238,7 @@ __all__ = [
     "ConditionalToolRule",
     "ConflictErrorBody",
     "ContextWindowOverview",
+    "ContinueToolRule",
     "CreateBlock",
     "E2BSandboxConfig",
     "EmbeddingConfig",

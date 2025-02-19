@@ -3,7 +3,10 @@
 import typing
 from .conditional_tool_rule import ConditionalToolRule
 from .child_tool_rule import ChildToolRule
+from .continue_tool_rule import ContinueToolRule
 from .terminal_tool_rule import TerminalToolRule
 from .init_tool_rule import InitToolRule
 
-AgentStateToolRulesItem = typing.Union[ConditionalToolRule, ChildToolRule, TerminalToolRule, InitToolRule]
+AgentStateToolRulesItem = typing.Union[
+    ConditionalToolRule, ChildToolRule, ContinueToolRule, TerminalToolRule, InitToolRule
+]
