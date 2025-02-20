@@ -3,7 +3,7 @@
 import typing
 from ..core.client_wrapper import SyncClientWrapper
 from ..core.request_options import RequestOptions
-from .types.templates_create_agents_from_template_response import TemplatesCreateAgentsFromTemplateResponse
+from .types.templates_create_agents_response import TemplatesCreateAgentsResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
@@ -18,7 +18,7 @@ class TemplatesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def createagentsfromtemplate(
+    def create_agents(
         self,
         project: str,
         template_version: str,
@@ -28,9 +28,9 @@ class TemplatesClient:
         memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> TemplatesCreateAgentsFromTemplateResponse:
+    ) -> TemplatesCreateAgentsResponse:
         """
-        Creates agents given a template
+        Creates an Agent or multiple Agents from a template
 
         Parameters
         ----------
@@ -57,7 +57,7 @@ class TemplatesClient:
 
         Returns
         -------
-        TemplatesCreateAgentsFromTemplateResponse
+        TemplatesCreateAgentsResponse
             201
 
         Examples
@@ -67,7 +67,7 @@ class TemplatesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.templates.createagentsfromtemplate(
+        client.templates.create_agents(
             project="project",
             template_version="template_version",
         )
@@ -90,9 +90,9 @@ class TemplatesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    TemplatesCreateAgentsFromTemplateResponse,
+                    TemplatesCreateAgentsResponse,
                     construct_type(
-                        type_=TemplatesCreateAgentsFromTemplateResponse,  # type: ignore
+                        type_=TemplatesCreateAgentsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -106,7 +106,7 @@ class AsyncTemplatesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def createagentsfromtemplate(
+    async def create_agents(
         self,
         project: str,
         template_version: str,
@@ -116,9 +116,9 @@ class AsyncTemplatesClient:
         memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> TemplatesCreateAgentsFromTemplateResponse:
+    ) -> TemplatesCreateAgentsResponse:
         """
-        Creates agents given a template
+        Creates an Agent or multiple Agents from a template
 
         Parameters
         ----------
@@ -145,7 +145,7 @@ class AsyncTemplatesClient:
 
         Returns
         -------
-        TemplatesCreateAgentsFromTemplateResponse
+        TemplatesCreateAgentsResponse
             201
 
         Examples
@@ -160,7 +160,7 @@ class AsyncTemplatesClient:
 
 
         async def main() -> None:
-            await client.templates.createagentsfromtemplate(
+            await client.templates.create_agents(
                 project="project",
                 template_version="template_version",
             )
@@ -186,9 +186,9 @@ class AsyncTemplatesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    TemplatesCreateAgentsFromTemplateResponse,
+                    TemplatesCreateAgentsResponse,
                     construct_type(
-                        type_=TemplatesCreateAgentsFromTemplateResponse,  # type: ignore
+                        type_=TemplatesCreateAgentsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

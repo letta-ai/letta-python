@@ -4824,7 +4824,7 @@ client.tag.list_tags()
 </details>
 
 ## Templates
-<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">createagentsfromtemplate</a>(...)</code></summary>
+<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">create_agents</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4836,7 +4836,7 @@ client.tag.list_tags()
 <dl>
 <dd>
 
-Creates agents given a template
+Creates an Agent or multiple Agents from a template
 </dd>
 </dl>
 </dd>
@@ -4856,7 +4856,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.templates.createagentsfromtemplate(
+client.templates.create_agents(
     project="project",
     template_version="template_version",
 )
