@@ -109,7 +109,7 @@ class IdentitiesClient:
         identifier_key: str,
         name: str,
         identity_type: IdentityType,
-        project_slug: typing.Optional[str] = None,
+        project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -126,7 +126,7 @@ class IdentitiesClient:
         identity_type : IdentityType
             The type of the identity.
 
-        project_slug : typing.Optional[str]
+        project : typing.Optional[str]
 
         project_id : typing.Optional[str]
             The project id of the identity, if applicable.
@@ -166,7 +166,7 @@ class IdentitiesClient:
                 "agent_ids": agent_ids,
             },
             headers={
-                "project-slug": str(project_slug) if project_slug is not None else None,
+                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -201,7 +201,7 @@ class IdentitiesClient:
         identifier_key: str,
         name: str,
         identity_type: IdentityType,
-        project_slug: typing.Optional[str] = None,
+        project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -218,7 +218,7 @@ class IdentitiesClient:
         identity_type : IdentityType
             The type of the identity.
 
-        project_slug : typing.Optional[str]
+        project : typing.Optional[str]
 
         project_id : typing.Optional[str]
             The project id of the identity, if applicable.
@@ -258,7 +258,7 @@ class IdentitiesClient:
                 "agent_ids": agent_ids,
             },
             headers={
-                "project-slug": str(project_slug) if project_slug is not None else None,
+                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -582,7 +582,7 @@ class AsyncIdentitiesClient:
         identifier_key: str,
         name: str,
         identity_type: IdentityType,
-        project_slug: typing.Optional[str] = None,
+        project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -599,7 +599,7 @@ class AsyncIdentitiesClient:
         identity_type : IdentityType
             The type of the identity.
 
-        project_slug : typing.Optional[str]
+        project : typing.Optional[str]
 
         project_id : typing.Optional[str]
             The project id of the identity, if applicable.
@@ -647,7 +647,7 @@ class AsyncIdentitiesClient:
                 "agent_ids": agent_ids,
             },
             headers={
-                "project-slug": str(project_slug) if project_slug is not None else None,
+                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -682,7 +682,7 @@ class AsyncIdentitiesClient:
         identifier_key: str,
         name: str,
         identity_type: IdentityType,
-        project_slug: typing.Optional[str] = None,
+        project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -699,7 +699,7 @@ class AsyncIdentitiesClient:
         identity_type : IdentityType
             The type of the identity.
 
-        project_slug : typing.Optional[str]
+        project : typing.Optional[str]
 
         project_id : typing.Optional[str]
             The project id of the identity, if applicable.
@@ -747,7 +747,7 @@ class AsyncIdentitiesClient:
                 "agent_ids": agent_ids,
             },
             headers={
-                "project-slug": str(project_slug) if project_slug is not None else None,
+                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,

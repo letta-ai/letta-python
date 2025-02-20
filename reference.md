@@ -1590,7 +1590,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**project_slug:** `typing.Optional[str]` 
+**project:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -1790,7 +1790,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**project:** `typing.Optional[str]` — Deprecated: Project should now be passed via the project-slug header instead of in the request body. If using the sdk, this can be done via the new project_slug field below.
+**create_agent_request_project:** `typing.Optional[str]` — Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
     
 </dd>
 </dl>
@@ -2571,7 +2571,7 @@ client.identities.create_identity(
 <dl>
 <dd>
 
-**project_slug:** `typing.Optional[str]` 
+**project:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -2669,7 +2669,7 @@ client.identities.upsert_identity(
 <dl>
 <dd>
 
-**project_slug:** `typing.Optional[str]` 
+**project:** `typing.Optional[str]` 
     
 </dd>
 </dl>

@@ -171,7 +171,7 @@ class AgentsClient:
     def create(
         self,
         *,
-        project_slug: typing.Optional[str] = None,
+        project: typing.Optional[str] = None,
         name: typing.Optional[str] = OMIT,
         memory_blocks: typing.Optional[typing.Sequence[CreateBlock]] = OMIT,
         tools: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -196,7 +196,7 @@ class AgentsClient:
         embedding_chunk_size: typing.Optional[int] = OMIT,
         from_template: typing.Optional[str] = OMIT,
         template: typing.Optional[bool] = OMIT,
-        project: typing.Optional[str] = OMIT,
+        create_agent_request_project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
@@ -211,7 +211,7 @@ class AgentsClient:
 
         Parameters
         ----------
-        project_slug : typing.Optional[str]
+        project : typing.Optional[str]
 
         name : typing.Optional[str]
             The name of the agent.
@@ -285,8 +285,8 @@ class AgentsClient:
         template : typing.Optional[bool]
             Whether the agent is a template
 
-        project : typing.Optional[str]
-            Deprecated: Project should now be passed via the project-slug header instead of in the request body. If using the sdk, this can be done via the new project_slug field below.
+        create_agent_request_project : typing.Optional[str]
+            Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
@@ -364,7 +364,7 @@ class AgentsClient:
                 "embedding_chunk_size": embedding_chunk_size,
                 "from_template": from_template,
                 "template": template,
-                "project": project,
+                "project": create_agent_request_project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
                 "memory_variables": memory_variables,
                 "project_id": project_id,
@@ -375,7 +375,7 @@ class AgentsClient:
             },
             headers={
                 "content-type": "application/json",
-                "project-slug": str(project_slug) if project_slug is not None else None,
+                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -963,7 +963,7 @@ class AsyncAgentsClient:
     async def create(
         self,
         *,
-        project_slug: typing.Optional[str] = None,
+        project: typing.Optional[str] = None,
         name: typing.Optional[str] = OMIT,
         memory_blocks: typing.Optional[typing.Sequence[CreateBlock]] = OMIT,
         tools: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -988,7 +988,7 @@ class AsyncAgentsClient:
         embedding_chunk_size: typing.Optional[int] = OMIT,
         from_template: typing.Optional[str] = OMIT,
         template: typing.Optional[bool] = OMIT,
-        project: typing.Optional[str] = OMIT,
+        create_agent_request_project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
@@ -1003,7 +1003,7 @@ class AsyncAgentsClient:
 
         Parameters
         ----------
-        project_slug : typing.Optional[str]
+        project : typing.Optional[str]
 
         name : typing.Optional[str]
             The name of the agent.
@@ -1077,8 +1077,8 @@ class AsyncAgentsClient:
         template : typing.Optional[bool]
             Whether the agent is a template
 
-        project : typing.Optional[str]
-            Deprecated: Project should now be passed via the project-slug header instead of in the request body. If using the sdk, this can be done via the new project_slug field below.
+        create_agent_request_project : typing.Optional[str]
+            Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
@@ -1164,7 +1164,7 @@ class AsyncAgentsClient:
                 "embedding_chunk_size": embedding_chunk_size,
                 "from_template": from_template,
                 "template": template,
-                "project": project,
+                "project": create_agent_request_project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
                 "memory_variables": memory_variables,
                 "project_id": project_id,
@@ -1175,7 +1175,7 @@ class AsyncAgentsClient:
             },
             headers={
                 "content-type": "application/json",
-                "project-slug": str(project_slug) if project_slug is not None else None,
+                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
