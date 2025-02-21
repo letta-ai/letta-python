@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 from .identity_type import IdentityType
 import typing
+from .identity_property import IdentityProperty
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -31,6 +32,11 @@ class IdentityCreate(UncheckedBaseModel):
     agent_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     The agent ids that are associated with the identity.
+    """
+
+    properties: typing.Optional[typing.List[IdentityProperty]] = pydantic.Field(default=None)
+    """
+    List of properties associated with the identity.
     """
 
     if IS_PYDANTIC_V2:

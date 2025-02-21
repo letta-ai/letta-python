@@ -4,7 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
 from .identity_type import IdentityType
-from .agent_state import AgentState
+from .identity_property import IdentityProperty
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -34,9 +34,14 @@ class Identity(UncheckedBaseModel):
     The project id of the identity, if applicable.
     """
 
-    agents: typing.List[AgentState] = pydantic.Field()
+    agent_ids: typing.List[str] = pydantic.Field()
     """
-    The agents associated with the identity.
+    The IDs of the agents associated with the identity.
+    """
+
+    properties: typing.Optional[typing.List[IdentityProperty]] = pydantic.Field(default=None)
+    """
+    List of properties associated with the identity
     """
 
     if IS_PYDANTIC_V2:

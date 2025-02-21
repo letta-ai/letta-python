@@ -143,9 +143,9 @@ class AgentState(UncheckedBaseModel):
     The base template id of the agent.
     """
 
-    identifier_key: typing.Optional[str] = pydantic.Field(default=None)
+    identity_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    The identifier key belonging to the identity associated with this agent.
+    The ids of the identities associated with this agent.
     """
 
     message_buffer_autoclear: typing.Optional[bool] = pydantic.Field(default=None)

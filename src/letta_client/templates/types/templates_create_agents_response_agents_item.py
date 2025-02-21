@@ -35,8 +35,8 @@ from .templates_create_agents_response_agents_item_template_id import TemplatesC
 from .templates_create_agents_response_agents_item_base_template_id import (
     TemplatesCreateAgentsResponseAgentsItemBaseTemplateId,
 )
-from .templates_create_agents_response_agents_item_identifier_key import (
-    TemplatesCreateAgentsResponseAgentsItemIdentifierKey,
+from .templates_create_agents_response_agents_item_identity_ids import (
+    TemplatesCreateAgentsResponseAgentsItemIdentityIds,
 )
 from .templates_create_agents_response_agents_item_message_buffer_autoclear import (
     TemplatesCreateAgentsResponseAgentsItemMessageBufferAutoclear,
@@ -71,7 +71,7 @@ class TemplatesCreateAgentsResponseAgentsItem(UncheckedBaseModel):
     project_id: typing.Optional[TemplatesCreateAgentsResponseAgentsItemProjectId] = None
     template_id: typing.Optional[TemplatesCreateAgentsResponseAgentsItemTemplateId] = None
     base_template_id: typing.Optional[TemplatesCreateAgentsResponseAgentsItemBaseTemplateId] = None
-    identifier_key: typing.Optional[TemplatesCreateAgentsResponseAgentsItemIdentifierKey] = None
+    identity_ids: typing.Optional[TemplatesCreateAgentsResponseAgentsItemIdentityIds] = None
     message_buffer_autoclear: typing.Optional[TemplatesCreateAgentsResponseAgentsItemMessageBufferAutoclear] = None
 
     if IS_PYDANTIC_V2:

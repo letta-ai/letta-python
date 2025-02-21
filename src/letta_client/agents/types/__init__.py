@@ -56,8 +56,7 @@ from .agents_search_response_agents_item_embedding_config_handle import (
 from .agents_search_response_agents_item_embedding_config_handle_item import (
     AgentsSearchResponseAgentsItemEmbeddingConfigHandleItem,
 )
-from .agents_search_response_agents_item_identifier_key import AgentsSearchResponseAgentsItemIdentifierKey
-from .agents_search_response_agents_item_identifier_key_item import AgentsSearchResponseAgentsItemIdentifierKeyItem
+from .agents_search_response_agents_item_identity_ids import AgentsSearchResponseAgentsItemIdentityIds
 from .agents_search_response_agents_item_last_updated_by_id import AgentsSearchResponseAgentsItemLastUpdatedById
 from .agents_search_response_agents_item_last_updated_by_id_item import (
     AgentsSearchResponseAgentsItemLastUpdatedByIdItem,
@@ -442,8 +441,7 @@ __all__ = [
     "AgentsSearchResponseAgentsItemEmbeddingConfigEmbeddingEndpointType",
     "AgentsSearchResponseAgentsItemEmbeddingConfigHandle",
     "AgentsSearchResponseAgentsItemEmbeddingConfigHandleItem",
-    "AgentsSearchResponseAgentsItemIdentifierKey",
-    "AgentsSearchResponseAgentsItemIdentifierKeyItem",
+    "AgentsSearchResponseAgentsItemIdentityIds",
     "AgentsSearchResponseAgentsItemLastUpdatedById",
     "AgentsSearchResponseAgentsItemLastUpdatedByIdItem",
     "AgentsSearchResponseAgentsItemLlmConfig",

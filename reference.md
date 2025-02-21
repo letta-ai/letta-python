@@ -1522,7 +1522,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**identifier_key:** `typing.Optional[str]` — Search agents by identifier key
+**identifier_keys:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Search agents by identifier keys
     
 </dd>
 </dl>
@@ -1838,7 +1838,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**identifier_key:** `typing.Optional[str]` — The identifier key belonging to the identity associated with this agent.
+**identity_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the identities associated with this agent.
     
 </dd>
 </dl>
@@ -2192,7 +2192,7 @@ client.agents.modify(
 <dl>
 <dd>
 
-**identifier_key:** `typing.Optional[str]` — The identifier key belonging to the identity associated with this agent.
+**identity_ids:** `typing.Optional[typing.Sequence[str]]` — The ids of the identities associated with this agent.
     
 </dd>
 </dl>
@@ -2401,7 +2401,7 @@ client.agents.search()
 </details>
 
 ## Identities
-<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">list_identities</a>(...)</code></summary>
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2433,7 +2433,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.identities.list_identities()
+client.identities.list()
 
 ```
 </dd>
@@ -2458,6 +2458,14 @@ client.identities.list_identities()
 <dd>
 
 **project_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identifier_key:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -2509,7 +2517,7 @@ client.identities.list_identities()
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">create_identity</a>(...)</code></summary>
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2527,7 +2535,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.identities.create_identity(
+client.identities.create(
     identifier_key="identifier_key",
     name="name",
     identity_type="org",
@@ -2595,6 +2603,14 @@ client.identities.create_identity(
 <dl>
 <dd>
 
+**properties:** `typing.Optional[typing.Sequence[IdentityProperty]]` — List of properties associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -2607,7 +2623,7 @@ client.identities.create_identity(
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">upsert_identity</a>(...)</code></summary>
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">upsert</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2625,7 +2641,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.identities.upsert_identity(
+client.identities.upsert(
     identifier_key="identifier_key",
     name="name",
     identity_type="org",
@@ -2693,6 +2709,14 @@ client.identities.upsert_identity(
 <dl>
 <dd>
 
+**properties:** `typing.Optional[typing.Sequence[IdentityProperty]]` — List of properties associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -2705,7 +2729,7 @@ client.identities.upsert_identity(
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">get_identity_from_identifier_key</a>(...)</code></summary>
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">retrieve</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2723,8 +2747,8 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.identities.get_identity_from_identifier_key(
-    identifier_key="identifier_key",
+client.identities.retrieve(
+    identity_id="identity_id",
 )
 
 ```
@@ -2741,7 +2765,7 @@ client.identities.get_identity_from_identifier_key(
 <dl>
 <dd>
 
-**identifier_key:** `str` 
+**identity_id:** `str` 
     
 </dd>
 </dl>
@@ -2761,7 +2785,7 @@ client.identities.get_identity_from_identifier_key(
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">delete_identity</a>(...)</code></summary>
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2793,8 +2817,8 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.identities.delete_identity(
-    identifier_key="identifier_key",
+client.identities.delete(
+    identity_id="identity_id",
 )
 
 ```
@@ -2811,7 +2835,7 @@ client.identities.delete_identity(
 <dl>
 <dd>
 
-**identifier_key:** `str` 
+**identity_id:** `str` 
     
 </dd>
 </dl>
@@ -2831,7 +2855,7 @@ client.identities.delete_identity(
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">update_identity</a>(...)</code></summary>
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">modify</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2849,8 +2873,8 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.identities.update_identity(
-    identifier_key="identifier_key",
+client.identities.modify(
+    identity_id="identity_id",
 )
 
 ```
@@ -2867,7 +2891,15 @@ client.identities.update_identity(
 <dl>
 <dd>
 
-**identifier_key:** `str` 
+**identity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identifier_key:** `typing.Optional[str]` — External, user-generated identifier key of the identity.
     
 </dd>
 </dl>
@@ -2892,6 +2924,14 @@ client.identities.update_identity(
 <dd>
 
 **agent_ids:** `typing.Optional[typing.Sequence[str]]` — The agent ids that are associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**properties:** `typing.Optional[typing.Sequence[IdentityProperty]]` — List of properties associated with the identity.
     
 </dd>
 </dl>

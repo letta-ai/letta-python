@@ -23,7 +23,7 @@ from .agents_search_response_agents_item_tool_exec_environment_variables import 
 from .agents_search_response_agents_item_project_id import AgentsSearchResponseAgentsItemProjectId
 from .agents_search_response_agents_item_template_id import AgentsSearchResponseAgentsItemTemplateId
 from .agents_search_response_agents_item_base_template_id import AgentsSearchResponseAgentsItemBaseTemplateId
-from .agents_search_response_agents_item_identifier_key import AgentsSearchResponseAgentsItemIdentifierKey
+from .agents_search_response_agents_item_identity_ids import AgentsSearchResponseAgentsItemIdentityIds
 from .agents_search_response_agents_item_message_buffer_autoclear import (
     AgentsSearchResponseAgentsItemMessageBufferAutoclear,
 )
@@ -55,7 +55,7 @@ class AgentsSearchResponseAgentsItem(UncheckedBaseModel):
     project_id: typing.Optional[AgentsSearchResponseAgentsItemProjectId] = None
     template_id: typing.Optional[AgentsSearchResponseAgentsItemTemplateId] = None
     base_template_id: typing.Optional[AgentsSearchResponseAgentsItemBaseTemplateId] = None
-    identifier_key: typing.Optional[AgentsSearchResponseAgentsItemIdentifierKey] = None
+    identity_ids: typing.Optional[AgentsSearchResponseAgentsItemIdentityIds] = None
     message_buffer_autoclear: typing.Optional[AgentsSearchResponseAgentsItemMessageBufferAutoclear] = None
     template: typing.Optional[str] = None
 

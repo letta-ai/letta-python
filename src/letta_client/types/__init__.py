@@ -86,6 +86,9 @@ from .health import Health
 from .http_validation_error import HttpValidationError
 from .identity import Identity
 from .identity_create import IdentityCreate
+from .identity_property import IdentityProperty
+from .identity_property_type import IdentityPropertyType
+from .identity_property_value import IdentityPropertyValue
 from .identity_type import IdentityType
 from .image_url import ImageUrl
 from .image_url_detail import ImageUrlDetail
@@ -253,6 +256,9 @@ __all__ = [
     "HttpValidationError",
     "Identity",
     "IdentityCreate",
+    "IdentityProperty",
+    "IdentityPropertyType",
+    "IdentityPropertyValue",
     "IdentityType",
     "ImageUrl",
     "ImageUrlDetail",

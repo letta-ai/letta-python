@@ -10,6 +10,8 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.identity_property import IdentityProperty
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -21,11 +23,12 @@ class IdentitiesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list_identities(
+    def list(
         self,
         *,
         name: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
+        identifier_key: typing.Optional[str] = None,
         identity_type: typing.Optional[IdentityType] = None,
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
@@ -40,6 +43,8 @@ class IdentitiesClient:
         name : typing.Optional[str]
 
         project_id : typing.Optional[str]
+
+        identifier_key : typing.Optional[str]
 
         identity_type : typing.Optional[IdentityType]
 
@@ -64,7 +69,7 @@ class IdentitiesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.identities.list_identities()
+        client.identities.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/identities/",
@@ -72,6 +77,7 @@ class IdentitiesClient:
             params={
                 "name": name,
                 "project_id": project_id,
+                "identifier_key": identifier_key,
                 "identity_type": identity_type,
                 "before": before,
                 "after": after,
@@ -103,7 +109,7 @@ class IdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_identity(
+    def create(
         self,
         *,
         identifier_key: str,
@@ -112,6 +118,7 @@ class IdentitiesClient:
         project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
         """
@@ -134,6 +141,9 @@ class IdentitiesClient:
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
 
+        properties : typing.Optional[typing.Sequence[IdentityProperty]]
+            List of properties associated with the identity.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -149,7 +159,7 @@ class IdentitiesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.identities.create_identity(
+        client.identities.create(
             identifier_key="identifier_key",
             name="name",
             identity_type="org",
@@ -164,6 +174,9 @@ class IdentitiesClient:
                 "identity_type": identity_type,
                 "project_id": project_id,
                 "agent_ids": agent_ids,
+                "properties": convert_and_respect_annotation_metadata(
+                    object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
+                ),
             },
             headers={
                 "X-Project": str(project) if project is not None else None,
@@ -195,7 +208,7 @@ class IdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def upsert_identity(
+    def upsert(
         self,
         *,
         identifier_key: str,
@@ -204,6 +217,7 @@ class IdentitiesClient:
         project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
         """
@@ -226,6 +240,9 @@ class IdentitiesClient:
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
 
+        properties : typing.Optional[typing.Sequence[IdentityProperty]]
+            List of properties associated with the identity.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -241,7 +258,7 @@ class IdentitiesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.identities.upsert_identity(
+        client.identities.upsert(
             identifier_key="identifier_key",
             name="name",
             identity_type="org",
@@ -256,6 +273,9 @@ class IdentitiesClient:
                 "identity_type": identity_type,
                 "project_id": project_id,
                 "agent_ids": agent_ids,
+                "properties": convert_and_respect_annotation_metadata(
+                    object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
+                ),
             },
             headers={
                 "X-Project": str(project) if project is not None else None,
@@ -287,13 +307,11 @@ class IdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_identity_from_identifier_key(
-        self, identifier_key: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Identity:
+    def retrieve(self, identity_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Identity:
         """
         Parameters
         ----------
-        identifier_key : str
+        identity_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -310,12 +328,12 @@ class IdentitiesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.identities.get_identity_from_identifier_key(
-            identifier_key="identifier_key",
+        client.identities.retrieve(
+            identity_id="identity_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/identities/{jsonable_encoder(identifier_key)}",
+            f"v1/identities/{jsonable_encoder(identity_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -343,15 +361,15 @@ class IdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete_identity(
-        self, identifier_key: str, *, request_options: typing.Optional[RequestOptions] = None
+    def delete(
+        self, identity_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
         Delete an identity by its identifier key
 
         Parameters
         ----------
-        identifier_key : str
+        identity_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -368,12 +386,12 @@ class IdentitiesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.identities.delete_identity(
-            identifier_key="identifier_key",
+        client.identities.delete(
+            identity_id="identity_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/identities/{jsonable_encoder(identifier_key)}",
+            f"v1/identities/{jsonable_encoder(identity_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -401,19 +419,24 @@ class IdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def update_identity(
+    def modify(
         self,
-        identifier_key: str,
+        identity_id: str,
         *,
+        identifier_key: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         identity_type: typing.Optional[IdentityType] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
         """
         Parameters
         ----------
-        identifier_key : str
+        identity_id : str
+
+        identifier_key : typing.Optional[str]
+            External, user-generated identifier key of the identity.
 
         name : typing.Optional[str]
             The name of the identity.
@@ -423,6 +446,9 @@ class IdentitiesClient:
 
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
+
+        properties : typing.Optional[typing.Sequence[IdentityProperty]]
+            List of properties associated with the identity.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -439,17 +465,21 @@ class IdentitiesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.identities.update_identity(
-            identifier_key="identifier_key",
+        client.identities.modify(
+            identity_id="identity_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/identities/{jsonable_encoder(identifier_key)}",
+            f"v1/identities/{jsonable_encoder(identity_id)}",
             method="PATCH",
             json={
+                "identifier_key": identifier_key,
                 "name": name,
                 "identity_type": identity_type,
                 "agent_ids": agent_ids,
+                "properties": convert_and_respect_annotation_metadata(
+                    object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -486,11 +516,12 @@ class AsyncIdentitiesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list_identities(
+    async def list(
         self,
         *,
         name: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
+        identifier_key: typing.Optional[str] = None,
         identity_type: typing.Optional[IdentityType] = None,
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
@@ -505,6 +536,8 @@ class AsyncIdentitiesClient:
         name : typing.Optional[str]
 
         project_id : typing.Optional[str]
+
+        identifier_key : typing.Optional[str]
 
         identity_type : typing.Optional[IdentityType]
 
@@ -534,7 +567,7 @@ class AsyncIdentitiesClient:
 
 
         async def main() -> None:
-            await client.identities.list_identities()
+            await client.identities.list()
 
 
         asyncio.run(main())
@@ -545,6 +578,7 @@ class AsyncIdentitiesClient:
             params={
                 "name": name,
                 "project_id": project_id,
+                "identifier_key": identifier_key,
                 "identity_type": identity_type,
                 "before": before,
                 "after": after,
@@ -576,7 +610,7 @@ class AsyncIdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def create_identity(
+    async def create(
         self,
         *,
         identifier_key: str,
@@ -585,6 +619,7 @@ class AsyncIdentitiesClient:
         project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
         """
@@ -607,6 +642,9 @@ class AsyncIdentitiesClient:
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
 
+        properties : typing.Optional[typing.Sequence[IdentityProperty]]
+            List of properties associated with the identity.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -627,7 +665,7 @@ class AsyncIdentitiesClient:
 
 
         async def main() -> None:
-            await client.identities.create_identity(
+            await client.identities.create(
                 identifier_key="identifier_key",
                 name="name",
                 identity_type="org",
@@ -645,6 +683,9 @@ class AsyncIdentitiesClient:
                 "identity_type": identity_type,
                 "project_id": project_id,
                 "agent_ids": agent_ids,
+                "properties": convert_and_respect_annotation_metadata(
+                    object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
+                ),
             },
             headers={
                 "X-Project": str(project) if project is not None else None,
@@ -676,7 +717,7 @@ class AsyncIdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def upsert_identity(
+    async def upsert(
         self,
         *,
         identifier_key: str,
@@ -685,6 +726,7 @@ class AsyncIdentitiesClient:
         project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
         """
@@ -707,6 +749,9 @@ class AsyncIdentitiesClient:
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
 
+        properties : typing.Optional[typing.Sequence[IdentityProperty]]
+            List of properties associated with the identity.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -727,7 +772,7 @@ class AsyncIdentitiesClient:
 
 
         async def main() -> None:
-            await client.identities.upsert_identity(
+            await client.identities.upsert(
                 identifier_key="identifier_key",
                 name="name",
                 identity_type="org",
@@ -745,6 +790,9 @@ class AsyncIdentitiesClient:
                 "identity_type": identity_type,
                 "project_id": project_id,
                 "agent_ids": agent_ids,
+                "properties": convert_and_respect_annotation_metadata(
+                    object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
+                ),
             },
             headers={
                 "X-Project": str(project) if project is not None else None,
@@ -776,13 +824,11 @@ class AsyncIdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_identity_from_identifier_key(
-        self, identifier_key: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Identity:
+    async def retrieve(self, identity_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Identity:
         """
         Parameters
         ----------
-        identifier_key : str
+        identity_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -804,15 +850,15 @@ class AsyncIdentitiesClient:
 
 
         async def main() -> None:
-            await client.identities.get_identity_from_identifier_key(
-                identifier_key="identifier_key",
+            await client.identities.retrieve(
+                identity_id="identity_id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/identities/{jsonable_encoder(identifier_key)}",
+            f"v1/identities/{jsonable_encoder(identity_id)}",
             method="GET",
             request_options=request_options,
         )
@@ -840,15 +886,15 @@ class AsyncIdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete_identity(
-        self, identifier_key: str, *, request_options: typing.Optional[RequestOptions] = None
+    async def delete(
+        self, identity_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
         Delete an identity by its identifier key
 
         Parameters
         ----------
-        identifier_key : str
+        identity_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -870,15 +916,15 @@ class AsyncIdentitiesClient:
 
 
         async def main() -> None:
-            await client.identities.delete_identity(
-                identifier_key="identifier_key",
+            await client.identities.delete(
+                identity_id="identity_id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/identities/{jsonable_encoder(identifier_key)}",
+            f"v1/identities/{jsonable_encoder(identity_id)}",
             method="DELETE",
             request_options=request_options,
         )
@@ -906,19 +952,24 @@ class AsyncIdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def update_identity(
+    async def modify(
         self,
-        identifier_key: str,
+        identity_id: str,
         *,
+        identifier_key: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         identity_type: typing.Optional[IdentityType] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
         """
         Parameters
         ----------
-        identifier_key : str
+        identity_id : str
+
+        identifier_key : typing.Optional[str]
+            External, user-generated identifier key of the identity.
 
         name : typing.Optional[str]
             The name of the identity.
@@ -928,6 +979,9 @@ class AsyncIdentitiesClient:
 
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
+
+        properties : typing.Optional[typing.Sequence[IdentityProperty]]
+            List of properties associated with the identity.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -949,20 +1003,24 @@ class AsyncIdentitiesClient:
 
 
         async def main() -> None:
-            await client.identities.update_identity(
-                identifier_key="identifier_key",
+            await client.identities.modify(
+                identity_id="identity_id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/identities/{jsonable_encoder(identifier_key)}",
+            f"v1/identities/{jsonable_encoder(identity_id)}",
             method="PATCH",
             json={
+                "identifier_key": identifier_key,
                 "name": name,
                 "identity_type": identity_type,
                 "agent_ids": agent_ids,
+                "properties": convert_and_respect_annotation_metadata(
+                    object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
