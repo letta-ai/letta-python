@@ -16,7 +16,7 @@ from ...core.client_wrapper import AsyncClientWrapper
 OMIT = typing.cast(typing.Any, ...)
 
 
-class ArchivalMemoryClient:
+class PassagesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -60,7 +60,7 @@ class ArchivalMemoryClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.archival_memory.list(
+        client.agents.passages.list(
             agent_id="agent_id",
         )
         """
@@ -126,7 +126,7 @@ class ArchivalMemoryClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.archival_memory.create(
+        client.agents.passages.create(
             agent_id="agent_id",
             text="text",
         )
@@ -194,7 +194,7 @@ class ArchivalMemoryClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.archival_memory.delete(
+        client.agents.passages.delete(
             agent_id="agent_id",
             memory_id="memory_id",
         )
@@ -229,7 +229,7 @@ class ArchivalMemoryClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncArchivalMemoryClient:
+class AsyncPassagesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
@@ -278,7 +278,7 @@ class AsyncArchivalMemoryClient:
 
 
         async def main() -> None:
-            await client.agents.archival_memory.list(
+            await client.agents.passages.list(
                 agent_id="agent_id",
             )
 
@@ -352,7 +352,7 @@ class AsyncArchivalMemoryClient:
 
 
         async def main() -> None:
-            await client.agents.archival_memory.create(
+            await client.agents.passages.create(
                 agent_id="agent_id",
                 text="text",
             )
@@ -428,7 +428,7 @@ class AsyncArchivalMemoryClient:
 
 
         async def main() -> None:
-            await client.agents.archival_memory.delete(
+            await client.agents.passages.delete(
                 agent_id="agent_id",
                 memory_id="memory_id",
             )

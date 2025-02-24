@@ -5576,7 +5576,8 @@ client.agents.core_memory.retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">retrieve_block</a>(...)</code></summary>
+## Agents Blocks
+<details><summary><code>client.agents.blocks.<a href="src/letta_client/agents/blocks/client.py">retrieve</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5608,7 +5609,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.core_memory.retrieve_block(
+client.agents.blocks.retrieve(
     agent_id="agent_id",
     block_label="block_label",
 )
@@ -5655,7 +5656,7 @@ client.agents.core_memory.retrieve_block(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">modify_block</a>(...)</code></summary>
+<details><summary><code>client.agents.blocks.<a href="src/letta_client/agents/blocks/client.py">modify</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5687,7 +5688,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.core_memory.modify_block(
+client.agents.blocks.modify(
     agent_id="agent_id",
     block_label="block_label",
 )
@@ -5790,7 +5791,7 @@ client.agents.core_memory.modify_block(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">list_blocks</a>(...)</code></summary>
+<details><summary><code>client.agents.blocks.<a href="src/letta_client/agents/blocks/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5822,7 +5823,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.core_memory.list_blocks(
+client.agents.blocks.list(
     agent_id="agent_id",
 )
 
@@ -5860,7 +5861,7 @@ client.agents.core_memory.list_blocks(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">attach_block</a>(...)</code></summary>
+<details><summary><code>client.agents.blocks.<a href="src/letta_client/agents/blocks/client.py">attach</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5892,7 +5893,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.core_memory.attach_block(
+client.agents.blocks.attach(
     agent_id="agent_id",
     block_id="block_id",
 )
@@ -5939,7 +5940,7 @@ client.agents.core_memory.attach_block(
 </dl>
 </details>
 
-<details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">detach_block</a>(...)</code></summary>
+<details><summary><code>client.agents.blocks.<a href="src/letta_client/agents/blocks/client.py">detach</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5971,7 +5972,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.core_memory.detach_block(
+client.agents.blocks.detach(
     agent_id="agent_id",
     block_id="block_id",
 )
@@ -6018,8 +6019,8 @@ client.agents.core_memory.detach_block(
 </dl>
 </details>
 
-## Agents ArchivalMemory
-<details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">list</a>(...)</code></summary>
+## Agents Passages
+<details><summary><code>client.agents.passages.<a href="src/letta_client/agents/passages/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6051,7 +6052,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.archival_memory.list(
+client.agents.passages.list(
     agent_id="agent_id",
 )
 
@@ -6113,7 +6114,7 @@ client.agents.archival_memory.list(
 </dl>
 </details>
 
-<details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">create</a>(...)</code></summary>
+<details><summary><code>client.agents.passages.<a href="src/letta_client/agents/passages/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6145,7 +6146,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.archival_memory.create(
+client.agents.passages.create(
     agent_id="agent_id",
     text="text",
 )
@@ -6192,7 +6193,7 @@ client.agents.archival_memory.create(
 </dl>
 </details>
 
-<details><summary><code>client.agents.archival_memory.<a href="src/letta_client/agents/archival_memory/client.py">delete</a>(...)</code></summary>
+<details><summary><code>client.agents.passages.<a href="src/letta_client/agents/passages/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6224,7 +6225,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.archival_memory.delete(
+client.agents.passages.delete(
     agent_id="agent_id",
     memory_id="memory_id",
 )

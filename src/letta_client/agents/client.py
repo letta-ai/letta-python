@@ -6,7 +6,8 @@ from .context.client import ContextClient
 from .tools.client import ToolsClient
 from .sources.client import SourcesClient
 from .core_memory.client import CoreMemoryClient
-from .archival_memory.client import ArchivalMemoryClient
+from .blocks.client import BlocksClient
+from .passages.client import PassagesClient
 from .messages.client import MessagesClient
 from .templates.client import TemplatesClient
 from .memory_variables.client import MemoryVariablesClient
@@ -33,7 +34,8 @@ from .context.client import AsyncContextClient
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
 from .core_memory.client import AsyncCoreMemoryClient
-from .archival_memory.client import AsyncArchivalMemoryClient
+from .blocks.client import AsyncBlocksClient
+from .passages.client import AsyncPassagesClient
 from .messages.client import AsyncMessagesClient
 from .templates.client import AsyncTemplatesClient
 from .memory_variables.client import AsyncMemoryVariablesClient
@@ -49,7 +51,8 @@ class AgentsClient:
         self.tools = ToolsClient(client_wrapper=self._client_wrapper)
         self.sources = SourcesClient(client_wrapper=self._client_wrapper)
         self.core_memory = CoreMemoryClient(client_wrapper=self._client_wrapper)
-        self.archival_memory = ArchivalMemoryClient(client_wrapper=self._client_wrapper)
+        self.blocks = BlocksClient(client_wrapper=self._client_wrapper)
+        self.passages = PassagesClient(client_wrapper=self._client_wrapper)
         self.messages = MessagesClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.memory_variables = MemoryVariablesClient(client_wrapper=self._client_wrapper)
@@ -833,7 +836,8 @@ class AsyncAgentsClient:
         self.tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
         self.sources = AsyncSourcesClient(client_wrapper=self._client_wrapper)
         self.core_memory = AsyncCoreMemoryClient(client_wrapper=self._client_wrapper)
-        self.archival_memory = AsyncArchivalMemoryClient(client_wrapper=self._client_wrapper)
+        self.blocks = AsyncBlocksClient(client_wrapper=self._client_wrapper)
+        self.passages = AsyncPassagesClient(client_wrapper=self._client_wrapper)
         self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.memory_variables = AsyncMemoryVariablesClient(client_wrapper=self._client_wrapper)

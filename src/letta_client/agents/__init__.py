@@ -175,7 +175,7 @@ from .types import (
     CreateAgentRequestToolRulesItem,
     UpdateAgentToolRulesItem,
 )
-from . import archival_memory, context, core_memory, memory_variables, messages, sources, templates, tools
+from . import blocks, context, core_memory, memory_variables, messages, passages, sources, templates, tools
 from .memory_variables import MemoryVariablesListResponse
 from .messages import LettaStreamingResponse, MessageUpdateContent
 from .templates import TemplatesCreateResponse, TemplatesMigrateResponse
@@ -359,11 +359,12 @@ __all__ = [
     "TemplatesCreateResponse",
     "TemplatesMigrateResponse",
     "UpdateAgentToolRulesItem",
-    "archival_memory",
+    "blocks",
     "context",
     "core_memory",
     "memory_variables",
     "messages",
+    "passages",
     "sources",
     "templates",
     "tools",
