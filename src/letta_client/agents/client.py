@@ -70,6 +70,7 @@ class AgentsClient:
         project_id: typing.Optional[str] = None,
         template_id: typing.Optional[str] = None,
         base_template_id: typing.Optional[str] = None,
+        identifier_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
@@ -109,6 +110,9 @@ class AgentsClient:
         base_template_id : typing.Optional[str]
             Search agents by base template id
 
+        identifier_id : typing.Optional[str]
+            Search agents by identifier id
+
         identifier_keys : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Search agents by identifier keys
 
@@ -143,6 +147,7 @@ class AgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "identifier_id": identifier_id,
                 "identifier_keys": identifier_keys,
             },
             request_options=request_options,
@@ -855,6 +860,7 @@ class AsyncAgentsClient:
         project_id: typing.Optional[str] = None,
         template_id: typing.Optional[str] = None,
         base_template_id: typing.Optional[str] = None,
+        identifier_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
@@ -893,6 +899,9 @@ class AsyncAgentsClient:
 
         base_template_id : typing.Optional[str]
             Search agents by base template id
+
+        identifier_id : typing.Optional[str]
+            Search agents by identifier id
 
         identifier_keys : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Search agents by identifier keys
@@ -936,6 +945,7 @@ class AsyncAgentsClient:
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
+                "identifier_id": identifier_id,
                 "identifier_keys": identifier_keys,
             },
             request_options=request_options,

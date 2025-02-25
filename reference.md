@@ -1522,6 +1522,14 @@ client.agents.list()
 <dl>
 <dd>
 
+**identifier_id:** `typing.Optional[str]` — Search agents by identifier id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **identifier_keys:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Search agents by identifier keys
     
 </dd>
