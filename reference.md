@@ -4871,6 +4871,74 @@ client.tag.list_tags()
 </dl>
 </details>
 
+## Voice
+<details><summary><code>client.voice.<a href="src/letta_client/voice/client.py">create_voice_chat_completions</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import (
+    ChatCompletionDeveloperMessageParam,
+    CompletionCreateParamsNonStreaming,
+    Letta,
+)
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.voice.create_voice_chat_completions(
+    request=CompletionCreateParamsNonStreaming(
+        messages=[
+            ChatCompletionDeveloperMessageParam(
+                content="content",
+            )
+        ],
+        model="model",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CreateVoiceChatCompletionsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Templates
 <details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">create_agents</a>(...)</code></summary>
 <dl>

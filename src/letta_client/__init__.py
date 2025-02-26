@@ -165,7 +165,22 @@ from .types import (
     ValidationErrorLocItem,
 )
 from .errors import ConflictError, InternalServerError, NotFoundError, UnprocessableEntityError
-from . import agents, blocks, health, identities, jobs, models, providers, runs, sources, steps, tag, templates, tools
+from . import (
+    agents,
+    blocks,
+    health,
+    identities,
+    jobs,
+    models,
+    providers,
+    runs,
+    sources,
+    steps,
+    tag,
+    templates,
+    tools,
+    voice,
+)
 from .agents import (
     AgentsSearchRequestSearchItem,
     AgentsSearchRequestSearchItemField,
@@ -512,6 +527,7 @@ from .templates import (
     TemplatesCreateAgentsResponseAgentsItemUpdatedAtItem,
 )
 from .version import __version__
+from .voice import CreateVoiceChatCompletionsRequest
 
 __all__ = [
     "ActionModel",
@@ -761,6 +777,7 @@ __all__ = [
     "ContinueToolRule",
     "CreateAgentRequestToolRulesItem",
     "CreateBlock",
+    "CreateVoiceChatCompletionsRequest",
     "E2BSandboxConfig",
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
@@ -1036,4 +1053,5 @@ __all__ = [
     "tag",
     "templates",
     "tools",
+    "voice",
 ]
