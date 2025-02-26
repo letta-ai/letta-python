@@ -29,6 +29,7 @@ class TemplatesClient:
         *,
         return_agent_state: typing.Optional[bool] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
+        message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -44,6 +45,8 @@ class TemplatesClient:
         return_agent_state : typing.Optional[bool]
 
         migrate_deployed_agents : typing.Optional[bool]
+
+        message : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -71,6 +74,7 @@ class TemplatesClient:
             },
             json={
                 "migrate_deployed_agents": migrate_deployed_agents,
+                "message": message,
             },
             headers={
                 "content-type": "application/json",
@@ -294,6 +298,7 @@ class AsyncTemplatesClient:
         *,
         return_agent_state: typing.Optional[bool] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
+        message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -309,6 +314,8 @@ class AsyncTemplatesClient:
         return_agent_state : typing.Optional[bool]
 
         migrate_deployed_agents : typing.Optional[bool]
+
+        message : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -344,6 +351,7 @@ class AsyncTemplatesClient:
             },
             json={
                 "migrate_deployed_agents": migrate_deployed_agents,
+                "message": message,
             },
             headers={
                 "content-type": "application/json",
