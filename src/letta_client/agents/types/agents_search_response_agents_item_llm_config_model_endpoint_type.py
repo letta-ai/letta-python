@@ -25,6 +25,7 @@ AgentsSearchResponseAgentsItemLlmConfigModelEndpointType = typing.Union[
         "together",
         "bedrock",
         "deepseek",
+        "xai",
     ],
     typing.Any,
 ]

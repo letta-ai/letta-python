@@ -25,6 +25,7 @@ TemplatesCreateAgentsResponseAgentsItemLlmConfigModelEndpointType = typing.Union
         "together",
         "bedrock",
         "deepseek",
+        "xai",
     ],
     typing.Any,
 ]
