@@ -2228,6 +2228,190 @@ client.agents.modify(
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">modify_passage</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify a memory in the agent's archival memory store.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.modify_passage(
+    agent_id="agent_id",
+    memory_id="memory_id",
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memory_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `str` — The unique identifier of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_by_id:** `typing.Optional[str]` — The id of the user that made this object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_updated_by_id:** `typing.Optional[str]` — The id of the user that made this object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_at:** `typing.Optional[dt.datetime]` — The timestamp when the object was created.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**updated_at:** `typing.Optional[dt.datetime]` — The timestamp when the object was last updated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_deleted:** `typing.Optional[bool]` — Whether this passage is deleted or not.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**passage_update_agent_id:** `typing.Optional[str]` — The unique identifier of the agent associated with the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_id:** `typing.Optional[str]` — The data source of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file_id:** `typing.Optional[str]` — The unique identifier of the file associated with the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**text:** `typing.Optional[str]` — The text of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding:** `typing.Optional[typing.Sequence[float]]` — The embedding of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_config:** `typing.Optional[EmbeddingConfig]` — The embedding configuration used by the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">reset_messages</a>(...)</code></summary>
 <dl>
 <dd>
@@ -5665,7 +5849,7 @@ client.agents.core_memory.retrieve(
 <dl>
 <dd>
 
-Retrieve a memory block from an agent.
+Retrieve a core memory block from an agent.
 </dd>
 </dl>
 </dd>
@@ -5744,7 +5928,7 @@ client.agents.blocks.retrieve(
 <dl>
 <dd>
 
-Updates a memory block of an agent.
+Updates a core memory block of an agent.
 </dd>
 </dl>
 </dd>
@@ -5879,7 +6063,7 @@ client.agents.blocks.modify(
 <dl>
 <dd>
 
-Retrieve the memory blocks of a specific agent.
+Retrieve the core memory blocks of a specific agent.
 </dd>
 </dl>
 </dd>
@@ -5949,7 +6133,7 @@ client.agents.blocks.list(
 <dl>
 <dd>
 
-Attach a block to an agent.
+Attach a core memoryblock to an agent.
 </dd>
 </dl>
 </dd>
@@ -6028,7 +6212,7 @@ client.agents.blocks.attach(
 <dl>
 <dd>
 
-Detach a block from an agent.
+Detach a core memory block from an agent.
 </dd>
 </dl>
 </dd>

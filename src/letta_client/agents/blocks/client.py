@@ -25,7 +25,7 @@ class BlocksClient:
         self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> Block:
         """
-        Retrieve a memory block from an agent.
+        Retrieve a core memory block from an agent.
 
         Parameters
         ----------
@@ -97,7 +97,7 @@ class BlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
-        Updates a memory block of an agent.
+        Updates a core memory block of an agent.
 
         Parameters
         ----------
@@ -187,7 +187,7 @@ class BlocksClient:
 
     def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Block]:
         """
-        Retrieve the memory blocks of a specific agent.
+        Retrieve the core memory blocks of a specific agent.
 
         Parameters
         ----------
@@ -245,7 +245,7 @@ class BlocksClient:
         self, agent_id: str, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Attach a block to an agent.
+        Attach a core memoryblock to an agent.
 
         Parameters
         ----------
@@ -306,7 +306,7 @@ class BlocksClient:
         self, agent_id: str, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Detach a block from an agent.
+        Detach a core memory block from an agent.
 
         Parameters
         ----------
@@ -372,7 +372,7 @@ class AsyncBlocksClient:
         self, agent_id: str, block_label: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> Block:
         """
-        Retrieve a memory block from an agent.
+        Retrieve a core memory block from an agent.
 
         Parameters
         ----------
@@ -452,7 +452,7 @@ class AsyncBlocksClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
-        Updates a memory block of an agent.
+        Updates a core memory block of an agent.
 
         Parameters
         ----------
@@ -552,7 +552,7 @@ class AsyncBlocksClient:
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[Block]:
         """
-        Retrieve the memory blocks of a specific agent.
+        Retrieve the core memory blocks of a specific agent.
 
         Parameters
         ----------
@@ -618,7 +618,7 @@ class AsyncBlocksClient:
         self, agent_id: str, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Attach a block to an agent.
+        Attach a core memoryblock to an agent.
 
         Parameters
         ----------
@@ -687,7 +687,7 @@ class AsyncBlocksClient:
         self, agent_id: str, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Detach a block from an agent.
+        Detach a core memory block from an agent.
 
         Parameters
         ----------
