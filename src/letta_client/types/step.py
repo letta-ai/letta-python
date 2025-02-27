@@ -80,6 +80,11 @@ class Step(UncheckedBaseModel):
     The unique identifier of the transaction that processed this step.
     """
 
+    trace_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The trace id of the agent step.
+    """
+
     messages: typing.Optional[typing.List[Message]] = pydantic.Field(default=None)
     """
     The messages generated during this step.
