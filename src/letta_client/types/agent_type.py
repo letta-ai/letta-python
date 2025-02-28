@@ -2,6 +2,4 @@
 
 import typing
 
-AgentType = typing.Union[
-    typing.Literal["memgpt_agent", "split_thread_agent", "offline_memory_agent", "chat_only_agent"], typing.Any
-]
+AgentType = typing.Union[typing.Literal["memgpt_agent", "split_thread_agent", "offline_memory_agent"], typing.Any]
