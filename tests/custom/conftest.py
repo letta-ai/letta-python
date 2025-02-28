@@ -26,5 +26,6 @@ def letta_env(pytestconfig) -> LettaEnvironment:
 @pytest.fixture(scope="session")
 def client(letta_env) -> Generator[Letta, None, None]:
     api_key = os.getenv('LETTA_API_KEY')
-    client = Letta(environment=letta_env, token=api_key)
+    #client = Letta(environment=letta_env, token=api_key)
+    client = Letta(base_url="http://localhost:8283", token=api_key)
     yield client
