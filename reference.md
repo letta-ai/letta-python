@@ -238,6 +238,14 @@ client.tools.modify(
 <dl>
 <dd>
 
+**args_json_schema:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The args JSON schema of the function.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **return_char_limit:** `typing.Optional[int]` — The maximum number of characters in the response.
     
 </dd>
@@ -432,6 +440,14 @@ client.tools.create(
 <dl>
 <dd>
 
+**args_json_schema:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The args JSON schema of the function.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **return_char_limit:** `typing.Optional[int]` — The maximum number of characters in the response.
     
 </dd>
@@ -535,6 +551,14 @@ client.tools.upsert(
 <dd>
 
 **json_schema:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The JSON schema of the function (auto-generated from source_code if not provided)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**args_json_schema:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The args JSON schema of the function.
     
 </dd>
 </dl>
@@ -706,6 +730,14 @@ client.tools.run_tool_from_source(
 <dd>
 
 **source_type:** `typing.Optional[str]` — The type of the source code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**args_json_schema:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The args JSON schema of the function.
     
 </dd>
 </dl>

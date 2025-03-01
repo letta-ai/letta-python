@@ -13,6 +13,9 @@ from .agents_search_response_agents_item_tools_item_organization_id import (
 from .agents_search_response_agents_item_tools_item_name import AgentsSearchResponseAgentsItemToolsItemName
 from .agents_search_response_agents_item_tools_item_source_code import AgentsSearchResponseAgentsItemToolsItemSourceCode
 from .agents_search_response_agents_item_tools_item_json_schema import AgentsSearchResponseAgentsItemToolsItemJsonSchema
+from .agents_search_response_agents_item_tools_item_args_json_schema import (
+    AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema,
+)
 from .agents_search_response_agents_item_tools_item_created_by_id import (
     AgentsSearchResponseAgentsItemToolsItemCreatedById,
 )
@@ -33,6 +36,7 @@ class AgentsSearchResponseAgentsItemToolsItem(UncheckedBaseModel):
     tags: typing.Optional[typing.List[str]] = None
     source_code: typing.Optional[AgentsSearchResponseAgentsItemToolsItemSourceCode] = None
     json_schema: typing.Optional[AgentsSearchResponseAgentsItemToolsItemJsonSchema] = None
+    args_json_schema: typing.Optional[AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema] = None
     return_char_limit: typing.Optional[float] = None
     created_by_id: typing.Optional[AgentsSearchResponseAgentsItemToolsItemCreatedById] = None
     last_updated_by_id: typing.Optional[AgentsSearchResponseAgentsItemToolsItemLastUpdatedById] = None

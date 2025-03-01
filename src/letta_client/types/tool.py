@@ -59,6 +59,11 @@ class Tool(UncheckedBaseModel):
     The JSON schema of the function.
     """
 
+    args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    """
+    The args JSON schema of the function.
+    """
+
     return_char_limit: typing.Optional[int] = pydantic.Field(default=None)
     """
     The maximum number of characters in the response.
