@@ -146,6 +146,7 @@ class ToolsClient:
         source_code: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
@@ -170,6 +171,9 @@ class ToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The args JSON schema of the function.
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
@@ -202,6 +206,7 @@ class ToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
             },
             headers={
@@ -312,6 +317,7 @@ class ToolsClient:
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
@@ -334,6 +340,9 @@ class ToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The args JSON schema of the function.
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
@@ -366,6 +375,7 @@ class ToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
             },
             request_options=request_options,
@@ -403,6 +413,7 @@ class ToolsClient:
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
@@ -425,6 +436,9 @@ class ToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The args JSON schema of the function.
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
@@ -457,6 +471,7 @@ class ToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
             },
             request_options=request_options,
@@ -546,6 +561,7 @@ class ToolsClient:
         env_vars: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
+        args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ToolReturnMessage:
         """
@@ -567,6 +583,9 @@ class ToolsClient:
 
         source_type : typing.Optional[str]
             The type of the source code.
+
+        args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The args JSON schema of the function.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -597,6 +616,7 @@ class ToolsClient:
                 "env_vars": env_vars,
                 "name": name,
                 "source_type": source_type,
+                "args_json_schema": args_json_schema,
             },
             headers={
                 "content-type": "application/json",
@@ -940,6 +960,7 @@ class AsyncToolsClient:
         source_code: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
@@ -964,6 +985,9 @@ class AsyncToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The args JSON schema of the function.
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
@@ -1004,6 +1028,7 @@ class AsyncToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
             },
             headers={
@@ -1122,6 +1147,7 @@ class AsyncToolsClient:
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
@@ -1144,6 +1170,9 @@ class AsyncToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The args JSON schema of the function.
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
@@ -1184,6 +1213,7 @@ class AsyncToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
             },
             request_options=request_options,
@@ -1221,6 +1251,7 @@ class AsyncToolsClient:
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
@@ -1243,6 +1274,9 @@ class AsyncToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The args JSON schema of the function.
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
@@ -1283,6 +1317,7 @@ class AsyncToolsClient:
                 "source_code": source_code,
                 "source_type": source_type,
                 "json_schema": json_schema,
+                "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
             },
             request_options=request_options,
@@ -1380,6 +1415,7 @@ class AsyncToolsClient:
         env_vars: typing.Optional[typing.Dict[str, str]] = OMIT,
         name: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
+        args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ToolReturnMessage:
         """
@@ -1401,6 +1437,9 @@ class AsyncToolsClient:
 
         source_type : typing.Optional[str]
             The type of the source code.
+
+        args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The args JSON schema of the function.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1439,6 +1478,7 @@ class AsyncToolsClient:
                 "env_vars": env_vars,
                 "name": name,
                 "source_type": source_type,
+                "args_json_schema": args_json_schema,
             },
             headers={
                 "content-type": "application/json",

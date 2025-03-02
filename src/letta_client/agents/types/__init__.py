@@ -366,6 +366,12 @@ from .agents_search_response_agents_item_tool_rules_item_two_type import (
     AgentsSearchResponseAgentsItemToolRulesItemTwoType,
 )
 from .agents_search_response_agents_item_tools_item import AgentsSearchResponseAgentsItemToolsItem
+from .agents_search_response_agents_item_tools_item_args_json_schema import (
+    AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema,
+)
+from .agents_search_response_agents_item_tools_item_args_json_schema_item import (
+    AgentsSearchResponseAgentsItemToolsItemArgsJsonSchemaItem,
+)
 from .agents_search_response_agents_item_tools_item_created_by_id import (
     AgentsSearchResponseAgentsItemToolsItemCreatedById,
 )
@@ -563,6 +569,8 @@ __all__ = [
     "AgentsSearchResponseAgentsItemToolRulesItemTwo",
     "AgentsSearchResponseAgentsItemToolRulesItemTwoType",
     "AgentsSearchResponseAgentsItemToolsItem",
+    "AgentsSearchResponseAgentsItemToolsItemArgsJsonSchema",
+    "AgentsSearchResponseAgentsItemToolsItemArgsJsonSchemaItem",
     "AgentsSearchResponseAgentsItemToolsItemCreatedById",
     "AgentsSearchResponseAgentsItemToolsItemCreatedByIdItem",
     "AgentsSearchResponseAgentsItemToolsItemDescription",

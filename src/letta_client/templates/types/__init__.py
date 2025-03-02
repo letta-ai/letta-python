@@ -415,6 +415,12 @@ from .templates_create_agents_response_agents_item_tool_rules_item_two_type impo
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemTwoType,
 )
 from .templates_create_agents_response_agents_item_tools_item import TemplatesCreateAgentsResponseAgentsItemToolsItem
+from .templates_create_agents_response_agents_item_tools_item_args_json_schema import (
+    TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema,
+)
+from .templates_create_agents_response_agents_item_tools_item_args_json_schema_item import (
+    TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchemaItem,
+)
 from .templates_create_agents_response_agents_item_tools_item_created_by_id import (
     TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById,
 )
@@ -619,6 +625,8 @@ __all__ = [
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemTwo",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemTwoType",
     "TemplatesCreateAgentsResponseAgentsItemToolsItem",
+    "TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema",
+    "TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchemaItem",
     "TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById",
     "TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedByIdItem",
     "TemplatesCreateAgentsResponseAgentsItemToolsItemDescription",

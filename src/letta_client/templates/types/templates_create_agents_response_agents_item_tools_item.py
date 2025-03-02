@@ -23,6 +23,9 @@ from .templates_create_agents_response_agents_item_tools_item_source_code import
 from .templates_create_agents_response_agents_item_tools_item_json_schema import (
     TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema,
 )
+from .templates_create_agents_response_agents_item_tools_item_args_json_schema import (
+    TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema,
+)
 from .templates_create_agents_response_agents_item_tools_item_created_by_id import (
     TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById,
 )
@@ -43,6 +46,7 @@ class TemplatesCreateAgentsResponseAgentsItemToolsItem(UncheckedBaseModel):
     tags: typing.Optional[typing.List[str]] = None
     source_code: typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolsItemSourceCode] = None
     json_schema: typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchema] = None
+    args_json_schema: typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolsItemArgsJsonSchema] = None
     return_char_limit: typing.Optional[float] = None
     created_by_id: typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById] = None
     last_updated_by_id: typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById] = None
