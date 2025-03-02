@@ -58,6 +58,7 @@ def test_create_agent_with_tools(client) -> None:
         """
         Implementation of the manage_inventory tool
         """
+        print(f"Updated inventory for {data.item.name} with a quantity change of {quantity_change}")
         return True
     
     tool_from_func = client.tools.upsert_from_function(

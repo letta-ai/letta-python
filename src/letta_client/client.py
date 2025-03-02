@@ -128,7 +128,7 @@ class ToolsClient(ToolsClientBase):
         )
         """
         source_code = dedent(inspect.getsource(func))
-        args_json_schema = args_schema.model_json_schema() if args_schema else None
+        args_json_schema = args_schema.model_json_schema() if args_schema and args_schema != OMIT else None
         return self.create(
             source_code=source_code,
             args_json_schema=args_json_schema,
@@ -217,7 +217,7 @@ class ToolsClient(ToolsClientBase):
         )
         """
         source_code = dedent(inspect.getsource(func))
-        args_json_schema = args_schema.model_json_schema() if args_schema else None
+        args_json_schema = args_schema.model_json_schema() if args_schema and args_schema != OMIT else None
         return self.upsert(
             source_code=source_code,
             args_json_schema=args_json_schema,
@@ -295,7 +295,7 @@ class ToolsClient(ToolsClientBase):
         """
         run_source = dedent(inspect.getsource(tool.run))
         source_code = run_source.replace("def run", f"def {tool.name}")
-        args_json_schema = tool.args_schema.model_json_schema() if tool.args_schema else tool.args_json_schema
+        args_json_schema = tool.args_schema.model_json_schema() if tool.args_schema else None
         return self.upsert(
             source_code=source_code,
             args_json_schema=args_json_schema or OMIT,
