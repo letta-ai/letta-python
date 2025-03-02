@@ -31,15 +31,14 @@ class BaseTool(Tool):
     name: str = Field(..., description="The name of the function.")
     args_schema: typing.Optional[typing.Type[BaseModel]] = Field(default=None, description="The schema for validating the tool's arguments.")
 
+    @staticmethod
     @abstractmethod
-    def run(self, *args, **kwargs) -> typing.Any:
+    def run(*args, **kwargs) -> typing.Any:
         """
         Execute the tool with the provided arguments.
 
         Parameters
         ----------
-        self
-            The instance of the tool
         *args
             Positional arguments to pass to the tool.
         **kwargs
@@ -283,7 +282,8 @@ class ToolsClient(ToolsClientBase):
             description: str = "Update inventory catalogue with a new data entry"
             tags: List[str] = ["inventory", "shop"]
 
-            def run(self, data: InventoryEntry, quantity_change: int) -> bool:
+            @staticmethod
+            def run(data: InventoryEntry, quantity_change: int) -> bool:
                 '''
                 Implementation of the manage_inventory tool
                 '''
