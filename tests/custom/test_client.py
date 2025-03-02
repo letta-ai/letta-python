@@ -25,12 +25,10 @@ class ManageInventoryTool(BaseTool):
     description: str = "Update inventory catalogue with a new data entry"
     tags: List[str] = ["inventory", "shop"]
 
-    def run(data: InventoryEntry, quantity_change: int) -> bool:
+    def run(self, data: InventoryEntry, quantity_change: int) -> bool:
         """
         Implementation of the manage_inventory tool
         """
-        # implementation
-
         print(f"Updated inventory for {data.item.name} with a quantity change of {quantity_change}")
         return True
 
