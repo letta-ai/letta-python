@@ -31,14 +31,15 @@ class BaseTool(Tool):
     name: str = Field(..., description="The name of the function.")
     args_schema: typing.Optional[typing.Type[BaseModel]] = Field(default=None, description="The schema for validating the tool's arguments.")
 
-    @staticmethod
     @abstractmethod
-    def run(*args, **kwargs) -> typing.Any:
+    def run(self, *args, **kwargs) -> typing.Any:
         """
         Execute the tool with the provided arguments.
 
         Parameters
         ----------
+        self
+            The instance of the tool
         *args
             Positional arguments to pass to the tool.
         **kwargs
