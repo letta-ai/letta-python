@@ -283,8 +283,7 @@ class ToolsClient(ToolsClientBase):
             description: str = "Update inventory catalogue with a new data entry"
             tags: List[str] = ["inventory", "shop"]
 
-            @staticmethod
-            def run(data: InventoryEntry, quantity_change: int) -> bool:
+            def run(self, data: InventoryEntry, quantity_change: int) -> bool:
                 '''
                 Implementation of the manage_inventory tool
                 '''
@@ -292,7 +291,7 @@ class ToolsClient(ToolsClientBase):
                 return True
                 
         client.tools.add(
-            tool=ManageInventoryTool
+            tool=ManageInventoryTool()
         )
         """
         run_source = dedent(inspect.getsource(tool.run))
