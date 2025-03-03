@@ -4814,6 +4814,118 @@ client.runs.retrieve_run_usage(
 </dl>
 </details>
 
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_run_steps</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get messages associated with a run with filtering options.
+
+Args:
+    run_id: ID of the run
+    before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+    after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+    limit: Maximum number of steps to return
+    order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+
+Returns:
+    A list of steps associated with the run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.runs.list_run_steps(
+    run_id="run_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[str]` — Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Steps
 <details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">list_steps</a>(...)</code></summary>
 <dl>
