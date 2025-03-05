@@ -157,8 +157,10 @@ from .tool_call_delta import ToolCallDelta
 from .tool_call_message import ToolCallMessage
 from .tool_call_message_tool_call import ToolCallMessageToolCall
 from .tool_create import ToolCreate
+from .tool_return import ToolReturn
 from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
+from .tool_return_status import ToolReturnStatus
 from .tool_type import ToolType
 from .usage_statistics import UsageStatistics
 from .user import User
@@ -321,8 +323,10 @@ __all__ = [
     "ToolCallMessage",
     "ToolCallMessageToolCall",
     "ToolCreate",
+    "ToolReturn",
     "ToolReturnMessage",
     "ToolReturnMessageStatus",
+    "ToolReturnStatus",
     "ToolType",
     "UsageStatistics",
     "User",
