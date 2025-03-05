@@ -2034,7 +2034,15 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
-**mark_as_copy:** `typing.Optional[bool]` — Whether to mark the uploaded agent as a copy
+**append_copy_suffix:** `typing.Optional[bool]` — If set to True, appends "_copy" to the end of the agent name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**override_existing_tools:** `typing.Optional[bool]` — If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
     
 </dd>
 </dl>

@@ -477,7 +477,8 @@ class AgentsClient:
         self,
         *,
         file: core.File,
-        mark_as_copy: typing.Optional[bool] = None,
+        append_copy_suffix: typing.Optional[bool] = None,
+        override_existing_tools: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -488,8 +489,11 @@ class AgentsClient:
         file : core.File
             See core.File for more documentation
 
-        mark_as_copy : typing.Optional[bool]
-            Whether to mark the uploaded agent as a copy
+        append_copy_suffix : typing.Optional[bool]
+            If set to True, appends "_copy" to the end of the agent name.
+
+        override_existing_tools : typing.Optional[bool]
+            If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -512,7 +516,8 @@ class AgentsClient:
             "v1/agents/upload",
             method="POST",
             params={
-                "mark_as_copy": mark_as_copy,
+                "append_copy_suffix": append_copy_suffix,
+                "override_existing_tools": override_existing_tools,
             },
             data={},
             files={
@@ -1560,7 +1565,8 @@ class AsyncAgentsClient:
         self,
         *,
         file: core.File,
-        mark_as_copy: typing.Optional[bool] = None,
+        append_copy_suffix: typing.Optional[bool] = None,
+        override_existing_tools: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1571,8 +1577,11 @@ class AsyncAgentsClient:
         file : core.File
             See core.File for more documentation
 
-        mark_as_copy : typing.Optional[bool]
-            Whether to mark the uploaded agent as a copy
+        append_copy_suffix : typing.Optional[bool]
+            If set to True, appends "_copy" to the end of the agent name.
+
+        override_existing_tools : typing.Optional[bool]
+            If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1603,7 +1612,8 @@ class AsyncAgentsClient:
             "v1/agents/upload",
             method="POST",
             params={
-                "mark_as_copy": mark_as_copy,
+                "append_copy_suffix": append_copy_suffix,
+                "override_existing_tools": override_existing_tools,
             },
             data={},
             files={
