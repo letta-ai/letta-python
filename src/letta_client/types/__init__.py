@@ -32,8 +32,7 @@ from .chat_completion_developer_message_param import ChatCompletionDeveloperMess
 from .chat_completion_developer_message_param_content import ChatCompletionDeveloperMessageParamContent
 from .chat_completion_function_call_option_param import ChatCompletionFunctionCallOptionParam
 from .chat_completion_function_message_param import ChatCompletionFunctionMessageParam
-from .chat_completion_message_tool_call_input import ChatCompletionMessageToolCallInput
-from .chat_completion_message_tool_call_output import ChatCompletionMessageToolCallOutput
+from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from .chat_completion_message_tool_call_param import ChatCompletionMessageToolCallParam
 from .chat_completion_named_tool_choice_param import ChatCompletionNamedToolChoiceParam
 from .chat_completion_prediction_content_param import ChatCompletionPredictionContentParam
@@ -116,9 +115,6 @@ from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
 from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
-from .openai_types_chat_chat_completion_message_tool_call_function import (
-    OpenaiTypesChatChatCompletionMessageToolCallFunction,
-)
 from .openai_types_chat_chat_completion_message_tool_call_param_function import (
     OpenaiTypesChatChatCompletionMessageToolCallParamFunction,
 )
@@ -162,6 +158,14 @@ from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
 from .tool_return_status import ToolReturnStatus
 from .tool_type import ToolType
+from .update_assistant_message import UpdateAssistantMessage
+from .update_assistant_message_content import UpdateAssistantMessageContent
+from .update_reasoning_message import UpdateReasoningMessage
+from .update_reasoning_message_reasoning import UpdateReasoningMessageReasoning
+from .update_system_message import UpdateSystemMessage
+from .update_system_message_content import UpdateSystemMessageContent
+from .update_user_message import UpdateUserMessage
+from .update_user_message_content import UpdateUserMessageContent
 from .usage_statistics import UsageStatistics
 from .user import User
 from .user_create import UserCreate
@@ -204,8 +208,7 @@ __all__ = [
     "ChatCompletionDeveloperMessageParamContent",
     "ChatCompletionFunctionCallOptionParam",
     "ChatCompletionFunctionMessageParam",
-    "ChatCompletionMessageToolCallInput",
-    "ChatCompletionMessageToolCallOutput",
+    "ChatCompletionMessageToolCall",
     "ChatCompletionMessageToolCallParam",
     "ChatCompletionNamedToolChoiceParam",
     "ChatCompletionPredictionContentParam",
@@ -288,7 +291,6 @@ __all__ = [
     "MessageRole",
     "NotFoundErrorBody",
     "NotFoundErrorBodyMessage",
-    "OpenaiTypesChatChatCompletionMessageToolCallFunction",
     "OpenaiTypesChatChatCompletionMessageToolCallParamFunction",
     "OpenaiTypesChatChatCompletionNamedToolChoiceParamFunction",
     "OpenaiTypesChatCompletionCreateParamsFunction",
@@ -328,6 +330,14 @@ __all__ = [
     "ToolReturnMessageStatus",
     "ToolReturnStatus",
     "ToolType",
+    "UpdateAssistantMessage",
+    "UpdateAssistantMessageContent",
+    "UpdateReasoningMessage",
+    "UpdateReasoningMessageReasoning",
+    "UpdateSystemMessage",
+    "UpdateSystemMessageContent",
+    "UpdateUserMessage",
+    "UpdateUserMessageContent",
     "UsageStatistics",
     "User",
     "UserCreate",

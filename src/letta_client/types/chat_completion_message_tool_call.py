@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class ChatCompletionMessageToolCallOutput(UncheckedBaseModel):
+class ChatCompletionMessageToolCall(UncheckedBaseModel):
     id: str
     function: FunctionOutput
     type: typing.Literal["function"] = "function"

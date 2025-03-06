@@ -6,7 +6,7 @@ import pydantic
 import datetime as dt
 from .message_role import MessageRole
 from .text_content import TextContent
-from .chat_completion_message_tool_call_output import ChatCompletionMessageToolCallOutput
+from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from .tool_return import ToolReturn
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -78,7 +78,7 @@ class Message(UncheckedBaseModel):
     The name of the participant.
     """
 
-    tool_calls: typing.Optional[typing.List[ChatCompletionMessageToolCallOutput]] = pydantic.Field(default=None)
+    tool_calls: typing.Optional[typing.List[ChatCompletionMessageToolCall]] = pydantic.Field(default=None)
     """
     The list of tool calls requested.
     """

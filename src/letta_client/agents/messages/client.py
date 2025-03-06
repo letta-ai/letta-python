@@ -13,10 +13,8 @@ from ...core.api_error import ApiError
 from ...types.message_create import MessageCreate
 from ...types.letta_response import LettaResponse
 from ...core.serialization import convert_and_respect_annotation_metadata
-from ...types.message_role import MessageRole
-from .types.message_update_content import MessageUpdateContent
-from ...types.chat_completion_message_tool_call_input import ChatCompletionMessageToolCallInput
-from ...types.message import Message
+from .types.messages_modify_request import MessagesModifyRequest
+from .types.messages_modify_response import MessagesModifyResponse
 from .types.letta_streaming_response import LettaStreamingResponse
 import httpx_sse
 import json
@@ -222,13 +220,9 @@ class MessagesClient:
         agent_id: str,
         message_id: str,
         *,
-        role: typing.Optional[MessageRole] = OMIT,
-        content: typing.Optional[MessageUpdateContent] = OMIT,
-        name: typing.Optional[str] = OMIT,
-        tool_calls: typing.Optional[typing.Sequence[ChatCompletionMessageToolCallInput]] = OMIT,
-        tool_call_id: typing.Optional[str] = OMIT,
+        request: MessagesModifyRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Message:
+    ) -> MessagesModifyResponse:
         """
         Update the details of a message associated with an agent.
 
@@ -238,32 +232,19 @@ class MessagesClient:
 
         message_id : str
 
-        role : typing.Optional[MessageRole]
-            The role of the participant.
-
-        content : typing.Optional[MessageUpdateContent]
-            The content of the message.
-
-        name : typing.Optional[str]
-            The name of the participant.
-
-        tool_calls : typing.Optional[typing.Sequence[ChatCompletionMessageToolCallInput]]
-            The list of tool calls requested.
-
-        tool_call_id : typing.Optional[str]
-            The id of the tool call.
+        request : MessagesModifyRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Message
+        MessagesModifyResponse
             Successful Response
 
         Examples
         --------
-        from letta_client import Letta
+        from letta_client import Letta, UpdateSystemMessage
 
         client = Letta(
             token="YOUR_TOKEN",
@@ -271,36 +252,26 @@ class MessagesClient:
         client.agents.messages.modify(
             agent_id="agent_id",
             message_id="message_id",
+            request=UpdateSystemMessage(
+                content="content",
+            ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/{jsonable_encoder(message_id)}",
             method="PATCH",
-            json={
-                "role": role,
-                "content": convert_and_respect_annotation_metadata(
-                    object_=content, annotation=MessageUpdateContent, direction="write"
-                ),
-                "name": name,
-                "tool_calls": convert_and_respect_annotation_metadata(
-                    object_=tool_calls,
-                    annotation=typing.Sequence[ChatCompletionMessageToolCallInput],
-                    direction="write",
-                ),
-                "tool_call_id": tool_call_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=MessagesModifyRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    Message,
+                    MessagesModifyResponse,
                     construct_type(
-                        type_=Message,  # type: ignore
+                        type_=MessagesModifyResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -735,13 +706,9 @@ class AsyncMessagesClient:
         agent_id: str,
         message_id: str,
         *,
-        role: typing.Optional[MessageRole] = OMIT,
-        content: typing.Optional[MessageUpdateContent] = OMIT,
-        name: typing.Optional[str] = OMIT,
-        tool_calls: typing.Optional[typing.Sequence[ChatCompletionMessageToolCallInput]] = OMIT,
-        tool_call_id: typing.Optional[str] = OMIT,
+        request: MessagesModifyRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Message:
+    ) -> MessagesModifyResponse:
         """
         Update the details of a message associated with an agent.
 
@@ -751,34 +718,21 @@ class AsyncMessagesClient:
 
         message_id : str
 
-        role : typing.Optional[MessageRole]
-            The role of the participant.
-
-        content : typing.Optional[MessageUpdateContent]
-            The content of the message.
-
-        name : typing.Optional[str]
-            The name of the participant.
-
-        tool_calls : typing.Optional[typing.Sequence[ChatCompletionMessageToolCallInput]]
-            The list of tool calls requested.
-
-        tool_call_id : typing.Optional[str]
-            The id of the tool call.
+        request : MessagesModifyRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Message
+        MessagesModifyResponse
             Successful Response
 
         Examples
         --------
         import asyncio
 
-        from letta_client import AsyncLetta
+        from letta_client import AsyncLetta, UpdateSystemMessage
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -789,6 +743,9 @@ class AsyncMessagesClient:
             await client.agents.messages.modify(
                 agent_id="agent_id",
                 message_id="message_id",
+                request=UpdateSystemMessage(
+                    content="content",
+                ),
             )
 
 
@@ -797,31 +754,18 @@ class AsyncMessagesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/{jsonable_encoder(message_id)}",
             method="PATCH",
-            json={
-                "role": role,
-                "content": convert_and_respect_annotation_metadata(
-                    object_=content, annotation=MessageUpdateContent, direction="write"
-                ),
-                "name": name,
-                "tool_calls": convert_and_respect_annotation_metadata(
-                    object_=tool_calls,
-                    annotation=typing.Sequence[ChatCompletionMessageToolCallInput],
-                    direction="write",
-                ),
-                "tool_call_id": tool_call_id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=MessagesModifyRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    Message,
+                    MessagesModifyResponse,
                     construct_type(
-                        type_=Message,  # type: ignore
+                        type_=MessagesModifyResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

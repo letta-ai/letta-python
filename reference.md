@@ -7087,7 +7087,7 @@ Update the details of a message associated with an agent.
 <dd>
 
 ```python
-from letta_client import Letta
+from letta_client import Letta, UpdateSystemMessage
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -7095,6 +7095,9 @@ client = Letta(
 client.agents.messages.modify(
     agent_id="agent_id",
     message_id="message_id",
+    request=UpdateSystemMessage(
+        content="content",
+    ),
 )
 
 ```
@@ -7127,39 +7130,7 @@ client.agents.messages.modify(
 <dl>
 <dd>
 
-**role:** `typing.Optional[MessageRole]` — The role of the participant.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**content:** `typing.Optional[MessageUpdateContent]` — The content of the message.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — The name of the participant.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tool_calls:** `typing.Optional[typing.Sequence[ChatCompletionMessageToolCallInput]]` — The list of tool calls requested.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tool_call_id:** `typing.Optional[str]` — The id of the tool call.
+**request:** `MessagesModifyRequest` 
     
 </dd>
 </dl>
