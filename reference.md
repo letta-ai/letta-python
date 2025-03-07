@@ -2050,6 +2050,14 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
+**project_id:** `typing.Optional[str]` — The project ID to associate the uploaded agent with.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -5181,6 +5189,14 @@ client.steps.list_steps()
 <dd>
 
 **model:** `typing.Optional[str]` — Filter by the name of the model used for the step
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `typing.Optional[str]` — Filter by the ID of the agent that performed the step
     
 </dd>
 </dl>

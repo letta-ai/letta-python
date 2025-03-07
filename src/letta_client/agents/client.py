@@ -479,6 +479,7 @@ class AgentsClient:
         file: core.File,
         append_copy_suffix: typing.Optional[bool] = None,
         override_existing_tools: typing.Optional[bool] = None,
+        project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -494,6 +495,9 @@ class AgentsClient:
 
         override_existing_tools : typing.Optional[bool]
             If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
+
+        project_id : typing.Optional[str]
+            The project ID to associate the uploaded agent with.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -518,6 +522,7 @@ class AgentsClient:
             params={
                 "append_copy_suffix": append_copy_suffix,
                 "override_existing_tools": override_existing_tools,
+                "project_id": project_id,
             },
             data={},
             files={
@@ -1567,6 +1572,7 @@ class AsyncAgentsClient:
         file: core.File,
         append_copy_suffix: typing.Optional[bool] = None,
         override_existing_tools: typing.Optional[bool] = None,
+        project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1582,6 +1588,9 @@ class AsyncAgentsClient:
 
         override_existing_tools : typing.Optional[bool]
             If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
+
+        project_id : typing.Optional[str]
+            The project ID to associate the uploaded agent with.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1614,6 +1623,7 @@ class AsyncAgentsClient:
             params={
                 "append_copy_suffix": append_copy_suffix,
                 "override_existing_tools": override_existing_tools,
+                "project_id": project_id,
             },
             data={},
             files={

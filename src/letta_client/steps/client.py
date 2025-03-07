@@ -27,6 +27,7 @@ class StepsClient:
         start_date: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         model: typing.Optional[str] = None,
+        agent_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
         """
@@ -56,6 +57,9 @@ class StepsClient:
         model : typing.Optional[str]
             Filter by the name of the model used for the step
 
+        agent_id : typing.Optional[str]
+            Filter by the ID of the agent that performed the step
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -84,6 +88,7 @@ class StepsClient:
                 "start_date": start_date,
                 "end_date": end_date,
                 "model": model,
+                "agent_id": agent_id,
             },
             request_options=request_options,
         )
@@ -182,6 +187,7 @@ class AsyncStepsClient:
         start_date: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         model: typing.Optional[str] = None,
+        agent_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
         """
@@ -210,6 +216,9 @@ class AsyncStepsClient:
 
         model : typing.Optional[str]
             Filter by the name of the model used for the step
+
+        agent_id : typing.Optional[str]
+            Filter by the ID of the agent that performed the step
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -247,6 +256,7 @@ class AsyncStepsClient:
                 "start_date": start_date,
                 "end_date": end_date,
                 "model": model,
+                "agent_id": agent_id,
             },
             request_options=request_options,
         )

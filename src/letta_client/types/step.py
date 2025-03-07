@@ -28,6 +28,11 @@ class Step(UncheckedBaseModel):
     The unique identifier of the job that this step belongs to. Only included for async calls.
     """
 
+    agent_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The ID of the agent that performed the step.
+    """
+
     provider_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the provider used for this step.
