@@ -5539,6 +5539,14 @@ client.templates.create_agents(
 <dl>
 <dd>
 
+**identity_ids:** `typing.Optional[typing.Sequence[str]]` — The identity ids to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

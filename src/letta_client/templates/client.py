@@ -27,6 +27,7 @@ class TemplatesClient:
         agent_name: typing.Optional[str] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TemplatesCreateAgentsResponse:
         """
@@ -51,6 +52,9 @@ class TemplatesClient:
 
         tool_variables : typing.Optional[typing.Dict[str, str]]
             The tool variables to assign to the agent
+
+        identity_ids : typing.Optional[typing.Sequence[str]]
+            The identity ids to assign to the agent
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -80,6 +84,7 @@ class TemplatesClient:
                 "agent_name": agent_name,
                 "memory_variables": memory_variables,
                 "tool_variables": tool_variables,
+                "identity_ids": identity_ids,
             },
             headers={
                 "content-type": "application/json",
@@ -115,6 +120,7 @@ class AsyncTemplatesClient:
         agent_name: typing.Optional[str] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TemplatesCreateAgentsResponse:
         """
@@ -139,6 +145,9 @@ class AsyncTemplatesClient:
 
         tool_variables : typing.Optional[typing.Dict[str, str]]
             The tool variables to assign to the agent
+
+        identity_ids : typing.Optional[typing.Sequence[str]]
+            The identity ids to assign to the agent
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -176,6 +185,7 @@ class AsyncTemplatesClient:
                 "agent_name": agent_name,
                 "memory_variables": memory_variables,
                 "tool_variables": tool_variables,
+                "identity_ids": identity_ids,
             },
             headers={
                 "content-type": "application/json",
