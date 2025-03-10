@@ -5395,6 +5395,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.voice.create_voice_chat_completions(
+    agent_id="agent_id",
     request=CompletionCreateParamsNonStreaming(
         messages=[
             ChatCompletionDeveloperMessageParam(
@@ -5415,6 +5416,14 @@ client.voice.create_voice_chat_completions(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>

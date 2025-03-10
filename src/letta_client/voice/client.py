@@ -4,6 +4,7 @@ import typing
 from ..core.client_wrapper import SyncClientWrapper
 from .types.create_voice_chat_completions_request import CreateVoiceChatCompletionsRequest
 from ..core.request_options import RequestOptions
+from ..core.jsonable_encoder import jsonable_encoder
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
@@ -21,11 +22,17 @@ class VoiceClient:
         self._client_wrapper = client_wrapper
 
     def create_voice_chat_completions(
-        self, *, request: CreateVoiceChatCompletionsRequest, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        request: CreateVoiceChatCompletionsRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
         Parameters
         ----------
+        agent_id : str
+
         request : CreateVoiceChatCompletionsRequest
 
         request_options : typing.Optional[RequestOptions]
@@ -48,6 +55,7 @@ class VoiceClient:
             token="YOUR_TOKEN",
         )
         client.voice.create_voice_chat_completions(
+            agent_id="agent_id",
             request=CompletionCreateParamsNonStreaming(
                 messages=[
                     ChatCompletionDeveloperMessageParam(
@@ -59,7 +67,7 @@ class VoiceClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/voice/chat/completions",
+            f"v1/voice/{jsonable_encoder(agent_id)}/chat/completions",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateVoiceChatCompletionsRequest, direction="write"
@@ -97,11 +105,17 @@ class AsyncVoiceClient:
         self._client_wrapper = client_wrapper
 
     async def create_voice_chat_completions(
-        self, *, request: CreateVoiceChatCompletionsRequest, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        request: CreateVoiceChatCompletionsRequest,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
         Parameters
         ----------
+        agent_id : str
+
         request : CreateVoiceChatCompletionsRequest
 
         request_options : typing.Optional[RequestOptions]
@@ -129,6 +143,7 @@ class AsyncVoiceClient:
 
         async def main() -> None:
             await client.voice.create_voice_chat_completions(
+                agent_id="agent_id",
                 request=CompletionCreateParamsNonStreaming(
                     messages=[
                         ChatCompletionDeveloperMessageParam(
@@ -143,7 +158,7 @@ class AsyncVoiceClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/voice/chat/completions",
+            f"v1/voice/{jsonable_encoder(agent_id)}/chat/completions",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateVoiceChatCompletionsRequest, direction="write"
