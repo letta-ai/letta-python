@@ -16,6 +16,7 @@ from .completion_create_params_streaming_stop import CompletionCreateParamsStrea
 from .chat_completion_stream_options_param import ChatCompletionStreamOptionsParam
 from .completion_create_params_streaming_tool_choice import CompletionCreateParamsStreamingToolChoice
 from .chat_completion_tool_param import ChatCompletionToolParam
+from .web_search_options import WebSearchOptions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -50,6 +51,7 @@ class CompletionCreateParamsStreaming(UncheckedBaseModel):
     top_logprobs: typing.Optional[int] = None
     top_p: typing.Optional[float] = None
     user: typing.Optional[str] = None
+    web_search_options: typing.Optional[WebSearchOptions] = None
     stream: bool
 
     if IS_PYDANTIC_V2:

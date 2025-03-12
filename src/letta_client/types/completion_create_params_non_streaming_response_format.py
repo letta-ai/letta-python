@@ -2,9 +2,9 @@
 
 import typing
 from .response_format_text import ResponseFormatText
-from .response_format_json_object import ResponseFormatJsonObject
 from .response_format_json_schema import ResponseFormatJsonSchema
+from .response_format_json_object import ResponseFormatJsonObject
 
 CompletionCreateParamsNonStreamingResponseFormat = typing.Union[
-    ResponseFormatText, ResponseFormatJsonObject, ResponseFormatJsonSchema
+    ResponseFormatText, ResponseFormatJsonSchema, ResponseFormatJsonObject
 ]

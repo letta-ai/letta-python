@@ -4,7 +4,11 @@ import typing
 from .chat_completion_content_part_text_param import ChatCompletionContentPartTextParam
 from .chat_completion_content_part_image_param import ChatCompletionContentPartImageParam
 from .chat_completion_content_part_input_audio_param import ChatCompletionContentPartInputAudioParam
+from .file import File
 
 ChatCompletionUserMessageParamContentItem = typing.Union[
-    ChatCompletionContentPartTextParam, ChatCompletionContentPartImageParam, ChatCompletionContentPartInputAudioParam
+    ChatCompletionContentPartTextParam,
+    ChatCompletionContentPartImageParam,
+    ChatCompletionContentPartInputAudioParam,
+    File,
 ]

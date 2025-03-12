@@ -75,6 +75,8 @@ from .create_block import CreateBlock
 from .e_2_b_sandbox_config import E2BSandboxConfig
 from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
+from .file import File
+from .file_file import FileFile
 from .file_metadata import FileMetadata
 from .function_call import FunctionCall
 from .function_definition_input import FunctionDefinitionInput
@@ -174,6 +176,10 @@ from .user_message_content import UserMessageContent
 from .user_update import UserUpdate
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
+from .web_search_options import WebSearchOptions
+from .web_search_options_search_context_size import WebSearchOptionsSearchContextSize
+from .web_search_options_user_location import WebSearchOptionsUserLocation
+from .web_search_options_user_location_approximate import WebSearchOptionsUserLocationApproximate
 
 __all__ = [
     "ActionModel",
@@ -251,6 +257,8 @@ __all__ = [
     "E2BSandboxConfig",
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
+    "File",
+    "FileFile",
     "FileMetadata",
     "FunctionCall",
     "FunctionDefinitionInput",
@@ -346,4 +354,8 @@ __all__ = [
     "UserUpdate",
     "ValidationError",
     "ValidationErrorLocItem",
+    "WebSearchOptions",
+    "WebSearchOptionsSearchContextSize",
+    "WebSearchOptionsUserLocation",
+    "WebSearchOptionsUserLocationApproximate",
 ]
