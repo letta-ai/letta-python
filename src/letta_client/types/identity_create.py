@@ -34,6 +34,11 @@ class IdentityCreate(UncheckedBaseModel):
     The agent ids that are associated with the identity.
     """
 
+    block_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The IDs of the blocks associated with the identity.
+    """
+
     properties: typing.Optional[typing.List[IdentityProperty]] = pydantic.Field(default=None)
     """
     List of properties associated with the identity.

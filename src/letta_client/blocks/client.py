@@ -27,6 +27,8 @@ class BlocksClient:
         label: typing.Optional[str] = None,
         templates_only: typing.Optional[bool] = None,
         name: typing.Optional[str] = None,
+        identity_id: typing.Optional[str] = None,
+        identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Block]:
         """
@@ -40,6 +42,12 @@ class BlocksClient:
 
         name : typing.Optional[str]
             Name of the block
+
+        identity_id : typing.Optional[str]
+            Search agents by identifier id
+
+        identifier_keys : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Search agents by identifier keys
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -65,6 +73,8 @@ class BlocksClient:
                 "label": label,
                 "templates_only": templates_only,
                 "name": name,
+                "identity_id": identity_id,
+                "identifier_keys": identifier_keys,
             },
             request_options=request_options,
         )
@@ -461,6 +471,8 @@ class AsyncBlocksClient:
         label: typing.Optional[str] = None,
         templates_only: typing.Optional[bool] = None,
         name: typing.Optional[str] = None,
+        identity_id: typing.Optional[str] = None,
+        identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Block]:
         """
@@ -474,6 +486,12 @@ class AsyncBlocksClient:
 
         name : typing.Optional[str]
             Name of the block
+
+        identity_id : typing.Optional[str]
+            Search agents by identifier id
+
+        identifier_keys : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Search agents by identifier keys
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -507,6 +525,8 @@ class AsyncBlocksClient:
                 "label": label,
                 "templates_only": templates_only,
                 "name": name,
+                "identity_id": identity_id,
+                "identifier_keys": identifier_keys,
             },
             request_options=request_options,
         )

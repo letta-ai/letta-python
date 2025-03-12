@@ -1554,7 +1554,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**identifier_id:** `typing.Optional[str]` — Search agents by identifier id
+**identity_id:** `typing.Optional[str]` — Search agents by identifier id
     
 </dd>
 </dl>
@@ -2991,6 +2991,14 @@ client.identities.create(
 <dl>
 <dd>
 
+**block_ids:** `typing.Optional[typing.Sequence[str]]` — The IDs of the blocks associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **properties:** `typing.Optional[typing.Sequence[IdentityProperty]]` — List of properties associated with the identity.
     
 </dd>
@@ -3090,6 +3098,14 @@ client.identities.upsert(
 <dd>
 
 **agent_ids:** `typing.Optional[typing.Sequence[str]]` — The agent ids that are associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**block_ids:** `typing.Optional[typing.Sequence[str]]` — The IDs of the blocks associated with the identity.
     
 </dd>
 </dl>
@@ -3319,6 +3335,14 @@ client.identities.modify(
 <dl>
 <dd>
 
+**block_ids:** `typing.Optional[typing.Sequence[str]]` — The IDs of the blocks associated with the identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **properties:** `typing.Optional[typing.Sequence[IdentityProperty]]` — List of properties associated with the identity.
     
 </dd>
@@ -3484,6 +3508,22 @@ client.blocks.list()
 <dd>
 
 **name:** `typing.Optional[str]` — Name of the block
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_id:** `typing.Optional[str]` — Search agents by identifier id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identifier_keys:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Search agents by identifier keys
     
 </dd>
 </dl>

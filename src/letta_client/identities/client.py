@@ -118,6 +118,7 @@ class IdentitiesClient:
         project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
@@ -140,6 +141,9 @@ class IdentitiesClient:
 
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The IDs of the blocks associated with the identity.
 
         properties : typing.Optional[typing.Sequence[IdentityProperty]]
             List of properties associated with the identity.
@@ -174,6 +178,7 @@ class IdentitiesClient:
                 "identity_type": identity_type,
                 "project_id": project_id,
                 "agent_ids": agent_ids,
+                "block_ids": block_ids,
                 "properties": convert_and_respect_annotation_metadata(
                     object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
                 ),
@@ -217,6 +222,7 @@ class IdentitiesClient:
         project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
@@ -239,6 +245,9 @@ class IdentitiesClient:
 
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The IDs of the blocks associated with the identity.
 
         properties : typing.Optional[typing.Sequence[IdentityProperty]]
             List of properties associated with the identity.
@@ -273,6 +282,7 @@ class IdentitiesClient:
                 "identity_type": identity_type,
                 "project_id": project_id,
                 "agent_ids": agent_ids,
+                "block_ids": block_ids,
                 "properties": convert_and_respect_annotation_metadata(
                     object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
                 ),
@@ -427,6 +437,7 @@ class IdentitiesClient:
         name: typing.Optional[str] = OMIT,
         identity_type: typing.Optional[IdentityType] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
@@ -446,6 +457,9 @@ class IdentitiesClient:
 
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The IDs of the blocks associated with the identity.
 
         properties : typing.Optional[typing.Sequence[IdentityProperty]]
             List of properties associated with the identity.
@@ -477,6 +491,7 @@ class IdentitiesClient:
                 "name": name,
                 "identity_type": identity_type,
                 "agent_ids": agent_ids,
+                "block_ids": block_ids,
                 "properties": convert_and_respect_annotation_metadata(
                     object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
                 ),
@@ -619,6 +634,7 @@ class AsyncIdentitiesClient:
         project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
@@ -641,6 +657,9 @@ class AsyncIdentitiesClient:
 
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The IDs of the blocks associated with the identity.
 
         properties : typing.Optional[typing.Sequence[IdentityProperty]]
             List of properties associated with the identity.
@@ -683,6 +702,7 @@ class AsyncIdentitiesClient:
                 "identity_type": identity_type,
                 "project_id": project_id,
                 "agent_ids": agent_ids,
+                "block_ids": block_ids,
                 "properties": convert_and_respect_annotation_metadata(
                     object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
                 ),
@@ -726,6 +746,7 @@ class AsyncIdentitiesClient:
         project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
@@ -748,6 +769,9 @@ class AsyncIdentitiesClient:
 
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The IDs of the blocks associated with the identity.
 
         properties : typing.Optional[typing.Sequence[IdentityProperty]]
             List of properties associated with the identity.
@@ -790,6 +814,7 @@ class AsyncIdentitiesClient:
                 "identity_type": identity_type,
                 "project_id": project_id,
                 "agent_ids": agent_ids,
+                "block_ids": block_ids,
                 "properties": convert_and_respect_annotation_metadata(
                     object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
                 ),
@@ -960,6 +985,7 @@ class AsyncIdentitiesClient:
         name: typing.Optional[str] = OMIT,
         identity_type: typing.Optional[IdentityType] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         properties: typing.Optional[typing.Sequence[IdentityProperty]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Identity:
@@ -979,6 +1005,9 @@ class AsyncIdentitiesClient:
 
         agent_ids : typing.Optional[typing.Sequence[str]]
             The agent ids that are associated with the identity.
+
+        block_ids : typing.Optional[typing.Sequence[str]]
+            The IDs of the blocks associated with the identity.
 
         properties : typing.Optional[typing.Sequence[IdentityProperty]]
             List of properties associated with the identity.
@@ -1018,6 +1047,7 @@ class AsyncIdentitiesClient:
                 "name": name,
                 "identity_type": identity_type,
                 "agent_ids": agent_ids,
+                "block_ids": block_ids,
                 "properties": convert_and_respect_annotation_metadata(
                     object_=properties, annotation=typing.Sequence[IdentityProperty], direction="write"
                 ),
