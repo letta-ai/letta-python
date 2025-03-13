@@ -110,6 +110,9 @@ from .types import (
     LlmConfig,
     LlmConfigModelEndpointType,
     LocalSandboxConfig,
+    LocalServerConfig,
+    McpServerType,
+    McpTool,
     Memory,
     Message,
     MessageCreate,
@@ -141,6 +144,7 @@ from .types import (
     SandboxEnvironmentVariableUpdate,
     SandboxType,
     Source,
+    SseServerConfig,
     Step,
     SystemMessage,
     SystemMessageContent,
@@ -544,6 +548,7 @@ from .templates import (
     TemplatesCreateAgentsResponseAgentsItemUpdatedAt,
     TemplatesCreateAgentsResponseAgentsItemUpdatedAtItem,
 )
+from .tools import ListMcpServersResponseValue
 from .version import __version__
 from .voice import CreateVoiceChatCompletionsRequest
 
@@ -834,9 +839,13 @@ __all__ = [
     "LettaRequestConfig",
     "LettaResponse",
     "LettaUsageStatistics",
+    "ListMcpServersResponseValue",
     "LlmConfig",
     "LlmConfigModelEndpointType",
     "LocalSandboxConfig",
+    "LocalServerConfig",
+    "McpServerType",
+    "McpTool",
     "Memory",
     "Message",
     "MessageCreate",
@@ -869,6 +878,7 @@ __all__ = [
     "SandboxEnvironmentVariableUpdate",
     "SandboxType",
     "Source",
+    "SseServerConfig",
     "Step",
     "SystemMessage",
     "SystemMessageContent",

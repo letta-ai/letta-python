@@ -13,6 +13,8 @@ from ..core.api_error import ApiError
 from ..types.tool_return_message import ToolReturnMessage
 from ..types.app_model import AppModel
 from ..types.action_model import ActionModel
+from .types.list_mcp_servers_response_value import ListMcpServersResponseValue
+from ..types.mcp_tool import McpTool
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -789,6 +791,179 @@ class ToolsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/tools/composio/{jsonable_encoder(composio_action_name)}",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Tool,
+                    construct_type(
+                        type_=Tool,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def list_mcp_servers(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, ListMcpServersResponseValue]:
+        """
+        Get a list of all configured MCP servers
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, ListMcpServersResponseValue]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.list_mcp_servers()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/tools/mcp/servers",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Dict[str, ListMcpServersResponseValue],
+                    construct_type(
+                        type_=typing.Dict[str, ListMcpServersResponseValue],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def list_mcp_tools_by_server(
+        self, mcp_server_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[McpTool]:
+        """
+        Get a list of all tools for a specific MCP server
+
+        Parameters
+        ----------
+        mcp_server_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[McpTool]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.list_mcp_tools_by_server(
+            mcp_server_name="mcp_server_name",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/tools/mcp/servers/{jsonable_encoder(mcp_server_name)}/tools",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[McpTool],
+                    construct_type(
+                        type_=typing.List[McpTool],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def add_mcp_tool(
+        self, mcp_server_name: str, mcp_tool_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> Tool:
+        """
+        Add a new MCP tool by server + tool name
+
+        Parameters
+        ----------
+        mcp_server_name : str
+
+        mcp_tool_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Tool
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.add_mcp_tool(
+            mcp_server_name="mcp_server_name",
+            mcp_tool_name="mcp_tool_name",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/tools/mcp/servers/{jsonable_encoder(mcp_server_name)}/{jsonable_encoder(mcp_tool_name)}",
             method="POST",
             request_options=request_options,
         )
@@ -1677,6 +1852,203 @@ class AsyncToolsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/tools/composio/{jsonable_encoder(composio_action_name)}",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Tool,
+                    construct_type(
+                        type_=Tool,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def list_mcp_servers(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Dict[str, ListMcpServersResponseValue]:
+        """
+        Get a list of all configured MCP servers
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, ListMcpServersResponseValue]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.list_mcp_servers()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/tools/mcp/servers",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Dict[str, ListMcpServersResponseValue],
+                    construct_type(
+                        type_=typing.Dict[str, ListMcpServersResponseValue],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def list_mcp_tools_by_server(
+        self, mcp_server_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[McpTool]:
+        """
+        Get a list of all tools for a specific MCP server
+
+        Parameters
+        ----------
+        mcp_server_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[McpTool]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.list_mcp_tools_by_server(
+                mcp_server_name="mcp_server_name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/tools/mcp/servers/{jsonable_encoder(mcp_server_name)}/tools",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[McpTool],
+                    construct_type(
+                        type_=typing.List[McpTool],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def add_mcp_tool(
+        self, mcp_server_name: str, mcp_tool_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> Tool:
+        """
+        Add a new MCP tool by server + tool name
+
+        Parameters
+        ----------
+        mcp_server_name : str
+
+        mcp_tool_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Tool
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.add_mcp_tool(
+                mcp_server_name="mcp_server_name",
+                mcp_tool_name="mcp_tool_name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/tools/mcp/servers/{jsonable_encoder(mcp_server_name)}/{jsonable_encoder(mcp_tool_name)}",
             method="POST",
             request_options=request_options,
         )

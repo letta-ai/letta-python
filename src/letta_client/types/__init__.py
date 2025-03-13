@@ -109,6 +109,9 @@ from .letta_usage_statistics import LettaUsageStatistics
 from .llm_config import LlmConfig
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .local_sandbox_config import LocalSandboxConfig
+from .local_server_config import LocalServerConfig
+from .mcp_server_type import McpServerType
+from .mcp_tool import McpTool
 from .memory import Memory
 from .message import Message
 from .message_create import MessageCreate
@@ -144,6 +147,7 @@ from .sandbox_environment_variable_create import SandboxEnvironmentVariableCreat
 from .sandbox_environment_variable_update import SandboxEnvironmentVariableUpdate
 from .sandbox_type import SandboxType
 from .source import Source
+from .sse_server_config import SseServerConfig
 from .step import Step
 from .system_message import SystemMessage
 from .system_message_content import SystemMessageContent
@@ -291,6 +295,9 @@ __all__ = [
     "LlmConfig",
     "LlmConfigModelEndpointType",
     "LocalSandboxConfig",
+    "LocalServerConfig",
+    "McpServerType",
+    "McpTool",
     "Memory",
     "Message",
     "MessageCreate",
@@ -322,6 +329,7 @@ __all__ = [
     "SandboxEnvironmentVariableUpdate",
     "SandboxType",
     "Source",
+    "SseServerConfig",
     "Step",
     "SystemMessage",
     "SystemMessageContent",
