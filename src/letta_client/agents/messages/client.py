@@ -244,7 +244,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, UpdateSystemMessage
+        from letta_client import Letta, TextContent, UpdateSystemMessage
 
         client = Letta(
             token="YOUR_TOKEN",
@@ -253,7 +253,11 @@ class MessagesClient:
             agent_id="agent_id",
             message_id="message_id",
             request=UpdateSystemMessage(
-                content="content",
+                content=[
+                    TextContent(
+                        text="text",
+                    )
+                ],
             ),
         )
         """
@@ -729,7 +733,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, UpdateSystemMessage
+        from letta_client import AsyncLetta, TextContent, UpdateSystemMessage
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -741,7 +745,11 @@ class AsyncMessagesClient:
                 agent_id="agent_id",
                 message_id="message_id",
                 request=UpdateSystemMessage(
-                    content="content",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 ),
             )
 

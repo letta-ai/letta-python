@@ -11,10 +11,10 @@ class ReasoningMessage(UncheckedBaseModel):
     """
     Representation of an agent's internal reasoning.
 
-    Attributes:
-        reasoning (str): The internal reasoning of the agent
+    Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
+        reasoning (str): The internal reasoning of the agent
     """
 
     id: str

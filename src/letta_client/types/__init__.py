@@ -67,6 +67,7 @@ from .completion_create_params_streaming_response_format import CompletionCreate
 from .completion_create_params_streaming_service_tier import CompletionCreateParamsStreamingServiceTier
 from .completion_create_params_streaming_stop import CompletionCreateParamsStreamingStop
 from .completion_create_params_streaming_tool_choice import CompletionCreateParamsStreamingToolChoice
+from .components_schemas_text_content import ComponentsSchemasTextContent
 from .conditional_tool_rule import ConditionalToolRule
 from .conflict_error_body import ConflictErrorBody
 from .context_window_overview import ContextWindowOverview
@@ -175,7 +176,6 @@ from .tool_type import ToolType
 from .update_assistant_message import UpdateAssistantMessage
 from .update_assistant_message_content import UpdateAssistantMessageContent
 from .update_reasoning_message import UpdateReasoningMessage
-from .update_reasoning_message_reasoning import UpdateReasoningMessageReasoning
 from .update_system_message import UpdateSystemMessage
 from .update_system_message_content import UpdateSystemMessageContent
 from .update_user_message import UpdateUserMessage
@@ -261,6 +261,7 @@ __all__ = [
     "CompletionCreateParamsStreamingServiceTier",
     "CompletionCreateParamsStreamingStop",
     "CompletionCreateParamsStreamingToolChoice",
+    "ComponentsSchemasTextContent",
     "ConditionalToolRule",
     "ConflictErrorBody",
     "ContextWindowOverview",
@@ -365,7 +366,6 @@ __all__ = [
     "UpdateAssistantMessage",
     "UpdateAssistantMessageContent",
     "UpdateReasoningMessage",
-    "UpdateReasoningMessageReasoning",
     "UpdateSystemMessage",
     "UpdateSystemMessageContent",
     "UpdateUserMessage",

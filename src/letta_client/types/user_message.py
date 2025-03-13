@@ -4,24 +4,27 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import datetime as dt
 import typing
 from .user_message_content import UserMessageContent
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class UserMessage(UncheckedBaseModel):
     """
     A message sent by the user. Never streamed back on a response, only used for cursor pagination.
 
-    Attributes:
-        content (Union[str, List[MessageContentUnion]]): The message content sent by the user (can be a string or an array of content parts)
+    Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
+        content (Union[str, List[LettaMessageContentUnion]]): The message content sent by the user (can be a string or an array of content parts)
     """
 
     id: str
     date: dt.datetime
     message_type: typing.Literal["user_message"] = "user_message"
-    content: UserMessageContent
+    content: UserMessageContent = pydantic.Field()
+    """
+    The message content sent by the user (can be a string or an array of content parts)
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

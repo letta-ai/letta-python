@@ -8084,7 +8084,7 @@ Update the details of a message associated with an agent.
 <dd>
 
 ```python
-from letta_client import Letta, UpdateSystemMessage
+from letta_client import Letta, TextContent, UpdateSystemMessage
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -8093,7 +8093,11 @@ client.agents.messages.modify(
     agent_id="agent_id",
     message_id="message_id",
     request=UpdateSystemMessage(
-        content="content",
+        content=[
+            TextContent(
+                text="text",
+            )
+        ],
     ),
 )
 

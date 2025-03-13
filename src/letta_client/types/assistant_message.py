@@ -4,15 +4,27 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import datetime as dt
 import typing
 from .assistant_message_content import AssistantMessageContent
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class AssistantMessage(UncheckedBaseModel):
+    """
+    A message sent by the LLM in response to user input. Used in the LLM context.
+
+    Args:
+        id (str): The ID of the message
+        date (datetime): The date the message was created in ISO format
+        content (Union[str, List[LettaMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)
+    """
+
     id: str
     date: dt.datetime
     message_type: typing.Literal["assistant_message"] = "assistant_message"
-    content: AssistantMessageContent
+    content: AssistantMessageContent = pydantic.Field()
+    """
+    The message content sent by the agent (can be a string or an array of content parts)
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
