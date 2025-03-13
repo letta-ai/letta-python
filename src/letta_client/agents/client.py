@@ -75,11 +75,14 @@ class AgentsClient:
         base_template_id: typing.Optional[str] = None,
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
         List all agents associated with a given user.
-        This endpoint retrieves a list of all agents and their configurations associated with the specified user ID.
+
+        This endpoint retrieves a list of all agents and their configurations
+        associated with the specified user ID.
 
         Parameters
         ----------
@@ -90,7 +93,7 @@ class AgentsClient:
             List of tags to filter agents by
 
         match_all_tags : typing.Optional[bool]
-            If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
+            If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed-in tags.
 
         before : typing.Optional[str]
             Cursor for pagination
@@ -105,19 +108,22 @@ class AgentsClient:
             Search agents by name
 
         project_id : typing.Optional[str]
-            Search agents by project id
+            Search agents by project ID
 
         template_id : typing.Optional[str]
-            Search agents by template id
+            Search agents by template ID
 
         base_template_id : typing.Optional[str]
-            Search agents by base template id
+            Search agents by base template ID
 
         identity_id : typing.Optional[str]
-            Search agents by identifier id
+            Search agents by identity ID
 
         identifier_keys : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Search agents by identifier keys
+
+        include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -152,6 +158,7 @@ class AgentsClient:
                 "base_template_id": base_template_id,
                 "identity_id": identity_id,
                 "identifier_keys": identifier_keys,
+                "include_relationships": include_relationships,
             },
             request_options=request_options,
         )
@@ -1144,11 +1151,14 @@ class AsyncAgentsClient:
         base_template_id: typing.Optional[str] = None,
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
         List all agents associated with a given user.
-        This endpoint retrieves a list of all agents and their configurations associated with the specified user ID.
+
+        This endpoint retrieves a list of all agents and their configurations
+        associated with the specified user ID.
 
         Parameters
         ----------
@@ -1159,7 +1169,7 @@ class AsyncAgentsClient:
             List of tags to filter agents by
 
         match_all_tags : typing.Optional[bool]
-            If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
+            If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed-in tags.
 
         before : typing.Optional[str]
             Cursor for pagination
@@ -1174,19 +1184,22 @@ class AsyncAgentsClient:
             Search agents by name
 
         project_id : typing.Optional[str]
-            Search agents by project id
+            Search agents by project ID
 
         template_id : typing.Optional[str]
-            Search agents by template id
+            Search agents by template ID
 
         base_template_id : typing.Optional[str]
-            Search agents by base template id
+            Search agents by base template ID
 
         identity_id : typing.Optional[str]
-            Search agents by identifier id
+            Search agents by identity ID
 
         identifier_keys : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Search agents by identifier keys
+
+        include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1229,6 +1242,7 @@ class AsyncAgentsClient:
                 "base_template_id": base_template_id,
                 "identity_id": identity_id,
                 "identifier_keys": identifier_keys,
+                "include_relationships": include_relationships,
             },
             request_options=request_options,
         )

@@ -1647,7 +1647,9 @@ client.sources.create(
 <dd>
 
 List all agents associated with a given user.
-This endpoint retrieves a list of all agents and their configurations associated with the specified user ID.
+
+This endpoint retrieves a list of all agents and their configurations
+associated with the specified user ID.
 </dd>
 </dl>
 </dd>
@@ -1699,7 +1701,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**match_all_tags:** `typing.Optional[bool]` — If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed in tags.
+**match_all_tags:** `typing.Optional[bool]` — If True, only returns agents that match ALL given tags. Otherwise, return agents that have ANY of the passed-in tags.
     
 </dd>
 </dl>
@@ -1739,7 +1741,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**project_id:** `typing.Optional[str]` — Search agents by project id
+**project_id:** `typing.Optional[str]` — Search agents by project ID
     
 </dd>
 </dl>
@@ -1747,7 +1749,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**template_id:** `typing.Optional[str]` — Search agents by template id
+**template_id:** `typing.Optional[str]` — Search agents by template ID
     
 </dd>
 </dl>
@@ -1755,7 +1757,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**base_template_id:** `typing.Optional[str]` — Search agents by base template id
+**base_template_id:** `typing.Optional[str]` — Search agents by base template ID
     
 </dd>
 </dl>
@@ -1763,7 +1765,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**identity_id:** `typing.Optional[str]` — Search agents by identifier id
+**identity_id:** `typing.Optional[str]` — Search agents by identity ID
     
 </dd>
 </dl>
@@ -1772,6 +1774,14 @@ client.agents.list()
 <dd>
 
 **identifier_keys:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Search agents by identifier keys
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_relationships:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
     
 </dd>
 </dl>
