@@ -7,6 +7,7 @@ from .core.client_wrapper import SyncClientWrapper
 from .tools.client import ToolsClient
 from .sources.client import SourcesClient
 from .agents.client import AgentsClient
+from .groups.client import GroupsClient
 from .identities.client import IdentitiesClient
 from .models.client import ModelsClient
 from .blocks.client import BlocksClient
@@ -22,6 +23,7 @@ from .core.client_wrapper import AsyncClientWrapper
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
 from .agents.client import AsyncAgentsClient
+from .groups.client import AsyncGroupsClient
 from .identities.client import AsyncIdentitiesClient
 from .models.client import AsyncModelsClient
 from .blocks.client import AsyncBlocksClient
@@ -96,6 +98,7 @@ class LettaBase:
         self.tools = ToolsClient(client_wrapper=self._client_wrapper)
         self.sources = SourcesClient(client_wrapper=self._client_wrapper)
         self.agents = AgentsClient(client_wrapper=self._client_wrapper)
+        self.groups = GroupsClient(client_wrapper=self._client_wrapper)
         self.identities = IdentitiesClient(client_wrapper=self._client_wrapper)
         self.models = ModelsClient(client_wrapper=self._client_wrapper)
         self.blocks = BlocksClient(client_wrapper=self._client_wrapper)
@@ -170,6 +173,7 @@ class AsyncLettaBase:
         self.tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
         self.sources = AsyncSourcesClient(client_wrapper=self._client_wrapper)
         self.agents = AsyncAgentsClient(client_wrapper=self._client_wrapper)
+        self.groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
         self.identities = AsyncIdentitiesClient(client_wrapper=self._client_wrapper)
         self.models = AsyncModelsClient(client_wrapper=self._client_wrapper)
         self.blocks = AsyncBlocksClient(client_wrapper=self._client_wrapper)

@@ -2997,6 +2997,721 @@ client.agents.search()
 </dl>
 </details>
 
+## Groups
+<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">list_groups</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch all multi-agent groups matching query.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.groups.list_groups()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**manager_type:** `typing.Optional[ManagerType]` — Search groups by manager type
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Limit for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — Search groups by project id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">create_group</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new multi-agent group with the specified configuration.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.groups.create_group(
+    agent_ids=["agent_ids"],
+    description="description",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_ids:** `typing.Sequence[str]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `str` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**manager_config:** `typing.Optional[GroupCreateManagerConfig]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">upsert_group</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new multi-agent group with the specified configuration.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.groups.upsert_group(
+    agent_ids=["agent_ids"],
+    description="description",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_ids:** `typing.Sequence[str]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `str` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**manager_config:** `typing.Optional[GroupCreateManagerConfig]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">delete_group</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a multi-agent group.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.groups.delete_group(
+    group_id="group_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">list_group_messages</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve message history for an agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.groups.list_group_messages(
+    group_id="group_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Message after which to retrieve the returned messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Message before which to retrieve the returned messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_assistant_message:** `typing.Optional[bool]` — Whether to use assistant messages
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">send_group_message</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Process a user message and return the group's response.
+This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta, MessageCreate
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.groups.send_group_message(
+    group_id="group_id",
+    agent_id="agent_id",
+    messages=[
+        MessageCreate(
+            role="user",
+            content="content",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">send_group_message_streaming</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Process a user message and return the group's responses.
+This endpoint accepts a message from a user and processes it through agents in the group based on the specified pattern.
+It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta, MessageCreate
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.groups.send_group_message_streaming(
+    group_id="group_id",
+    messages=[
+        MessageCreate(
+            role="user",
+            content="content",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Identities
 <details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">list</a>(...)</code></summary>
 <dl>

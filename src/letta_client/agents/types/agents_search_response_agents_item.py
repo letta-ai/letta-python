@@ -27,6 +27,7 @@ from .agents_search_response_agents_item_identity_ids import AgentsSearchRespons
 from .agents_search_response_agents_item_message_buffer_autoclear import (
     AgentsSearchResponseAgentsItemMessageBufferAutoclear,
 )
+from .agents_search_response_agents_item_multi_agent_group import AgentsSearchResponseAgentsItemMultiAgentGroup
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -57,6 +58,7 @@ class AgentsSearchResponseAgentsItem(UncheckedBaseModel):
     base_template_id: typing.Optional[AgentsSearchResponseAgentsItemBaseTemplateId] = None
     identity_ids: typing.Optional[AgentsSearchResponseAgentsItemIdentityIds] = None
     message_buffer_autoclear: typing.Optional[AgentsSearchResponseAgentsItemMessageBufferAutoclear] = None
+    multi_agent_group: typing.Optional[AgentsSearchResponseAgentsItemMultiAgentGroup] = None
     template: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

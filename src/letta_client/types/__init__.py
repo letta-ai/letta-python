@@ -72,6 +72,7 @@ from .conflict_error_body import ConflictErrorBody
 from .context_window_overview import ContextWindowOverview
 from .continue_tool_rule import ContinueToolRule
 from .create_block import CreateBlock
+from .dynamic_manager import DynamicManager
 from .e_2_b_sandbox_config import E2BSandboxConfig
 from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
@@ -83,6 +84,9 @@ from .function_definition_input import FunctionDefinitionInput
 from .function_definition_output import FunctionDefinitionOutput
 from .function_output import FunctionOutput
 from .function_tool import FunctionTool
+from .group import Group
+from .group_create import GroupCreate
+from .group_create_manager_config import GroupCreateManagerConfig
 from .health import Health
 from .http_validation_error import HttpValidationError
 from .identity import Identity
@@ -105,11 +109,13 @@ from .letta_message_union import LettaMessageUnion
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
 from .letta_response import LettaResponse
+from .letta_streaming_request import LettaStreamingRequest
 from .letta_usage_statistics import LettaUsageStatistics
 from .llm_config import LlmConfig
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .local_sandbox_config import LocalSandboxConfig
 from .local_server_config import LocalServerConfig
+from .manager_type import ManagerType
 from .mcp_server_type import McpServerType
 from .mcp_tool import McpTool
 from .memory import Memory
@@ -136,6 +142,7 @@ from .reasoning_message import ReasoningMessage
 from .response_format_json_object import ResponseFormatJsonObject
 from .response_format_json_schema import ResponseFormatJsonSchema
 from .response_format_text import ResponseFormatText
+from .round_robin_manager import RoundRobinManager
 from .run import Run
 from .sandbox_config import SandboxConfig
 from .sandbox_config_create import SandboxConfigCreate
@@ -149,6 +156,7 @@ from .sandbox_type import SandboxType
 from .source import Source
 from .sse_server_config import SseServerConfig
 from .step import Step
+from .supervisor_manager import SupervisorManager
 from .system_message import SystemMessage
 from .system_message_content import SystemMessageContent
 from .terminal_tool_rule import TerminalToolRule
@@ -258,6 +266,7 @@ __all__ = [
     "ContextWindowOverview",
     "ContinueToolRule",
     "CreateBlock",
+    "DynamicManager",
     "E2BSandboxConfig",
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
@@ -269,6 +278,9 @@ __all__ = [
     "FunctionDefinitionOutput",
     "FunctionOutput",
     "FunctionTool",
+    "Group",
+    "GroupCreate",
+    "GroupCreateManagerConfig",
     "Health",
     "HttpValidationError",
     "Identity",
@@ -291,11 +303,13 @@ __all__ = [
     "LettaRequest",
     "LettaRequestConfig",
     "LettaResponse",
+    "LettaStreamingRequest",
     "LettaUsageStatistics",
     "LlmConfig",
     "LlmConfigModelEndpointType",
     "LocalSandboxConfig",
     "LocalServerConfig",
+    "ManagerType",
     "McpServerType",
     "McpTool",
     "Memory",
@@ -318,6 +332,7 @@ __all__ = [
     "ResponseFormatJsonObject",
     "ResponseFormatJsonSchema",
     "ResponseFormatText",
+    "RoundRobinManager",
     "Run",
     "SandboxConfig",
     "SandboxConfigCreate",
@@ -331,6 +346,7 @@ __all__ = [
     "Source",
     "SseServerConfig",
     "Step",
+    "SupervisorManager",
     "SystemMessage",
     "SystemMessageContent",
     "TerminalToolRule",

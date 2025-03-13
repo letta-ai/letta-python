@@ -153,6 +153,56 @@ from .agents_search_response_agents_item_message_ids import AgentsSearchResponse
 from .agents_search_response_agents_item_message_ids_item import AgentsSearchResponseAgentsItemMessageIdsItem
 from .agents_search_response_agents_item_metadata import AgentsSearchResponseAgentsItemMetadata
 from .agents_search_response_agents_item_metadata_item import AgentsSearchResponseAgentsItemMetadataItem
+from .agents_search_response_agents_item_multi_agent_group import AgentsSearchResponseAgentsItemMultiAgentGroup
+from .agents_search_response_agents_item_multi_agent_group_agent_ids import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupAgentIds,
+)
+from .agents_search_response_agents_item_multi_agent_group_agent_ids_manager_agent_id import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsManagerAgentId,
+)
+from .agents_search_response_agents_item_multi_agent_group_agent_ids_manager_agent_id_item import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsManagerAgentIdItem,
+)
+from .agents_search_response_agents_item_multi_agent_group_agent_ids_manager_type import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsManagerType,
+)
+from .agents_search_response_agents_item_multi_agent_group_agent_ids_max_turns import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsMaxTurns,
+)
+from .agents_search_response_agents_item_multi_agent_group_agent_ids_max_turns_item import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsMaxTurnsItem,
+)
+from .agents_search_response_agents_item_multi_agent_group_agent_ids_termination_token import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsTerminationToken,
+)
+from .agents_search_response_agents_item_multi_agent_group_agent_ids_termination_token_item import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsTerminationTokenItem,
+)
+from .agents_search_response_agents_item_multi_agent_group_item import AgentsSearchResponseAgentsItemMultiAgentGroupItem
+from .agents_search_response_agents_item_multi_agent_group_item_agent_ids import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIds,
+)
+from .agents_search_response_agents_item_multi_agent_group_item_agent_ids_manager_agent_id import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsManagerAgentId,
+)
+from .agents_search_response_agents_item_multi_agent_group_item_agent_ids_manager_agent_id_item import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsManagerAgentIdItem,
+)
+from .agents_search_response_agents_item_multi_agent_group_item_agent_ids_manager_type import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsManagerType,
+)
+from .agents_search_response_agents_item_multi_agent_group_item_agent_ids_max_turns import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsMaxTurns,
+)
+from .agents_search_response_agents_item_multi_agent_group_item_agent_ids_max_turns_item import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsMaxTurnsItem,
+)
+from .agents_search_response_agents_item_multi_agent_group_item_agent_ids_termination_token import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsTerminationToken,
+)
+from .agents_search_response_agents_item_multi_agent_group_item_agent_ids_termination_token_item import (
+    AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsTerminationTokenItem,
+)
 from .agents_search_response_agents_item_organization_id import AgentsSearchResponseAgentsItemOrganizationId
 from .agents_search_response_agents_item_organization_id_item import AgentsSearchResponseAgentsItemOrganizationIdItem
 from .agents_search_response_agents_item_project_id import AgentsSearchResponseAgentsItemProjectId
@@ -488,6 +538,24 @@ __all__ = [
     "AgentsSearchResponseAgentsItemMessageIdsItem",
     "AgentsSearchResponseAgentsItemMetadata",
     "AgentsSearchResponseAgentsItemMetadataItem",
+    "AgentsSearchResponseAgentsItemMultiAgentGroup",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupAgentIds",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsManagerAgentId",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsManagerAgentIdItem",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsManagerType",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsMaxTurns",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsMaxTurnsItem",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsTerminationToken",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupAgentIdsTerminationTokenItem",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItem",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIds",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsManagerAgentId",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsManagerAgentIdItem",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsManagerType",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsMaxTurns",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsMaxTurnsItem",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsTerminationToken",
+    "AgentsSearchResponseAgentsItemMultiAgentGroupItemAgentIdsTerminationTokenItem",
     "AgentsSearchResponseAgentsItemOrganizationId",
     "AgentsSearchResponseAgentsItemOrganizationIdItem",
     "AgentsSearchResponseAgentsItemProjectId",

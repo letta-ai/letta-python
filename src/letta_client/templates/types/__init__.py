@@ -180,6 +180,60 @@ from .templates_create_agents_response_agents_item_metadata import TemplatesCrea
 from .templates_create_agents_response_agents_item_metadata_item import (
     TemplatesCreateAgentsResponseAgentsItemMetadataItem,
 )
+from .templates_create_agents_response_agents_item_multi_agent_group import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroup,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_agent_ids import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIds,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_agent_ids_manager_agent_id import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsManagerAgentId,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_agent_ids_manager_agent_id_item import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsManagerAgentIdItem,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_agent_ids_manager_type import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsManagerType,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_agent_ids_max_turns import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsMaxTurns,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_agent_ids_max_turns_item import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsMaxTurnsItem,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_agent_ids_termination_token import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsTerminationToken,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_agent_ids_termination_token_item import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsTerminationTokenItem,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItem,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item_agent_ids import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIds,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item_agent_ids_manager_agent_id import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsManagerAgentId,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item_agent_ids_manager_agent_id_item import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsManagerAgentIdItem,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item_agent_ids_manager_type import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsManagerType,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item_agent_ids_max_turns import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsMaxTurns,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item_agent_ids_max_turns_item import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsMaxTurnsItem,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item_agent_ids_termination_token import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsTerminationToken,
+)
+from .templates_create_agents_response_agents_item_multi_agent_group_item_agent_ids_termination_token_item import (
+    TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsTerminationTokenItem,
+)
 from .templates_create_agents_response_agents_item_organization_id import (
     TemplatesCreateAgentsResponseAgentsItemOrganizationId,
 )
@@ -544,6 +598,24 @@ __all__ = [
     "TemplatesCreateAgentsResponseAgentsItemMessageIdsItem",
     "TemplatesCreateAgentsResponseAgentsItemMetadata",
     "TemplatesCreateAgentsResponseAgentsItemMetadataItem",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroup",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIds",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsManagerAgentId",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsManagerAgentIdItem",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsManagerType",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsMaxTurns",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsMaxTurnsItem",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsTerminationToken",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupAgentIdsTerminationTokenItem",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItem",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIds",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsManagerAgentId",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsManagerAgentIdItem",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsManagerType",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsMaxTurns",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsMaxTurnsItem",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsTerminationToken",
+    "TemplatesCreateAgentsResponseAgentsItemMultiAgentGroupItemAgentIdsTerminationTokenItem",
     "TemplatesCreateAgentsResponseAgentsItemOrganizationId",
     "TemplatesCreateAgentsResponseAgentsItemOrganizationIdItem",
     "TemplatesCreateAgentsResponseAgentsItemProjectId",

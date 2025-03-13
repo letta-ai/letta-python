@@ -103,6 +103,11 @@ class Message(UncheckedBaseModel):
     Tool execution return information for prior tool calls
     """
 
+    group_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The multi-agent group that the message was sent in
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

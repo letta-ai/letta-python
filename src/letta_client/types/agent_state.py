@@ -12,6 +12,7 @@ from .memory import Memory
 from .tool import Tool
 from .source import Source
 from .agent_environment_variable import AgentEnvironmentVariable
+from .group import Group
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -151,6 +152,11 @@ class AgentState(UncheckedBaseModel):
     message_buffer_autoclear: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
+    """
+
+    multi_agent_group: typing.Optional[Group] = pydantic.Field(default=None)
+    """
+    The multi-agent group that this agent manages
     """
 
     if IS_PYDANTIC_V2:

@@ -364,9 +364,6 @@ class MessagesClient:
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "stream_tokens": stream_tokens,
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         ) as _response:
@@ -865,9 +862,6 @@ class AsyncMessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "stream_tokens": stream_tokens,
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
