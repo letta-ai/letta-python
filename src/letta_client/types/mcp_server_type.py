@@ -2,4 +2,4 @@
 
 import typing
 
-McpServerType = typing.Union[typing.Literal["sse", "local"], typing.Any]
+McpServerType = typing.Union[typing.Literal["sse", "stdio"], typing.Any]

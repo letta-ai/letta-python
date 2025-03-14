@@ -7,7 +7,7 @@ from .mcp_server_type import McpServerType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class LocalServerConfig(UncheckedBaseModel):
+class StdioServerConfig(UncheckedBaseModel):
     server_name: str = pydantic.Field()
     """
     The name of the server
@@ -22,6 +22,11 @@ class LocalServerConfig(UncheckedBaseModel):
     args: typing.List[str] = pydantic.Field()
     """
     The arguments to pass to the command
+    """
+
+    env: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    Environment variables to set
     """
 
     if IS_PYDANTIC_V2:

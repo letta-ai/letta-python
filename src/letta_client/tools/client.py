@@ -14,7 +14,11 @@ from ..types.tool_return_message import ToolReturnMessage
 from ..types.app_model import AppModel
 from ..types.action_model import ActionModel
 from .types.list_mcp_servers_response_value import ListMcpServersResponseValue
+from .types.add_mcp_server_request import AddMcpServerRequest
+from .types.add_mcp_server_response_item import AddMcpServerResponseItem
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..types.mcp_tool import McpTool
+from .types.delete_mcp_server_response_item import DeleteMcpServerResponseItem
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -872,6 +876,72 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def add_mcp_server(
+        self, *, request: AddMcpServerRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[AddMcpServerResponseItem]:
+        """
+        Add a new MCP server to the Letta MCP server config
+
+        Parameters
+        ----------
+        request : AddMcpServerRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[AddMcpServerResponseItem]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta, StdioServerConfig
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.add_mcp_server(
+            request=StdioServerConfig(
+                server_name="server_name",
+                command="command",
+                args=["args"],
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/tools/mcp/servers",
+            method="PUT",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=AddMcpServerRequest, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[AddMcpServerResponseItem],
+                    construct_type(
+                        type_=typing.List[AddMcpServerResponseItem],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def list_mcp_tools_by_server(
         self, mcp_server_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[McpTool]:
@@ -934,7 +1004,7 @@ class ToolsClient:
         self, mcp_server_name: str, mcp_tool_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> Tool:
         """
-        Add a new MCP tool by server + tool name
+        Register a new MCP tool as a Letta server by MCP server + tool name
 
         Parameters
         ----------
@@ -973,6 +1043,64 @@ class ToolsClient:
                     Tool,
                     construct_type(
                         type_=Tool,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def delete_mcp_server(
+        self, mcp_server_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[DeleteMcpServerResponseItem]:
+        """
+        Add a new MCP server to the Letta MCP server config
+
+        Parameters
+        ----------
+        mcp_server_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[DeleteMcpServerResponseItem]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.delete_mcp_server(
+            mcp_server_name="mcp_server_name",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/tools/mcp/servers/{jsonable_encoder(mcp_server_name)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[DeleteMcpServerResponseItem],
+                    construct_type(
+                        type_=typing.List[DeleteMcpServerResponseItem],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1941,6 +2069,80 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def add_mcp_server(
+        self, *, request: AddMcpServerRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[AddMcpServerResponseItem]:
+        """
+        Add a new MCP server to the Letta MCP server config
+
+        Parameters
+        ----------
+        request : AddMcpServerRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[AddMcpServerResponseItem]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta, StdioServerConfig
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.add_mcp_server(
+                request=StdioServerConfig(
+                    server_name="server_name",
+                    command="command",
+                    args=["args"],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/tools/mcp/servers",
+            method="PUT",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=AddMcpServerRequest, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[AddMcpServerResponseItem],
+                    construct_type(
+                        type_=typing.List[AddMcpServerResponseItem],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def list_mcp_tools_by_server(
         self, mcp_server_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[McpTool]:
@@ -2011,7 +2213,7 @@ class AsyncToolsClient:
         self, mcp_server_name: str, mcp_tool_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> Tool:
         """
-        Add a new MCP tool by server + tool name
+        Register a new MCP tool as a Letta server by MCP server + tool name
 
         Parameters
         ----------
@@ -2058,6 +2260,72 @@ class AsyncToolsClient:
                     Tool,
                     construct_type(
                         type_=Tool,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete_mcp_server(
+        self, mcp_server_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[DeleteMcpServerResponseItem]:
+        """
+        Add a new MCP server to the Letta MCP server config
+
+        Parameters
+        ----------
+        mcp_server_name : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[DeleteMcpServerResponseItem]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.delete_mcp_server(
+                mcp_server_name="mcp_server_name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/tools/mcp/servers/{jsonable_encoder(mcp_server_name)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[DeleteMcpServerResponseItem],
+                    construct_type(
+                        type_=typing.List[DeleteMcpServerResponseItem],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

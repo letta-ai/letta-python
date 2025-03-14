@@ -116,7 +116,6 @@ from .types import (
     LlmConfig,
     LlmConfigModelEndpointType,
     LocalSandboxConfig,
-    LocalServerConfig,
     ManagerType,
     McpServerType,
     McpTool,
@@ -153,6 +152,7 @@ from .types import (
     SandboxType,
     Source,
     SseServerConfig,
+    StdioServerConfig,
     Step,
     SupervisorManager,
     SystemMessage,
@@ -593,7 +593,12 @@ from .templates import (
     TemplatesCreateAgentsResponseAgentsItemUpdatedAt,
     TemplatesCreateAgentsResponseAgentsItemUpdatedAtItem,
 )
-from .tools import ListMcpServersResponseValue
+from .tools import (
+    AddMcpServerRequest,
+    AddMcpServerResponseItem,
+    DeleteMcpServerResponseItem,
+    ListMcpServersResponseValue,
+)
 from .version import __version__
 from .voice import CreateVoiceChatCompletionsRequest
 
@@ -601,6 +606,8 @@ __all__ = [
     "ActionModel",
     "ActionParametersModel",
     "ActionResponseModel",
+    "AddMcpServerRequest",
+    "AddMcpServerResponseItem",
     "AgentEnvironmentVariable",
     "AgentState",
     "AgentStateToolRulesItem",
@@ -866,6 +873,7 @@ __all__ = [
     "CreateAgentRequestToolRulesItem",
     "CreateBlock",
     "CreateVoiceChatCompletionsRequest",
+    "DeleteMcpServerResponseItem",
     "DynamicManager",
     "E2BSandboxConfig",
     "EmbeddingConfig",
@@ -912,7 +920,6 @@ __all__ = [
     "LlmConfig",
     "LlmConfigModelEndpointType",
     "LocalSandboxConfig",
-    "LocalServerConfig",
     "ManagerType",
     "McpServerType",
     "McpTool",
@@ -950,6 +957,7 @@ __all__ = [
     "SandboxType",
     "Source",
     "SseServerConfig",
+    "StdioServerConfig",
     "Step",
     "SupervisorManager",
     "SystemMessage",

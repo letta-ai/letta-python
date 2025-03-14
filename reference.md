@@ -1017,6 +1017,80 @@ client.tools.list_mcp_servers()
 </dl>
 </details>
 
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">add_mcp_server</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a new MCP server to the Letta MCP server config
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta, StdioServerConfig
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.add_mcp_server(
+    request=StdioServerConfig(
+        server_name="server_name",
+        command="command",
+        args=["args"],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `AddMcpServerRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_mcp_tools_by_server</a>(...)</code></summary>
 <dl>
 <dd>
@@ -1099,7 +1173,7 @@ client.tools.list_mcp_tools_by_server(
 <dl>
 <dd>
 
-Add a new MCP tool by server + tool name
+Register a new MCP tool as a Letta server by MCP server + tool name
 </dd>
 </dl>
 </dd>
@@ -1147,6 +1221,76 @@ client.tools.add_mcp_tool(
 <dd>
 
 **mcp_tool_name:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">delete_mcp_server</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a new MCP server to the Letta MCP server config
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.delete_mcp_server(
+    mcp_server_name="mcp_server_name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcp_server_name:** `str` 
     
 </dd>
 </dl>

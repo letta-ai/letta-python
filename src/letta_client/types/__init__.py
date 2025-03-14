@@ -115,7 +115,6 @@ from .letta_usage_statistics import LettaUsageStatistics
 from .llm_config import LlmConfig
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .local_sandbox_config import LocalSandboxConfig
-from .local_server_config import LocalServerConfig
 from .manager_type import ManagerType
 from .mcp_server_type import McpServerType
 from .mcp_tool import McpTool
@@ -156,6 +155,7 @@ from .sandbox_environment_variable_update import SandboxEnvironmentVariableUpdat
 from .sandbox_type import SandboxType
 from .source import Source
 from .sse_server_config import SseServerConfig
+from .stdio_server_config import StdioServerConfig
 from .step import Step
 from .supervisor_manager import SupervisorManager
 from .system_message import SystemMessage
@@ -309,7 +309,6 @@ __all__ = [
     "LlmConfig",
     "LlmConfigModelEndpointType",
     "LocalSandboxConfig",
-    "LocalServerConfig",
     "ManagerType",
     "McpServerType",
     "McpTool",
@@ -346,6 +345,7 @@ __all__ = [
     "SandboxType",
     "Source",
     "SseServerConfig",
+    "StdioServerConfig",
     "Step",
     "SupervisorManager",
     "SystemMessage",
