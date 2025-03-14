@@ -73,7 +73,7 @@ except ApiError as e:
 The SDK supports streaming responses, as well, the response will be a generator that you can loop over.
 
 ```python
-from letta_client import Letta, MessageCreate
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -83,7 +83,11 @@ response = client.agents.messages.create_stream(
     messages=[
         MessageCreate(
             role="user",
-            content="content",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )

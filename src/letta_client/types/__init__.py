@@ -108,6 +108,7 @@ from .job import Job
 from .job_status import JobStatus
 from .job_type import JobType
 from .json_schema import JsonSchema
+from .letta_message_content_union import LettaMessageContentUnion
 from .letta_message_union import LettaMessageUnion
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
@@ -122,6 +123,7 @@ from .mcp_server_type import McpServerType
 from .mcp_tool import McpTool
 from .memory import Memory
 from .message import Message
+from .message_content_item import MessageContentItem
 from .message_create import MessageCreate
 from .message_create_content import MessageCreateContent
 from .message_create_role import MessageCreateRole
@@ -129,6 +131,7 @@ from .message_role import MessageRole
 from .message_schema import MessageSchema
 from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
+from .omitted_reasoning_content import OmittedReasoningContent
 from .openai_types_chat_chat_completion_message_tool_call_param_function import (
     OpenaiTypesChatChatCompletionMessageToolCallParamFunction,
 )
@@ -143,7 +146,10 @@ from .parameters_schema import ParametersSchema
 from .passage import Passage
 from .pip_requirement import PipRequirement
 from .provider import Provider
+from .reasoning_content import ReasoningContent
 from .reasoning_message import ReasoningMessage
+from .reasoning_message_source import ReasoningMessageSource
+from .redacted_reasoning_content import RedactedReasoningContent
 from .response_format_json_object import ResponseFormatJsonObject
 from .response_format_json_schema import ResponseFormatJsonSchema
 from .response_format_text import ResponseFormatText
@@ -164,12 +170,12 @@ from .stdio_server_config import StdioServerConfig
 from .step import Step
 from .supervisor_manager import SupervisorManager
 from .system_message import SystemMessage
-from .system_message_content import SystemMessageContent
 from .tag_schema import TagSchema
 from .terminal_tool_rule import TerminalToolRule
 from .text_content import TextContent
 from .tool import Tool
 from .tool_call import ToolCall
+from .tool_call_content import ToolCallContent
 from .tool_call_delta import ToolCallDelta
 from .tool_call_message import ToolCallMessage
 from .tool_call_message_tool_call import ToolCallMessageToolCall
@@ -177,6 +183,7 @@ from .tool_create import ToolCreate
 from .tool_env_var_schema import ToolEnvVarSchema
 from .tool_json_schema import ToolJsonSchema
 from .tool_return import ToolReturn
+from .tool_return_content import ToolReturnContent
 from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
 from .tool_return_status import ToolReturnStatus
@@ -187,7 +194,6 @@ from .update_assistant_message import UpdateAssistantMessage
 from .update_assistant_message_content import UpdateAssistantMessageContent
 from .update_reasoning_message import UpdateReasoningMessage
 from .update_system_message import UpdateSystemMessage
-from .update_system_message_content import UpdateSystemMessageContent
 from .update_user_message import UpdateUserMessage
 from .update_user_message_content import UpdateUserMessageContent
 from .usage_statistics import UsageStatistics
@@ -312,6 +318,7 @@ __all__ = [
     "JobStatus",
     "JobType",
     "JsonSchema",
+    "LettaMessageContentUnion",
     "LettaMessageUnion",
     "LettaRequest",
     "LettaRequestConfig",
@@ -326,6 +333,7 @@ __all__ = [
     "McpTool",
     "Memory",
     "Message",
+    "MessageContentItem",
     "MessageCreate",
     "MessageCreateContent",
     "MessageCreateRole",
@@ -333,6 +341,7 @@ __all__ = [
     "MessageSchema",
     "NotFoundErrorBody",
     "NotFoundErrorBodyMessage",
+    "OmittedReasoningContent",
     "OpenaiTypesChatChatCompletionMessageToolCallParamFunction",
     "OpenaiTypesChatChatCompletionNamedToolChoiceParamFunction",
     "OpenaiTypesChatCompletionCreateParamsFunction",
@@ -343,7 +352,10 @@ __all__ = [
     "Passage",
     "PipRequirement",
     "Provider",
+    "ReasoningContent",
     "ReasoningMessage",
+    "ReasoningMessageSource",
+    "RedactedReasoningContent",
     "ResponseFormatJsonObject",
     "ResponseFormatJsonSchema",
     "ResponseFormatText",
@@ -364,12 +376,12 @@ __all__ = [
     "Step",
     "SupervisorManager",
     "SystemMessage",
-    "SystemMessageContent",
     "TagSchema",
     "TerminalToolRule",
     "TextContent",
     "Tool",
     "ToolCall",
+    "ToolCallContent",
     "ToolCallDelta",
     "ToolCallMessage",
     "ToolCallMessageToolCall",
@@ -377,6 +389,7 @@ __all__ = [
     "ToolEnvVarSchema",
     "ToolJsonSchema",
     "ToolReturn",
+    "ToolReturnContent",
     "ToolReturnMessage",
     "ToolReturnMessageStatus",
     "ToolReturnStatus",
@@ -387,7 +400,6 @@ __all__ = [
     "UpdateAssistantMessageContent",
     "UpdateReasoningMessage",
     "UpdateSystemMessage",
-    "UpdateSystemMessageContent",
     "UpdateUserMessage",
     "UpdateUserMessageContent",
     "UsageStatistics",

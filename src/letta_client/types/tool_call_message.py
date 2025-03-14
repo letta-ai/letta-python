@@ -15,11 +15,13 @@ class ToolCallMessage(UncheckedBaseModel):
     Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
+        name (Optional[str]): The name of the sender of the message
         tool_call (Union[ToolCall, ToolCallDelta]): The tool call
     """
 
     id: str
     date: dt.datetime
+    name: typing.Optional[str] = None
     message_type: typing.Literal["tool_call_message"] = "tool_call_message"
     tool_call: ToolCallMessageToolCall
 

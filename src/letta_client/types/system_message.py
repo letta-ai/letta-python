@@ -3,7 +3,6 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import datetime as dt
 import typing
-from .system_message_content import SystemMessageContent
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -15,15 +14,17 @@ class SystemMessage(UncheckedBaseModel):
     Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
-        content (Union[str, List[LettaMessageContentUnion]]): The message content sent by the system (can be a string or an array of content parts)
+        name (Optional[str]): The name of the sender of the message
+        content (str): The message content sent by the system
     """
 
     id: str
     date: dt.datetime
+    name: typing.Optional[str] = None
     message_type: typing.Literal["system_message"] = "system_message"
-    content: SystemMessageContent = pydantic.Field()
+    content: str = pydantic.Field()
     """
-    The message content sent by the system (can be a string or an array of content parts)
+    The message content sent by the system
     """
 
     if IS_PYDANTIC_V2:

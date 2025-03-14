@@ -11,7 +11,7 @@ class UpdateUserMessage(UncheckedBaseModel):
     message_type: typing.Optional[typing.Literal["user_message"]] = None
     content: UpdateUserMessageContent = pydantic.Field()
     """
-    The message content sent by the user (can be a string or an array of content parts)
+    The message content sent by the user (can be a string or an array of multi-modal content parts)
     """
 
     if IS_PYDANTIC_V2:

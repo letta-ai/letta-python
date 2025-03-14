@@ -162,7 +162,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate
+        from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
             token="YOUR_TOKEN",
@@ -172,7 +172,11 @@ class MessagesClient:
             messages=[
                 MessageCreate(
                     role="user",
-                    content="content",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
         )
@@ -244,7 +248,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, TextContent, UpdateSystemMessage
+        from letta_client import Letta, UpdateSystemMessage
 
         client = Letta(
             token="YOUR_TOKEN",
@@ -253,11 +257,7 @@ class MessagesClient:
             agent_id="agent_id",
             message_id="message_id",
             request=UpdateSystemMessage(
-                content=[
-                    TextContent(
-                        text="text",
-                    )
-                ],
+                content="content",
             ),
         )
         """
@@ -339,7 +339,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate
+        from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
             token="YOUR_TOKEN",
@@ -349,7 +349,11 @@ class MessagesClient:
             messages=[
                 MessageCreate(
                     role="user",
-                    content="content",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
         )
@@ -442,7 +446,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate
+        from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
             token="YOUR_TOKEN",
@@ -452,7 +456,11 @@ class MessagesClient:
             messages=[
                 MessageCreate(
                     role="user",
-                    content="content",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
         )
@@ -643,7 +651,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate
+        from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -656,7 +664,11 @@ class AsyncMessagesClient:
                 messages=[
                     MessageCreate(
                         role="user",
-                        content="content",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             )
@@ -733,7 +745,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, TextContent, UpdateSystemMessage
+        from letta_client import AsyncLetta, UpdateSystemMessage
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -745,11 +757,7 @@ class AsyncMessagesClient:
                 agent_id="agent_id",
                 message_id="message_id",
                 request=UpdateSystemMessage(
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
+                    content="content",
                 ),
             )
 
@@ -836,7 +844,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate
+        from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -849,7 +857,11 @@ class AsyncMessagesClient:
                 messages=[
                     MessageCreate(
                         role="user",
-                        content="content",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             )
@@ -947,7 +959,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate
+        from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -960,7 +972,11 @@ class AsyncMessagesClient:
                 messages=[
                     MessageCreate(
                         role="user",
-                        content="content",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             )

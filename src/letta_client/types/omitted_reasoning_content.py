@@ -6,11 +6,11 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class UpdateSystemMessage(UncheckedBaseModel):
-    message_type: typing.Optional[typing.Literal["system_message"]] = None
-    content: str = pydantic.Field()
+class OmittedReasoningContent(UncheckedBaseModel):
+    type: typing.Literal["omitted_reasoning"] = "omitted_reasoning"
+    tokens: int = pydantic.Field()
     """
-    The message content sent by the system (can be a string or an array of multi-modal content parts)
+    The reasoning token count for intermediate reasoning content.
     """
 
     if IS_PYDANTIC_V2:

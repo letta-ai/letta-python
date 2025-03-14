@@ -473,7 +473,7 @@ class GroupsClient:
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate
+        from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
             token="YOUR_TOKEN",
@@ -484,7 +484,11 @@ class GroupsClient:
             messages=[
                 MessageCreate(
                     role="user",
-                    content="content",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
         )
@@ -575,7 +579,7 @@ class GroupsClient:
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate
+        from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
             token="YOUR_TOKEN",
@@ -585,7 +589,11 @@ class GroupsClient:
             messages=[
                 MessageCreate(
                     role="user",
-                    content="content",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
         )
@@ -1123,7 +1131,7 @@ class AsyncGroupsClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate
+        from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -1137,7 +1145,11 @@ class AsyncGroupsClient:
                 messages=[
                     MessageCreate(
                         role="user",
-                        content="content",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             )
@@ -1233,7 +1245,7 @@ class AsyncGroupsClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate
+        from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -1246,7 +1258,11 @@ class AsyncGroupsClient:
                 messages=[
                     MessageCreate(
                         role="user",
-                        content="content",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             )

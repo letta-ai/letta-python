@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import datetime as dt
 import typing
+from .reasoning_message_source import ReasoningMessageSource
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -14,12 +15,17 @@ class ReasoningMessage(UncheckedBaseModel):
     Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
+        name (Optional[str]): The name of the sender of the message
+        source (Literal["reasoner_model", "non_reasoner_model"]): Whether the reasoning
+            content was generated natively by a reasoner model or derived via prompting
         reasoning (str): The internal reasoning of the agent
     """
 
     id: str
     date: dt.datetime
+    name: typing.Optional[str] = None
     message_type: typing.Literal["reasoning_message"] = "reasoning_message"
+    source: typing.Optional[ReasoningMessageSource] = None
     reasoning: str
 
     if IS_PYDANTIC_V2:

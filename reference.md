@@ -3658,7 +3658,7 @@ This endpoint accepts a message from a user and processes it through through age
 <dd>
 
 ```python
-from letta_client import Letta, MessageCreate
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3669,7 +3669,11 @@ client.groups.send_group_message(
     messages=[
         MessageCreate(
             role="user",
-            content="content",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )
@@ -3777,7 +3781,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 <dd>
 
 ```python
-from letta_client import Letta, MessageCreate
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -3787,7 +3791,11 @@ client.groups.send_group_message_streaming(
     messages=[
         MessageCreate(
             role="user",
-            content="content",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )
@@ -8130,7 +8138,7 @@ This endpoint accepts a message from a user and processes it through the agent.
 <dd>
 
 ```python
-from letta_client import Letta, MessageCreate
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -8140,7 +8148,11 @@ client.agents.messages.create(
     messages=[
         MessageCreate(
             role="user",
-            content="content",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )
@@ -8238,7 +8250,7 @@ Update the details of a message associated with an agent.
 <dd>
 
 ```python
-from letta_client import Letta, TextContent, UpdateSystemMessage
+from letta_client import Letta, UpdateSystemMessage
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -8247,11 +8259,7 @@ client.agents.messages.modify(
     agent_id="agent_id",
     message_id="message_id",
     request=UpdateSystemMessage(
-        content=[
-            TextContent(
-                text="text",
-            )
-        ],
+        content="content",
     ),
 )
 
@@ -8334,7 +8342,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 <dd>
 
 ```python
-from letta_client import Letta, MessageCreate
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -8344,7 +8352,11 @@ response = client.agents.messages.create_stream(
     messages=[
         MessageCreate(
             role="user",
-            content="content",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )
@@ -8453,7 +8465,7 @@ The actual processing happens in the background, and the status can be checked u
 <dd>
 
 ```python
-from letta_client import Letta, MessageCreate
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     token="YOUR_TOKEN",
@@ -8463,7 +8475,11 @@ client.agents.messages.create_async(
     messages=[
         MessageCreate(
             role="user",
-            content="content",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )

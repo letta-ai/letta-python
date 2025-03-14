@@ -15,15 +15,17 @@ class UserMessage(UncheckedBaseModel):
     Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
-        content (Union[str, List[LettaMessageContentUnion]]): The message content sent by the user (can be a string or an array of content parts)
+        name (Optional[str]): The name of the sender of the message
+        content (Union[str, List[LettaUserMessageContentUnion]]): The message content sent by the user (can be a string or an array of multi-modal content parts)
     """
 
     id: str
     date: dt.datetime
+    name: typing.Optional[str] = None
     message_type: typing.Literal["user_message"] = "user_message"
     content: UserMessageContent = pydantic.Field()
     """
-    The message content sent by the user (can be a string or an array of content parts)
+    The message content sent by the user (can be a string or an array of multi-modal content parts)
     """
 
     if IS_PYDANTIC_V2:

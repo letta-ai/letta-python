@@ -15,11 +15,13 @@ class AssistantMessage(UncheckedBaseModel):
     Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
-        content (Union[str, List[LettaMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)
+        name (Optional[str]): The name of the sender of the message
+        content (Union[str, List[LettaAssistantMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)
     """
 
     id: str
     date: dt.datetime
+    name: typing.Optional[str] = None
     message_type: typing.Literal["assistant_message"] = "assistant_message"
     content: AssistantMessageContent = pydantic.Field()
     """

@@ -6,11 +6,21 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class UpdateSystemMessage(UncheckedBaseModel):
-    message_type: typing.Optional[typing.Literal["system_message"]] = None
+class ToolReturnContent(UncheckedBaseModel):
+    type: typing.Literal["tool_return"] = "tool_return"
+    tool_call_id: str = pydantic.Field()
+    """
+    References the ID of the ToolCallContent that initiated this tool call.
+    """
+
     content: str = pydantic.Field()
     """
-    The message content sent by the system (can be a string or an array of multi-modal content parts)
+    The content returned by the tool execution.
+    """
+
+    is_error: bool = pydantic.Field()
+    """
+    Indicates whether the tool execution resulted in an error.
     """
 
     if IS_PYDANTIC_V2:

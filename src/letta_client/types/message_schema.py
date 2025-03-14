@@ -2,6 +2,7 @@
 
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
+from .text_content import TextContent
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -13,7 +14,7 @@ class MessageSchema(UncheckedBaseModel):
     model: typing.Optional[str] = None
     name: typing.Optional[str] = None
     role: str
-    text: str
+    content: typing.List[TextContent]
     tool_call_id: typing.Optional[str] = None
     tool_calls: typing.List[typing.Optional[typing.Any]]
     tool_returns: typing.List[typing.Optional[typing.Any]]

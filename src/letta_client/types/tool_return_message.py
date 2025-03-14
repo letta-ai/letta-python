@@ -15,6 +15,7 @@ class ToolReturnMessage(UncheckedBaseModel):
     Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
+        name (Optional[str]): The name of the sender of the message
         tool_return (str): The return value of the tool
         status (Literal["success", "error"]): The status of the tool call
         tool_call_id (str): A unique identifier for the tool call that generated this message
@@ -24,6 +25,7 @@ class ToolReturnMessage(UncheckedBaseModel):
 
     id: str
     date: dt.datetime
+    name: typing.Optional[str] = None
     message_type: typing.Literal["tool_return_message"] = "tool_return_message"
     tool_return: str
     status: ToolReturnMessageStatus

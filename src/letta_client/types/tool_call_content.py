@@ -6,11 +6,21 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class UpdateSystemMessage(UncheckedBaseModel):
-    message_type: typing.Optional[typing.Literal["system_message"]] = None
-    content: str = pydantic.Field()
+class ToolCallContent(UncheckedBaseModel):
+    type: typing.Literal["tool_return"] = "tool_return"
+    id: str = pydantic.Field()
     """
-    The message content sent by the system (can be a string or an array of multi-modal content parts)
+    A unique identifier for this specific tool call instance.
+    """
+
+    name: str = pydantic.Field()
+    """
+    The name of the tool being called.
+    """
+
+    input: typing.Dict[str, typing.Optional[typing.Any]] = pydantic.Field()
+    """
+    The parameters being passed to the tool, structured as a dictionary of parameter names to values.
     """
 
     if IS_PYDANTIC_V2:

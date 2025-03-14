@@ -6,11 +6,11 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class UpdateSystemMessage(UncheckedBaseModel):
-    message_type: typing.Optional[typing.Literal["system_message"]] = None
-    content: str = pydantic.Field()
+class RedactedReasoningContent(UncheckedBaseModel):
+    type: typing.Literal["redacted_reasoning"] = "redacted_reasoning"
+    data: str = pydantic.Field()
     """
-    The message content sent by the system (can be a string or an array of multi-modal content parts)
+    The redacted or filtered intermediate reasoning content.
     """
 
     if IS_PYDANTIC_V2:
