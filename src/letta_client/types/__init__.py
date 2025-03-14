@@ -4,6 +4,7 @@ from .action_model import ActionModel
 from .action_parameters_model import ActionParametersModel
 from .action_response_model import ActionResponseModel
 from .agent_environment_variable import AgentEnvironmentVariable
+from .agent_schema import AgentSchema
 from .agent_state import AgentState
 from .agent_state_tool_rules_item import AgentStateToolRulesItem
 from .agent_type import AgentType
@@ -72,6 +73,7 @@ from .conditional_tool_rule import ConditionalToolRule
 from .conflict_error_body import ConflictErrorBody
 from .context_window_overview import ContextWindowOverview
 from .continue_tool_rule import ContinueToolRule
+from .core_memory_block_schema import CoreMemoryBlockSchema
 from .create_block import CreateBlock
 from .dynamic_manager import DynamicManager
 from .e_2_b_sandbox_config import E2BSandboxConfig
@@ -124,6 +126,7 @@ from .message_create import MessageCreate
 from .message_create_content import MessageCreateContent
 from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
+from .message_schema import MessageSchema
 from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
 from .openai_types_chat_chat_completion_message_tool_call_param_function import (
@@ -135,6 +138,8 @@ from .openai_types_chat_chat_completion_named_tool_choice_param_function import 
 from .openai_types_chat_completion_create_params_function import OpenaiTypesChatCompletionCreateParamsFunction
 from .organization import Organization
 from .organization_create import OrganizationCreate
+from .parameter_properties import ParameterProperties
+from .parameters_schema import ParametersSchema
 from .passage import Passage
 from .pip_requirement import PipRequirement
 from .provider import Provider
@@ -160,6 +165,7 @@ from .step import Step
 from .supervisor_manager import SupervisorManager
 from .system_message import SystemMessage
 from .system_message_content import SystemMessageContent
+from .tag_schema import TagSchema
 from .terminal_tool_rule import TerminalToolRule
 from .text_content import TextContent
 from .tool import Tool
@@ -168,10 +174,14 @@ from .tool_call_delta import ToolCallDelta
 from .tool_call_message import ToolCallMessage
 from .tool_call_message_tool_call import ToolCallMessageToolCall
 from .tool_create import ToolCreate
+from .tool_env_var_schema import ToolEnvVarSchema
+from .tool_json_schema import ToolJsonSchema
 from .tool_return import ToolReturn
 from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
 from .tool_return_status import ToolReturnStatus
+from .tool_rule_schema import ToolRuleSchema
+from .tool_schema import ToolSchema
 from .tool_type import ToolType
 from .update_assistant_message import UpdateAssistantMessage
 from .update_assistant_message_content import UpdateAssistantMessageContent
@@ -198,6 +208,7 @@ __all__ = [
     "ActionParametersModel",
     "ActionResponseModel",
     "AgentEnvironmentVariable",
+    "AgentSchema",
     "AgentState",
     "AgentStateToolRulesItem",
     "AgentType",
@@ -266,6 +277,7 @@ __all__ = [
     "ConflictErrorBody",
     "ContextWindowOverview",
     "ContinueToolRule",
+    "CoreMemoryBlockSchema",
     "CreateBlock",
     "DynamicManager",
     "E2BSandboxConfig",
@@ -318,6 +330,7 @@ __all__ = [
     "MessageCreateContent",
     "MessageCreateRole",
     "MessageRole",
+    "MessageSchema",
     "NotFoundErrorBody",
     "NotFoundErrorBodyMessage",
     "OpenaiTypesChatChatCompletionMessageToolCallParamFunction",
@@ -325,6 +338,8 @@ __all__ = [
     "OpenaiTypesChatCompletionCreateParamsFunction",
     "Organization",
     "OrganizationCreate",
+    "ParameterProperties",
+    "ParametersSchema",
     "Passage",
     "PipRequirement",
     "Provider",
@@ -350,6 +365,7 @@ __all__ = [
     "SupervisorManager",
     "SystemMessage",
     "SystemMessageContent",
+    "TagSchema",
     "TerminalToolRule",
     "TextContent",
     "Tool",
@@ -358,10 +374,14 @@ __all__ = [
     "ToolCallMessage",
     "ToolCallMessageToolCall",
     "ToolCreate",
+    "ToolEnvVarSchema",
+    "ToolJsonSchema",
     "ToolReturn",
     "ToolReturnMessage",
     "ToolReturnMessageStatus",
     "ToolReturnStatus",
+    "ToolRuleSchema",
+    "ToolSchema",
     "ToolType",
     "UpdateAssistantMessage",
     "UpdateAssistantMessageContent",

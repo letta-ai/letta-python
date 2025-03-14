@@ -2269,7 +2269,7 @@ client.agents.create()
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">download_agent_serialized</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">export_agent_serialized</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2281,7 +2281,7 @@ client.agents.create()
 <dl>
 <dd>
 
-Download the serialized JSON representation of an agent.
+Export the serialized JSON representation of an agent.
 </dd>
 </dl>
 </dd>
@@ -2301,7 +2301,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.download_agent_serialized(
+client.agents.export_agent_serialized(
     agent_id="agent_id",
 )
 
@@ -2339,7 +2339,7 @@ client.agents.download_agent_serialized(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">upload_agent_serialized</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">import_agent_serialized</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2351,7 +2351,7 @@ client.agents.download_agent_serialized(
 <dl>
 <dd>
 
-Upload a serialized agent JSON file and recreate the agent in the system.
+Import a serialized agent file and recreate the agent in the system.
 </dd>
 </dl>
 </dd>
@@ -2371,7 +2371,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.upload_agent_serialized()
+client.agents.import_agent_serialized()
 
 ```
 </dd>

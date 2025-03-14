@@ -25,6 +25,7 @@ from ..types.llm_config import LlmConfig
 from ..types.embedding_config import EmbeddingConfig
 from ..types.message_create import MessageCreate
 from ..core.serialization import convert_and_respect_annotation_metadata
+from ..types.agent_schema import AgentSchema
 from ..core.jsonable_encoder import jsonable_encoder
 from .. import core
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
@@ -422,11 +423,11 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def download_agent_serialized(
+    def export_agent_serialized(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> AgentSchema:
         """
-        Download the serialized JSON representation of an agent.
+        Export the serialized JSON representation of an agent.
 
         Parameters
         ----------
@@ -437,7 +438,7 @@ class AgentsClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        AgentSchema
             Successful Response
 
         Examples
@@ -447,21 +448,21 @@ class AgentsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.download_agent_serialized(
+        client.agents.export_agent_serialized(
             agent_id="agent_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/download",
+            f"v1/agents/{jsonable_encoder(agent_id)}/export",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    AgentSchema,
                     construct_type(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=AgentSchema,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -480,7 +481,7 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def upload_agent_serialized(
+    def import_agent_serialized(
         self,
         *,
         file: core.File,
@@ -490,7 +491,7 @@ class AgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
-        Upload a serialized agent JSON file and recreate the agent in the system.
+        Import a serialized agent file and recreate the agent in the system.
 
         Parameters
         ----------
@@ -521,10 +522,10 @@ class AgentsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.upload_agent_serialized()
+        client.agents.import_agent_serialized()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/agents/upload",
+            "v1/agents/import",
             method="POST",
             params={
                 "append_copy_suffix": append_copy_suffix,
@@ -1514,11 +1515,11 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def download_agent_serialized(
+    async def export_agent_serialized(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> AgentSchema:
         """
-        Download the serialized JSON representation of an agent.
+        Export the serialized JSON representation of an agent.
 
         Parameters
         ----------
@@ -1529,7 +1530,7 @@ class AsyncAgentsClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        AgentSchema
             Successful Response
 
         Examples
@@ -1544,7 +1545,7 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.download_agent_serialized(
+            await client.agents.export_agent_serialized(
                 agent_id="agent_id",
             )
 
@@ -1552,16 +1553,16 @@ class AsyncAgentsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/download",
+            f"v1/agents/{jsonable_encoder(agent_id)}/export",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    AgentSchema,
                     construct_type(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=AgentSchema,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1580,7 +1581,7 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def upload_agent_serialized(
+    async def import_agent_serialized(
         self,
         *,
         file: core.File,
@@ -1590,7 +1591,7 @@ class AsyncAgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
-        Upload a serialized agent JSON file and recreate the agent in the system.
+        Import a serialized agent file and recreate the agent in the system.
 
         Parameters
         ----------
@@ -1626,13 +1627,13 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.upload_agent_serialized()
+            await client.agents.import_agent_serialized()
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/agents/upload",
+            "v1/agents/import",
             method="POST",
             params={
                 "append_copy_suffix": append_copy_suffix,
