@@ -1741,7 +1741,23 @@ client.sources.create(
 <dl>
 <dd>
 
-**embedding_config:** `typing.Optional[EmbeddingConfig]` — The embedding configuration used by the source.
+**embedding:** `typing.Optional[str]` — The hande for the embedding config used by the source.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_chunk_size:** `typing.Optional[int]` — The chunk size of the embedding.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_config:** `typing.Optional[EmbeddingConfig]` — (Legacy) The embedding configuration used by the source.
     
 </dd>
 </dl>

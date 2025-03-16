@@ -343,6 +343,8 @@ class SourcesClient:
         self,
         *,
         name: str,
+        embedding: typing.Optional[str] = OMIT,
+        embedding_chunk_size: typing.Optional[int] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
@@ -356,8 +358,14 @@ class SourcesClient:
         name : str
             The name of the source.
 
+        embedding : typing.Optional[str]
+            The hande for the embedding config used by the source.
+
+        embedding_chunk_size : typing.Optional[int]
+            The chunk size of the embedding.
+
         embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the source.
+            (Legacy) The embedding configuration used by the source.
 
         description : typing.Optional[str]
             The description of the source.
@@ -389,6 +397,8 @@ class SourcesClient:
             method="POST",
             json={
                 "name": name,
+                "embedding": embedding,
+                "embedding_chunk_size": embedding_chunk_size,
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
@@ -787,6 +797,8 @@ class AsyncSourcesClient:
         self,
         *,
         name: str,
+        embedding: typing.Optional[str] = OMIT,
+        embedding_chunk_size: typing.Optional[int] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
@@ -800,8 +812,14 @@ class AsyncSourcesClient:
         name : str
             The name of the source.
 
+        embedding : typing.Optional[str]
+            The hande for the embedding config used by the source.
+
+        embedding_chunk_size : typing.Optional[int]
+            The chunk size of the embedding.
+
         embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the source.
+            (Legacy) The embedding configuration used by the source.
 
         description : typing.Optional[str]
             The description of the source.
@@ -841,6 +859,8 @@ class AsyncSourcesClient:
             method="POST",
             json={
                 "name": name,
+                "embedding": embedding,
+                "embedding_chunk_size": embedding_chunk_size,
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
