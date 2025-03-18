@@ -119,6 +119,7 @@ from .llm_config import LlmConfig
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .local_sandbox_config import LocalSandboxConfig
 from .manager_type import ManagerType
+from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .mcp_server_type import McpServerType
 from .mcp_tool import McpTool
 from .memory import Memory
@@ -329,6 +330,7 @@ __all__ = [
     "LlmConfigModelEndpointType",
     "LocalSandboxConfig",
     "ManagerType",
+    "MaxCountPerStepToolRule",
     "McpServerType",
     "McpTool",
     "Memory",

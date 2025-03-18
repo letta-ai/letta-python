@@ -2,16 +2,16 @@
 
 from ...core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .templates_create_agents_response_agents_item_tool_rules_item_item_tool_name_type import (
-    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolNameType,
+from .agents_search_response_agents_item_tool_rules_item_four_type import (
+    AgentsSearchResponseAgentsItemToolRulesItemFourType,
 )
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName(UncheckedBaseModel):
+class AgentsSearchResponseAgentsItemToolRulesItemFour(UncheckedBaseModel):
     tool_name: str
-    type: typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolNameType] = None
+    type: typing.Optional[AgentsSearchResponseAgentsItemToolRulesItemFourType] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -2,16 +2,17 @@
 
 from ...core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .agents_search_response_agents_item_tool_rules_item_item_tool_name_type import (
-    AgentsSearchResponseAgentsItemToolRulesItemItemToolNameType,
+from .agents_search_response_agents_item_tool_rules_item_max_count_limit_type import (
+    AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimitType,
 )
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class AgentsSearchResponseAgentsItemToolRulesItemItemToolName(UncheckedBaseModel):
+class AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimit(UncheckedBaseModel):
     tool_name: str
-    type: typing.Optional[AgentsSearchResponseAgentsItemToolRulesItemItemToolNameType] = None
+    type: typing.Optional[AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimitType] = None
+    max_count_limit: float
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

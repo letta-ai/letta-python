@@ -2,6 +2,6 @@
 
 import typing
 
-TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolNameType = typing.Union[
+AgentsSearchResponseAgentsItemToolRulesItemItemFourType = typing.Union[
     typing.Literal["continue_loop"], typing.Optional[typing.Any]
 ]

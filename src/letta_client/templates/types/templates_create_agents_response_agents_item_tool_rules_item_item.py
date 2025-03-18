@@ -13,8 +13,11 @@ from .templates_create_agents_response_agents_item_tool_rules_item_item_two impo
 from .templates_create_agents_response_agents_item_tool_rules_item_item_child_output_mapping import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping,
 )
-from .templates_create_agents_response_agents_item_tool_rules_item_item_tool_name import (
-    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName,
+from .templates_create_agents_response_agents_item_tool_rules_item_item_four import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour,
+)
+from .templates_create_agents_response_agents_item_tool_rules_item_item_max_count_limit import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit,
 )
 
 TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem = typing.Union[
@@ -22,5 +25,6 @@ TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem = typing.Union[
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOne,
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwo,
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping,
-    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName,
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour,
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit,
 ]

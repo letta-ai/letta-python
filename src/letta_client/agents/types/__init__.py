@@ -361,6 +361,10 @@ from .agents_search_response_agents_item_tool_rules_item_children import (
 from .agents_search_response_agents_item_tool_rules_item_children_type import (
     AgentsSearchResponseAgentsItemToolRulesItemChildrenType,
 )
+from .agents_search_response_agents_item_tool_rules_item_four import AgentsSearchResponseAgentsItemToolRulesItemFour
+from .agents_search_response_agents_item_tool_rules_item_four_type import (
+    AgentsSearchResponseAgentsItemToolRulesItemFourType,
+)
 from .agents_search_response_agents_item_tool_rules_item_item import AgentsSearchResponseAgentsItemToolRulesItemItem
 from .agents_search_response_agents_item_tool_rules_item_item_child_output_mapping import (
     AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping,
@@ -383,17 +387,23 @@ from .agents_search_response_agents_item_tool_rules_item_item_children import (
 from .agents_search_response_agents_item_tool_rules_item_item_children_type import (
     AgentsSearchResponseAgentsItemToolRulesItemItemChildrenType,
 )
+from .agents_search_response_agents_item_tool_rules_item_item_four import (
+    AgentsSearchResponseAgentsItemToolRulesItemItemFour,
+)
+from .agents_search_response_agents_item_tool_rules_item_item_four_type import (
+    AgentsSearchResponseAgentsItemToolRulesItemItemFourType,
+)
+from .agents_search_response_agents_item_tool_rules_item_item_max_count_limit import (
+    AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimit,
+)
+from .agents_search_response_agents_item_tool_rules_item_item_max_count_limit_type import (
+    AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimitType,
+)
 from .agents_search_response_agents_item_tool_rules_item_item_one import (
     AgentsSearchResponseAgentsItemToolRulesItemItemOne,
 )
 from .agents_search_response_agents_item_tool_rules_item_item_one_type import (
     AgentsSearchResponseAgentsItemToolRulesItemItemOneType,
-)
-from .agents_search_response_agents_item_tool_rules_item_item_tool_name import (
-    AgentsSearchResponseAgentsItemToolRulesItemItemToolName,
-)
-from .agents_search_response_agents_item_tool_rules_item_item_tool_name_type import (
-    AgentsSearchResponseAgentsItemToolRulesItemItemToolNameType,
 )
 from .agents_search_response_agents_item_tool_rules_item_item_two import (
     AgentsSearchResponseAgentsItemToolRulesItemItemTwo,
@@ -401,15 +411,15 @@ from .agents_search_response_agents_item_tool_rules_item_item_two import (
 from .agents_search_response_agents_item_tool_rules_item_item_two_type import (
     AgentsSearchResponseAgentsItemToolRulesItemItemTwoType,
 )
+from .agents_search_response_agents_item_tool_rules_item_max_count_limit import (
+    AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimit,
+)
+from .agents_search_response_agents_item_tool_rules_item_max_count_limit_type import (
+    AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimitType,
+)
 from .agents_search_response_agents_item_tool_rules_item_one import AgentsSearchResponseAgentsItemToolRulesItemOne
 from .agents_search_response_agents_item_tool_rules_item_one_type import (
     AgentsSearchResponseAgentsItemToolRulesItemOneType,
-)
-from .agents_search_response_agents_item_tool_rules_item_tool_name import (
-    AgentsSearchResponseAgentsItemToolRulesItemToolName,
-)
-from .agents_search_response_agents_item_tool_rules_item_tool_name_type import (
-    AgentsSearchResponseAgentsItemToolRulesItemToolNameType,
 )
 from .agents_search_response_agents_item_tool_rules_item_two import AgentsSearchResponseAgentsItemToolRulesItemTwo
 from .agents_search_response_agents_item_tool_rules_item_two_type import (
@@ -620,6 +630,8 @@ __all__ = [
     "AgentsSearchResponseAgentsItemToolRulesItemChildOutputMappingType",
     "AgentsSearchResponseAgentsItemToolRulesItemChildren",
     "AgentsSearchResponseAgentsItemToolRulesItemChildrenType",
+    "AgentsSearchResponseAgentsItemToolRulesItemFour",
+    "AgentsSearchResponseAgentsItemToolRulesItemFourType",
     "AgentsSearchResponseAgentsItemToolRulesItemItem",
     "AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping",
     "AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMappingDefaultChild",
@@ -628,16 +640,18 @@ __all__ = [
     "AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMappingType",
     "AgentsSearchResponseAgentsItemToolRulesItemItemChildren",
     "AgentsSearchResponseAgentsItemToolRulesItemItemChildrenType",
+    "AgentsSearchResponseAgentsItemToolRulesItemItemFour",
+    "AgentsSearchResponseAgentsItemToolRulesItemItemFourType",
+    "AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimit",
+    "AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimitType",
     "AgentsSearchResponseAgentsItemToolRulesItemItemOne",
     "AgentsSearchResponseAgentsItemToolRulesItemItemOneType",
-    "AgentsSearchResponseAgentsItemToolRulesItemItemToolName",
-    "AgentsSearchResponseAgentsItemToolRulesItemItemToolNameType",
     "AgentsSearchResponseAgentsItemToolRulesItemItemTwo",
     "AgentsSearchResponseAgentsItemToolRulesItemItemTwoType",
+    "AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimit",
+    "AgentsSearchResponseAgentsItemToolRulesItemMaxCountLimitType",
     "AgentsSearchResponseAgentsItemToolRulesItemOne",
     "AgentsSearchResponseAgentsItemToolRulesItemOneType",
-    "AgentsSearchResponseAgentsItemToolRulesItemToolName",
-    "AgentsSearchResponseAgentsItemToolRulesItemToolNameType",
     "AgentsSearchResponseAgentsItemToolRulesItemTwo",
     "AgentsSearchResponseAgentsItemToolRulesItemTwoType",
     "AgentsSearchResponseAgentsItemToolsItem",

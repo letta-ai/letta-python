@@ -13,8 +13,11 @@ from .agents_search_response_agents_item_tool_rules_item_item_two import (
 from .agents_search_response_agents_item_tool_rules_item_item_child_output_mapping import (
     AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping,
 )
-from .agents_search_response_agents_item_tool_rules_item_item_tool_name import (
-    AgentsSearchResponseAgentsItemToolRulesItemItemToolName,
+from .agents_search_response_agents_item_tool_rules_item_item_four import (
+    AgentsSearchResponseAgentsItemToolRulesItemItemFour,
+)
+from .agents_search_response_agents_item_tool_rules_item_item_max_count_limit import (
+    AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimit,
 )
 
 AgentsSearchResponseAgentsItemToolRulesItemItem = typing.Union[
@@ -22,5 +25,6 @@ AgentsSearchResponseAgentsItemToolRulesItemItem = typing.Union[
     AgentsSearchResponseAgentsItemToolRulesItemItemOne,
     AgentsSearchResponseAgentsItemToolRulesItemItemTwo,
     AgentsSearchResponseAgentsItemToolRulesItemItemChildOutputMapping,
-    AgentsSearchResponseAgentsItemToolRulesItemItemToolName,
+    AgentsSearchResponseAgentsItemToolRulesItemItemFour,
+    AgentsSearchResponseAgentsItemToolRulesItemItemMaxCountLimit,
 ]

@@ -408,6 +408,12 @@ from .templates_create_agents_response_agents_item_tool_rules_item_children impo
 from .templates_create_agents_response_agents_item_tool_rules_item_children_type import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemChildrenType,
 )
+from .templates_create_agents_response_agents_item_tool_rules_item_four import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemFour,
+)
+from .templates_create_agents_response_agents_item_tool_rules_item_four_type import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemFourType,
+)
 from .templates_create_agents_response_agents_item_tool_rules_item_item import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem,
 )
@@ -432,17 +438,23 @@ from .templates_create_agents_response_agents_item_tool_rules_item_item_children
 from .templates_create_agents_response_agents_item_tool_rules_item_item_children_type import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildrenType,
 )
+from .templates_create_agents_response_agents_item_tool_rules_item_item_four import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour,
+)
+from .templates_create_agents_response_agents_item_tool_rules_item_item_four_type import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFourType,
+)
+from .templates_create_agents_response_agents_item_tool_rules_item_item_max_count_limit import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit,
+)
+from .templates_create_agents_response_agents_item_tool_rules_item_item_max_count_limit_type import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimitType,
+)
 from .templates_create_agents_response_agents_item_tool_rules_item_item_one import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOne,
 )
 from .templates_create_agents_response_agents_item_tool_rules_item_item_one_type import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOneType,
-)
-from .templates_create_agents_response_agents_item_tool_rules_item_item_tool_name import (
-    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName,
-)
-from .templates_create_agents_response_agents_item_tool_rules_item_item_tool_name_type import (
-    TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolNameType,
 )
 from .templates_create_agents_response_agents_item_tool_rules_item_item_two import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwo,
@@ -450,17 +462,17 @@ from .templates_create_agents_response_agents_item_tool_rules_item_item_two impo
 from .templates_create_agents_response_agents_item_tool_rules_item_item_two_type import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwoType,
 )
+from .templates_create_agents_response_agents_item_tool_rules_item_max_count_limit import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemMaxCountLimit,
+)
+from .templates_create_agents_response_agents_item_tool_rules_item_max_count_limit_type import (
+    TemplatesCreateAgentsResponseAgentsItemToolRulesItemMaxCountLimitType,
+)
 from .templates_create_agents_response_agents_item_tool_rules_item_one import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemOne,
 )
 from .templates_create_agents_response_agents_item_tool_rules_item_one_type import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemOneType,
-)
-from .templates_create_agents_response_agents_item_tool_rules_item_tool_name import (
-    TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolName,
-)
-from .templates_create_agents_response_agents_item_tool_rules_item_tool_name_type import (
-    TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolNameType,
 )
 from .templates_create_agents_response_agents_item_tool_rules_item_two import (
     TemplatesCreateAgentsResponseAgentsItemToolRulesItemTwo,
@@ -682,6 +694,8 @@ __all__ = [
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemChildOutputMappingType",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemChildren",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemChildrenType",
+    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemFour",
+    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemFourType",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItem",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMapping",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMappingDefaultChild",
@@ -690,16 +704,18 @@ __all__ = [
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildOutputMappingType",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildren",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemChildrenType",
+    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFour",
+    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemFourType",
+    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimit",
+    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemMaxCountLimitType",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOne",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemOneType",
-    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolName",
-    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemToolNameType",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwo",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemItemTwoType",
+    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemMaxCountLimit",
+    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemMaxCountLimitType",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemOne",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemOneType",
-    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolName",
-    "TemplatesCreateAgentsResponseAgentsItemToolRulesItemToolNameType",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemTwo",
     "TemplatesCreateAgentsResponseAgentsItemToolRulesItemTwoType",
     "TemplatesCreateAgentsResponseAgentsItemToolsItem",
