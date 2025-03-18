@@ -29,8 +29,8 @@ class AgentSchema(UncheckedBaseModel):
     message_buffer_autoclear: bool
     messages: typing.List[MessageSchema]
     metadata: typing_extensions.Annotated[
-        typing.Dict[str, typing.Optional[typing.Any]], FieldMetadata(alias="metadata_")
-    ]
+        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
+    ] = None
     multi_agent_group: typing.Optional[typing.Any] = None
     name: str
     system: str

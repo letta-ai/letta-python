@@ -4,6 +4,8 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
 from .tool_type import ToolType
+import typing_extensions
+from ..core.serialization import FieldMetadata
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -77,6 +79,13 @@ class Tool(UncheckedBaseModel):
     last_updated_by_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the user that made this Tool.
+    """
+
+    metadata: typing_extensions.Annotated[
+        typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
+    ] = pydantic.Field(default=None)
+    """
+    A dictionary of additional metadata for the tool.
     """
 
     if IS_PYDANTIC_V2:

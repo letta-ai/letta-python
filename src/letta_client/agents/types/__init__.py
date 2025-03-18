@@ -444,6 +444,10 @@ from .agents_search_response_agents_item_tools_item_last_updated_by_id import (
 from .agents_search_response_agents_item_tools_item_last_updated_by_id_item import (
     AgentsSearchResponseAgentsItemToolsItemLastUpdatedByIdItem,
 )
+from .agents_search_response_agents_item_tools_item_metadata import AgentsSearchResponseAgentsItemToolsItemMetadata
+from .agents_search_response_agents_item_tools_item_metadata_item import (
+    AgentsSearchResponseAgentsItemToolsItemMetadataItem,
+)
 from .agents_search_response_agents_item_tools_item_name import AgentsSearchResponseAgentsItemToolsItemName
 from .agents_search_response_agents_item_tools_item_name_item import AgentsSearchResponseAgentsItemToolsItemNameItem
 from .agents_search_response_agents_item_tools_item_organization_id import (
@@ -647,6 +651,8 @@ __all__ = [
     "AgentsSearchResponseAgentsItemToolsItemJsonSchemaItem",
     "AgentsSearchResponseAgentsItemToolsItemLastUpdatedById",
     "AgentsSearchResponseAgentsItemToolsItemLastUpdatedByIdItem",
+    "AgentsSearchResponseAgentsItemToolsItemMetadata",
+    "AgentsSearchResponseAgentsItemToolsItemMetadataItem",
     "AgentsSearchResponseAgentsItemToolsItemName",
     "AgentsSearchResponseAgentsItemToolsItemNameItem",
     "AgentsSearchResponseAgentsItemToolsItemOrganizationId",

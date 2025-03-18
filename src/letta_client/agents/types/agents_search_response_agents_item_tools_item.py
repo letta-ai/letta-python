@@ -22,6 +22,9 @@ from .agents_search_response_agents_item_tools_item_created_by_id import (
 from .agents_search_response_agents_item_tools_item_last_updated_by_id import (
     AgentsSearchResponseAgentsItemToolsItemLastUpdatedById,
 )
+import typing_extensions
+from .agents_search_response_agents_item_tools_item_metadata import AgentsSearchResponseAgentsItemToolsItemMetadata
+from ...core.serialization import FieldMetadata
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -40,6 +43,9 @@ class AgentsSearchResponseAgentsItemToolsItem(UncheckedBaseModel):
     return_char_limit: typing.Optional[float] = None
     created_by_id: typing.Optional[AgentsSearchResponseAgentsItemToolsItemCreatedById] = None
     last_updated_by_id: typing.Optional[AgentsSearchResponseAgentsItemToolsItemLastUpdatedById] = None
+    metadata: typing_extensions.Annotated[
+        typing.Optional[AgentsSearchResponseAgentsItemToolsItemMetadata], FieldMetadata(alias="metadata_")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

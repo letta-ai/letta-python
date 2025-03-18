@@ -32,6 +32,11 @@ from .templates_create_agents_response_agents_item_tools_item_created_by_id impo
 from .templates_create_agents_response_agents_item_tools_item_last_updated_by_id import (
     TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById,
 )
+import typing_extensions
+from .templates_create_agents_response_agents_item_tools_item_metadata import (
+    TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata,
+)
+from ...core.serialization import FieldMetadata
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -50,6 +55,9 @@ class TemplatesCreateAgentsResponseAgentsItemToolsItem(UncheckedBaseModel):
     return_char_limit: typing.Optional[float] = None
     created_by_id: typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolsItemCreatedById] = None
     last_updated_by_id: typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById] = None
+    metadata: typing_extensions.Annotated[
+        typing.Optional[TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata], FieldMetadata(alias="metadata_")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

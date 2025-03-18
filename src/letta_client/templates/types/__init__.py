@@ -499,6 +499,12 @@ from .templates_create_agents_response_agents_item_tools_item_last_updated_by_id
 from .templates_create_agents_response_agents_item_tools_item_last_updated_by_id_item import (
     TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedByIdItem,
 )
+from .templates_create_agents_response_agents_item_tools_item_metadata import (
+    TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata,
+)
+from .templates_create_agents_response_agents_item_tools_item_metadata_item import (
+    TemplatesCreateAgentsResponseAgentsItemToolsItemMetadataItem,
+)
 from .templates_create_agents_response_agents_item_tools_item_name import (
     TemplatesCreateAgentsResponseAgentsItemToolsItemName,
 )
@@ -707,6 +713,8 @@ __all__ = [
     "TemplatesCreateAgentsResponseAgentsItemToolsItemJsonSchemaItem",
     "TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedById",
     "TemplatesCreateAgentsResponseAgentsItemToolsItemLastUpdatedByIdItem",
+    "TemplatesCreateAgentsResponseAgentsItemToolsItemMetadata",
+    "TemplatesCreateAgentsResponseAgentsItemToolsItemMetadataItem",
     "TemplatesCreateAgentsResponseAgentsItemToolsItemName",
     "TemplatesCreateAgentsResponseAgentsItemToolsItemNameItem",
     "TemplatesCreateAgentsResponseAgentsItemToolsItemOrganizationId",
