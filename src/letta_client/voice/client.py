@@ -67,7 +67,7 @@ class VoiceClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/voice/{jsonable_encoder(agent_id)}/chat/completions",
+            f"v1/voice-beta/{jsonable_encoder(agent_id)}/chat/completions",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateVoiceChatCompletionsRequest, direction="write"
@@ -158,7 +158,7 @@ class AsyncVoiceClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/voice/{jsonable_encoder(agent_id)}/chat/completions",
+            f"v1/voice-beta/{jsonable_encoder(agent_id)}/chat/completions",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateVoiceChatCompletionsRequest, direction="write"
