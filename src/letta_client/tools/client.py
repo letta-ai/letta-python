@@ -568,6 +568,7 @@ class ToolsClient:
         name: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ToolReturnMessage:
         """
@@ -592,6 +593,9 @@ class ToolsClient:
 
         args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The args JSON schema of the function.
+
+        json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The JSON schema of the function (auto-generated from source_code if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -623,6 +627,7 @@ class ToolsClient:
                 "name": name,
                 "source_type": source_type,
                 "args_json_schema": args_json_schema,
+                "json_schema": json_schema,
             },
             headers={
                 "content-type": "application/json",
@@ -1719,6 +1724,7 @@ class AsyncToolsClient:
         name: typing.Optional[str] = OMIT,
         source_type: typing.Optional[str] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ToolReturnMessage:
         """
@@ -1743,6 +1749,9 @@ class AsyncToolsClient:
 
         args_json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The args JSON schema of the function.
+
+        json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            The JSON schema of the function (auto-generated from source_code if not provided)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1782,6 +1791,7 @@ class AsyncToolsClient:
                 "name": name,
                 "source_type": source_type,
                 "args_json_schema": args_json_schema,
+                "json_schema": json_schema,
             },
             headers={
                 "content-type": "application/json",
