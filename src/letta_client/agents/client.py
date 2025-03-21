@@ -77,6 +77,7 @@ class AgentsClient:
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -126,6 +127,9 @@ class AgentsClient:
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
+        ascending : typing.Optional[bool]
+            Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -160,6 +164,7 @@ class AgentsClient:
                 "identity_id": identity_id,
                 "identifier_keys": identifier_keys,
                 "include_relationships": include_relationships,
+                "ascending": ascending,
             },
             request_options=request_options,
         )
@@ -1153,6 +1158,7 @@ class AsyncAgentsClient:
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -1202,6 +1208,9 @@ class AsyncAgentsClient:
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
+        ascending : typing.Optional[bool]
+            Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1244,6 +1253,7 @@ class AsyncAgentsClient:
                 "identity_id": identity_id,
                 "identifier_keys": identifier_keys,
                 "include_relationships": include_relationships,
+                "ascending": ascending,
             },
             request_options=request_options,
         )
