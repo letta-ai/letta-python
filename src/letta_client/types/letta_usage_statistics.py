@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
+from .message import Message
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -36,6 +37,11 @@ class LettaUsageStatistics(UncheckedBaseModel):
     step_count: typing.Optional[int] = pydantic.Field(default=None)
     """
     The number of steps taken by the agent.
+    """
+
+    steps_messages: typing.Optional[typing.List[typing.List[Message]]] = pydantic.Field(default=None)
+    """
+    The messages generated per step
     """
 
     if IS_PYDANTIC_V2:
