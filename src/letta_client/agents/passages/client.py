@@ -24,9 +24,11 @@ class PassagesClient:
         self,
         agent_id: str,
         *,
-        after: typing.Optional[int] = None,
-        before: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        search: typing.Optional[str] = None,
+        ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Passage]:
         """
@@ -36,14 +38,20 @@ class PassagesClient:
         ----------
         agent_id : str
 
-        after : typing.Optional[int]
+        after : typing.Optional[str]
             Unique ID of the memory to start the query range at.
 
-        before : typing.Optional[int]
+        before : typing.Optional[str]
             Unique ID of the memory to end the query range at.
 
         limit : typing.Optional[int]
             How many results to include in the response.
+
+        search : typing.Optional[str]
+            Search passages by text
+
+        ascending : typing.Optional[bool]
+            Whether to sort passages oldest to newest (True, default) or newest to oldest (False)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -71,6 +79,8 @@ class PassagesClient:
                 "after": after,
                 "before": before,
                 "limit": limit,
+                "search": search,
+                "ascending": ascending,
             },
             request_options=request_options,
         )
@@ -237,9 +247,11 @@ class AsyncPassagesClient:
         self,
         agent_id: str,
         *,
-        after: typing.Optional[int] = None,
-        before: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        search: typing.Optional[str] = None,
+        ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Passage]:
         """
@@ -249,14 +261,20 @@ class AsyncPassagesClient:
         ----------
         agent_id : str
 
-        after : typing.Optional[int]
+        after : typing.Optional[str]
             Unique ID of the memory to start the query range at.
 
-        before : typing.Optional[int]
+        before : typing.Optional[str]
             Unique ID of the memory to end the query range at.
 
         limit : typing.Optional[int]
             How many results to include in the response.
+
+        search : typing.Optional[str]
+            Search passages by text
+
+        ascending : typing.Optional[bool]
+            Whether to sort passages oldest to newest (True, default) or newest to oldest (False)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -292,6 +310,8 @@ class AsyncPassagesClient:
                 "after": after,
                 "before": before,
                 "limit": limit,
+                "search": search,
+                "ascending": ascending,
             },
             request_options=request_options,
         )

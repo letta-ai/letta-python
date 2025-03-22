@@ -7829,7 +7829,7 @@ client.agents.passages.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[int]` — Unique ID of the memory to start the query range at.
+**after:** `typing.Optional[str]` — Unique ID of the memory to start the query range at.
     
 </dd>
 </dl>
@@ -7837,7 +7837,7 @@ client.agents.passages.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[int]` — Unique ID of the memory to end the query range at.
+**before:** `typing.Optional[str]` — Unique ID of the memory to end the query range at.
     
 </dd>
 </dl>
@@ -7846,6 +7846,22 @@ client.agents.passages.list(
 <dd>
 
 **limit:** `typing.Optional[int]` — How many results to include in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `typing.Optional[str]` — Search passages by text
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ascending:** `typing.Optional[bool]` — Whether to sort passages oldest to newest (True, default) or newest to oldest (False)
     
 </dd>
 </dl>
