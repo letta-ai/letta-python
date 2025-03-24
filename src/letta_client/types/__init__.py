@@ -142,6 +142,7 @@ from .openai_types_chat_chat_completion_named_tool_choice_param_function import 
 from .openai_types_chat_completion_create_params_function import OpenaiTypesChatCompletionCreateParamsFunction
 from .organization import Organization
 from .organization_create import OrganizationCreate
+from .organization_update import OrganizationUpdate
 from .parameter_properties import ParameterProperties
 from .parameters_schema import ParametersSchema
 from .passage import Passage
@@ -349,6 +350,7 @@ __all__ = [
     "OpenaiTypesChatCompletionCreateParamsFunction",
     "Organization",
     "OrganizationCreate",
+    "OrganizationUpdate",
     "ParameterProperties",
     "ParametersSchema",
     "Passage",

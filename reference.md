@@ -765,7 +765,7 @@ client.tools.run_tool_from_source(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_composio_apps</a>()</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_composio_apps</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -809,6 +809,14 @@ client.tools.list_composio_apps()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -965,7 +973,7 @@ client.tools.add_composio_tool(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_mcp_servers</a>()</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_mcp_servers</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1009,6 +1017,14 @@ client.tools.list_mcp_servers()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -6586,7 +6602,15 @@ client.voice.create_voice_chat_completions(
 <dl>
 <dd>
 
-**request:** `CreateVoiceChatCompletionsRequest` 
+**request:** `CreateVoiceChatCompletionsRequestBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>

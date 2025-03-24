@@ -139,6 +139,7 @@ from .types import (
     OpenaiTypesChatCompletionCreateParamsFunction,
     Organization,
     OrganizationCreate,
+    OrganizationUpdate,
     ParameterProperties,
     ParametersSchema,
     Passage,
@@ -629,7 +630,7 @@ from .tools import (
     ListMcpServersResponseValue,
 )
 from .version import __version__
-from .voice import CreateVoiceChatCompletionsRequest
+from .voice import CreateVoiceChatCompletionsRequestBody
 
 __all__ = [
     "ActionModel",
@@ -909,7 +910,7 @@ __all__ = [
     "CoreMemoryBlockSchema",
     "CreateAgentRequestToolRulesItem",
     "CreateBlock",
-    "CreateVoiceChatCompletionsRequest",
+    "CreateVoiceChatCompletionsRequestBody",
     "DeleteMcpServerResponseItem",
     "DynamicManager",
     "E2BSandboxConfig",
@@ -979,6 +980,7 @@ __all__ = [
     "OpenaiTypesChatCompletionCreateParamsFunction",
     "Organization",
     "OrganizationCreate",
+    "OrganizationUpdate",
     "ParameterProperties",
     "ParametersSchema",
     "Passage",

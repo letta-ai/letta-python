@@ -12,6 +12,11 @@ class OrganizationCreate(UncheckedBaseModel):
     The name of the organization.
     """
 
+    privileged_tools: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the organization has access to privileged tools.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

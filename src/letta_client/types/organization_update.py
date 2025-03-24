@@ -2,14 +2,20 @@
 
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class FileFile(UncheckedBaseModel):
-    file_data: typing.Optional[str] = None
-    file_id: typing.Optional[str] = None
-    filename: typing.Optional[str] = None
+class OrganizationUpdate(UncheckedBaseModel):
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The name of the organization.
+    """
+
+    privileged_tools: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the organization has access to privileged tools.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
