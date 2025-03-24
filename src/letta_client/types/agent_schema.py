@@ -20,7 +20,7 @@ class AgentSchema(UncheckedBaseModel):
     agent_type: str
     core_memory: typing.List[CoreMemoryBlockSchema]
     created_at: str
-    description: str
+    description: typing.Optional[str] = None
     embedding_config: EmbeddingConfig
     groups: typing.List[typing.Optional[typing.Any]]
     identities: typing.List[typing.Optional[typing.Any]]
