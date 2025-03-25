@@ -2,7 +2,7 @@
 
 from ...core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .agents_search_response_agents_item import AgentsSearchResponseAgentsItem
+from ...types.agent_state import AgentState
 import typing_extensions
 from ...core.serialization import FieldMetadata
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
@@ -10,7 +10,7 @@ import pydantic
 
 
 class AgentsSearchResponse(UncheckedBaseModel):
-    agents: typing.List[AgentsSearchResponseAgentsItem]
+    agents: typing.List[AgentState]
     next_cursor: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="nextCursor")] = None
 
     if IS_PYDANTIC_V2:

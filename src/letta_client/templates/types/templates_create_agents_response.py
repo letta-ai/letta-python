@@ -2,13 +2,13 @@
 
 from ...core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .templates_create_agents_response_agents_item import TemplatesCreateAgentsResponseAgentsItem
+from ...types.agent_state import AgentState
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
 class TemplatesCreateAgentsResponse(UncheckedBaseModel):
-    agents: typing.List[TemplatesCreateAgentsResponseAgentsItem]
+    agents: typing.List[AgentState]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
