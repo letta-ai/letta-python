@@ -2,7 +2,7 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.create_voice_chat_completions_request import CreateVoiceChatCompletionsRequest
+from .types.create_voice_chat_completions_request_body import CreateVoiceChatCompletionsRequestBody
 from ..core.request_options import RequestOptions
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.serialization import convert_and_respect_annotation_metadata
@@ -25,7 +25,8 @@ class VoiceClient:
         self,
         agent_id: str,
         *,
-        request: CreateVoiceChatCompletionsRequest,
+        request: CreateVoiceChatCompletionsRequestBody,
+        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -33,7 +34,9 @@ class VoiceClient:
         ----------
         agent_id : str
 
-        request : CreateVoiceChatCompletionsRequest
+        request : CreateVoiceChatCompletionsRequestBody
+
+        user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -70,8 +73,11 @@ class VoiceClient:
             f"v1/voice-beta/{jsonable_encoder(agent_id)}/chat/completions",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateVoiceChatCompletionsRequest, direction="write"
+                object_=request, annotation=CreateVoiceChatCompletionsRequestBody, direction="write"
             ),
+            headers={
+                "user-id": str(user_id) if user_id is not None else None,
+            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -108,7 +114,8 @@ class AsyncVoiceClient:
         self,
         agent_id: str,
         *,
-        request: CreateVoiceChatCompletionsRequest,
+        request: CreateVoiceChatCompletionsRequestBody,
+        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -116,7 +123,9 @@ class AsyncVoiceClient:
         ----------
         agent_id : str
 
-        request : CreateVoiceChatCompletionsRequest
+        request : CreateVoiceChatCompletionsRequestBody
+
+        user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -161,8 +170,11 @@ class AsyncVoiceClient:
             f"v1/voice-beta/{jsonable_encoder(agent_id)}/chat/completions",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateVoiceChatCompletionsRequest, direction="write"
+                object_=request, annotation=CreateVoiceChatCompletionsRequestBody, direction="write"
             ),
+            headers={
+                "user-id": str(user_id) if user_id is not None else None,
+            },
             request_options=request_options,
             omit=OMIT,
         )
