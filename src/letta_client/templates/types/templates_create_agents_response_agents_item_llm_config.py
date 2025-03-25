@@ -23,6 +23,12 @@ from .templates_create_agents_response_agents_item_llm_config_temperature import
 from .templates_create_agents_response_agents_item_llm_config_max_tokens import (
     TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxTokens,
 )
+from .templates_create_agents_response_agents_item_llm_config_enable_reasoner import (
+    TemplatesCreateAgentsResponseAgentsItemLlmConfigEnableReasoner,
+)
+from .templates_create_agents_response_agents_item_llm_config_max_reasoning_tokens import (
+    TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxReasoningTokens,
+)
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -39,6 +45,8 @@ class TemplatesCreateAgentsResponseAgentsItemLlmConfig(UncheckedBaseModel):
     handle: typing.Optional[TemplatesCreateAgentsResponseAgentsItemLlmConfigHandle] = None
     temperature: typing.Optional[TemplatesCreateAgentsResponseAgentsItemLlmConfigTemperature] = None
     max_tokens: typing.Optional[TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxTokens] = None
+    enable_reasoner: typing.Optional[TemplatesCreateAgentsResponseAgentsItemLlmConfigEnableReasoner] = None
+    max_reasoning_tokens: typing.Optional[TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxReasoningTokens] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

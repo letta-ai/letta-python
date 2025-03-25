@@ -4,10 +4,17 @@ import typing
 from ....types.system_message import SystemMessage
 from ....types.user_message import UserMessage
 from ....types.reasoning_message import ReasoningMessage
+from ....types.hidden_reasoning_message import HiddenReasoningMessage
 from ....types.tool_call_message import ToolCallMessage
 from ....types.tool_return_message import ToolReturnMessage
 from ....types.assistant_message import AssistantMessage
 
 MessagesModifyResponse = typing.Union[
-    SystemMessage, UserMessage, ReasoningMessage, ToolCallMessage, ToolReturnMessage, AssistantMessage
+    SystemMessage,
+    UserMessage,
+    ReasoningMessage,
+    HiddenReasoningMessage,
+    ToolCallMessage,
+    ToolReturnMessage,
+    AssistantMessage,
 ]

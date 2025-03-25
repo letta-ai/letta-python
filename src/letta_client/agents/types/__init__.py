@@ -62,8 +62,14 @@ from .agents_search_response_agents_item_last_updated_by_id_item import (
     AgentsSearchResponseAgentsItemLastUpdatedByIdItem,
 )
 from .agents_search_response_agents_item_llm_config import AgentsSearchResponseAgentsItemLlmConfig
+from .agents_search_response_agents_item_llm_config_enable_reasoner import (
+    AgentsSearchResponseAgentsItemLlmConfigEnableReasoner,
+)
 from .agents_search_response_agents_item_llm_config_handle import AgentsSearchResponseAgentsItemLlmConfigHandle
 from .agents_search_response_agents_item_llm_config_handle_item import AgentsSearchResponseAgentsItemLlmConfigHandleItem
+from .agents_search_response_agents_item_llm_config_max_reasoning_tokens import (
+    AgentsSearchResponseAgentsItemLlmConfigMaxReasoningTokens,
+)
 from .agents_search_response_agents_item_llm_config_max_tokens import AgentsSearchResponseAgentsItemLlmConfigMaxTokens
 from .agents_search_response_agents_item_llm_config_max_tokens_item import (
     AgentsSearchResponseAgentsItemLlmConfigMaxTokensItem,
@@ -515,8 +521,10 @@ __all__ = [
     "AgentsSearchResponseAgentsItemLastUpdatedById",
     "AgentsSearchResponseAgentsItemLastUpdatedByIdItem",
     "AgentsSearchResponseAgentsItemLlmConfig",
+    "AgentsSearchResponseAgentsItemLlmConfigEnableReasoner",
     "AgentsSearchResponseAgentsItemLlmConfigHandle",
     "AgentsSearchResponseAgentsItemLlmConfigHandleItem",
+    "AgentsSearchResponseAgentsItemLlmConfigMaxReasoningTokens",
     "AgentsSearchResponseAgentsItemLlmConfigMaxTokens",
     "AgentsSearchResponseAgentsItemLlmConfigMaxTokensItem",
     "AgentsSearchResponseAgentsItemLlmConfigModelEndpoint",

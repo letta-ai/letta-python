@@ -218,6 +218,9 @@ class AgentsClient:
         embedding: typing.Optional[str] = OMIT,
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
+        max_tokens: typing.Optional[int] = OMIT,
+        max_reasoning_tokens: typing.Optional[int] = OMIT,
+        enable_reasoner: typing.Optional[bool] = OMIT,
         from_template: typing.Optional[str] = OMIT,
         template: typing.Optional[bool] = OMIT,
         create_agent_request_project: typing.Optional[str] = OMIT,
@@ -303,6 +306,15 @@ class AgentsClient:
         embedding_chunk_size : typing.Optional[int]
             The embedding chunk size used by the agent.
 
+        max_tokens : typing.Optional[int]
+            The maximum number of tokens to generate, including reasoning step. If not set, the model will use its default value.
+
+        max_reasoning_tokens : typing.Optional[int]
+            The maximum number of tokens to generate for reasoning step. If not set, the model will use its default value.
+
+        enable_reasoner : typing.Optional[bool]
+            Whether to enable internal extended thinking step for a reasoner model.
+
         from_template : typing.Optional[str]
             The template id used to configure the agent
 
@@ -386,6 +398,9 @@ class AgentsClient:
                 "embedding": embedding,
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
+                "max_tokens": max_tokens,
+                "max_reasoning_tokens": max_reasoning_tokens,
+                "enable_reasoner": enable_reasoner,
                 "from_template": from_template,
                 "template": template,
                 "project": create_agent_request_project,
@@ -1307,6 +1322,9 @@ class AsyncAgentsClient:
         embedding: typing.Optional[str] = OMIT,
         context_window_limit: typing.Optional[int] = OMIT,
         embedding_chunk_size: typing.Optional[int] = OMIT,
+        max_tokens: typing.Optional[int] = OMIT,
+        max_reasoning_tokens: typing.Optional[int] = OMIT,
+        enable_reasoner: typing.Optional[bool] = OMIT,
         from_template: typing.Optional[str] = OMIT,
         template: typing.Optional[bool] = OMIT,
         create_agent_request_project: typing.Optional[str] = OMIT,
@@ -1391,6 +1409,15 @@ class AsyncAgentsClient:
 
         embedding_chunk_size : typing.Optional[int]
             The embedding chunk size used by the agent.
+
+        max_tokens : typing.Optional[int]
+            The maximum number of tokens to generate, including reasoning step. If not set, the model will use its default value.
+
+        max_reasoning_tokens : typing.Optional[int]
+            The maximum number of tokens to generate for reasoning step. If not set, the model will use its default value.
+
+        enable_reasoner : typing.Optional[bool]
+            Whether to enable internal extended thinking step for a reasoner model.
 
         from_template : typing.Optional[str]
             The template id used to configure the agent
@@ -1483,6 +1510,9 @@ class AsyncAgentsClient:
                 "embedding": embedding,
                 "context_window_limit": context_window_limit,
                 "embedding_chunk_size": embedding_chunk_size,
+                "max_tokens": max_tokens,
+                "max_reasoning_tokens": max_reasoning_tokens,
+                "enable_reasoner": enable_reasoner,
                 "from_template": from_template,
                 "template": template,
                 "project": create_agent_request_project,

@@ -3,32 +3,31 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import datetime as dt
 import typing
-from .reasoning_message_source import ReasoningMessageSource
+from .hidden_reasoning_message_state import HiddenReasoningMessageState
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class ReasoningMessage(UncheckedBaseModel):
+class HiddenReasoningMessage(UncheckedBaseModel):
     """
-    Representation of an agent's internal reasoning.
+    Representation of an agent's internal reasoning where reasoning content
+    has been hidden from the response.
 
     Args:
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
         name (Optional[str]): The name of the sender of the message
-        source (Literal["reasoner_model", "non_reasoner_model"]): Whether the reasoning
-            content was generated natively by a reasoner model or derived via prompting
-        reasoning (str): The internal reasoning of the agent
-        signature (Optional[str]): The model-generated signature of the reasoning step
+        state (Literal["redacted", "omitted"]): Whether the reasoning
+            content was redacted by the provider or simply omitted by the API
+        hidden_reasoning (Optional[str]): The internal reasoning of the agent
     """
 
     id: str
     date: dt.datetime
     name: typing.Optional[str] = None
-    message_type: typing.Literal["reasoning_message"] = "reasoning_message"
-    source: typing.Optional[ReasoningMessageSource] = None
-    reasoning: str
-    signature: typing.Optional[str] = None
+    message_type: typing.Literal["hidden_reasoning_message"] = "hidden_reasoning_message"
+    state: HiddenReasoningMessageState
+    hidden_reasoning: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

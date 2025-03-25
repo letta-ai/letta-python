@@ -67,6 +67,16 @@ class LlmConfig(UncheckedBaseModel):
     The maximum number of tokens to generate. If not set, the model will use its default value.
     """
 
+    enable_reasoner: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether or not the model should use extended thinking if it is a 'reasoning' style model
+    """
+
+    max_reasoning_tokens: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Configurable thinking budget for extended thinking, only used if enable_reasoner is True. Minimum value is 1024.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

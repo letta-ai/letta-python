@@ -75,11 +75,17 @@ from .templates_create_agents_response_agents_item_last_updated_by_id_item impor
     TemplatesCreateAgentsResponseAgentsItemLastUpdatedByIdItem,
 )
 from .templates_create_agents_response_agents_item_llm_config import TemplatesCreateAgentsResponseAgentsItemLlmConfig
+from .templates_create_agents_response_agents_item_llm_config_enable_reasoner import (
+    TemplatesCreateAgentsResponseAgentsItemLlmConfigEnableReasoner,
+)
 from .templates_create_agents_response_agents_item_llm_config_handle import (
     TemplatesCreateAgentsResponseAgentsItemLlmConfigHandle,
 )
 from .templates_create_agents_response_agents_item_llm_config_handle_item import (
     TemplatesCreateAgentsResponseAgentsItemLlmConfigHandleItem,
+)
+from .templates_create_agents_response_agents_item_llm_config_max_reasoning_tokens import (
+    TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxReasoningTokens,
 )
 from .templates_create_agents_response_agents_item_llm_config_max_tokens import (
     TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxTokens,
@@ -579,8 +585,10 @@ __all__ = [
     "TemplatesCreateAgentsResponseAgentsItemLastUpdatedById",
     "TemplatesCreateAgentsResponseAgentsItemLastUpdatedByIdItem",
     "TemplatesCreateAgentsResponseAgentsItemLlmConfig",
+    "TemplatesCreateAgentsResponseAgentsItemLlmConfigEnableReasoner",
     "TemplatesCreateAgentsResponseAgentsItemLlmConfigHandle",
     "TemplatesCreateAgentsResponseAgentsItemLlmConfigHandleItem",
+    "TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxReasoningTokens",
     "TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxTokens",
     "TemplatesCreateAgentsResponseAgentsItemLlmConfigMaxTokensItem",
     "TemplatesCreateAgentsResponseAgentsItemLlmConfigModelEndpoint",

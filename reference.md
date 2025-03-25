@@ -2225,6 +2225,30 @@ client.agents.create()
 <dl>
 <dd>
 
+**max_tokens:** `typing.Optional[int]` — The maximum number of tokens to generate, including reasoning step. If not set, the model will use its default value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_reasoning_tokens:** `typing.Optional[int]` — The maximum number of tokens to generate for reasoning step. If not set, the model will use its default value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_reasoner:** `typing.Optional[bool]` — Whether to enable internal extended thinking step for a reasoner model.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **from_template:** `typing.Optional[str]` — The template id used to configure the agent
     
 </dd>

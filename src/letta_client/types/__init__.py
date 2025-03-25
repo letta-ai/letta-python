@@ -91,6 +91,8 @@ from .group import Group
 from .group_create import GroupCreate
 from .group_create_manager_config import GroupCreateManagerConfig
 from .health import Health
+from .hidden_reasoning_message import HiddenReasoningMessage
+from .hidden_reasoning_message_state import HiddenReasoningMessageState
 from .http_validation_error import HttpValidationError
 from .identity import Identity
 from .identity_create import IdentityCreate
@@ -303,6 +305,8 @@ __all__ = [
     "GroupCreate",
     "GroupCreateManagerConfig",
     "Health",
+    "HiddenReasoningMessage",
+    "HiddenReasoningMessageState",
     "HttpValidationError",
     "Identity",
     "IdentityCreate",
