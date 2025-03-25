@@ -11,8 +11,6 @@ import pydantic
 class CoreMemoryBlockSchema(UncheckedBaseModel):
     created_at: str
     description: typing.Optional[str] = None
-    identities: typing.List[typing.Optional[typing.Any]]
-    is_deleted: bool
     is_template: bool
     label: str
     limit: int

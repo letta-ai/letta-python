@@ -4,6 +4,4 @@ import typing
 from ...types.completion_create_params_non_streaming import CompletionCreateParamsNonStreaming
 from ...types.completion_create_params_streaming import CompletionCreateParamsStreaming
 
-CreateVoiceChatCompletionsRequestBody = typing.Union[
-    CompletionCreateParamsNonStreaming, CompletionCreateParamsStreaming
-]
+CreateVoiceChatCompletionsRequest = typing.Union[CompletionCreateParamsNonStreaming, CompletionCreateParamsStreaming]

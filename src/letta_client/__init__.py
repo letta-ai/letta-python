@@ -636,7 +636,7 @@ from .tools import (
     ListMcpServersResponseValue,
 )
 from .version import __version__
-from .voice import CreateVoiceChatCompletionsRequestBody
+from .voice import CreateVoiceChatCompletionsRequest
 
 __all__ = [
     "ActionModel",
@@ -918,7 +918,7 @@ __all__ = [
     "CoreMemoryBlockSchema",
     "CreateAgentRequestToolRulesItem",
     "CreateBlock",
-    "CreateVoiceChatCompletionsRequestBody",
+    "CreateVoiceChatCompletionsRequest",
     "DeleteMcpServerResponseItem",
     "DynamicManager",
     "E2BSandboxConfig",

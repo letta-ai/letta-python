@@ -13,7 +13,6 @@ class ToolSchema(UncheckedBaseModel):
     args_json_schema: typing.Optional[typing.Any] = None
     created_at: str
     description: str
-    is_deleted: bool
     json_schema: ToolJsonSchema
     name: str
     return_char_limit: int

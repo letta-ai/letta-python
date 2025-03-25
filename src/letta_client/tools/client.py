@@ -659,16 +659,12 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def list_composio_apps(
-        self, *, user_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[AppModel]:
+    def list_composio_apps(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[AppModel]:
         """
         Get a list of all Composio apps
 
         Parameters
         ----------
-        user_id : typing.Optional[str]
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -689,9 +685,6 @@ class ToolsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/tools/composio/apps",
             method="GET",
-            headers={
-                "user-id": str(user_id) if user_id is not None else None,
-            },
             request_options=request_options,
         )
         try:
@@ -835,15 +828,13 @@ class ToolsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def list_mcp_servers(
-        self, *, user_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Dict[str, ListMcpServersResponseValue]:
         """
         Get a list of all configured MCP servers
 
         Parameters
         ----------
-        user_id : typing.Optional[str]
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -864,9 +855,6 @@ class ToolsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/tools/mcp/servers",
             method="GET",
-            headers={
-                "user-id": str(user_id) if user_id is not None else None,
-            },
             request_options=request_options,
         )
         try:
@@ -1836,15 +1824,13 @@ class AsyncToolsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def list_composio_apps(
-        self, *, user_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[AppModel]:
         """
         Get a list of all Composio apps
 
         Parameters
         ----------
-        user_id : typing.Optional[str]
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1873,9 +1859,6 @@ class AsyncToolsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/tools/composio/apps",
             method="GET",
-            headers={
-                "user-id": str(user_id) if user_id is not None else None,
-            },
             request_options=request_options,
         )
         try:
@@ -2035,15 +2018,13 @@ class AsyncToolsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def list_mcp_servers(
-        self, *, user_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Dict[str, ListMcpServersResponseValue]:
         """
         Get a list of all configured MCP servers
 
         Parameters
         ----------
-        user_id : typing.Optional[str]
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2072,9 +2053,6 @@ class AsyncToolsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/tools/mcp/servers",
             method="GET",
-            headers={
-                "user-id": str(user_id) if user_id is not None else None,
-            },
             request_options=request_options,
         )
         try:

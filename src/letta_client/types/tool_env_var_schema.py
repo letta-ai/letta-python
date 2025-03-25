@@ -9,7 +9,6 @@ import pydantic
 class ToolEnvVarSchema(UncheckedBaseModel):
     created_at: str
     description: typing.Optional[str] = None
-    is_deleted: bool
     key: str
     updated_at: str
     value: str

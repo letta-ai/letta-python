@@ -22,9 +22,6 @@ class AgentSchema(UncheckedBaseModel):
     created_at: str
     description: typing.Optional[str] = None
     embedding_config: EmbeddingConfig
-    groups: typing.List[typing.Optional[typing.Any]]
-    identities: typing.List[typing.Optional[typing.Any]]
-    is_deleted: bool
     llm_config: LlmConfig
     message_buffer_autoclear: bool
     messages: typing.List[MessageSchema]

@@ -9,7 +9,7 @@ import pydantic
 class FileFile(UncheckedBaseModel):
     file_data: typing.Optional[str] = None
     file_id: typing.Optional[str] = None
-    filename: typing.Optional[str] = None
+    file_name: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
