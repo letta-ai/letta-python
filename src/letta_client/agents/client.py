@@ -719,6 +719,8 @@ class AgentsClient:
         base_template_id: typing.Optional[str] = OMIT,
         identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
+        model: typing.Optional[str] = OMIT,
+        embedding: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -782,6 +784,12 @@ class AgentsClient:
         message_buffer_autoclear : typing.Optional[bool]
             If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
 
+        model : typing.Optional[str]
+            The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
+
+        embedding : typing.Optional[str]
+            The embedding configuration handle used by the agent, specified in the format provider/model-name.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -829,6 +837,8 @@ class AgentsClient:
                 "base_template_id": base_template_id,
                 "identity_ids": identity_ids,
                 "message_buffer_autoclear": message_buffer_autoclear,
+                "model": model,
+                "embedding": embedding,
             },
             headers={
                 "content-type": "application/json",
@@ -1863,6 +1873,8 @@ class AsyncAgentsClient:
         base_template_id: typing.Optional[str] = OMIT,
         identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
+        model: typing.Optional[str] = OMIT,
+        embedding: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1926,6 +1938,12 @@ class AsyncAgentsClient:
         message_buffer_autoclear : typing.Optional[bool]
             If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
 
+        model : typing.Optional[str]
+            The LLM configuration handle used by the agent, specified in the format provider/model-name, as an alternative to specifying llm_config.
+
+        embedding : typing.Optional[str]
+            The embedding configuration handle used by the agent, specified in the format provider/model-name.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1981,6 +1999,8 @@ class AsyncAgentsClient:
                 "base_template_id": base_template_id,
                 "identity_ids": identity_ids,
                 "message_buffer_autoclear": message_buffer_autoclear,
+                "model": model,
+                "embedding": embedding,
             },
             headers={
                 "content-type": "application/json",
