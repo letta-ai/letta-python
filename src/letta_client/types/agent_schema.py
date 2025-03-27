@@ -10,7 +10,7 @@ import typing_extensions
 from ..core.serialization import FieldMetadata
 from .tag_schema import TagSchema
 from .tool_env_var_schema import ToolEnvVarSchema
-from .tool_rule_schema import ToolRuleSchema
+from .agent_schema_tool_rules_item import AgentSchemaToolRulesItem
 from .tool_schema import ToolSchema
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
@@ -33,7 +33,7 @@ class AgentSchema(UncheckedBaseModel):
     system: str
     tags: typing.List[TagSchema]
     tool_exec_environment_variables: typing.List[ToolEnvVarSchema]
-    tool_rules: typing.List[ToolRuleSchema]
+    tool_rules: typing.List[AgentSchemaToolRulesItem]
     tools: typing.List[ToolSchema]
     updated_at: str
     version: str

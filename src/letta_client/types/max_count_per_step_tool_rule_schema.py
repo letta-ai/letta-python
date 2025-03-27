@@ -6,9 +6,10 @@ import typing
 import pydantic
 
 
-class ToolRuleSchema(UncheckedBaseModel):
+class MaxCountPerStepToolRuleSchema(UncheckedBaseModel):
     tool_name: str
     type: str
+    max_count_limit: int
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
