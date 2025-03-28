@@ -10,7 +10,6 @@ import pydantic
 class MessageSchema(UncheckedBaseModel):
     created_at: str
     group_id: typing.Optional[str] = None
-    in_context: bool
     model: typing.Optional[str] = None
     name: typing.Optional[str] = None
     role: str

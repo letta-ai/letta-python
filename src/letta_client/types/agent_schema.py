@@ -24,6 +24,7 @@ class AgentSchema(UncheckedBaseModel):
     embedding_config: EmbeddingConfig
     llm_config: LlmConfig
     message_buffer_autoclear: bool
+    in_context_message_indices: typing.List[int]
     messages: typing.List[MessageSchema]
     metadata: typing_extensions.Annotated[
         typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
