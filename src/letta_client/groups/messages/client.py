@@ -13,12 +13,11 @@ from ...core.api_error import ApiError
 from ...types.message_create import MessageCreate
 from ...types.letta_response import LettaResponse
 from ...core.serialization import convert_and_respect_annotation_metadata
-from .types.messages_modify_request import MessagesModifyRequest
-from .types.messages_modify_response import MessagesModifyResponse
 from .types.letta_streaming_response import LettaStreamingResponse
 import httpx_sse
 import json
-from ...types.run import Run
+from .types.messages_modify_request import MessagesModifyRequest
+from .types.messages_modify_response import MessagesModifyResponse
 from ...core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -31,12 +30,11 @@ class MessagesClient:
 
     def list(
         self,
-        agent_id: str,
+        group_id: str,
         *,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        group_id: typing.Optional[str] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
         assistant_message_tool_kwarg: typing.Optional[str] = None,
@@ -47,7 +45,7 @@ class MessagesClient:
 
         Parameters
         ----------
-        agent_id : str
+        group_id : str
 
         after : typing.Optional[str]
             Message after which to retrieve the returned messages.
@@ -57,9 +55,6 @@ class MessagesClient:
 
         limit : typing.Optional[int]
             Maximum number of messages to retrieve.
-
-        group_id : typing.Optional[str]
-            Group ID to filter messages by.
 
         use_assistant_message : typing.Optional[bool]
             Whether to use assistant messages
@@ -85,18 +80,17 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.messages.list(
-            agent_id="agent_id",
+        client.groups.messages.list(
+            group_id="group_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages",
+            f"v1/groups/{jsonable_encoder(group_id)}/messages",
             method="GET",
             params={
                 "after": after,
                 "before": before,
                 "limit": limit,
-                "group_id": group_id,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -129,7 +123,7 @@ class MessagesClient:
 
     def create(
         self,
-        agent_id: str,
+        group_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
         use_assistant_message: typing.Optional[bool] = OMIT,
@@ -138,12 +132,12 @@ class MessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaResponse:
         """
-        Process a user message and return the agent's response.
-        This endpoint accepts a message from a user and processes it through the agent.
+        Process a user message and return the group's response.
+        This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
 
         Parameters
         ----------
-        agent_id : str
+        group_id : str
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
@@ -172,8 +166,8 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.messages.create(
-            agent_id="agent_id",
+        client.groups.messages.create(
+            group_id="group_id",
             messages=[
                 MessageCreate(
                     role="user",
@@ -187,7 +181,7 @@ class MessagesClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages",
+            f"v1/groups/{jsonable_encoder(group_id)}/messages",
             method="POST",
             json={
                 "messages": convert_and_respect_annotation_metadata(
@@ -224,84 +218,9 @@ class MessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def modify(
-        self,
-        agent_id: str,
-        message_id: str,
-        *,
-        request: MessagesModifyRequest,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> MessagesModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        message_id : str
-
-        request : MessagesModifyRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        MessagesModifyResponse
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta, UpdateSystemMessage
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.messages.modify(
-            agent_id="agent_id",
-            message_id="message_id",
-            request=UpdateSystemMessage(
-                content="content",
-            ),
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages/{jsonable_encoder(message_id)}",
-            method="PATCH",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=MessagesModifyRequest, direction="write"
-            ),
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MessagesModifyResponse,
-                    construct_type(
-                        type_=MessagesModifyResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     def create_stream(
         self,
-        agent_id: str,
+        group_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
         use_assistant_message: typing.Optional[bool] = OMIT,
@@ -311,13 +230,13 @@ class MessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[LettaStreamingResponse]:
         """
-        Process a user message and return the agent's response.
-        This endpoint accepts a message from a user and processes it through the agent.
+        Process a user message and return the group's responses.
+        This endpoint accepts a message from a user and processes it through agents in the group based on the specified pattern.
         It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
 
         Parameters
         ----------
-        agent_id : str
+        group_id : str
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
@@ -349,8 +268,8 @@ class MessagesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        response = client.agents.messages.create_stream(
-            agent_id="agent_id",
+        response = client.groups.messages.create_stream(
+            group_id="group_id",
             messages=[
                 MessageCreate(
                     role="user",
@@ -366,7 +285,7 @@ class MessagesClient:
             yield chunk
         """
         with self._client_wrapper.httpx_client.stream(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages/stream",
+            f"v1/groups/{jsonable_encoder(group_id)}/messages/stream",
             method="POST",
             json={
                 "messages": convert_and_respect_annotation_metadata(
@@ -411,85 +330,63 @@ class MessagesClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_async(
+    def modify(
         self,
-        agent_id: str,
+        group_id: str,
+        message_id: str,
         *,
-        messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        request: MessagesModifyRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Run:
+    ) -> MessagesModifyResponse:
         """
-        Asynchronously process a user message and return a run object.
-        The actual processing happens in the background, and the status can be checked using the run ID.
+        Update the details of a message associated with an agent.
 
         Parameters
         ----------
-        agent_id : str
+        group_id : str
 
-        messages : typing.Sequence[MessageCreate]
-            The messages to be sent to the agent.
+        message_id : str
 
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
+        request : MessagesModifyRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Run
+        MessagesModifyResponse
             Successful Response
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate, TextContent
+        from letta_client import Letta, UpdateSystemMessage
 
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.messages.create_async(
-            agent_id="agent_id",
-            messages=[
-                MessageCreate(
-                    role="user",
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
-                )
-            ],
+        client.groups.messages.modify(
+            group_id="group_id",
+            message_id="message_id",
+            request=UpdateSystemMessage(
+                content="content",
+            ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
-            method="POST",
-            json={
-                "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
-                ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
+            f"v1/groups/{jsonable_encoder(group_id)}/messages/{jsonable_encoder(message_id)}",
+            method="PATCH",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=MessagesModifyRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    Run,
+                    MessagesModifyResponse,
                     construct_type(
-                        type_=Run,  # type: ignore
+                        type_=MessagesModifyResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -515,12 +412,11 @@ class AsyncMessagesClient:
 
     async def list(
         self,
-        agent_id: str,
+        group_id: str,
         *,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        group_id: typing.Optional[str] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
         assistant_message_tool_kwarg: typing.Optional[str] = None,
@@ -531,7 +427,7 @@ class AsyncMessagesClient:
 
         Parameters
         ----------
-        agent_id : str
+        group_id : str
 
         after : typing.Optional[str]
             Message after which to retrieve the returned messages.
@@ -541,9 +437,6 @@ class AsyncMessagesClient:
 
         limit : typing.Optional[int]
             Maximum number of messages to retrieve.
-
-        group_id : typing.Optional[str]
-            Group ID to filter messages by.
 
         use_assistant_message : typing.Optional[bool]
             Whether to use assistant messages
@@ -574,21 +467,20 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.list(
-                agent_id="agent_id",
+            await client.groups.messages.list(
+                group_id="group_id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages",
+            f"v1/groups/{jsonable_encoder(group_id)}/messages",
             method="GET",
             params={
                 "after": after,
                 "before": before,
                 "limit": limit,
-                "group_id": group_id,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -621,7 +513,7 @@ class AsyncMessagesClient:
 
     async def create(
         self,
-        agent_id: str,
+        group_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
         use_assistant_message: typing.Optional[bool] = OMIT,
@@ -630,12 +522,12 @@ class AsyncMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaResponse:
         """
-        Process a user message and return the agent's response.
-        This endpoint accepts a message from a user and processes it through the agent.
+        Process a user message and return the group's response.
+        This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
 
         Parameters
         ----------
-        agent_id : str
+        group_id : str
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
@@ -669,8 +561,8 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.create(
-                agent_id="agent_id",
+            await client.groups.messages.create(
+                group_id="group_id",
                 messages=[
                     MessageCreate(
                         role="user",
@@ -687,7 +579,7 @@ class AsyncMessagesClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages",
+            f"v1/groups/{jsonable_encoder(group_id)}/messages",
             method="POST",
             json={
                 "messages": convert_and_respect_annotation_metadata(
@@ -724,92 +616,9 @@ class AsyncMessagesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def modify(
-        self,
-        agent_id: str,
-        message_id: str,
-        *,
-        request: MessagesModifyRequest,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> MessagesModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        message_id : str
-
-        request : MessagesModifyRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        MessagesModifyResponse
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta, UpdateSystemMessage
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.messages.modify(
-                agent_id="agent_id",
-                message_id="message_id",
-                request=UpdateSystemMessage(
-                    content="content",
-                ),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages/{jsonable_encoder(message_id)}",
-            method="PATCH",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=MessagesModifyRequest, direction="write"
-            ),
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    MessagesModifyResponse,
-                    construct_type(
-                        type_=MessagesModifyResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     async def create_stream(
         self,
-        agent_id: str,
+        group_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
         use_assistant_message: typing.Optional[bool] = OMIT,
@@ -819,13 +628,13 @@ class AsyncMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[LettaStreamingResponse]:
         """
-        Process a user message and return the agent's response.
-        This endpoint accepts a message from a user and processes it through the agent.
+        Process a user message and return the group's responses.
+        This endpoint accepts a message from a user and processes it through agents in the group based on the specified pattern.
         It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
 
         Parameters
         ----------
-        agent_id : str
+        group_id : str
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
@@ -862,8 +671,8 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            response = await client.agents.messages.create_stream(
-                agent_id="agent_id",
+            response = await client.groups.messages.create_stream(
+                group_id="group_id",
                 messages=[
                     MessageCreate(
                         role="user",
@@ -882,7 +691,7 @@ class AsyncMessagesClient:
         asyncio.run(main())
         """
         async with self._client_wrapper.httpx_client.stream(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages/stream",
+            f"v1/groups/{jsonable_encoder(group_id)}/messages/stream",
             method="POST",
             json={
                 "messages": convert_and_respect_annotation_metadata(
@@ -927,49 +736,38 @@ class AsyncMessagesClient:
                 raise ApiError(status_code=_response.status_code, body=_response.text)
             raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def create_async(
+    async def modify(
         self,
-        agent_id: str,
+        group_id: str,
+        message_id: str,
         *,
-        messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        request: MessagesModifyRequest,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Run:
+    ) -> MessagesModifyResponse:
         """
-        Asynchronously process a user message and return a run object.
-        The actual processing happens in the background, and the status can be checked using the run ID.
+        Update the details of a message associated with an agent.
 
         Parameters
         ----------
-        agent_id : str
+        group_id : str
 
-        messages : typing.Sequence[MessageCreate]
-            The messages to be sent to the agent.
+        message_id : str
 
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
+        request : MessagesModifyRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        Run
+        MessagesModifyResponse
             Successful Response
 
         Examples
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate, TextContent
+        from letta_client import AsyncLetta, UpdateSystemMessage
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -977,43 +775,32 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.create_async(
-                agent_id="agent_id",
-                messages=[
-                    MessageCreate(
-                        role="user",
-                        content=[
-                            TextContent(
-                                text="text",
-                            )
-                        ],
-                    )
-                ],
+            await client.groups.messages.modify(
+                group_id="group_id",
+                message_id="message_id",
+                request=UpdateSystemMessage(
+                    content="content",
+                ),
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
-            method="POST",
-            json={
-                "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
-                ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
+            f"v1/groups/{jsonable_encoder(group_id)}/messages/{jsonable_encoder(message_id)}",
+            method="PATCH",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=MessagesModifyRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    Run,
+                    MessagesModifyResponse,
                     construct_type(
-                        type_=Run,  # type: ignore
+                        type_=MessagesModifyResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -2,6 +2,7 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
+from .messages.client import MessagesClient
 from ..types.manager_type import ManagerType
 from ..core.request_options import RequestOptions
 from ..types.group import Group
@@ -10,13 +11,12 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from ..types.group_create_manager_config import GroupCreateManagerConfig
+from .types.group_create_manager_config import GroupCreateManagerConfig
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
-from ..types.letta_message_union import LettaMessageUnion
-from ..types.message_create import MessageCreate
-from ..types.letta_response import LettaResponse
+from .types.group_update_manager_config import GroupUpdateManagerConfig
 from ..core.client_wrapper import AsyncClientWrapper
+from .messages.client import AsyncMessagesClient
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -25,8 +25,9 @@ OMIT = typing.cast(typing.Any, ...)
 class GroupsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+        self.messages = MessagesClient(client_wrapper=self._client_wrapper)
 
-    def list_groups(
+    def list(
         self,
         *,
         manager_type: typing.Optional[ManagerType] = None,
@@ -71,7 +72,7 @@ class GroupsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.groups.list_groups()
+        client.groups.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/groups/",
@@ -109,7 +110,7 @@ class GroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_group(
+    def create(
         self,
         *,
         agent_ids: typing.Sequence[str],
@@ -149,7 +150,7 @@ class GroupsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.groups.create_group(
+        client.groups.create(
             agent_ids=["agent_ids"],
             description="description",
         )
@@ -165,6 +166,7 @@ class GroupsClient:
                 ),
             },
             headers={
+                "content-type": "application/json",
                 "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
@@ -194,13 +196,70 @@ class GroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def upsert_group(
+    def retrieve(self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Group:
+        """
+        Retrieve the group by id.
+
+        Parameters
+        ----------
+        group_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Group
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.groups.retrieve(
+            group_id="group_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/groups/{jsonable_encoder(group_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Group,
+                    construct_type(
+                        type_=Group,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def modify_group(
         self,
+        group_id: str,
         *,
-        agent_ids: typing.Sequence[str],
-        description: str,
         project: typing.Optional[str] = None,
-        manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
+        agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
@@ -208,15 +267,17 @@ class GroupsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Sequence[str]
-
-
-        description : str
-
+        group_id : str
 
         project : typing.Optional[str]
 
-        manager_config : typing.Optional[GroupCreateManagerConfig]
+        agent_ids : typing.Optional[typing.Sequence[str]]
+
+
+        description : typing.Optional[str]
+
+
+        manager_config : typing.Optional[GroupUpdateManagerConfig]
 
 
         request_options : typing.Optional[RequestOptions]
@@ -234,22 +295,22 @@ class GroupsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.groups.upsert_group(
-            agent_ids=["agent_ids"],
-            description="description",
+        client.groups.modify_group(
+            group_id="group_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/groups/",
+            f"v1/groups/{jsonable_encoder(group_id)}",
             method="PUT",
             json={
                 "agent_ids": agent_ids,
                 "description": description,
                 "manager_config": convert_and_respect_annotation_metadata(
-                    object_=manager_config, annotation=GroupCreateManagerConfig, direction="write"
+                    object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
                 ),
             },
             headers={
+                "content-type": "application/json",
                 "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
@@ -279,7 +340,7 @@ class GroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete_group(
+    def delete(
         self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
@@ -304,7 +365,7 @@ class GroupsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.groups.delete_group(
+        client.groups.delete(
             group_id="group_id",
         )
         """
@@ -337,49 +398,59 @@ class GroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def list_group_messages(
-        self,
-        group_id: str,
-        *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        use_assistant_message: typing.Optional[bool] = None,
-        assistant_message_tool_name: typing.Optional[str] = None,
-        assistant_message_tool_kwarg: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[LettaMessageUnion]:
+    def modify(self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Retrieve message history for an agent.
-
         Parameters
         ----------
         group_id : str
-
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
-        before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
-
-        limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
-
-        use_assistant_message : typing.Optional[bool]
-            Whether to use assistant messages
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[LettaMessageUnion]
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.groups.modify(
+            group_id="group_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/groups/{jsonable_encoder(group_id)}",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def reset_messages(
+        self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
+        """
+        Delete the group messages for all agents that are part of the multi-agent group.
+
+        Parameters
+        ----------
+        group_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -389,229 +460,14 @@ class GroupsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.groups.list_group_messages(
+        client.groups.reset_messages(
             group_id="group_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/groups/{jsonable_encoder(group_id)}/messages",
-            method="GET",
-            params={
-                "after": after,
-                "before": before,
-                "limit": limit,
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
+            f"v1/groups/{jsonable_encoder(group_id)}/reset-messages",
+            method="PATCH",
             request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[LettaMessageUnion],
-                    construct_type(
-                        type_=typing.List[LettaMessageUnion],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def send_group_message(
-        self,
-        group_id: str,
-        *,
-        agent_id: str,
-        messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaResponse:
-        """
-        Process a user message and return the group's response.
-        This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
-
-        Parameters
-        ----------
-        group_id : str
-
-        agent_id : str
-
-        messages : typing.Sequence[MessageCreate]
-            The messages to be sent to the agent.
-
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        LettaResponse
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta, MessageCreate, TextContent
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.groups.send_group_message(
-            group_id="group_id",
-            agent_id="agent_id",
-            messages=[
-                MessageCreate(
-                    role="user",
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
-                )
-            ],
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/groups/{jsonable_encoder(group_id)}/messages",
-            method="POST",
-            params={
-                "agent_id": agent_id,
-            },
-            json={
-                "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
-                ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    LettaResponse,
-                    construct_type(
-                        type_=LettaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def send_group_message_streaming(
-        self,
-        group_id: str,
-        *,
-        messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
-        stream_tokens: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
-        """
-        Process a user message and return the group's responses.
-        This endpoint accepts a message from a user and processes it through agents in the group based on the specified pattern.
-        It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
-
-        Parameters
-        ----------
-        group_id : str
-
-        messages : typing.Sequence[MessageCreate]
-            The messages to be sent to the agent.
-
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
-
-        stream_tokens : typing.Optional[bool]
-            Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.Optional[typing.Any]
-            Successful response
-
-        Examples
-        --------
-        from letta_client import Letta, MessageCreate, TextContent
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.groups.send_group_message_streaming(
-            group_id="group_id",
-            messages=[
-                MessageCreate(
-                    role="user",
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
-                )
-            ],
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/groups/{jsonable_encoder(group_id)}/messages/stream",
-            method="POST",
-            json={
-                "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
-                ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                "stream_tokens": stream_tokens,
-            },
-            request_options=request_options,
-            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -641,8 +497,9 @@ class GroupsClient:
 class AsyncGroupsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+        self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
 
-    async def list_groups(
+    async def list(
         self,
         *,
         manager_type: typing.Optional[ManagerType] = None,
@@ -692,7 +549,7 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.groups.list_groups()
+            await client.groups.list()
 
 
         asyncio.run(main())
@@ -733,7 +590,7 @@ class AsyncGroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def create_group(
+    async def create(
         self,
         *,
         agent_ids: typing.Sequence[str],
@@ -778,7 +635,7 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.groups.create_group(
+            await client.groups.create(
                 agent_ids=["agent_ids"],
                 description="description",
             )
@@ -797,6 +654,7 @@ class AsyncGroupsClient:
                 ),
             },
             headers={
+                "content-type": "application/json",
                 "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
@@ -826,13 +684,78 @@ class AsyncGroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def upsert_group(
+    async def retrieve(self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Group:
+        """
+        Retrieve the group by id.
+
+        Parameters
+        ----------
+        group_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Group
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.groups.retrieve(
+                group_id="group_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/groups/{jsonable_encoder(group_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Group,
+                    construct_type(
+                        type_=Group,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def modify_group(
         self,
+        group_id: str,
         *,
-        agent_ids: typing.Sequence[str],
-        description: str,
         project: typing.Optional[str] = None,
-        manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
+        agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
@@ -840,15 +763,17 @@ class AsyncGroupsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Sequence[str]
-
-
-        description : str
-
+        group_id : str
 
         project : typing.Optional[str]
 
-        manager_config : typing.Optional[GroupCreateManagerConfig]
+        agent_ids : typing.Optional[typing.Sequence[str]]
+
+
+        description : typing.Optional[str]
+
+
+        manager_config : typing.Optional[GroupUpdateManagerConfig]
 
 
         request_options : typing.Optional[RequestOptions]
@@ -871,25 +796,25 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.groups.upsert_group(
-                agent_ids=["agent_ids"],
-                description="description",
+            await client.groups.modify_group(
+                group_id="group_id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/groups/",
+            f"v1/groups/{jsonable_encoder(group_id)}",
             method="PUT",
             json={
                 "agent_ids": agent_ids,
                 "description": description,
                 "manager_config": convert_and_respect_annotation_metadata(
-                    object_=manager_config, annotation=GroupCreateManagerConfig, direction="write"
+                    object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
                 ),
             },
             headers={
+                "content-type": "application/json",
                 "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
@@ -919,7 +844,7 @@ class AsyncGroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete_group(
+    async def delete(
         self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
@@ -949,7 +874,7 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.groups.delete_group(
+            await client.groups.delete(
                 group_id="group_id",
             )
 
@@ -985,49 +910,67 @@ class AsyncGroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def list_group_messages(
-        self,
-        group_id: str,
-        *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        use_assistant_message: typing.Optional[bool] = None,
-        assistant_message_tool_name: typing.Optional[str] = None,
-        assistant_message_tool_kwarg: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[LettaMessageUnion]:
+    async def modify(self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Retrieve message history for an agent.
-
         Parameters
         ----------
         group_id : str
-
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
-        before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
-
-        limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
-
-        use_assistant_message : typing.Optional[bool]
-            Whether to use assistant messages
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[LettaMessageUnion]
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.groups.modify(
+                group_id="group_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/groups/{jsonable_encoder(group_id)}",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def reset_messages(
+        self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
+        """
+        Delete the group messages for all agents that are part of the multi-agent group.
+
+        Parameters
+        ----------
+        group_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -1042,7 +985,7 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.groups.list_group_messages(
+            await client.groups.reset_messages(
                 group_id="group_id",
             )
 
@@ -1050,240 +993,9 @@ class AsyncGroupsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/groups/{jsonable_encoder(group_id)}/messages",
-            method="GET",
-            params={
-                "after": after,
-                "before": before,
-                "limit": limit,
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
+            f"v1/groups/{jsonable_encoder(group_id)}/reset-messages",
+            method="PATCH",
             request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[LettaMessageUnion],
-                    construct_type(
-                        type_=typing.List[LettaMessageUnion],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def send_group_message(
-        self,
-        group_id: str,
-        *,
-        agent_id: str,
-        messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> LettaResponse:
-        """
-        Process a user message and return the group's response.
-        This endpoint accepts a message from a user and processes it through through agents in the group based on the specified pattern
-
-        Parameters
-        ----------
-        group_id : str
-
-        agent_id : str
-
-        messages : typing.Sequence[MessageCreate]
-            The messages to be sent to the agent.
-
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        LettaResponse
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta, MessageCreate, TextContent
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.groups.send_group_message(
-                group_id="group_id",
-                agent_id="agent_id",
-                messages=[
-                    MessageCreate(
-                        role="user",
-                        content=[
-                            TextContent(
-                                text="text",
-                            )
-                        ],
-                    )
-                ],
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/groups/{jsonable_encoder(group_id)}/messages",
-            method="POST",
-            params={
-                "agent_id": agent_id,
-            },
-            json={
-                "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
-                ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    LettaResponse,
-                    construct_type(
-                        type_=LettaResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def send_group_message_streaming(
-        self,
-        group_id: str,
-        *,
-        messages: typing.Sequence[MessageCreate],
-        use_assistant_message: typing.Optional[bool] = OMIT,
-        assistant_message_tool_name: typing.Optional[str] = OMIT,
-        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
-        stream_tokens: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.Optional[typing.Any]:
-        """
-        Process a user message and return the group's responses.
-        This endpoint accepts a message from a user and processes it through agents in the group based on the specified pattern.
-        It will stream the steps of the response always, and stream the tokens if 'stream_tokens' is set to True.
-
-        Parameters
-        ----------
-        group_id : str
-
-        messages : typing.Sequence[MessageCreate]
-            The messages to be sent to the agent.
-
-        use_assistant_message : typing.Optional[bool]
-            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
-
-        assistant_message_tool_name : typing.Optional[str]
-            The name of the designated message tool.
-
-        assistant_message_tool_kwarg : typing.Optional[str]
-            The name of the message argument in the designated message tool.
-
-        stream_tokens : typing.Optional[bool]
-            Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.Optional[typing.Any]
-            Successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta, MessageCreate, TextContent
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.groups.send_group_message_streaming(
-                group_id="group_id",
-                messages=[
-                    MessageCreate(
-                        role="user",
-                        content=[
-                            TextContent(
-                                text="text",
-                            )
-                        ],
-                    )
-                ],
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/groups/{jsonable_encoder(group_id)}/messages/stream",
-            method="POST",
-            json={
-                "messages": convert_and_respect_annotation_metadata(
-                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
-                ),
-                "use_assistant_message": use_assistant_message,
-                "assistant_message_tool_name": assistant_message_tool_name,
-                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                "stream_tokens": stream_tokens,
-            },
-            request_options=request_options,
-            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:

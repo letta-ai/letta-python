@@ -93,8 +93,6 @@ from .types import (
     FunctionOutput,
     FunctionTool,
     Group,
-    GroupCreate,
-    GroupCreateManagerConfig,
     Health,
     HiddenReasoningMessage,
     HiddenReasoningMessageState,
@@ -244,6 +242,7 @@ from .agents import (
 )
 from .client import AsyncLetta, Letta
 from .environment import LettaEnvironment
+from .groups import GroupCreateManagerConfig, GroupUpdateManagerConfig
 from .templates import TemplatesCreateAgentsResponse
 from .tools import (
     AddMcpServerRequest,
@@ -360,8 +359,8 @@ __all__ = [
     "FunctionOutput",
     "FunctionTool",
     "Group",
-    "GroupCreate",
     "GroupCreateManagerConfig",
+    "GroupUpdateManagerConfig",
     "Health",
     "HiddenReasoningMessage",
     "HiddenReasoningMessageState",
