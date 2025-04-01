@@ -28,6 +28,11 @@ class Group(UncheckedBaseModel):
     
     """
 
+    shared_block_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    
+    """
+
     manager_agent_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     
@@ -39,6 +44,21 @@ class Group(UncheckedBaseModel):
     """
 
     max_turns: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    
+    """
+
+    background_agents_interval: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    
+    """
+
+    turns_counter: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    
+    """
+
+    last_processed_message_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     
     """

@@ -2329,6 +2329,14 @@ client.agents.create()
 <dl>
 <dd>
 
+**enable_sleeptime:** `typing.Optional[bool]` — If set to True, memory management will move to a background agent thread.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -2856,6 +2864,14 @@ client.agents.modify(
 <dd>
 
 **embedding:** `typing.Optional[str]` — The embedding configuration handle used by the agent, specified in the format provider/model-name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_sleeptime:** `typing.Optional[bool]` — If set to True, memory management will move to a background agent thread.
     
 </dd>
 </dl>
@@ -3423,6 +3439,14 @@ client.groups.create(
 <dl>
 <dd>
 
+**shared_block_ids:** `typing.Optional[typing.Sequence[str]]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -3588,6 +3612,14 @@ client.groups.modify_group(
 <dd>
 
 **manager_config:** `typing.Optional[GroupUpdateManagerConfig]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shared_block_ids:** `typing.Optional[typing.Sequence[str]]` — 
     
 </dd>
 </dl>

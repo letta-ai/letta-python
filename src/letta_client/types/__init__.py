@@ -18,6 +18,7 @@ from .audio import Audio
 from .auth_request import AuthRequest
 from .auth_response import AuthResponse
 from .auth_scheme_field import AuthSchemeField
+from .background_manager import BackgroundManager
 from .base_tool_rule_schema import BaseToolRuleSchema
 from .block import Block
 from .block_update import BlockUpdate
@@ -234,6 +235,7 @@ __all__ = [
     "AuthRequest",
     "AuthResponse",
     "AuthSchemeField",
+    "BackgroundManager",
     "BaseToolRuleSchema",
     "Block",
     "BlockUpdate",

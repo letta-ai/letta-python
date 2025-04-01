@@ -44,6 +44,11 @@ class LettaUsageStatistics(UncheckedBaseModel):
     The messages generated per step
     """
 
+    run_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    The background task run IDs associated with the agent interaction
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

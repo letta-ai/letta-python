@@ -117,6 +117,7 @@ class GroupsClient:
         description: str,
         project: typing.Optional[str] = None,
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
+        shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
@@ -133,6 +134,9 @@ class GroupsClient:
         project : typing.Optional[str]
 
         manager_config : typing.Optional[GroupCreateManagerConfig]
+
+
+        shared_block_ids : typing.Optional[typing.Sequence[str]]
 
 
         request_options : typing.Optional[RequestOptions]
@@ -164,6 +168,7 @@ class GroupsClient:
                 "manager_config": convert_and_respect_annotation_metadata(
                     object_=manager_config, annotation=GroupCreateManagerConfig, direction="write"
                 ),
+                "shared_block_ids": shared_block_ids,
             },
             headers={
                 "content-type": "application/json",
@@ -260,6 +265,7 @@ class GroupsClient:
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         description: typing.Optional[str] = OMIT,
         manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
+        shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
@@ -278,6 +284,9 @@ class GroupsClient:
 
 
         manager_config : typing.Optional[GroupUpdateManagerConfig]
+
+
+        shared_block_ids : typing.Optional[typing.Sequence[str]]
 
 
         request_options : typing.Optional[RequestOptions]
@@ -308,6 +317,7 @@ class GroupsClient:
                 "manager_config": convert_and_respect_annotation_metadata(
                     object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
                 ),
+                "shared_block_ids": shared_block_ids,
             },
             headers={
                 "content-type": "application/json",
@@ -597,6 +607,7 @@ class AsyncGroupsClient:
         description: str,
         project: typing.Optional[str] = None,
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
+        shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
@@ -613,6 +624,9 @@ class AsyncGroupsClient:
         project : typing.Optional[str]
 
         manager_config : typing.Optional[GroupCreateManagerConfig]
+
+
+        shared_block_ids : typing.Optional[typing.Sequence[str]]
 
 
         request_options : typing.Optional[RequestOptions]
@@ -652,6 +666,7 @@ class AsyncGroupsClient:
                 "manager_config": convert_and_respect_annotation_metadata(
                     object_=manager_config, annotation=GroupCreateManagerConfig, direction="write"
                 ),
+                "shared_block_ids": shared_block_ids,
             },
             headers={
                 "content-type": "application/json",
@@ -756,6 +771,7 @@ class AsyncGroupsClient:
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         description: typing.Optional[str] = OMIT,
         manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
+        shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
@@ -774,6 +790,9 @@ class AsyncGroupsClient:
 
 
         manager_config : typing.Optional[GroupUpdateManagerConfig]
+
+
+        shared_block_ids : typing.Optional[typing.Sequence[str]]
 
 
         request_options : typing.Optional[RequestOptions]
@@ -812,6 +831,7 @@ class AsyncGroupsClient:
                 "manager_config": convert_and_respect_annotation_metadata(
                     object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
                 ),
+                "shared_block_ids": shared_block_ids,
             },
             headers={
                 "content-type": "application/json",
