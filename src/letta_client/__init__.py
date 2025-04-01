@@ -232,9 +232,10 @@ from . import (
 )
 from .agents import (
     AgentsSearchRequestSearchItem,
-    AgentsSearchRequestSearchItemField,
     AgentsSearchRequestSearchItemOne,
     AgentsSearchRequestSearchItemOneOperator,
+    AgentsSearchRequestSearchItemOperator,
+    AgentsSearchRequestSearchItemTwo,
     AgentsSearchRequestSearchItemZero,
     AgentsSearchResponse,
     CreateAgentRequestToolRulesItem,
@@ -266,9 +267,10 @@ __all__ = [
     "AgentStateToolRulesItem",
     "AgentType",
     "AgentsSearchRequestSearchItem",
-    "AgentsSearchRequestSearchItemField",
     "AgentsSearchRequestSearchItemOne",
     "AgentsSearchRequestSearchItemOneOperator",
+    "AgentsSearchRequestSearchItemOperator",
+    "AgentsSearchRequestSearchItemTwo",
     "AgentsSearchRequestSearchItemZero",
     "AgentsSearchResponse",
     "AppAuthScheme",

@@ -2,9 +2,10 @@
 
 from .types import (
     AgentsSearchRequestSearchItem,
-    AgentsSearchRequestSearchItemField,
     AgentsSearchRequestSearchItemOne,
     AgentsSearchRequestSearchItemOneOperator,
+    AgentsSearchRequestSearchItemOperator,
+    AgentsSearchRequestSearchItemTwo,
     AgentsSearchRequestSearchItemZero,
     AgentsSearchResponse,
     CreateAgentRequestToolRulesItem,
@@ -17,9 +18,10 @@ from .templates import TemplatesCreateResponse, TemplatesMigrateResponse
 
 __all__ = [
     "AgentsSearchRequestSearchItem",
-    "AgentsSearchRequestSearchItemField",
     "AgentsSearchRequestSearchItemOne",
     "AgentsSearchRequestSearchItemOneOperator",
+    "AgentsSearchRequestSearchItemOperator",
+    "AgentsSearchRequestSearchItemTwo",
     "AgentsSearchRequestSearchItemZero",
     "AgentsSearchResponse",
     "CreateAgentRequestToolRulesItem",

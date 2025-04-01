@@ -6,7 +6,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class AgentsSearchRequestSearchItemField(UncheckedBaseModel):
+class AgentsSearchRequestSearchItemTwo(UncheckedBaseModel):
     field: typing.Literal["tags"] = "tags"
     operator: typing.Literal["contains"] = "contains"
     value: typing.List[str]
