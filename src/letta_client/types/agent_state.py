@@ -154,6 +154,11 @@ class AgentState(UncheckedBaseModel):
     If set to True, the agent will not remember previous messages (though the agent will still retain state via core memory blocks and archival/recall memory). Not recommended unless you have an advanced use case.
     """
 
+    enable_sleeptime: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, memory management will move to a background agent thread.
+    """
+
     multi_agent_group: typing.Optional[Group] = pydantic.Field(default=None)
     """
     The multi-agent group that this agent manages
