@@ -2501,6 +2501,14 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
+**strip_messages:** `typing.Optional[bool]` — If set to True, strips all messages from the agent before importing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

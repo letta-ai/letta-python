@@ -513,6 +513,7 @@ class AgentsClient:
         append_copy_suffix: typing.Optional[bool] = None,
         override_existing_tools: typing.Optional[bool] = None,
         project_id: typing.Optional[str] = None,
+        strip_messages: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -531,6 +532,9 @@ class AgentsClient:
 
         project_id : typing.Optional[str]
             The project ID to associate the uploaded agent with.
+
+        strip_messages : typing.Optional[bool]
+            If set to True, strips all messages from the agent before importing.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -556,6 +560,7 @@ class AgentsClient:
                 "append_copy_suffix": append_copy_suffix,
                 "override_existing_tools": override_existing_tools,
                 "project_id": project_id,
+                "strip_messages": strip_messages,
             },
             data={},
             files={
@@ -1653,6 +1658,7 @@ class AsyncAgentsClient:
         append_copy_suffix: typing.Optional[bool] = None,
         override_existing_tools: typing.Optional[bool] = None,
         project_id: typing.Optional[str] = None,
+        strip_messages: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1671,6 +1677,9 @@ class AsyncAgentsClient:
 
         project_id : typing.Optional[str]
             The project ID to associate the uploaded agent with.
+
+        strip_messages : typing.Optional[bool]
+            If set to True, strips all messages from the agent before importing.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1704,6 +1713,7 @@ class AsyncAgentsClient:
                 "append_copy_suffix": append_copy_suffix,
                 "override_existing_tools": override_existing_tools,
                 "project_id": project_id,
+                "strip_messages": strip_messages,
             },
             data={},
             files={
