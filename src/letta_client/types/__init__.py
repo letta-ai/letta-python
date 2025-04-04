@@ -18,7 +18,6 @@ from .audio import Audio
 from .auth_request import AuthRequest
 from .auth_response import AuthResponse
 from .auth_scheme_field import AuthSchemeField
-from .background_manager import BackgroundManager
 from .base_tool_rule_schema import BaseToolRuleSchema
 from .block import Block
 from .block_update import BlockUpdate
@@ -172,6 +171,7 @@ from .sandbox_environment_variable import SandboxEnvironmentVariable
 from .sandbox_environment_variable_create import SandboxEnvironmentVariableCreate
 from .sandbox_environment_variable_update import SandboxEnvironmentVariableUpdate
 from .sandbox_type import SandboxType
+from .sleeptime_manager import SleeptimeManager
 from .source import Source
 from .sse_server_config import SseServerConfig
 from .stdio_server_config import StdioServerConfig
@@ -235,7 +235,6 @@ __all__ = [
     "AuthRequest",
     "AuthResponse",
     "AuthSchemeField",
-    "BackgroundManager",
     "BaseToolRuleSchema",
     "Block",
     "BlockUpdate",
@@ -385,6 +384,7 @@ __all__ = [
     "SandboxEnvironmentVariableCreate",
     "SandboxEnvironmentVariableUpdate",
     "SandboxType",
+    "SleeptimeManager",
     "Source",
     "SseServerConfig",
     "StdioServerConfig",

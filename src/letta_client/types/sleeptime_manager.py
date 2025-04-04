@@ -6,14 +6,14 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
-class BackgroundManager(UncheckedBaseModel):
-    manager_type: typing.Literal["background"] = "background"
+class SleeptimeManager(UncheckedBaseModel):
+    manager_type: typing.Literal["sleeptime"] = "sleeptime"
     manager_agent_id: str = pydantic.Field()
     """
     
     """
 
-    background_agents_frequency: typing.Optional[int] = pydantic.Field(default=None)
+    sleeptime_agent_frequency: typing.Optional[int] = pydantic.Field(default=None)
     """
     
     """

@@ -2,4 +2,4 @@
 
 import typing
 
-ManagerType = typing.Union[typing.Literal["round_robin", "supervisor", "dynamic", "background", "swarm"], typing.Any]
+ManagerType = typing.Union[typing.Literal["round_robin", "supervisor", "dynamic", "sleeptime", "swarm"], typing.Any]

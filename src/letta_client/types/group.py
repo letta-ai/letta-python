@@ -48,7 +48,7 @@ class Group(UncheckedBaseModel):
     
     """
 
-    background_agents_frequency: typing.Optional[int] = pydantic.Field(default=None)
+    sleeptime_agent_frequency: typing.Optional[int] = pydantic.Field(default=None)
     """
     
     """
