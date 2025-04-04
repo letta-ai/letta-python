@@ -21,12 +21,20 @@ class RunsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list_runs(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Run]:
+    def list_runs(
+        self,
+        *,
+        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Run]:
         """
         List all runs.
 
         Parameters
         ----------
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The unique identifier of the agent associated with the run.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -47,6 +55,9 @@ class RunsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/runs/",
             method="GET",
+            params={
+                "agent_ids": agent_ids,
+            },
             request_options=request_options,
         )
         try:
@@ -73,12 +84,20 @@ class RunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def list_active_runs(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Run]:
+    def list_active_runs(
+        self,
+        *,
+        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Run]:
         """
         List all active runs.
 
         Parameters
         ----------
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The unique identifier of the agent associated with the run.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -99,6 +118,9 @@ class RunsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/runs/active",
             method="GET",
+            params={
+                "agent_ids": agent_ids,
+            },
             request_options=request_options,
         )
         try:
@@ -494,12 +516,20 @@ class AsyncRunsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list_runs(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Run]:
+    async def list_runs(
+        self,
+        *,
+        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Run]:
         """
         List all runs.
 
         Parameters
         ----------
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The unique identifier of the agent associated with the run.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -528,6 +558,9 @@ class AsyncRunsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/runs/",
             method="GET",
+            params={
+                "agent_ids": agent_ids,
+            },
             request_options=request_options,
         )
         try:
@@ -554,12 +587,20 @@ class AsyncRunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def list_active_runs(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Run]:
+    async def list_active_runs(
+        self,
+        *,
+        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Run]:
         """
         List all active runs.
 
         Parameters
         ----------
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The unique identifier of the agent associated with the run.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -588,6 +629,9 @@ class AsyncRunsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/runs/active",
             method="GET",
+            params={
+                "agent_ids": agent_ids,
+            },
             request_options=request_options,
         )
         try:

@@ -5620,7 +5620,7 @@ client.providers.modify_provider(
 </details>
 
 ## Runs
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_runs</a>()</code></summary>
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_runs</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5668,6 +5668,14 @@ client.runs.list_runs()
 <dl>
 <dd>
 
+**agent_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — The unique identifier of the agent associated with the run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -5680,7 +5688,7 @@ client.runs.list_runs()
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_active_runs</a>()</code></summary>
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_active_runs</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5724,6 +5732,14 @@ client.runs.list_active_runs()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**agent_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — The unique identifier of the agent associated with the run.
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
