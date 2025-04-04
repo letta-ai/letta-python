@@ -25,6 +25,7 @@ class HiddenReasoningMessage(UncheckedBaseModel):
     id: str
     date: dt.datetime
     name: typing.Optional[str] = None
+    otid: typing.Optional[str] = None
     message_type: typing.Literal["hidden_reasoning_message"] = "hidden_reasoning_message"
     state: HiddenReasoningMessageState
     hidden_reasoning: typing.Optional[str] = None

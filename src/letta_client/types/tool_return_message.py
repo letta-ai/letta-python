@@ -26,6 +26,7 @@ class ToolReturnMessage(UncheckedBaseModel):
     id: str
     date: dt.datetime
     name: typing.Optional[str] = None
+    otid: typing.Optional[str] = None
     message_type: typing.Literal["tool_return_message"] = "tool_return_message"
     tool_return: str
     status: ToolReturnMessageStatus

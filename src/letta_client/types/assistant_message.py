@@ -22,6 +22,7 @@ class AssistantMessage(UncheckedBaseModel):
     id: str
     date: dt.datetime
     name: typing.Optional[str] = None
+    otid: typing.Optional[str] = None
     message_type: typing.Literal["assistant_message"] = "assistant_message"
     content: AssistantMessageContent = pydantic.Field()
     """
