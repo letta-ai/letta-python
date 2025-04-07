@@ -13,6 +13,7 @@ AppAuthSchemeAuthMode = typing.Union[
         "GOOGLE_SERVICE_ACCOUNT",
         "GOOGLEADS_AUTH",
         "NO_AUTH",
+        "COMPOSIO_LINK",
         "CALCOM_AUTH",
     ],
     typing.Any,

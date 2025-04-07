@@ -3,16 +3,5 @@
 import typing
 
 ChatCompletionAudioParamVoice = typing.Union[
-    str,
-    typing.Literal["alloy"],
-    typing.Literal["ash"],
-    typing.Literal["ballad"],
-    typing.Literal["coral"],
-    typing.Literal["echo"],
-    typing.Literal["fable"],
-    typing.Literal["onyx"],
-    typing.Literal["nova"],
-    typing.Literal["sage"],
-    typing.Literal["shimmer"],
-    typing.Literal["verse"],
+    typing.Literal["alloy", "ash", "ballad", "coral", "echo", "sage", "shimmer", "verse"], typing.Any
 ]
