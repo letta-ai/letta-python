@@ -257,99 +257,6 @@ class GroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def modify_group(
-        self,
-        group_id: str,
-        *,
-        project: typing.Optional[str] = None,
-        agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        description: typing.Optional[str] = OMIT,
-        manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
-        shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> Group:
-        """
-        Create a new multi-agent group with the specified configuration.
-
-        Parameters
-        ----------
-        group_id : str
-
-        project : typing.Optional[str]
-
-        agent_ids : typing.Optional[typing.Sequence[str]]
-
-
-        description : typing.Optional[str]
-
-
-        manager_config : typing.Optional[GroupUpdateManagerConfig]
-
-
-        shared_block_ids : typing.Optional[typing.Sequence[str]]
-
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Group
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.groups.modify_group(
-            group_id="group_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/groups/{jsonable_encoder(group_id)}",
-            method="PUT",
-            json={
-                "agent_ids": agent_ids,
-                "description": description,
-                "manager_config": convert_and_respect_annotation_metadata(
-                    object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
-                ),
-                "shared_block_ids": shared_block_ids,
-            },
-            headers={
-                "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Group,
-                    construct_type(
-                        type_=Group,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     def delete(
         self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
@@ -408,18 +315,45 @@ class GroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def modify(self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def modify(
+        self,
+        group_id: str,
+        *,
+        project: typing.Optional[str] = None,
+        agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
+        shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Group:
         """
+        Create a new multi-agent group with the specified configuration.
+
         Parameters
         ----------
         group_id : str
+
+        project : typing.Optional[str]
+
+        agent_ids : typing.Optional[typing.Sequence[str]]
+
+
+        description : typing.Optional[str]
+
+
+        manager_config : typing.Optional[GroupUpdateManagerConfig]
+
+
+        shared_block_ids : typing.Optional[typing.Sequence[str]]
+
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        Group
+            Successful Response
 
         Examples
         --------
@@ -435,11 +369,40 @@ class GroupsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/groups/{jsonable_encoder(group_id)}",
             method="PATCH",
+            json={
+                "agent_ids": agent_ids,
+                "description": description,
+                "manager_config": convert_and_respect_annotation_metadata(
+                    object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
+                ),
+                "shared_block_ids": shared_block_ids,
+            },
+            headers={
+                "content-type": "application/json",
+                "X-Project": str(project) if project is not None else None,
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    Group,
+                    construct_type(
+                        type_=Group,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -763,107 +726,6 @@ class AsyncGroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def modify_group(
-        self,
-        group_id: str,
-        *,
-        project: typing.Optional[str] = None,
-        agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        description: typing.Optional[str] = OMIT,
-        manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
-        shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> Group:
-        """
-        Create a new multi-agent group with the specified configuration.
-
-        Parameters
-        ----------
-        group_id : str
-
-        project : typing.Optional[str]
-
-        agent_ids : typing.Optional[typing.Sequence[str]]
-
-
-        description : typing.Optional[str]
-
-
-        manager_config : typing.Optional[GroupUpdateManagerConfig]
-
-
-        shared_block_ids : typing.Optional[typing.Sequence[str]]
-
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Group
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.groups.modify_group(
-                group_id="group_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/groups/{jsonable_encoder(group_id)}",
-            method="PUT",
-            json={
-                "agent_ids": agent_ids,
-                "description": description,
-                "manager_config": convert_and_respect_annotation_metadata(
-                    object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
-                ),
-                "shared_block_ids": shared_block_ids,
-            },
-            headers={
-                "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Group,
-                    construct_type(
-                        type_=Group,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     async def delete(
         self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
@@ -930,18 +792,45 @@ class AsyncGroupsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def modify(self, group_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def modify(
+        self,
+        group_id: str,
+        *,
+        project: typing.Optional[str] = None,
+        agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        description: typing.Optional[str] = OMIT,
+        manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
+        shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Group:
         """
+        Create a new multi-agent group with the specified configuration.
+
         Parameters
         ----------
         group_id : str
+
+        project : typing.Optional[str]
+
+        agent_ids : typing.Optional[typing.Sequence[str]]
+
+
+        description : typing.Optional[str]
+
+
+        manager_config : typing.Optional[GroupUpdateManagerConfig]
+
+
+        shared_block_ids : typing.Optional[typing.Sequence[str]]
+
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        Group
+            Successful Response
 
         Examples
         --------
@@ -965,11 +854,40 @@ class AsyncGroupsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/groups/{jsonable_encoder(group_id)}",
             method="PATCH",
+            json={
+                "agent_ids": agent_ids,
+                "description": description,
+                "manager_config": convert_and_respect_annotation_metadata(
+                    object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
+                ),
+                "shared_block_ids": shared_block_ids,
+            },
+            headers={
+                "content-type": "application/json",
+                "X-Project": str(project) if project is not None else None,
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    Group,
+                    construct_type(
+                        type_=Group,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

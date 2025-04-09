@@ -3537,116 +3537,6 @@ client.groups.retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">modify_group</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a new multi-agent group with the specified configuration.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.groups.modify_group(
-    group_id="group_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**group_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**project:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**agent_ids:** `typing.Optional[typing.Sequence[str]]` — 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**description:** `typing.Optional[str]` — 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**manager_config:** `typing.Optional[GroupUpdateManagerConfig]` — 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shared_block_ids:** `typing.Optional[typing.Sequence[str]]` — 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
@@ -3721,6 +3611,20 @@ client.groups.delete(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new multi-agent group with the specified configuration.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -3754,6 +3658,46 @@ client.groups.modify(
 <dd>
 
 **group_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_ids:** `typing.Optional[typing.Sequence[str]]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**manager_config:** `typing.Optional[GroupUpdateManagerConfig]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shared_block_ids:** `typing.Optional[typing.Sequence[str]]` — 
     
 </dd>
 </dl>
