@@ -6,8 +6,15 @@ from ...types.child_tool_rule import ChildToolRule
 from ...types.continue_tool_rule import ContinueToolRule
 from ...types.terminal_tool_rule import TerminalToolRule
 from ...types.max_count_per_step_tool_rule import MaxCountPerStepToolRule
+from ...types.parent_tool_rule import ParentToolRule
 from ...types.init_tool_rule import InitToolRule
 
 UpdateAgentToolRulesItem = typing.Union[
-    ConditionalToolRule, ChildToolRule, ContinueToolRule, TerminalToolRule, MaxCountPerStepToolRule, InitToolRule
+    ConditionalToolRule,
+    ChildToolRule,
+    ContinueToolRule,
+    TerminalToolRule,
+    MaxCountPerStepToolRule,
+    ParentToolRule,
+    InitToolRule,
 ]

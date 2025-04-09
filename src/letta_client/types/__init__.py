@@ -150,6 +150,7 @@ from .organization_create import OrganizationCreate
 from .organization_update import OrganizationUpdate
 from .parameter_properties import ParameterProperties
 from .parameters_schema import ParametersSchema
+from .parent_tool_rule import ParentToolRule
 from .passage import Passage
 from .pip_requirement import PipRequirement
 from .provider import Provider
@@ -363,6 +364,7 @@ __all__ = [
     "OrganizationUpdate",
     "ParameterProperties",
     "ParametersSchema",
+    "ParentToolRule",
     "Passage",
     "PipRequirement",
     "Provider",
