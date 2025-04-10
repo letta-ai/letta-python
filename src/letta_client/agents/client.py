@@ -25,7 +25,6 @@ from ..types.llm_config import LlmConfig
 from ..types.embedding_config import EmbeddingConfig
 from ..types.message_create import MessageCreate
 from ..core.serialization import convert_and_respect_annotation_metadata
-from ..types.agent_schema import AgentSchema
 from ..core.jsonable_encoder import jsonable_encoder
 from .. import core
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
@@ -450,9 +449,9 @@ class AgentsClient:
 
     def export_agent_serialized(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AgentSchema:
+    ) -> typing.Optional[typing.Any]:
         """
-        Export the serialized JSON representation of an agent.
+        Export the serialized JSON representation of an agent, formatted with indentation.
 
         Parameters
         ----------
@@ -463,7 +462,7 @@ class AgentsClient:
 
         Returns
         -------
-        AgentSchema
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -485,9 +484,9 @@ class AgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    AgentSchema,
+                    typing.Optional[typing.Any],
                     construct_type(
-                        type_=AgentSchema,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1587,9 +1586,9 @@ class AsyncAgentsClient:
 
     async def export_agent_serialized(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AgentSchema:
+    ) -> typing.Optional[typing.Any]:
         """
-        Export the serialized JSON representation of an agent.
+        Export the serialized JSON representation of an agent, formatted with indentation.
 
         Parameters
         ----------
@@ -1600,7 +1599,7 @@ class AsyncAgentsClient:
 
         Returns
         -------
-        AgentSchema
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -1630,9 +1629,9 @@ class AsyncAgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    AgentSchema,
+                    typing.Optional[typing.Any],
                     construct_type(
-                        type_=AgentSchema,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

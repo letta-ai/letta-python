@@ -2361,7 +2361,7 @@ client.agents.create()
 <dl>
 <dd>
 
-Export the serialized JSON representation of an agent.
+Export the serialized JSON representation of an agent, formatted with indentation.
 </dd>
 </dl>
 </dd>
