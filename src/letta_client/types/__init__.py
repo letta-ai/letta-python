@@ -80,6 +80,7 @@ from .continue_tool_rule import ContinueToolRule
 from .core_memory_block_schema import CoreMemoryBlockSchema
 from .create_block import CreateBlock
 from .dynamic_manager import DynamicManager
+from .dynamic_manager_update import DynamicManagerUpdate
 from .e_2_b_sandbox_config import E2BSandboxConfig
 from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
@@ -162,6 +163,7 @@ from .response_format_json_object import ResponseFormatJsonObject
 from .response_format_json_schema import ResponseFormatJsonSchema
 from .response_format_text import ResponseFormatText
 from .round_robin_manager import RoundRobinManager
+from .round_robin_manager_update import RoundRobinManagerUpdate
 from .run import Run
 from .sandbox_config import SandboxConfig
 from .sandbox_config_create import SandboxConfigCreate
@@ -173,11 +175,13 @@ from .sandbox_environment_variable_create import SandboxEnvironmentVariableCreat
 from .sandbox_environment_variable_update import SandboxEnvironmentVariableUpdate
 from .sandbox_type import SandboxType
 from .sleeptime_manager import SleeptimeManager
+from .sleeptime_manager_update import SleeptimeManagerUpdate
 from .source import Source
 from .sse_server_config import SseServerConfig
 from .stdio_server_config import StdioServerConfig
 from .step import Step
 from .supervisor_manager import SupervisorManager
+from .supervisor_manager_update import SupervisorManagerUpdate
 from .system_message import SystemMessage
 from .tag_schema import TagSchema
 from .terminal_tool_rule import TerminalToolRule
@@ -298,6 +302,7 @@ __all__ = [
     "CoreMemoryBlockSchema",
     "CreateBlock",
     "DynamicManager",
+    "DynamicManagerUpdate",
     "E2BSandboxConfig",
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
@@ -376,6 +381,7 @@ __all__ = [
     "ResponseFormatJsonSchema",
     "ResponseFormatText",
     "RoundRobinManager",
+    "RoundRobinManagerUpdate",
     "Run",
     "SandboxConfig",
     "SandboxConfigCreate",
@@ -387,11 +393,13 @@ __all__ = [
     "SandboxEnvironmentVariableUpdate",
     "SandboxType",
     "SleeptimeManager",
+    "SleeptimeManagerUpdate",
     "Source",
     "SseServerConfig",
     "StdioServerConfig",
     "Step",
     "SupervisorManager",
+    "SupervisorManagerUpdate",
     "SystemMessage",
     "TagSchema",
     "TerminalToolRule",

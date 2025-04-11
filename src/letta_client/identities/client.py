@@ -526,6 +526,79 @@ class IdentitiesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def upsert_identity_properties(
+        self,
+        identity_id: str,
+        *,
+        request: typing.Sequence[IdentityProperty],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Parameters
+        ----------
+        identity_id : str
+
+        request : typing.Sequence[IdentityProperty]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import IdentityProperty, Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.identities.upsert_identity_properties(
+            identity_id="identity_id",
+            request=[
+                IdentityProperty(
+                    key="key",
+                    value="value",
+                    type="string",
+                )
+            ],
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/identities/{jsonable_encoder(identity_id)}/properties",
+            method="PUT",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=typing.Sequence[IdentityProperty], direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    construct_type(
+                        type_=typing.Optional[typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncIdentitiesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1064,6 +1137,87 @@ class AsyncIdentitiesClient:
                     Identity,
                     construct_type(
                         type_=Identity,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def upsert_identity_properties(
+        self,
+        identity_id: str,
+        *,
+        request: typing.Sequence[IdentityProperty],
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Parameters
+        ----------
+        identity_id : str
+
+        request : typing.Sequence[IdentityProperty]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta, IdentityProperty
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.identities.upsert_identity_properties(
+                identity_id="identity_id",
+                request=[
+                    IdentityProperty(
+                        key="key",
+                        value="value",
+                        type="string",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/identities/{jsonable_encoder(identity_id)}/properties",
+            method="PUT",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=typing.Sequence[IdentityProperty], direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    construct_type(
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

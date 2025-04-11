@@ -4362,6 +4362,77 @@ client.identities.modify(
 </dl>
 </details>
 
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">upsert_identity_properties</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import IdentityProperty, Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.identities.upsert_identity_properties(
+    identity_id="identity_id",
+    request=[
+        IdentityProperty(
+            key="key",
+            value="value",
+            type="string",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Sequence[IdentityProperty]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Models
 <details><summary><code>client.models.<a href="src/letta_client/models/client.py">list_llms</a>()</code></summary>
 <dl>
