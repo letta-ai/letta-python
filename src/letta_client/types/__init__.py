@@ -98,7 +98,6 @@ from .hidden_reasoning_message import HiddenReasoningMessage
 from .hidden_reasoning_message_state import HiddenReasoningMessageState
 from .http_validation_error import HttpValidationError
 from .identity import Identity
-from .identity_create import IdentityCreate
 from .identity_property import IdentityProperty
 from .identity_property_type import IdentityPropertyType
 from .identity_property_value import IdentityPropertyValue
@@ -320,7 +319,6 @@ __all__ = [
     "HiddenReasoningMessageState",
     "HttpValidationError",
     "Identity",
-    "IdentityCreate",
     "IdentityProperty",
     "IdentityPropertyType",
     "IdentityPropertyValue",

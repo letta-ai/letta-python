@@ -184,6 +184,7 @@ class IdentitiesClient:
                 ),
             },
             headers={
+                "content-type": "application/json",
                 "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
@@ -288,6 +289,7 @@ class IdentitiesClient:
                 ),
             },
             headers={
+                "content-type": "application/json",
                 "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
@@ -781,6 +783,7 @@ class AsyncIdentitiesClient:
                 ),
             },
             headers={
+                "content-type": "application/json",
                 "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
@@ -893,6 +896,7 @@ class AsyncIdentitiesClient:
                 ),
             },
             headers={
+                "content-type": "application/json",
                 "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
