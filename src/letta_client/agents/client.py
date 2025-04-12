@@ -447,9 +447,7 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def export_agent_serialized(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    def export_agent_serialized(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
 
@@ -462,7 +460,7 @@ class AgentsClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        str
             Successful Response
 
         Examples
@@ -484,9 +482,9 @@ class AgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    str,
                     construct_type(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=str,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1586,7 +1584,7 @@ class AsyncAgentsClient:
 
     async def export_agent_serialized(
         self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
 
@@ -1599,7 +1597,7 @@ class AsyncAgentsClient:
 
         Returns
         -------
-        typing.Optional[typing.Any]
+        str
             Successful Response
 
         Examples
@@ -1629,9 +1627,9 @@ class AsyncAgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    typing.Optional[typing.Any],
+                    str,
                     construct_type(
-                        type_=typing.Optional[typing.Any],  # type: ignore
+                        type_=str,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
