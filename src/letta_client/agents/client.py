@@ -30,6 +30,7 @@ from .. import core
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
 import datetime as dt
 from ..types.passage import Passage
+from ..types.group import Group
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .types.agents_search_response import AgentsSearchResponse
 from ..core.client_wrapper import AsyncClientWrapper
@@ -1071,6 +1072,74 @@ class AgentsClient:
                     AgentState,
                     construct_type(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def list_agent_groups(
+        self,
+        agent_id: str,
+        *,
+        manager_type: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Group]:
+        """
+        Lists the groups for an agent
+
+        Parameters
+        ----------
+        agent_id : str
+
+        manager_type : typing.Optional[str]
+            Manager type to filter groups by
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[Group]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.list_agent_groups(
+            agent_id="agent_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/groups",
+            method="GET",
+            params={
+                "manager_type": manager_type,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[Group],
+                    construct_type(
+                        type_=typing.List[Group],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2264,6 +2333,82 @@ class AsyncAgentsClient:
                     AgentState,
                     construct_type(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def list_agent_groups(
+        self,
+        agent_id: str,
+        *,
+        manager_type: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Group]:
+        """
+        Lists the groups for an agent
+
+        Parameters
+        ----------
+        agent_id : str
+
+        manager_type : typing.Optional[str]
+            Manager type to filter groups by
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[Group]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.list_agent_groups(
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/groups",
+            method="GET",
+            params={
+                "manager_type": manager_type,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[Group],
+                    construct_type(
+                        type_=typing.List[Group],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
