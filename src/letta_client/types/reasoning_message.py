@@ -25,8 +25,9 @@ class ReasoningMessage(UncheckedBaseModel):
     id: str
     date: dt.datetime
     name: typing.Optional[str] = None
-    otid: typing.Optional[str] = None
     message_type: typing.Literal["reasoning_message"] = "reasoning_message"
+    otid: typing.Optional[str] = None
+    sender_id: typing.Optional[str] = None
     source: typing.Optional[ReasoningMessageSource] = None
     reasoning: str
     signature: typing.Optional[str] = None

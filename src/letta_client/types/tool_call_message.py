@@ -22,8 +22,9 @@ class ToolCallMessage(UncheckedBaseModel):
     id: str
     date: dt.datetime
     name: typing.Optional[str] = None
-    otid: typing.Optional[str] = None
     message_type: typing.Literal["tool_call_message"] = "tool_call_message"
+    otid: typing.Optional[str] = None
+    sender_id: typing.Optional[str] = None
     tool_call: ToolCallMessageToolCall
 
     if IS_PYDANTIC_V2:

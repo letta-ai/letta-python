@@ -33,6 +33,11 @@ class MessageCreate(UncheckedBaseModel):
     The offline threading id associated with this message
     """
 
+    sender_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the sender of the message, can be an identity id or agent id
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

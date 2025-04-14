@@ -21,8 +21,9 @@ class SystemMessage(UncheckedBaseModel):
     id: str
     date: dt.datetime
     name: typing.Optional[str] = None
-    otid: typing.Optional[str] = None
     message_type: typing.Literal["system_message"] = "system_message"
+    otid: typing.Optional[str] = None
+    sender_id: typing.Optional[str] = None
     content: str = pydantic.Field()
     """
     The message content sent by the system

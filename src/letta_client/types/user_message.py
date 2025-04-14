@@ -22,8 +22,9 @@ class UserMessage(UncheckedBaseModel):
     id: str
     date: dt.datetime
     name: typing.Optional[str] = None
-    otid: typing.Optional[str] = None
     message_type: typing.Literal["user_message"] = "user_message"
+    otid: typing.Optional[str] = None
+    sender_id: typing.Optional[str] = None
     content: UserMessageContent = pydantic.Field()
     """
     The message content sent by the user (can be a string or an array of multi-modal content parts)
