@@ -121,6 +121,7 @@ from .letta_streaming_request import LettaStreamingRequest
 from .letta_usage_statistics import LettaUsageStatistics
 from .llm_config import LlmConfig
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
+from .llm_config_reasoning_effort import LlmConfigReasoningEffort
 from .local_sandbox_config import LocalSandboxConfig
 from .manager_type import ManagerType
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
@@ -342,6 +343,7 @@ __all__ = [
     "LettaUsageStatistics",
     "LlmConfig",
     "LlmConfigModelEndpointType",
+    "LlmConfigReasoningEffort",
     "LocalSandboxConfig",
     "ManagerType",
     "MaxCountPerStepToolRule",

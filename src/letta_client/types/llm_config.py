@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 import typing
+from .llm_config_reasoning_effort import LlmConfigReasoningEffort
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -70,6 +71,11 @@ class LlmConfig(UncheckedBaseModel):
     enable_reasoner: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not the model should use extended thinking if it is a 'reasoning' style model
+    """
+
+    reasoning_effort: typing.Optional[LlmConfigReasoningEffort] = pydantic.Field(default=None)
+    """
+    The reasoning effort to use when generating text reasoning models
     """
 
     max_reasoning_tokens: typing.Optional[int] = pydantic.Field(default=None)
