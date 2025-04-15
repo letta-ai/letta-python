@@ -31,6 +31,8 @@ from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
 import datetime as dt
 from ..types.passage import Passage
 from ..types.group import Group
+from ..types.letta_batch_request import LettaBatchRequest
+from ..types.letta_batch_response import LettaBatchResponse
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .types.agents_search_response import AgentsSearchResponse
 from ..core.client_wrapper import AsyncClientWrapper
@@ -1140,6 +1142,83 @@ class AgentsClient:
                     typing.List[Group],
                     construct_type(
                         type_=typing.List[Group],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def create_batch_message_request(
+        self, *, request: typing.Sequence[LettaBatchRequest], request_options: typing.Optional[RequestOptions] = None
+    ) -> LettaBatchResponse:
+        """
+        Submit a batch of agent messages for asynchronous processing.
+        Creates a job that will fan out messages to all listed agents and process them in parallel.
+
+        Parameters
+        ----------
+        request : typing.Sequence[LettaBatchRequest]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LettaBatchResponse
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.create_batch_message_request(
+            request=[
+                LettaBatchRequest(
+                    messages=[
+                        MessageCreate(
+                            role="user",
+                            content=[
+                                TextContent(
+                                    text="text",
+                                )
+                            ],
+                        )
+                    ],
+                    agent_id="agent_id",
+                )
+            ],
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/agents/messages/batches",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=typing.Sequence[LettaBatchRequest], direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    LettaBatchResponse,
+                    construct_type(
+                        type_=LettaBatchResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2409,6 +2488,96 @@ class AsyncAgentsClient:
                     typing.List[Group],
                     construct_type(
                         type_=typing.List[Group],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def create_batch_message_request(
+        self, *, request: typing.Sequence[LettaBatchRequest], request_options: typing.Optional[RequestOptions] = None
+    ) -> LettaBatchResponse:
+        """
+        Submit a batch of agent messages for asynchronous processing.
+        Creates a job that will fan out messages to all listed agents and process them in parallel.
+
+        Parameters
+        ----------
+        request : typing.Sequence[LettaBatchRequest]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LettaBatchResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import (
+            AsyncLetta,
+            LettaBatchRequest,
+            MessageCreate,
+            TextContent,
+        )
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.create_batch_message_request(
+                request=[
+                    LettaBatchRequest(
+                        messages=[
+                            MessageCreate(
+                                role="user",
+                                content=[
+                                    TextContent(
+                                        text="text",
+                                    )
+                                ],
+                            )
+                        ],
+                        agent_id="agent_id",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/agents/messages/batches",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=typing.Sequence[LettaBatchRequest], direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    LettaBatchResponse,
+                    construct_type(
+                        type_=LettaBatchResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

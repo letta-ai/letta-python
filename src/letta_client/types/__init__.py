@@ -112,6 +112,8 @@ from .job import Job
 from .job_status import JobStatus
 from .job_type import JobType
 from .json_schema import JsonSchema
+from .letta_batch_request import LettaBatchRequest
+from .letta_batch_response import LettaBatchResponse
 from .letta_message_content_union import LettaMessageContentUnion
 from .letta_message_union import LettaMessageUnion
 from .letta_request import LettaRequest
@@ -334,6 +336,8 @@ __all__ = [
     "JobStatus",
     "JobType",
     "JsonSchema",
+    "LettaBatchRequest",
+    "LettaBatchResponse",
     "LettaMessageContentUnion",
     "LettaMessageUnion",
     "LettaRequest",
