@@ -8,6 +8,7 @@ from ..core.jsonable_encoder import jsonable_encoder
 from ..core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from .types.templates_list_templates_response import TemplatesListTemplatesResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -98,6 +99,70 @@ class TemplatesClient:
                     TemplatesCreateAgentsResponse,
                     construct_type(
                         type_=TemplatesCreateAgentsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def listtemplates(
+        self,
+        *,
+        limit: typing.Optional[float] = None,
+        offset: typing.Optional[float] = None,
+        name: typing.Optional[str] = None,
+        project_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesListTemplatesResponse:
+        """
+        List all templates
+
+        Parameters
+        ----------
+        limit : typing.Optional[float]
+
+        offset : typing.Optional[float]
+
+        name : typing.Optional[str]
+
+        project_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesListTemplatesResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.templates.listtemplates()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/templates",
+            method="GET",
+            params={
+                "limit": limit,
+                "offset": offset,
+                "name": name,
+                "projectId": project_id,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    TemplatesListTemplatesResponse,
+                    construct_type(
+                        type_=TemplatesListTemplatesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -199,6 +264,78 @@ class AsyncTemplatesClient:
                     TemplatesCreateAgentsResponse,
                     construct_type(
                         type_=TemplatesCreateAgentsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def listtemplates(
+        self,
+        *,
+        limit: typing.Optional[float] = None,
+        offset: typing.Optional[float] = None,
+        name: typing.Optional[str] = None,
+        project_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesListTemplatesResponse:
+        """
+        List all templates
+
+        Parameters
+        ----------
+        limit : typing.Optional[float]
+
+        offset : typing.Optional[float]
+
+        name : typing.Optional[str]
+
+        project_id : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesListTemplatesResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.listtemplates()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/templates",
+            method="GET",
+            params={
+                "limit": limit,
+                "offset": offset,
+                "name": name,
+                "projectId": project_id,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    TemplatesListTemplatesResponse,
+                    construct_type(
+                        type_=TemplatesListTemplatesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

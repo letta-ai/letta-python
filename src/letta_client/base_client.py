@@ -20,6 +20,7 @@ from .tag.client import TagClient
 from .voice.client import VoiceClient
 from .templates.client import TemplatesClient
 from .client_side_access_tokens.client import ClientSideAccessTokensClient
+from .projects.client import ProjectsClient
 from .core.client_wrapper import AsyncClientWrapper
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
@@ -37,6 +38,7 @@ from .tag.client import AsyncTagClient
 from .voice.client import AsyncVoiceClient
 from .templates.client import AsyncTemplatesClient
 from .client_side_access_tokens.client import AsyncClientSideAccessTokensClient
+from .projects.client import AsyncProjectsClient
 
 
 class LettaBase:
@@ -113,6 +115,7 @@ class LettaBase:
         self.voice = VoiceClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = ClientSideAccessTokensClient(client_wrapper=self._client_wrapper)
+        self.projects = ProjectsClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncLettaBase:
@@ -189,6 +192,7 @@ class AsyncLettaBase:
         self.voice = AsyncVoiceClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = AsyncClientSideAccessTokensClient(client_wrapper=self._client_wrapper)
+        self.projects = AsyncProjectsClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: LettaEnvironment) -> str:

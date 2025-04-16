@@ -231,6 +231,7 @@ from . import (
     identities,
     jobs,
     models,
+    projects,
     providers,
     runs,
     sources,
@@ -262,7 +263,12 @@ from .client_side_access_tokens import (
 )
 from .environment import LettaEnvironment
 from .groups import GroupCreateManagerConfig, GroupUpdateManagerConfig
-from .templates import TemplatesCreateAgentsResponse
+from .projects import ProjectsListProjectsResponse, ProjectsListProjectsResponseProjectsItem
+from .templates import (
+    TemplatesCreateAgentsResponse,
+    TemplatesListTemplatesResponse,
+    TemplatesListTemplatesResponseTemplatesItem,
+)
 from .tools import (
     AddMcpServerRequest,
     AddMcpServerResponseItem,
@@ -454,6 +460,8 @@ __all__ = [
     "ParentToolRule",
     "Passage",
     "PipRequirement",
+    "ProjectsListProjectsResponse",
+    "ProjectsListProjectsResponseProjectsItem",
     "Provider",
     "ReasoningContent",
     "ReasoningMessage",
@@ -485,6 +493,8 @@ __all__ = [
     "SystemMessage",
     "TagSchema",
     "TemplatesCreateAgentsResponse",
+    "TemplatesListTemplatesResponse",
+    "TemplatesListTemplatesResponseTemplatesItem",
     "TerminalToolRule",
     "TextContent",
     "Tool",
@@ -532,6 +542,7 @@ __all__ = [
     "identities",
     "jobs",
     "models",
+    "projects",
     "providers",
     "runs",
     "sources",
