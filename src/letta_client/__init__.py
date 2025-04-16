@@ -19,6 +19,7 @@ from .types import (
     AuthRequest,
     AuthResponse,
     AuthSchemeField,
+    BadRequestErrorBody,
     BaseToolRuleSchema,
     Block,
     BlockUpdate,
@@ -220,10 +221,11 @@ from .types import (
     WebSearchOptionsUserLocation,
     WebSearchOptionsUserLocationApproximate,
 )
-from .errors import ConflictError, InternalServerError, NotFoundError, UnprocessableEntityError
+from .errors import BadRequestError, ConflictError, InternalServerError, NotFoundError, UnprocessableEntityError
 from . import (
     agents,
     blocks,
+    client_side_access_tokens,
     groups,
     health,
     identities,
@@ -250,6 +252,14 @@ from .agents import (
     UpdateAgentToolRulesItem,
 )
 from .client import AsyncLetta, Letta
+from .client_side_access_tokens import (
+    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem,
+    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItemAccessItem,
+    ClientSideAccessTokensCreateClientSideAccessTokenResponse,
+    ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicy,
+    ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItem,
+    ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItemAccessItem,
+)
 from .environment import LettaEnvironment
 from .groups import GroupCreateManagerConfig, GroupUpdateManagerConfig
 from .templates import TemplatesCreateAgentsResponse
@@ -291,6 +301,8 @@ __all__ = [
     "AuthRequest",
     "AuthResponse",
     "AuthSchemeField",
+    "BadRequestError",
+    "BadRequestErrorBody",
     "BaseToolRuleSchema",
     "Block",
     "BlockUpdate",
@@ -324,6 +336,12 @@ __all__ = [
     "ChatCompletionUserMessageParamContentItem",
     "ChildToolRule",
     "ChildToolRuleSchema",
+    "ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem",
+    "ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItemAccessItem",
+    "ClientSideAccessTokensCreateClientSideAccessTokenResponse",
+    "ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicy",
+    "ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItem",
+    "ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItemAccessItem",
     "CompletionCreateParamsNonStreaming",
     "CompletionCreateParamsNonStreamingFunctionCall",
     "CompletionCreateParamsNonStreamingMessagesItem",
@@ -508,6 +526,7 @@ __all__ = [
     "__version__",
     "agents",
     "blocks",
+    "client_side_access_tokens",
     "groups",
     "health",
     "identities",

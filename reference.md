@@ -6935,6 +6935,183 @@ client.templates.create_agents(
 </dl>
 </details>
 
+## ClientSideAccessTokens
+<details><summary><code>client.client_side_access_tokens.<a href="src/letta_client/client_side_access_tokens/client.py">client_side_access_tokens_create_client_side_access_token</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new client side access token with the specified configuration.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+from letta_client.client_side_access_tokens import (
+    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem,
+)
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.client_side_access_tokens.client_side_access_tokens_create_client_side_access_token(
+    policy=[
+        ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem(
+            id="id",
+            access=["read_messages"],
+        )
+    ],
+    hostname="hostname",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**policy:** `typing.Sequence[
+    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem
+]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hostname:** `str` — The hostname of the client side application. Please specify the full URL including the protocol (http or https).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expires_at:** `typing.Optional[str]` — The expiration date of the token. If not provided, the token will expire in 5 minutes
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.client_side_access_tokens.<a href="src/letta_client/client_side_access_tokens/client.py">client_side_access_tokens_delete_client_side_access_token</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a client side access token.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.client_side_access_tokens.client_side_access_tokens_delete_client_side_access_token(
+    token="token",
+    request={"key": "value"},
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**token:** `str` — The access token to delete
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Optional[typing.Any]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Agents Context
 <details><summary><code>client.agents.context.<a href="src/letta_client/agents/context/client.py">retrieve</a>(...)</code></summary>
 <dl>
