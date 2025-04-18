@@ -2,4 +2,4 @@
 
 import typing
 
-CompletionCreateParamsNonStreamingServiceTier = typing.Union[typing.Literal["auto", "default"], typing.Any]
+CompletionCreateParamsNonStreamingServiceTier = typing.Union[typing.Literal["auto", "default", "flex"], typing.Any]

@@ -4,6 +4,16 @@ import typing
 
 CompletionCreateParamsStreamingModel = typing.Union[
     str,
+    typing.Literal["gpt-4.1"],
+    typing.Literal["gpt-4.1-mini"],
+    typing.Literal["gpt-4.1-nano"],
+    typing.Literal["gpt-4.1-2025-04-14"],
+    typing.Literal["gpt-4.1-mini-2025-04-14"],
+    typing.Literal["gpt-4.1-nano-2025-04-14"],
+    typing.Literal["o4-mini"],
+    typing.Literal["o4-mini-2025-04-16"],
+    typing.Literal["o3"],
+    typing.Literal["o3-2025-04-16"],
     typing.Literal["o3-mini"],
     typing.Literal["o3-mini-2025-01-31"],
     typing.Literal["o1"],

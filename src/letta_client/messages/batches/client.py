@@ -75,7 +75,11 @@ class BatchesClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def create(
-        self, *, requests: typing.Sequence[LettaBatchRequest], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        requests: typing.Sequence[LettaBatchRequest],
+        callback_url: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> BatchJob:
         """
         Submit a batch of agent messages for asynchronous processing.
@@ -85,6 +89,9 @@ class BatchesClient:
         ----------
         requests : typing.Sequence[LettaBatchRequest]
             List of requests to be processed in batch.
+
+        callback_url : typing.Optional[str]
+            Optional URL to call via POST when the batch completes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -126,6 +133,7 @@ class BatchesClient:
                 "requests": convert_and_respect_annotation_metadata(
                     object_=requests, annotation=typing.Sequence[LettaBatchRequest], direction="write"
                 ),
+                "callback_url": callback_url,
             },
             headers={
                 "content-type": "application/json",
@@ -316,7 +324,11 @@ class AsyncBatchesClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def create(
-        self, *, requests: typing.Sequence[LettaBatchRequest], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        requests: typing.Sequence[LettaBatchRequest],
+        callback_url: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> BatchJob:
         """
         Submit a batch of agent messages for asynchronous processing.
@@ -326,6 +338,9 @@ class AsyncBatchesClient:
         ----------
         requests : typing.Sequence[LettaBatchRequest]
             List of requests to be processed in batch.
+
+        callback_url : typing.Optional[str]
+            Optional URL to call via POST when the batch completes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -380,6 +395,7 @@ class AsyncBatchesClient:
                 "requests": convert_and_respect_annotation_metadata(
                     object_=requests, annotation=typing.Sequence[LettaBatchRequest], direction="write"
                 ),
+                "callback_url": callback_url,
             },
             headers={
                 "content-type": "application/json",

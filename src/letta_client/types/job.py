@@ -61,6 +61,21 @@ class Job(UncheckedBaseModel):
     The type of the job.
     """
 
+    callback_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    If set, POST to this URL when the job completes.
+    """
+
+    callback_sent_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    Timestamp when the callback was last attempted.
+    """
+
+    callback_status_code: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    HTTP status code returned by the callback endpoint.
+    """
+
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-friendly ID of the Job

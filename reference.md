@@ -10013,6 +10013,14 @@ client.messages.batches.create(
 <dl>
 <dd>
 
+**callback_url:** `typing.Optional[str]` — Optional URL to call via POST when the batch completes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
