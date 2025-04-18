@@ -6899,7 +6899,7 @@ client.templates.listtemplates()
 <dl>
 <dd>
 
-**limit:** `typing.Optional[float]` 
+**offset:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -6907,7 +6907,7 @@ client.templates.listtemplates()
 <dl>
 <dd>
 
-**offset:** `typing.Optional[float]` 
+**limit:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -7177,7 +7177,7 @@ client.projects.listprojects()
 <dl>
 <dd>
 
-**offset:** `typing.Optional[float]` 
+**offset:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -7185,7 +7185,7 @@ client.projects.listprojects()
 <dl>
 <dd>
 
-**limit:** `typing.Optional[float]` 
+**limit:** `typing.Optional[str]` 
     
 </dd>
 </dl>

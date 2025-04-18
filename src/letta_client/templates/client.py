@@ -110,8 +110,8 @@ class TemplatesClient:
     def listtemplates(
         self,
         *,
-        limit: typing.Optional[float] = None,
-        offset: typing.Optional[float] = None,
+        offset: typing.Optional[str] = None,
+        limit: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -121,9 +121,9 @@ class TemplatesClient:
 
         Parameters
         ----------
-        limit : typing.Optional[float]
+        offset : typing.Optional[str]
 
-        offset : typing.Optional[float]
+        limit : typing.Optional[str]
 
         name : typing.Optional[str]
 
@@ -150,8 +150,8 @@ class TemplatesClient:
             "v1/templates",
             method="GET",
             params={
-                "limit": limit,
                 "offset": offset,
+                "limit": limit,
                 "name": name,
                 "projectId": project_id,
             },
@@ -275,8 +275,8 @@ class AsyncTemplatesClient:
     async def listtemplates(
         self,
         *,
-        limit: typing.Optional[float] = None,
-        offset: typing.Optional[float] = None,
+        offset: typing.Optional[str] = None,
+        limit: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -286,9 +286,9 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        limit : typing.Optional[float]
+        offset : typing.Optional[str]
 
-        offset : typing.Optional[float]
+        limit : typing.Optional[str]
 
         name : typing.Optional[str]
 
@@ -323,8 +323,8 @@ class AsyncTemplatesClient:
             "v1/templates",
             method="GET",
             params={
-                "limit": limit,
                 "offset": offset,
+                "limit": limit,
                 "name": name,
                 "projectId": project_id,
             },

@@ -18,8 +18,8 @@ class ProjectsClient:
         self,
         *,
         name: typing.Optional[str] = None,
-        offset: typing.Optional[float] = None,
-        limit: typing.Optional[float] = None,
+        offset: typing.Optional[str] = None,
+        limit: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectsListProjectsResponse:
         """
@@ -29,9 +29,9 @@ class ProjectsClient:
         ----------
         name : typing.Optional[str]
 
-        offset : typing.Optional[float]
+        offset : typing.Optional[str]
 
-        limit : typing.Optional[float]
+        limit : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -83,8 +83,8 @@ class AsyncProjectsClient:
         self,
         *,
         name: typing.Optional[str] = None,
-        offset: typing.Optional[float] = None,
-        limit: typing.Optional[float] = None,
+        offset: typing.Optional[str] = None,
+        limit: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectsListProjectsResponse:
         """
@@ -94,9 +94,9 @@ class AsyncProjectsClient:
         ----------
         name : typing.Optional[str]
 
-        offset : typing.Optional[float]
+        offset : typing.Optional[str]
 
-        limit : typing.Optional[float]
+        limit : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
