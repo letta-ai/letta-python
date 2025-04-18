@@ -17,6 +17,7 @@ from .providers.client import ProvidersClient
 from .runs.client import RunsClient
 from .steps.client import StepsClient
 from .tag.client import TagClient
+from .messages.client import MessagesClient
 from .voice.client import VoiceClient
 from .templates.client import TemplatesClient
 from .client_side_access_tokens.client import ClientSideAccessTokensClient
@@ -35,6 +36,7 @@ from .providers.client import AsyncProvidersClient
 from .runs.client import AsyncRunsClient
 from .steps.client import AsyncStepsClient
 from .tag.client import AsyncTagClient
+from .messages.client import AsyncMessagesClient
 from .voice.client import AsyncVoiceClient
 from .templates.client import AsyncTemplatesClient
 from .client_side_access_tokens.client import AsyncClientSideAccessTokensClient
@@ -112,6 +114,7 @@ class LettaBase:
         self.runs = RunsClient(client_wrapper=self._client_wrapper)
         self.steps = StepsClient(client_wrapper=self._client_wrapper)
         self.tag = TagClient(client_wrapper=self._client_wrapper)
+        self.messages = MessagesClient(client_wrapper=self._client_wrapper)
         self.voice = VoiceClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = ClientSideAccessTokensClient(client_wrapper=self._client_wrapper)
@@ -189,6 +192,7 @@ class AsyncLettaBase:
         self.runs = AsyncRunsClient(client_wrapper=self._client_wrapper)
         self.steps = AsyncStepsClient(client_wrapper=self._client_wrapper)
         self.tag = AsyncTagClient(client_wrapper=self._client_wrapper)
+        self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
         self.voice = AsyncVoiceClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = AsyncClientSideAccessTokensClient(client_wrapper=self._client_wrapper)

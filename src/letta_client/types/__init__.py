@@ -20,6 +20,7 @@ from .auth_response import AuthResponse
 from .auth_scheme_field import AuthSchemeField
 from .bad_request_error_body import BadRequestErrorBody
 from .base_tool_rule_schema import BaseToolRuleSchema
+from .batch_job import BatchJob
 from .block import Block
 from .block_update import BlockUpdate
 from .chat_completion_assistant_message_param import ChatCompletionAssistantMessageParam
@@ -114,7 +115,6 @@ from .job_status import JobStatus
 from .job_type import JobType
 from .json_schema import JsonSchema
 from .letta_batch_request import LettaBatchRequest
-from .letta_batch_response import LettaBatchResponse
 from .letta_message_content_union import LettaMessageContentUnion
 from .letta_message_union import LettaMessageUnion
 from .letta_request import LettaRequest
@@ -245,6 +245,7 @@ __all__ = [
     "AuthSchemeField",
     "BadRequestErrorBody",
     "BaseToolRuleSchema",
+    "BatchJob",
     "Block",
     "BlockUpdate",
     "ChatCompletionAssistantMessageParam",
@@ -339,7 +340,6 @@ __all__ = [
     "JobType",
     "JsonSchema",
     "LettaBatchRequest",
-    "LettaBatchResponse",
     "LettaMessageContentUnion",
     "LettaMessageUnion",
     "LettaRequest",

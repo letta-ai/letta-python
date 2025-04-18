@@ -2,4 +2,4 @@
 
 import typing
 
-JobType = typing.Union[typing.Literal["job", "run"], typing.Any]
+JobType = typing.Union[typing.Literal["job", "run", "batch"], typing.Any]

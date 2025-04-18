@@ -3239,161 +3239,6 @@ client.agents.list_agent_groups(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">create_batch_message_request</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Submit a batch of agent messages for asynchronous processing.
-Creates a job that will fan out messages to all listed agents and process them in parallel.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.create_batch_message_request(
-    request=[
-        LettaBatchRequest(
-            messages=[
-                MessageCreate(
-                    role="user",
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
-                )
-            ],
-            agent_id="agent_id",
-        )
-    ],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `typing.Sequence[LettaBatchRequest]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">retrieve_batch_message_request</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the result or current status of a previously submitted batch message request.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.retrieve_batch_message_request(
-    batch_id="batch_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**batch_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">search</a>(...)</code></summary>
 <dl>
 <dd>
@@ -6730,6 +6575,77 @@ client.tag.list_tags()
 </dl>
 </details>
 
+## Messages
+<details><summary><code>client.messages.<a href="src/letta_client/messages/client.py">cancel_batch_run</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a batch run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.messages.cancel_batch_run(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Voice
 <details><summary><code>client.voice.<a href="src/letta_client/voice/client.py">create_voice_chat_completions</a>(...)</code></summary>
 <dl>
@@ -9944,6 +9860,278 @@ client.groups.messages.modify(
 <dd>
 
 **request:** `MessagesModifyRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Messages Batches
+<details><summary><code>client.messages.batches.<a href="src/letta_client/messages/batches/client.py">list</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all batch runs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.messages.batches.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.batches.<a href="src/letta_client/messages/batches/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit a batch of agent messages for asynchronous processing.
+Creates a job that will fan out messages to all listed agents and process them in parallel.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.messages.batches.create(
+    requests=[
+        LettaBatchRequest(
+            messages=[
+                MessageCreate(
+                    role="user",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
+                )
+            ],
+            agent_id="agent_id",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests:** `typing.Sequence[LettaBatchRequest]` — List of requests to be processed in batch.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.batches.<a href="src/letta_client/messages/batches/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the status of a batch run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.messages.batches.retrieve(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.batches.<a href="src/letta_client/messages/batches/client.py">cancel</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.messages.batches.cancel(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
     
 </dd>
 </dl>
