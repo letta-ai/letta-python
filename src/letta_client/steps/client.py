@@ -116,7 +116,7 @@ class StepsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def retrieve_step(self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Step:
+    def retrieve(self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Step:
         """
         Get a step by ID.
 
@@ -139,7 +139,7 @@ class StepsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.steps.retrieve_step(
+        client.steps.retrieve(
             step_id="step_id",
         )
         """
@@ -167,6 +167,39 @@ class StepsClient:
                         ),
                     )
                 )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.steps.list()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/steps/",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -284,7 +317,7 @@ class AsyncStepsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def retrieve_step(self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Step:
+    async def retrieve(self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Step:
         """
         Get a step by ID.
 
@@ -312,7 +345,7 @@ class AsyncStepsClient:
 
 
         async def main() -> None:
-            await client.steps.retrieve_step(
+            await client.steps.retrieve(
                 step_id="step_id",
             )
 
@@ -343,6 +376,47 @@ class AsyncStepsClient:
                         ),
                     )
                 )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.steps.list()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/steps/",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

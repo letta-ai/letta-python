@@ -9,6 +9,7 @@ from .core_memory.client import CoreMemoryClient
 from .blocks.client import BlocksClient
 from .passages.client import PassagesClient
 from .messages.client import MessagesClient
+from .groups.client import GroupsClient
 from .templates.client import TemplatesClient
 from .memory_variables.client import MemoryVariablesClient
 from ..core.request_options import RequestOptions
@@ -28,9 +29,6 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
 from .. import core
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
-import datetime as dt
-from ..types.passage import Passage
-from ..types.group import Group
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .types.agents_search_response import AgentsSearchResponse
 from ..core.client_wrapper import AsyncClientWrapper
@@ -41,6 +39,7 @@ from .core_memory.client import AsyncCoreMemoryClient
 from .blocks.client import AsyncBlocksClient
 from .passages.client import AsyncPassagesClient
 from .messages.client import AsyncMessagesClient
+from .groups.client import AsyncGroupsClient
 from .templates.client import AsyncTemplatesClient
 from .memory_variables.client import AsyncMemoryVariablesClient
 
@@ -58,6 +57,7 @@ class AgentsClient:
         self.blocks = BlocksClient(client_wrapper=self._client_wrapper)
         self.passages = PassagesClient(client_wrapper=self._client_wrapper)
         self.messages = MessagesClient(client_wrapper=self._client_wrapper)
+        self.groups = GroupsClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.memory_variables = MemoryVariablesClient(client_wrapper=self._client_wrapper)
 
@@ -504,7 +504,44 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def import_agent_serialized(
+    def export(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        agent_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.export(
+            agent_id="agent_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/export",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def import_(
         self,
         *,
         file: core.File,
@@ -549,7 +586,7 @@ class AgentsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.import_agent_serialized()
+        client.agents.import_()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/agents/import",
@@ -883,281 +920,6 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def modify_passage(
-        self,
-        agent_id: str,
-        memory_id: str,
-        *,
-        id: str,
-        created_by_id: typing.Optional[str] = OMIT,
-        last_updated_by_id: typing.Optional[str] = OMIT,
-        created_at: typing.Optional[dt.datetime] = OMIT,
-        updated_at: typing.Optional[dt.datetime] = OMIT,
-        is_deleted: typing.Optional[bool] = OMIT,
-        passage_update_agent_id: typing.Optional[str] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
-        file_id: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        text: typing.Optional[str] = OMIT,
-        embedding: typing.Optional[typing.Sequence[float]] = OMIT,
-        embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[Passage]:
-        """
-        Modify a memory in the agent's archival memory store.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        memory_id : str
-
-        id : str
-            The unique identifier of the passage.
-
-        created_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        last_updated_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        created_at : typing.Optional[dt.datetime]
-            The timestamp when the object was created.
-
-        updated_at : typing.Optional[dt.datetime]
-            The timestamp when the object was last updated.
-
-        is_deleted : typing.Optional[bool]
-            Whether this passage is deleted or not.
-
-        passage_update_agent_id : typing.Optional[str]
-            The unique identifier of the agent associated with the passage.
-
-        source_id : typing.Optional[str]
-            The data source of the passage.
-
-        file_id : typing.Optional[str]
-            The unique identifier of the file associated with the passage.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the passage.
-
-        text : typing.Optional[str]
-            The text of the passage.
-
-        embedding : typing.Optional[typing.Sequence[float]]
-            The embedding of the passage.
-
-        embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the passage.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Passage]
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.modify_passage(
-            agent_id="agent_id",
-            memory_id="memory_id",
-            id="id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/archival-memory/{jsonable_encoder(memory_id)}",
-            method="PATCH",
-            json={
-                "created_by_id": created_by_id,
-                "last_updated_by_id": last_updated_by_id,
-                "created_at": created_at,
-                "updated_at": updated_at,
-                "is_deleted": is_deleted,
-                "agent_id": passage_update_agent_id,
-                "source_id": source_id,
-                "file_id": file_id,
-                "metadata_": metadata,
-                "text": text,
-                "embedding": embedding,
-                "embedding_config": convert_and_respect_annotation_metadata(
-                    object_=embedding_config, annotation=EmbeddingConfig, direction="write"
-                ),
-                "id": id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[Passage],
-                    construct_type(
-                        type_=typing.List[Passage],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def reset_messages(
-        self,
-        agent_id: str,
-        *,
-        add_default_initial_messages: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentState:
-        """
-        Resets the messages for an agent
-
-        Parameters
-        ----------
-        agent_id : str
-
-        add_default_initial_messages : typing.Optional[bool]
-            If true, adds the default initial messages after resetting.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AgentState
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.reset_messages(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/reset-messages",
-            method="PATCH",
-            params={
-                "add_default_initial_messages": add_default_initial_messages,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentState,
-                    construct_type(
-                        type_=AgentState,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def list_agent_groups(
-        self,
-        agent_id: str,
-        *,
-        manager_type: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[Group]:
-        """
-        Lists the groups for an agent
-
-        Parameters
-        ----------
-        agent_id : str
-
-        manager_type : typing.Optional[str]
-            Manager type to filter groups by
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Group]
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.list_agent_groups(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/groups",
-            method="GET",
-            params={
-                "manager_type": manager_type,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[Group],
-                    construct_type(
-                        type_=typing.List[Group],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
     def search(
         self,
         *,
@@ -1245,6 +1007,7 @@ class AsyncAgentsClient:
         self.blocks = AsyncBlocksClient(client_wrapper=self._client_wrapper)
         self.passages = AsyncPassagesClient(client_wrapper=self._client_wrapper)
         self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
+        self.groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.memory_variables = AsyncMemoryVariablesClient(client_wrapper=self._client_wrapper)
 
@@ -1717,7 +1480,52 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def import_agent_serialized(
+    async def export(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        agent_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.export(
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/export",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def import_(
         self,
         *,
         file: core.File,
@@ -1767,7 +1575,7 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.import_agent_serialized()
+            await client.agents.import_()
 
 
         asyncio.run(main())
@@ -2110,305 +1918,6 @@ class AsyncAgentsClient:
                     AgentState,
                     construct_type(
                         type_=AgentState,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def modify_passage(
-        self,
-        agent_id: str,
-        memory_id: str,
-        *,
-        id: str,
-        created_by_id: typing.Optional[str] = OMIT,
-        last_updated_by_id: typing.Optional[str] = OMIT,
-        created_at: typing.Optional[dt.datetime] = OMIT,
-        updated_at: typing.Optional[dt.datetime] = OMIT,
-        is_deleted: typing.Optional[bool] = OMIT,
-        passage_update_agent_id: typing.Optional[str] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
-        file_id: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        text: typing.Optional[str] = OMIT,
-        embedding: typing.Optional[typing.Sequence[float]] = OMIT,
-        embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[Passage]:
-        """
-        Modify a memory in the agent's archival memory store.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        memory_id : str
-
-        id : str
-            The unique identifier of the passage.
-
-        created_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        last_updated_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        created_at : typing.Optional[dt.datetime]
-            The timestamp when the object was created.
-
-        updated_at : typing.Optional[dt.datetime]
-            The timestamp when the object was last updated.
-
-        is_deleted : typing.Optional[bool]
-            Whether this passage is deleted or not.
-
-        passage_update_agent_id : typing.Optional[str]
-            The unique identifier of the agent associated with the passage.
-
-        source_id : typing.Optional[str]
-            The data source of the passage.
-
-        file_id : typing.Optional[str]
-            The unique identifier of the file associated with the passage.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the passage.
-
-        text : typing.Optional[str]
-            The text of the passage.
-
-        embedding : typing.Optional[typing.Sequence[float]]
-            The embedding of the passage.
-
-        embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the passage.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Passage]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.modify_passage(
-                agent_id="agent_id",
-                memory_id="memory_id",
-                id="id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/archival-memory/{jsonable_encoder(memory_id)}",
-            method="PATCH",
-            json={
-                "created_by_id": created_by_id,
-                "last_updated_by_id": last_updated_by_id,
-                "created_at": created_at,
-                "updated_at": updated_at,
-                "is_deleted": is_deleted,
-                "agent_id": passage_update_agent_id,
-                "source_id": source_id,
-                "file_id": file_id,
-                "metadata_": metadata,
-                "text": text,
-                "embedding": embedding,
-                "embedding_config": convert_and_respect_annotation_metadata(
-                    object_=embedding_config, annotation=EmbeddingConfig, direction="write"
-                ),
-                "id": id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[Passage],
-                    construct_type(
-                        type_=typing.List[Passage],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def reset_messages(
-        self,
-        agent_id: str,
-        *,
-        add_default_initial_messages: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentState:
-        """
-        Resets the messages for an agent
-
-        Parameters
-        ----------
-        agent_id : str
-
-        add_default_initial_messages : typing.Optional[bool]
-            If true, adds the default initial messages after resetting.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AgentState
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.reset_messages(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/reset-messages",
-            method="PATCH",
-            params={
-                "add_default_initial_messages": add_default_initial_messages,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentState,
-                    construct_type(
-                        type_=AgentState,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def list_agent_groups(
-        self,
-        agent_id: str,
-        *,
-        manager_type: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[Group]:
-        """
-        Lists the groups for an agent
-
-        Parameters
-        ----------
-        agent_id : str
-
-        manager_type : typing.Optional[str]
-            Manager type to filter groups by
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Group]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.list_agent_groups(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/groups",
-            method="GET",
-            params={
-                "manager_type": manager_type,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[Group],
-                    construct_type(
-                        type_=typing.List[Group],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

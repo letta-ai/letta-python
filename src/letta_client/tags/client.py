@@ -3,18 +3,16 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
-from ..types.llm_config import LlmConfig
-from ..core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper
 
 
-class ModelsClient:
+class TagsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[LlmConfig]:
+    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Parameters
         ----------
@@ -23,8 +21,7 @@ class ModelsClient:
 
         Returns
         -------
-        typing.List[LlmConfig]
-            Successful Response
+        None
 
         Examples
         --------
@@ -33,33 +30,27 @@ class ModelsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.models.list()
+        client.tags.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/models/",
+            "v1/tags",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[LlmConfig],
-                    construct_type(
-                        type_=typing.List[LlmConfig],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncModelsClient:
+class AsyncTagsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[LlmConfig]:
+    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Parameters
         ----------
@@ -68,8 +59,7 @@ class AsyncModelsClient:
 
         Returns
         -------
-        typing.List[LlmConfig]
-            Successful Response
+        None
 
         Examples
         --------
@@ -83,25 +73,19 @@ class AsyncModelsClient:
 
 
         async def main() -> None:
-            await client.models.list()
+            await client.tags.list()
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/models/",
+            "v1/tags",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.List[LlmConfig],
-                    construct_type(
-                        type_=typing.List[LlmConfig],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

@@ -224,8 +224,10 @@ from .types import (
 from .errors import BadRequestError, ConflictError, InternalServerError, NotFoundError, UnprocessableEntityError
 from . import (
     agents,
+    batches,
     blocks,
     client_side_access_tokens,
+    embeddings,
     groups,
     health,
     identities,
@@ -238,6 +240,7 @@ from . import (
     sources,
     steps,
     tag,
+    tags,
     templates,
     tools,
     voice,
@@ -265,11 +268,7 @@ from .client_side_access_tokens import (
 from .environment import LettaEnvironment
 from .groups import GroupCreateManagerConfig, GroupUpdateManagerConfig
 from .projects import ProjectsListProjectsResponse, ProjectsListProjectsResponseProjectsItem
-from .templates import (
-    TemplatesCreateAgentsResponse,
-    TemplatesListTemplatesResponse,
-    TemplatesListTemplatesResponseTemplatesItem,
-)
+from .templates import TemplatesListTemplatesResponse, TemplatesListTemplatesResponseTemplatesItem
 from .tools import (
     AddMcpServerRequest,
     AddMcpServerResponseItem,
@@ -493,7 +492,6 @@ __all__ = [
     "SupervisorManagerUpdate",
     "SystemMessage",
     "TagSchema",
-    "TemplatesCreateAgentsResponse",
     "TemplatesListTemplatesResponse",
     "TemplatesListTemplatesResponseTemplatesItem",
     "TerminalToolRule",
@@ -536,8 +534,10 @@ __all__ = [
     "WebSearchOptionsUserLocationApproximate",
     "__version__",
     "agents",
+    "batches",
     "blocks",
     "client_side_access_tokens",
+    "embeddings",
     "groups",
     "health",
     "identities",
@@ -550,6 +550,7 @@ __all__ = [
     "sources",
     "steps",
     "tag",
+    "tags",
     "templates",
     "tools",
     "voice",

@@ -231,7 +231,7 @@ class SourcesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_by_name(self, source_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    def retrieve_by_name(self, source_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Get a source by name
 
@@ -254,7 +254,7 @@ class SourcesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.sources.get_by_name(
+        client.sources.retrieve_by_name(
             source_name="source_name",
         )
         """
@@ -669,7 +669,9 @@ class AsyncSourcesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_by_name(self, source_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    async def retrieve_by_name(
+        self, source_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> str:
         """
         Get a source by name
 
@@ -697,7 +699,7 @@ class AsyncSourcesClient:
 
 
         async def main() -> None:
-            await client.sources.get_by_name(
+            await client.sources.retrieve_by_name(
                 source_name="source_name",
             )
 

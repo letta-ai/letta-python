@@ -586,7 +586,7 @@ client.tools.upsert(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">add_base_tool</a>()</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">upsert_base_tools</a>()</code></summary>
 <dl>
 <dd>
 
@@ -618,7 +618,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.tools.add_base_tool()
+client.tools.upsert_base_tools()
 
 ```
 </dd>
@@ -1577,7 +1577,7 @@ client.sources.modify(
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">get_by_name</a>(...)</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">retrieve_by_name</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -1609,7 +1609,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.sources.get_by_name(
+client.sources.retrieve_by_name(
     source_name="source_name",
 )
 
@@ -2419,7 +2419,63 @@ client.agents.export_agent_serialized(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">import_agent_serialized</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">export</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.export(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">import_</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2451,7 +2507,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.import_agent_serialized()
+client.agents.import_()
 
 ```
 </dd>
@@ -2880,346 +2936,6 @@ client.agents.modify(
 <dd>
 
 **enable_sleeptime:** `typing.Optional[bool]` — If set to True, memory management will move to a background agent thread.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">modify_passage</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Modify a memory in the agent's archival memory store.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.modify_passage(
-    agent_id="agent_id",
-    memory_id="memory_id",
-    id="id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**memory_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_by_id:** `typing.Optional[str]` — The id of the user that made this object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_updated_by_id:** `typing.Optional[str]` — The id of the user that made this object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_at:** `typing.Optional[dt.datetime]` — The timestamp when the object was created.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**updated_at:** `typing.Optional[dt.datetime]` — The timestamp when the object was last updated.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_deleted:** `typing.Optional[bool]` — Whether this passage is deleted or not.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**passage_update_agent_id:** `typing.Optional[str]` — The unique identifier of the agent associated with the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source_id:** `typing.Optional[str]` — The data source of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**file_id:** `typing.Optional[str]` — The unique identifier of the file associated with the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**text:** `typing.Optional[str]` — The text of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**embedding:** `typing.Optional[typing.Sequence[float]]` — The embedding of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**embedding_config:** `typing.Optional[EmbeddingConfig]` — The embedding configuration used by the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">reset_messages</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Resets the messages for an agent
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.reset_messages(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**add_default_initial_messages:** `typing.Optional[bool]` — If true, adds the default initial messages after resetting.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">list_agent_groups</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Lists the groups for an agent
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.list_agent_groups(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**manager_type:** `typing.Optional[str]` — Manager type to filter groups by
     
 </dd>
 </dl>
@@ -3776,76 +3492,6 @@ client.groups.modify(
 <dd>
 
 **shared_block_ids:** `typing.Optional[typing.Sequence[str]]` — 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.groups.<a href="src/letta_client/groups/client.py">reset_messages</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete the group messages for all agents that are part of the multi-agent group.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.groups.reset_messages(
-    group_id="group_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**group_id:** `str` 
     
 </dd>
 </dl>
@@ -4440,79 +4086,8 @@ client.identities.modify(
 </dl>
 </details>
 
-<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">upsert_identity_properties</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import IdentityProperty, Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.identities.upsert_identity_properties(
-    identity_id="identity_id",
-    request=[
-        IdentityProperty(
-            key="key",
-            value="value",
-            type="string",
-        )
-    ],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**identity_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `typing.Sequence[IdentityProperty]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Models
-<details><summary><code>client.models.<a href="src/letta_client/models/client.py">list_llms</a>()</code></summary>
+<details><summary><code>client.models.<a href="src/letta_client/models/client.py">list</a>()</code></summary>
 <dl>
 <dd>
 
@@ -4530,7 +4105,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.models.list_llms()
+client.models.list()
 
 ```
 </dd>
@@ -4558,7 +4133,8 @@ client.models.list_llms()
 </dl>
 </details>
 
-<details><summary><code>client.models.<a href="src/letta_client/models/client.py">list_embedding_models</a>()</code></summary>
+## Embeddings
+<details><summary><code>client.embeddings.<a href="src/letta_client/embeddings/client.py">list</a>()</code></summary>
 <dl>
 <dd>
 
@@ -4576,7 +4152,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.models.list_embedding_models()
+client.embeddings.list()
 
 ```
 </dd>
@@ -5020,77 +4596,6 @@ client.blocks.modify(
 </dl>
 </details>
 
-<details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">list_agents_for_block</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves all agents associated with the specified block.
-Raises a 404 if the block does not exist.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.blocks.list_agents_for_block(
-    block_id="block_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**block_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Jobs
 <details><summary><code>client.jobs.<a href="src/letta_client/jobs/client.py">list</a>(...)</code></summary>
 <dl>
@@ -5408,7 +4913,7 @@ client.health.check()
 </details>
 
 ## Providers
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">list_providers</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5440,7 +4945,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.providers.list_providers()
+client.providers.list()
 
 ```
 </dd>
@@ -5484,7 +4989,7 @@ client.providers.list_providers()
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">create_provider</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5516,7 +5021,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.providers.create_provider(
+client.providers.create(
     name="name",
     api_key="api_key",
 )
@@ -5712,6 +5217,118 @@ client.providers.modify_provider(
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.providers.delete(
+    provider_id="provider_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">modify</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.providers.modify(
+    provider_id="provider_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Runs
 <details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_runs</a>(...)</code></summary>
 <dl>
@@ -5781,7 +5398,7 @@ client.runs.list_runs()
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_active_runs</a>(...)</code></summary>
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_active</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5813,7 +5430,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.runs.list_active_runs()
+client.runs.list_active()
 
 ```
 </dd>
@@ -5849,7 +5466,7 @@ client.runs.list_active_runs()
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">retrieve_run</a>(...)</code></summary>
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">retrieve</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5881,7 +5498,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.runs.retrieve_run(
+client.runs.retrieve(
     run_id="run_id",
 )
 
@@ -5919,7 +5536,7 @@ client.runs.retrieve_run(
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">delete_run</a>(...)</code></summary>
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5951,7 +5568,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.runs.delete_run(
+client.runs.delete(
     run_id="run_id",
 )
 
@@ -5989,36 +5606,9 @@ client.runs.delete_run(
 </dl>
 </details>
 
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_run_messages</a>(...)</code></summary>
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list</a>()</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get messages associated with a run with filtering options.
-
-Args:
-    run_id: ID of the run
-    before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-    after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-    limit: Maximum number of messages to return
-    order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-    role: Filter by role (user/assistant/system/tool)
-    return_message_object: Whether to return Message objects or LettaMessage objects
-    user_id: ID of the user making the request
-
-Returns:
-    A list of messages associated with the run. Default is List[LettaMessage].
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -6034,9 +5624,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.runs.list_run_messages(
-    run_id="run_id",
-)
+client.runs.list()
 
 ```
 </dd>
@@ -6048,236 +5636,6 @@ client.runs.list_run_messages(
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**run_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**before:** `typing.Optional[str]` — Cursor for pagination
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**after:** `typing.Optional[str]` — Cursor for pagination
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Maximum number of messages to return
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order:** `typing.Optional[str]` — Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**role:** `typing.Optional[MessageRole]` — Filter by role
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">retrieve_run_usage</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get usage statistics for a run.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.runs.retrieve_run_usage(
-    run_id="run_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**run_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_run_steps</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get messages associated with a run with filtering options.
-
-Args:
-    run_id: ID of the run
-    before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-    after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-    limit: Maximum number of steps to return
-    order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-
-Returns:
-    A list of steps associated with the run.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.runs.list_run_steps(
-    run_id="run_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**run_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**before:** `typing.Optional[str]` — Cursor for pagination
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**after:** `typing.Optional[str]` — Cursor for pagination
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Maximum number of messages to return
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**order:** `typing.Optional[str]` — Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -6420,7 +5778,7 @@ client.steps.list_steps()
 </dl>
 </details>
 
-<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">retrieve_step</a>(...)</code></summary>
+<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">retrieve</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6452,7 +5810,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.steps.retrieve_step(
+client.steps.retrieve(
     step_id="step_id",
 )
 
@@ -6474,6 +5832,52 @@ client.steps.retrieve_step(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">list</a>()</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.steps.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
@@ -6556,6 +5960,286 @@ client.tag.list_tags()
 <dd>
 
 **query_text:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Batches
+<details><summary><code>client.batches.<a href="src/letta_client/batches/client.py">list</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all batch runs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.batches.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.batches.<a href="src/letta_client/batches/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit a batch of agent messages for asynchronous processing.
+Creates a job that will fan out messages to all listed agents and process them in parallel.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.batches.create(
+    requests=[
+        LettaBatchRequest(
+            messages=[
+                MessageCreate(
+                    role="user",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
+                )
+            ],
+            agent_id="agent_id",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requests:** `typing.Sequence[LettaBatchRequest]` — List of requests to be processed in batch.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**callback_url:** `typing.Optional[str]` — Optional URL to call via POST when the batch completes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.batches.<a href="src/letta_client/batches/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the status of a batch run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.batches.retrieve(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.batches.<a href="src/letta_client/batches/client.py">cancel</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.batches.cancel(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
     
 </dd>
 </dl>
@@ -6732,125 +6416,6 @@ client.voice.create_voice_chat_completions(
 </details>
 
 ## Templates
-<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">create_agents</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an Agent or multiple Agents from a template
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.templates.create_agents(
-    project="project",
-    template_version="template_version",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**project:** `str` — The project slug
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**template_version:** `str` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tags:** `typing.Optional[typing.Sequence[str]]` — The tags to assign to the agent
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**agent_name:** `typing.Optional[str]` — The name of the agent, optional otherwise a random one will be assigned
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**memory_variables:** `typing.Optional[typing.Dict[str, str]]` — The memory variables to assign to the agent
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tool_variables:** `typing.Optional[typing.Dict[str, str]]` — The tool variables to assign to the agent
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**identity_ids:** `typing.Optional[typing.Sequence[str]]` — The identity ids to assign to the agent
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">listtemplates</a>(...)</code></summary>
 <dl>
 <dd>
@@ -7189,6 +6754,53 @@ client.projects.listprojects()
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Tags
+<details><summary><code>client.tags.<a href="src/letta_client/tags/client.py">list</a>()</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tags.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
@@ -8518,6 +8130,190 @@ client.agents.passages.delete(
 </dl>
 </details>
 
+<details><summary><code>client.agents.passages.<a href="src/letta_client/agents/passages/client.py">modify</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Modify a memory in the agent's archival memory store.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.passages.modify(
+    agent_id="agent_id",
+    memory_id="memory_id",
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memory_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `str` — The unique identifier of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_by_id:** `typing.Optional[str]` — The id of the user that made this object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_updated_by_id:** `typing.Optional[str]` — The id of the user that made this object.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_at:** `typing.Optional[dt.datetime]` — The timestamp when the object was created.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**updated_at:** `typing.Optional[dt.datetime]` — The timestamp when the object was last updated.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_deleted:** `typing.Optional[bool]` — Whether this passage is deleted or not.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**passage_update_agent_id:** `typing.Optional[str]` — The unique identifier of the agent associated with the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_id:** `typing.Optional[str]` — The data source of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file_id:** `typing.Optional[str]` — The unique identifier of the file associated with the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**text:** `typing.Optional[str]` — The text of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding:** `typing.Optional[typing.Sequence[float]]` — The embedding of the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_config:** `typing.Optional[EmbeddingConfig]` — The embedding configuration used by the passage.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Agents Messages
 <details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">list</a>(...)</code></summary>
 <dl>
@@ -9085,6 +8881,163 @@ client.agents.messages.create_async(
 </dl>
 </details>
 
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">reset</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resets the messages for an agent
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.messages.reset(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**add_default_initial_messages:** `typing.Optional[bool]` — If true, adds the default initial messages after resetting.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agents Groups
+<details><summary><code>client.agents.groups.<a href="src/letta_client/agents/groups/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the groups for an agent
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.groups.list(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**manager_type:** `typing.Optional[str]` — Manager type to filter groups by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Agents Templates
 <details><summary><code>client.agents.templates.<a href="src/letta_client/agents/templates/client.py">create_version</a>(...)</code></summary>
 <dl>
@@ -9414,6 +9367,78 @@ client.agents.memory_variables.list(
 <dd>
 
 **agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Blocks Agents
+<details><summary><code>client.blocks.agents.<a href="src/letta_client/blocks/agents/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all agents associated with the specified block.
+Raises a 404 if the block does not exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.blocks.agents.list(
+    block_id="block_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**block_id:** `str` 
     
 </dd>
 </dl>
@@ -9879,8 +9904,7 @@ client.groups.messages.modify(
 </dl>
 </details>
 
-## Messages Batches
-<details><summary><code>client.messages.batches.<a href="src/letta_client/messages/batches/client.py">list</a>()</code></summary>
+<details><summary><code>client.groups.messages.<a href="src/letta_client/groups/messages/client.py">reset</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -9892,7 +9916,7 @@ client.groups.messages.modify(
 <dl>
 <dd>
 
-List all batch runs.
+Delete the group messages for all agents that are part of the multi-agent group.
 </dd>
 </dl>
 </dd>
@@ -9912,7 +9936,9 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.messages.batches.list()
+client.groups.messages.reset(
+    group_id="group_id",
+)
 
 ```
 </dd>
@@ -9924,6 +9950,14 @@ client.messages.batches.list()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**group_id:** `str` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -9940,24 +9974,10 @@ client.messages.batches.list()
 </dl>
 </details>
 
-<details><summary><code>client.messages.batches.<a href="src/letta_client/messages/batches/client.py">create</a>(...)</code></summary>
+## Identities Properties
+<details><summary><code>client.identities.properties.<a href="src/letta_client/identities/properties/client.py">upsert</a>(...)</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Submit a batch of agent messages for asynchronous processing.
-Creates a job that will fan out messages to all listed agents and process them in parallel.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -9968,25 +9988,18 @@ Creates a job that will fan out messages to all listed agents and process them i
 <dd>
 
 ```python
-from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
+from letta_client import IdentityProperty, Letta
 
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.messages.batches.create(
-    requests=[
-        LettaBatchRequest(
-            messages=[
-                MessageCreate(
-                    role="user",
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
-                )
-            ],
-            agent_id="agent_id",
+client.identities.properties.upsert(
+    identity_id="identity_id",
+    request=[
+        IdentityProperty(
+            key="key",
+            value="value",
+            type="string",
         )
     ],
 )
@@ -10005,7 +10018,7 @@ client.messages.batches.create(
 <dl>
 <dd>
 
-**requests:** `typing.Sequence[LettaBatchRequest]` — List of requests to be processed in batch.
+**identity_id:** `str` 
     
 </dd>
 </dl>
@@ -10013,7 +10026,7 @@ client.messages.batches.create(
 <dl>
 <dd>
 
-**callback_url:** `typing.Optional[str]` — Optional URL to call via POST when the batch completes.
+**request:** `typing.Sequence[IdentityProperty]` 
     
 </dd>
 </dl>
@@ -10033,7 +10046,8 @@ client.messages.batches.create(
 </dl>
 </details>
 
-<details><summary><code>client.messages.batches.<a href="src/letta_client/messages/batches/client.py">retrieve</a>(...)</code></summary>
+## Runs Messages
+<details><summary><code>client.runs.messages.<a href="src/letta_client/runs/messages/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -10045,7 +10059,20 @@ client.messages.batches.create(
 <dl>
 <dd>
 
-Get the status of a batch run.
+Get messages associated with a run with filtering options.
+
+Args:
+    run_id: ID of the run
+    before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+    after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+    limit: Maximum number of messages to return
+    order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+    role: Filter by role (user/assistant/system/tool)
+    return_message_object: Whether to return Message objects or LettaMessage objects
+    user_id: ID of the user making the request
+
+Returns:
+    A list of messages associated with the run. Default is List[LettaMessage].
 </dd>
 </dl>
 </dd>
@@ -10065,8 +10092,8 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.messages.batches.retrieve(
-    batch_id="batch_id",
+client.runs.messages.list(
+    run_id="run_id",
 )
 
 ```
@@ -10083,7 +10110,47 @@ client.messages.batches.retrieve(
 <dl>
 <dd>
 
-**batch_id:** `str` 
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[str]` — Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**role:** `typing.Optional[MessageRole]` — Filter by role
     
 </dd>
 </dl>
@@ -10103,9 +10170,24 @@ client.messages.batches.retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.messages.batches.<a href="src/letta_client/messages/batches/client.py">cancel</a>(...)</code></summary>
+## Runs Usage
+<details><summary><code>client.runs.usage.<a href="src/letta_client/runs/usage/client.py">retrieve</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get usage statistics for a run.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -10121,8 +10203,8 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.messages.batches.cancel(
-    batch_id="batch_id",
+client.runs.usage.retrieve(
+    run_id="run_id",
 )
 
 ```
@@ -10139,7 +10221,120 @@ client.messages.batches.cancel(
 <dl>
 <dd>
 
-**batch_id:** `str` 
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Runs Steps
+<details><summary><code>client.runs.steps.<a href="src/letta_client/runs/steps/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get messages associated with a run with filtering options.
+
+Args:
+    run_id: ID of the run
+    before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+    after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
+    limit: Maximum number of steps to return
+    order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+
+Returns:
+    A list of steps associated with the run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.runs.steps.list(
+    run_id="run_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[str]` — Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
     
 </dd>
 </dl>
@@ -10457,6 +10652,126 @@ client.sources.passages.list(
 <dd>
 
 **source_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Templates Agents
+<details><summary><code>client.templates.agents.<a href="src/letta_client/templates/agents/client.py">create</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an Agent or multiple Agents from a template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.templates.agents.create(
+    project="project",
+    template_version="template_version",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `str` — The project slug
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_version:** `str` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Sequence[str]]` — The tags to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_name:** `typing.Optional[str]` — The name of the agent, optional otherwise a random one will be assigned
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memory_variables:** `typing.Optional[typing.Dict[str, str]]` — The memory variables to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_variables:** `typing.Optional[typing.Dict[str, str]]` — The tool variables to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_ids:** `typing.Optional[typing.Sequence[str]]` — The identity ids to assign to the agent
     
 </dd>
 </dl>

@@ -9,6 +9,7 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..core.jsonable_encoder import jsonable_encoder
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -19,7 +20,7 @@ class ProvidersClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list_providers(
+    def list(
         self,
         *,
         after: typing.Optional[str] = None,
@@ -50,7 +51,7 @@ class ProvidersClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.providers.list_providers()
+        client.providers.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/providers/",
@@ -85,9 +86,7 @@ class ProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create_provider(
-        self, *, name: str, api_key: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> Provider:
+    def create(self, *, name: str, api_key: str, request_options: typing.Optional[RequestOptions] = None) -> Provider:
         """
         Create a new custom provider
 
@@ -114,7 +113,7 @@ class ProvidersClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.providers.create_provider(
+        client.providers.create(
             name="name",
             api_key="api_key",
         )
@@ -289,12 +288,86 @@ class ProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def delete(self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.providers.delete(
+            provider_id="provider_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/providers/{jsonable_encoder(provider_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def modify(self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.providers.modify(
+            provider_id="provider_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/providers/{jsonable_encoder(provider_id)}",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncProvidersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list_providers(
+    async def list(
         self,
         *,
         after: typing.Optional[str] = None,
@@ -330,7 +403,7 @@ class AsyncProvidersClient:
 
 
         async def main() -> None:
-            await client.providers.list_providers()
+            await client.providers.list()
 
 
         asyncio.run(main())
@@ -368,7 +441,7 @@ class AsyncProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def create_provider(
+    async def create(
         self, *, name: str, api_key: str, request_options: typing.Optional[RequestOptions] = None
     ) -> Provider:
         """
@@ -402,7 +475,7 @@ class AsyncProvidersClient:
 
 
         async def main() -> None:
-            await client.providers.create_provider(
+            await client.providers.create(
                 name="name",
                 api_key="api_key",
             )
@@ -591,6 +664,96 @@ class AsyncProvidersClient:
                         ),
                     )
                 )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete(self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.providers.delete(
+                provider_id="provider_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/providers/{jsonable_encoder(provider_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def modify(self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.providers.modify(
+                provider_id="provider_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/providers/{jsonable_encoder(provider_id)}",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

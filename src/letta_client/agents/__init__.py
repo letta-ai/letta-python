@@ -11,7 +11,7 @@ from .types import (
     CreateAgentRequestToolRulesItem,
     UpdateAgentToolRulesItem,
 )
-from . import blocks, context, core_memory, memory_variables, messages, passages, sources, templates, tools
+from . import blocks, context, core_memory, groups, memory_variables, messages, passages, sources, templates, tools
 from .memory_variables import MemoryVariablesListResponse
 from .messages import LettaStreamingResponse, MessagesModifyRequest, MessagesModifyResponse
 from .templates import TemplatesCreateResponse, TemplatesMigrateResponse
@@ -35,6 +35,7 @@ __all__ = [
     "blocks",
     "context",
     "core_memory",
+    "groups",
     "memory_variables",
     "messages",
     "passages",

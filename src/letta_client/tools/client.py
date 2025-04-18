@@ -507,7 +507,7 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def add_base_tool(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Tool]:
+    def upsert_base_tools(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Tool]:
         """
         Upsert base tools
 
@@ -528,7 +528,7 @@ class ToolsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.tools.add_base_tool()
+        client.tools.upsert_base_tools()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/tools/add-base-tools",
@@ -1667,7 +1667,7 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def add_base_tool(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Tool]:
+    async def upsert_base_tools(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Tool]:
         """
         Upsert base tools
 
@@ -1693,7 +1693,7 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.add_base_tool()
+            await client.tools.upsert_base_tools()
 
 
         asyncio.run(main())
