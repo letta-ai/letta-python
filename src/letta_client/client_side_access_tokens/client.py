@@ -2,13 +2,9 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.client_side_access_tokens_create_client_side_access_token_request_policy_item import (
-    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem,
-)
+from .types.client_side_access_tokens_create_request_policy_item import ClientSideAccessTokensCreateRequestPolicyItem
 from ..core.request_options import RequestOptions
-from .types.client_side_access_tokens_create_client_side_access_token_response import (
-    ClientSideAccessTokensCreateClientSideAccessTokenResponse,
-)
+from .types.client_side_access_tokens_create_response import ClientSideAccessTokensCreateResponse
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.unchecked_base_model import construct_type
 from ..errors.bad_request_error import BadRequestError
@@ -25,20 +21,20 @@ class ClientSideAccessTokensClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def client_side_access_tokens_create_client_side_access_token(
+    def create(
         self,
         *,
-        policy: typing.Sequence[ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem],
+        policy: typing.Sequence[ClientSideAccessTokensCreateRequestPolicyItem],
         hostname: str,
         expires_at: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientSideAccessTokensCreateClientSideAccessTokenResponse:
+    ) -> ClientSideAccessTokensCreateResponse:
         """
         Create a new client side access token with the specified configuration.
 
         Parameters
         ----------
-        policy : typing.Sequence[ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem]
+        policy : typing.Sequence[ClientSideAccessTokensCreateRequestPolicyItem]
 
         hostname : str
             The hostname of the client side application. Please specify the full URL including the protocol (http or https).
@@ -51,22 +47,22 @@ class ClientSideAccessTokensClient:
 
         Returns
         -------
-        ClientSideAccessTokensCreateClientSideAccessTokenResponse
+        ClientSideAccessTokensCreateResponse
             201
 
         Examples
         --------
         from letta_client import Letta
         from letta_client.client_side_access_tokens import (
-            ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem,
+            ClientSideAccessTokensCreateRequestPolicyItem,
         )
 
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.client_side_access_tokens.client_side_access_tokens_create_client_side_access_token(
+        client.client_side_access_tokens.create(
             policy=[
-                ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem(
+                ClientSideAccessTokensCreateRequestPolicyItem(
                     id="id",
                     access=["read_messages"],
                 )
@@ -80,7 +76,7 @@ class ClientSideAccessTokensClient:
             json={
                 "policy": convert_and_respect_annotation_metadata(
                     object_=policy,
-                    annotation=typing.Sequence[ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem],
+                    annotation=typing.Sequence[ClientSideAccessTokensCreateRequestPolicyItem],
                     direction="write",
                 ),
                 "hostname": hostname,
@@ -95,9 +91,9 @@ class ClientSideAccessTokensClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientSideAccessTokensCreateClientSideAccessTokenResponse,
+                    ClientSideAccessTokensCreateResponse,
                     construct_type(
-                        type_=ClientSideAccessTokensCreateClientSideAccessTokenResponse,  # type: ignore
+                        type_=ClientSideAccessTokensCreateResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -116,7 +112,7 @@ class ClientSideAccessTokensClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def client_side_access_tokens_delete_client_side_access_token(
+    def delete(
         self,
         token: str,
         *,
@@ -148,7 +144,7 @@ class ClientSideAccessTokensClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.client_side_access_tokens.client_side_access_tokens_delete_client_side_access_token(
+        client.client_side_access_tokens.delete(
             token="token",
             request={"key": "value"},
         )
@@ -189,20 +185,20 @@ class AsyncClientSideAccessTokensClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def client_side_access_tokens_create_client_side_access_token(
+    async def create(
         self,
         *,
-        policy: typing.Sequence[ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem],
+        policy: typing.Sequence[ClientSideAccessTokensCreateRequestPolicyItem],
         hostname: str,
         expires_at: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ClientSideAccessTokensCreateClientSideAccessTokenResponse:
+    ) -> ClientSideAccessTokensCreateResponse:
         """
         Create a new client side access token with the specified configuration.
 
         Parameters
         ----------
-        policy : typing.Sequence[ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem]
+        policy : typing.Sequence[ClientSideAccessTokensCreateRequestPolicyItem]
 
         hostname : str
             The hostname of the client side application. Please specify the full URL including the protocol (http or https).
@@ -215,7 +211,7 @@ class AsyncClientSideAccessTokensClient:
 
         Returns
         -------
-        ClientSideAccessTokensCreateClientSideAccessTokenResponse
+        ClientSideAccessTokensCreateResponse
             201
 
         Examples
@@ -224,7 +220,7 @@ class AsyncClientSideAccessTokensClient:
 
         from letta_client import AsyncLetta
         from letta_client.client_side_access_tokens import (
-            ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem,
+            ClientSideAccessTokensCreateRequestPolicyItem,
         )
 
         client = AsyncLetta(
@@ -233,9 +229,9 @@ class AsyncClientSideAccessTokensClient:
 
 
         async def main() -> None:
-            await client.client_side_access_tokens.client_side_access_tokens_create_client_side_access_token(
+            await client.client_side_access_tokens.create(
                 policy=[
-                    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem(
+                    ClientSideAccessTokensCreateRequestPolicyItem(
                         id="id",
                         access=["read_messages"],
                     )
@@ -252,7 +248,7 @@ class AsyncClientSideAccessTokensClient:
             json={
                 "policy": convert_and_respect_annotation_metadata(
                     object_=policy,
-                    annotation=typing.Sequence[ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem],
+                    annotation=typing.Sequence[ClientSideAccessTokensCreateRequestPolicyItem],
                     direction="write",
                 ),
                 "hostname": hostname,
@@ -267,9 +263,9 @@ class AsyncClientSideAccessTokensClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ClientSideAccessTokensCreateClientSideAccessTokenResponse,
+                    ClientSideAccessTokensCreateResponse,
                     construct_type(
-                        type_=ClientSideAccessTokensCreateClientSideAccessTokenResponse,  # type: ignore
+                        type_=ClientSideAccessTokensCreateResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -288,7 +284,7 @@ class AsyncClientSideAccessTokensClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def client_side_access_tokens_delete_client_side_access_token(
+    async def delete(
         self,
         token: str,
         *,
@@ -325,7 +321,7 @@ class AsyncClientSideAccessTokensClient:
 
 
         async def main() -> None:
-            await client.client_side_access_tokens.client_side_access_tokens_delete_client_side_access_token(
+            await client.client_side_access_tokens.delete(
                 token="token",
                 request={"key": "value"},
             )

@@ -4,7 +4,7 @@ from ..core.client_wrapper import SyncClientWrapper
 from .agents.client import AgentsClient
 import typing
 from ..core.request_options import RequestOptions
-from .types.templates_list_templates_response import TemplatesListTemplatesResponse
+from .types.templates_list_response import TemplatesListResponse
 from ..core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
@@ -17,7 +17,7 @@ class TemplatesClient:
         self._client_wrapper = client_wrapper
         self.agents = AgentsClient(client_wrapper=self._client_wrapper)
 
-    def listtemplates(
+    def list(
         self,
         *,
         offset: typing.Optional[str] = None,
@@ -25,7 +25,7 @@ class TemplatesClient:
         name: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> TemplatesListTemplatesResponse:
+    ) -> TemplatesListResponse:
         """
         List all templates
 
@@ -44,7 +44,7 @@ class TemplatesClient:
 
         Returns
         -------
-        TemplatesListTemplatesResponse
+        TemplatesListResponse
             200
 
         Examples
@@ -54,7 +54,7 @@ class TemplatesClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.templates.listtemplates()
+        client.templates.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/templates",
@@ -70,9 +70,9 @@ class TemplatesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    TemplatesListTemplatesResponse,
+                    TemplatesListResponse,
                     construct_type(
-                        type_=TemplatesListTemplatesResponse,  # type: ignore
+                        type_=TemplatesListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -87,7 +87,7 @@ class AsyncTemplatesClient:
         self._client_wrapper = client_wrapper
         self.agents = AsyncAgentsClient(client_wrapper=self._client_wrapper)
 
-    async def listtemplates(
+    async def list(
         self,
         *,
         offset: typing.Optional[str] = None,
@@ -95,7 +95,7 @@ class AsyncTemplatesClient:
         name: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> TemplatesListTemplatesResponse:
+    ) -> TemplatesListResponse:
         """
         List all templates
 
@@ -114,7 +114,7 @@ class AsyncTemplatesClient:
 
         Returns
         -------
-        TemplatesListTemplatesResponse
+        TemplatesListResponse
             200
 
         Examples
@@ -129,7 +129,7 @@ class AsyncTemplatesClient:
 
 
         async def main() -> None:
-            await client.templates.listtemplates()
+            await client.templates.list()
 
 
         asyncio.run(main())
@@ -148,9 +148,9 @@ class AsyncTemplatesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    TemplatesListTemplatesResponse,
+                    TemplatesListResponse,
                     construct_type(
-                        type_=TemplatesListTemplatesResponse,  # type: ignore
+                        type_=TemplatesListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

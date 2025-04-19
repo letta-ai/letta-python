@@ -258,17 +258,17 @@ from .agents import (
 )
 from .client import AsyncLetta, Letta
 from .client_side_access_tokens import (
-    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem,
-    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItemAccessItem,
-    ClientSideAccessTokensCreateClientSideAccessTokenResponse,
-    ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicy,
-    ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItem,
-    ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItemAccessItem,
+    ClientSideAccessTokensCreateRequestPolicyItem,
+    ClientSideAccessTokensCreateRequestPolicyItemAccessItem,
+    ClientSideAccessTokensCreateResponse,
+    ClientSideAccessTokensCreateResponsePolicy,
+    ClientSideAccessTokensCreateResponsePolicyDataItem,
+    ClientSideAccessTokensCreateResponsePolicyDataItemAccessItem,
 )
 from .environment import LettaEnvironment
 from .groups import GroupCreateManagerConfig, GroupUpdateManagerConfig
-from .projects import ProjectsListProjectsResponse, ProjectsListProjectsResponseProjectsItem
-from .templates import TemplatesListTemplatesResponse, TemplatesListTemplatesResponseTemplatesItem
+from .projects import ProjectsListResponse, ProjectsListResponseProjectsItem
+from .templates import TemplatesListResponse, TemplatesListResponseTemplatesItem
 from .tools import (
     AddMcpServerRequest,
     AddMcpServerResponseItem,
@@ -343,12 +343,12 @@ __all__ = [
     "ChatCompletionUserMessageParamContentItem",
     "ChildToolRule",
     "ChildToolRuleSchema",
-    "ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem",
-    "ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItemAccessItem",
-    "ClientSideAccessTokensCreateClientSideAccessTokenResponse",
-    "ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicy",
-    "ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItem",
-    "ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItemAccessItem",
+    "ClientSideAccessTokensCreateRequestPolicyItem",
+    "ClientSideAccessTokensCreateRequestPolicyItemAccessItem",
+    "ClientSideAccessTokensCreateResponse",
+    "ClientSideAccessTokensCreateResponsePolicy",
+    "ClientSideAccessTokensCreateResponsePolicyDataItem",
+    "ClientSideAccessTokensCreateResponsePolicyDataItemAccessItem",
     "CompletionCreateParamsNonStreaming",
     "CompletionCreateParamsNonStreamingFunctionCall",
     "CompletionCreateParamsNonStreamingMessagesItem",
@@ -460,8 +460,8 @@ __all__ = [
     "ParentToolRule",
     "Passage",
     "PipRequirement",
-    "ProjectsListProjectsResponse",
-    "ProjectsListProjectsResponseProjectsItem",
+    "ProjectsListResponse",
+    "ProjectsListResponseProjectsItem",
     "Provider",
     "ReasoningContent",
     "ReasoningMessage",
@@ -492,8 +492,8 @@ __all__ = [
     "SupervisorManagerUpdate",
     "SystemMessage",
     "TagSchema",
-    "TemplatesListTemplatesResponse",
-    "TemplatesListTemplatesResponseTemplatesItem",
+    "TemplatesListResponse",
+    "TemplatesListResponseTemplatesItem",
     "TerminalToolRule",
     "TextContent",
     "Tool",

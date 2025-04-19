@@ -6416,7 +6416,7 @@ client.voice.create_voice_chat_completions(
 </details>
 
 ## Templates
-<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">listtemplates</a>(...)</code></summary>
+<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6448,7 +6448,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.templates.listtemplates()
+client.templates.list()
 
 ```
 </dd>
@@ -6509,7 +6509,7 @@ client.templates.listtemplates()
 </details>
 
 ## ClientSideAccessTokens
-<details><summary><code>client.client_side_access_tokens.<a href="src/letta_client/client_side_access_tokens/client.py">client_side_access_tokens_create_client_side_access_token</a>(...)</code></summary>
+<details><summary><code>client.client_side_access_tokens.<a href="src/letta_client/client_side_access_tokens/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6538,15 +6538,15 @@ Create a new client side access token with the specified configuration.
 ```python
 from letta_client import Letta
 from letta_client.client_side_access_tokens import (
-    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem,
+    ClientSideAccessTokensCreateRequestPolicyItem,
 )
 
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.client_side_access_tokens.client_side_access_tokens_create_client_side_access_token(
+client.client_side_access_tokens.create(
     policy=[
-        ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem(
+        ClientSideAccessTokensCreateRequestPolicyItem(
             id="id",
             access=["read_messages"],
         )
@@ -6568,9 +6568,7 @@ client.client_side_access_tokens.client_side_access_tokens_create_client_side_ac
 <dl>
 <dd>
 
-**policy:** `typing.Sequence[
-    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem
-]` 
+**policy:** `typing.Sequence[ClientSideAccessTokensCreateRequestPolicyItem]` 
     
 </dd>
 </dl>
@@ -6606,7 +6604,7 @@ client.client_side_access_tokens.client_side_access_tokens_create_client_side_ac
 </dl>
 </details>
 
-<details><summary><code>client.client_side_access_tokens.<a href="src/letta_client/client_side_access_tokens/client.py">client_side_access_tokens_delete_client_side_access_token</a>(...)</code></summary>
+<details><summary><code>client.client_side_access_tokens.<a href="src/letta_client/client_side_access_tokens/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6638,7 +6636,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.client_side_access_tokens.client_side_access_tokens_delete_client_side_access_token(
+client.client_side_access_tokens.delete(
     token="token",
     request={"key": "value"},
 )
@@ -6686,7 +6684,7 @@ client.client_side_access_tokens.client_side_access_tokens_delete_client_side_ac
 </details>
 
 ## Projects
-<details><summary><code>client.projects.<a href="src/letta_client/projects/client.py">listprojects</a>(...)</code></summary>
+<details><summary><code>client.projects.<a href="src/letta_client/projects/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -6718,7 +6716,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.projects.listprojects()
+client.projects.list()
 
 ```
 </dd>

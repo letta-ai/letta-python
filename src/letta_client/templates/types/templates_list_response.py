@@ -2,15 +2,15 @@
 
 from ...core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .projects_list_projects_response_projects_item import ProjectsListProjectsResponseProjectsItem
+from .templates_list_response_templates_item import TemplatesListResponseTemplatesItem
 import typing_extensions
 from ...core.serialization import FieldMetadata
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class ProjectsListProjectsResponse(UncheckedBaseModel):
-    projects: typing.List[ProjectsListProjectsResponseProjectsItem]
+class TemplatesListResponse(UncheckedBaseModel):
+    templates: typing.List[TemplatesListResponseTemplatesItem]
     has_next_page: typing_extensions.Annotated[bool, FieldMetadata(alias="hasNextPage")]
 
     if IS_PYDANTIC_V2:

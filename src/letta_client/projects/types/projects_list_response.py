@@ -2,17 +2,16 @@
 
 from ...core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .client_side_access_tokens_create_client_side_access_token_response_policy_data_item_access_item import (
-    ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItemAccessItem,
-)
+from .projects_list_response_projects_item import ProjectsListResponseProjectsItem
+import typing_extensions
+from ...core.serialization import FieldMetadata
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItem(UncheckedBaseModel):
-    type: typing.Literal["agent"] = "agent"
-    id: str
-    access: typing.List[ClientSideAccessTokensCreateClientSideAccessTokenResponsePolicyDataItemAccessItem]
+class ProjectsListResponse(UncheckedBaseModel):
+    projects: typing.List[ProjectsListResponseProjectsItem]
+    has_next_page: typing_extensions.Annotated[bool, FieldMetadata(alias="hasNextPage")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -3,7 +3,7 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
-from .types.projects_list_projects_response import ProjectsListProjectsResponse
+from .types.projects_list_response import ProjectsListResponse
 from ..core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
@@ -14,14 +14,14 @@ class ProjectsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def listprojects(
+    def list(
         self,
         *,
         name: typing.Optional[str] = None,
         offset: typing.Optional[str] = None,
         limit: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ProjectsListProjectsResponse:
+    ) -> ProjectsListResponse:
         """
         List all projects
 
@@ -38,7 +38,7 @@ class ProjectsClient:
 
         Returns
         -------
-        ProjectsListProjectsResponse
+        ProjectsListResponse
             200
 
         Examples
@@ -48,7 +48,7 @@ class ProjectsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.projects.listprojects()
+        client.projects.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/projects",
@@ -63,9 +63,9 @@ class ProjectsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ProjectsListProjectsResponse,
+                    ProjectsListResponse,
                     construct_type(
-                        type_=ProjectsListProjectsResponse,  # type: ignore
+                        type_=ProjectsListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -79,14 +79,14 @@ class AsyncProjectsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def listprojects(
+    async def list(
         self,
         *,
         name: typing.Optional[str] = None,
         offset: typing.Optional[str] = None,
         limit: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ProjectsListProjectsResponse:
+    ) -> ProjectsListResponse:
         """
         List all projects
 
@@ -103,7 +103,7 @@ class AsyncProjectsClient:
 
         Returns
         -------
-        ProjectsListProjectsResponse
+        ProjectsListResponse
             200
 
         Examples
@@ -118,7 +118,7 @@ class AsyncProjectsClient:
 
 
         async def main() -> None:
-            await client.projects.listprojects()
+            await client.projects.list()
 
 
         asyncio.run(main())
@@ -136,9 +136,9 @@ class AsyncProjectsClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ProjectsListProjectsResponse,
+                    ProjectsListResponse,
                     construct_type(
-                        type_=ProjectsListProjectsResponse,  # type: ignore
+                        type_=ProjectsListResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -2,17 +2,17 @@
 
 from ...core.unchecked_base_model import UncheckedBaseModel
 import typing
-from .client_side_access_tokens_create_client_side_access_token_request_policy_item_access_item import (
-    ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItemAccessItem,
+from .client_side_access_tokens_create_response_policy_data_item_access_item import (
+    ClientSideAccessTokensCreateResponsePolicyDataItemAccessItem,
 )
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItem(UncheckedBaseModel):
+class ClientSideAccessTokensCreateResponsePolicyDataItem(UncheckedBaseModel):
     type: typing.Literal["agent"] = "agent"
     id: str
-    access: typing.List[ClientSideAccessTokensCreateClientSideAccessTokenRequestPolicyItemAccessItem]
+    access: typing.List[ClientSideAccessTokensCreateResponsePolicyDataItemAccessItem]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
