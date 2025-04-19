@@ -448,7 +448,7 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def export_agent_serialized(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    def export(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
 
@@ -471,7 +471,7 @@ class AgentsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.export_agent_serialized(
+        client.agents.export(
             agent_id="agent_id",
         )
         """
@@ -499,43 +499,6 @@ class AgentsClient:
                         ),
                     )
                 )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def export(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        agent_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.agents.export(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/export",
-            method="POST",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -1414,9 +1377,7 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def export_agent_serialized(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> str:
+    async def export(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
 
@@ -1444,7 +1405,7 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.export_agent_serialized(
+            await client.agents.export(
                 agent_id="agent_id",
             )
 
@@ -1475,51 +1436,6 @@ class AsyncAgentsClient:
                         ),
                     )
                 )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def export(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        agent_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.export(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/export",
-            method="POST",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

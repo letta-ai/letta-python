@@ -26,7 +26,7 @@ class RunsClient:
         self.usage = UsageClient(client_wrapper=self._client_wrapper)
         self.steps = StepsClient(client_wrapper=self._client_wrapper)
 
-    def list_runs(
+    def list(
         self,
         *,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -55,7 +55,7 @@ class RunsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.runs.list_runs()
+        client.runs.list()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/runs/",
@@ -264,39 +264,6 @@ class RunsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.runs.list()
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v1/runs",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
 
 class AsyncRunsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -305,7 +272,7 @@ class AsyncRunsClient:
         self.usage = AsyncUsageClient(client_wrapper=self._client_wrapper)
         self.steps = AsyncStepsClient(client_wrapper=self._client_wrapper)
 
-    async def list_runs(
+    async def list(
         self,
         *,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -339,7 +306,7 @@ class AsyncRunsClient:
 
 
         async def main() -> None:
-            await client.runs.list_runs()
+            await client.runs.list()
 
 
         asyncio.run(main())
@@ -570,47 +537,6 @@ class AsyncRunsClient:
                         ),
                     )
                 )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.runs.list()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/runs",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

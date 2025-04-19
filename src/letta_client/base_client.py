@@ -17,14 +17,12 @@ from .health.client import HealthClient
 from .providers.client import ProvidersClient
 from .runs.client import RunsClient
 from .steps.client import StepsClient
-from .tag.client import TagClient
+from .tags.client import TagsClient
 from .batches.client import BatchesClient
-from .messages.client import MessagesClient
 from .voice.client import VoiceClient
 from .templates.client import TemplatesClient
 from .client_side_access_tokens.client import ClientSideAccessTokensClient
 from .projects.client import ProjectsClient
-from .tags.client import TagsClient
 from .core.client_wrapper import AsyncClientWrapper
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
@@ -39,14 +37,12 @@ from .health.client import AsyncHealthClient
 from .providers.client import AsyncProvidersClient
 from .runs.client import AsyncRunsClient
 from .steps.client import AsyncStepsClient
-from .tag.client import AsyncTagClient
+from .tags.client import AsyncTagsClient
 from .batches.client import AsyncBatchesClient
-from .messages.client import AsyncMessagesClient
 from .voice.client import AsyncVoiceClient
 from .templates.client import AsyncTemplatesClient
 from .client_side_access_tokens.client import AsyncClientSideAccessTokensClient
 from .projects.client import AsyncProjectsClient
-from .tags.client import AsyncTagsClient
 
 
 class LettaBase:
@@ -120,14 +116,12 @@ class LettaBase:
         self.providers = ProvidersClient(client_wrapper=self._client_wrapper)
         self.runs = RunsClient(client_wrapper=self._client_wrapper)
         self.steps = StepsClient(client_wrapper=self._client_wrapper)
-        self.tag = TagClient(client_wrapper=self._client_wrapper)
+        self.tags = TagsClient(client_wrapper=self._client_wrapper)
         self.batches = BatchesClient(client_wrapper=self._client_wrapper)
-        self.messages = MessagesClient(client_wrapper=self._client_wrapper)
         self.voice = VoiceClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = ClientSideAccessTokensClient(client_wrapper=self._client_wrapper)
         self.projects = ProjectsClient(client_wrapper=self._client_wrapper)
-        self.tags = TagsClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncLettaBase:
@@ -201,14 +195,12 @@ class AsyncLettaBase:
         self.providers = AsyncProvidersClient(client_wrapper=self._client_wrapper)
         self.runs = AsyncRunsClient(client_wrapper=self._client_wrapper)
         self.steps = AsyncStepsClient(client_wrapper=self._client_wrapper)
-        self.tag = AsyncTagClient(client_wrapper=self._client_wrapper)
+        self.tags = AsyncTagsClient(client_wrapper=self._client_wrapper)
         self.batches = AsyncBatchesClient(client_wrapper=self._client_wrapper)
-        self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
         self.voice = AsyncVoiceClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = AsyncClientSideAccessTokensClient(client_wrapper=self._client_wrapper)
         self.projects = AsyncProjectsClient(client_wrapper=self._client_wrapper)
-        self.tags = AsyncTagsClient(client_wrapper=self._client_wrapper)
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: LettaEnvironment) -> str:

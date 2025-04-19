@@ -3,6 +3,9 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
+from ..core.unchecked_base_model import construct_type
+from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper
@@ -12,16 +15,32 @@ class TagsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def list(
+        self,
+        *,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        query_text: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[str]:
         """
+        Get a list of all tags in the database
+
         Parameters
         ----------
+        after : typing.Optional[str]
+
+        limit : typing.Optional[int]
+
+        query_text : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        typing.List[str]
+            Successful Response
 
         Examples
         --------
@@ -33,13 +52,34 @@ class TagsClient:
         client.tags.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/tags",
+            "v1/tags/",
             method="GET",
+            params={
+                "after": after,
+                "limit": limit,
+                "query_text": query_text,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    typing.List[str],
+                    construct_type(
+                        type_=typing.List[str],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -50,16 +90,32 @@ class AsyncTagsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def list(
+        self,
+        *,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        query_text: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[str]:
         """
+        Get a list of all tags in the database
+
         Parameters
         ----------
+        after : typing.Optional[str]
+
+        limit : typing.Optional[int]
+
+        query_text : typing.Optional[str]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        typing.List[str]
+            Successful Response
 
         Examples
         --------
@@ -79,13 +135,34 @@ class AsyncTagsClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/tags",
+            "v1/tags/",
             method="GET",
+            params={
+                "after": after,
+                "limit": limit,
+                "query_text": query_text,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    typing.List[str],
+                    construct_type(
+                        type_=typing.List[str],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

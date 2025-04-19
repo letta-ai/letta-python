@@ -155,8 +155,8 @@ class ProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete_provider(
-        self, *, provider_id: str, request_options: typing.Optional[RequestOptions] = None
+    def delete(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
         Delete an existing custom provider
@@ -164,7 +164,6 @@ class ProvidersClient:
         Parameters
         ----------
         provider_id : str
-            The provider_id key to be deleted.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -181,16 +180,13 @@ class ProvidersClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.providers.delete_provider(
+        client.providers.delete(
             provider_id="provider_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/providers/",
+            f"v1/providers/{jsonable_encoder(provider_id)}",
             method="DELETE",
-            params={
-                "provider_id": provider_id,
-            },
             request_options=request_options,
         )
         try:
@@ -217,16 +213,15 @@ class ProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def modify_provider(
-        self, *, id: str, api_key: str, request_options: typing.Optional[RequestOptions] = None
+    def modify(
+        self, provider_id: str, *, api_key: str, request_options: typing.Optional[RequestOptions] = None
     ) -> Provider:
         """
         Update an existing custom provider
 
         Parameters
         ----------
-        id : str
-            The id of the provider to update.
+        provider_id : str
 
         api_key : str
             API key used for requests to the provider.
@@ -246,16 +241,15 @@ class ProvidersClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.providers.modify_provider(
-            id="id",
+        client.providers.modify(
+            provider_id="provider_id",
             api_key="api_key",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/providers/",
+            f"v1/providers/{jsonable_encoder(provider_id)}",
             method="PATCH",
             json={
-                "id": id,
                 "api_key": api_key,
             },
             headers={
@@ -283,80 +277,6 @@ class ProvidersClient:
                         ),
                     )
                 )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def delete(self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        provider_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.providers.delete(
-            provider_id="provider_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/providers/{jsonable_encoder(provider_id)}",
-            method="DELETE",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def modify(self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        provider_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.providers.modify(
-            provider_id="provider_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/providers/{jsonable_encoder(provider_id)}",
-            method="PATCH",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -520,8 +440,8 @@ class AsyncProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete_provider(
-        self, *, provider_id: str, request_options: typing.Optional[RequestOptions] = None
+    async def delete(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
         Delete an existing custom provider
@@ -529,7 +449,6 @@ class AsyncProvidersClient:
         Parameters
         ----------
         provider_id : str
-            The provider_id key to be deleted.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -538,149 +457,6 @@ class AsyncProvidersClient:
         -------
         typing.Optional[typing.Any]
             Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.providers.delete_provider(
-                provider_id="provider_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/providers/",
-            method="DELETE",
-            params={
-                "provider_id": provider_id,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.Optional[typing.Any],
-                    construct_type(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def modify_provider(
-        self, *, id: str, api_key: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> Provider:
-        """
-        Update an existing custom provider
-
-        Parameters
-        ----------
-        id : str
-            The id of the provider to update.
-
-        api_key : str
-            API key used for requests to the provider.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Provider
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.providers.modify_provider(
-                id="id",
-                api_key="api_key",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/providers/",
-            method="PATCH",
-            json={
-                "id": id,
-                "api_key": api_key,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Provider,
-                    construct_type(
-                        type_=Provider,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def delete(self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        provider_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
 
         Examples
         --------
@@ -708,24 +484,48 @@ class AsyncProvidersClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    construct_type(
+                        type_=typing.Optional[typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def modify(self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def modify(
+        self, provider_id: str, *, api_key: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> Provider:
         """
+        Update an existing custom provider
+
         Parameters
         ----------
         provider_id : str
+
+        api_key : str
+            API key used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        Provider
+            Successful Response
 
         Examples
         --------
@@ -741,6 +541,7 @@ class AsyncProvidersClient:
         async def main() -> None:
             await client.providers.modify(
                 provider_id="provider_id",
+                api_key="api_key",
             )
 
 
@@ -749,11 +550,34 @@ class AsyncProvidersClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/providers/{jsonable_encoder(provider_id)}",
             method="PATCH",
+            json={
+                "api_key": api_key,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    Provider,
+                    construct_type(
+                        type_=Provider,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

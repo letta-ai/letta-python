@@ -2349,7 +2349,7 @@ client.agents.create()
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">export_agent_serialized</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">export</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2366,62 +2366,6 @@ Export the serialized JSON representation of an agent, formatted with indentatio
 </dl>
 </dd>
 </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.agents.export_agent_serialized(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">export</a>(...)</code></summary>
-<dl>
-<dd>
 
 #### 🔌 Usage
 
@@ -5068,7 +5012,7 @@ client.providers.create(
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">delete_provider</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5085,141 +5029,6 @@ Delete an existing custom provider
 </dl>
 </dd>
 </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.providers.delete_provider(
-    provider_id="provider_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**provider_id:** `str` — The provider_id key to be deleted.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">modify_provider</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update an existing custom provider
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.providers.modify_provider(
-    id="id",
-    api_key="api_key",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The id of the provider to update.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**api_key:** `str` — API key used for requests to the provider.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">delete</a>(...)</code></summary>
-<dl>
-<dd>
 
 #### 🔌 Usage
 
@@ -5277,6 +5086,20 @@ client.providers.delete(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing custom provider
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5293,6 +5116,7 @@ client = Letta(
 )
 client.providers.modify(
     provider_id="provider_id",
+    api_key="api_key",
 )
 
 ```
@@ -5317,6 +5141,14 @@ client.providers.modify(
 <dl>
 <dd>
 
+**api_key:** `str` — API key used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -5330,7 +5162,7 @@ client.providers.modify(
 </details>
 
 ## Runs
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list_runs</a>(...)</code></summary>
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5362,7 +5194,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.runs.list_runs()
+client.runs.list()
 
 ```
 </dd>
@@ -5590,52 +5422,6 @@ client.runs.delete(
     
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list</a>()</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.runs.list()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
 
 <dl>
 <dd>
@@ -5894,8 +5680,8 @@ client.steps.list()
 </dl>
 </details>
 
-## Tag
-<details><summary><code>client.tag.<a href="src/letta_client/tag/client.py">list_tags</a>(...)</code></summary>
+## Tags
+<details><summary><code>client.tags.<a href="src/letta_client/tags/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5927,7 +5713,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.tag.list_tags()
+client.tags.list()
 
 ```
 </dd>
@@ -6207,63 +5993,6 @@ client.batches.retrieve(
 <dl>
 <dd>
 
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.batches.cancel(
-    batch_id="batch_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**batch_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Messages
-<details><summary><code>client.messages.<a href="src/letta_client/messages/client.py">cancel_batch_run</a>(...)</code></summary>
-<dl>
-<dd>
-
 #### 📝 Description
 
 <dl>
@@ -6292,7 +6021,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.messages.cancel_batch_run(
+client.batches.cancel(
     batch_id="batch_id",
 )
 
@@ -6752,53 +6481,6 @@ client.projects.list()
     
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Tags
-<details><summary><code>client.tags.<a href="src/letta_client/tags/client.py">list</a>()</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.tags.list()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
 
 <dl>
 <dd>
