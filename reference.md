@@ -2337,6 +2337,14 @@ client.agents.create()
 <dl>
 <dd>
 
+**response_format:** `typing.Optional[CreateAgentRequestResponseFormat]` — The response format for the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -2880,6 +2888,14 @@ client.agents.modify(
 <dd>
 
 **enable_sleeptime:** `typing.Optional[bool]` — If set to True, memory management will move to a background agent thread.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**response_format:** `typing.Optional[UpdateAgentResponseFormat]` — The response format for the agent.
     
 </dd>
 </dl>

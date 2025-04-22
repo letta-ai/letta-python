@@ -8,6 +8,7 @@ from .agent_state_tool_rules_item import AgentStateToolRulesItem
 from .agent_type import AgentType
 from .llm_config import LlmConfig
 from .embedding_config import EmbeddingConfig
+from .agent_state_response_format import AgentStateResponseFormat
 from .memory import Memory
 from .tool import Tool
 from .source import Source
@@ -90,6 +91,11 @@ class AgentState(UncheckedBaseModel):
     embedding_config: EmbeddingConfig = pydantic.Field()
     """
     The embedding configuration used by the agent.
+    """
+
+    response_format: typing.Optional[AgentStateResponseFormat] = pydantic.Field(default=None)
+    """
+    The response format used by the agent when returning from `send_message`.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)

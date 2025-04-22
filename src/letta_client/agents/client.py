@@ -25,10 +25,12 @@ from ..types.agent_type import AgentType
 from ..types.llm_config import LlmConfig
 from ..types.embedding_config import EmbeddingConfig
 from ..types.message_create import MessageCreate
+from .types.create_agent_request_response_format import CreateAgentRequestResponseFormat
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
 from .. import core
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
+from .types.update_agent_response_format import UpdateAgentResponseFormat
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .types.agents_search_response import AgentsSearchResponse
 from ..core.client_wrapper import AsyncClientWrapper
@@ -232,6 +234,7 @@ class AgentsClient:
         identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
+        response_format: typing.Optional[CreateAgentRequestResponseFormat] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -349,6 +352,9 @@ class AgentsClient:
         enable_sleeptime : typing.Optional[bool]
             If set to True, memory management will move to a background agent thread.
 
+        response_format : typing.Optional[CreateAgentRequestResponseFormat]
+            The response format for the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -416,6 +422,9 @@ class AgentsClient:
                 "identity_ids": identity_ids,
                 "message_buffer_autoclear": message_buffer_autoclear,
                 "enable_sleeptime": enable_sleeptime,
+                "response_format": convert_and_respect_annotation_metadata(
+                    object_=response_format, annotation=CreateAgentRequestResponseFormat, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -730,6 +739,7 @@ class AgentsClient:
         model: typing.Optional[str] = OMIT,
         embedding: typing.Optional[str] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
+        response_format: typing.Optional[UpdateAgentResponseFormat] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -802,6 +812,9 @@ class AgentsClient:
         enable_sleeptime : typing.Optional[bool]
             If set to True, memory management will move to a background agent thread.
 
+        response_format : typing.Optional[UpdateAgentResponseFormat]
+            The response format for the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -852,6 +865,9 @@ class AgentsClient:
                 "model": model,
                 "embedding": embedding,
                 "enable_sleeptime": enable_sleeptime,
+                "response_format": convert_and_respect_annotation_metadata(
+                    object_=response_format, annotation=UpdateAgentResponseFormat, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -1153,6 +1169,7 @@ class AsyncAgentsClient:
         identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
+        response_format: typing.Optional[CreateAgentRequestResponseFormat] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1270,6 +1287,9 @@ class AsyncAgentsClient:
         enable_sleeptime : typing.Optional[bool]
             If set to True, memory management will move to a background agent thread.
 
+        response_format : typing.Optional[CreateAgentRequestResponseFormat]
+            The response format for the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1345,6 +1365,9 @@ class AsyncAgentsClient:
                 "identity_ids": identity_ids,
                 "message_buffer_autoclear": message_buffer_autoclear,
                 "enable_sleeptime": enable_sleeptime,
+                "response_format": convert_and_respect_annotation_metadata(
+                    object_=response_format, annotation=CreateAgentRequestResponseFormat, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -1691,6 +1714,7 @@ class AsyncAgentsClient:
         model: typing.Optional[str] = OMIT,
         embedding: typing.Optional[str] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
+        response_format: typing.Optional[UpdateAgentResponseFormat] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1763,6 +1787,9 @@ class AsyncAgentsClient:
         enable_sleeptime : typing.Optional[bool]
             If set to True, memory management will move to a background agent thread.
 
+        response_format : typing.Optional[UpdateAgentResponseFormat]
+            The response format for the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1821,6 +1848,9 @@ class AsyncAgentsClient:
                 "model": model,
                 "embedding": embedding,
                 "enable_sleeptime": enable_sleeptime,
+                "response_format": convert_and_respect_annotation_metadata(
+                    object_=response_format, annotation=UpdateAgentResponseFormat, direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",

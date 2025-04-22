@@ -7,7 +7,9 @@ from .agents_search_request_search_item_operator import AgentsSearchRequestSearc
 from .agents_search_request_search_item_two import AgentsSearchRequestSearchItemTwo
 from .agents_search_request_search_item_zero import AgentsSearchRequestSearchItemZero
 from .agents_search_response import AgentsSearchResponse
+from .create_agent_request_response_format import CreateAgentRequestResponseFormat
 from .create_agent_request_tool_rules_item import CreateAgentRequestToolRulesItem
+from .update_agent_response_format import UpdateAgentResponseFormat
 from .update_agent_tool_rules_item import UpdateAgentToolRulesItem
 
 __all__ = [
@@ -18,6 +20,8 @@ __all__ = [
     "AgentsSearchRequestSearchItemTwo",
     "AgentsSearchRequestSearchItemZero",
     "AgentsSearchResponse",
+    "CreateAgentRequestResponseFormat",
     "CreateAgentRequestToolRulesItem",
+    "UpdateAgentResponseFormat",
     "UpdateAgentToolRulesItem",
 ]

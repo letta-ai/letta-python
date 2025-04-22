@@ -8,7 +8,9 @@ from .types import (
     AgentsSearchRequestSearchItemTwo,
     AgentsSearchRequestSearchItemZero,
     AgentsSearchResponse,
+    CreateAgentRequestResponseFormat,
     CreateAgentRequestToolRulesItem,
+    UpdateAgentResponseFormat,
     UpdateAgentToolRulesItem,
 )
 from . import blocks, context, core_memory, groups, memory_variables, messages, passages, sources, templates, tools
@@ -24,6 +26,7 @@ __all__ = [
     "AgentsSearchRequestSearchItemTwo",
     "AgentsSearchRequestSearchItemZero",
     "AgentsSearchResponse",
+    "CreateAgentRequestResponseFormat",
     "CreateAgentRequestToolRulesItem",
     "LettaStreamingResponse",
     "MemoryVariablesListResponse",
@@ -31,6 +34,7 @@ __all__ = [
     "MessagesModifyResponse",
     "TemplatesCreateResponse",
     "TemplatesMigrateResponse",
+    "UpdateAgentResponseFormat",
     "UpdateAgentToolRulesItem",
     "blocks",
     "context",

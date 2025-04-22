@@ -7,6 +7,7 @@ from .agent_environment_variable import AgentEnvironmentVariable
 from .agent_schema import AgentSchema
 from .agent_schema_tool_rules_item import AgentSchemaToolRulesItem
 from .agent_state import AgentState
+from .agent_state_response_format import AgentStateResponseFormat
 from .agent_state_tool_rules_item import AgentStateToolRulesItem
 from .agent_type import AgentType
 from .app_auth_scheme import AppAuthScheme
@@ -113,7 +114,9 @@ from .internal_server_error_body import InternalServerErrorBody
 from .job import Job
 from .job_status import JobStatus
 from .job_type import JobType
+from .json_object_response_format import JsonObjectResponseFormat
 from .json_schema import JsonSchema
+from .json_schema_response_format import JsonSchemaResponseFormat
 from .letta_batch_request import LettaBatchRequest
 from .letta_message_content_union import LettaMessageContentUnion
 from .letta_message_union import LettaMessageUnion
@@ -189,6 +192,7 @@ from .system_message import SystemMessage
 from .tag_schema import TagSchema
 from .terminal_tool_rule import TerminalToolRule
 from .text_content import TextContent
+from .text_response_format import TextResponseFormat
 from .tool import Tool
 from .tool_call import ToolCall
 from .tool_call_content import ToolCallContent
@@ -232,6 +236,7 @@ __all__ = [
     "AgentSchema",
     "AgentSchemaToolRulesItem",
     "AgentState",
+    "AgentStateResponseFormat",
     "AgentStateToolRulesItem",
     "AgentType",
     "AppAuthScheme",
@@ -338,7 +343,9 @@ __all__ = [
     "Job",
     "JobStatus",
     "JobType",
+    "JsonObjectResponseFormat",
     "JsonSchema",
+    "JsonSchemaResponseFormat",
     "LettaBatchRequest",
     "LettaMessageContentUnion",
     "LettaMessageUnion",
@@ -410,6 +417,7 @@ __all__ = [
     "TagSchema",
     "TerminalToolRule",
     "TextContent",
+    "TextResponseFormat",
     "Tool",
     "ToolCall",
     "ToolCallContent",
