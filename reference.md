@@ -2357,7 +2357,7 @@ client.agents.create()
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">export</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">export_file</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2389,7 +2389,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.export(
+client.agents.export_file(
     agent_id="agent_id",
 )
 
@@ -2427,7 +2427,7 @@ client.agents.export(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">import_</a>(...)</code></summary>
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">import_file</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2459,7 +2459,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.agents.import_()
+client.agents.import_file()
 
 ```
 </dd>

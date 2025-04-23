@@ -457,7 +457,7 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def export(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    def export_file(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
 
@@ -480,7 +480,7 @@ class AgentsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.export(
+        client.agents.export_file(
             agent_id="agent_id",
         )
         """
@@ -513,7 +513,7 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def import_(
+    def import_file(
         self,
         *,
         file: core.File,
@@ -558,7 +558,7 @@ class AgentsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.agents.import_()
+        client.agents.import_file()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/agents/import",
@@ -1400,7 +1400,7 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def export(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    async def export_file(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
 
@@ -1428,7 +1428,7 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.export(
+            await client.agents.export_file(
                 agent_id="agent_id",
             )
 
@@ -1464,7 +1464,7 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def import_(
+    async def import_file(
         self,
         *,
         file: core.File,
@@ -1514,7 +1514,7 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.import_()
+            await client.agents.import_file()
 
 
         asyncio.run(main())
