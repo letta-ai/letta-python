@@ -5,13 +5,13 @@ from ..core.client_wrapper import SyncClientWrapper
 from .files.client import FilesClient
 from .passages.client import PassagesClient
 from ..core.request_options import RequestOptions
-from ..types.source import Source
-from ..core.jsonable_encoder import jsonable_encoder
 from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.source import Source
+from ..core.jsonable_encoder import jsonable_encoder
 from ..types.embedding_config import EmbeddingConfig
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.client_wrapper import AsyncClientWrapper
@@ -27,6 +27,58 @@ class SourcesClient:
         self._client_wrapper = client_wrapper
         self.files = FilesClient(client_wrapper=self._client_wrapper)
         self.passages = PassagesClient(client_wrapper=self._client_wrapper)
+
+    def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
+        """
+        Count all data sources created by a user.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        int
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.sources.count()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/sources/count",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    int,
+                    construct_type(
+                        type_=int,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def retrieve(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Source:
         """
@@ -435,7 +487,14 @@ class SourcesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
+
+class AsyncSourcesClient:
+    def __init__(self, *, client_wrapper: AsyncClientWrapper):
+        self._client_wrapper = client_wrapper
+        self.files = AsyncFilesClient(client_wrapper=self._client_wrapper)
+        self.passages = AsyncPassagesClient(client_wrapper=self._client_wrapper)
+
+    async def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
         """
         Count all data sources created by a user.
 
@@ -451,14 +510,22 @@ class SourcesClient:
 
         Examples
         --------
-        from letta_client import Letta
+        import asyncio
 
-        client = Letta(
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
             token="YOUR_TOKEN",
         )
-        client.sources.count()
+
+
+        async def main() -> None:
+            await client.sources.count()
+
+
+        asyncio.run(main())
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "v1/sources/count",
             method="GET",
             request_options=request_options,
@@ -486,13 +553,6 @@ class SourcesClient:
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
-
-
-class AsyncSourcesClient:
-    def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._client_wrapper = client_wrapper
-        self.files = AsyncFilesClient(client_wrapper=self._client_wrapper)
-        self.passages = AsyncPassagesClient(client_wrapper=self._client_wrapper)
 
     async def retrieve(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Source:
         """
@@ -933,66 +993,6 @@ class AsyncSourcesClient:
                     Source,
                     construct_type(
                         type_=Source,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
-        """
-        Count all data sources created by a user.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        int
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.sources.count()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/sources/count",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    int,
-                    construct_type(
-                        type_=int,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

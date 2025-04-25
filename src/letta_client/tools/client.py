@@ -245,6 +245,69 @@ class ToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def count(
+        self,
+        *,
+        include_base_tools: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> int:
+        """
+        Get a count of all tools available to agents belonging to the org of the user.
+
+        Parameters
+        ----------
+        include_base_tools : typing.Optional[bool]
+            Include built-in Letta tools in the count
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        int
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.count()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/tools/count",
+            method="GET",
+            params={
+                "include_base_tools": include_base_tools,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    int,
+                    construct_type(
+                        type_=int,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def list(
         self,
         *,
@@ -489,58 +552,6 @@ class ToolsClient:
                     Tool,
                     construct_type(
                         type_=Tool,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
-        """
-        Get a count of all tools available to agents belonging to the org of the user
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        int
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            token="YOUR_TOKEN",
-        )
-        client.tools.count()
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v1/tools/count",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    int,
-                    construct_type(
-                        type_=int,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1433,6 +1444,77 @@ class AsyncToolsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def count(
+        self,
+        *,
+        include_base_tools: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> int:
+        """
+        Get a count of all tools available to agents belonging to the org of the user.
+
+        Parameters
+        ----------
+        include_base_tools : typing.Optional[bool]
+            Include built-in Letta tools in the count
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        int
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.count()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/tools/count",
+            method="GET",
+            params={
+                "include_base_tools": include_base_tools,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    int,
+                    construct_type(
+                        type_=int,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def list(
         self,
         *,
@@ -1701,66 +1783,6 @@ class AsyncToolsClient:
                     Tool,
                     construct_type(
                         type_=Tool,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
-        """
-        Get a count of all tools available to agents belonging to the org of the user
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        int
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.tools.count()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/tools/count",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    int,
-                    construct_type(
-                        type_=int,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
