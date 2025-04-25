@@ -6,8 +6,8 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class OmittedReasoningContent(UncheckedBaseModel):
-    type: typing.Literal["omitted_reasoning"] = "omitted_reasoning"
+class UsageStatisticsPromptTokenDetails(UncheckedBaseModel):
+    cached_tokens: typing.Optional[int] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

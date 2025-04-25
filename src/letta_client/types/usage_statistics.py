@@ -2,6 +2,8 @@
 
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
+from .usage_statistics_prompt_token_details import UsageStatisticsPromptTokenDetails
+from .usage_statistics_completion_token_details import UsageStatisticsCompletionTokenDetails
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -10,6 +12,8 @@ class UsageStatistics(UncheckedBaseModel):
     completion_tokens: typing.Optional[int] = None
     prompt_tokens: typing.Optional[int] = None
     total_tokens: typing.Optional[int] = None
+    prompt_tokens_details: typing.Optional[UsageStatisticsPromptTokenDetails] = None
+    completion_tokens_details: typing.Optional[UsageStatisticsCompletionTokenDetails] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

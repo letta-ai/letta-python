@@ -38,6 +38,11 @@ class MessageCreate(UncheckedBaseModel):
     The id of the sender of the message, can be an identity id or agent id
     """
 
+    group_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The multi-agent group that the message was sent in
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

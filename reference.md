@@ -586,6 +586,66 @@ client.tools.upsert(
 </dl>
 </details>
 
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">count</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a count of all tools available to agents belonging to the org of the user
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.count()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">upsert_base_tools</a>()</code></summary>
 <dl>
 <dd>
@@ -1817,6 +1877,66 @@ client.sources.create(
 </dl>
 </details>
 
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">count</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Count all data sources created by a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.sources.count()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Agents
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">list</a>(...)</code></summary>
 <dl>
@@ -2341,6 +2461,66 @@ client.agents.create()
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">count</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the count of all agents associated with a given user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.count()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>
@@ -3800,6 +3980,66 @@ client.identities.upsert(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.identities.<a href="src/letta_client/identities/client.py">count</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get count of all identities for a user
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.identities.count()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>

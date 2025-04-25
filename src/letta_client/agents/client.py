@@ -457,6 +457,58 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
+        """
+        Get the count of all agents associated with a given user.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        int
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.count()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/agents/count",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    int,
+                    construct_type(
+                        type_=int,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def export_file(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
@@ -1382,6 +1434,66 @@ class AsyncAgentsClient:
                     AgentState,
                     construct_type(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
+        """
+        Get the count of all agents associated with a given user.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        int
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.count()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/agents/count",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    int,
+                    construct_type(
+                        type_=int,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

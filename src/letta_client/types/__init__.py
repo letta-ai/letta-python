@@ -216,6 +216,8 @@ from .update_system_message import UpdateSystemMessage
 from .update_user_message import UpdateUserMessage
 from .update_user_message_content import UpdateUserMessageContent
 from .usage_statistics import UsageStatistics
+from .usage_statistics_completion_token_details import UsageStatisticsCompletionTokenDetails
+from .usage_statistics_prompt_token_details import UsageStatisticsPromptTokenDetails
 from .user import User
 from .user_create import UserCreate
 from .user_message import UserMessage
@@ -441,6 +443,8 @@ __all__ = [
     "UpdateUserMessage",
     "UpdateUserMessageContent",
     "UsageStatistics",
+    "UsageStatisticsCompletionTokenDetails",
+    "UsageStatisticsPromptTokenDetails",
     "User",
     "UserCreate",
     "UserMessage",
