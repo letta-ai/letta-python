@@ -13,7 +13,7 @@ class LocalSandboxConfig(UncheckedBaseModel):
     Directory for the sandbox environment.
     """
 
-    use_venv: typing.Optional[bool] = pydantic.Field(default=None)
+    force_create_venv: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether or not to use the venv, or run directly in the same run loop.
     """
@@ -25,7 +25,7 @@ class LocalSandboxConfig(UncheckedBaseModel):
 
     pip_requirements: typing.Optional[typing.List[PipRequirement]] = pydantic.Field(default=None)
     """
-    List of pip packages to install with mandatory name and optional version following semantic versioning. This only is considered when use_venv is True.
+    List of pip packages to install with mandatory name and optional version following semantic versioning. This only is considered when force_create_venv is True.
     """
 
     if IS_PYDANTIC_V2:

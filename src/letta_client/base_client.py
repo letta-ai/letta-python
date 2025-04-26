@@ -10,7 +10,7 @@ from .agents.client import AgentsClient
 from .groups.client import GroupsClient
 from .identities.client import IdentitiesClient
 from .models.client import ModelsClient
-from .embeddings.client import EmbeddingsClient
+from .embedding_models.client import EmbeddingModelsClient
 from .blocks.client import BlocksClient
 from .jobs.client import JobsClient
 from .health.client import HealthClient
@@ -20,6 +20,7 @@ from .steps.client import StepsClient
 from .tags.client import TagsClient
 from .batches.client import BatchesClient
 from .voice.client import VoiceClient
+from .embeddings.client import EmbeddingsClient
 from .templates.client import TemplatesClient
 from .client_side_access_tokens.client import ClientSideAccessTokensClient
 from .projects.client import ProjectsClient
@@ -30,7 +31,7 @@ from .agents.client import AsyncAgentsClient
 from .groups.client import AsyncGroupsClient
 from .identities.client import AsyncIdentitiesClient
 from .models.client import AsyncModelsClient
-from .embeddings.client import AsyncEmbeddingsClient
+from .embedding_models.client import AsyncEmbeddingModelsClient
 from .blocks.client import AsyncBlocksClient
 from .jobs.client import AsyncJobsClient
 from .health.client import AsyncHealthClient
@@ -40,6 +41,7 @@ from .steps.client import AsyncStepsClient
 from .tags.client import AsyncTagsClient
 from .batches.client import AsyncBatchesClient
 from .voice.client import AsyncVoiceClient
+from .embeddings.client import AsyncEmbeddingsClient
 from .templates.client import AsyncTemplatesClient
 from .client_side_access_tokens.client import AsyncClientSideAccessTokensClient
 from .projects.client import AsyncProjectsClient
@@ -109,7 +111,7 @@ class LettaBase:
         self.groups = GroupsClient(client_wrapper=self._client_wrapper)
         self.identities = IdentitiesClient(client_wrapper=self._client_wrapper)
         self.models = ModelsClient(client_wrapper=self._client_wrapper)
-        self.embeddings = EmbeddingsClient(client_wrapper=self._client_wrapper)
+        self.embedding_models = EmbeddingModelsClient(client_wrapper=self._client_wrapper)
         self.blocks = BlocksClient(client_wrapper=self._client_wrapper)
         self.jobs = JobsClient(client_wrapper=self._client_wrapper)
         self.health = HealthClient(client_wrapper=self._client_wrapper)
@@ -119,6 +121,7 @@ class LettaBase:
         self.tags = TagsClient(client_wrapper=self._client_wrapper)
         self.batches = BatchesClient(client_wrapper=self._client_wrapper)
         self.voice = VoiceClient(client_wrapper=self._client_wrapper)
+        self.embeddings = EmbeddingsClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = ClientSideAccessTokensClient(client_wrapper=self._client_wrapper)
         self.projects = ProjectsClient(client_wrapper=self._client_wrapper)
@@ -188,7 +191,7 @@ class AsyncLettaBase:
         self.groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
         self.identities = AsyncIdentitiesClient(client_wrapper=self._client_wrapper)
         self.models = AsyncModelsClient(client_wrapper=self._client_wrapper)
-        self.embeddings = AsyncEmbeddingsClient(client_wrapper=self._client_wrapper)
+        self.embedding_models = AsyncEmbeddingModelsClient(client_wrapper=self._client_wrapper)
         self.blocks = AsyncBlocksClient(client_wrapper=self._client_wrapper)
         self.jobs = AsyncJobsClient(client_wrapper=self._client_wrapper)
         self.health = AsyncHealthClient(client_wrapper=self._client_wrapper)
@@ -198,6 +201,7 @@ class AsyncLettaBase:
         self.tags = AsyncTagsClient(client_wrapper=self._client_wrapper)
         self.batches = AsyncBatchesClient(client_wrapper=self._client_wrapper)
         self.voice = AsyncVoiceClient(client_wrapper=self._client_wrapper)
+        self.embeddings = AsyncEmbeddingsClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = AsyncClientSideAccessTokensClient(client_wrapper=self._client_wrapper)
         self.projects = AsyncProjectsClient(client_wrapper=self._client_wrapper)

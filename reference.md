@@ -4341,8 +4341,8 @@ client.models.list()
 </dl>
 </details>
 
-## Embeddings
-<details><summary><code>client.embeddings.<a href="src/letta_client/embeddings/client.py">list</a>()</code></summary>
+## EmbeddingModels
+<details><summary><code>client.embedding_models.<a href="src/letta_client/embedding_models/client.py">list</a>()</code></summary>
 <dl>
 <dd>
 
@@ -4360,7 +4360,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.embeddings.list()
+client.embedding_models.list()
 
 ```
 </dd>
@@ -6392,6 +6392,53 @@ client.voice.create_voice_chat_completions(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Embeddings
+<details><summary><code>client.embeddings.<a href="src/letta_client/embeddings/client.py">get_total_storage_size</a>()</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.embeddings.get_total_storage_size()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>

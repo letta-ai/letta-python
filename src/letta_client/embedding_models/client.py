@@ -3,16 +3,18 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
+from ..types.embedding_config import EmbeddingConfig
+from ..core.unchecked_base_model import construct_type
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper
 
 
-class EmbeddingsClient:
+class EmbeddingModelsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_total_storage_size(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[EmbeddingConfig]:
         """
         Parameters
         ----------
@@ -21,7 +23,8 @@ class EmbeddingsClient:
 
         Returns
         -------
-        None
+        typing.List[EmbeddingConfig]
+            Successful Response
 
         Examples
         --------
@@ -30,27 +33,33 @@ class EmbeddingsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.embeddings.get_total_storage_size()
+        client.embedding_models.list()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/embeddings/get_total_storage_size",
+            "v1/models/embedding",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    typing.List[EmbeddingConfig],
+                    construct_type(
+                        type_=typing.List[EmbeddingConfig],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncEmbeddingsClient:
+class AsyncEmbeddingModelsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_total_storage_size(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[EmbeddingConfig]:
         """
         Parameters
         ----------
@@ -59,7 +68,8 @@ class AsyncEmbeddingsClient:
 
         Returns
         -------
-        None
+        typing.List[EmbeddingConfig]
+            Successful Response
 
         Examples
         --------
@@ -73,19 +83,25 @@ class AsyncEmbeddingsClient:
 
 
         async def main() -> None:
-            await client.embeddings.get_total_storage_size()
+            await client.embedding_models.list()
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/embeddings/get_total_storage_size",
+            "v1/models/embedding",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    typing.List[EmbeddingConfig],
+                    construct_type(
+                        type_=typing.List[EmbeddingConfig],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
