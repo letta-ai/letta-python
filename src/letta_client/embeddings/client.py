@@ -3,6 +3,9 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
+from ..core.unchecked_base_model import construct_type
+from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper
@@ -12,8 +15,10 @@ class EmbeddingsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_total_storage_size(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def get_embeddings_total_storage_size(self, *, request_options: typing.Optional[RequestOptions] = None) -> float:
         """
+        Get the total size of all embeddings in the database for a user in the storage unit given.
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -21,7 +26,8 @@ class EmbeddingsClient:
 
         Returns
         -------
-        None
+        float
+            Successful Response
 
         Examples
         --------
@@ -30,16 +36,35 @@ class EmbeddingsClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.embeddings.get_total_storage_size()
+        client.embeddings.get_embeddings_total_storage_size()
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/embeddings/get_total_storage_size",
+            "v1/embeddings/total_storage_size",
             method="GET",
+            headers={
+                "storage-unit": "GB",
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    float,
+                    construct_type(
+                        type_=float,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -50,8 +75,12 @@ class AsyncEmbeddingsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_total_storage_size(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def get_embeddings_total_storage_size(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> float:
         """
+        Get the total size of all embeddings in the database for a user in the storage unit given.
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -59,7 +88,8 @@ class AsyncEmbeddingsClient:
 
         Returns
         -------
-        None
+        float
+            Successful Response
 
         Examples
         --------
@@ -73,19 +103,38 @@ class AsyncEmbeddingsClient:
 
 
         async def main() -> None:
-            await client.embeddings.get_total_storage_size()
+            await client.embeddings.get_embeddings_total_storage_size()
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/embeddings/get_total_storage_size",
+            "v1/embeddings/total_storage_size",
             method="GET",
+            headers={
+                "storage-unit": "GB",
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    float,
+                    construct_type(
+                        type_=float,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

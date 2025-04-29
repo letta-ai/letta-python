@@ -2,6 +2,7 @@
 
 import typing
 from ...core.client_wrapper import SyncClientWrapper
+from .types.templates_create_version_request_return_agent_state import TemplatesCreateVersionRequestReturnAgentState
 from ...core.request_options import RequestOptions
 from ...core.jsonable_encoder import jsonable_encoder
 from ...errors.not_found_error import NotFoundError
@@ -27,7 +28,7 @@ class TemplatesClient:
         self,
         agent_id: str,
         *,
-        return_agent_state: typing.Optional[bool] = None,
+        return_agent_state: typing.Optional[TemplatesCreateVersionRequestReturnAgentState] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
         message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -42,7 +43,7 @@ class TemplatesClient:
         agent_id : str
             The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
 
-        return_agent_state : typing.Optional[bool]
+        return_agent_state : typing.Optional[TemplatesCreateVersionRequestReturnAgentState]
 
         migrate_deployed_agents : typing.Optional[bool]
 
@@ -296,7 +297,7 @@ class AsyncTemplatesClient:
         self,
         agent_id: str,
         *,
-        return_agent_state: typing.Optional[bool] = None,
+        return_agent_state: typing.Optional[TemplatesCreateVersionRequestReturnAgentState] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
         message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -311,7 +312,7 @@ class AsyncTemplatesClient:
         agent_id : str
             The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
 
-        return_agent_state : typing.Optional[bool]
+        return_agent_state : typing.Optional[TemplatesCreateVersionRequestReturnAgentState]
 
         migrate_deployed_agents : typing.Optional[bool]
 

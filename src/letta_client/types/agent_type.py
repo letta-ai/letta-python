@@ -2,4 +2,9 @@
 
 import typing
 
-AgentType = typing.Union[typing.Literal["memgpt_agent", "split_thread_agent", "sleeptime_agent"], typing.Any]
+AgentType = typing.Union[
+    typing.Literal[
+        "memgpt_agent", "split_thread_agent", "sleeptime_agent", "voice_convo_agent", "voice_sleeptime_agent"
+    ],
+    typing.Any,
+]

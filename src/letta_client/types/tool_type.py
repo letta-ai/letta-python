@@ -9,6 +9,7 @@ ToolType = typing.Union[
         "letta_memory_core",
         "letta_multi_agent_core",
         "letta_sleeptime_core",
+        "letta_voice_sleeptime_core",
         "external_composio",
         "external_langchain",
         "external_mcp",
