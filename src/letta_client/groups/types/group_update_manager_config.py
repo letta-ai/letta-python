@@ -5,7 +5,12 @@ from ...types.dynamic_manager_update import DynamicManagerUpdate
 from ...types.round_robin_manager_update import RoundRobinManagerUpdate
 from ...types.sleeptime_manager_update import SleeptimeManagerUpdate
 from ...types.supervisor_manager_update import SupervisorManagerUpdate
+from ...types.voice_sleeptime_manager_update import VoiceSleeptimeManagerUpdate
 
 GroupUpdateManagerConfig = typing.Union[
-    DynamicManagerUpdate, RoundRobinManagerUpdate, SleeptimeManagerUpdate, SupervisorManagerUpdate
+    DynamicManagerUpdate,
+    RoundRobinManagerUpdate,
+    SleeptimeManagerUpdate,
+    SupervisorManagerUpdate,
+    VoiceSleeptimeManagerUpdate,
 ]

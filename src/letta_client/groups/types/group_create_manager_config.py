@@ -5,5 +5,8 @@ from ...types.dynamic_manager import DynamicManager
 from ...types.round_robin_manager import RoundRobinManager
 from ...types.sleeptime_manager import SleeptimeManager
 from ...types.supervisor_manager import SupervisorManager
+from ...types.voice_sleeptime_manager import VoiceSleeptimeManager
 
-GroupCreateManagerConfig = typing.Union[DynamicManager, RoundRobinManager, SleeptimeManager, SupervisorManager]
+GroupCreateManagerConfig = typing.Union[
+    DynamicManager, RoundRobinManager, SleeptimeManager, SupervisorManager, VoiceSleeptimeManager
+]

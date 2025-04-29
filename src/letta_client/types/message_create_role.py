@@ -2,4 +2,4 @@
 
 import typing
 
-MessageCreateRole = typing.Union[typing.Literal["user", "system"], typing.Any]
+MessageCreateRole = typing.Union[typing.Literal["user", "system", "assistant"], typing.Any]

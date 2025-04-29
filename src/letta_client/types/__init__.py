@@ -225,6 +225,8 @@ from .user_message_content import UserMessageContent
 from .user_update import UserUpdate
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
+from .voice_sleeptime_manager import VoiceSleeptimeManager
+from .voice_sleeptime_manager_update import VoiceSleeptimeManagerUpdate
 from .web_search_options import WebSearchOptions
 from .web_search_options_search_context_size import WebSearchOptionsSearchContextSize
 from .web_search_options_user_location import WebSearchOptionsUserLocation
@@ -452,6 +454,8 @@ __all__ = [
     "UserUpdate",
     "ValidationError",
     "ValidationErrorLocItem",
+    "VoiceSleeptimeManager",
+    "VoiceSleeptimeManagerUpdate",
     "WebSearchOptions",
     "WebSearchOptionsSearchContextSize",
     "WebSearchOptionsUserLocation",
