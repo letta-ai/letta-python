@@ -25,6 +25,7 @@ class AssistantMessage(UncheckedBaseModel):
     message_type: typing.Literal["assistant_message"] = "assistant_message"
     otid: typing.Optional[str] = None
     sender_id: typing.Optional[str] = None
+    step_id: typing.Optional[str] = None
     content: AssistantMessageContent = pydantic.Field()
     """
     The message content sent by the agent (can be a string or an array of content parts)

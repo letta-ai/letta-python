@@ -26,6 +26,11 @@ class Message(UncheckedBaseModel):
         created_at (datetime): The time the message was created.
         tool_calls (List[OpenAIToolCall,]): The list of tool calls requested.
         tool_call_id (str): The id of the tool call.
+        step_id (str): The id of the step that this message was created in.
+        otid (str): The offline threading id associated with this message.
+        tool_returns (List[ToolReturn]): The list of tool returns requested.
+        group_id (str): The multi-agent group that the message was sent in.
+        sender_id (str): The id of the sender of the message, can be an identity id or agent id.
     """
 
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)

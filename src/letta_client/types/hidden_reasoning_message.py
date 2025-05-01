@@ -28,6 +28,7 @@ class HiddenReasoningMessage(UncheckedBaseModel):
     message_type: typing.Literal["hidden_reasoning_message"] = "hidden_reasoning_message"
     otid: typing.Optional[str] = None
     sender_id: typing.Optional[str] = None
+    step_id: typing.Optional[str] = None
     state: HiddenReasoningMessageState
     hidden_reasoning: typing.Optional[str] = None
 
