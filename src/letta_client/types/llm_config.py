@@ -38,6 +38,11 @@ class LlmConfig(UncheckedBaseModel):
     The endpoint for the model.
     """
 
+    provider_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The provider name for the model.
+    """
+
     model_wrapper: typing.Optional[str] = pydantic.Field(default=None)
     """
     The wrapper for the model.

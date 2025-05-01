@@ -2,6 +2,7 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
+from ..types.provider_type import ProviderType
 from ..core.request_options import RequestOptions
 from ..types.provider import Provider
 from ..core.unchecked_base_model import construct_type
@@ -23,6 +24,8 @@ class ProvidersClient:
     def list(
         self,
         *,
+        name: typing.Optional[str] = None,
+        provider_type: typing.Optional[ProviderType] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -32,6 +35,10 @@ class ProvidersClient:
 
         Parameters
         ----------
+        name : typing.Optional[str]
+
+        provider_type : typing.Optional[ProviderType]
+
         after : typing.Optional[str]
 
         limit : typing.Optional[int]
@@ -57,6 +64,8 @@ class ProvidersClient:
             "v1/providers/",
             method="GET",
             params={
+                "name": name,
+                "provider_type": provider_type,
                 "after": after,
                 "limit": limit,
             },
@@ -86,7 +95,14 @@ class ProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def create(self, *, name: str, api_key: str, request_options: typing.Optional[RequestOptions] = None) -> Provider:
+    def create(
+        self,
+        *,
+        name: str,
+        provider_type: ProviderType,
+        api_key: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Provider:
         """
         Create a new custom provider
 
@@ -94,6 +110,9 @@ class ProvidersClient:
         ----------
         name : str
             The name of the provider.
+
+        provider_type : ProviderType
+            The type of the provider.
 
         api_key : str
             API key used for requests to the provider.
@@ -115,6 +134,7 @@ class ProvidersClient:
         )
         client.providers.create(
             name="name",
+            provider_type="anthropic",
             api_key="api_key",
         )
         """
@@ -123,6 +143,7 @@ class ProvidersClient:
             method="POST",
             json={
                 "name": name,
+                "provider_type": provider_type,
                 "api_key": api_key,
             },
             headers={
@@ -290,6 +311,8 @@ class AsyncProvidersClient:
     async def list(
         self,
         *,
+        name: typing.Optional[str] = None,
+        provider_type: typing.Optional[ProviderType] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -299,6 +322,10 @@ class AsyncProvidersClient:
 
         Parameters
         ----------
+        name : typing.Optional[str]
+
+        provider_type : typing.Optional[ProviderType]
+
         after : typing.Optional[str]
 
         limit : typing.Optional[int]
@@ -332,6 +359,8 @@ class AsyncProvidersClient:
             "v1/providers/",
             method="GET",
             params={
+                "name": name,
+                "provider_type": provider_type,
                 "after": after,
                 "limit": limit,
             },
@@ -362,7 +391,12 @@ class AsyncProvidersClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def create(
-        self, *, name: str, api_key: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        name: str,
+        provider_type: ProviderType,
+        api_key: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
         Create a new custom provider
@@ -371,6 +405,9 @@ class AsyncProvidersClient:
         ----------
         name : str
             The name of the provider.
+
+        provider_type : ProviderType
+            The type of the provider.
 
         api_key : str
             API key used for requests to the provider.
@@ -397,6 +434,7 @@ class AsyncProvidersClient:
         async def main() -> None:
             await client.providers.create(
                 name="name",
+                provider_type="anthropic",
                 api_key="api_key",
             )
 
@@ -408,6 +446,7 @@ class AsyncProvidersClient:
             method="POST",
             json={
                 "name": name,
+                "provider_type": provider_type,
                 "api_key": api_key,
             },
             headers={

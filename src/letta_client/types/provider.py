@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
+from .provider_type import ProviderType
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -18,9 +19,19 @@ class Provider(UncheckedBaseModel):
     The name of the provider
     """
 
+    provider_type: ProviderType = pydantic.Field()
+    """
+    The type of the provider
+    """
+
     api_key: typing.Optional[str] = pydantic.Field(default=None)
     """
     API key used for requests to the provider.
+    """
+
+    base_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Base URL for the provider.
     """
 
     updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)

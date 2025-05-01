@@ -161,6 +161,7 @@ from .parent_tool_rule import ParentToolRule
 from .passage import Passage
 from .pip_requirement import PipRequirement
 from .provider import Provider
+from .provider_type import ProviderType
 from .reasoning_content import ReasoningContent
 from .reasoning_message import ReasoningMessage
 from .reasoning_message_source import ReasoningMessageSource
@@ -390,6 +391,7 @@ __all__ = [
     "Passage",
     "PipRequirement",
     "Provider",
+    "ProviderType",
     "ReasoningContent",
     "ReasoningMessage",
     "ReasoningMessageSource",

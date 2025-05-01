@@ -4295,7 +4295,7 @@ client.identities.modify(
 </details>
 
 ## Models
-<details><summary><code>client.models.<a href="src/letta_client/models/client.py">list</a>()</code></summary>
+<details><summary><code>client.models.<a href="src/letta_client/models/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -4325,6 +4325,14 @@ client.models.list()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**byok_only:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -5169,6 +5177,22 @@ client.providers.list()
 <dl>
 <dd>
 
+**name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_type:** `typing.Optional[ProviderType]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **after:** `typing.Optional[str]` 
     
 </dd>
@@ -5231,6 +5255,7 @@ client = Letta(
 )
 client.providers.create(
     name="name",
+    provider_type="anthropic",
     api_key="api_key",
 )
 
@@ -5249,6 +5274,14 @@ client.providers.create(
 <dd>
 
 **name:** `str` — The name of the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_type:** `ProviderType` — The type of the provider.
     
 </dd>
 </dl>
@@ -5703,7 +5736,7 @@ client.runs.delete(
 </details>
 
 ## Steps
-<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">list_steps</a>(...)</code></summary>
+<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5736,7 +5769,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.steps.list_steps()
+client.steps.list()
 
 ```
 </dd>
@@ -5882,52 +5915,6 @@ client.steps.retrieve(
     
 </dd>
 </dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">list</a>()</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.steps.list()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
 
 <dl>
 <dd>

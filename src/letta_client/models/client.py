@@ -5,6 +5,8 @@ import typing
 from ..core.request_options import RequestOptions
 from ..types.llm_config import LlmConfig
 from ..core.unchecked_base_model import construct_type
+from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper
@@ -14,10 +16,14 @@ class ModelsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[LlmConfig]:
+    def list(
+        self, *, byok_only: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[LlmConfig]:
         """
         Parameters
         ----------
+        byok_only : typing.Optional[bool]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -38,6 +44,9 @@ class ModelsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/models/",
             method="GET",
+            params={
+                "byok_only": byok_only,
+            },
             request_options=request_options,
         )
         try:
@@ -49,6 +58,16 @@ class ModelsClient:
                         object_=_response.json(),
                     ),
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -59,10 +78,14 @@ class AsyncModelsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[LlmConfig]:
+    async def list(
+        self, *, byok_only: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[LlmConfig]:
         """
         Parameters
         ----------
+        byok_only : typing.Optional[bool]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -91,6 +114,9 @@ class AsyncModelsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/models/",
             method="GET",
+            params={
+                "byok_only": byok_only,
+            },
             request_options=request_options,
         )
         try:
@@ -101,6 +127,16 @@ class AsyncModelsClient:
                         type_=typing.List[LlmConfig],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:
