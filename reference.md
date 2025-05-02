@@ -6395,67 +6395,6 @@ client.voice.create_voice_chat_completions(
 </dl>
 </details>
 
-## Embeddings
-<details><summary><code>client.embeddings.<a href="src/letta_client/embeddings/client.py">get_embeddings_total_storage_size</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the total size of all embeddings in the database for a user in the storage unit given.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    token="YOUR_TOKEN",
-)
-client.embeddings.get_embeddings_total_storage_size()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Templates
 <details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">list</a>(...)</code></summary>
 <dl>
