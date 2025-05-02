@@ -117,6 +117,7 @@ from .job_type import JobType
 from .json_object_response_format import JsonObjectResponseFormat
 from .json_schema import JsonSchema
 from .json_schema_response_format import JsonSchemaResponseFormat
+from .letta_batch_messages import LettaBatchMessages
 from .letta_batch_request import LettaBatchRequest
 from .letta_message_content_union import LettaMessageContentUnion
 from .letta_message_union import LettaMessageUnion
@@ -351,6 +352,7 @@ __all__ = [
     "JsonObjectResponseFormat",
     "JsonSchema",
     "JsonSchemaResponseFormat",
+    "LettaBatchMessages",
     "LettaBatchRequest",
     "LettaMessageContentUnion",
     "LettaMessageUnion",

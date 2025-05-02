@@ -118,6 +118,11 @@ class Message(UncheckedBaseModel):
     The id of the sender of the message, can be an identity id or agent id
     """
 
+    batch_item_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the LLMBatchItem that this message is associated with
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

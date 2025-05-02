@@ -38,6 +38,11 @@ class MessageCreate(UncheckedBaseModel):
     The id of the sender of the message, can be an identity id or agent id
     """
 
+    batch_item_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the LLMBatchItem that this message is associated with
+    """
+
     group_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The multi-agent group that the message was sent in

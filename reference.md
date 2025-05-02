@@ -6150,7 +6150,7 @@ client.batches.create(
 <dl>
 <dd>
 
-**callback_url:** `typing.Optional[str]` — Optional URL to call via POST when the batch completes.
+**callback_url:** `typing.Optional[str]` — Optional URL to call via POST when the batch completes. The callback payload will be a JSON object with the following fields: {'job_id': string, 'status': string, 'completed_at': string}. Where 'job_id' is the unique batch job identifier, 'status' is the final batch status (e.g., 'completed', 'failed'), and 'completed_at' is an ISO 8601 timestamp indicating when the batch job completed.
     
 </dd>
 </dl>
@@ -6291,6 +6291,116 @@ client.batches.cancel(
 <dd>
 
 **batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Messages
+<details><summary><code>client.messages.<a href="src/letta_client/messages/client.py">list_batch_messages</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get messages for a specific batch job.
+
+Returns messages associated with the batch in chronological order.
+
+Pagination:
+- For the first page, omit the cursor parameter
+- For subsequent pages, use the ID of the last message from the previous response as the cursor
+- Results will include messages before/after the cursor based on sort_descending
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.messages.list_batch_messages(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — Message ID to use as pagination cursor (get messages before/after this ID) depending on sort_descending.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `typing.Optional[str]` — Filter messages by agent ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_descending:** `typing.Optional[bool]` — Sort messages by creation time (true=newest first)
     
 </dd>
 </dl>
