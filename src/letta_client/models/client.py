@@ -17,12 +17,18 @@ class ModelsClient:
         self._client_wrapper = client_wrapper
 
     def list(
-        self, *, byok_only: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        byok_only: typing.Optional[bool] = None,
+        default_only: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LlmConfig]:
         """
         Parameters
         ----------
         byok_only : typing.Optional[bool]
+
+        default_only : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -46,6 +52,7 @@ class ModelsClient:
             method="GET",
             params={
                 "byok_only": byok_only,
+                "default_only": default_only,
             },
             request_options=request_options,
         )
@@ -79,12 +86,18 @@ class AsyncModelsClient:
         self._client_wrapper = client_wrapper
 
     async def list(
-        self, *, byok_only: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        byok_only: typing.Optional[bool] = None,
+        default_only: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LlmConfig]:
         """
         Parameters
         ----------
         byok_only : typing.Optional[bool]
+
+        default_only : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -116,6 +129,7 @@ class AsyncModelsClient:
             method="GET",
             params={
                 "byok_only": byok_only,
+                "default_only": default_only,
             },
             request_options=request_options,
         )
