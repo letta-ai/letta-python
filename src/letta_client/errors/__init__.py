@@ -4,6 +4,14 @@ from .bad_request_error import BadRequestError
 from .conflict_error import ConflictError
 from .internal_server_error import InternalServerError
 from .not_found_error import NotFoundError
+from .payment_required_error import PaymentRequiredError
 from .unprocessable_entity_error import UnprocessableEntityError
 
-__all__ = ["BadRequestError", "ConflictError", "InternalServerError", "NotFoundError", "UnprocessableEntityError"]
+__all__ = [
+    "BadRequestError",
+    "ConflictError",
+    "InternalServerError",
+    "NotFoundError",
+    "PaymentRequiredError",
+    "UnprocessableEntityError",
+]

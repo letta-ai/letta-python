@@ -157,6 +157,7 @@ from .types import (
     ParametersSchema,
     ParentToolRule,
     Passage,
+    PaymentRequiredErrorBody,
     PipRequirement,
     Provider,
     ProviderType,
@@ -231,7 +232,14 @@ from .types import (
     WebSearchOptionsUserLocation,
     WebSearchOptionsUserLocationApproximate,
 )
-from .errors import BadRequestError, ConflictError, InternalServerError, NotFoundError, UnprocessableEntityError
+from .errors import (
+    BadRequestError,
+    ConflictError,
+    InternalServerError,
+    NotFoundError,
+    PaymentRequiredError,
+    UnprocessableEntityError,
+)
 from . import (
     agents,
     batches,
@@ -475,6 +483,8 @@ __all__ = [
     "ParametersSchema",
     "ParentToolRule",
     "Passage",
+    "PaymentRequiredError",
+    "PaymentRequiredErrorBody",
     "PipRequirement",
     "ProjectsListResponse",
     "ProjectsListResponseProjectsItem",

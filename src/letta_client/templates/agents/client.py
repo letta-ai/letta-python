@@ -6,6 +6,8 @@ from ...core.request_options import RequestOptions
 from .types.agents_create_response import AgentsCreateResponse
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.unchecked_base_model import construct_type
+from ...errors.payment_required_error import PaymentRequiredError
+from ...types.payment_required_error_body import PaymentRequiredErrorBody
 from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper
@@ -100,6 +102,16 @@ class AgentsClient:
                         type_=AgentsCreateResponse,  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
+                    typing.cast(
+                        PaymentRequiredErrorBody,
+                        construct_type(
+                            type_=PaymentRequiredErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:
@@ -201,6 +213,16 @@ class AsyncAgentsClient:
                         type_=AgentsCreateResponse,  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
+                    typing.cast(
+                        PaymentRequiredErrorBody,
+                        construct_type(
+                            type_=PaymentRequiredErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:

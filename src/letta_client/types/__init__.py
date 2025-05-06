@@ -160,6 +160,7 @@ from .parameter_properties import ParameterProperties
 from .parameters_schema import ParametersSchema
 from .parent_tool_rule import ParentToolRule
 from .passage import Passage
+from .payment_required_error_body import PaymentRequiredErrorBody
 from .pip_requirement import PipRequirement
 from .provider import Provider
 from .provider_type import ProviderType
@@ -391,6 +392,7 @@ __all__ = [
     "ParametersSchema",
     "ParentToolRule",
     "Passage",
+    "PaymentRequiredErrorBody",
     "PipRequirement",
     "Provider",
     "ProviderType",
