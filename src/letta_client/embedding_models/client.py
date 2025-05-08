@@ -5,6 +5,8 @@ import typing
 from ..core.request_options import RequestOptions
 from ..types.embedding_config import EmbeddingConfig
 from ..core.unchecked_base_model import construct_type
+from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper
@@ -48,6 +50,16 @@ class EmbeddingModelsClient:
                         type_=typing.List[EmbeddingConfig],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:
@@ -101,6 +113,16 @@ class AsyncEmbeddingModelsClient:
                         type_=typing.List[EmbeddingConfig],  # type: ignore
                         object_=_response.json(),
                     ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
                 )
             _response_json = _response.json()
         except JSONDecodeError:

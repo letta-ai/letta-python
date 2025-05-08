@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
 from .provider_type import ProviderType
+from .provider_category import ProviderCategory
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -22,6 +23,11 @@ class Provider(UncheckedBaseModel):
     provider_type: ProviderType = pydantic.Field()
     """
     The type of the provider
+    """
+
+    provider_category: ProviderCategory = pydantic.Field()
+    """
+    The category of the provider (base or byok)
     """
 
     api_key: typing.Optional[str] = pydantic.Field(default=None)

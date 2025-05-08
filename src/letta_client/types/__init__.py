@@ -163,6 +163,7 @@ from .passage import Passage
 from .payment_required_error_body import PaymentRequiredErrorBody
 from .pip_requirement import PipRequirement
 from .provider import Provider
+from .provider_category import ProviderCategory
 from .provider_type import ProviderType
 from .reasoning_content import ReasoningContent
 from .reasoning_message import ReasoningMessage
@@ -395,6 +396,7 @@ __all__ = [
     "PaymentRequiredErrorBody",
     "PipRequirement",
     "Provider",
+    "ProviderCategory",
     "ProviderType",
     "ReasoningContent",
     "ReasoningMessage",

@@ -4389,7 +4389,9 @@ client.models.list()
 <dl>
 <dd>
 
-**byok_only:** `typing.Optional[bool]` 
+**provider_category:** `typing.Optional[
+    typing.Union[ProviderCategory, typing.Sequence[ProviderCategory]]
+]` 
     
 </dd>
 </dl>
@@ -4397,7 +4399,15 @@ client.models.list()
 <dl>
 <dd>
 
-**default_only:** `typing.Optional[bool]` 
+**provider_name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_type:** `typing.Optional[ProviderType]` 
     
 </dd>
 </dl>
@@ -5567,6 +5577,71 @@ client.providers.modify(
 <dd>
 
 **api_key:** `str` — API key used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">check</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.providers.check(
+    api_key="x-api-key",
+    provider_type="anthropic",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider_type:** `ProviderType` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_key:** `str` 
     
 </dd>
 </dl>

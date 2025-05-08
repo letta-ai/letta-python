@@ -2,6 +2,8 @@
 
 from ..core.client_wrapper import SyncClientWrapper
 import typing
+from ..types.provider_category import ProviderCategory
+from ..types.provider_type import ProviderType
 from ..core.request_options import RequestOptions
 from ..types.llm_config import LlmConfig
 from ..core.unchecked_base_model import construct_type
@@ -19,16 +21,19 @@ class ModelsClient:
     def list(
         self,
         *,
-        byok_only: typing.Optional[bool] = None,
-        default_only: typing.Optional[bool] = None,
+        provider_category: typing.Optional[typing.Union[ProviderCategory, typing.Sequence[ProviderCategory]]] = None,
+        provider_name: typing.Optional[str] = None,
+        provider_type: typing.Optional[ProviderType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LlmConfig]:
         """
         Parameters
         ----------
-        byok_only : typing.Optional[bool]
+        provider_category : typing.Optional[typing.Union[ProviderCategory, typing.Sequence[ProviderCategory]]]
 
-        default_only : typing.Optional[bool]
+        provider_name : typing.Optional[str]
+
+        provider_type : typing.Optional[ProviderType]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -51,8 +56,9 @@ class ModelsClient:
             "v1/models/",
             method="GET",
             params={
-                "byok_only": byok_only,
-                "default_only": default_only,
+                "provider_category": provider_category,
+                "provider_name": provider_name,
+                "provider_type": provider_type,
             },
             request_options=request_options,
         )
@@ -88,16 +94,19 @@ class AsyncModelsClient:
     async def list(
         self,
         *,
-        byok_only: typing.Optional[bool] = None,
-        default_only: typing.Optional[bool] = None,
+        provider_category: typing.Optional[typing.Union[ProviderCategory, typing.Sequence[ProviderCategory]]] = None,
+        provider_name: typing.Optional[str] = None,
+        provider_type: typing.Optional[ProviderType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LlmConfig]:
         """
         Parameters
         ----------
-        byok_only : typing.Optional[bool]
+        provider_category : typing.Optional[typing.Union[ProviderCategory, typing.Sequence[ProviderCategory]]]
 
-        default_only : typing.Optional[bool]
+        provider_name : typing.Optional[str]
+
+        provider_type : typing.Optional[ProviderType]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,8 +137,9 @@ class AsyncModelsClient:
             "v1/models/",
             method="GET",
             params={
-                "byok_only": byok_only,
-                "default_only": default_only,
+                "provider_category": provider_category,
+                "provider_name": provider_name,
+                "provider_type": provider_type,
             },
             request_options=request_options,
         )

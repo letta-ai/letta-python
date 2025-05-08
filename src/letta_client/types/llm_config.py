@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 import typing
+from .provider_category import ProviderCategory
 from .llm_config_reasoning_effort import LlmConfigReasoningEffort
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -41,6 +42,11 @@ class LlmConfig(UncheckedBaseModel):
     provider_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The provider name for the model.
+    """
+
+    provider_category: typing.Optional[ProviderCategory] = pydantic.Field(default=None)
+    """
+    The provider category for the model.
     """
 
     model_wrapper: typing.Optional[str] = pydantic.Field(default=None)

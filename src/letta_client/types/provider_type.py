@@ -5,6 +5,7 @@ import typing
 ProviderType = typing.Union[
     typing.Literal[
         "anthropic",
+        "bedrock",
         "google_ai",
         "google_vertex",
         "openai",
@@ -18,7 +19,6 @@ ProviderType = typing.Union[
         "together",
         "azure",
         "vllm",
-        "bedrock",
     ],
     typing.Any,
 ]
