@@ -36,6 +36,11 @@ class Source(UncheckedBaseModel):
     The description of the source.
     """
 
+    instructions: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Instructions for how to use the source.
+    """
+
     embedding_config: EmbeddingConfig = pydantic.Field()
     """
     The embedding configuration used by the source.

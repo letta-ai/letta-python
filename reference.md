@@ -1677,6 +1677,14 @@ client.sources.modify(
 <dl>
 <dd>
 
+**instructions:** `typing.Optional[str]` — Instructions for how to use the source.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata associated with the source.
     
 </dd>
@@ -1918,6 +1926,14 @@ client.sources.create(
 <dd>
 
 **description:** `typing.Optional[str]` — The description of the source.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**instructions:** `typing.Optional[str]` — Instructions for how to use the source.
     
 </dd>
 </dl>

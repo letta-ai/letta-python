@@ -200,6 +200,7 @@ class SourcesClient:
         *,
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
+        instructions: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -216,6 +217,9 @@ class SourcesClient:
 
         description : typing.Optional[str]
             The description of the source.
+
+        instructions : typing.Optional[str]
+            Instructions for how to use the source.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata associated with the source.
@@ -248,6 +252,7 @@ class SourcesClient:
             json={
                 "name": name,
                 "description": description,
+                "instructions": instructions,
                 "metadata": metadata,
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
@@ -399,6 +404,7 @@ class SourcesClient:
         embedding_chunk_size: typing.Optional[int] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         description: typing.Optional[str] = OMIT,
+        instructions: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Source:
@@ -421,6 +427,9 @@ class SourcesClient:
 
         description : typing.Optional[str]
             The description of the source.
+
+        instructions : typing.Optional[str]
+            Instructions for how to use the source.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata associated with the source.
@@ -455,6 +464,7 @@ class SourcesClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
                 "description": description,
+                "instructions": instructions,
                 "metadata": metadata,
             },
             headers={
@@ -690,6 +700,7 @@ class AsyncSourcesClient:
         *,
         name: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
+        instructions: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -706,6 +717,9 @@ class AsyncSourcesClient:
 
         description : typing.Optional[str]
             The description of the source.
+
+        instructions : typing.Optional[str]
+            Instructions for how to use the source.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata associated with the source.
@@ -746,6 +760,7 @@ class AsyncSourcesClient:
             json={
                 "name": name,
                 "description": description,
+                "instructions": instructions,
                 "metadata": metadata,
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
@@ -915,6 +930,7 @@ class AsyncSourcesClient:
         embedding_chunk_size: typing.Optional[int] = OMIT,
         embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
         description: typing.Optional[str] = OMIT,
+        instructions: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Source:
@@ -937,6 +953,9 @@ class AsyncSourcesClient:
 
         description : typing.Optional[str]
             The description of the source.
+
+        instructions : typing.Optional[str]
+            Instructions for how to use the source.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata associated with the source.
@@ -979,6 +998,7 @@ class AsyncSourcesClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
                 "description": description,
+                "instructions": instructions,
                 "metadata": metadata,
             },
             headers={
