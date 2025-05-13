@@ -31,6 +31,7 @@ class BlocksClient:
         name: typing.Optional[str] = None,
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Block]:
         """
@@ -50,6 +51,9 @@ class BlocksClient:
 
         identifier_keys : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Search agents by identifier keys
+
+        limit : typing.Optional[int]
+            Number of blocks to return
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -77,6 +81,7 @@ class BlocksClient:
                 "name": name,
                 "identity_id": identity_id,
                 "identifier_keys": identifier_keys,
+                "limit": limit,
             },
             request_options=request_options,
         )
@@ -469,6 +474,7 @@ class AsyncBlocksClient:
         name: typing.Optional[str] = None,
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Block]:
         """
@@ -488,6 +494,9 @@ class AsyncBlocksClient:
 
         identifier_keys : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Search agents by identifier keys
+
+        limit : typing.Optional[int]
+            Number of blocks to return
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -523,6 +532,7 @@ class AsyncBlocksClient:
                 "name": name,
                 "identity_id": identity_id,
                 "identifier_keys": identifier_keys,
+                "limit": limit,
             },
             request_options=request_options,
         )

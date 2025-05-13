@@ -4565,6 +4565,14 @@ client.blocks.list()
 <dl>
 <dd>
 
+**limit:** `typing.Optional[int]` — Number of blocks to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
