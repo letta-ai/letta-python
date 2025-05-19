@@ -32,6 +32,11 @@ class CreateBlock(UncheckedBaseModel):
     Label of the block.
     """
 
+    read_only: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the agent has read-only access to the block.
+    """
+
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Description of the block.

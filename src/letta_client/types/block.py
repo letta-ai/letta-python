@@ -47,6 +47,11 @@ class Block(UncheckedBaseModel):
     Label of the block (e.g. 'human', 'persona') in the context window.
     """
 
+    read_only: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the agent has read-only access to the block.
+    """
+
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Description of the block.

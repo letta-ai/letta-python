@@ -4662,6 +4662,14 @@ client.blocks.create(
 <dl>
 <dd>
 
+**read_only:** `typing.Optional[bool]` — Whether the agent has read-only access to the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **description:** `typing.Optional[str]` — Description of the block.
     
 </dd>
@@ -4939,6 +4947,14 @@ client.blocks.modify(
 <dd>
 
 **label:** `typing.Optional[str]` — Label of the block (e.g. 'human', 'persona') in the context window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**read_only:** `typing.Optional[bool]` — Whether the agent has read-only access to the block.
     
 </dd>
 </dl>
@@ -6224,6 +6240,63 @@ client.tags.list()
 <dd>
 
 **query_text:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Telemetry
+<details><summary><code>client.telemetry.<a href="src/letta_client/telemetry/client.py">retrieve_provider_trace</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.telemetry.retrieve_provider_trace(
+    step_id="step_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**step_id:** `str` 
     
 </dd>
 </dl>
@@ -7866,6 +7939,14 @@ client.agents.blocks.modify(
 <dd>
 
 **label:** `typing.Optional[str]` — Label of the block (e.g. 'human', 'persona') in the context window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**read_only:** `typing.Optional[bool]` — Whether the agent has read-only access to the block.
     
 </dd>
 </dl>

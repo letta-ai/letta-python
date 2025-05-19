@@ -164,6 +164,7 @@ from .payment_required_error_body import PaymentRequiredErrorBody
 from .pip_requirement import PipRequirement
 from .provider import Provider
 from .provider_category import ProviderCategory
+from .provider_trace import ProviderTrace
 from .provider_type import ProviderType
 from .reasoning_content import ReasoningContent
 from .reasoning_message import ReasoningMessage
@@ -397,6 +398,7 @@ __all__ = [
     "PipRequirement",
     "Provider",
     "ProviderCategory",
+    "ProviderTrace",
     "ProviderType",
     "ReasoningContent",
     "ReasoningMessage",

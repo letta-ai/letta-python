@@ -18,6 +18,7 @@ from .providers.client import ProvidersClient
 from .runs.client import RunsClient
 from .steps.client import StepsClient
 from .tags.client import TagsClient
+from .telemetry.client import TelemetryClient
 from .batches.client import BatchesClient
 from .messages.client import MessagesClient
 from .voice.client import VoiceClient
@@ -39,6 +40,7 @@ from .providers.client import AsyncProvidersClient
 from .runs.client import AsyncRunsClient
 from .steps.client import AsyncStepsClient
 from .tags.client import AsyncTagsClient
+from .telemetry.client import AsyncTelemetryClient
 from .batches.client import AsyncBatchesClient
 from .messages.client import AsyncMessagesClient
 from .voice.client import AsyncVoiceClient
@@ -119,6 +121,7 @@ class LettaBase:
         self.runs = RunsClient(client_wrapper=self._client_wrapper)
         self.steps = StepsClient(client_wrapper=self._client_wrapper)
         self.tags = TagsClient(client_wrapper=self._client_wrapper)
+        self.telemetry = TelemetryClient(client_wrapper=self._client_wrapper)
         self.batches = BatchesClient(client_wrapper=self._client_wrapper)
         self.messages = MessagesClient(client_wrapper=self._client_wrapper)
         self.voice = VoiceClient(client_wrapper=self._client_wrapper)
@@ -199,6 +202,7 @@ class AsyncLettaBase:
         self.runs = AsyncRunsClient(client_wrapper=self._client_wrapper)
         self.steps = AsyncStepsClient(client_wrapper=self._client_wrapper)
         self.tags = AsyncTagsClient(client_wrapper=self._client_wrapper)
+        self.telemetry = AsyncTelemetryClient(client_wrapper=self._client_wrapper)
         self.batches = AsyncBatchesClient(client_wrapper=self._client_wrapper)
         self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
         self.voice = AsyncVoiceClient(client_wrapper=self._client_wrapper)

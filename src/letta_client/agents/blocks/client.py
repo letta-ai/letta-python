@@ -92,6 +92,7 @@ class BlocksClient:
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
         label: typing.Optional[str] = OMIT,
+        read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -119,6 +120,9 @@ class BlocksClient:
 
         label : typing.Optional[str]
             Label of the block (e.g. 'human', 'persona') in the context window.
+
+        read_only : typing.Optional[bool]
+            Whether the agent has read-only access to the block.
 
         description : typing.Optional[str]
             Description of the block.
@@ -155,6 +159,7 @@ class BlocksClient:
                 "name": name,
                 "is_template": is_template,
                 "label": label,
+                "read_only": read_only,
                 "description": description,
                 "metadata": metadata,
             },
@@ -447,6 +452,7 @@ class AsyncBlocksClient:
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
         label: typing.Optional[str] = OMIT,
+        read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -474,6 +480,9 @@ class AsyncBlocksClient:
 
         label : typing.Optional[str]
             Label of the block (e.g. 'human', 'persona') in the context window.
+
+        read_only : typing.Optional[bool]
+            Whether the agent has read-only access to the block.
 
         description : typing.Optional[str]
             Description of the block.
@@ -518,6 +527,7 @@ class AsyncBlocksClient:
                 "name": name,
                 "is_template": is_template,
                 "label": label,
+                "read_only": read_only,
                 "description": description,
                 "metadata": metadata,
             },
