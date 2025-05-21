@@ -27,6 +27,8 @@ class ModelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LlmConfig]:
         """
+        List available LLM models using the asynchronous implementation for improved performance
+
         Parameters
         ----------
         provider_category : typing.Optional[typing.Union[ProviderCategory, typing.Sequence[ProviderCategory]]]
@@ -100,6 +102,8 @@ class AsyncModelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LlmConfig]:
         """
+        List available LLM models using the asynchronous implementation for improved performance
+
         Parameters
         ----------
         provider_category : typing.Optional[typing.Union[ProviderCategory, typing.Sequence[ProviderCategory]]]

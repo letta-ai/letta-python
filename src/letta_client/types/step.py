@@ -38,6 +38,11 @@ class Step(UncheckedBaseModel):
     The name of the provider used for this step.
     """
 
+    provider_category: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The category of the provider used for this step.
+    """
+
     model: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the model used for this step.

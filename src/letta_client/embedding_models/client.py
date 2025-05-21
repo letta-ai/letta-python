@@ -18,6 +18,8 @@ class EmbeddingModelsClient:
 
     def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[EmbeddingConfig]:
         """
+        List available embedding models using the asynchronous implementation for improved performance
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]
@@ -73,6 +75,8 @@ class AsyncEmbeddingModelsClient:
 
     async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[EmbeddingConfig]:
         """
+        List available embedding models using the asynchronous implementation for improved performance
+
         Parameters
         ----------
         request_options : typing.Optional[RequestOptions]

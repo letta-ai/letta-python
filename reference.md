@@ -4375,6 +4375,20 @@ client.identities.modify(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List available LLM models using the asynchronous implementation for improved performance
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -4447,6 +4461,20 @@ client.models.list()
 <details><summary><code>client.embedding_models.<a href="src/letta_client/embedding_models/client.py">list</a>()</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List available embedding models using the asynchronous implementation for improved performance
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
