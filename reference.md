@@ -11036,6 +11036,30 @@ client.sources.passages.list(
 <dl>
 <dd>
 
+**after:** `typing.Optional[str]` — Message after which to retrieve the returned messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Message before which to retrieve the returned messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

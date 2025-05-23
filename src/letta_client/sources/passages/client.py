@@ -17,13 +17,30 @@ class PassagesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list(self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Passage]:
+    def list(
+        self,
+        source_id: str,
+        *,
+        after: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Passage]:
         """
         List all passages associated with a data source.
 
         Parameters
         ----------
         source_id : str
+
+        after : typing.Optional[str]
+            Message after which to retrieve the returned messages.
+
+        before : typing.Optional[str]
+            Message before which to retrieve the returned messages.
+
+        limit : typing.Optional[int]
+            Maximum number of messages to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -47,6 +64,11 @@ class PassagesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/sources/{jsonable_encoder(source_id)}/passages",
             method="GET",
+            params={
+                "after": after,
+                "before": before,
+                "limit": limit,
+            },
             request_options=request_options,
         )
         try:
@@ -79,7 +101,13 @@ class AsyncPassagesClient:
         self._client_wrapper = client_wrapper
 
     async def list(
-        self, source_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        source_id: str,
+        *,
+        after: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Passage]:
         """
         List all passages associated with a data source.
@@ -87,6 +115,15 @@ class AsyncPassagesClient:
         Parameters
         ----------
         source_id : str
+
+        after : typing.Optional[str]
+            Message after which to retrieve the returned messages.
+
+        before : typing.Optional[str]
+            Message before which to retrieve the returned messages.
+
+        limit : typing.Optional[int]
+            Maximum number of messages to retrieve.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -118,6 +155,11 @@ class AsyncPassagesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/sources/{jsonable_encoder(source_id)}/passages",
             method="GET",
+            params={
+                "after": after,
+                "before": before,
+                "limit": limit,
+            },
             request_options=request_options,
         )
         try:
