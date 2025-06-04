@@ -94,6 +94,7 @@ class FilesClient:
         *,
         limit: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
+        include_content: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[FileMetadata]:
         """
@@ -108,6 +109,9 @@ class FilesClient:
 
         after : typing.Optional[str]
             Pagination cursor to fetch the next set of results
+
+        include_content : typing.Optional[bool]
+            Whether to include full file content
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -134,6 +138,7 @@ class FilesClient:
             params={
                 "limit": limit,
                 "after": after,
+                "include_content": include_content,
             },
             request_options=request_options,
         )
@@ -298,6 +303,7 @@ class AsyncFilesClient:
         *,
         limit: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
+        include_content: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[FileMetadata]:
         """
@@ -312,6 +318,9 @@ class AsyncFilesClient:
 
         after : typing.Optional[str]
             Pagination cursor to fetch the next set of results
+
+        include_content : typing.Optional[bool]
+            Whether to include full file content
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -346,6 +355,7 @@ class AsyncFilesClient:
             params={
                 "limit": limit,
                 "after": after,
+                "include_content": include_content,
             },
             request_options=request_options,
         )

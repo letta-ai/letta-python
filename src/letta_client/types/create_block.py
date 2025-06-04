@@ -27,6 +27,11 @@ class CreateBlock(UncheckedBaseModel):
     """
 
     is_template: typing.Optional[bool] = None
+    preserve_on_migration: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Preserve the block on template migration.
+    """
+
     label: str = pydantic.Field()
     """
     Label of the block.

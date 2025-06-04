@@ -13,7 +13,7 @@ pip install letta-client
 
 ## Reference
 
-A full reference for this library is available [here](./reference.md).
+A full reference for this library is available [here](https://github.com/letta-ai/letta-python/blob/HEAD/./reference.md).
 
 ## Usage
 

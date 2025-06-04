@@ -4,7 +4,12 @@ import typing
 
 AgentType = typing.Union[
     typing.Literal[
-        "memgpt_agent", "split_thread_agent", "sleeptime_agent", "voice_convo_agent", "voice_sleeptime_agent"
+        "memgpt_agent",
+        "memgpt_v2_agent",
+        "split_thread_agent",
+        "sleeptime_agent",
+        "voice_convo_agent",
+        "voice_sleeptime_agent",
     ],
     typing.Any,
 ]

@@ -117,6 +117,7 @@ class BlocksClient:
         limit: typing.Optional[int] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
+        preserve_on_migration: typing.Optional[bool] = OMIT,
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
@@ -138,6 +139,9 @@ class BlocksClient:
             Name of the block if it is a template.
 
         is_template : typing.Optional[bool]
+
+        preserve_on_migration : typing.Optional[bool]
+            Preserve the block on template migration.
 
         read_only : typing.Optional[bool]
             Whether the agent has read-only access to the block.
@@ -176,6 +180,7 @@ class BlocksClient:
                 "limit": limit,
                 "name": name,
                 "is_template": is_template,
+                "preserve_on_migration": preserve_on_migration,
                 "label": label,
                 "read_only": read_only,
                 "description": description,
@@ -376,6 +381,7 @@ class BlocksClient:
         limit: typing.Optional[int] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
+        preserve_on_migration: typing.Optional[bool] = OMIT,
         label: typing.Optional[str] = OMIT,
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
@@ -398,6 +404,9 @@ class BlocksClient:
 
         is_template : typing.Optional[bool]
             Whether the block is a template (e.g. saved human/persona options).
+
+        preserve_on_migration : typing.Optional[bool]
+            Preserve the block on template migration.
 
         label : typing.Optional[str]
             Label of the block (e.g. 'human', 'persona') in the context window.
@@ -438,6 +447,7 @@ class BlocksClient:
                 "limit": limit,
                 "name": name,
                 "is_template": is_template,
+                "preserve_on_migration": preserve_on_migration,
                 "label": label,
                 "read_only": read_only,
                 "description": description,
@@ -578,6 +588,7 @@ class AsyncBlocksClient:
         limit: typing.Optional[int] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
+        preserve_on_migration: typing.Optional[bool] = OMIT,
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
@@ -599,6 +610,9 @@ class AsyncBlocksClient:
             Name of the block if it is a template.
 
         is_template : typing.Optional[bool]
+
+        preserve_on_migration : typing.Optional[bool]
+            Preserve the block on template migration.
 
         read_only : typing.Optional[bool]
             Whether the agent has read-only access to the block.
@@ -645,6 +659,7 @@ class AsyncBlocksClient:
                 "limit": limit,
                 "name": name,
                 "is_template": is_template,
+                "preserve_on_migration": preserve_on_migration,
                 "label": label,
                 "read_only": read_only,
                 "description": description,
@@ -869,6 +884,7 @@ class AsyncBlocksClient:
         limit: typing.Optional[int] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
+        preserve_on_migration: typing.Optional[bool] = OMIT,
         label: typing.Optional[str] = OMIT,
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
@@ -891,6 +907,9 @@ class AsyncBlocksClient:
 
         is_template : typing.Optional[bool]
             Whether the block is a template (e.g. saved human/persona options).
+
+        preserve_on_migration : typing.Optional[bool]
+            Preserve the block on template migration.
 
         label : typing.Optional[str]
             Label of the block (e.g. 'human', 'persona') in the context window.
@@ -939,6 +958,7 @@ class AsyncBlocksClient:
                 "limit": limit,
                 "name": name,
                 "is_template": is_template,
+                "preserve_on_migration": preserve_on_migration,
                 "label": label,
                 "read_only": read_only,
                 "description": description,

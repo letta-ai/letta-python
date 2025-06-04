@@ -951,6 +951,74 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def summarize_agent_conversation(
+        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> AgentState:
+        """
+        Summarize an agent's conversation history to a target message length.
+
+        This endpoint summarizes the current message history for a given agent,
+        truncating and compressing it down to the specified `max_message_length`.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        max_message_length : int
+            Maximum number of messages to retain after summarization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AgentState
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.agents.summarize_agent_conversation(
+            agent_id="agent_id",
+            max_message_length=1,
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/summarize",
+            method="POST",
+            params={
+                "max_message_length": max_message_length,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AgentState,
+                    construct_type(
+                        type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def search(
         self,
         *,
@@ -1969,6 +2037,82 @@ class AsyncAgentsClient:
             },
             request_options=request_options,
             omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    AgentState,
+                    construct_type(
+                        type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def summarize_agent_conversation(
+        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> AgentState:
+        """
+        Summarize an agent's conversation history to a target message length.
+
+        This endpoint summarizes the current message history for a given agent,
+        truncating and compressing it down to the specified `max_message_length`.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        max_message_length : int
+            Maximum number of messages to retain after summarization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AgentState
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.summarize_agent_conversation(
+                agent_id="agent_id",
+                max_message_length=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/summarize",
+            method="POST",
+            params={
+                "max_message_length": max_message_length,
+            },
+            request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:

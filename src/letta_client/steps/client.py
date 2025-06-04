@@ -28,6 +28,7 @@ class StepsClient:
         end_date: typing.Optional[str] = None,
         model: typing.Optional[str] = None,
         agent_id: typing.Optional[str] = None,
+        trace_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
         """
@@ -60,6 +61,9 @@ class StepsClient:
         agent_id : typing.Optional[str]
             Filter by the ID of the agent that performed the step
 
+        trace_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by trace ids returned by the server
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -89,6 +93,7 @@ class StepsClient:
                 "end_date": end_date,
                 "model": model,
                 "agent_id": agent_id,
+                "trace_ids": trace_ids,
             },
             request_options=request_options,
         )
@@ -188,6 +193,7 @@ class AsyncStepsClient:
         end_date: typing.Optional[str] = None,
         model: typing.Optional[str] = None,
         agent_id: typing.Optional[str] = None,
+        trace_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
         """
@@ -219,6 +225,9 @@ class AsyncStepsClient:
 
         agent_id : typing.Optional[str]
             Filter by the ID of the agent that performed the step
+
+        trace_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by trace ids returned by the server
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -257,6 +266,7 @@ class AsyncStepsClient:
                 "end_date": end_date,
                 "model": model,
                 "agent_id": agent_id,
+                "trace_ids": trace_ids,
             },
             request_options=request_options,
         )

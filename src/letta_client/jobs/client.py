@@ -77,12 +77,17 @@ class JobsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def list_active(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Job]:
+    def list_active(
+        self, *, source_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[Job]:
         """
         List all active jobs.
 
         Parameters
         ----------
+        source_id : typing.Optional[str]
+            Only list jobs associated with the source.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -103,6 +108,9 @@ class JobsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/jobs/active",
             method="GET",
+            params={
+                "source_id": source_id,
+            },
             request_options=request_options,
         )
         try:
@@ -314,12 +322,17 @@ class AsyncJobsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def list_active(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Job]:
+    async def list_active(
+        self, *, source_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[Job]:
         """
         List all active jobs.
 
         Parameters
         ----------
+        source_id : typing.Optional[str]
+            Only list jobs associated with the source.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -348,6 +361,9 @@ class AsyncJobsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/jobs/active",
             method="GET",
+            params={
+                "source_id": source_id,
+            },
             request_options=request_options,
         )
         try:

@@ -31,6 +31,11 @@ class BlockUpdate(UncheckedBaseModel):
     Whether the block is a template (e.g. saved human/persona options).
     """
 
+    preserve_on_migration: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Preserve the block on template migration.
+    """
+
     label: typing.Optional[str] = pydantic.Field(default=None)
     """
     Label of the block (e.g. 'human', 'persona') in the context window.

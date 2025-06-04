@@ -17,6 +17,11 @@ class Memory(UncheckedBaseModel):
     Memory blocks contained in the agent's in-context memory
     """
 
+    file_blocks: typing.Optional[typing.List[Block]] = pydantic.Field(default=None)
+    """
+    Blocks representing the agent's in-context memory of an attached file
+    """
+
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
     """
     Jinja2 template for compiling memory blocks into a prompt string

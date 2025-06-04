@@ -3119,6 +3119,88 @@ client.agents.modify(
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">summarize_agent_conversation</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Summarize an agent's conversation history to a target message length.
+
+This endpoint summarizes the current message history for a given agent,
+truncating and compressing it down to the specified `max_message_length`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.agents.summarize_agent_conversation(
+    agent_id="agent_id",
+    max_message_length=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_message_length:** `int` — Maximum number of messages to retain after summarization.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">search</a>(...)</code></summary>
 <dl>
 <dd>
@@ -4690,6 +4772,14 @@ client.blocks.create(
 <dl>
 <dd>
 
+**preserve_on_migration:** `typing.Optional[bool]` — Preserve the block on template migration.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **read_only:** `typing.Optional[bool]` — Whether the agent has read-only access to the block.
     
 </dd>
@@ -4974,6 +5064,14 @@ client.blocks.modify(
 <dl>
 <dd>
 
+**preserve_on_migration:** `typing.Optional[bool]` — Preserve the block on template migration.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **label:** `typing.Optional[str]` — Label of the block (e.g. 'human', 'persona') in the context window.
     
 </dd>
@@ -5087,7 +5185,7 @@ client.jobs.list()
 </dl>
 </details>
 
-<details><summary><code>client.jobs.<a href="src/letta_client/jobs/client.py">list_active</a>()</code></summary>
+<details><summary><code>client.jobs.<a href="src/letta_client/jobs/client.py">list_active</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -5131,6 +5229,14 @@ client.jobs.list_active()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**source_id:** `typing.Optional[str]` — Only list jobs associated with the source.
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -6113,6 +6219,14 @@ client.steps.list()
 <dd>
 
 **agent_id:** `typing.Optional[str]` — Filter by the ID of the agent that performed the step
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trace_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by trace ids returned by the server
     
 </dd>
 </dl>
@@ -7959,6 +8073,14 @@ client.agents.blocks.modify(
 <dd>
 
 **is_template:** `typing.Optional[bool]` — Whether the block is a template (e.g. saved human/persona options).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**preserve_on_migration:** `typing.Optional[bool]` — Preserve the block on template migration.
     
 </dd>
 </dl>
@@ -10879,6 +11001,14 @@ client.sources.files.list(
 <dd>
 
 **after:** `typing.Optional[str]` — Pagination cursor to fetch the next set of results
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_content:** `typing.Optional[bool]` — Whether to include full file content
     
 </dd>
 </dl>

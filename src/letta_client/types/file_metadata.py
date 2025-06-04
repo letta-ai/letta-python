@@ -67,6 +67,11 @@ class FileMetadata(UncheckedBaseModel):
     Whether this file is deleted or not.
     """
 
+    content: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional full-text content of the file; only populated on demand due to its size.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
