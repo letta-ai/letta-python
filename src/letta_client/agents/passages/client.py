@@ -255,6 +255,7 @@ class PassagesClient:
         passage_update_agent_id: typing.Optional[str] = OMIT,
         source_id: typing.Optional[str] = OMIT,
         file_id: typing.Optional[str] = OMIT,
+        file_name: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         text: typing.Optional[str] = OMIT,
         embedding: typing.Optional[typing.Sequence[float]] = OMIT,
@@ -296,6 +297,9 @@ class PassagesClient:
 
         file_id : typing.Optional[str]
             The unique identifier of the file associated with the passage.
+
+        file_name : typing.Optional[str]
+            The name of the file (only for source passages).
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The metadata of the passage.
@@ -342,6 +346,7 @@ class PassagesClient:
                 "agent_id": passage_update_agent_id,
                 "source_id": source_id,
                 "file_id": file_id,
+                "file_name": file_name,
                 "metadata_": metadata,
                 "text": text,
                 "embedding": embedding,
@@ -641,6 +646,7 @@ class AsyncPassagesClient:
         passage_update_agent_id: typing.Optional[str] = OMIT,
         source_id: typing.Optional[str] = OMIT,
         file_id: typing.Optional[str] = OMIT,
+        file_name: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         text: typing.Optional[str] = OMIT,
         embedding: typing.Optional[typing.Sequence[float]] = OMIT,
@@ -682,6 +688,9 @@ class AsyncPassagesClient:
 
         file_id : typing.Optional[str]
             The unique identifier of the file associated with the passage.
+
+        file_name : typing.Optional[str]
+            The name of the file (only for source passages).
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The metadata of the passage.
@@ -736,6 +745,7 @@ class AsyncPassagesClient:
                 "agent_id": passage_update_agent_id,
                 "source_id": source_id,
                 "file_id": file_id,
+                "file_name": file_name,
                 "metadata_": metadata,
                 "text": text,
                 "embedding": embedding,

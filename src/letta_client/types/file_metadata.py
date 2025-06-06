@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
+from .file_processing_status import FileProcessingStatus
 import datetime as dt
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -50,6 +51,16 @@ class FileMetadata(UncheckedBaseModel):
     file_last_modified_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     The last modified date of the file.
+    """
+
+    processing_status: typing.Optional[FileProcessingStatus] = pydantic.Field(default=None)
+    """
+    The current processing status of the file (e.g. pending, parsing, embedding, completed, error).
+    """
+
+    error_message: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional error message if the file failed processing.
     """
 
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)

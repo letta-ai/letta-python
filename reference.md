@@ -8769,6 +8769,14 @@ client.agents.passages.modify(
 <dl>
 <dd>
 
+**file_name:** `typing.Optional[str]` — The name of the file (only for source passages).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the passage.
     
 </dd>
@@ -9041,6 +9049,14 @@ client.agents.messages.create(
 <dl>
 <dd>
 
+**include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -9247,6 +9263,14 @@ for chunk in response:
 <dl>
 <dd>
 
+**include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
     
 </dd>
@@ -9361,6 +9385,14 @@ client.agents.messages.create_async(
 <dd>
 
 **assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
     
 </dd>
 </dl>
@@ -10177,6 +10209,14 @@ client.groups.messages.create(
 <dl>
 <dd>
 
+**include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -10286,6 +10326,14 @@ for chunk in response:
 <dd>
 
 **assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
     
 </dd>
 </dl>

@@ -90,6 +90,7 @@ from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEn
 from .file import File
 from .file_file import FileFile
 from .file_metadata import FileMetadata
+from .file_processing_status import FileProcessingStatus
 from .function_call import FunctionCall
 from .function_definition_input import FunctionDefinitionInput
 from .function_definition_output import FunctionDefinitionOutput
@@ -143,6 +144,7 @@ from .message_create_content import MessageCreateContent
 from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
 from .message_schema import MessageSchema
+from .message_type import MessageType
 from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
 from .omitted_reasoning_content import OmittedReasoningContent
@@ -328,6 +330,7 @@ __all__ = [
     "File",
     "FileFile",
     "FileMetadata",
+    "FileProcessingStatus",
     "FunctionCall",
     "FunctionDefinitionInput",
     "FunctionDefinitionOutput",
@@ -381,6 +384,7 @@ __all__ = [
     "MessageCreateRole",
     "MessageRole",
     "MessageSchema",
+    "MessageType",
     "NotFoundErrorBody",
     "NotFoundErrorBodyMessage",
     "OmittedReasoningContent",

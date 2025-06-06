@@ -11,6 +11,7 @@ from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...types.message_create import MessageCreate
+from ...types.message_type import MessageType
 from ...types.letta_response import LettaResponse
 from ...core.serialization import convert_and_respect_annotation_metadata
 from .types.letta_streaming_response import LettaStreamingResponse
@@ -129,6 +130,7 @@ class MessagesClient:
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaResponse:
         """
@@ -150,6 +152,9 @@ class MessagesClient:
 
         assistant_message_tool_kwarg : typing.Optional[str]
             The name of the message argument in the designated message tool.
+
+        include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
+            Only return specified message types in the response. If `None` (default) returns all messages.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -190,6 +195,7 @@ class MessagesClient:
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "include_return_message_types": include_return_message_types,
             },
             request_options=request_options,
             omit=OMIT,
@@ -226,6 +232,7 @@ class MessagesClient:
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[LettaStreamingResponse]:
@@ -249,6 +256,9 @@ class MessagesClient:
 
         assistant_message_tool_kwarg : typing.Optional[str]
             The name of the message argument in the designated message tool.
+
+        include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
+            Only return specified message types in the response. If `None` (default) returns all messages.
 
         stream_tokens : typing.Optional[bool]
             Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
@@ -294,6 +304,7 @@ class MessagesClient:
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "include_return_message_types": include_return_message_types,
                 "stream_tokens": stream_tokens,
             },
             request_options=request_options,
@@ -577,6 +588,7 @@ class AsyncMessagesClient:
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaResponse:
         """
@@ -598,6 +610,9 @@ class AsyncMessagesClient:
 
         assistant_message_tool_kwarg : typing.Optional[str]
             The name of the message argument in the designated message tool.
+
+        include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
+            Only return specified message types in the response. If `None` (default) returns all messages.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -646,6 +661,7 @@ class AsyncMessagesClient:
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "include_return_message_types": include_return_message_types,
             },
             request_options=request_options,
             omit=OMIT,
@@ -682,6 +698,7 @@ class AsyncMessagesClient:
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[LettaStreamingResponse]:
@@ -705,6 +722,9 @@ class AsyncMessagesClient:
 
         assistant_message_tool_kwarg : typing.Optional[str]
             The name of the message argument in the designated message tool.
+
+        include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
+            Only return specified message types in the response. If `None` (default) returns all messages.
 
         stream_tokens : typing.Optional[bool]
             Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
@@ -758,6 +778,7 @@ class AsyncMessagesClient:
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "include_return_message_types": include_return_message_types,
                 "stream_tokens": stream_tokens,
             },
             request_options=request_options,

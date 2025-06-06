@@ -63,6 +63,11 @@ class Passage(UncheckedBaseModel):
     The unique identifier of the file associated with the passage.
     """
 
+    file_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The name of the file (only for source passages).
+    """
+
     metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     The metadata of the passage.

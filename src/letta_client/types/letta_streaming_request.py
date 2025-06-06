@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 from .message_create import MessageCreate
 import pydantic
+from .message_type import MessageType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -26,6 +27,11 @@ class LettaStreamingRequest(UncheckedBaseModel):
     assistant_message_tool_kwarg: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the message argument in the designated message tool.
+    """
+
+    include_return_message_types: typing.Optional[typing.List[MessageType]] = pydantic.Field(default=None)
+    """
+    Only return specified message types in the response. If `None` (default) returns all messages.
     """
 
     stream_tokens: typing.Optional[bool] = pydantic.Field(default=None)
