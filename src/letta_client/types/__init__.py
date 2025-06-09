@@ -20,6 +20,7 @@ from .auth_request import AuthRequest
 from .auth_response import AuthResponse
 from .auth_scheme_field import AuthSchemeField
 from .bad_request_error_body import BadRequestErrorBody
+from .base_64_image import Base64Image
 from .base_tool_rule_schema import BaseToolRuleSchema
 from .batch_job import BatchJob
 from .block import Block
@@ -106,6 +107,8 @@ from .identity_property import IdentityProperty
 from .identity_property_type import IdentityPropertyType
 from .identity_property_value import IdentityPropertyValue
 from .identity_type import IdentityType
+from .image_content import ImageContent
+from .image_content_source import ImageContentSource
 from .image_url import ImageUrl
 from .image_url_detail import ImageUrlDetail
 from .init_tool_rule import InitToolRule
@@ -120,6 +123,7 @@ from .json_schema import JsonSchema
 from .json_schema_response_format import JsonSchemaResponseFormat
 from .letta_batch_messages import LettaBatchMessages
 from .letta_batch_request import LettaBatchRequest
+from .letta_image import LettaImage
 from .letta_message_content_union import LettaMessageContentUnion
 from .letta_message_union import LettaMessageUnion
 from .letta_request import LettaRequest
@@ -127,6 +131,7 @@ from .letta_request_config import LettaRequestConfig
 from .letta_response import LettaResponse
 from .letta_streaming_request import LettaStreamingRequest
 from .letta_usage_statistics import LettaUsageStatistics
+from .letta_user_message_content_union import LettaUserMessageContentUnion
 from .llm_config import LlmConfig
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .llm_config_reasoning_effort import LlmConfigReasoningEffort
@@ -222,6 +227,7 @@ from .update_reasoning_message import UpdateReasoningMessage
 from .update_system_message import UpdateSystemMessage
 from .update_user_message import UpdateUserMessage
 from .update_user_message_content import UpdateUserMessageContent
+from .url_image import UrlImage
 from .usage_statistics import UsageStatistics
 from .usage_statistics_completion_token_details import UsageStatisticsCompletionTokenDetails
 from .usage_statistics_prompt_token_details import UsageStatisticsPromptTokenDetails
@@ -260,6 +266,7 @@ __all__ = [
     "AuthResponse",
     "AuthSchemeField",
     "BadRequestErrorBody",
+    "Base64Image",
     "BaseToolRuleSchema",
     "BatchJob",
     "Block",
@@ -346,6 +353,8 @@ __all__ = [
     "IdentityPropertyType",
     "IdentityPropertyValue",
     "IdentityType",
+    "ImageContent",
+    "ImageContentSource",
     "ImageUrl",
     "ImageUrlDetail",
     "InitToolRule",
@@ -360,6 +369,7 @@ __all__ = [
     "JsonSchemaResponseFormat",
     "LettaBatchMessages",
     "LettaBatchRequest",
+    "LettaImage",
     "LettaMessageContentUnion",
     "LettaMessageUnion",
     "LettaRequest",
@@ -367,6 +377,7 @@ __all__ = [
     "LettaResponse",
     "LettaStreamingRequest",
     "LettaUsageStatistics",
+    "LettaUserMessageContentUnion",
     "LlmConfig",
     "LlmConfigModelEndpointType",
     "LlmConfigReasoningEffort",
@@ -458,6 +469,7 @@ __all__ = [
     "UpdateSystemMessage",
     "UpdateUserMessage",
     "UpdateUserMessageContent",
+    "UrlImage",
     "UsageStatistics",
     "UsageStatisticsCompletionTokenDetails",
     "UsageStatisticsPromptTokenDetails",

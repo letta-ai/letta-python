@@ -2,11 +2,12 @@
 
 import typing
 from .text_content import TextContent
+from .image_content import ImageContent
 from .tool_call_content import ToolCallContent
 from .reasoning_content import ReasoningContent
 from .redacted_reasoning_content import RedactedReasoningContent
 from .omitted_reasoning_content import OmittedReasoningContent
 
 LettaMessageContentUnion = typing.Union[
-    TextContent, ToolCallContent, ReasoningContent, RedactedReasoningContent, OmittedReasoningContent
+    TextContent, ImageContent, ToolCallContent, ReasoningContent, RedactedReasoningContent, OmittedReasoningContent
 ]
