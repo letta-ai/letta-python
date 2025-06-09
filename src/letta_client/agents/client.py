@@ -652,13 +652,22 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def retrieve(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AgentState:
+    def retrieve(
+        self,
+        agent_id: str,
+        *,
+        include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AgentState:
         """
         Get the state of the agent.
 
         Parameters
         ----------
         agent_id : str
+
+        include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -682,6 +691,9 @@ class AgentsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}",
             method="GET",
+            params={
+                "include_relationships": include_relationships,
+            },
             request_options=request_options,
         )
         try:
@@ -1739,13 +1751,22 @@ class AsyncAgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def retrieve(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AgentState:
+    async def retrieve(
+        self,
+        agent_id: str,
+        *,
+        include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AgentState:
         """
         Get the state of the agent.
 
         Parameters
         ----------
         agent_id : str
+
+        include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1777,6 +1798,9 @@ class AsyncAgentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}",
             method="GET",
+            params={
+                "include_relationships": include_relationships,
+            },
             request_options=request_options,
         )
         try:
