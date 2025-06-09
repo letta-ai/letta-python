@@ -134,6 +134,7 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
@@ -150,6 +151,9 @@ class MessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        max_steps : typing.Optional[int]
+            Maximum number of steps the agent should take to process the request.
 
         use_assistant_message : typing.Optional[bool]
             Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
@@ -199,6 +203,7 @@ class MessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "max_steps": max_steps,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -311,6 +316,7 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
@@ -329,6 +335,9 @@ class MessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        max_steps : typing.Optional[int]
+            Maximum number of steps the agent should take to process the request.
 
         use_assistant_message : typing.Optional[bool]
             Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
@@ -383,6 +392,7 @@ class MessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "max_steps": max_steps,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -428,6 +438,7 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
@@ -444,6 +455,9 @@ class MessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        max_steps : typing.Optional[int]
+            Maximum number of steps the agent should take to process the request.
 
         use_assistant_message : typing.Optional[bool]
             Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
@@ -493,6 +507,7 @@ class MessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "max_steps": max_steps,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -709,6 +724,7 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
@@ -725,6 +741,9 @@ class AsyncMessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        max_steps : typing.Optional[int]
+            Maximum number of steps the agent should take to process the request.
 
         use_assistant_message : typing.Optional[bool]
             Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
@@ -782,6 +801,7 @@ class AsyncMessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "max_steps": max_steps,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -902,6 +922,7 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
@@ -920,6 +941,9 @@ class AsyncMessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        max_steps : typing.Optional[int]
+            Maximum number of steps the agent should take to process the request.
 
         use_assistant_message : typing.Optional[bool]
             Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
@@ -982,6 +1006,7 @@ class AsyncMessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "max_steps": max_steps,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -1027,6 +1052,7 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
@@ -1043,6 +1069,9 @@ class AsyncMessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        max_steps : typing.Optional[int]
+            Maximum number of steps the agent should take to process the request.
 
         use_assistant_message : typing.Optional[bool]
             Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
@@ -1100,6 +1129,7 @@ class AsyncMessagesClient:
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
                 ),
+                "max_steps": max_steps,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,

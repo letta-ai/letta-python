@@ -14,6 +14,11 @@ class LettaBatchRequest(UncheckedBaseModel):
     The messages to be sent to the agent.
     """
 
+    max_steps: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Maximum number of steps the agent should take to process the request.
+    """
+
     use_assistant_message: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.

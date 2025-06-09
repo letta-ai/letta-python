@@ -9033,6 +9033,14 @@ client.agents.messages.create(
 <dl>
 <dd>
 
+**max_steps:** `typing.Optional[int]` — Maximum number of steps the agent should take to process the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
     
 </dd>
@@ -9247,6 +9255,14 @@ for chunk in response:
 <dl>
 <dd>
 
+**max_steps:** `typing.Optional[int]` — Maximum number of steps the agent should take to process the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
     
 </dd>
@@ -9369,6 +9385,14 @@ client.agents.messages.create_async(
 <dd>
 
 **messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_steps:** `typing.Optional[int]` — Maximum number of steps the agent should take to process the request.
     
 </dd>
 </dl>
@@ -10193,6 +10217,14 @@ client.groups.messages.create(
 <dl>
 <dd>
 
+**max_steps:** `typing.Optional[int]` — Maximum number of steps the agent should take to process the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
     
 </dd>
@@ -10310,6 +10342,14 @@ for chunk in response:
 <dd>
 
 **messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_steps:** `typing.Optional[int]` — Maximum number of steps the agent should take to process the request.
     
 </dd>
 </dl>
