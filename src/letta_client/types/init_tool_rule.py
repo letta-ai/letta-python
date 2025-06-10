@@ -17,6 +17,10 @@ class InitToolRule(UncheckedBaseModel):
     """
 
     type: typing.Literal["run_first"] = "run_first"
+    prompt_template: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional Jinja2 template for generating agent prompt about this tool rule. Template can use variables like 'tool_name' and rule-specific attributes.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

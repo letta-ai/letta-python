@@ -17,6 +17,11 @@ class ConditionalToolRule(UncheckedBaseModel):
     """
 
     type: typing.Literal["conditional"] = "conditional"
+    prompt_template: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional Jinja2 template for generating agent prompt about this tool rule. Template can use variables like 'tool_name' and rule-specific attributes.
+    """
+
     default_child: typing.Optional[str] = pydantic.Field(default=None)
     """
     The default child tool to be called. If None, any tool can be called.
