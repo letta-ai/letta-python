@@ -19,7 +19,7 @@ class ChildToolRule(UncheckedBaseModel):
     type: typing.Literal["constrain_child_tools"] = "constrain_child_tools"
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional Jinja2 template for generating agent prompt about this tool rule. Template can use variables like 'tool_name' and rule-specific attributes.
+    Optional Jinja2 template for generating agent prompt about this tool rule.
     """
 
     children: typing.List[str] = pydantic.Field()

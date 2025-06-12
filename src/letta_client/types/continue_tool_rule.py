@@ -19,7 +19,7 @@ class ContinueToolRule(UncheckedBaseModel):
     type: typing.Literal["continue_loop"] = "continue_loop"
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional Jinja2 template for generating agent prompt about this tool rule. Template can use variables like 'tool_name' and rule-specific attributes.
+    Optional Jinja2 template for generating agent prompt about this tool rule.
     """
 
     if IS_PYDANTIC_V2:
