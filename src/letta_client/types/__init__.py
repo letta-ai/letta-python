@@ -129,6 +129,8 @@ from .letta_message_union import LettaMessageUnion
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
 from .letta_response import LettaResponse
+from .letta_stop_reason import LettaStopReason
+from .letta_stop_reason_stop_reason import LettaStopReasonStopReason
 from .letta_streaming_request import LettaStreamingRequest
 from .letta_usage_statistics import LettaUsageStatistics
 from .letta_user_message_content_union import LettaUserMessageContentUnion
@@ -375,6 +377,8 @@ __all__ = [
     "LettaRequest",
     "LettaRequestConfig",
     "LettaResponse",
+    "LettaStopReason",
+    "LettaStopReasonStopReason",
     "LettaStreamingRequest",
     "LettaUsageStatistics",
     "LettaUserMessageContentUnion",

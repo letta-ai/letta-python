@@ -7,6 +7,7 @@ from ....types.reasoning_message import ReasoningMessage
 from ....types.tool_call_message import ToolCallMessage
 from ....types.tool_return_message import ToolReturnMessage
 from ....types.assistant_message import AssistantMessage
+from ....types.letta_stop_reason import LettaStopReason
 from ....types.letta_usage_statistics import LettaUsageStatistics
 
 LettaStreamingResponse = typing.Union[
@@ -16,5 +17,6 @@ LettaStreamingResponse = typing.Union[
     ToolCallMessage,
     ToolReturnMessage,
     AssistantMessage,
+    LettaStopReason,
     LettaUsageStatistics,
 ]
