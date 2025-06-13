@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
+from .pip_requirement import PipRequirement
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -40,6 +41,11 @@ class ToolCreate(UncheckedBaseModel):
     return_char_limit: typing.Optional[int] = pydantic.Field(default=None)
     """
     The maximum number of characters in the response.
+    """
+
+    pip_requirements: typing.Optional[typing.List[PipRequirement]] = pydantic.Field(default=None)
+    """
+    Optional list of pip packages required by this tool.
     """
 
     if IS_PYDANTIC_V2:

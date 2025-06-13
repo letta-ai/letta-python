@@ -16,7 +16,7 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "letta-client",
-            "X-Fern-SDK-Version": "0.1.155",
+            "X-Fern-SDK-Version": "0.1.156",
         }
         if self.token is not None:
             headers["Authorization"] = f"Bearer {self.token}"

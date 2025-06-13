@@ -10,13 +10,14 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from ..types.pip_requirement import PipRequirement
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..types.tool_return_message import ToolReturnMessage
 from ..types.app_model import AppModel
 from ..types.action_model import ActionModel
 from .types.list_mcp_servers_response_value import ListMcpServersResponseValue
 from .types.add_mcp_server_request import AddMcpServerRequest
 from .types.add_mcp_server_response_item import AddMcpServerResponseItem
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..types.mcp_tool import McpTool
 from .types.delete_mcp_server_response_item import DeleteMcpServerResponseItem
 from ..core.client_wrapper import AsyncClientWrapper
@@ -154,6 +155,7 @@ class ToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -183,6 +185,9 @@ class ToolsClient:
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -214,6 +219,9 @@ class ToolsClient:
                 "json_schema": json_schema,
                 "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
+                "pip_requirements": convert_and_respect_annotation_metadata(
+                    object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -388,6 +396,7 @@ class ToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -415,6 +424,9 @@ class ToolsClient:
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -446,6 +458,9 @@ class ToolsClient:
                 "json_schema": json_schema,
                 "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
+                "pip_requirements": convert_and_respect_annotation_metadata(
+                    object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
             },
             request_options=request_options,
             omit=OMIT,
@@ -484,6 +499,7 @@ class ToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -511,6 +527,9 @@ class ToolsClient:
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -542,6 +561,9 @@ class ToolsClient:
                 "json_schema": json_schema,
                 "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
+                "pip_requirements": convert_and_respect_annotation_metadata(
+                    object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
             },
             request_options=request_options,
             omit=OMIT,
@@ -632,6 +654,7 @@ class ToolsClient:
         source_type: typing.Optional[str] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ToolReturnMessage:
         """
@@ -659,6 +682,9 @@ class ToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -691,6 +717,9 @@ class ToolsClient:
                 "source_type": source_type,
                 "args_json_schema": args_json_schema,
                 "json_schema": json_schema,
+                "pip_requirements": convert_and_respect_annotation_metadata(
+                    object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -1345,6 +1374,7 @@ class AsyncToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1374,6 +1404,9 @@ class AsyncToolsClient:
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1413,6 +1446,9 @@ class AsyncToolsClient:
                 "json_schema": json_schema,
                 "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
+                "pip_requirements": convert_and_respect_annotation_metadata(
+                    object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",
@@ -1603,6 +1639,7 @@ class AsyncToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1630,6 +1667,9 @@ class AsyncToolsClient:
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1669,6 +1709,9 @@ class AsyncToolsClient:
                 "json_schema": json_schema,
                 "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
+                "pip_requirements": convert_and_respect_annotation_metadata(
+                    object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
             },
             request_options=request_options,
             omit=OMIT,
@@ -1707,6 +1750,7 @@ class AsyncToolsClient:
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1734,6 +1778,9 @@ class AsyncToolsClient:
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1773,6 +1820,9 @@ class AsyncToolsClient:
                 "json_schema": json_schema,
                 "args_json_schema": args_json_schema,
                 "return_char_limit": return_char_limit,
+                "pip_requirements": convert_and_respect_annotation_metadata(
+                    object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
             },
             request_options=request_options,
             omit=OMIT,
@@ -1871,6 +1921,7 @@ class AsyncToolsClient:
         source_type: typing.Optional[str] = OMIT,
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ToolReturnMessage:
         """
@@ -1898,6 +1949,9 @@ class AsyncToolsClient:
 
         json_schema : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             The JSON schema of the function (auto-generated from source_code if not provided)
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1938,6 +1992,9 @@ class AsyncToolsClient:
                 "source_type": source_type,
                 "args_json_schema": args_json_schema,
                 "json_schema": json_schema,
+                "pip_requirements": convert_and_respect_annotation_metadata(
+                    object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
             },
             headers={
                 "content-type": "application/json",

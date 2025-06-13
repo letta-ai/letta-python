@@ -254,6 +254,14 @@ client.tools.modify(
 <dl>
 <dd>
 
+**pip_requirements:** `typing.Optional[typing.Sequence[PipRequirement]]` — Optional list of pip packages required by this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -524,6 +532,14 @@ client.tools.create(
 <dl>
 <dd>
 
+**pip_requirements:** `typing.Optional[typing.Sequence[PipRequirement]]` — Optional list of pip packages required by this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -635,6 +651,14 @@ client.tools.upsert(
 <dd>
 
 **return_char_limit:** `typing.Optional[int]` — The maximum number of characters in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pip_requirements:** `typing.Optional[typing.Sequence[PipRequirement]]` — Optional list of pip packages required by this tool.
     
 </dd>
 </dl>
@@ -814,6 +838,14 @@ client.tools.run_tool_from_source(
 <dd>
 
 **json_schema:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The JSON schema of the function (auto-generated from source_code if not provided)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pip_requirements:** `typing.Optional[typing.Sequence[PipRequirement]]` — Optional list of pip packages required by this tool.
     
 </dd>
 </dl>
