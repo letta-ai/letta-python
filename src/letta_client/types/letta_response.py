@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 from .letta_message_union import LettaMessageUnion
 import pydantic
+from .letta_stop_reason import LettaStopReason
 from .letta_usage_statistics import LettaUsageStatistics
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -23,6 +24,7 @@ class LettaResponse(UncheckedBaseModel):
     The messages returned by the agent.
     """
 
+    stop_reason: LettaStopReason
     usage: LettaUsageStatistics = pydantic.Field()
     """
     The usage statistics of the agent.
