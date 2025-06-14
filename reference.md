@@ -6916,25 +6916,14 @@ client.messages.list_batch_messages(
 <dd>
 
 ```python
-from letta_client import (
-    ChatCompletionDeveloperMessageParam,
-    CompletionCreateParamsNonStreaming,
-    Letta,
-)
+from letta_client import Letta
 
 client = Letta(
     token="YOUR_TOKEN",
 )
 client.voice.create_voice_chat_completions(
     agent_id="agent_id",
-    request=CompletionCreateParamsNonStreaming(
-        messages=[
-            ChatCompletionDeveloperMessageParam(
-                content="content",
-            )
-        ],
-        model="model",
-    ),
+    request={"key": "value"},
 )
 
 ```
@@ -6959,7 +6948,7 @@ client.voice.create_voice_chat_completions(
 <dl>
 <dd>
 
-**request:** `CreateVoiceChatCompletionsRequestBody` 
+**request:** `typing.Dict[str, typing.Optional[typing.Any]]` 
     
 </dd>
 </dl>

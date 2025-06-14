@@ -2,10 +2,8 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.create_voice_chat_completions_request_body import CreateVoiceChatCompletionsRequestBody
 from ..core.request_options import RequestOptions
 from ..core.jsonable_encoder import jsonable_encoder
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
@@ -25,7 +23,7 @@ class VoiceClient:
         self,
         agent_id: str,
         *,
-        request: CreateVoiceChatCompletionsRequestBody,
+        request: typing.Dict[str, typing.Optional[typing.Any]],
         user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
@@ -34,7 +32,7 @@ class VoiceClient:
         ----------
         agent_id : str
 
-        request : CreateVoiceChatCompletionsRequestBody
+        request : typing.Dict[str, typing.Optional[typing.Any]]
 
         user_id : typing.Optional[str]
 
@@ -48,33 +46,20 @@ class VoiceClient:
 
         Examples
         --------
-        from letta_client import (
-            ChatCompletionDeveloperMessageParam,
-            CompletionCreateParamsNonStreaming,
-            Letta,
-        )
+        from letta_client import Letta
 
         client = Letta(
             token="YOUR_TOKEN",
         )
         client.voice.create_voice_chat_completions(
             agent_id="agent_id",
-            request=CompletionCreateParamsNonStreaming(
-                messages=[
-                    ChatCompletionDeveloperMessageParam(
-                        content="content",
-                    )
-                ],
-                model="model",
-            ),
+            request={"key": "value"},
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/voice-beta/{jsonable_encoder(agent_id)}/chat/completions",
             method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateVoiceChatCompletionsRequestBody, direction="write"
-            ),
+            json=request,
             headers={
                 "user-id": str(user_id) if user_id is not None else None,
             },
@@ -114,7 +99,7 @@ class AsyncVoiceClient:
         self,
         agent_id: str,
         *,
-        request: CreateVoiceChatCompletionsRequestBody,
+        request: typing.Dict[str, typing.Optional[typing.Any]],
         user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
@@ -123,7 +108,7 @@ class AsyncVoiceClient:
         ----------
         agent_id : str
 
-        request : CreateVoiceChatCompletionsRequestBody
+        request : typing.Dict[str, typing.Optional[typing.Any]]
 
         user_id : typing.Optional[str]
 
@@ -139,11 +124,7 @@ class AsyncVoiceClient:
         --------
         import asyncio
 
-        from letta_client import (
-            AsyncLetta,
-            ChatCompletionDeveloperMessageParam,
-            CompletionCreateParamsNonStreaming,
-        )
+        from letta_client import AsyncLetta
 
         client = AsyncLetta(
             token="YOUR_TOKEN",
@@ -153,14 +134,7 @@ class AsyncVoiceClient:
         async def main() -> None:
             await client.voice.create_voice_chat_completions(
                 agent_id="agent_id",
-                request=CompletionCreateParamsNonStreaming(
-                    messages=[
-                        ChatCompletionDeveloperMessageParam(
-                            content="content",
-                        )
-                    ],
-                    model="model",
-                ),
+                request={"key": "value"},
             )
 
 
@@ -169,9 +143,7 @@ class AsyncVoiceClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/voice-beta/{jsonable_encoder(agent_id)}/chat/completions",
             method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateVoiceChatCompletionsRequestBody, direction="write"
-            ),
+            json=request,
             headers={
                 "user-id": str(user_id) if user_id is not None else None,
             },
