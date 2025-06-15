@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import typing_extensions
 from ..core.serialization import FieldMetadata
+from .tool_annotations import ToolAnnotations
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -18,6 +19,7 @@ class McpTool(UncheckedBaseModel):
     input_schema: typing_extensions.Annotated[
         typing.Dict[str, typing.Optional[typing.Any]], FieldMetadata(alias="inputSchema")
     ]
+    annotations: typing.Optional[ToolAnnotations] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

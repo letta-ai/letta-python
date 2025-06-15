@@ -8,6 +8,17 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class SseServerConfig(UncheckedBaseModel):
+    """
+    Configuration for an MCP server using SSE
+
+    Authentication can be provided in multiple ways:
+    1. Using auth_header + auth_token: Will add a specific header with the token
+       Example: auth_header="Authorization", auth_token="Bearer abc123"
+
+    2. Using the custom_headers dict: For more complex authentication scenarios
+       Example: custom_headers={"X-API-Key": "abc123", "X-Custom-Header": "value"}
+    """
+
     server_name: str = pydantic.Field()
     """
     The name of the server
@@ -17,6 +28,21 @@ class SseServerConfig(UncheckedBaseModel):
     server_url: str = pydantic.Field()
     """
     The URL of the server (MCP SSE client will connect to this URL)
+    """
+
+    auth_header: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The name of the authentication header (e.g., 'Authorization')
+    """
+
+    auth_token: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The authentication token or API key value
+    """
+
+    custom_headers: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    Custom HTTP headers to include with SSE requests
     """
 
     if IS_PYDANTIC_V2:

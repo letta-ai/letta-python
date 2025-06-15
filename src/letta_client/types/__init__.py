@@ -208,6 +208,7 @@ from .terminal_tool_rule import TerminalToolRule
 from .text_content import TextContent
 from .text_response_format import TextResponseFormat
 from .tool import Tool
+from .tool_annotations import ToolAnnotations
 from .tool_call import ToolCall
 from .tool_call_content import ToolCallContent
 from .tool_call_delta import ToolCallDelta
@@ -452,6 +453,7 @@ __all__ = [
     "TextContent",
     "TextResponseFormat",
     "Tool",
+    "ToolAnnotations",
     "ToolCall",
     "ToolCallContent",
     "ToolCallDelta",
