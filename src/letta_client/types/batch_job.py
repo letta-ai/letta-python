@@ -61,6 +61,11 @@ class BatchJob(UncheckedBaseModel):
     HTTP status code returned by the callback endpoint.
     """
 
+    callback_error: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Optional error message from attempting to POST the callback endpoint.
+    """
+
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-friendly ID of the Job
