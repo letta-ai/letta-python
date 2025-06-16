@@ -438,6 +438,7 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        callback_url: typing.Optional[str] = None,
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
@@ -455,6 +456,9 @@ class MessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        callback_url : typing.Optional[str]
+            Optional callback URL to POST to when the job completes
 
         max_steps : typing.Optional[int]
             Maximum number of steps the agent should take to process the request.
@@ -503,6 +507,9 @@ class MessagesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
             method="POST",
+            params={
+                "callback_url": callback_url,
+            },
             json={
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
@@ -1052,6 +1059,7 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
+        callback_url: typing.Optional[str] = None,
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
@@ -1069,6 +1077,9 @@ class AsyncMessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
+
+        callback_url : typing.Optional[str]
+            Optional callback URL to POST to when the job completes
 
         max_steps : typing.Optional[int]
             Maximum number of steps the agent should take to process the request.
@@ -1125,6 +1136,9 @@ class AsyncMessagesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
             method="POST",
+            params={
+                "callback_url": callback_url,
+            },
             json={
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
