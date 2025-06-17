@@ -200,6 +200,7 @@ from .sse_server_config import SseServerConfig
 from .stdio_server_config import StdioServerConfig
 from .step import Step
 from .stop_reason_type import StopReasonType
+from .streamable_http_server_config import StreamableHttpServerConfig
 from .supervisor_manager import SupervisorManager
 from .supervisor_manager_update import SupervisorManagerUpdate
 from .system_message import SystemMessage
@@ -227,6 +228,8 @@ from .tool_type import ToolType
 from .update_assistant_message import UpdateAssistantMessage
 from .update_assistant_message_content import UpdateAssistantMessageContent
 from .update_reasoning_message import UpdateReasoningMessage
+from .update_ssemcp_server import UpdateSsemcpServer
+from .update_streamable_httpmcp_server import UpdateStreamableHttpmcpServer
 from .update_system_message import UpdateSystemMessage
 from .update_user_message import UpdateUserMessage
 from .update_user_message_content import UpdateUserMessageContent
@@ -445,6 +448,7 @@ __all__ = [
     "StdioServerConfig",
     "Step",
     "StopReasonType",
+    "StreamableHttpServerConfig",
     "SupervisorManager",
     "SupervisorManagerUpdate",
     "SystemMessage",
@@ -472,6 +476,8 @@ __all__ = [
     "UpdateAssistantMessage",
     "UpdateAssistantMessageContent",
     "UpdateReasoningMessage",
+    "UpdateSsemcpServer",
+    "UpdateStreamableHttpmcpServer",
     "UpdateSystemMessage",
     "UpdateUserMessage",
     "UpdateUserMessageContent",

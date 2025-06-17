@@ -3,5 +3,6 @@
 import typing
 from ...types.stdio_server_config import StdioServerConfig
 from ...types.sse_server_config import SseServerConfig
+from ...types.streamable_http_server_config import StreamableHttpServerConfig
 
-AddMcpServerResponseItem = typing.Union[StdioServerConfig, SseServerConfig]
+AddMcpServerResponseItem = typing.Union[StdioServerConfig, SseServerConfig, StreamableHttpServerConfig]

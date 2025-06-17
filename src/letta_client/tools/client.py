@@ -20,6 +20,8 @@ from .types.add_mcp_server_request import AddMcpServerRequest
 from .types.add_mcp_server_response_item import AddMcpServerResponseItem
 from ..types.mcp_tool import McpTool
 from .types.delete_mcp_server_response_item import DeleteMcpServerResponseItem
+from .types.update_mcp_server_request import UpdateMcpServerRequest
+from .types.update_mcp_server_response import UpdateMcpServerResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -1210,6 +1212,75 @@ class ToolsClient:
                     typing.List[DeleteMcpServerResponseItem],
                     construct_type(
                         type_=typing.List[DeleteMcpServerResponseItem],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def update_mcp_server(
+        self,
+        mcp_server_name: str,
+        *,
+        request: UpdateMcpServerRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateMcpServerResponse:
+        """
+        Update an existing MCP server configuration
+
+        Parameters
+        ----------
+        mcp_server_name : str
+
+        request : UpdateMcpServerRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateMcpServerResponse
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta, UpdateSsemcpServer
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.tools.update_mcp_server(
+            mcp_server_name="mcp_server_name",
+            request=UpdateSsemcpServer(),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/tools/mcp/servers/{jsonable_encoder(mcp_server_name)}",
+            method="PATCH",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=UpdateMcpServerRequest, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    UpdateMcpServerResponse,
+                    construct_type(
+                        type_=UpdateMcpServerResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2549,6 +2620,83 @@ class AsyncToolsClient:
                     typing.List[DeleteMcpServerResponseItem],
                     construct_type(
                         type_=typing.List[DeleteMcpServerResponseItem],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def update_mcp_server(
+        self,
+        mcp_server_name: str,
+        *,
+        request: UpdateMcpServerRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateMcpServerResponse:
+        """
+        Update an existing MCP server configuration
+
+        Parameters
+        ----------
+        mcp_server_name : str
+
+        request : UpdateMcpServerRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateMcpServerResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta, UpdateSsemcpServer
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.tools.update_mcp_server(
+                mcp_server_name="mcp_server_name",
+                request=UpdateSsemcpServer(),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/tools/mcp/servers/{jsonable_encoder(mcp_server_name)}",
+            method="PATCH",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=UpdateMcpServerRequest, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    UpdateMcpServerResponse,
+                    construct_type(
+                        type_=UpdateMcpServerResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

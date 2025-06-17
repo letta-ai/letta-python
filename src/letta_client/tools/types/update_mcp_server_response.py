@@ -5,4 +5,4 @@ from ...types.stdio_server_config import StdioServerConfig
 from ...types.sse_server_config import SseServerConfig
 from ...types.streamable_http_server_config import StreamableHttpServerConfig
 
-DeleteMcpServerResponseItem = typing.Union[StdioServerConfig, SseServerConfig, StreamableHttpServerConfig]
+UpdateMcpServerResponse = typing.Union[StdioServerConfig, SseServerConfig, StreamableHttpServerConfig]

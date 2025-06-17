@@ -1434,6 +1434,85 @@ client.tools.delete_mcp_server(
 </dl>
 </details>
 
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">update_mcp_server</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing MCP server configuration
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta, UpdateSsemcpServer
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.update_mcp_server(
+    mcp_server_name="mcp_server_name",
+    request=UpdateSsemcpServer(),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**mcp_server_name:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateMcpServerRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Sources
 <details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">count</a>()</code></summary>
 <dl>

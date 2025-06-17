@@ -5,6 +5,8 @@ from .types import (
     AddMcpServerResponseItem,
     DeleteMcpServerResponseItem,
     ListMcpServersResponseValue,
+    UpdateMcpServerRequest,
+    UpdateMcpServerResponse,
 )
 
 __all__ = [
@@ -12,4 +14,6 @@ __all__ = [
     "AddMcpServerResponseItem",
     "DeleteMcpServerResponseItem",
     "ListMcpServersResponseValue",
+    "UpdateMcpServerRequest",
+    "UpdateMcpServerResponse",
 ]
