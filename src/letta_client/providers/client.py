@@ -101,6 +101,8 @@ class ProvidersClient:
         name: str,
         provider_type: ProviderType,
         api_key: str,
+        access_key: typing.Optional[str] = OMIT,
+        region: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
@@ -115,7 +117,13 @@ class ProvidersClient:
             The type of the provider.
 
         api_key : str
-            API key used for requests to the provider.
+            API key or secret key used for requests to the provider.
+
+        access_key : typing.Optional[str]
+            Access key used for requests to the provider.
+
+        region : typing.Optional[str]
+            Region used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -145,6 +153,8 @@ class ProvidersClient:
                 "name": name,
                 "provider_type": provider_type,
                 "api_key": api_key,
+                "access_key": access_key,
+                "region": region,
             },
             headers={
                 "content-type": "application/json",
@@ -235,7 +245,13 @@ class ProvidersClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def modify(
-        self, provider_id: str, *, api_key: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        provider_id: str,
+        *,
+        api_key: str,
+        access_key: typing.Optional[str] = OMIT,
+        region: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
         Update an existing custom provider
@@ -245,7 +261,13 @@ class ProvidersClient:
         provider_id : str
 
         api_key : str
-            API key used for requests to the provider.
+            API key or secret key used for requests to the provider.
+
+        access_key : typing.Optional[str]
+            Access key used for requests to the provider.
+
+        region : typing.Optional[str]
+            Region used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -272,6 +294,8 @@ class ProvidersClient:
             method="PATCH",
             json={
                 "api_key": api_key,
+                "access_key": access_key,
+                "region": region,
             },
             headers={
                 "content-type": "application/json",
@@ -303,16 +327,10 @@ class ProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def check(
-        self, *, provider_type: ProviderType, api_key: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.Optional[typing.Any]:
         """
         Parameters
         ----------
-        provider_type : ProviderType
-
-        api_key : str
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -328,20 +346,11 @@ class ProvidersClient:
         client = Letta(
             token="YOUR_TOKEN",
         )
-        client.providers.check(
-            api_key="x-api-key",
-            provider_type="anthropic",
-        )
+        client.providers.check()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/providers/check",
             method="GET",
-            params={
-                "provider_type": provider_type,
-            },
-            headers={
-                "x-api-key": str(api_key) if api_key is not None else None,
-            },
             request_options=request_options,
         )
         try:
@@ -461,6 +470,8 @@ class AsyncProvidersClient:
         name: str,
         provider_type: ProviderType,
         api_key: str,
+        access_key: typing.Optional[str] = OMIT,
+        region: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
@@ -475,7 +486,13 @@ class AsyncProvidersClient:
             The type of the provider.
 
         api_key : str
-            API key used for requests to the provider.
+            API key or secret key used for requests to the provider.
+
+        access_key : typing.Optional[str]
+            Access key used for requests to the provider.
+
+        region : typing.Optional[str]
+            Region used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -513,6 +530,8 @@ class AsyncProvidersClient:
                 "name": name,
                 "provider_type": provider_type,
                 "api_key": api_key,
+                "access_key": access_key,
+                "region": region,
             },
             headers={
                 "content-type": "application/json",
@@ -611,7 +630,13 @@ class AsyncProvidersClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def modify(
-        self, provider_id: str, *, api_key: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        provider_id: str,
+        *,
+        api_key: str,
+        access_key: typing.Optional[str] = OMIT,
+        region: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
         Update an existing custom provider
@@ -621,7 +646,13 @@ class AsyncProvidersClient:
         provider_id : str
 
         api_key : str
-            API key used for requests to the provider.
+            API key or secret key used for requests to the provider.
+
+        access_key : typing.Optional[str]
+            Access key used for requests to the provider.
+
+        region : typing.Optional[str]
+            Region used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -656,6 +687,8 @@ class AsyncProvidersClient:
             method="PATCH",
             json={
                 "api_key": api_key,
+                "access_key": access_key,
+                "region": region,
             },
             headers={
                 "content-type": "application/json",
@@ -687,16 +720,10 @@ class AsyncProvidersClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def check(
-        self, *, provider_type: ProviderType, api_key: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    async def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.Optional[typing.Any]:
         """
         Parameters
         ----------
-        provider_type : ProviderType
-
-        api_key : str
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -717,10 +744,7 @@ class AsyncProvidersClient:
 
 
         async def main() -> None:
-            await client.providers.check(
-                api_key="x-api-key",
-                provider_type="anthropic",
-            )
+            await client.providers.check()
 
 
         asyncio.run(main())
@@ -728,12 +752,6 @@ class AsyncProvidersClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/providers/check",
             method="GET",
-            params={
-                "provider_type": provider_type,
-            },
-            headers={
-                "x-api-key": str(api_key) if api_key is not None else None,
-            },
             request_options=request_options,
         )
         try:

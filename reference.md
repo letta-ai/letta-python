@@ -5720,7 +5720,23 @@ client.providers.create(
 <dl>
 <dd>
 
-**api_key:** `str` — API key used for requests to the provider.
+**api_key:** `str` — API key or secret key used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**access_key:** `typing.Optional[str]` — Access key used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**region:** `typing.Optional[str]` — Region used for requests to the provider.
     
 </dd>
 </dl>
@@ -5869,7 +5885,23 @@ client.providers.modify(
 <dl>
 <dd>
 
-**api_key:** `str` — API key used for requests to the provider.
+**api_key:** `str` — API key or secret key used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**access_key:** `typing.Optional[str]` — Access key used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**region:** `typing.Optional[str]` — Region used for requests to the provider.
     
 </dd>
 </dl>
@@ -5889,7 +5921,7 @@ client.providers.modify(
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">check</a>(...)</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">check</a>()</code></summary>
 <dl>
 <dd>
 
@@ -5907,10 +5939,7 @@ from letta_client import Letta
 client = Letta(
     token="YOUR_TOKEN",
 )
-client.providers.check(
-    api_key="x-api-key",
-    provider_type="anthropic",
-)
+client.providers.check()
 
 ```
 </dd>
@@ -5922,22 +5951,6 @@ client.providers.check(
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**provider_type:** `ProviderType` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**api_key:** `str` 
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
