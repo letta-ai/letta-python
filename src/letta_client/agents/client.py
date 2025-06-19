@@ -31,7 +31,9 @@ from ..core.jsonable_encoder import jsonable_encoder
 from .. import core
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
 from .types.update_agent_response_format import UpdateAgentResponseFormat
+import datetime as dt
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
+from .types.agents_search_request_sort_by import AgentsSearchRequestSortBy
 from .types.agents_search_response import AgentsSearchResponse
 from ..core.client_wrapper import AsyncClientWrapper
 from .context.client import AsyncContextClient
@@ -80,6 +82,7 @@ class AgentsClient:
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         ascending: typing.Optional[bool] = None,
+        sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -132,6 +135,9 @@ class AgentsClient:
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
 
+        sort_by : typing.Optional[str]
+            Field to sort by. Options: 'created_at' (default), 'last_run_completion'
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -167,6 +173,7 @@ class AgentsClient:
                 "identifier_keys": identifier_keys,
                 "include_relationships": include_relationships,
                 "ascending": ascending,
+                "sort_by": sort_by,
             },
             request_options=request_options,
         )
@@ -804,6 +811,8 @@ class AgentsClient:
         embedding: typing.Optional[str] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
         response_format: typing.Optional[UpdateAgentResponseFormat] = OMIT,
+        last_run_completion: typing.Optional[dt.datetime] = OMIT,
+        last_run_duration_ms: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -879,6 +888,12 @@ class AgentsClient:
         response_format : typing.Optional[UpdateAgentResponseFormat]
             The response format for the agent.
 
+        last_run_completion : typing.Optional[dt.datetime]
+            The timestamp when the agent last completed a run.
+
+        last_run_duration_ms : typing.Optional[int]
+            The duration in milliseconds of the agent's last run.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -932,6 +947,8 @@ class AgentsClient:
                 "response_format": convert_and_respect_annotation_metadata(
                     object_=response_format, annotation=UpdateAgentResponseFormat, direction="write"
                 ),
+                "last_run_completion": last_run_completion,
+                "last_run_duration_ms": last_run_duration_ms,
             },
             headers={
                 "content-type": "application/json",
@@ -1039,6 +1056,8 @@ class AgentsClient:
         combinator: typing.Optional[typing.Literal["AND"]] = OMIT,
         limit: typing.Optional[float] = OMIT,
         after: typing.Optional[str] = OMIT,
+        sort_by: typing.Optional[AgentsSearchRequestSortBy] = OMIT,
+        ascending: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentsSearchResponse:
         """
@@ -1057,6 +1076,10 @@ class AgentsClient:
         limit : typing.Optional[float]
 
         after : typing.Optional[str]
+
+        sort_by : typing.Optional[AgentsSearchRequestSortBy]
+
+        ascending : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1086,6 +1109,8 @@ class AgentsClient:
                 "combinator": combinator,
                 "limit": limit,
                 "after": after,
+                "sortBy": sort_by,
+                "ascending": ascending,
             },
             headers={
                 "content-type": "application/json",
@@ -1139,6 +1164,7 @@ class AsyncAgentsClient:
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         ascending: typing.Optional[bool] = None,
+        sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
@@ -1191,6 +1217,9 @@ class AsyncAgentsClient:
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
 
+        sort_by : typing.Optional[str]
+            Field to sort by. Options: 'created_at' (default), 'last_run_completion'
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1234,6 +1263,7 @@ class AsyncAgentsClient:
                 "identifier_keys": identifier_keys,
                 "include_relationships": include_relationships,
                 "ascending": ascending,
+                "sort_by": sort_by,
             },
             request_options=request_options,
         )
@@ -1919,6 +1949,8 @@ class AsyncAgentsClient:
         embedding: typing.Optional[str] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
         response_format: typing.Optional[UpdateAgentResponseFormat] = OMIT,
+        last_run_completion: typing.Optional[dt.datetime] = OMIT,
+        last_run_duration_ms: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1994,6 +2026,12 @@ class AsyncAgentsClient:
         response_format : typing.Optional[UpdateAgentResponseFormat]
             The response format for the agent.
 
+        last_run_completion : typing.Optional[dt.datetime]
+            The timestamp when the agent last completed a run.
+
+        last_run_duration_ms : typing.Optional[int]
+            The duration in milliseconds of the agent's last run.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2055,6 +2093,8 @@ class AsyncAgentsClient:
                 "response_format": convert_and_respect_annotation_metadata(
                     object_=response_format, annotation=UpdateAgentResponseFormat, direction="write"
                 ),
+                "last_run_completion": last_run_completion,
+                "last_run_duration_ms": last_run_duration_ms,
             },
             headers={
                 "content-type": "application/json",
@@ -2170,6 +2210,8 @@ class AsyncAgentsClient:
         combinator: typing.Optional[typing.Literal["AND"]] = OMIT,
         limit: typing.Optional[float] = OMIT,
         after: typing.Optional[str] = OMIT,
+        sort_by: typing.Optional[AgentsSearchRequestSortBy] = OMIT,
+        ascending: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentsSearchResponse:
         """
@@ -2188,6 +2230,10 @@ class AsyncAgentsClient:
         limit : typing.Optional[float]
 
         after : typing.Optional[str]
+
+        sort_by : typing.Optional[AgentsSearchRequestSortBy]
+
+        ascending : typing.Optional[bool]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2225,6 +2271,8 @@ class AsyncAgentsClient:
                 "combinator": combinator,
                 "limit": limit,
                 "after": after,
+                "sortBy": sort_by,
+                "ascending": ascending,
             },
             headers={
                 "content-type": "application/json",

@@ -170,6 +170,16 @@ class AgentState(UncheckedBaseModel):
     The multi-agent group that this agent manages
     """
 
+    last_run_completion: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    The timestamp when the agent last completed a run.
+    """
+
+    last_run_duration_ms: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The duration in milliseconds of the agent's last run.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

@@ -6,6 +6,7 @@ from .agents_search_request_search_item_one_operator import AgentsSearchRequestS
 from .agents_search_request_search_item_operator import AgentsSearchRequestSearchItemOperator
 from .agents_search_request_search_item_two import AgentsSearchRequestSearchItemTwo
 from .agents_search_request_search_item_zero import AgentsSearchRequestSearchItemZero
+from .agents_search_request_sort_by import AgentsSearchRequestSortBy
 from .agents_search_response import AgentsSearchResponse
 from .create_agent_request_response_format import CreateAgentRequestResponseFormat
 from .create_agent_request_tool_rules_item import CreateAgentRequestToolRulesItem
@@ -19,6 +20,7 @@ __all__ = [
     "AgentsSearchRequestSearchItemOperator",
     "AgentsSearchRequestSearchItemTwo",
     "AgentsSearchRequestSearchItemZero",
+    "AgentsSearchRequestSortBy",
     "AgentsSearchResponse",
     "CreateAgentRequestResponseFormat",
     "CreateAgentRequestToolRulesItem",

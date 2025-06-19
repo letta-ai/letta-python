@@ -2236,6 +2236,14 @@ client.agents.list()
 <dl>
 <dd>
 
+**sort_by:** `typing.Optional[str]` — Field to sort by. Options: 'created_at' (default), 'last_run_completion'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -3226,6 +3234,22 @@ client.agents.modify(
 <dl>
 <dd>
 
+**last_run_completion:** `typing.Optional[dt.datetime]` — The timestamp when the agent last completed a run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last_run_duration_ms:** `typing.Optional[int]` — The duration in milliseconds of the agent's last run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -3403,6 +3427,22 @@ client.agents.search()
 <dd>
 
 **after:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_by:** `typing.Optional[AgentsSearchRequestSortBy]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ascending:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
