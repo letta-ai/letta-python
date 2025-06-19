@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 import pydantic
+from .message_type import MessageType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -20,6 +21,11 @@ class LettaRequestConfig(UncheckedBaseModel):
     assistant_message_tool_kwarg: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the message argument in the designated message tool.
+    """
+
+    include_return_message_types: typing.Optional[typing.List[MessageType]] = pydantic.Field(default=None)
+    """
+    Only return specified message types in the response. If `None` (default) returns all messages.
     """
 
     if IS_PYDANTIC_V2:

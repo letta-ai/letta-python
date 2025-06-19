@@ -9545,14 +9545,6 @@ client.agents.messages.create_async(
 <dl>
 <dd>
 
-**callback_url:** `typing.Optional[str]` — Optional callback URL to POST to when the job completes
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **max_steps:** `typing.Optional[int]` — Maximum number of steps the agent should take to process the request.
     
 </dd>
@@ -9586,6 +9578,14 @@ client.agents.messages.create_async(
 <dd>
 
 **include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**callback_url:** `typing.Optional[str]` — Optional callback URL to POST to when the job completes
     
 </dd>
 </dl>

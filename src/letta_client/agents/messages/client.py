@@ -438,12 +438,12 @@ class MessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
-        callback_url: typing.Optional[str] = None,
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        callback_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Run:
         """
@@ -456,9 +456,6 @@ class MessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
-
-        callback_url : typing.Optional[str]
-            Optional callback URL to POST to when the job completes
 
         max_steps : typing.Optional[int]
             Maximum number of steps the agent should take to process the request.
@@ -474,6 +471,9 @@ class MessagesClient:
 
         include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
             Only return specified message types in the response. If `None` (default) returns all messages.
+
+        callback_url : typing.Optional[str]
+            Optional callback URL to POST to when the job completes
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -507,9 +507,6 @@ class MessagesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
             method="POST",
-            params={
-                "callback_url": callback_url,
-            },
             json={
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
@@ -519,6 +516,10 @@ class MessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "include_return_message_types": include_return_message_types,
+                "callback_url": callback_url,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1059,12 +1060,12 @@ class AsyncMessagesClient:
         agent_id: str,
         *,
         messages: typing.Sequence[MessageCreate],
-        callback_url: typing.Optional[str] = None,
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        callback_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Run:
         """
@@ -1077,9 +1078,6 @@ class AsyncMessagesClient:
 
         messages : typing.Sequence[MessageCreate]
             The messages to be sent to the agent.
-
-        callback_url : typing.Optional[str]
-            Optional callback URL to POST to when the job completes
 
         max_steps : typing.Optional[int]
             Maximum number of steps the agent should take to process the request.
@@ -1095,6 +1093,9 @@ class AsyncMessagesClient:
 
         include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
             Only return specified message types in the response. If `None` (default) returns all messages.
+
+        callback_url : typing.Optional[str]
+            Optional callback URL to POST to when the job completes
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1136,9 +1137,6 @@ class AsyncMessagesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/async",
             method="POST",
-            params={
-                "callback_url": callback_url,
-            },
             json={
                 "messages": convert_and_respect_annotation_metadata(
                     object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
@@ -1148,6 +1146,10 @@ class AsyncMessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "include_return_message_types": include_return_message_types,
+                "callback_url": callback_url,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
