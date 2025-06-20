@@ -3,6 +3,5 @@
 import typing
 
 JobStatus = typing.Union[
-    typing.Literal["not_started", "created", "running", "completed", "failed", "pending", "cancelled", "expired"],
-    typing.Any,
+    typing.Literal["created", "running", "completed", "failed", "pending", "cancelled", "expired"], typing.Any
 ]
