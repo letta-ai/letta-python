@@ -7,6 +7,7 @@ from .continue_tool_rule import ContinueToolRule
 from .terminal_tool_rule import TerminalToolRule
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .parent_tool_rule import ParentToolRule
+from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
 from .init_tool_rule import InitToolRule
 
 AgentStateToolRulesItem = typing.Union[
@@ -16,5 +17,6 @@ AgentStateToolRulesItem = typing.Union[
     TerminalToolRule,
     MaxCountPerStepToolRule,
     ParentToolRule,
+    RequiredBeforeExitToolRule,
     InitToolRule,
 ]
