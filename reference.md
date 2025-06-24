@@ -2608,6 +2608,14 @@ client.agents.create()
 <dl>
 <dd>
 
+**timezone:** `typing.Optional[str]` — The timezone of the agent (IANA format).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -3243,6 +3251,14 @@ client.agents.modify(
 <dd>
 
 **last_run_duration_ms:** `typing.Optional[int]` — The duration in milliseconds of the agent's last run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timezone:** `typing.Optional[str]` — The timezone of the agent (IANA format).
     
 </dd>
 </dl>

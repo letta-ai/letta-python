@@ -242,6 +242,7 @@ class AgentsClient:
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
         response_format: typing.Optional[CreateAgentRequestResponseFormat] = OMIT,
+        timezone: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -362,6 +363,9 @@ class AgentsClient:
         response_format : typing.Optional[CreateAgentRequestResponseFormat]
             The response format for the agent.
 
+        timezone : typing.Optional[str]
+            The timezone of the agent (IANA format).
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -432,6 +436,7 @@ class AgentsClient:
                 "response_format": convert_and_respect_annotation_metadata(
                     object_=response_format, annotation=CreateAgentRequestResponseFormat, direction="write"
                 ),
+                "timezone": timezone,
             },
             headers={
                 "content-type": "application/json",
@@ -813,6 +818,7 @@ class AgentsClient:
         response_format: typing.Optional[UpdateAgentResponseFormat] = OMIT,
         last_run_completion: typing.Optional[dt.datetime] = OMIT,
         last_run_duration_ms: typing.Optional[int] = OMIT,
+        timezone: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -894,6 +900,9 @@ class AgentsClient:
         last_run_duration_ms : typing.Optional[int]
             The duration in milliseconds of the agent's last run.
 
+        timezone : typing.Optional[str]
+            The timezone of the agent (IANA format).
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -949,6 +958,7 @@ class AgentsClient:
                 ),
                 "last_run_completion": last_run_completion,
                 "last_run_duration_ms": last_run_duration_ms,
+                "timezone": timezone,
             },
             headers={
                 "content-type": "application/json",
@@ -1332,6 +1342,7 @@ class AsyncAgentsClient:
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
         response_format: typing.Optional[CreateAgentRequestResponseFormat] = OMIT,
+        timezone: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1452,6 +1463,9 @@ class AsyncAgentsClient:
         response_format : typing.Optional[CreateAgentRequestResponseFormat]
             The response format for the agent.
 
+        timezone : typing.Optional[str]
+            The timezone of the agent (IANA format).
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1530,6 +1544,7 @@ class AsyncAgentsClient:
                 "response_format": convert_and_respect_annotation_metadata(
                     object_=response_format, annotation=CreateAgentRequestResponseFormat, direction="write"
                 ),
+                "timezone": timezone,
             },
             headers={
                 "content-type": "application/json",
@@ -1951,6 +1966,7 @@ class AsyncAgentsClient:
         response_format: typing.Optional[UpdateAgentResponseFormat] = OMIT,
         last_run_completion: typing.Optional[dt.datetime] = OMIT,
         last_run_duration_ms: typing.Optional[int] = OMIT,
+        timezone: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -2032,6 +2048,9 @@ class AsyncAgentsClient:
         last_run_duration_ms : typing.Optional[int]
             The duration in milliseconds of the agent's last run.
 
+        timezone : typing.Optional[str]
+            The timezone of the agent (IANA format).
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2095,6 +2114,7 @@ class AsyncAgentsClient:
                 ),
                 "last_run_completion": last_run_completion,
                 "last_run_duration_ms": last_run_duration_ms,
+                "timezone": timezone,
             },
             headers={
                 "content-type": "application/json",

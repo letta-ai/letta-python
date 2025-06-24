@@ -180,6 +180,11 @@ class AgentState(UncheckedBaseModel):
     The duration in milliseconds of the agent's last run.
     """
 
+    timezone: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The timezone of the agent (IANA format).
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
