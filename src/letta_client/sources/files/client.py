@@ -4,14 +4,13 @@ import typing
 from ...core.client_wrapper import SyncClientWrapper
 from ... import core
 from ...core.request_options import RequestOptions
-from ...types.job import Job
+from ...types.file_metadata import FileMetadata
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
-from ...types.file_metadata import FileMetadata
 from ...core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -24,7 +23,7 @@ class FilesClient:
 
     def upload(
         self, source_id: str, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
-    ) -> Job:
+    ) -> FileMetadata:
         """
         Upload a file to a data source.
 
@@ -40,7 +39,7 @@ class FilesClient:
 
         Returns
         -------
-        Job
+        FileMetadata
             Successful Response
 
         Examples
@@ -67,9 +66,9 @@ class FilesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    Job,
+                    FileMetadata,
                     construct_type(
-                        type_=Job,  # type: ignore
+                        type_=FileMetadata,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -225,7 +224,7 @@ class AsyncFilesClient:
 
     async def upload(
         self, source_id: str, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
-    ) -> Job:
+    ) -> FileMetadata:
         """
         Upload a file to a data source.
 
@@ -241,7 +240,7 @@ class AsyncFilesClient:
 
         Returns
         -------
-        Job
+        FileMetadata
             Successful Response
 
         Examples
@@ -276,9 +275,9 @@ class AsyncFilesClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    Job,
+                    FileMetadata,
                     construct_type(
-                        type_=Job,  # type: ignore
+                        type_=FileMetadata,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
