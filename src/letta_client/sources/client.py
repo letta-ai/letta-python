@@ -14,6 +14,7 @@ from ..types.source import Source
 from ..core.jsonable_encoder import jsonable_encoder
 from ..types.embedding_config import EmbeddingConfig
 from ..core.serialization import convert_and_respect_annotation_metadata
+from ..types.file_metadata import FileMetadata
 from ..core.client_wrapper import AsyncClientWrapper
 from .files.client import AsyncFilesClient
 from .passages.client import AsyncPassagesClient
@@ -479,6 +480,78 @@ class SourcesClient:
                     Source,
                     construct_type(
                         type_=Source,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_file_metadata(
+        self,
+        source_id: str,
+        file_id: str,
+        *,
+        include_content: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> FileMetadata:
+        """
+        Retrieve metadata for a specific file by its ID.
+
+        Parameters
+        ----------
+        source_id : str
+
+        file_id : str
+
+        include_content : typing.Optional[bool]
+            Whether to include full file content
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        FileMetadata
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        client.sources.get_file_metadata(
+            source_id="source_id",
+            file_id="file_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/sources/{jsonable_encoder(source_id)}/files/{jsonable_encoder(file_id)}",
+            method="GET",
+            params={
+                "include_content": include_content,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    FileMetadata,
+                    construct_type(
+                        type_=FileMetadata,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1013,6 +1086,86 @@ class AsyncSourcesClient:
                     Source,
                     construct_type(
                         type_=Source,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_file_metadata(
+        self,
+        source_id: str,
+        file_id: str,
+        *,
+        include_content: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> FileMetadata:
+        """
+        Retrieve metadata for a specific file by its ID.
+
+        Parameters
+        ----------
+        source_id : str
+
+        file_id : str
+
+        include_content : typing.Optional[bool]
+            Whether to include full file content
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        FileMetadata
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.sources.get_file_metadata(
+                source_id="source_id",
+                file_id="file_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/sources/{jsonable_encoder(source_id)}/files/{jsonable_encoder(file_id)}",
+            method="GET",
+            params={
+                "include_content": include_content,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    FileMetadata,
+                    construct_type(
+                        type_=FileMetadata,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
