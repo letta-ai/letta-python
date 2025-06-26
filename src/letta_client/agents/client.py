@@ -221,6 +221,7 @@ class AgentsClient:
         include_base_tools: typing.Optional[bool] = OMIT,
         include_multi_agent_tools: typing.Optional[bool] = OMIT,
         include_base_tool_rules: typing.Optional[bool] = OMIT,
+        include_default_source: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         model: typing.Optional[str] = OMIT,
@@ -299,6 +300,9 @@ class AgentsClient:
 
         include_base_tool_rules : typing.Optional[bool]
             If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly allowed).
+
+        include_default_source : typing.Optional[bool]
+            If true, automatically creates and attaches a default data source for this agent.
 
         description : typing.Optional[str]
             The description of the agent.
@@ -413,6 +417,7 @@ class AgentsClient:
                 "include_base_tools": include_base_tools,
                 "include_multi_agent_tools": include_multi_agent_tools,
                 "include_base_tool_rules": include_base_tool_rules,
+                "include_default_source": include_default_source,
                 "description": description,
                 "metadata": metadata,
                 "model": model,
@@ -1321,6 +1326,7 @@ class AsyncAgentsClient:
         include_base_tools: typing.Optional[bool] = OMIT,
         include_multi_agent_tools: typing.Optional[bool] = OMIT,
         include_base_tool_rules: typing.Optional[bool] = OMIT,
+        include_default_source: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         model: typing.Optional[str] = OMIT,
@@ -1399,6 +1405,9 @@ class AsyncAgentsClient:
 
         include_base_tool_rules : typing.Optional[bool]
             If true, attaches the Letta base tool rules (e.g. deny all tools not explicitly allowed).
+
+        include_default_source : typing.Optional[bool]
+            If true, automatically creates and attaches a default data source for this agent.
 
         description : typing.Optional[str]
             The description of the agent.
@@ -1521,6 +1530,7 @@ class AsyncAgentsClient:
                 "include_base_tools": include_base_tools,
                 "include_multi_agent_tools": include_multi_agent_tools,
                 "include_base_tool_rules": include_base_tool_rules,
+                "include_default_source": include_default_source,
                 "description": description,
                 "metadata": metadata,
                 "model": model,

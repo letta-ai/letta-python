@@ -201,6 +201,7 @@ from .source import Source
 from .sse_server_config import SseServerConfig
 from .stdio_server_config import StdioServerConfig
 from .step import Step
+from .step_feedback import StepFeedback
 from .stop_reason_type import StopReasonType
 from .streamable_http_server_config import StreamableHttpServerConfig
 from .supervisor_manager import SupervisorManager
@@ -451,6 +452,7 @@ __all__ = [
     "SseServerConfig",
     "StdioServerConfig",
     "Step",
+    "StepFeedback",
     "StopReasonType",
     "StreamableHttpServerConfig",
     "SupervisorManager",

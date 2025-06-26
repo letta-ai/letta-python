@@ -2527,6 +2527,14 @@ client.agents.create()
 <dl>
 <dd>
 
+**include_default_source:** `typing.Optional[bool]` — If true, automatically creates and attaches a default data source for this agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **description:** `typing.Optional[str]` — The description of the agent.
     
 </dd>
@@ -6509,6 +6517,22 @@ client.steps.list()
 <dl>
 <dd>
 
+**feedback:** `typing.Optional[StepsListRequestFeedback]` — Filter by feedback
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by tags
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -6572,6 +6596,84 @@ client.steps.retrieve(
 <dd>
 
 **step_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">add_feedback</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add feedback to a step.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.steps.add_feedback(
+    step_id="step_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**step_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**feedback:** `typing.Optional[AddFeedbackRequestFeedback]` 
     
 </dd>
 </dl>
@@ -11543,6 +11645,63 @@ client.sources.passages.list(
 <dd>
 
 **limit:** `typing.Optional[int]` — Maximum number of messages to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Steps Feedback
+<details><summary><code>client.steps.feedback.<a href="src/letta_client/steps/feedback/client.py">add</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.steps.feedback.add(
+    step_id="step_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**step_id:** `str` 
     
 </dd>
 </dl>

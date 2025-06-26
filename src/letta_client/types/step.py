@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 import typing
 from .message import Message
+from .step_feedback import StepFeedback
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -98,6 +99,11 @@ class Step(UncheckedBaseModel):
     messages: typing.Optional[typing.List[Message]] = pydantic.Field(default=None)
     """
     The messages generated during this step.
+    """
+
+    feedback: typing.Optional[StepFeedback] = pydantic.Field(default=None)
+    """
+    The feedback for this step. Must be either 'positive' or 'negative'.
     """
 
     if IS_PYDANTIC_V2:
