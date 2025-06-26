@@ -4,11 +4,13 @@ import typing
 from .agents_search_request_search_item_zero import AgentsSearchRequestSearchItemZero
 from .agents_search_request_search_item_one import AgentsSearchRequestSearchItemOne
 from .agents_search_request_search_item_two import AgentsSearchRequestSearchItemTwo
-from .agents_search_request_search_item_operator import AgentsSearchRequestSearchItemOperator
+from .agents_search_request_search_item_three import AgentsSearchRequestSearchItemThree
+from .agents_search_request_search_item_field import AgentsSearchRequestSearchItemField
 
 AgentsSearchRequestSearchItem = typing.Union[
     AgentsSearchRequestSearchItemZero,
     AgentsSearchRequestSearchItemOne,
     AgentsSearchRequestSearchItemTwo,
-    AgentsSearchRequestSearchItemOperator,
+    AgentsSearchRequestSearchItemThree,
+    AgentsSearchRequestSearchItemField,
 ]

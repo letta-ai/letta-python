@@ -6,7 +6,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class AgentsSearchRequestSearchItemOperator(UncheckedBaseModel):
+class AgentsSearchRequestSearchItemThree(UncheckedBaseModel):
     field: typing.Literal["identity"] = "identity"
     operator: typing.Literal["eq"] = "eq"
     value: str

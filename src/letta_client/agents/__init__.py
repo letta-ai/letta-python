@@ -2,9 +2,11 @@
 
 from .types import (
     AgentsSearchRequestSearchItem,
+    AgentsSearchRequestSearchItemField,
+    AgentsSearchRequestSearchItemFieldOperator,
     AgentsSearchRequestSearchItemOne,
     AgentsSearchRequestSearchItemOneOperator,
-    AgentsSearchRequestSearchItemOperator,
+    AgentsSearchRequestSearchItemThree,
     AgentsSearchRequestSearchItemTwo,
     AgentsSearchRequestSearchItemZero,
     AgentsSearchRequestSortBy,
@@ -21,9 +23,11 @@ from .templates import TemplatesCreateResponse, TemplatesCreateVersionRequestRet
 
 __all__ = [
     "AgentsSearchRequestSearchItem",
+    "AgentsSearchRequestSearchItemField",
+    "AgentsSearchRequestSearchItemFieldOperator",
     "AgentsSearchRequestSearchItemOne",
     "AgentsSearchRequestSearchItemOneOperator",
-    "AgentsSearchRequestSearchItemOperator",
+    "AgentsSearchRequestSearchItemThree",
     "AgentsSearchRequestSearchItemTwo",
     "AgentsSearchRequestSearchItemZero",
     "AgentsSearchRequestSortBy",
