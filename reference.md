@@ -1513,6 +1513,81 @@ client.tools.update_mcp_server(
 </dl>
 </details>
 
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">test_mcp_server</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Test connection to an MCP server without adding it.
+Returns the list of available tools if successful.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta, StdioServerConfig
+
+client = Letta(
+    token="YOUR_TOKEN",
+)
+client.tools.test_mcp_server(
+    request=StdioServerConfig(
+        server_name="server_name",
+        command="command",
+        args=["args"],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `TestMcpServerRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Sources
 <details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">count</a>()</code></summary>
 <dl>

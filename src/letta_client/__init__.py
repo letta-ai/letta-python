@@ -315,6 +315,7 @@ from .tools import (
     AddMcpServerResponseItem,
     DeleteMcpServerResponseItem,
     ListMcpServersResponseValue,
+    TestMcpServerRequest,
     UpdateMcpServerRequest,
     UpdateMcpServerResponse,
 )
@@ -562,6 +563,7 @@ __all__ = [
     "TemplatesListResponse",
     "TemplatesListResponseTemplatesItem",
     "TerminalToolRule",
+    "TestMcpServerRequest",
     "TextContent",
     "TextResponseFormat",
     "Tool",
