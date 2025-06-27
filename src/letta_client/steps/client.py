@@ -35,6 +35,7 @@ class StepsClient:
         agent_id: typing.Optional[str] = None,
         trace_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         feedback: typing.Optional[StepsListRequestFeedback] = None,
+        has_feedback: typing.Optional[bool] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
@@ -74,6 +75,9 @@ class StepsClient:
         feedback : typing.Optional[StepsListRequestFeedback]
             Filter by feedback
 
+        has_feedback : typing.Optional[bool]
+            Filter by whether steps have feedback (true) or not (false)
+
         tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by tags
 
@@ -108,6 +112,7 @@ class StepsClient:
                 "agent_id": agent_id,
                 "trace_ids": trace_ids,
                 "feedback": feedback,
+                "has_feedback": has_feedback,
                 "tags": tags,
             },
             request_options=request_options,
@@ -278,6 +283,7 @@ class AsyncStepsClient:
         agent_id: typing.Optional[str] = None,
         trace_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         feedback: typing.Optional[StepsListRequestFeedback] = None,
+        has_feedback: typing.Optional[bool] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
@@ -316,6 +322,9 @@ class AsyncStepsClient:
 
         feedback : typing.Optional[StepsListRequestFeedback]
             Filter by feedback
+
+        has_feedback : typing.Optional[bool]
+            Filter by whether steps have feedback (true) or not (false)
 
         tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by tags
@@ -359,6 +368,7 @@ class AsyncStepsClient:
                 "agent_id": agent_id,
                 "trace_ids": trace_ids,
                 "feedback": feedback,
+                "has_feedback": has_feedback,
                 "tags": tags,
             },
             request_options=request_options,

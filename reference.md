@@ -6600,6 +6600,14 @@ client.steps.list()
 <dl>
 <dd>
 
+**has_feedback:** `typing.Optional[bool]` — Filter by whether steps have feedback (true) or not (false)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **tags:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by tags
     
 </dd>
