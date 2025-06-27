@@ -12,7 +12,7 @@ from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
-from .types.add_feedback_request_feedback import AddFeedbackRequestFeedback
+from ..types.feedback_type import FeedbackType
 from ..core.client_wrapper import AsyncClientWrapper
 from .feedback.client import AsyncFeedbackClient
 
@@ -196,7 +196,7 @@ class StepsClient:
         self,
         step_id: str,
         *,
-        feedback: typing.Optional[AddFeedbackRequestFeedback] = None,
+        feedback: typing.Optional[FeedbackType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Step:
         """
@@ -206,7 +206,7 @@ class StepsClient:
         ----------
         step_id : str
 
-        feedback : typing.Optional[AddFeedbackRequestFeedback]
+        feedback : typing.Optional[FeedbackType]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -455,7 +455,7 @@ class AsyncStepsClient:
         self,
         step_id: str,
         *,
-        feedback: typing.Optional[AddFeedbackRequestFeedback] = None,
+        feedback: typing.Optional[FeedbackType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Step:
         """
@@ -465,7 +465,7 @@ class AsyncStepsClient:
         ----------
         step_id : str
 
-        feedback : typing.Optional[AddFeedbackRequestFeedback]
+        feedback : typing.Optional[FeedbackType]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

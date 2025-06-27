@@ -6748,7 +6748,7 @@ client.steps.add_feedback(
 <dl>
 <dd>
 
-**feedback:** `typing.Optional[AddFeedbackRequestFeedback]` 
+**feedback:** `typing.Optional[FeedbackType]` 
     
 </dd>
 </dl>

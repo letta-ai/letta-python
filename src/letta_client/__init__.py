@@ -89,6 +89,7 @@ from .types import (
     E2BSandboxConfig,
     EmbeddingConfig,
     EmbeddingConfigEmbeddingEndpointType,
+    FeedbackType,
     File,
     FileFile,
     FileMetadata,
@@ -310,7 +311,7 @@ from .client_side_access_tokens import (
 from .environment import LettaEnvironment
 from .groups import GroupCreateManagerConfig, GroupUpdateManagerConfig
 from .projects import ProjectsListResponse, ProjectsListResponseProjectsItem
-from .steps import AddFeedbackRequestFeedback, StepsListRequestFeedback
+from .steps import StepsListRequestFeedback
 from .templates import TemplatesListResponse, TemplatesListResponseTemplatesItem
 from .tools import (
     AddMcpServerRequest,
@@ -327,7 +328,6 @@ __all__ = [
     "ActionModel",
     "ActionParametersModel",
     "ActionResponseModel",
-    "AddFeedbackRequestFeedback",
     "AddMcpServerRequest",
     "AddMcpServerResponseItem",
     "AgentEnvironmentVariable",
@@ -437,6 +437,7 @@ __all__ = [
     "E2BSandboxConfig",
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
+    "FeedbackType",
     "File",
     "FileFile",
     "FileMetadata",

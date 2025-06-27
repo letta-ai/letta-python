@@ -88,6 +88,7 @@ from .dynamic_manager_update import DynamicManagerUpdate
 from .e_2_b_sandbox_config import E2BSandboxConfig
 from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
+from .feedback_type import FeedbackType
 from .file import File
 from .file_file import FileFile
 from .file_metadata import FileMetadata
@@ -343,6 +344,7 @@ __all__ = [
     "E2BSandboxConfig",
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
+    "FeedbackType",
     "File",
     "FileFile",
     "FileMetadata",
