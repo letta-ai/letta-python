@@ -61,6 +61,7 @@ class TemplatesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.templates.create_version(
@@ -149,6 +150,7 @@ class TemplatesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.templates.migrate(
@@ -246,6 +248,7 @@ class TemplatesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.templates.create(
@@ -332,6 +335,7 @@ class AsyncTemplatesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -428,6 +432,7 @@ class AsyncTemplatesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -533,6 +538,7 @@ class AsyncTemplatesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

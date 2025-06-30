@@ -23,6 +23,7 @@ Instantiate and use the client with the following:
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.create(
@@ -40,6 +41,7 @@ import asyncio
 from letta_client import AsyncLetta
 
 client = AsyncLetta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 
@@ -76,6 +78,7 @@ The SDK supports streaming responses, as well, the response will be a generator 
 from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 response = client.agents.messages.create_stream(

@@ -47,6 +47,7 @@ class FilesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.sources.files.upload(
@@ -125,6 +126,7 @@ class FilesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.sources.files.list(
@@ -187,6 +189,7 @@ class FilesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.sources.files.delete(
@@ -250,6 +253,7 @@ class AsyncFilesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -336,6 +340,7 @@ class AsyncFilesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -408,6 +413,7 @@ class AsyncFilesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

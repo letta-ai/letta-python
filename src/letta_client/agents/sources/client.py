@@ -43,6 +43,7 @@ class SourcesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.sources.attach(
@@ -104,6 +105,7 @@ class SourcesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.sources.detach(
@@ -161,6 +163,7 @@ class SourcesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.sources.list(
@@ -228,6 +231,7 @@ class AsyncSourcesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -297,6 +301,7 @@ class AsyncSourcesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -364,6 +369,7 @@ class AsyncSourcesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

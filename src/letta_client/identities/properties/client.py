@@ -48,6 +48,7 @@ class PropertiesClient:
         from letta_client import IdentityProperty, Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.identities.properties.upsert(
@@ -128,6 +129,7 @@ class AsyncPropertiesClient:
         from letta_client import AsyncLetta, IdentityProperty
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

@@ -67,6 +67,7 @@ class LettaBase:
 
 
 
+    project : typing.Optional[str]
     token : typing.Optional[str]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
@@ -82,6 +83,7 @@ class LettaBase:
     from letta_client import Letta
 
     client = Letta(
+        project="YOUR_PROJECT",
         token="YOUR_TOKEN",
     )
     """
@@ -91,6 +93,7 @@ class LettaBase:
         *,
         base_url: typing.Optional[str] = None,
         environment: LettaEnvironment = LettaEnvironment.LETTA_CLOUD,
+        project: typing.Optional[str] = None,
         token: typing.Optional[str] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
@@ -99,6 +102,7 @@ class LettaBase:
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
+            project=project,
             token=token,
             httpx_client=httpx_client
             if httpx_client is not None
@@ -148,6 +152,7 @@ class AsyncLettaBase:
 
 
 
+    project : typing.Optional[str]
     token : typing.Optional[str]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests. By default the timeout is 60 seconds, unless a custom httpx client is used, in which case this default is not enforced.
@@ -163,6 +168,7 @@ class AsyncLettaBase:
     from letta_client import AsyncLetta
 
     client = AsyncLetta(
+        project="YOUR_PROJECT",
         token="YOUR_TOKEN",
     )
     """
@@ -172,6 +178,7 @@ class AsyncLettaBase:
         *,
         base_url: typing.Optional[str] = None,
         environment: LettaEnvironment = LettaEnvironment.LETTA_CLOUD,
+        project: typing.Optional[str] = None,
         token: typing.Optional[str] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
@@ -180,6 +187,7 @@ class AsyncLettaBase:
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
+            project=project,
             token=token,
             httpx_client=httpx_client
             if httpx_client is not None

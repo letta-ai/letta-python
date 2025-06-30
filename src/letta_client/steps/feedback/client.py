@@ -31,6 +31,7 @@ class FeedbackClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.steps.feedback.add(
@@ -75,6 +76,7 @@ class AsyncFeedbackClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

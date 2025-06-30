@@ -50,6 +50,7 @@ class ModelsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.models.list()
@@ -127,6 +128,7 @@ class AsyncModelsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

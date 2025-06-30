@@ -54,6 +54,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.retrieve(
@@ -112,6 +113,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.delete(
@@ -205,6 +207,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.modify(
@@ -283,6 +286,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.count()
@@ -351,6 +355,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.list()
@@ -444,6 +449,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.create(
@@ -547,6 +553,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.upsert(
@@ -614,6 +621,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.upsert_base_tools()
@@ -702,6 +710,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.run_tool_from_source(
@@ -777,6 +786,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.list_composio_apps()
@@ -836,6 +846,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.list_composio_actions_by_app(
@@ -894,6 +905,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.add_composio_tool(
@@ -952,6 +964,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.list_mcp_servers()
@@ -1011,6 +1024,7 @@ class ToolsClient:
         from letta_client import Letta, StdioServerConfig
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.add_mcp_server(
@@ -1077,6 +1091,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.list_mcp_tools_by_server(
@@ -1137,6 +1152,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.add_mcp_tool(
@@ -1196,6 +1212,7 @@ class ToolsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.delete_mcp_server(
@@ -1260,6 +1277,7 @@ class ToolsClient:
         from letta_client import Letta, UpdateSsemcpServer
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.update_mcp_server(
@@ -1324,6 +1342,7 @@ class ToolsClient:
         from letta_client import Letta, StdioServerConfig
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.tools.test_mcp_server(
@@ -1395,6 +1414,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1461,6 +1481,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1562,6 +1583,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1648,6 +1670,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1724,6 +1747,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1825,6 +1849,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1936,6 +1961,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2011,6 +2037,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2107,6 +2134,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2190,6 +2218,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2257,6 +2286,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2323,6 +2353,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2389,6 +2420,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2456,6 +2488,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta, StdioServerConfig
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2530,6 +2563,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2598,6 +2632,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2665,6 +2700,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2737,6 +2773,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta, UpdateSsemcpServer
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -2809,6 +2846,7 @@ class AsyncToolsClient:
         from letta_client import AsyncLetta, StdioServerConfig
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

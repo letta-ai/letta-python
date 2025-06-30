@@ -39,6 +39,7 @@ class CoreMemoryClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.core_memory.retrieve(
@@ -103,6 +104,7 @@ class AsyncCoreMemoryClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

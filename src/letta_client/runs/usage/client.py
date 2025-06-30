@@ -38,6 +38,7 @@ class UsageClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.runs.usage.retrieve(
@@ -103,6 +104,7 @@ class AsyncUsageClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

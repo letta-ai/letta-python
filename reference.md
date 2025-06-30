@@ -30,6 +30,7 @@ Get a tool by ID
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.retrieve(
@@ -100,6 +101,7 @@ Delete a tool by name
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.delete(
@@ -170,6 +172,7 @@ Update an existing tool
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.modify(
@@ -304,6 +307,7 @@ Get a count of all tools available to agents belonging to the org of the user.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.count()
@@ -372,6 +376,7 @@ Get a list of all tools available to agents belonging to the org of the user
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.list()
@@ -456,6 +461,7 @@ Create a new tool
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.create(
@@ -582,6 +588,7 @@ Create or update a tool
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.upsert(
@@ -708,6 +715,7 @@ Upsert base tools
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.upsert_base_tools()
@@ -768,6 +776,7 @@ Attempt to build a tool from source, then run it on the provided arguments
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.run_tool_from_source(
@@ -895,6 +904,7 @@ Get a list of all Composio apps
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.list_composio_apps()
@@ -963,6 +973,7 @@ Get a list of all Composio actions for a specific app
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.list_composio_actions_by_app(
@@ -1033,6 +1044,7 @@ Add a new Composio tool by action name (Composio refers to each tool as an `Acti
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.add_composio_tool(
@@ -1103,6 +1115,7 @@ Get a list of all configured MCP servers
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.list_mcp_servers()
@@ -1171,6 +1184,7 @@ Add a new MCP server to the Letta MCP server config
 from letta_client import Letta, StdioServerConfig
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.add_mcp_server(
@@ -1245,6 +1259,7 @@ Get a list of all tools for a specific MCP server
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.list_mcp_tools_by_server(
@@ -1315,6 +1330,7 @@ Register a new MCP tool as a Letta server by MCP server + tool name
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.add_mcp_tool(
@@ -1394,6 +1410,7 @@ Add a new MCP server to the Letta MCP server config
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.delete_mcp_server(
@@ -1464,6 +1481,7 @@ Update an existing MCP server configuration
 from letta_client import Letta, UpdateSsemcpServer
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.update_mcp_server(
@@ -1544,6 +1562,7 @@ Returns the list of available tools if successful.
 from letta_client import Letta, StdioServerConfig
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tools.test_mcp_server(
@@ -1619,6 +1638,7 @@ Count all data sources created by a user.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.count()
@@ -1679,6 +1699,7 @@ Get all sources
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.retrieve(
@@ -1749,6 +1770,7 @@ Delete a data source.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.delete(
@@ -1819,6 +1841,7 @@ Update the name or documentation of an existing data source.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.modify(
@@ -1929,6 +1952,7 @@ Get a source by name
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.retrieve_by_name(
@@ -1999,6 +2023,7 @@ List all data sources created by a user.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.list()
@@ -2059,6 +2084,7 @@ Create a new data source.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.create(
@@ -2177,6 +2203,7 @@ Retrieve metadata for a specific file by its ID.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.get_file_metadata(
@@ -2268,6 +2295,7 @@ associated with the specified user ID.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.list()
@@ -2448,6 +2476,7 @@ Create a new agent with the specified configuration.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.create()
@@ -2462,14 +2491,6 @@ client.agents.create()
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**project:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -2698,7 +2719,7 @@ client.agents.create()
 <dl>
 <dd>
 
-**create_agent_request_project:** `typing.Optional[str]` — Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
+**project:** `typing.Optional[str]` — Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
     
 </dd>
 </dl>
@@ -2828,6 +2849,7 @@ Get the count of all agents associated with a given user.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.count()
@@ -2888,6 +2910,7 @@ Export the serialized JSON representation of an agent, formatted with indentatio
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.export_file(
@@ -2958,6 +2981,7 @@ Import a serialized agent file and recreate the agent in the system.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.import_file()
@@ -3060,6 +3084,7 @@ Get the state of the agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.retrieve(
@@ -3138,6 +3163,7 @@ Delete an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.delete(
@@ -3208,6 +3234,7 @@ Update an existing agent
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.modify(
@@ -3481,6 +3508,7 @@ truncating and compressing it down to the specified `max_message_length`.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.summarize_agent_conversation(
@@ -3562,6 +3590,7 @@ Search deployed agents.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.search()
@@ -3679,6 +3708,7 @@ Fetch all multi-agent groups matching query.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.list()
@@ -3779,6 +3809,7 @@ Create a new multi-agent group with the specified configuration.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.create(
@@ -3809,14 +3840,6 @@ client.groups.create(
 <dd>
 
 **description:** `str` — 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**project:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -3882,6 +3905,7 @@ Get the count of all groups associated with a given user.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.count()
@@ -3942,6 +3966,7 @@ Retrieve the group by id.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.retrieve(
@@ -4012,6 +4037,7 @@ Delete a multi-agent group.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.delete(
@@ -4082,6 +4108,7 @@ Create a new multi-agent group with the specified configuration.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.modify(
@@ -4103,14 +4130,6 @@ client.groups.modify(
 <dd>
 
 **group_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**project:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -4193,6 +4212,7 @@ Get a list of all identities in the database
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.identities.list()
@@ -4295,6 +4315,7 @@ client.identities.list()
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.identities.create(
@@ -4334,14 +4355,6 @@ client.identities.create(
 <dd>
 
 **identity_type:** `IdentityType` — The type of the identity.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**project:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -4409,6 +4422,7 @@ client.identities.create(
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.identities.upsert(
@@ -4448,14 +4462,6 @@ client.identities.upsert(
 <dd>
 
 **identity_type:** `IdentityType` — The type of the identity.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**project:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -4537,6 +4543,7 @@ Get count of all identities for a user
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.identities.count()
@@ -4583,6 +4590,7 @@ client.identities.count()
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.identities.retrieve(
@@ -4653,6 +4661,7 @@ Delete an identity by its identifier key
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.identities.delete(
@@ -4709,6 +4718,7 @@ client.identities.delete(
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.identities.modify(
@@ -4828,6 +4838,7 @@ List available LLM models using the asynchronous implementation for improved per
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.models.list()
@@ -4915,6 +4926,7 @@ List available embedding models using the asynchronous implementation for improv
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.embedding_models.list()
@@ -4962,6 +4974,7 @@ client.embedding_models.list()
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.blocks.list()
@@ -5056,6 +5069,7 @@ client.blocks.list()
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.blocks.create(
@@ -5191,6 +5205,7 @@ Count all blocks created by a user.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.blocks.count()
@@ -5237,6 +5252,7 @@ client.blocks.count()
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.blocks.retrieve(
@@ -5293,6 +5309,7 @@ client.blocks.retrieve(
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.blocks.delete(
@@ -5349,6 +5366,7 @@ client.blocks.delete(
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.blocks.modify(
@@ -5492,6 +5510,7 @@ List all jobs.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.jobs.list()
@@ -5560,6 +5579,7 @@ List all active jobs.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.jobs.list_active()
@@ -5628,6 +5648,7 @@ Get the status of a job.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.jobs.retrieve(
@@ -5698,6 +5719,7 @@ Delete a job by its job_id.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.jobs.delete(
@@ -5755,6 +5777,7 @@ client.jobs.delete(
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.health.check()
@@ -5816,6 +5839,7 @@ Get a list of all custom providers in the database
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.providers.list()
@@ -5908,6 +5932,7 @@ Create a new custom provider
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.providers.create(
@@ -6012,6 +6037,7 @@ Delete an existing custom provider
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.providers.delete(
@@ -6082,6 +6108,7 @@ Update an existing custom provider
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.providers.modify(
@@ -6163,6 +6190,7 @@ client.providers.modify(
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.providers.check()
@@ -6224,6 +6252,7 @@ List all runs.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.runs.list()
@@ -6292,6 +6321,7 @@ List all active runs.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.runs.list_active()
@@ -6360,6 +6390,7 @@ Get the status of a run.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.runs.retrieve(
@@ -6430,6 +6461,7 @@ Delete a run by its run_id.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.runs.delete(
@@ -6502,6 +6534,7 @@ Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.steps.list()
@@ -6658,6 +6691,7 @@ Get a step by ID.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.steps.retrieve(
@@ -6728,6 +6762,7 @@ Add feedback to a step.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.steps.add_feedback(
@@ -6807,6 +6842,7 @@ Get a list of all tags in the database
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.tags.list()
@@ -6878,6 +6914,7 @@ client.tags.list()
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.telemetry.retrieve_provider_trace(
@@ -6949,6 +6986,7 @@ List all batch runs.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.batches.list()
@@ -7010,6 +7048,7 @@ Creates a job that will fan out messages to all listed agents and process them i
 from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.batches.create(
@@ -7102,6 +7141,7 @@ Get the status of a batch run.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.batches.retrieve(
@@ -7172,6 +7212,7 @@ Cancel a batch run.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.batches.cancel(
@@ -7250,6 +7291,7 @@ Pagination:
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.messages.list_batch_messages(
@@ -7339,6 +7381,7 @@ client.messages.list_batch_messages(
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.voice.create_voice_chat_completions(
@@ -7427,6 +7470,7 @@ List all templates
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.templates.list()
@@ -7523,6 +7567,7 @@ from letta_client.client_side_access_tokens import (
 )
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.client_side_access_tokens.create(
@@ -7615,6 +7660,7 @@ Delete a client side access token.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.client_side_access_tokens.delete(
@@ -7695,6 +7741,7 @@ List all projects
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.projects.list()
@@ -7780,6 +7827,7 @@ Retrieve the context window of a specific agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.context.retrieve(
@@ -7851,6 +7899,7 @@ Get tools from an existing agent
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.tools.list(
@@ -7921,6 +7970,7 @@ Attach a tool to an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.tools.attach(
@@ -8000,6 +8050,7 @@ Detach a tool from an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.tools.detach(
@@ -8080,6 +8131,7 @@ Attach a source to an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.sources.attach(
@@ -8159,6 +8211,7 @@ Detach a source from an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.sources.detach(
@@ -8238,6 +8291,7 @@ Get the sources associated with an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.sources.list(
@@ -8310,6 +8364,7 @@ This endpoint fetches the current memory state of the agent identified by the us
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.core_memory.retrieve(
@@ -8381,6 +8436,7 @@ Retrieve a core memory block from an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.blocks.retrieve(
@@ -8460,6 +8516,7 @@ Updates a core memory block of an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.blocks.modify(
@@ -8611,6 +8668,7 @@ Retrieve the core memory blocks of a specific agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.blocks.list(
@@ -8681,6 +8739,7 @@ Attach a core memoryblock to an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.blocks.attach(
@@ -8760,6 +8819,7 @@ Detach a core memory block from an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.blocks.detach(
@@ -8840,6 +8900,7 @@ Retrieve the memories in an agent's archival memory store (paginated query).
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.passages.list(
@@ -8950,6 +9011,7 @@ Insert a memory into an agent's archival memory store.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.passages.create(
@@ -9029,6 +9091,7 @@ Delete a memory from an agent's archival memory store.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.passages.delete(
@@ -9108,6 +9171,7 @@ Modify a memory in the agent's archival memory store.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.passages.modify(
@@ -9301,6 +9365,7 @@ Retrieve message history for an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.messages.list(
@@ -9428,6 +9493,7 @@ This endpoint accepts a message from a user and processes it through the agent.
 from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.messages.create(
@@ -9556,6 +9622,7 @@ Update the details of a message associated with an agent.
 from letta_client import Letta, UpdateSystemMessage
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.messages.modify(
@@ -9648,6 +9715,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 response = client.agents.messages.create_stream(
@@ -9787,6 +9855,7 @@ The actual processing happens in the background, and the status can be checked u
 from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.messages.create_async(
@@ -9923,6 +9992,7 @@ Resets the messages for an agent
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.messages.reset(
@@ -10002,6 +10072,7 @@ Lists the groups for an agent
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.groups.list(
@@ -10083,6 +10154,7 @@ Creates a new version of the template version of the agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.templates.create_version(
@@ -10179,6 +10251,7 @@ Migrate an agent to a new versioned agent template.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.templates.migrate(
@@ -10277,6 +10350,7 @@ Creates a template from an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.templates.create(
@@ -10358,6 +10432,7 @@ Returns the memory variables associated with an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.agents.memory_variables.list(
@@ -10430,6 +10505,7 @@ Raises a 404 if the block does not exist.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.blocks.agents.list(
@@ -10501,6 +10577,7 @@ Retrieve message history for an agent.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.messages.list(
@@ -10620,6 +10697,7 @@ This endpoint accepts a message from a user and processes it through through age
 from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.messages.create(
@@ -10750,6 +10828,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 response = client.groups.messages.create_stream(
@@ -10888,6 +10967,7 @@ Update the details of a message associated with an agent.
 from letta_client import Letta, UpdateSystemMessage
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.messages.modify(
@@ -10978,6 +11058,7 @@ Delete the group messages for all agents that are part of the multi-agent group.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.groups.messages.reset(
@@ -11035,6 +11116,7 @@ client.groups.messages.reset(
 from letta_client import IdentityProperty, Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.identities.properties.upsert(
@@ -11134,6 +11216,7 @@ Returns:
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.runs.messages.list(
@@ -11245,6 +11328,7 @@ Get usage statistics for a run.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.runs.usage.retrieve(
@@ -11326,6 +11410,7 @@ Returns:
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.runs.steps.list(
@@ -11429,6 +11514,7 @@ Upload a file to a data source.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.files.upload(
@@ -11509,6 +11595,7 @@ List paginated files associated with a data source.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.files.list(
@@ -11603,6 +11690,7 @@ Delete a data source.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.files.delete(
@@ -11683,6 +11771,7 @@ List all passages associated with a data source.
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.sources.passages.list(
@@ -11764,6 +11853,7 @@ client.sources.passages.list(
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.steps.feedback.add(
@@ -11835,6 +11925,7 @@ Creates an Agent or multiple Agents from a template
 from letta_client import Letta
 
 client = Letta(
+    project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
 client.templates.agents.create(

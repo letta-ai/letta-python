@@ -58,6 +58,7 @@ class ClientSideAccessTokensClient:
         )
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.client_side_access_tokens.create(
@@ -142,6 +143,7 @@ class ClientSideAccessTokensClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.client_side_access_tokens.delete(
@@ -224,6 +226,7 @@ class AsyncClientSideAccessTokensClient:
         )
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -316,6 +319,7 @@ class AsyncClientSideAccessTokensClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

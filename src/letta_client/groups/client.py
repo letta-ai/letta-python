@@ -70,6 +70,7 @@ class GroupsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.groups.list()
@@ -115,7 +116,6 @@ class GroupsClient:
         *,
         agent_ids: typing.Sequence[str],
         description: str,
-        project: typing.Optional[str] = None,
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -130,8 +130,6 @@ class GroupsClient:
 
         description : str
 
-
-        project : typing.Optional[str]
 
         manager_config : typing.Optional[GroupCreateManagerConfig]
 
@@ -152,6 +150,7 @@ class GroupsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.groups.create(
@@ -172,7 +171,6 @@ class GroupsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -220,6 +218,7 @@ class GroupsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.groups.count()
@@ -274,6 +273,7 @@ class GroupsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.groups.retrieve(
@@ -332,6 +332,7 @@ class GroupsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.groups.delete(
@@ -371,7 +372,6 @@ class GroupsClient:
         self,
         group_id: str,
         *,
-        project: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         description: typing.Optional[str] = OMIT,
         manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
@@ -384,8 +384,6 @@ class GroupsClient:
         Parameters
         ----------
         group_id : str
-
-        project : typing.Optional[str]
 
         agent_ids : typing.Optional[typing.Sequence[str]]
 
@@ -412,6 +410,7 @@ class GroupsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.groups.modify(
@@ -431,7 +430,6 @@ class GroupsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -511,6 +509,7 @@ class AsyncGroupsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -562,7 +561,6 @@ class AsyncGroupsClient:
         *,
         agent_ids: typing.Sequence[str],
         description: str,
-        project: typing.Optional[str] = None,
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -577,8 +575,6 @@ class AsyncGroupsClient:
 
         description : str
 
-
-        project : typing.Optional[str]
 
         manager_config : typing.Optional[GroupCreateManagerConfig]
 
@@ -601,6 +597,7 @@ class AsyncGroupsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -627,7 +624,6 @@ class AsyncGroupsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -677,6 +673,7 @@ class AsyncGroupsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -739,6 +736,7 @@ class AsyncGroupsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -805,6 +803,7 @@ class AsyncGroupsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -850,7 +849,6 @@ class AsyncGroupsClient:
         self,
         group_id: str,
         *,
-        project: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         description: typing.Optional[str] = OMIT,
         manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
@@ -863,8 +861,6 @@ class AsyncGroupsClient:
         Parameters
         ----------
         group_id : str
-
-        project : typing.Optional[str]
 
         agent_ids : typing.Optional[typing.Sequence[str]]
 
@@ -893,6 +889,7 @@ class AsyncGroupsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -918,7 +915,6 @@ class AsyncGroupsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,

@@ -70,6 +70,7 @@ class IdentitiesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.identities.list()
@@ -118,7 +119,6 @@ class IdentitiesClient:
         identifier_key: str,
         name: str,
         identity_type: IdentityType,
-        project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -136,8 +136,6 @@ class IdentitiesClient:
 
         identity_type : IdentityType
             The type of the identity.
-
-        project : typing.Optional[str]
 
         project_id : typing.Optional[str]
             The project id of the identity, if applicable.
@@ -164,6 +162,7 @@ class IdentitiesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.identities.create(
@@ -188,7 +187,6 @@ class IdentitiesClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -223,7 +221,6 @@ class IdentitiesClient:
         identifier_key: str,
         name: str,
         identity_type: IdentityType,
-        project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -241,8 +238,6 @@ class IdentitiesClient:
 
         identity_type : IdentityType
             The type of the identity.
-
-        project : typing.Optional[str]
 
         project_id : typing.Optional[str]
             The project id of the identity, if applicable.
@@ -269,6 +264,7 @@ class IdentitiesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.identities.upsert(
@@ -293,7 +289,6 @@ class IdentitiesClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -341,6 +336,7 @@ class IdentitiesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.identities.count()
@@ -393,6 +389,7 @@ class IdentitiesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.identities.retrieve(
@@ -451,6 +448,7 @@ class IdentitiesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.identities.delete(
@@ -534,6 +532,7 @@ class IdentitiesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.identities.modify(
@@ -635,6 +634,7 @@ class AsyncIdentitiesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -689,7 +689,6 @@ class AsyncIdentitiesClient:
         identifier_key: str,
         name: str,
         identity_type: IdentityType,
-        project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -707,8 +706,6 @@ class AsyncIdentitiesClient:
 
         identity_type : IdentityType
             The type of the identity.
-
-        project : typing.Optional[str]
 
         project_id : typing.Optional[str]
             The project id of the identity, if applicable.
@@ -737,6 +734,7 @@ class AsyncIdentitiesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -767,7 +765,6 @@ class AsyncIdentitiesClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -802,7 +799,6 @@ class AsyncIdentitiesClient:
         identifier_key: str,
         name: str,
         identity_type: IdentityType,
-        project: typing.Optional[str] = None,
         project_id: typing.Optional[str] = OMIT,
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -820,8 +816,6 @@ class AsyncIdentitiesClient:
 
         identity_type : IdentityType
             The type of the identity.
-
-        project : typing.Optional[str]
 
         project_id : typing.Optional[str]
             The project id of the identity, if applicable.
@@ -850,6 +844,7 @@ class AsyncIdentitiesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -880,7 +875,6 @@ class AsyncIdentitiesClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Project": str(project) if project is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -930,6 +924,7 @@ class AsyncIdentitiesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -990,6 +985,7 @@ class AsyncIdentitiesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1056,6 +1052,7 @@ class AsyncIdentitiesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1147,6 +1144,7 @@ class AsyncIdentitiesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

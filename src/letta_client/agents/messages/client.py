@@ -85,6 +85,7 @@ class MessagesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.messages.list(
@@ -180,6 +181,7 @@ class MessagesClient:
         from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.messages.create(
@@ -268,6 +270,7 @@ class MessagesClient:
         from letta_client import Letta, UpdateSystemMessage
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.messages.modify(
@@ -367,6 +370,7 @@ class MessagesClient:
         from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         response = client.agents.messages.create_stream(
@@ -488,6 +492,7 @@ class MessagesClient:
         from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.messages.create_async(
@@ -578,6 +583,7 @@ class MessagesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.agents.messages.reset(
@@ -677,6 +683,7 @@ class AsyncMessagesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -780,6 +787,7 @@ class AsyncMessagesClient:
         from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -876,6 +884,7 @@ class AsyncMessagesClient:
         from letta_client import AsyncLetta, UpdateSystemMessage
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -983,6 +992,7 @@ class AsyncMessagesClient:
         from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1112,6 +1122,7 @@ class AsyncMessagesClient:
         from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -1210,6 +1221,7 @@ class AsyncMessagesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

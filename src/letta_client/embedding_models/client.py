@@ -35,6 +35,7 @@ class EmbeddingModelsClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.embedding_models.list()
@@ -94,6 +95,7 @@ class AsyncEmbeddingModelsClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 

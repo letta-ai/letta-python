@@ -41,6 +41,7 @@ class BatchesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.batches.list()
@@ -106,6 +107,7 @@ class BatchesClient:
         from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.batches.create(
@@ -186,6 +188,7 @@ class BatchesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.batches.retrieve(
@@ -244,6 +247,7 @@ class BatchesClient:
         from letta_client import Letta
 
         client = Letta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
         client.batches.cancel(
@@ -305,6 +309,7 @@ class AsyncBatchesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -383,6 +388,7 @@ class AsyncBatchesClient:
         )
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -471,6 +477,7 @@ class AsyncBatchesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
@@ -537,6 +544,7 @@ class AsyncBatchesClient:
         from letta_client import AsyncLetta
 
         client = AsyncLetta(
+            project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
 
