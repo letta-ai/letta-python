@@ -6732,85 +6732,6 @@ client.steps.retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">add_feedback</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add feedback to a step.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.steps.add_feedback(
-    step_id="step_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**step_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**feedback:** `typing.Optional[FeedbackType]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Tags
 <details><summary><code>client.tags.<a href="src/letta_client/tags/client.py">list</a>(...)</code></summary>
 <dl>
@@ -11837,9 +11758,23 @@ client.sources.passages.list(
 </details>
 
 ## Steps Feedback
-<details><summary><code>client.steps.feedback.<a href="src/letta_client/steps/feedback/client.py">add</a>(...)</code></summary>
+<details><summary><code>client.steps.feedback.<a href="src/letta_client/steps/feedback/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add feedback to a step.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -11856,7 +11791,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.steps.feedback.add(
+client.steps.feedback.create(
     step_id="step_id",
 )
 
@@ -11875,6 +11810,14 @@ client.steps.feedback.add(
 <dd>
 
 **step_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**feedback:** `typing.Optional[FeedbackType]` 
     
 </dd>
 </dl>

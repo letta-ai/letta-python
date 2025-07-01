@@ -12,7 +12,6 @@ from ..types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.jsonable_encoder import jsonable_encoder
-from ..types.feedback_type import FeedbackType
 from ..core.client_wrapper import AsyncClientWrapper
 from .feedback.client import AsyncFeedbackClient
 
@@ -173,74 +172,6 @@ class StepsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/steps/{jsonable_encoder(step_id)}",
             method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Step,
-                    construct_type(
-                        type_=Step,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def add_feedback(
-        self,
-        step_id: str,
-        *,
-        feedback: typing.Optional[FeedbackType] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> Step:
-        """
-        Add feedback to a step.
-
-        Parameters
-        ----------
-        step_id : str
-
-        feedback : typing.Optional[FeedbackType]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Step
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.steps.add_feedback(
-            step_id="step_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/steps/{jsonable_encoder(step_id)}/feedback",
-            method="PATCH",
-            params={
-                "feedback": feedback,
-            },
             request_options=request_options,
         )
         try:
@@ -440,82 +371,6 @@ class AsyncStepsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/steps/{jsonable_encoder(step_id)}",
             method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    Step,
-                    construct_type(
-                        type_=Step,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def add_feedback(
-        self,
-        step_id: str,
-        *,
-        feedback: typing.Optional[FeedbackType] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> Step:
-        """
-        Add feedback to a step.
-
-        Parameters
-        ----------
-        step_id : str
-
-        feedback : typing.Optional[FeedbackType]
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Step
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.steps.add_feedback(
-                step_id="step_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/steps/{jsonable_encoder(step_id)}/feedback",
-            method="PATCH",
-            params={
-                "feedback": feedback,
-            },
             request_options=request_options,
         )
         try:

@@ -2,8 +2,13 @@
 
 from ...core.client_wrapper import SyncClientWrapper
 import typing
+from ...types.feedback_type import FeedbackType
 from ...core.request_options import RequestOptions
+from ...types.step import Step
 from ...core.jsonable_encoder import jsonable_encoder
+from ...core.unchecked_base_model import construct_type
+from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.http_validation_error import HttpValidationError
 from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper
@@ -13,18 +18,29 @@ class FeedbackClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def add(self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def create(
+        self,
+        step_id: str,
+        *,
+        feedback: typing.Optional[FeedbackType] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Step:
         """
+        Add feedback to a step.
+
         Parameters
         ----------
         step_id : str
+
+        feedback : typing.Optional[FeedbackType]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        Step
+            Successful Response
 
         Examples
         --------
@@ -34,18 +50,37 @@ class FeedbackClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.steps.feedback.add(
+        client.steps.feedback.create(
             step_id="step_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/steps/{jsonable_encoder(step_id)}/feedback",
-            method="POST",
+            method="PATCH",
+            params={
+                "feedback": feedback,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    Step,
+                    construct_type(
+                        type_=Step,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -56,18 +91,29 @@ class AsyncFeedbackClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def add(self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def create(
+        self,
+        step_id: str,
+        *,
+        feedback: typing.Optional[FeedbackType] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Step:
         """
+        Add feedback to a step.
+
         Parameters
         ----------
         step_id : str
+
+        feedback : typing.Optional[FeedbackType]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        Step
+            Successful Response
 
         Examples
         --------
@@ -82,7 +128,7 @@ class AsyncFeedbackClient:
 
 
         async def main() -> None:
-            await client.steps.feedback.add(
+            await client.steps.feedback.create(
                 step_id="step_id",
             )
 
@@ -91,12 +137,31 @@ class AsyncFeedbackClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/steps/{jsonable_encoder(step_id)}/feedback",
-            method="POST",
+            method="PATCH",
+            params={
+                "feedback": feedback,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return
+                return typing.cast(
+                    Step,
+                    construct_type(
+                        type_=Step,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
