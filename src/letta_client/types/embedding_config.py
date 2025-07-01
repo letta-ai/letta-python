@@ -52,6 +52,11 @@ class EmbeddingConfig(UncheckedBaseModel):
     The handle for this config, in the format provider/model-name.
     """
 
+    batch_size: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The maximum batch size for processing embeddings.
+    """
+
     azure_endpoint: typing.Optional[str] = pydantic.Field(default=None)
     """
     The Azure endpoint for the model.

@@ -28,6 +28,11 @@ class FileMetadata(UncheckedBaseModel):
     The name of the file.
     """
 
+    original_file_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The original name of the file as uploaded.
+    """
+
     file_path: typing.Optional[str] = pydantic.Field(default=None)
     """
     The path to the file.
