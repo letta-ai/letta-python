@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Type
 
-from letta_client import CreateBlock
+from letta_client import CreateBlock, MessageCreate
 from letta_client.client import BaseTool
 
 class InventoryItem(BaseModel):
@@ -41,13 +41,33 @@ def test_create_agent(client) -> None:
                 label="human",
             )
         ],
-        model="openai/gpt-4",
+        model="anthropic/claude-3-5-sonnet-20241022",
         embedding="openai/text-embedding-ada-002",
     )
     assert agent is not None
     agents = client.agents.list()
     assert len([a for a in agents if a.id == agent.id]) == 1
 
+    response = client.agents.messages.create_stream(
+        agent_id=agent.id,
+        messages=[
+            MessageCreate(
+                role="user",
+                content="Please answer this question in just one word: what is my name?",
+            )
+        ],
+        stream_tokens=True,
+    )
+    counter = 0
+    messages = {}
+    for chunk in response:
+        print(chunk.model_dump_json(indent=2, exclude={"id", "date", "otid", "sender_id", "completion_tokens", "prompt_tokens", "total_tokens", "step_count", "steps_messages", "run_ids"}))
+        counter += 1
+        if chunk.message_type not in messages:
+            messages[chunk.message_type] = 0
+        messages[chunk.message_type] += 1
+    print(f"Total messages: {counter}")
+    print(messages)
     client.agents.delete(agent_id=agent.id)
 
 

@@ -8,6 +8,7 @@ from .base_client import AsyncLettaBase, LettaBase
 from .core.request_options import RequestOptions
 from .tools.client import ToolsClient as ToolsClientBase
 from .tools.client import AsyncToolsClient as AsyncToolsClientBase
+from .types.pip_requirement import PipRequirement
 from .types.tool import Tool
 
 # this is used as the default value for optional parameters
@@ -142,6 +143,7 @@ class ToolsClient(ToolsClientBase):
             typing.Dict[str, typing.Optional[typing.Any]]
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -169,6 +171,9 @@ class ToolsClient(ToolsClientBase):
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -215,6 +220,7 @@ class ToolsClient(ToolsClientBase):
             source_type=source_type,
             json_schema=json_schema,
             return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
             request_options=request_options,
         )
 
@@ -231,6 +237,7 @@ class ToolsClient(ToolsClientBase):
             typing.Dict[str, typing.Optional[typing.Any]]
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -258,6 +265,9 @@ class ToolsClient(ToolsClientBase):
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -304,6 +314,7 @@ class ToolsClient(ToolsClientBase):
             source_type=source_type,
             json_schema=json_schema,
             return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
             request_options=request_options,
         )
     
@@ -379,6 +390,7 @@ class ToolsClient(ToolsClientBase):
             source_type=tool.source_type or OMIT,
             json_schema=tool.json_schema or OMIT,
             return_char_limit=tool.return_char_limit or OMIT,
+            pip_requirements=tool.pip_requirements or OMIT,
             request_options=request_options,
         )
     
@@ -397,6 +409,7 @@ class AsyncToolsClient(AsyncToolsClientBase):
             typing.Dict[str, typing.Optional[typing.Any]]
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -424,6 +437,9 @@ class AsyncToolsClient(AsyncToolsClientBase):
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -470,6 +486,7 @@ class AsyncToolsClient(AsyncToolsClientBase):
             source_type=source_type,
             json_schema=json_schema,
             return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
             request_options=request_options,
         )
 
@@ -486,6 +503,7 @@ class AsyncToolsClient(AsyncToolsClientBase):
             typing.Dict[str, typing.Optional[typing.Any]]
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
+        pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -513,6 +531,9 @@ class AsyncToolsClient(AsyncToolsClientBase):
 
         return_char_limit : typing.Optional[int]
             The maximum number of characters in the response.
+
+        pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
+            Optional list of pip packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -559,6 +580,7 @@ class AsyncToolsClient(AsyncToolsClientBase):
             source_type=source_type,
             json_schema=json_schema,
             return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
             request_options=request_options,
         )
     
@@ -634,5 +656,6 @@ class AsyncToolsClient(AsyncToolsClientBase):
             source_type=tool.source_type or OMIT,
             json_schema=tool.json_schema or OMIT,
             return_char_limit=tool.return_char_limit or OMIT,
+            pip_requirements=tool.pip_requirements or OMIT,
             request_options=request_options,
         )
