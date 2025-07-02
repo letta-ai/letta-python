@@ -36,6 +36,7 @@ class StepsClient:
         feedback: typing.Optional[StepsListRequestFeedback] = None,
         has_feedback: typing.Optional[bool] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
         """
@@ -80,6 +81,9 @@ class StepsClient:
         tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by tags
 
+        project_id : typing.Optional[str]
+            Filter by the project ID that is associated with the step (cloud only).
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -114,6 +118,7 @@ class StepsClient:
                 "feedback": feedback,
                 "has_feedback": has_feedback,
                 "tags": tags,
+                "project_id": project_id,
             },
             request_options=request_options,
         )
@@ -219,6 +224,7 @@ class AsyncStepsClient:
         feedback: typing.Optional[StepsListRequestFeedback] = None,
         has_feedback: typing.Optional[bool] = None,
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
         """
@@ -263,6 +269,9 @@ class AsyncStepsClient:
         tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by tags
 
+        project_id : typing.Optional[str]
+            Filter by the project ID that is associated with the step (cloud only).
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -305,6 +314,7 @@ class AsyncStepsClient:
                 "feedback": feedback,
                 "has_feedback": has_feedback,
                 "tags": tags,
+                "project_id": project_id,
             },
             request_options=request_options,
         )

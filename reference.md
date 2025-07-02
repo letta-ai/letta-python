@@ -5163,6 +5163,14 @@ client.blocks.create(
 <dl>
 <dd>
 
+**source_id:** `typing.Optional[str]` — The source ID associated with this block (for file blocks).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -5460,6 +5468,14 @@ client.blocks.modify(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_id:** `typing.Optional[str]` — The source ID associated with this block (for file blocks).
     
 </dd>
 </dl>
@@ -6642,6 +6658,14 @@ client.steps.list()
 <dd>
 
 **tags:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by tags
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — Filter by the project ID that is associated with the step (cloud only).
     
 </dd>
 </dl>
@@ -8540,6 +8564,14 @@ client.agents.blocks.modify(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_id:** `typing.Optional[str]` — The source ID associated with this block (for file blocks).
     
 </dd>
 </dl>
