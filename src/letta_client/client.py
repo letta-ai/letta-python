@@ -8,7 +8,7 @@ from .base_client import AsyncLettaBase, LettaBase
 from .core.request_options import RequestOptions
 from .tools.client import ToolsClient as ToolsClientBase
 from .tools.client import AsyncToolsClient as AsyncToolsClientBase
-from ..types.pip_requirement import PipRequirement
+from .types.pip_requirement import PipRequirement
 from .types.tool import Tool
 
 # this is used as the default value for optional parameters
