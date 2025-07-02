@@ -5163,14 +5163,6 @@ client.blocks.create(
 <dl>
 <dd>
 
-**source_id:** `typing.Optional[str]` — The source ID associated with this block (for file blocks).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -5468,14 +5460,6 @@ client.blocks.modify(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source_id:** `typing.Optional[str]` — The source ID associated with this block (for file blocks).
     
 </dd>
 </dl>
@@ -8564,14 +8548,6 @@ client.agents.blocks.modify(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source_id:** `typing.Optional[str]` — The source ID associated with this block (for file blocks).
     
 </dd>
 </dl>

@@ -55,6 +55,7 @@ from .chat_completion_user_message_param_content import ChatCompletionUserMessag
 from .chat_completion_user_message_param_content_item import ChatCompletionUserMessageParamContentItem
 from .child_tool_rule import ChildToolRule
 from .child_tool_rule_schema import ChildToolRuleSchema
+from .code_input import CodeInput
 from .completion_create_params_non_streaming import CompletionCreateParamsNonStreaming
 from .completion_create_params_non_streaming_function_call import CompletionCreateParamsNonStreamingFunctionCall
 from .completion_create_params_non_streaming_messages_item import CompletionCreateParamsNonStreamingMessagesItem
@@ -311,6 +312,7 @@ __all__ = [
     "ChatCompletionUserMessageParamContentItem",
     "ChildToolRule",
     "ChildToolRuleSchema",
+    "CodeInput",
     "CompletionCreateParamsNonStreaming",
     "CompletionCreateParamsNonStreamingFunctionCall",
     "CompletionCreateParamsNonStreamingMessagesItem",

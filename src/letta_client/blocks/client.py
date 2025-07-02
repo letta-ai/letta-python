@@ -122,7 +122,6 @@ class BlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
@@ -153,9 +152,6 @@ class BlocksClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
-
-        source_id : typing.Optional[str]
-            The source ID associated with this block (for file blocks).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -191,7 +187,6 @@ class BlocksClient:
                 "read_only": read_only,
                 "description": description,
                 "metadata": metadata,
-                "source_id": source_id,
             },
             request_options=request_options,
             omit=OMIT,
@@ -396,7 +391,6 @@ class BlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
@@ -431,9 +425,6 @@ class BlocksClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
 
-        source_id : typing.Optional[str]
-            The source ID associated with this block (for file blocks).
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -467,7 +458,6 @@ class BlocksClient:
                 "read_only": read_only,
                 "description": description,
                 "metadata": metadata,
-                "source_id": source_id,
             },
             request_options=request_options,
             omit=OMIT,
@@ -609,7 +599,6 @@ class AsyncBlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
@@ -640,9 +629,6 @@ class AsyncBlocksClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
-
-        source_id : typing.Optional[str]
-            The source ID associated with this block (for file blocks).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -686,7 +672,6 @@ class AsyncBlocksClient:
                 "read_only": read_only,
                 "description": description,
                 "metadata": metadata,
-                "source_id": source_id,
             },
             request_options=request_options,
             omit=OMIT,
@@ -915,7 +900,6 @@ class AsyncBlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
@@ -949,9 +933,6 @@ class AsyncBlocksClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
-
-        source_id : typing.Optional[str]
-            The source ID associated with this block (for file blocks).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -994,7 +975,6 @@ class AsyncBlocksClient:
                 "read_only": read_only,
                 "description": description,
                 "metadata": metadata,
-                "source_id": source_id,
             },
             request_options=request_options,
             omit=OMIT,

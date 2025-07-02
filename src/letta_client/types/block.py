@@ -67,11 +67,6 @@ class Block(UncheckedBaseModel):
     Metadata of the block.
     """
 
-    source_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The source ID associated with this block (for file blocks).
-    """
-
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-friendly ID of the Block
