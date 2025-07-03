@@ -26,6 +26,11 @@ class UpdateSsemcpServer(UncheckedBaseModel):
     The access token or API key for the MCP server (used for SSE authentication)
     """
 
+    custom_headers: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    Custom authentication headers as key-value pairs
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

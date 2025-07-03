@@ -3,5 +3,6 @@
 import typing
 
 StopReasonType = typing.Union[
-    typing.Literal["end_turn", "error", "invalid_tool_call", "max_steps", "no_tool_call", "tool_rule"], typing.Any
+    typing.Literal["end_turn", "error", "invalid_tool_call", "max_steps", "no_tool_call", "tool_rule", "cancelled"],
+    typing.Any,
 ]

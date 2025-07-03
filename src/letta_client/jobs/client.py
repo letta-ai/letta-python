@@ -18,15 +18,35 @@ class JobsClient:
         self._client_wrapper = client_wrapper
 
     def list(
-        self, *, source_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        source_id: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        ascending: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Job]:
         """
         List all jobs.
+        TODO (cliandy): implementation for pagination
 
         Parameters
         ----------
         source_id : typing.Optional[str]
             Only list jobs associated with the source.
+
+        before : typing.Optional[str]
+            Cursor for pagination
+
+        after : typing.Optional[str]
+            Cursor for pagination
+
+        limit : typing.Optional[int]
+            Limit for pagination
+
+        ascending : typing.Optional[bool]
+            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -51,6 +71,10 @@ class JobsClient:
             method="GET",
             params={
                 "source_id": source_id,
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "ascending": ascending,
             },
             request_options=request_options,
         )
@@ -79,7 +103,14 @@ class JobsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def list_active(
-        self, *, source_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        source_id: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        ascending: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Job]:
         """
         List all active jobs.
@@ -88,6 +119,18 @@ class JobsClient:
         ----------
         source_id : typing.Optional[str]
             Only list jobs associated with the source.
+
+        before : typing.Optional[str]
+            Cursor for pagination
+
+        after : typing.Optional[str]
+            Cursor for pagination
+
+        limit : typing.Optional[int]
+            Limit for pagination
+
+        ascending : typing.Optional[bool]
+            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -112,6 +155,10 @@ class JobsClient:
             method="GET",
             params={
                 "source_id": source_id,
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "ascending": ascending,
             },
             request_options=request_options,
         )
@@ -253,21 +300,101 @@ class JobsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def cancel_job(self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Job:
+        """
+        Cancel a job by its job_id.
+
+        This endpoint marks a job as cancelled, which will cause any associated
+        agent execution to terminate as soon as possible.
+
+        Parameters
+        ----------
+        job_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Job
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.jobs.cancel_job(
+            job_id="job_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/jobs/{jsonable_encoder(job_id)}/cancel",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Job,
+                    construct_type(
+                        type_=Job,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncJobsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
     async def list(
-        self, *, source_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        source_id: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        ascending: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Job]:
         """
         List all jobs.
+        TODO (cliandy): implementation for pagination
 
         Parameters
         ----------
         source_id : typing.Optional[str]
             Only list jobs associated with the source.
+
+        before : typing.Optional[str]
+            Cursor for pagination
+
+        after : typing.Optional[str]
+            Cursor for pagination
+
+        limit : typing.Optional[int]
+            Limit for pagination
+
+        ascending : typing.Optional[bool]
+            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -300,6 +427,10 @@ class AsyncJobsClient:
             method="GET",
             params={
                 "source_id": source_id,
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "ascending": ascending,
             },
             request_options=request_options,
         )
@@ -328,7 +459,14 @@ class AsyncJobsClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def list_active(
-        self, *, source_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        source_id: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        ascending: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Job]:
         """
         List all active jobs.
@@ -337,6 +475,18 @@ class AsyncJobsClient:
         ----------
         source_id : typing.Optional[str]
             Only list jobs associated with the source.
+
+        before : typing.Optional[str]
+            Cursor for pagination
+
+        after : typing.Optional[str]
+            Cursor for pagination
+
+        limit : typing.Optional[int]
+            Limit for pagination
+
+        ascending : typing.Optional[bool]
+            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -369,6 +519,10 @@ class AsyncJobsClient:
             method="GET",
             params={
                 "source_id": source_id,
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "ascending": ascending,
             },
             request_options=request_options,
         )
@@ -500,6 +654,74 @@ class AsyncJobsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/jobs/{jsonable_encoder(job_id)}",
             method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    Job,
+                    construct_type(
+                        type_=Job,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def cancel_job(self, job_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Job:
+        """
+        Cancel a job by its job_id.
+
+        This endpoint marks a job as cancelled, which will cause any associated
+        agent execution to terminate as soon as possible.
+
+        Parameters
+        ----------
+        job_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Job
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.jobs.cancel_job(
+                job_id="job_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/jobs/{jsonable_encoder(job_id)}/cancel",
+            method="PATCH",
             request_options=request_options,
         )
         try:

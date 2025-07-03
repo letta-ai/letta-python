@@ -3549,6 +3549,87 @@ client.agents.close_all_open_files(
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">cancel_agent_run</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel runs associated with an agent. If run_ids are passed in, cancel those in particular.
+
+Note to cancel active runs associated with an agent, redis is required.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.cancel_agent_run(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Optional[typing.Sequence[str]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">summarize_agent_conversation</a>(...)</code></summary>
 <dl>
 <dd>
@@ -5567,6 +5648,7 @@ client.blocks.modify(
 <dd>
 
 List all jobs.
+TODO (cliandy): implementation for pagination
 </dd>
 </dl>
 </dd>
@@ -5604,6 +5686,38 @@ client.jobs.list()
 <dd>
 
 **source_id:** `typing.Optional[str]` — Only list jobs associated with the source.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Limit for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ascending:** `typing.Optional[bool]` — Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
     
 </dd>
 </dl>
@@ -5673,6 +5787,38 @@ client.jobs.list_active()
 <dd>
 
 **source_id:** `typing.Optional[str]` — Only list jobs associated with the source.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Limit for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ascending:** `typing.Optional[bool]` — Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
     
 </dd>
 </dl>
@@ -5797,6 +5943,80 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.jobs.delete(
+    job_id="job_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**job_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.jobs.<a href="src/letta_client/jobs/client.py">cancel_job</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a job by its job_id.
+
+This endpoint marks a job as cancelled, which will cause any associated
+agent execution to terminate as soon as possible.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.jobs.cancel_job(
     job_id="job_id",
 )
 
@@ -9841,6 +10061,9 @@ for chunk in response:
 
 Asynchronously process a user message and return a run object.
 The actual processing happens in the background, and the status can be checked using the run ID.
+
+This is "asynchronous" in the sense that it's a background job and explicitly must be fetched by the run ID.
+This is more like `send_message_job`
 </dd>
 </dl>
 </dd>
