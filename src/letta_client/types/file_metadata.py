@@ -68,6 +68,16 @@ class FileMetadata(UncheckedBaseModel):
     Optional error message if the file failed processing.
     """
 
+    total_chunks: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Total number of chunks for the file.
+    """
+
+    chunks_embedded: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Number of chunks that have been embedded.
+    """
+
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The creation date of the file.
