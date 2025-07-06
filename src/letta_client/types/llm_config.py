@@ -94,6 +94,11 @@ class LlmConfig(UncheckedBaseModel):
     Configurable thinking budget for extended thinking, only used if enable_reasoner is True. Minimum value is 1024.
     """
 
+    frequency_penalty: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. From OpenAI: Number between -2.0 and 2.0.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
