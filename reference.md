@@ -1993,6 +1993,73 @@ client.sources.retrieve_by_name(
 </dl>
 </details>
 
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">get_sources_metadata</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get aggregated metadata for all sources in an organization.
+
+Returns structured metadata including:
+- Total number of sources
+- Total number of files across all sources  
+- Total size of all files
+- Per-source breakdown with file details (file_name, file_size per file)
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.sources.get_sources_metadata()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">list</a>()</code></summary>
 <dl>
 <dd>

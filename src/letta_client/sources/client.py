@@ -14,6 +14,7 @@ from ..types.source import Source
 from ..core.jsonable_encoder import jsonable_encoder
 from ..types.embedding_config import EmbeddingConfig
 from ..core.serialization import convert_and_respect_annotation_metadata
+from ..types.organization_sources_stats import OrganizationSourcesStats
 from ..types.file_metadata import FileMetadata
 from ..core.client_wrapper import AsyncClientWrapper
 from .files.client import AsyncFilesClient
@@ -332,6 +333,67 @@ class SourcesClient:
                     str,
                     construct_type(
                         type_=str,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_sources_metadata(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> OrganizationSourcesStats:
+        """
+        Get aggregated metadata for all sources in an organization.
+
+        Returns structured metadata including:
+        - Total number of sources
+        - Total number of files across all sources
+        - Total size of all files
+        - Per-source breakdown with file details (file_name, file_size per file)
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OrganizationSourcesStats
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.sources.get_sources_metadata()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/sources/metadata",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    OrganizationSourcesStats,
+                    construct_type(
+                        type_=OrganizationSourcesStats,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -930,6 +992,75 @@ class AsyncSourcesClient:
                     str,
                     construct_type(
                         type_=str,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_sources_metadata(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> OrganizationSourcesStats:
+        """
+        Get aggregated metadata for all sources in an organization.
+
+        Returns structured metadata including:
+        - Total number of sources
+        - Total number of files across all sources
+        - Total size of all files
+        - Per-source breakdown with file details (file_name, file_size per file)
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OrganizationSourcesStats
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.sources.get_sources_metadata()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/sources/metadata",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    OrganizationSourcesStats,
+                    construct_type(
+                        type_=OrganizationSourcesStats,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

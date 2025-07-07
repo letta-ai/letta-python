@@ -94,6 +94,7 @@ from .file import File
 from .file_file import FileFile
 from .file_metadata import FileMetadata
 from .file_processing_status import FileProcessingStatus
+from .file_stats import FileStats
 from .function_call import FunctionCall
 from .function_definition_input import FunctionDefinitionInput
 from .function_definition_output import FunctionDefinitionOutput
@@ -165,6 +166,7 @@ from .openai_types_chat_chat_completion_named_tool_choice_param_function import 
 from .openai_types_chat_completion_create_params_function import OpenaiTypesChatCompletionCreateParamsFunction
 from .organization import Organization
 from .organization_create import OrganizationCreate
+from .organization_sources_stats import OrganizationSourcesStats
 from .organization_update import OrganizationUpdate
 from .parameter_properties import ParameterProperties
 from .parameters_schema import ParametersSchema
@@ -200,6 +202,7 @@ from .sandbox_type import SandboxType
 from .sleeptime_manager import SleeptimeManager
 from .sleeptime_manager_update import SleeptimeManagerUpdate
 from .source import Source
+from .source_stats import SourceStats
 from .sse_server_config import SseServerConfig
 from .stdio_server_config import StdioServerConfig
 from .step import Step
@@ -351,6 +354,7 @@ __all__ = [
     "FileFile",
     "FileMetadata",
     "FileProcessingStatus",
+    "FileStats",
     "FunctionCall",
     "FunctionDefinitionInput",
     "FunctionDefinitionOutput",
@@ -418,6 +422,7 @@ __all__ = [
     "OpenaiTypesChatCompletionCreateParamsFunction",
     "Organization",
     "OrganizationCreate",
+    "OrganizationSourcesStats",
     "OrganizationUpdate",
     "ParameterProperties",
     "ParametersSchema",
@@ -453,6 +458,7 @@ __all__ = [
     "SleeptimeManager",
     "SleeptimeManagerUpdate",
     "Source",
+    "SourceStats",
     "SseServerConfig",
     "StdioServerConfig",
     "Step",
