@@ -3616,87 +3616,6 @@ client.agents.close_all_open_files(
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">cancel_agent_run</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Cancel runs associated with an agent. If run_ids are passed in, cancel those in particular.
-
-Note to cancel active runs associated with an agent, redis is required.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.agents.cancel_agent_run(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `typing.Optional[typing.Sequence[str]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">summarize_agent_conversation</a>(...)</code></summary>
 <dl>
 <dd>
@@ -10095,6 +10014,87 @@ for chunk in response:
 <dd>
 
 **stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">cancel</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel runs associated with an agent. If run_ids are passed in, cancel those in particular.
+
+Note to cancel active runs associated with an agent, redis is required.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.messages.cancel(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Optional[typing.Sequence[str]]` 
     
 </dd>
 </dl>
