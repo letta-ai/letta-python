@@ -2009,7 +2009,7 @@ Get aggregated metadata for all sources in an organization.
 
 Returns structured metadata including:
 - Total number of sources
-- Total number of files across all sources  
+- Total number of files across all sources
 - Total size of all files
 - Per-source breakdown with file details (file_name, file_size per file)
 </dd>
@@ -10820,6 +10820,14 @@ client.blocks.agents.list(
 <dd>
 
 **block_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_relationships:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
     
 </dd>
 </dl>

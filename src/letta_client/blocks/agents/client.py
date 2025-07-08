@@ -18,7 +18,11 @@ class AgentsClient:
         self._client_wrapper = client_wrapper
 
     def list(
-        self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        block_id: str,
+        *,
+        include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
         Retrieves all agents associated with the specified block.
@@ -27,6 +31,9 @@ class AgentsClient:
         Parameters
         ----------
         block_id : str
+
+        include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -51,6 +58,9 @@ class AgentsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/blocks/{jsonable_encoder(block_id)}/agents",
             method="GET",
+            params={
+                "include_relationships": include_relationships,
+            },
             request_options=request_options,
         )
         try:
@@ -83,7 +93,11 @@ class AsyncAgentsClient:
         self._client_wrapper = client_wrapper
 
     async def list(
-        self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        block_id: str,
+        *,
+        include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
         Retrieves all agents associated with the specified block.
@@ -92,6 +106,9 @@ class AsyncAgentsClient:
         Parameters
         ----------
         block_id : str
+
+        include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -124,6 +141,9 @@ class AsyncAgentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/blocks/{jsonable_encoder(block_id)}/agents",
             method="GET",
+            params={
+                "include_relationships": include_relationships,
+            },
             request_options=request_options,
         )
         try:
