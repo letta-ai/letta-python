@@ -258,7 +258,7 @@ class BlocksClient:
         self, agent_id: str, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Attach a core memoryblock to an agent.
+        Attach a core memory block to an agent.
 
         Parameters
         ----------
@@ -646,7 +646,7 @@ class AsyncBlocksClient:
         self, agent_id: str, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
         """
-        Attach a core memoryblock to an agent.
+        Attach a core memory block to an agent.
 
         Parameters
         ----------

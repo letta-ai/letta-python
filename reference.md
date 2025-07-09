@@ -8930,7 +8930,7 @@ client.agents.blocks.list(
 <dl>
 <dd>
 
-Attach a core memoryblock to an agent.
+Attach a core memory block to an agent.
 </dd>
 </dl>
 </dd>
