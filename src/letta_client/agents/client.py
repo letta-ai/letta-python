@@ -32,6 +32,7 @@ from .. import core
 from .types.update_agent_tool_rules_item import UpdateAgentToolRulesItem
 from .types.update_agent_response_format import UpdateAgentResponseFormat
 import datetime as dt
+from ..types.message_type import MessageType
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .types.agents_search_request_sort_by import AgentsSearchRequestSortBy
 from .types.agents_search_response import AgentsSearchResponse
@@ -1043,6 +1044,117 @@ class AgentsClient:
                     typing.List[str],
                     construct_type(
                         type_=typing.List[str],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def preview_raw_payload(
+        self,
+        agent_id: str,
+        *,
+        messages: typing.Sequence[MessageCreate],
+        max_steps: typing.Optional[int] = OMIT,
+        use_assistant_message: typing.Optional[bool] = OMIT,
+        assistant_message_tool_name: typing.Optional[str] = OMIT,
+        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+        """
+        Inspect the raw LLM request payload without sending it.
+
+        This endpoint processes the message through the agent loop up until
+        the LLM request, then returns the raw request payload that would
+        be sent to the LLM provider. Useful for debugging and inspection.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        messages : typing.Sequence[MessageCreate]
+            The messages to be sent to the agent.
+
+        max_steps : typing.Optional[int]
+            Maximum number of steps the agent should take to process the request.
+
+        use_assistant_message : typing.Optional[bool]
+            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+
+        assistant_message_tool_name : typing.Optional[str]
+            The name of the designated message tool.
+
+        assistant_message_tool_kwarg : typing.Optional[str]
+            The name of the message argument in the designated message tool.
+
+        include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
+            Only return specified message types in the response. If `None` (default) returns all messages.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Optional[typing.Any]]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta, MessageCreate, TextContent
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.preview_raw_payload(
+            agent_id="agent_id",
+            messages=[
+                MessageCreate(
+                    role="user",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
+                )
+            ],
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/messages/preview-raw-payload",
+            method="POST",
+            json={
+                "messages": convert_and_respect_annotation_metadata(
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
+                ),
+                "max_steps": max_steps,
+                "use_assistant_message": use_assistant_message,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "include_return_message_types": include_return_message_types,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Dict[str, typing.Optional[typing.Any]],
+                    construct_type(
+                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2280,6 +2392,125 @@ class AsyncAgentsClient:
                     typing.List[str],
                     construct_type(
                         type_=typing.List[str],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def preview_raw_payload(
+        self,
+        agent_id: str,
+        *,
+        messages: typing.Sequence[MessageCreate],
+        max_steps: typing.Optional[int] = OMIT,
+        use_assistant_message: typing.Optional[bool] = OMIT,
+        assistant_message_tool_name: typing.Optional[str] = OMIT,
+        assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
+        include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+        """
+        Inspect the raw LLM request payload without sending it.
+
+        This endpoint processes the message through the agent loop up until
+        the LLM request, then returns the raw request payload that would
+        be sent to the LLM provider. Useful for debugging and inspection.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        messages : typing.Sequence[MessageCreate]
+            The messages to be sent to the agent.
+
+        max_steps : typing.Optional[int]
+            Maximum number of steps the agent should take to process the request.
+
+        use_assistant_message : typing.Optional[bool]
+            Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+
+        assistant_message_tool_name : typing.Optional[str]
+            The name of the designated message tool.
+
+        assistant_message_tool_kwarg : typing.Optional[str]
+            The name of the message argument in the designated message tool.
+
+        include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
+            Only return specified message types in the response. If `None` (default) returns all messages.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Optional[typing.Any]]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta, MessageCreate, TextContent
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.preview_raw_payload(
+                agent_id="agent_id",
+                messages=[
+                    MessageCreate(
+                        role="user",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/messages/preview-raw-payload",
+            method="POST",
+            json={
+                "messages": convert_and_respect_annotation_metadata(
+                    object_=messages, annotation=typing.Sequence[MessageCreate], direction="write"
+                ),
+                "max_steps": max_steps,
+                "use_assistant_message": use_assistant_message,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "include_return_message_types": include_return_message_types,
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Dict[str, typing.Optional[typing.Any]],
+                    construct_type(
+                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
                         object_=_response.json(),
                     ),
                 )

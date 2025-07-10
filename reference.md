@@ -3616,6 +3616,139 @@ client.agents.close_all_open_files(
 </dl>
 </details>
 
+<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">preview_raw_payload</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Inspect the raw LLM request payload without sending it.
+
+This endpoint processes the message through the agent loop up until
+the LLM request, then returns the raw request payload that would
+be sent to the LLM provider. Useful for debugging and inspection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta, MessageCreate, TextContent
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.preview_raw_payload(
+    agent_id="agent_id",
+    messages=[
+        MessageCreate(
+            role="user",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**messages:** `typing.Sequence[MessageCreate]` — The messages to be sent to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_steps:** `typing.Optional[int]` — Maximum number of steps the agent should take to process the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_assistant_message:** `typing.Optional[bool]` — Whether the server should parse specific tool call arguments (default `send_message`) as `AssistantMessage` objects.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_name:** `typing.Optional[str]` — The name of the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**assistant_message_tool_kwarg:** `typing.Optional[str]` — The name of the message argument in the designated message tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">summarize_agent_conversation</a>(...)</code></summary>
 <dl>
 <dd>
