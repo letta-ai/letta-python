@@ -18,7 +18,12 @@ from .types import (
 )
 from . import blocks, context, core_memory, groups, memory_variables, messages, passages, sources, templates, tools
 from .memory_variables import MemoryVariablesListResponse
-from .messages import LettaStreamingResponse, MessagesModifyRequest, MessagesModifyResponse
+from .messages import (
+    LettaStreamingResponse,
+    MessagesModifyRequest,
+    MessagesModifyResponse,
+    MessagesPreviewRawPayloadRequest,
+)
 from .templates import TemplatesCreateResponse, TemplatesCreateVersionRequestReturnAgentState, TemplatesMigrateResponse
 
 __all__ = [
@@ -38,6 +43,7 @@ __all__ = [
     "MemoryVariablesListResponse",
     "MessagesModifyRequest",
     "MessagesModifyResponse",
+    "MessagesPreviewRawPayloadRequest",
     "TemplatesCreateResponse",
     "TemplatesCreateVersionRequestReturnAgentState",
     "TemplatesMigrateResponse",

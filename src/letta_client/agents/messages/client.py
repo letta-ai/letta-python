@@ -21,6 +21,7 @@ import httpx_sse
 import json
 from ...types.run import Run
 from ...types.agent_state import AgentState
+from .types.messages_preview_raw_payload_request import MessagesPreviewRawPayloadRequest
 from ...core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -676,6 +677,91 @@ class MessagesClient:
                     AgentState,
                     construct_type(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def preview_raw_payload(
+        self,
+        agent_id: str,
+        *,
+        request: MessagesPreviewRawPayloadRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+        """
+        Inspect the raw LLM request payload without sending it.
+
+        This endpoint processes the message through the agent loop up until
+        the LLM request, then returns the raw request payload that would
+        be sent to the LLM provider. Useful for debugging and inspection.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        request : MessagesPreviewRawPayloadRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Optional[typing.Any]]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta, LettaRequest, MessageCreate, TextContent
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.messages.preview_raw_payload(
+            agent_id="agent_id",
+            request=LettaRequest(
+                messages=[
+                    MessageCreate(
+                        role="user",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
+                    )
+                ],
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/messages/preview-raw-payload",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=MessagesPreviewRawPayloadRequest, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Dict[str, typing.Optional[typing.Any]],
+                    construct_type(
+                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1400,6 +1486,99 @@ class AsyncMessagesClient:
                     AgentState,
                     construct_type(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def preview_raw_payload(
+        self,
+        agent_id: str,
+        *,
+        request: MessagesPreviewRawPayloadRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Dict[str, typing.Optional[typing.Any]]:
+        """
+        Inspect the raw LLM request payload without sending it.
+
+        This endpoint processes the message through the agent loop up until
+        the LLM request, then returns the raw request payload that would
+        be sent to the LLM provider. Useful for debugging and inspection.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        request : MessagesPreviewRawPayloadRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Dict[str, typing.Optional[typing.Any]]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta, LettaRequest, MessageCreate, TextContent
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.messages.preview_raw_payload(
+                agent_id="agent_id",
+                request=LettaRequest(
+                    messages=[
+                        MessageCreate(
+                            role="user",
+                            content=[
+                                TextContent(
+                                    text="text",
+                                )
+                            ],
+                        )
+                    ],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/messages/preview-raw-payload",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=MessagesPreviewRawPayloadRequest, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Dict[str, typing.Optional[typing.Any]],
+                    construct_type(
+                        type_=typing.Dict[str, typing.Optional[typing.Any]],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
