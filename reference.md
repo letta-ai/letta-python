@@ -11949,6 +11949,14 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
+**duplicate_handling:** `typing.Optional[DuplicateFileHandling]` — How to handle duplicate filenames
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

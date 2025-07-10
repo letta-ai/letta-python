@@ -24,7 +24,7 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "letta-client",
-            "X-Fern-SDK-Version": "0.1.197",
+            "X-Fern-SDK-Version": "0.1.198",
         }
         if self._project is not None:
             headers["X-Project"] = self._project

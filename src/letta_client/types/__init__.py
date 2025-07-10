@@ -84,6 +84,7 @@ from .context_window_overview import ContextWindowOverview
 from .continue_tool_rule import ContinueToolRule
 from .core_memory_block_schema import CoreMemoryBlockSchema
 from .create_block import CreateBlock
+from .duplicate_file_handling import DuplicateFileHandling
 from .dynamic_manager import DynamicManager
 from .dynamic_manager_update import DynamicManagerUpdate
 from .e_2_b_sandbox_config import E2BSandboxConfig
@@ -344,6 +345,7 @@ __all__ = [
     "ContinueToolRule",
     "CoreMemoryBlockSchema",
     "CreateBlock",
+    "DuplicateFileHandling",
     "DynamicManager",
     "DynamicManagerUpdate",
     "E2BSandboxConfig",

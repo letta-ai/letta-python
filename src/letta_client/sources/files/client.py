@@ -3,6 +3,7 @@
 import typing
 from ...core.client_wrapper import SyncClientWrapper
 from ... import core
+from ...types.duplicate_file_handling import DuplicateFileHandling
 from ...core.request_options import RequestOptions
 from ...types.file_metadata import FileMetadata
 from ...core.jsonable_encoder import jsonable_encoder
@@ -22,7 +23,12 @@ class FilesClient:
         self._client_wrapper = client_wrapper
 
     def upload(
-        self, source_id: str, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
+        self,
+        source_id: str,
+        *,
+        file: core.File,
+        duplicate_handling: typing.Optional[DuplicateFileHandling] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> FileMetadata:
         """
         Upload a file to a data source.
@@ -33,6 +39,9 @@ class FilesClient:
 
         file : core.File
             See core.File for more documentation
+
+        duplicate_handling : typing.Optional[DuplicateFileHandling]
+            How to handle duplicate filenames
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -57,6 +66,9 @@ class FilesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/sources/{jsonable_encoder(source_id)}/upload",
             method="POST",
+            params={
+                "duplicate_handling": duplicate_handling,
+            },
             data={},
             files={
                 "file": file,
@@ -226,7 +238,12 @@ class AsyncFilesClient:
         self._client_wrapper = client_wrapper
 
     async def upload(
-        self, source_id: str, *, file: core.File, request_options: typing.Optional[RequestOptions] = None
+        self,
+        source_id: str,
+        *,
+        file: core.File,
+        duplicate_handling: typing.Optional[DuplicateFileHandling] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> FileMetadata:
         """
         Upload a file to a data source.
@@ -237,6 +254,9 @@ class AsyncFilesClient:
 
         file : core.File
             See core.File for more documentation
+
+        duplicate_handling : typing.Optional[DuplicateFileHandling]
+            How to handle duplicate filenames
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -269,6 +289,9 @@ class AsyncFilesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/sources/{jsonable_encoder(source_id)}/upload",
             method="POST",
+            params={
+                "duplicate_handling": duplicate_handling,
+            },
             data={},
             files={
                 "file": file,
