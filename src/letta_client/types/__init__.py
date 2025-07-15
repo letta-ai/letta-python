@@ -238,6 +238,7 @@ from .update_assistant_message import UpdateAssistantMessage
 from .update_assistant_message_content import UpdateAssistantMessageContent
 from .update_reasoning_message import UpdateReasoningMessage
 from .update_ssemcp_server import UpdateSsemcpServer
+from .update_stdio_mcp_server import UpdateStdioMcpServer
 from .update_streamable_httpmcp_server import UpdateStreamableHttpmcpServer
 from .update_system_message import UpdateSystemMessage
 from .update_user_message import UpdateUserMessage
@@ -495,6 +496,7 @@ __all__ = [
     "UpdateAssistantMessageContent",
     "UpdateReasoningMessage",
     "UpdateSsemcpServer",
+    "UpdateStdioMcpServer",
     "UpdateStreamableHttpmcpServer",
     "UpdateSystemMessage",
     "UpdateUserMessage",

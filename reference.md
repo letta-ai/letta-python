@@ -1478,7 +1478,7 @@ Update an existing MCP server configuration
 <dd>
 
 ```python
-from letta_client import Letta, UpdateSsemcpServer
+from letta_client import Letta, UpdateStdioMcpServer
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -1486,7 +1486,7 @@ client = Letta(
 )
 client.tools.update_mcp_server(
     mcp_server_name="mcp_server_name",
-    request=UpdateSsemcpServer(),
+    request=UpdateStdioMcpServer(),
 )
 
 ```

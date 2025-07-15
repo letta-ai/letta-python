@@ -1274,7 +1274,7 @@ class ToolsClient:
 
         Examples
         --------
-        from letta_client import Letta, UpdateSsemcpServer
+        from letta_client import Letta, UpdateStdioMcpServer
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -1282,7 +1282,7 @@ class ToolsClient:
         )
         client.tools.update_mcp_server(
             mcp_server_name="mcp_server_name",
-            request=UpdateSsemcpServer(),
+            request=UpdateStdioMcpServer(),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -2770,7 +2770,7 @@ class AsyncToolsClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, UpdateSsemcpServer
+        from letta_client import AsyncLetta, UpdateStdioMcpServer
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -2781,7 +2781,7 @@ class AsyncToolsClient:
         async def main() -> None:
             await client.tools.update_mcp_server(
                 mcp_server_name="mcp_server_name",
-                request=UpdateSsemcpServer(),
+                request=UpdateStdioMcpServer(),
             )
 
 
