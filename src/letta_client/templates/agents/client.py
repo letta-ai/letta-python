@@ -2,9 +2,11 @@
 
 import typing
 from ...core.client_wrapper import SyncClientWrapper
+from .types.agents_create_request_initial_message_sequence_item import AgentsCreateRequestInitialMessageSequenceItem
 from ...core.request_options import RequestOptions
 from .types.agents_create_response import AgentsCreateResponse
 from ...core.jsonable_encoder import jsonable_encoder
+from ...core.serialization import convert_and_respect_annotation_metadata
 from ...core.unchecked_base_model import construct_type
 from ...errors.payment_required_error import PaymentRequiredError
 from ...types.payment_required_error_body import PaymentRequiredErrorBody
@@ -27,6 +29,9 @@ class AgentsClient:
         *,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         agent_name: typing.Optional[str] = OMIT,
+        initial_message_sequence: typing.Optional[
+            typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]
+        ] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -48,6 +53,9 @@ class AgentsClient:
 
         agent_name : typing.Optional[str]
             The name of the agent, optional otherwise a random one will be assigned
+
+        initial_message_sequence : typing.Optional[typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]]
+            Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
 
         memory_variables : typing.Optional[typing.Dict[str, str]]
             The memory variables to assign to the agent
@@ -85,6 +93,11 @@ class AgentsClient:
             json={
                 "tags": tags,
                 "agent_name": agent_name,
+                "initial_message_sequence": convert_and_respect_annotation_metadata(
+                    object_=initial_message_sequence,
+                    annotation=typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem],
+                    direction="write",
+                ),
                 "memory_variables": memory_variables,
                 "tool_variables": tool_variables,
                 "identity_ids": identity_ids,
@@ -131,6 +144,9 @@ class AsyncAgentsClient:
         *,
         tags: typing.Optional[typing.Sequence[str]] = OMIT,
         agent_name: typing.Optional[str] = OMIT,
+        initial_message_sequence: typing.Optional[
+            typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]
+        ] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -152,6 +168,9 @@ class AsyncAgentsClient:
 
         agent_name : typing.Optional[str]
             The name of the agent, optional otherwise a random one will be assigned
+
+        initial_message_sequence : typing.Optional[typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]]
+            Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
 
         memory_variables : typing.Optional[typing.Dict[str, str]]
             The memory variables to assign to the agent
@@ -197,6 +216,11 @@ class AsyncAgentsClient:
             json={
                 "tags": tags,
                 "agent_name": agent_name,
+                "initial_message_sequence": convert_and_respect_annotation_metadata(
+                    object_=initial_message_sequence,
+                    annotation=typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem],
+                    direction="write",
+                ),
                 "memory_variables": memory_variables,
                 "tool_variables": tool_variables,
                 "identity_ids": identity_ids,

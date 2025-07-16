@@ -12405,6 +12405,14 @@ client.templates.agents.create(
 <dl>
 <dd>
 
+**initial_message_sequence:** `typing.Optional[typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]]` — Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **memory_variables:** `typing.Optional[typing.Dict[str, str]]` — The memory variables to assign to the agent
     
 </dd>

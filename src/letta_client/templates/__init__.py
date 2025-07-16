@@ -2,6 +2,17 @@
 
 from .types import TemplatesListResponse, TemplatesListResponseTemplatesItem
 from . import agents
-from .agents import AgentsCreateResponse
+from .agents import (
+    AgentsCreateRequestInitialMessageSequenceItem,
+    AgentsCreateRequestInitialMessageSequenceItemRole,
+    AgentsCreateResponse,
+)
 
-__all__ = ["AgentsCreateResponse", "TemplatesListResponse", "TemplatesListResponseTemplatesItem", "agents"]
+__all__ = [
+    "AgentsCreateRequestInitialMessageSequenceItem",
+    "AgentsCreateRequestInitialMessageSequenceItemRole",
+    "AgentsCreateResponse",
+    "TemplatesListResponse",
+    "TemplatesListResponseTemplatesItem",
+    "agents",
+]
