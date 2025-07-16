@@ -2180,30 +2180,6 @@ client.sources.create(
 <dl>
 <dd>
 
-**embedding:** `typing.Optional[str]` — The hande for the embedding config used by the source.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**embedding_chunk_size:** `typing.Optional[int]` — The chunk size of the embedding.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**embedding_config:** `typing.Optional[EmbeddingConfig]` — (Legacy) The embedding configuration used by the source.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **description:** `typing.Optional[str]` — The description of the source.
     
 </dd>
@@ -2221,6 +2197,30 @@ client.sources.create(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata associated with the source.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding:** `typing.Optional[str]` — The handle for the embedding config used by the source.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_chunk_size:** `typing.Optional[int]` — The chunk size of the embedding.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_config:** `typing.Optional[EmbeddingConfig]` — (Legacy) The embedding configuration used by the source.
     
 </dd>
 </dl>
