@@ -7751,6 +7751,91 @@ client.templates.list()
 </details>
 
 ## ClientSideAccessTokens
+<details><summary><code>client.client_side_access_tokens.<a href="src/letta_client/client_side_access_tokens/client.py">client_side_access_tokens_list_client_side_access_tokens</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all client side access tokens for the current account. This is only available for cloud users.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.client_side_access_tokens.client_side_access_tokens_list_client_side_access_tokens()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `typing.Optional[str]` — The agent ID to filter tokens by. If provided, only tokens for this agent will be returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**offset:** `typing.Optional[float]` — The offset for pagination. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[float]` — The number of tokens to return per page. Defaults to 10.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.client_side_access_tokens.<a href="src/letta_client/client_side_access_tokens/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>

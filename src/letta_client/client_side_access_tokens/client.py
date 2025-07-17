@@ -2,14 +2,17 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.client_side_access_tokens_create_request_policy_item import ClientSideAccessTokensCreateRequestPolicyItem
 from ..core.request_options import RequestOptions
-from .types.client_side_access_tokens_create_response import ClientSideAccessTokensCreateResponse
-from ..core.serialization import convert_and_respect_annotation_metadata
+from .types.client_side_access_tokens_list_client_side_access_tokens_response import (
+    ClientSideAccessTokensListClientSideAccessTokensResponse,
+)
 from ..core.unchecked_base_model import construct_type
 from ..errors.bad_request_error import BadRequestError
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from .types.client_side_access_tokens_create_request_policy_item import ClientSideAccessTokensCreateRequestPolicyItem
+from .types.client_side_access_tokens_create_response import ClientSideAccessTokensCreateResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -20,6 +23,80 @@ OMIT = typing.cast(typing.Any, ...)
 class ClientSideAccessTokensClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def client_side_access_tokens_list_client_side_access_tokens(
+        self,
+        *,
+        agent_id: typing.Optional[str] = None,
+        offset: typing.Optional[float] = None,
+        limit: typing.Optional[float] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientSideAccessTokensListClientSideAccessTokensResponse:
+        """
+        List all client side access tokens for the current account. This is only available for cloud users.
+
+        Parameters
+        ----------
+        agent_id : typing.Optional[str]
+            The agent ID to filter tokens by. If provided, only tokens for this agent will be returned.
+
+        offset : typing.Optional[float]
+            The offset for pagination. Defaults to 0.
+
+        limit : typing.Optional[float]
+            The number of tokens to return per page. Defaults to 10.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientSideAccessTokensListClientSideAccessTokensResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.client_side_access_tokens.client_side_access_tokens_list_client_side_access_tokens()
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/client-side-access-tokens",
+            method="GET",
+            params={
+                "agentId": agent_id,
+                "offset": offset,
+                "limit": limit,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientSideAccessTokensListClientSideAccessTokensResponse,
+                    construct_type(
+                        type_=ClientSideAccessTokensListClientSideAccessTokensResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def create(
         self,
@@ -186,6 +263,88 @@ class ClientSideAccessTokensClient:
 class AsyncClientSideAccessTokensClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def client_side_access_tokens_list_client_side_access_tokens(
+        self,
+        *,
+        agent_id: typing.Optional[str] = None,
+        offset: typing.Optional[float] = None,
+        limit: typing.Optional[float] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientSideAccessTokensListClientSideAccessTokensResponse:
+        """
+        List all client side access tokens for the current account. This is only available for cloud users.
+
+        Parameters
+        ----------
+        agent_id : typing.Optional[str]
+            The agent ID to filter tokens by. If provided, only tokens for this agent will be returned.
+
+        offset : typing.Optional[float]
+            The offset for pagination. Defaults to 0.
+
+        limit : typing.Optional[float]
+            The number of tokens to return per page. Defaults to 10.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientSideAccessTokensListClientSideAccessTokensResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.client_side_access_tokens.client_side_access_tokens_list_client_side_access_tokens()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/client-side-access-tokens",
+            method="GET",
+            params={
+                "agentId": agent_id,
+                "offset": offset,
+                "limit": limit,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ClientSideAccessTokensListClientSideAccessTokensResponse,
+                    construct_type(
+                        type_=ClientSideAccessTokensListClientSideAccessTokensResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def create(
         self,
