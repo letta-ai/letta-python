@@ -352,7 +352,10 @@ class SourcesClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_sources_metadata(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        include_detailed_per_source_metadata: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> OrganizationSourcesStats:
         """
         Get aggregated metadata for all sources in an organization.
@@ -361,10 +364,12 @@ class SourcesClient:
         - Total number of sources
         - Total number of files across all sources
         - Total size of all files
-        - Per-source breakdown with file details (file_name, file_size per file)
+        - Per-source breakdown with file details (file_name, file_size per file) if include_detailed_per_source_metadata is True
 
         Parameters
         ----------
+        include_detailed_per_source_metadata : typing.Optional[bool]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -386,6 +391,9 @@ class SourcesClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/sources/metadata",
             method="GET",
+            params={
+                "include_detailed_per_source_metadata": include_detailed_per_source_metadata,
+            },
             request_options=request_options,
         )
         try:
@@ -1011,7 +1019,10 @@ class AsyncSourcesClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_sources_metadata(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        include_detailed_per_source_metadata: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> OrganizationSourcesStats:
         """
         Get aggregated metadata for all sources in an organization.
@@ -1020,10 +1031,12 @@ class AsyncSourcesClient:
         - Total number of sources
         - Total number of files across all sources
         - Total size of all files
-        - Per-source breakdown with file details (file_name, file_size per file)
+        - Per-source breakdown with file details (file_name, file_size per file) if include_detailed_per_source_metadata is True
 
         Parameters
         ----------
+        include_detailed_per_source_metadata : typing.Optional[bool]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1053,6 +1066,9 @@ class AsyncSourcesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/sources/metadata",
             method="GET",
+            params={
+                "include_detailed_per_source_metadata": include_detailed_per_source_metadata,
+            },
             request_options=request_options,
         )
         try:

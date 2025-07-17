@@ -1993,7 +1993,7 @@ client.sources.retrieve_by_name(
 </dl>
 </details>
 
-<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">get_sources_metadata</a>()</code></summary>
+<details><summary><code>client.sources.<a href="src/letta_client/sources/client.py">get_sources_metadata</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2011,7 +2011,7 @@ Returns structured metadata including:
 - Total number of sources
 - Total number of files across all sources
 - Total size of all files
-- Per-source breakdown with file details (file_name, file_size per file)
+- Per-source breakdown with file details (file_name, file_size per file) if include_detailed_per_source_metadata is True
 </dd>
 </dl>
 </dd>
@@ -2044,6 +2044,14 @@ client.sources.get_sources_metadata()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**include_detailed_per_source_metadata:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
