@@ -26,6 +26,7 @@ class ToolCallMessage(UncheckedBaseModel):
     otid: typing.Optional[str] = None
     sender_id: typing.Optional[str] = None
     step_id: typing.Optional[str] = None
+    is_err: typing.Optional[bool] = None
     tool_call: ToolCallMessageToolCall
 
     if IS_PYDANTIC_V2:

@@ -29,6 +29,7 @@ class ReasoningMessage(UncheckedBaseModel):
     otid: typing.Optional[str] = None
     sender_id: typing.Optional[str] = None
     step_id: typing.Optional[str] = None
+    is_err: typing.Optional[bool] = None
     source: typing.Optional[ReasoningMessageSource] = None
     reasoning: str
     signature: typing.Optional[str] = None

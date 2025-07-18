@@ -43,6 +43,7 @@ class MessagesClient:
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
         assistant_message_tool_kwarg: typing.Optional[str] = None,
+        include_err: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LettaMessageUnion]:
         """
@@ -72,6 +73,9 @@ class MessagesClient:
 
         assistant_message_tool_kwarg : typing.Optional[str]
             The name of the message argument.
+
+        include_err : typing.Optional[bool]
+            Whether to include error messages and error statuses. For debugging purposes only.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -104,6 +108,7 @@ class MessagesClient:
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "include_err": include_err,
             },
             request_options=request_options,
         )
@@ -796,6 +801,7 @@ class AsyncMessagesClient:
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
         assistant_message_tool_kwarg: typing.Optional[str] = None,
+        include_err: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LettaMessageUnion]:
         """
@@ -825,6 +831,9 @@ class AsyncMessagesClient:
 
         assistant_message_tool_kwarg : typing.Optional[str]
             The name of the message argument.
+
+        include_err : typing.Optional[bool]
+            Whether to include error messages and error statuses. For debugging purposes only.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -865,6 +874,7 @@ class AsyncMessagesClient:
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "include_err": include_err,
             },
             request_options=request_options,
         )

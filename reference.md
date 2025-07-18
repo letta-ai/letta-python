@@ -9823,6 +9823,14 @@ client.agents.messages.list(
 <dl>
 <dd>
 
+**include_err:** `typing.Optional[bool]` — Whether to include error messages and error statuses. For debugging purposes only.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

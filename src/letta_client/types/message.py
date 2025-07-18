@@ -124,6 +124,11 @@ class Message(UncheckedBaseModel):
     The id of the LLMBatchItem that this message is associated with
     """
 
+    is_err: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether this message is part of an error step. Used only for debugging purposes.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

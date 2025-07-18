@@ -26,6 +26,7 @@ class UserMessage(UncheckedBaseModel):
     otid: typing.Optional[str] = None
     sender_id: typing.Optional[str] = None
     step_id: typing.Optional[str] = None
+    is_err: typing.Optional[bool] = None
     content: UserMessageContent = pydantic.Field()
     """
     The message content sent by the user (can be a string or an array of multi-modal content parts)

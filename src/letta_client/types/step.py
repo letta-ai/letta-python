@@ -3,6 +3,7 @@
 from ..core.unchecked_base_model import UncheckedBaseModel
 import pydantic
 import typing
+from .stop_reason_type import StopReasonType
 from .message import Message
 from .step_feedback import StepFeedback
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
@@ -79,6 +80,11 @@ class Step(UncheckedBaseModel):
     )
     """
     Metadata for the agent.
+    """
+
+    stop_reason: typing.Optional[StopReasonType] = pydantic.Field(default=None)
+    """
+    The stop reason associated with the step.
     """
 
     tags: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
