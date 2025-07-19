@@ -26,7 +26,6 @@ CompletionCreateParamsStreamingModel = typing.Union[
     typing.Literal["gpt-4o-search-preview-2025-03-11"],
     typing.Literal["gpt-4o-mini-search-preview-2025-03-11"],
     typing.Literal["chatgpt-4o-latest"],
-    typing.Literal["codex-mini-latest"],
     typing.Literal["gpt-4o-mini"],
     typing.Literal["gpt-4o-mini-2024-07-18"],
     typing.Literal["gpt-4-turbo"],
