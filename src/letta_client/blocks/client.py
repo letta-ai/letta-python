@@ -323,7 +323,9 @@ class BlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
+    def delete(
+        self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
         """
         Parameters
         ----------
@@ -334,7 +336,7 @@ class BlocksClient:
 
         Returns
         -------
-        Block
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -357,9 +359,9 @@ class BlocksClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    Block,
+                    typing.Optional[typing.Any],
                     construct_type(
-                        type_=Block,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -824,7 +826,9 @@ class AsyncBlocksClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def delete(self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Block:
+    async def delete(
+        self, block_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
         """
         Parameters
         ----------
@@ -835,7 +839,7 @@ class AsyncBlocksClient:
 
         Returns
         -------
-        Block
+        typing.Optional[typing.Any]
             Successful Response
 
         Examples
@@ -866,9 +870,9 @@ class AsyncBlocksClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    Block,
+                    typing.Optional[typing.Any],
                     construct_type(
-                        type_=Block,  # type: ignore
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
