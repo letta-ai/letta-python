@@ -2953,6 +2953,22 @@ client.agents.create()
 <dl>
 <dd>
 
+**max_files_open:** `typing.Optional[int]` — Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**per_file_view_window_char_limit:** `typing.Optional[int]` — The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -3602,6 +3618,22 @@ client.agents.modify(
 <dd>
 
 **timezone:** `typing.Optional[str]` — The timezone of the agent (IANA format).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_files_open:** `typing.Optional[int]` — Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**per_file_view_window_char_limit:** `typing.Optional[int]` — The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
     
 </dd>
 </dl>

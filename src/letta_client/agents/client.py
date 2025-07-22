@@ -244,6 +244,8 @@ class AgentsClient:
         enable_sleeptime: typing.Optional[bool] = OMIT,
         response_format: typing.Optional[CreateAgentRequestResponseFormat] = OMIT,
         timezone: typing.Optional[str] = OMIT,
+        max_files_open: typing.Optional[int] = OMIT,
+        per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -368,6 +370,12 @@ class AgentsClient:
         timezone : typing.Optional[str]
             The timezone of the agent (IANA format).
 
+        max_files_open : typing.Optional[int]
+            Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent.
+
+        per_file_view_window_char_limit : typing.Optional[int]
+            The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -441,6 +449,8 @@ class AgentsClient:
                     object_=response_format, annotation=CreateAgentRequestResponseFormat, direction="write"
                 ),
                 "timezone": timezone,
+                "max_files_open": max_files_open,
+                "per_file_view_window_char_limit": per_file_view_window_char_limit,
             },
             headers={
                 "content-type": "application/json",
@@ -827,6 +837,8 @@ class AgentsClient:
         last_run_completion: typing.Optional[dt.datetime] = OMIT,
         last_run_duration_ms: typing.Optional[int] = OMIT,
         timezone: typing.Optional[str] = OMIT,
+        max_files_open: typing.Optional[int] = OMIT,
+        per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -911,6 +923,12 @@ class AgentsClient:
         timezone : typing.Optional[str]
             The timezone of the agent (IANA format).
 
+        max_files_open : typing.Optional[int]
+            Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent.
+
+        per_file_view_window_char_limit : typing.Optional[int]
+            The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -968,6 +986,8 @@ class AgentsClient:
                 "last_run_completion": last_run_completion,
                 "last_run_duration_ms": last_run_duration_ms,
                 "timezone": timezone,
+                "max_files_open": max_files_open,
+                "per_file_view_window_char_limit": per_file_view_window_char_limit,
             },
             headers={
                 "content-type": "application/json",
@@ -1417,6 +1437,8 @@ class AsyncAgentsClient:
         enable_sleeptime: typing.Optional[bool] = OMIT,
         response_format: typing.Optional[CreateAgentRequestResponseFormat] = OMIT,
         timezone: typing.Optional[str] = OMIT,
+        max_files_open: typing.Optional[int] = OMIT,
+        per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1541,6 +1563,12 @@ class AsyncAgentsClient:
         timezone : typing.Optional[str]
             The timezone of the agent (IANA format).
 
+        max_files_open : typing.Optional[int]
+            Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent.
+
+        per_file_view_window_char_limit : typing.Optional[int]
+            The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1622,6 +1650,8 @@ class AsyncAgentsClient:
                     object_=response_format, annotation=CreateAgentRequestResponseFormat, direction="write"
                 ),
                 "timezone": timezone,
+                "max_files_open": max_files_open,
+                "per_file_view_window_char_limit": per_file_view_window_char_limit,
             },
             headers={
                 "content-type": "application/json",
@@ -2048,6 +2078,8 @@ class AsyncAgentsClient:
         last_run_completion: typing.Optional[dt.datetime] = OMIT,
         last_run_duration_ms: typing.Optional[int] = OMIT,
         timezone: typing.Optional[str] = OMIT,
+        max_files_open: typing.Optional[int] = OMIT,
+        per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -2132,6 +2164,12 @@ class AsyncAgentsClient:
         timezone : typing.Optional[str]
             The timezone of the agent (IANA format).
 
+        max_files_open : typing.Optional[int]
+            Maximum number of files that can be open at once for this agent. Setting this too high may exceed the context window, which will break the agent.
+
+        per_file_view_window_char_limit : typing.Optional[int]
+            The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2197,6 +2235,8 @@ class AsyncAgentsClient:
                 "last_run_completion": last_run_completion,
                 "last_run_duration_ms": last_run_duration_ms,
                 "timezone": timezone,
+                "max_files_open": max_files_open,
+                "per_file_view_window_char_limit": per_file_view_window_char_limit,
             },
             headers={
                 "content-type": "application/json",
