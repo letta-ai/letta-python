@@ -10,6 +10,7 @@ ProviderType = typing.Union[
         "openai",
         "letta",
         "deepseek",
+        "cerebras",
         "lmstudio_openai",
         "xai",
         "mistral",
@@ -19,6 +20,7 @@ ProviderType = typing.Union[
         "azure",
         "vllm",
         "bedrock",
+        "cohere",
     ],
     typing.Any,
 ]
