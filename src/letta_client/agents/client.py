@@ -1081,6 +1081,137 @@ class AgentsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def open_file(
+        self, agent_id: str, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[str]:
+        """
+        Opens a specific file for a given agent.
+
+        This endpoint marks a specific file as open in the agent's file state.
+        The file will be included in the agent's working memory view.
+        Returns a list of file names that were closed due to LRU eviction.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[str]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.open_file(
+            agent_id="agent_id",
+            file_id="file_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/files/{jsonable_encoder(file_id)}/open",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[str],
+                    construct_type(
+                        type_=typing.List[str],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def close_file(
+        self, agent_id: str, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
+        """
+        Closes a specific file for a given agent.
+
+        This endpoint marks a specific file as closed in the agent's file state.
+        The file will be removed from the agent's working memory view.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.close_file(
+            agent_id="agent_id",
+            file_id="file_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/files/{jsonable_encoder(file_id)}/close",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    construct_type(
+                        type_=typing.Optional[typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def summarize_agent_conversation(
         self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
     ) -> AgentState:
@@ -2320,6 +2451,153 @@ class AsyncAgentsClient:
                     typing.List[str],
                     construct_type(
                         type_=typing.List[str],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def open_file(
+        self, agent_id: str, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.List[str]:
+        """
+        Opens a specific file for a given agent.
+
+        This endpoint marks a specific file as open in the agent's file state.
+        The file will be included in the agent's working memory view.
+        Returns a list of file names that were closed due to LRU eviction.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.List[str]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.open_file(
+                agent_id="agent_id",
+                file_id="file_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/files/{jsonable_encoder(file_id)}/open",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.List[str],
+                    construct_type(
+                        type_=typing.List[str],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def close_file(
+        self, agent_id: str, file_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
+        """
+        Closes a specific file for a given agent.
+
+        This endpoint marks a specific file as closed in the agent's file state.
+        The file will be removed from the agent's working memory view.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        file_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.close_file(
+                agent_id="agent_id",
+                file_id="file_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/files/{jsonable_encoder(file_id)}/close",
+            method="PATCH",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    typing.Optional[typing.Any],
+                    construct_type(
+                        type_=typing.Optional[typing.Any],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
