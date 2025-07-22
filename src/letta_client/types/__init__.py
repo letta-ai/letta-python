@@ -92,6 +92,7 @@ from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
 from .feedback_type import FeedbackType
 from .file import File
+from .file_block import FileBlock
 from .file_file import FileFile
 from .file_metadata import FileMetadata
 from .file_processing_status import FileProcessingStatus
@@ -354,6 +355,7 @@ __all__ = [
     "EmbeddingConfigEmbeddingEndpointType",
     "FeedbackType",
     "File",
+    "FileBlock",
     "FileFile",
     "FileMetadata",
     "FileProcessingStatus",

@@ -4,6 +4,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 import typing
 from .block import Block
 import pydantic
+from .file_block import FileBlock
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -17,9 +18,9 @@ class Memory(UncheckedBaseModel):
     Memory blocks contained in the agent's in-context memory
     """
 
-    file_blocks: typing.Optional[typing.List[Block]] = pydantic.Field(default=None)
+    file_blocks: typing.Optional[typing.List[FileBlock]] = pydantic.Field(default=None)
     """
-    Blocks representing the agent's in-context memory of an attached file
+    Special blocks representing the agent's in-context memory of an attached file
     """
 
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
