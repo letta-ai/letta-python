@@ -23,6 +23,7 @@ EmbeddingConfigEmbeddingEndpointType = typing.Union[
         "hugging-face",
         "mistral",
         "together",
+        "pinecone",
     ],
     typing.Any,
 ]
