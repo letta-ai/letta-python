@@ -75,7 +75,7 @@ class FileBlock(UncheckedBaseModel):
 
     source_id: str = pydantic.Field()
     """
-    Unique identifier of the source (denormalized from files.source_id).
+    Unique identifier of the source.
     """
 
     is_open: bool = pydantic.Field()
@@ -85,7 +85,7 @@ class FileBlock(UncheckedBaseModel):
 
     last_accessed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    UTC timestamp of the agent’s most recent access to this file.
+    UTC timestamp of the agent’s most recent access to this file. Any operations from the open, close, or search tools will update this field.
     """
 
     if IS_PYDANTIC_V2:
