@@ -2407,6 +2407,1077 @@ client.sources.get_file_metadata(
 </dl>
 </details>
 
+## Folders
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">count_folders</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Count all data folders created by a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.count_folders()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">retrieve_folder</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a folder by ID
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.retrieve_folder(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">delete_folder</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.delete_folder(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">modify_folder</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the name or documentation of an existing data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.modify_folder(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — The name of the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — The description of the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**instructions:** `typing.Optional[str]` — Instructions for how to use the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata associated with the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_config:** `typing.Optional[EmbeddingConfig]` — The embedding configuration used by the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">get_folder_id_by_name</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a folder by name
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.get_folder_id_by_name(
+    folder_name="folder_name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_name:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">get_folders_metadata</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get aggregated metadata for all folders in an organization.
+
+Returns structured metadata including:
+- Total number of folders
+- Total number of files across all folders
+- Total size of all files
+- Per-source breakdown with file details (file_name, file_size per file) if include_detailed_per_source_metadata is True
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.get_folders_metadata()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**include_detailed_per_source_metadata:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list_folders</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all data folders created by a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.list_folders()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">create_folder</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.create_folder(
+    name="name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — The name of the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — The description of the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**instructions:** `typing.Optional[str]` — Instructions for how to use the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata associated with the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding:** `typing.Optional[str]` — The handle for the embedding config used by the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_chunk_size:** `typing.Optional[int]` — The chunk size of the embedding.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**embedding_config:** `typing.Optional[EmbeddingConfig]` — (Legacy) The embedding configuration used by the folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">upload_file_to_folder</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upload a file to a data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.upload_file_to_folder(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file:** `from __future__ import annotations
+
+core.File` — See core.File for more documentation
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**duplicate_handling:** `typing.Optional[DuplicateFileHandling]` — How to handle duplicate filenames
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">get_agents_for_folder</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all agent IDs that have the specified folder attached.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.get_agents_for_folder(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list_folder_passages</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all passages associated with a data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.list_folder_passages(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Message after which to retrieve the returned messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Message before which to retrieve the returned messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list_folder_files</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List paginated files associated with a data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.list_folder_files(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of files to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Pagination cursor to fetch the next set of results
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_content:** `typing.Optional[bool]` — Whether to include full file content
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">delete_file_from_folder</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a file from a folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.delete_file_from_folder(
+    folder_id="folder_id",
+    file_id="file_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Agents
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">list</a>(...)</code></summary>
 <dl>

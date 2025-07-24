@@ -97,6 +97,7 @@ from .file_file import FileFile
 from .file_metadata import FileMetadata
 from .file_processing_status import FileProcessingStatus
 from .file_stats import FileStats
+from .folder import Folder
 from .function_call import FunctionCall
 from .function_definition_input import FunctionDefinitionInput
 from .function_definition_output import FunctionDefinitionOutput
@@ -362,6 +363,7 @@ __all__ = [
     "FileMetadata",
     "FileProcessingStatus",
     "FileStats",
+    "Folder",
     "FunctionCall",
     "FunctionDefinitionInput",
     "FunctionDefinitionOutput",

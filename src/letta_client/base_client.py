@@ -6,6 +6,7 @@ import httpx
 from .core.client_wrapper import SyncClientWrapper
 from .tools.client import ToolsClient
 from .sources.client import SourcesClient
+from .folders.client import FoldersClient
 from .agents.client import AgentsClient
 from .groups.client import GroupsClient
 from .identities.client import IdentitiesClient
@@ -28,6 +29,7 @@ from .projects.client import ProjectsClient
 from .core.client_wrapper import AsyncClientWrapper
 from .tools.client import AsyncToolsClient
 from .sources.client import AsyncSourcesClient
+from .folders.client import AsyncFoldersClient
 from .agents.client import AsyncAgentsClient
 from .groups.client import AsyncGroupsClient
 from .identities.client import AsyncIdentitiesClient
@@ -113,6 +115,7 @@ class LettaBase:
         )
         self.tools = ToolsClient(client_wrapper=self._client_wrapper)
         self.sources = SourcesClient(client_wrapper=self._client_wrapper)
+        self.folders = FoldersClient(client_wrapper=self._client_wrapper)
         self.agents = AgentsClient(client_wrapper=self._client_wrapper)
         self.groups = GroupsClient(client_wrapper=self._client_wrapper)
         self.identities = IdentitiesClient(client_wrapper=self._client_wrapper)
@@ -198,6 +201,7 @@ class AsyncLettaBase:
         )
         self.tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
         self.sources = AsyncSourcesClient(client_wrapper=self._client_wrapper)
+        self.folders = AsyncFoldersClient(client_wrapper=self._client_wrapper)
         self.agents = AsyncAgentsClient(client_wrapper=self._client_wrapper)
         self.groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
         self.identities = AsyncIdentitiesClient(client_wrapper=self._client_wrapper)
