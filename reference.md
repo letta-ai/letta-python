@@ -2408,7 +2408,7 @@ client.sources.get_file_metadata(
 </details>
 
 ## Folders
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">count_folders</a>()</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">count</a>()</code></summary>
 <dl>
 <dd>
 
@@ -2441,7 +2441,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.folders.count_folders()
+client.folders.count()
 
 ```
 </dd>
@@ -2469,7 +2469,7 @@ client.folders.count_folders()
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">retrieve_folder</a>(...)</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">retrieve</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2502,7 +2502,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.folders.retrieve_folder(
+client.folders.retrieve(
     folder_id="folder_id",
 )
 
@@ -2540,7 +2540,7 @@ client.folders.retrieve_folder(
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">delete_folder</a>(...)</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2573,7 +2573,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.folders.delete_folder(
+client.folders.delete(
     folder_id="folder_id",
 )
 
@@ -2611,7 +2611,7 @@ client.folders.delete_folder(
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">modify_folder</a>(...)</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">modify</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2644,7 +2644,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.folders.modify_folder(
+client.folders.modify(
     folder_id="folder_id",
 )
 
@@ -2722,7 +2722,7 @@ client.folders.modify_folder(
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">get_folder_id_by_name</a>(...)</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">retrieve_by_name</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2755,7 +2755,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.folders.get_folder_id_by_name(
+client.folders.retrieve_by_name(
     folder_name="folder_name",
 )
 
@@ -2868,7 +2868,7 @@ client.folders.get_folders_metadata()
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list_folders</a>()</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list</a>()</code></summary>
 <dl>
 <dd>
 
@@ -2901,7 +2901,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.folders.list_folders()
+client.folders.list()
 
 ```
 </dd>
@@ -2929,7 +2929,7 @@ client.folders.list_folders()
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">create_folder</a>(...)</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">create</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -2962,7 +2962,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.folders.create_folder(
+client.folders.create(
     name="name",
 )
 
@@ -3048,95 +3048,6 @@ client.folders.create_folder(
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">upload_file_to_folder</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Upload a file to a data folder.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.folders.upload_file_to_folder(
-    folder_id="folder_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**folder_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**file:** `from __future__ import annotations
-
-core.File` — See core.File for more documentation
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**duplicate_handling:** `typing.Optional[DuplicateFileHandling]` — How to handle duplicate filenames
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">get_agents_for_folder</a>(...)</code></summary>
 <dl>
 <dd>
@@ -3189,276 +3100,6 @@ client.folders.get_agents_for_folder(
 <dd>
 
 **folder_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list_folder_passages</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List all passages associated with a data folder.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.folders.list_folder_passages(
-    folder_id="folder_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**folder_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**after:** `typing.Optional[str]` — Message after which to retrieve the returned messages.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**before:** `typing.Optional[str]` — Message before which to retrieve the returned messages.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Maximum number of messages to retrieve.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list_folder_files</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List paginated files associated with a data folder.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.folders.list_folder_files(
-    folder_id="folder_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**folder_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Number of files to return
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**after:** `typing.Optional[str]` — Pagination cursor to fetch the next set of results
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include_content:** `typing.Optional[bool]` — Whether to include full file content
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">delete_file_from_folder</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a file from a folder.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.folders.delete_file_from_folder(
-    folder_id="folder_id",
-    file_id="file_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**folder_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**file_id:** `str` 
     
 </dd>
 </dl>
@@ -4705,247 +4346,6 @@ client.agents.modify(
 <dd>
 
 **per_file_view_window_char_limit:** `typing.Optional[int]` — The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">close_all_open_files</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Closes all currently open files for a given agent.
-
-This endpoint updates the file state for the agent so that no files are marked as open.
-Typically used to reset the working memory view for the agent.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.agents.close_all_open_files(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">open_file</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Opens a specific file for a given agent.
-
-This endpoint marks a specific file as open in the agent's file state.
-The file will be included in the agent's working memory view.
-Returns a list of file names that were closed due to LRU eviction.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.agents.open_file(
-    agent_id="agent_id",
-    file_id="file_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**file_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">close_file</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Closes a specific file for a given agent.
-
-This endpoint marks a specific file as closed in the agent's file state.
-The file will be removed from the agent's working memory view.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.agents.close_file(
-    agent_id="agent_id",
-    file_id="file_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**file_id:** `str` 
     
 </dd>
 </dl>
@@ -9975,6 +9375,480 @@ client.agents.sources.list(
 </dl>
 </details>
 
+## Agents Folders
+<details><summary><code>client.agents.folders.<a href="src/letta_client/agents/folders/client.py">attach</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Attach a folder to an agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.folders.attach(
+    agent_id="agent_id",
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.folders.<a href="src/letta_client/agents/folders/client.py">detach</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Detach a folder from an agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.folders.detach(
+    agent_id="agent_id",
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.folders.<a href="src/letta_client/agents/folders/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the folders associated with an agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.folders.list(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agents Files
+<details><summary><code>client.agents.files.<a href="src/letta_client/agents/files/client.py">close_all</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Closes all currently open files for a given agent.
+
+This endpoint updates the file state for the agent so that no files are marked as open.
+Typically used to reset the working memory view for the agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.files.close_all(
+    agent_id="agent_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.files.<a href="src/letta_client/agents/files/client.py">open</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Opens a specific file for a given agent.
+
+This endpoint marks a specific file as open in the agent's file state.
+The file will be included in the agent's working memory view.
+Returns a list of file names that were closed due to LRU eviction.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.files.open(
+    agent_id="agent_id",
+    file_id="file_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.files.<a href="src/letta_client/agents/files/client.py">close</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Closes a specific file for a given agent.
+
+This endpoint marks a specific file as closed in the agent's file state.
+The file will be removed from the agent's working memory view.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.files.close(
+    agent_id="agent_id",
+    file_id="file_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Agents CoreMemory
 <details><summary><code>client.agents.core_memory.<a href="src/letta_client/agents/core_memory/client.py">retrieve</a>(...)</code></summary>
 <dl>
@@ -12365,6 +12239,367 @@ client.blocks.agents.list(
 <dd>
 
 **include_relationships:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Folders Files
+<details><summary><code>client.folders.files.<a href="src/letta_client/folders/files/client.py">upload</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upload a file to a data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.files.upload(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file:** `from __future__ import annotations
+
+core.File` — See core.File for more documentation
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**duplicate_handling:** `typing.Optional[DuplicateFileHandling]` — How to handle duplicate filenames
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.files.<a href="src/letta_client/folders/files/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List paginated files associated with a data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.files.list(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of files to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Pagination cursor to fetch the next set of results
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_content:** `typing.Optional[bool]` — Whether to include full file content
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.folders.files.<a href="src/letta_client/folders/files/client.py">delete</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a file from a folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.files.delete(
+    folder_id="folder_id",
+    file_id="file_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Folders Passages
+<details><summary><code>client.folders.passages.<a href="src/letta_client/folders/passages/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all passages associated with a data folder.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.passages.list(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Message after which to retrieve the returned messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Message before which to retrieve the returned messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to retrieve.
     
 </dd>
 </dl>

@@ -16,7 +16,20 @@ from .types import (
     UpdateAgentResponseFormat,
     UpdateAgentToolRulesItem,
 )
-from . import blocks, context, core_memory, groups, memory_variables, messages, passages, sources, templates, tools
+from . import (
+    blocks,
+    context,
+    core_memory,
+    files,
+    folders,
+    groups,
+    memory_variables,
+    messages,
+    passages,
+    sources,
+    templates,
+    tools,
+)
 from .memory_variables import MemoryVariablesListResponse
 from .messages import (
     LettaStreamingResponse,
@@ -52,6 +65,8 @@ __all__ = [
     "blocks",
     "context",
     "core_memory",
+    "files",
+    "folders",
     "groups",
     "memory_variables",
     "messages",
