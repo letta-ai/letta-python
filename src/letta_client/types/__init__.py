@@ -207,7 +207,9 @@ from .sandbox_type import SandboxType
 from .sleeptime_manager import SleeptimeManager
 from .sleeptime_manager_update import SleeptimeManagerUpdate
 from .source import Source
+from .source_create import SourceCreate
 from .source_stats import SourceStats
+from .source_update import SourceUpdate
 from .sse_server_config import SseServerConfig
 from .stdio_server_config import StdioServerConfig
 from .step import Step
@@ -469,7 +471,9 @@ __all__ = [
     "SleeptimeManager",
     "SleeptimeManagerUpdate",
     "Source",
+    "SourceCreate",
     "SourceStats",
+    "SourceUpdate",
     "SseServerConfig",
     "StdioServerConfig",
     "Step",

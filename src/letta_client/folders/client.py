@@ -217,19 +217,19 @@ class FoldersClient:
         folder_id : str
 
         name : typing.Optional[str]
-            The name of the folder.
+            The name of the source.
 
         description : typing.Optional[str]
-            The description of the folder.
+            The description of the source.
 
         instructions : typing.Optional[str]
-            Instructions for how to use the folder.
+            Instructions for how to use the source.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Metadata associated with the folder.
+            Metadata associated with the source.
 
         embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the folder.
+            The embedding configuration used by the source.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -262,9 +262,6 @@ class FoldersClient:
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -490,25 +487,25 @@ class FoldersClient:
         Parameters
         ----------
         name : str
-            The name of the folder.
+            The name of the source.
 
         description : typing.Optional[str]
-            The description of the folder.
+            The description of the source.
 
         instructions : typing.Optional[str]
-            Instructions for how to use the folder.
+            Instructions for how to use the source.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Metadata associated with the folder.
+            Metadata associated with the source.
 
         embedding : typing.Optional[str]
-            The handle for the embedding config used by the folder.
+            The handle for the embedding config used by the source.
 
         embedding_chunk_size : typing.Optional[int]
             The chunk size of the embedding.
 
         embedding_config : typing.Optional[EmbeddingConfig]
-            (Legacy) The embedding configuration used by the folder.
+            (Legacy) The embedding configuration used by the source.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -543,9 +540,6 @@ class FoldersClient:
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -852,19 +846,19 @@ class AsyncFoldersClient:
         folder_id : str
 
         name : typing.Optional[str]
-            The name of the folder.
+            The name of the source.
 
         description : typing.Optional[str]
-            The description of the folder.
+            The description of the source.
 
         instructions : typing.Optional[str]
-            Instructions for how to use the folder.
+            Instructions for how to use the source.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Metadata associated with the folder.
+            Metadata associated with the source.
 
         embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the folder.
+            The embedding configuration used by the source.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -905,9 +899,6 @@ class AsyncFoldersClient:
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -1159,25 +1150,25 @@ class AsyncFoldersClient:
         Parameters
         ----------
         name : str
-            The name of the folder.
+            The name of the source.
 
         description : typing.Optional[str]
-            The description of the folder.
+            The description of the source.
 
         instructions : typing.Optional[str]
-            Instructions for how to use the folder.
+            Instructions for how to use the source.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Metadata associated with the folder.
+            Metadata associated with the source.
 
         embedding : typing.Optional[str]
-            The handle for the embedding config used by the folder.
+            The handle for the embedding config used by the source.
 
         embedding_chunk_size : typing.Optional[int]
             The chunk size of the embedding.
 
         embedding_config : typing.Optional[EmbeddingConfig]
-            (Legacy) The embedding configuration used by the folder.
+            (Legacy) The embedding configuration used by the source.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1220,9 +1211,6 @@ class AsyncFoldersClient:
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

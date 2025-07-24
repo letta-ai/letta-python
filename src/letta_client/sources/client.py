@@ -264,9 +264,6 @@ class SourcesClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -544,9 +541,6 @@ class SourcesClient:
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,
@@ -980,9 +974,6 @@ class AsyncSourcesClient:
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
             },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
             omit=OMIT,
         )
@@ -1294,9 +1285,6 @@ class AsyncSourcesClient:
                 "embedding_config": convert_and_respect_annotation_metadata(
                     object_=embedding_config, annotation=EmbeddingConfig, direction="write"
                 ),
-            },
-            headers={
-                "content-type": "application/json",
             },
             request_options=request_options,
             omit=OMIT,

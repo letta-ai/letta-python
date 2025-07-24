@@ -2670,7 +2670,7 @@ client.folders.modify(
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` — The name of the folder.
+**name:** `typing.Optional[str]` — The name of the source.
     
 </dd>
 </dl>
@@ -2678,7 +2678,7 @@ client.folders.modify(
 <dl>
 <dd>
 
-**description:** `typing.Optional[str]` — The description of the folder.
+**description:** `typing.Optional[str]` — The description of the source.
     
 </dd>
 </dl>
@@ -2686,7 +2686,7 @@ client.folders.modify(
 <dl>
 <dd>
 
-**instructions:** `typing.Optional[str]` — Instructions for how to use the folder.
+**instructions:** `typing.Optional[str]` — Instructions for how to use the source.
     
 </dd>
 </dl>
@@ -2694,7 +2694,7 @@ client.folders.modify(
 <dl>
 <dd>
 
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata associated with the folder.
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata associated with the source.
     
 </dd>
 </dl>
@@ -2702,7 +2702,7 @@ client.folders.modify(
 <dl>
 <dd>
 
-**embedding_config:** `typing.Optional[EmbeddingConfig]` — The embedding configuration used by the folder.
+**embedding_config:** `typing.Optional[EmbeddingConfig]` — The embedding configuration used by the source.
     
 </dd>
 </dl>
@@ -2980,7 +2980,7 @@ client.folders.create(
 <dl>
 <dd>
 
-**name:** `str` — The name of the folder.
+**name:** `str` — The name of the source.
     
 </dd>
 </dl>
@@ -2988,7 +2988,7 @@ client.folders.create(
 <dl>
 <dd>
 
-**description:** `typing.Optional[str]` — The description of the folder.
+**description:** `typing.Optional[str]` — The description of the source.
     
 </dd>
 </dl>
@@ -2996,7 +2996,7 @@ client.folders.create(
 <dl>
 <dd>
 
-**instructions:** `typing.Optional[str]` — Instructions for how to use the folder.
+**instructions:** `typing.Optional[str]` — Instructions for how to use the source.
     
 </dd>
 </dl>
@@ -3004,7 +3004,7 @@ client.folders.create(
 <dl>
 <dd>
 
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata associated with the folder.
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata associated with the source.
     
 </dd>
 </dl>
@@ -3012,7 +3012,7 @@ client.folders.create(
 <dl>
 <dd>
 
-**embedding:** `typing.Optional[str]` — The handle for the embedding config used by the folder.
+**embedding:** `typing.Optional[str]` — The handle for the embedding config used by the source.
     
 </dd>
 </dl>
@@ -3028,7 +3028,7 @@ client.folders.create(
 <dl>
 <dd>
 
-**embedding_config:** `typing.Optional[EmbeddingConfig]` — (Legacy) The embedding configuration used by the folder.
+**embedding_config:** `typing.Optional[EmbeddingConfig]` — (Legacy) The embedding configuration used by the source.
     
 </dd>
 </dl>

@@ -43,7 +43,7 @@ class Folder(UncheckedBaseModel):
 
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The human-friendly ID of the Folder
+    The human-friendly ID of the Source
     """
 
     embedding_config: EmbeddingConfig = pydantic.Field()
