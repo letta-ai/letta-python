@@ -28,6 +28,11 @@ class Group(UncheckedBaseModel):
     
     """
 
+    project_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The associated project id.
+    """
+
     shared_block_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     

@@ -18,6 +18,11 @@ class FileBlock(UncheckedBaseModel):
     Character limit of the block.
     """
 
+    project_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The associated project id.
+    """
+
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of the block if it is a template.

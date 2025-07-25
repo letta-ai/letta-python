@@ -90,6 +90,7 @@ class BlocksClient:
         *,
         value: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
         preserve_on_migration: typing.Optional[bool] = OMIT,
@@ -113,6 +114,9 @@ class BlocksClient:
 
         limit : typing.Optional[int]
             Character limit of the block.
+
+        project_id : typing.Optional[str]
+            The associated project id.
 
         name : typing.Optional[str]
             Name of the block if it is a template.
@@ -162,6 +166,7 @@ class BlocksClient:
             json={
                 "value": value,
                 "limit": limit,
+                "project_id": project_id,
                 "name": name,
                 "is_template": is_template,
                 "preserve_on_migration": preserve_on_migration,
@@ -460,6 +465,7 @@ class AsyncBlocksClient:
         *,
         value: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
         preserve_on_migration: typing.Optional[bool] = OMIT,
@@ -483,6 +489,9 @@ class AsyncBlocksClient:
 
         limit : typing.Optional[int]
             Character limit of the block.
+
+        project_id : typing.Optional[str]
+            The associated project id.
 
         name : typing.Optional[str]
             Name of the block if it is a template.
@@ -540,6 +549,7 @@ class AsyncBlocksClient:
             json={
                 "value": value,
                 "limit": limit,
+                "project_id": project_id,
                 "name": name,
                 "is_template": is_template,
                 "preserve_on_migration": preserve_on_migration,

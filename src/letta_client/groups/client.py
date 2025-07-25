@@ -117,6 +117,7 @@ class GroupsClient:
         agent_ids: typing.Sequence[str],
         description: str,
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
@@ -133,6 +134,9 @@ class GroupsClient:
 
         manager_config : typing.Optional[GroupCreateManagerConfig]
 
+
+        project_id : typing.Optional[str]
+            The associated project id.
 
         shared_block_ids : typing.Optional[typing.Sequence[str]]
 
@@ -167,6 +171,7 @@ class GroupsClient:
                 "manager_config": convert_and_respect_annotation_metadata(
                     object_=manager_config, annotation=GroupCreateManagerConfig, direction="write"
                 ),
+                "project_id": project_id,
                 "shared_block_ids": shared_block_ids,
             },
             headers={
@@ -375,6 +380,7 @@ class GroupsClient:
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         description: typing.Optional[str] = OMIT,
         manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
@@ -393,6 +399,9 @@ class GroupsClient:
 
         manager_config : typing.Optional[GroupUpdateManagerConfig]
 
+
+        project_id : typing.Optional[str]
+            The associated project id.
 
         shared_block_ids : typing.Optional[typing.Sequence[str]]
 
@@ -426,6 +435,7 @@ class GroupsClient:
                 "manager_config": convert_and_respect_annotation_metadata(
                     object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
                 ),
+                "project_id": project_id,
                 "shared_block_ids": shared_block_ids,
             },
             headers={
@@ -562,6 +572,7 @@ class AsyncGroupsClient:
         agent_ids: typing.Sequence[str],
         description: str,
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
@@ -578,6 +589,9 @@ class AsyncGroupsClient:
 
         manager_config : typing.Optional[GroupCreateManagerConfig]
 
+
+        project_id : typing.Optional[str]
+            The associated project id.
 
         shared_block_ids : typing.Optional[typing.Sequence[str]]
 
@@ -620,6 +634,7 @@ class AsyncGroupsClient:
                 "manager_config": convert_and_respect_annotation_metadata(
                     object_=manager_config, annotation=GroupCreateManagerConfig, direction="write"
                 ),
+                "project_id": project_id,
                 "shared_block_ids": shared_block_ids,
             },
             headers={
@@ -852,6 +867,7 @@ class AsyncGroupsClient:
         agent_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         description: typing.Optional[str] = OMIT,
         manager_config: typing.Optional[GroupUpdateManagerConfig] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
@@ -870,6 +886,9 @@ class AsyncGroupsClient:
 
         manager_config : typing.Optional[GroupUpdateManagerConfig]
 
+
+        project_id : typing.Optional[str]
+            The associated project id.
 
         shared_block_ids : typing.Optional[typing.Sequence[str]]
 
@@ -911,6 +930,7 @@ class AsyncGroupsClient:
                 "manager_config": convert_and_respect_annotation_metadata(
                     object_=manager_config, annotation=GroupUpdateManagerConfig, direction="write"
                 ),
+                "project_id": project_id,
                 "shared_block_ids": shared_block_ids,
             },
             headers={

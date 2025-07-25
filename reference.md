@@ -4924,6 +4924,14 @@ client.groups.create(
 <dl>
 <dd>
 
+**project_id:** `typing.Optional[str]` — The associated project id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **shared_block_ids:** `typing.Optional[typing.Sequence[str]]` — 
     
 </dd>
@@ -5223,6 +5231,14 @@ client.groups.modify(
 <dd>
 
 **manager_config:** `typing.Optional[GroupUpdateManagerConfig]` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The associated project id.
     
 </dd>
 </dl>
@@ -6102,6 +6118,14 @@ client.blocks.list()
 <dl>
 <dd>
 
+**project_id:** `typing.Optional[str]` — Search blocks by project id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **limit:** `typing.Optional[int]` — Number of blocks to return
     
 </dd>
@@ -6177,6 +6201,14 @@ client.blocks.create(
 <dd>
 
 **limit:** `typing.Optional[int]` — Character limit of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The associated project id.
     
 </dd>
 </dl>
@@ -6473,6 +6505,14 @@ client.blocks.modify(
 <dd>
 
 **limit:** `typing.Optional[int]` — Character limit of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The associated project id.
     
 </dd>
 </dl>
@@ -10259,6 +10299,14 @@ client.agents.blocks.modify(
 <dd>
 
 **limit:** `typing.Optional[int]` — Character limit of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — The associated project id.
     
 </dd>
 </dl>
