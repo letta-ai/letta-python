@@ -334,6 +334,7 @@ from .templates import TemplatesListResponse, TemplatesListResponseTemplatesItem
 from .tools import (
     AddMcpServerRequest,
     AddMcpServerResponseItem,
+    ConnectMcpServerRequest,
     DeleteMcpServerResponseItem,
     ListMcpServersResponseValue,
     TestMcpServerRequest,
@@ -449,6 +450,7 @@ __all__ = [
     "ConditionalToolRuleSchema",
     "ConflictError",
     "ConflictErrorBody",
+    "ConnectMcpServerRequest",
     "ContextWindowOverview",
     "ContinueToolRule",
     "CoreMemoryBlockSchema",

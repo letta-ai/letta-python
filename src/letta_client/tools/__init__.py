@@ -3,6 +3,7 @@
 from .types import (
     AddMcpServerRequest,
     AddMcpServerResponseItem,
+    ConnectMcpServerRequest,
     DeleteMcpServerResponseItem,
     ListMcpServersResponseValue,
     TestMcpServerRequest,
@@ -13,6 +14,7 @@ from .types import (
 __all__ = [
     "AddMcpServerRequest",
     "AddMcpServerResponseItem",
+    "ConnectMcpServerRequest",
     "DeleteMcpServerResponseItem",
     "ListMcpServersResponseValue",
     "TestMcpServerRequest",
