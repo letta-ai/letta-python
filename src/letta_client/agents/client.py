@@ -1027,7 +1027,7 @@ class AgentsClient:
 
     def summarize_agent_conversation(
         self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> AgentState:
+    ) -> None:
         """
         Summarize an agent's conversation history to a target message length.
 
@@ -1046,8 +1046,7 @@ class AgentsClient:
 
         Returns
         -------
-        AgentState
-            Successful Response
+        None
 
         Examples
         --------
@@ -1072,13 +1071,7 @@ class AgentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentState,
-                    construct_type(
-                        type_=AgentState,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     typing.cast(
@@ -2216,7 +2209,7 @@ class AsyncAgentsClient:
 
     async def summarize_agent_conversation(
         self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> AgentState:
+    ) -> None:
         """
         Summarize an agent's conversation history to a target message length.
 
@@ -2235,8 +2228,7 @@ class AsyncAgentsClient:
 
         Returns
         -------
-        AgentState
-            Successful Response
+        None
 
         Examples
         --------
@@ -2269,13 +2261,7 @@ class AsyncAgentsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    AgentState,
-                    construct_type(
-                        type_=AgentState,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     typing.cast(
