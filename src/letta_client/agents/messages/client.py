@@ -146,6 +146,7 @@ class MessagesClient:
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        enable_thinking: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaResponse:
         """
@@ -173,6 +174,9 @@ class MessagesClient:
 
         include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
             Only return specified message types in the response. If `None` (default) returns all messages.
+
+        enable_thinking : typing.Optional[str]
+            If set to True, enables reasoning before responses or tool calls from the agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -216,6 +220,7 @@ class MessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "include_return_message_types": include_return_message_types,
+                "enable_thinking": enable_thinking,
             },
             request_options=request_options,
             omit=OMIT,
@@ -330,6 +335,7 @@ class MessagesClient:
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        enable_thinking: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[LettaStreamingResponse]:
@@ -359,6 +365,9 @@ class MessagesClient:
 
         include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
             Only return specified message types in the response. If `None` (default) returns all messages.
+
+        enable_thinking : typing.Optional[str]
+            If set to True, enables reasoning before responses or tool calls from the agent.
 
         stream_tokens : typing.Optional[bool]
             Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
@@ -407,6 +416,7 @@ class MessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "include_return_message_types": include_return_message_types,
+                "enable_thinking": enable_thinking,
                 "stream_tokens": stream_tokens,
             },
             request_options=request_options,
@@ -522,6 +532,7 @@ class MessagesClient:
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        enable_thinking: typing.Optional[str] = OMIT,
         callback_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Run:
@@ -553,6 +564,9 @@ class MessagesClient:
 
         include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
             Only return specified message types in the response. If `None` (default) returns all messages.
+
+        enable_thinking : typing.Optional[str]
+            If set to True, enables reasoning before responses or tool calls from the agent.
 
         callback_url : typing.Optional[str]
             Optional callback URL to POST to when the job completes
@@ -599,6 +613,7 @@ class MessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "include_return_message_types": include_return_message_types,
+                "enable_thinking": enable_thinking,
                 "callback_url": callback_url,
             },
             headers={
@@ -912,6 +927,7 @@ class AsyncMessagesClient:
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        enable_thinking: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LettaResponse:
         """
@@ -939,6 +955,9 @@ class AsyncMessagesClient:
 
         include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
             Only return specified message types in the response. If `None` (default) returns all messages.
+
+        enable_thinking : typing.Optional[str]
+            If set to True, enables reasoning before responses or tool calls from the agent.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -990,6 +1009,7 @@ class AsyncMessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "include_return_message_types": include_return_message_types,
+                "enable_thinking": enable_thinking,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1112,6 +1132,7 @@ class AsyncMessagesClient:
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        enable_thinking: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[LettaStreamingResponse]:
@@ -1141,6 +1162,9 @@ class AsyncMessagesClient:
 
         include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
             Only return specified message types in the response. If `None` (default) returns all messages.
+
+        enable_thinking : typing.Optional[str]
+            If set to True, enables reasoning before responses or tool calls from the agent.
 
         stream_tokens : typing.Optional[bool]
             Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
@@ -1197,6 +1221,7 @@ class AsyncMessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "include_return_message_types": include_return_message_types,
+                "enable_thinking": enable_thinking,
                 "stream_tokens": stream_tokens,
             },
             request_options=request_options,
@@ -1320,6 +1345,7 @@ class AsyncMessagesClient:
         assistant_message_tool_name: typing.Optional[str] = OMIT,
         assistant_message_tool_kwarg: typing.Optional[str] = OMIT,
         include_return_message_types: typing.Optional[typing.Sequence[MessageType]] = OMIT,
+        enable_thinking: typing.Optional[str] = OMIT,
         callback_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Run:
@@ -1351,6 +1377,9 @@ class AsyncMessagesClient:
 
         include_return_message_types : typing.Optional[typing.Sequence[MessageType]]
             Only return specified message types in the response. If `None` (default) returns all messages.
+
+        enable_thinking : typing.Optional[str]
+            If set to True, enables reasoning before responses or tool calls from the agent.
 
         callback_url : typing.Optional[str]
             Optional callback URL to POST to when the job completes
@@ -1405,6 +1434,7 @@ class AsyncMessagesClient:
                 "assistant_message_tool_name": assistant_message_tool_name,
                 "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                 "include_return_message_types": include_return_message_types,
+                "enable_thinking": enable_thinking,
                 "callback_url": callback_url,
             },
             headers={

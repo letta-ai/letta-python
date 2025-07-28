@@ -11332,6 +11332,14 @@ client.agents.messages.create(
 <dl>
 <dd>
 
+**enable_thinking:** `typing.Optional[str]` — If set to True, enables reasoning before responses or tool calls from the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -11556,6 +11564,14 @@ for chunk in response:
 <dl>
 <dd>
 
+**enable_thinking:** `typing.Optional[str]` — If set to True, enables reasoning before responses or tool calls from the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
     
 </dd>
@@ -11771,6 +11787,14 @@ client.agents.messages.create_async(
 <dd>
 
 **include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_thinking:** `typing.Optional[str]` — If set to True, enables reasoning before responses or tool calls from the agent.
     
 </dd>
 </dl>
@@ -13084,6 +13108,14 @@ client.groups.messages.create(
 <dl>
 <dd>
 
+**enable_thinking:** `typing.Optional[str]` — If set to True, enables reasoning before responses or tool calls from the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -13210,6 +13242,14 @@ for chunk in response:
 <dd>
 
 **include_return_message_types:** `typing.Optional[typing.Sequence[MessageType]]` — Only return specified message types in the response. If `None` (default) returns all messages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_thinking:** `typing.Optional[str]` — If set to True, enables reasoning before responses or tool calls from the agent.
     
 </dd>
 </dl>

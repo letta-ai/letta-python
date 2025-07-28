@@ -39,6 +39,11 @@ class LettaStreamingRequest(UncheckedBaseModel):
     Only return specified message types in the response. If `None` (default) returns all messages.
     """
 
+    enable_thinking: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    If set to True, enables reasoning before responses or tool calls from the agent.
+    """
+
     stream_tokens: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).

@@ -39,6 +39,11 @@ class LettaRequest(UncheckedBaseModel):
     Only return specified message types in the response. If `None` (default) returns all messages.
     """
 
+    enable_thinking: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    If set to True, enables reasoning before responses or tool calls from the agent.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

@@ -39,6 +39,11 @@ class LettaBatchRequest(UncheckedBaseModel):
     Only return specified message types in the response. If `None` (default) returns all messages.
     """
 
+    enable_thinking: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    If set to True, enables reasoning before responses or tool calls from the agent.
+    """
+
     agent_id: str = pydantic.Field()
     """
     The ID of the agent to send this batch request for
