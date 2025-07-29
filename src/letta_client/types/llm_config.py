@@ -6,6 +6,7 @@ from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 import typing
 from .provider_category import ProviderCategory
 from .llm_config_reasoning_effort import LlmConfigReasoningEffort
+from .llm_config_compatibility_type import LlmConfigCompatibilityType
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -97,6 +98,11 @@ class LlmConfig(UncheckedBaseModel):
     frequency_penalty: typing.Optional[float] = pydantic.Field(default=None)
     """
     Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. From OpenAI: Number between -2.0 and 2.0.
+    """
+
+    compatibility_type: typing.Optional[LlmConfigCompatibilityType] = pydantic.Field(default=None)
+    """
+    The framework compatibility type for the model.
     """
 
     if IS_PYDANTIC_V2:

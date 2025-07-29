@@ -142,6 +142,7 @@ from .letta_streaming_request import LettaStreamingRequest
 from .letta_usage_statistics import LettaUsageStatistics
 from .letta_user_message_content_union import LettaUserMessageContentUnion
 from .llm_config import LlmConfig
+from .llm_config_compatibility_type import LlmConfigCompatibilityType
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .llm_config_reasoning_effort import LlmConfigReasoningEffort
 from .local_sandbox_config import LocalSandboxConfig
@@ -410,6 +411,7 @@ __all__ = [
     "LettaUsageStatistics",
     "LettaUserMessageContentUnion",
     "LlmConfig",
+    "LlmConfigCompatibilityType",
     "LlmConfigModelEndpointType",
     "LlmConfigReasoningEffort",
     "LocalSandboxConfig",
