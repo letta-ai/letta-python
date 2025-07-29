@@ -33,6 +33,14 @@ class BlocksClient:
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         project_id: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        label_search: typing.Optional[str] = None,
+        description_search: typing.Optional[str] = None,
+        value_search: typing.Optional[str] = None,
+        connected_to_agents_count_gt: typing.Optional[int] = None,
+        connected_to_agents_count_lt: typing.Optional[int] = None,
+        connected_to_agents_count_eq: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Block]:
         """
@@ -58,6 +66,30 @@ class BlocksClient:
 
         limit : typing.Optional[int]
             Number of blocks to return
+
+        before : typing.Optional[str]
+            Cursor for pagination. If provided, returns blocks before this cursor.
+
+        after : typing.Optional[str]
+            Cursor for pagination. If provided, returns blocks after this cursor.
+
+        label_search : typing.Optional[str]
+            Search blocks by label. If provided, returns blocks that match this label. This is a full-text search on labels.
+
+        description_search : typing.Optional[str]
+            Search blocks by description. If provided, returns blocks that match this description. This is a full-text search on block descriptions.
+
+        value_search : typing.Optional[str]
+            Search blocks by value. If provided, returns blocks that match this value.
+
+        connected_to_agents_count_gt : typing.Optional[int]
+            Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents.
+
+        connected_to_agents_count_lt : typing.Optional[int]
+            Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents.
+
+        connected_to_agents_count_eq : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -88,6 +120,14 @@ class BlocksClient:
                 "identifier_keys": identifier_keys,
                 "project_id": project_id,
                 "limit": limit,
+                "before": before,
+                "after": after,
+                "label_search": label_search,
+                "description_search": description_search,
+                "value_search": value_search,
+                "connected_to_agents_count_gt": connected_to_agents_count_gt,
+                "connected_to_agents_count_lt": connected_to_agents_count_lt,
+                "connected_to_agents_count_eq": connected_to_agents_count_eq,
             },
             request_options=request_options,
         )
@@ -519,6 +559,14 @@ class AsyncBlocksClient:
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         project_id: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        label_search: typing.Optional[str] = None,
+        description_search: typing.Optional[str] = None,
+        value_search: typing.Optional[str] = None,
+        connected_to_agents_count_gt: typing.Optional[int] = None,
+        connected_to_agents_count_lt: typing.Optional[int] = None,
+        connected_to_agents_count_eq: typing.Optional[typing.Union[int, typing.Sequence[int]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Block]:
         """
@@ -544,6 +592,30 @@ class AsyncBlocksClient:
 
         limit : typing.Optional[int]
             Number of blocks to return
+
+        before : typing.Optional[str]
+            Cursor for pagination. If provided, returns blocks before this cursor.
+
+        after : typing.Optional[str]
+            Cursor for pagination. If provided, returns blocks after this cursor.
+
+        label_search : typing.Optional[str]
+            Search blocks by label. If provided, returns blocks that match this label. This is a full-text search on labels.
+
+        description_search : typing.Optional[str]
+            Search blocks by description. If provided, returns blocks that match this description. This is a full-text search on block descriptions.
+
+        value_search : typing.Optional[str]
+            Search blocks by value. If provided, returns blocks that match this value.
+
+        connected_to_agents_count_gt : typing.Optional[int]
+            Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents.
+
+        connected_to_agents_count_lt : typing.Optional[int]
+            Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents.
+
+        connected_to_agents_count_eq : typing.Optional[typing.Union[int, typing.Sequence[int]]]
+            Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -582,6 +654,14 @@ class AsyncBlocksClient:
                 "identifier_keys": identifier_keys,
                 "project_id": project_id,
                 "limit": limit,
+                "before": before,
+                "after": after,
+                "label_search": label_search,
+                "description_search": description_search,
+                "value_search": value_search,
+                "connected_to_agents_count_gt": connected_to_agents_count_gt,
+                "connected_to_agents_count_lt": connected_to_agents_count_lt,
+                "connected_to_agents_count_eq": connected_to_agents_count_eq,
             },
             request_options=request_options,
         )

@@ -6033,6 +6033,70 @@ client.blocks.list()
 <dl>
 <dd>
 
+**before:** `typing.Optional[str]` — Cursor for pagination. If provided, returns blocks before this cursor.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor for pagination. If provided, returns blocks after this cursor.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**label_search:** `typing.Optional[str]` — Search blocks by label. If provided, returns blocks that match this label. This is a full-text search on labels.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description_search:** `typing.Optional[str]` — Search blocks by description. If provided, returns blocks that match this description. This is a full-text search on block descriptions.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**value_search:** `typing.Optional[str]` — Search blocks by value. If provided, returns blocks that match this value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connected_to_agents_count_gt:** `typing.Optional[int]` — Filter blocks by the number of connected agents. If provided, returns blocks that have more than this number of connected agents.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connected_to_agents_count_lt:** `typing.Optional[int]` — Filter blocks by the number of connected agents. If provided, returns blocks that have less than this number of connected agents.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**connected_to_agents_count_eq:** `typing.Optional[typing.Union[int, typing.Sequence[int]]]` — Filter blocks by the exact number of connected agents. If provided, returns blocks that have exactly this number of connected agents.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
