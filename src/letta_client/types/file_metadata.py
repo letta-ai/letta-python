@@ -93,11 +93,6 @@ class FileMetadata(UncheckedBaseModel):
     The update date of the file.
     """
 
-    is_deleted: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether this file is deleted or not.
-    """
-
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
