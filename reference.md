@@ -1544,7 +1544,7 @@ client.tools.update_mcp_server(
 <dd>
 
 Test connection to an MCP server without adding it.
-Returns the list of available tools if successful, or OAuth information if OAuth is required.
+Returns the list of available tools if successful.
 </dd>
 </dl>
 </dd>
@@ -1641,13 +1641,15 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.tools.connect_mcp_server(
+response = client.tools.connect_mcp_server(
     request=StdioServerConfig(
         server_name="server_name",
         command="command",
         args=["args"],
     ),
 )
+for chunk in response:
+    yield chunk
 
 ```
 </dd>
@@ -1664,109 +1666,6 @@ client.tools.connect_mcp_server(
 <dd>
 
 **request:** `ConnectMcpServerRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">mcp_oauth_callback</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Handle OAuth callback for MCP server authentication.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.tools.mcp_oauth_callback(
-    session_id="session_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**session_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**code:** `typing.Optional[str]` — OAuth authorization code
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**state:** `typing.Optional[str]` — OAuth state parameter
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**error:** `typing.Optional[str]` — OAuth error
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**error_description:** `typing.Optional[str]` — OAuth error description
     
 </dd>
 </dl>

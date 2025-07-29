@@ -3,8 +3,10 @@
 from .add_mcp_server_request import AddMcpServerRequest
 from .add_mcp_server_response_item import AddMcpServerResponseItem
 from .connect_mcp_server_request import ConnectMcpServerRequest
+from .connect_mcp_server_response_event import ConnectMcpServerResponseEvent
 from .delete_mcp_server_response_item import DeleteMcpServerResponseItem
 from .list_mcp_servers_response_value import ListMcpServersResponseValue
+from .streaming_response import StreamingResponse
 from .test_mcp_server_request import TestMcpServerRequest
 from .update_mcp_server_request import UpdateMcpServerRequest
 from .update_mcp_server_response import UpdateMcpServerResponse
@@ -13,8 +15,10 @@ __all__ = [
     "AddMcpServerRequest",
     "AddMcpServerResponseItem",
     "ConnectMcpServerRequest",
+    "ConnectMcpServerResponseEvent",
     "DeleteMcpServerResponseItem",
     "ListMcpServersResponseValue",
+    "StreamingResponse",
     "TestMcpServerRequest",
     "UpdateMcpServerRequest",
     "UpdateMcpServerResponse",

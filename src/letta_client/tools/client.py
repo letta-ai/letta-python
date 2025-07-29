@@ -24,6 +24,9 @@ from .types.update_mcp_server_request import UpdateMcpServerRequest
 from .types.update_mcp_server_response import UpdateMcpServerResponse
 from .types.test_mcp_server_request import TestMcpServerRequest
 from .types.connect_mcp_server_request import ConnectMcpServerRequest
+from .types.streaming_response import StreamingResponse
+import httpx_sse
+import json
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -1324,7 +1327,7 @@ class ToolsClient:
     ) -> typing.Optional[typing.Any]:
         """
         Test connection to an MCP server without adding it.
-        Returns the list of available tools if successful, or OAuth information if OAuth is required.
+        Returns the list of available tools if successful.
 
         Parameters
         ----------
@@ -1389,7 +1392,7 @@ class ToolsClient:
 
     def connect_mcp_server(
         self, *, request: ConnectMcpServerRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.Iterator[StreamingResponse]:
         """
         Connect to an MCP server with support for OAuth via SSE.
         Returns a stream of events handling authorization state and exchange if OAuth is required.
@@ -1401,9 +1404,9 @@ class ToolsClient:
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
-        Returns
-        -------
-        typing.Optional[typing.Any]
+        Yields
+        ------
+        typing.Iterator[StreamingResponse]
             Successful response
 
         Examples
@@ -1414,15 +1417,17 @@ class ToolsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.tools.connect_mcp_server(
+        response = client.tools.connect_mcp_server(
             request=StdioServerConfig(
                 server_name="server_name",
                 command="command",
                 args=["args"],
             ),
         )
+        for chunk in response:
+            yield chunk
         """
-        _response = self._client_wrapper.httpx_client.request(
+        with self._client_wrapper.httpx_client.stream(
             "v1/tools/mcp/servers/connect",
             method="POST",
             json=convert_and_respect_annotation_metadata(
@@ -1430,107 +1435,37 @@ class ToolsClient:
             ),
             request_options=request_options,
             omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.Optional[typing.Any],
-                    construct_type(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
+        ) as _response:
+            try:
+                if 200 <= _response.status_code < 300:
+                    _event_source = httpx_sse.EventSource(_response)
+                    for _sse in _event_source.iter_sse():
+                        try:
+                            yield typing.cast(
+                                StreamingResponse,
+                                construct_type(
+                                    type_=StreamingResponse,  # type: ignore
+                                    object_=json.loads(_sse.data),
+                                ),
+                            )
+                        except:
+                            pass
+                    return
+                _response.read()
+                if _response.status_code == 422:
+                    raise UnprocessableEntityError(
+                        typing.cast(
+                            HttpValidationError,
+                            construct_type(
+                                type_=HttpValidationError,  # type: ignore
+                                object_=_response.json(),
+                            ),
+                        )
                     )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def mcp_oauth_callback(
-        self,
-        session_id: str,
-        *,
-        code: typing.Optional[str] = None,
-        state: typing.Optional[str] = None,
-        error: typing.Optional[str] = None,
-        error_description: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
-        """
-        Handle OAuth callback for MCP server authentication.
-
-        Parameters
-        ----------
-        session_id : str
-
-        code : typing.Optional[str]
-            OAuth authorization code
-
-        state : typing.Optional[str]
-            OAuth state parameter
-
-        error : typing.Optional[str]
-            OAuth error
-
-        error_description : typing.Optional[str]
-            OAuth error description
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.tools.mcp_oauth_callback(
-            session_id="session_id",
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/tools/mcp/oauth/callback/{jsonable_encoder(session_id)}",
-            method="GET",
-            params={
-                "code": code,
-                "state": state,
-                "error": error,
-                "error_description": error_description,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+                _response_json = _response.json()
+            except JSONDecodeError:
+                raise ApiError(status_code=_response.status_code, body=_response.text)
+            raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
 class AsyncToolsClient:
@@ -2971,7 +2906,7 @@ class AsyncToolsClient:
     ) -> typing.Optional[typing.Any]:
         """
         Test connection to an MCP server without adding it.
-        Returns the list of available tools if successful, or OAuth information if OAuth is required.
+        Returns the list of available tools if successful.
 
         Parameters
         ----------
@@ -3044,7 +2979,7 @@ class AsyncToolsClient:
 
     async def connect_mcp_server(
         self, *, request: ConnectMcpServerRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.Optional[typing.Any]:
+    ) -> typing.AsyncIterator[StreamingResponse]:
         """
         Connect to an MCP server with support for OAuth via SSE.
         Returns a stream of events handling authorization state and exchange if OAuth is required.
@@ -3056,9 +2991,9 @@ class AsyncToolsClient:
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
-        Returns
-        -------
-        typing.Optional[typing.Any]
+        Yields
+        ------
+        typing.AsyncIterator[StreamingResponse]
             Successful response
 
         Examples
@@ -3074,18 +3009,20 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.connect_mcp_server(
+            response = await client.tools.connect_mcp_server(
                 request=StdioServerConfig(
                     server_name="server_name",
                     command="command",
                     args=["args"],
                 ),
             )
+            async for chunk in response:
+                yield chunk
 
 
         asyncio.run(main())
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        async with self._client_wrapper.httpx_client.stream(
             "v1/tools/mcp/servers/connect",
             method="POST",
             json=convert_and_respect_annotation_metadata(
@@ -3093,112 +3030,34 @@ class AsyncToolsClient:
             ),
             request_options=request_options,
             omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    typing.Optional[typing.Any],
-                    construct_type(
-                        type_=typing.Optional[typing.Any],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
+        ) as _response:
+            try:
+                if 200 <= _response.status_code < 300:
+                    _event_source = httpx_sse.EventSource(_response)
+                    async for _sse in _event_source.aiter_sse():
+                        try:
+                            yield typing.cast(
+                                StreamingResponse,
+                                construct_type(
+                                    type_=StreamingResponse,  # type: ignore
+                                    object_=json.loads(_sse.data),
+                                ),
+                            )
+                        except:
+                            pass
+                    return
+                await _response.aread()
+                if _response.status_code == 422:
+                    raise UnprocessableEntityError(
+                        typing.cast(
+                            HttpValidationError,
+                            construct_type(
+                                type_=HttpValidationError,  # type: ignore
+                                object_=_response.json(),
+                            ),
+                        )
                     )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def mcp_oauth_callback(
-        self,
-        session_id: str,
-        *,
-        code: typing.Optional[str] = None,
-        state: typing.Optional[str] = None,
-        error: typing.Optional[str] = None,
-        error_description: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> None:
-        """
-        Handle OAuth callback for MCP server authentication.
-
-        Parameters
-        ----------
-        session_id : str
-
-        code : typing.Optional[str]
-            OAuth authorization code
-
-        state : typing.Optional[str]
-            OAuth state parameter
-
-        error : typing.Optional[str]
-            OAuth error
-
-        error_description : typing.Optional[str]
-            OAuth error description
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.tools.mcp_oauth_callback(
-                session_id="session_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/tools/mcp/oauth/callback/{jsonable_encoder(session_id)}",
-            method="GET",
-            params={
-                "code": code,
-                "state": state,
-                "error": error,
-                "error_description": error_description,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
+                _response_json = _response.json()
+            except JSONDecodeError:
+                raise ApiError(status_code=_response.status_code, body=_response.text)
+            raise ApiError(status_code=_response.status_code, body=_response_json)

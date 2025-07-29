@@ -75,24 +75,18 @@ except ApiError as e:
 The SDK supports streaming responses, as well, the response will be a generator that you can loop over.
 
 ```python
-from letta_client import Letta, MessageCreate, TextContent
+from letta_client import Letta, StdioServerConfig
 
 client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-response = client.agents.messages.create_stream(
-    agent_id="agent_id",
-    messages=[
-        MessageCreate(
-            role="user",
-            content=[
-                TextContent(
-                    text="text",
-                )
-            ],
-        )
-    ],
+response = client.tools.connect_mcp_server(
+    request=StdioServerConfig(
+        server_name="server_name",
+        command="command",
+        args=["args"],
+    ),
 )
 for chunk in response:
     yield chunk
