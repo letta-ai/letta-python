@@ -134,6 +134,7 @@ from .letta_batch_request import LettaBatchRequest
 from .letta_image import LettaImage
 from .letta_message_content_union import LettaMessageContentUnion
 from .letta_message_union import LettaMessageUnion
+from .letta_ping import LettaPing
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
 from .letta_response import LettaResponse
@@ -403,6 +404,7 @@ __all__ = [
     "LettaImage",
     "LettaMessageContentUnion",
     "LettaMessageUnion",
+    "LettaPing",
     "LettaRequest",
     "LettaRequestConfig",
     "LettaResponse",
