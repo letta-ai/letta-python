@@ -3,5 +3,6 @@
 import typing
 from .local_sandbox_config import LocalSandboxConfig
 from .e_2_b_sandbox_config import E2BSandboxConfig
+from .modal_sandbox_config import ModalSandboxConfig
 
-SandboxConfigUpdateConfig = typing.Union[LocalSandboxConfig, E2BSandboxConfig]
+SandboxConfigUpdateConfig = typing.Union[LocalSandboxConfig, E2BSandboxConfig, ModalSandboxConfig]

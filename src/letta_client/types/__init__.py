@@ -161,6 +161,7 @@ from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
 from .message_schema import MessageSchema
 from .message_type import MessageType
+from .modal_sandbox_config import ModalSandboxConfig
 from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
 from .omitted_reasoning_content import OmittedReasoningContent
@@ -431,6 +432,7 @@ __all__ = [
     "MessageRole",
     "MessageSchema",
     "MessageType",
+    "ModalSandboxConfig",
     "NotFoundErrorBody",
     "NotFoundErrorBodyMessage",
     "OmittedReasoningContent",
