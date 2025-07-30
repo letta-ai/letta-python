@@ -1648,7 +1648,7 @@ response = client.tools.connect_mcp_server(
         args=["args"],
     ),
 )
-for chunk in response:
+for chunk in response.data:
     yield chunk
 
 ```
@@ -11454,7 +11454,7 @@ response = client.agents.messages.create_stream(
         )
     ],
 )
-for chunk in response:
+for chunk in response.data:
     yield chunk
 
 ```
@@ -11536,6 +11536,14 @@ for chunk in response:
 <dd>
 
 **stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_pings:** `typing.Optional[bool]` — Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
     
 </dd>
 </dl>
@@ -13139,7 +13147,7 @@ response = client.groups.messages.create_stream(
         )
     ],
 )
-for chunk in response:
+for chunk in response.data:
     yield chunk
 
 ```
@@ -13221,6 +13229,14 @@ for chunk in response:
 <dd>
 
 **stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_pings:** `typing.Optional[bool]` — Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
     
 </dd>
 </dl>

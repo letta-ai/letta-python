@@ -88,11 +88,31 @@ response = client.tools.connect_mcp_server(
         args=["args"],
     ),
 )
-for chunk in response:
+for chunk in response.data:
     yield chunk
 ```
 
 ## Advanced
+
+### Access Raw Response Data
+
+The SDK provides access to raw response data, including headers, through the `.with_raw_response` property.
+The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    ...,
+)
+response = client.tools.with_raw_response.create(...)
+print(response.headers)  # access the response headers
+print(response.data)  # access the underlying object
+with client.tools.with_raw_response.connect_mcp_server(...) as response:
+    print(response.headers)  # access the response headers
+    for chunk in response.data:
+        print(chunk)  # access the underlying object(s)
+```
 
 ### Retries
 
@@ -138,6 +158,7 @@ client.tools.create(..., request_options={
 
 You can override the `httpx` client to customize it for your use-case. Some common use-cases include support for proxies
 and transports.
+
 ```python
 import httpx
 from letta_client import Letta
