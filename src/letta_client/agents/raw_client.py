@@ -209,6 +209,7 @@ class RawAgentsClient:
         timezone: typing.Optional[str] = OMIT,
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AgentState]:
         """
@@ -339,6 +340,9 @@ class RawAgentsClient:
         per_file_view_window_char_limit : typing.Optional[int]
             The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
 
+        hidden : typing.Optional[bool]
+            If set to True, the agent will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -404,6 +408,7 @@ class RawAgentsClient:
                 "timezone": timezone,
                 "max_files_open": max_files_open,
                 "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                "hidden": hidden,
             },
             headers={
                 "content-type": "application/json",
@@ -753,6 +758,7 @@ class RawAgentsClient:
         timezone: typing.Optional[str] = OMIT,
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AgentState]:
         """
@@ -843,6 +849,9 @@ class RawAgentsClient:
         per_file_view_window_char_limit : typing.Optional[int]
             The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
 
+        hidden : typing.Optional[bool]
+            If set to True, the agent will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -890,6 +899,7 @@ class RawAgentsClient:
                 "timezone": timezone,
                 "max_files_open": max_files_open,
                 "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                "hidden": hidden,
             },
             headers={
                 "content-type": "application/json",
@@ -1227,6 +1237,7 @@ class AsyncRawAgentsClient:
         timezone: typing.Optional[str] = OMIT,
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AgentState]:
         """
@@ -1357,6 +1368,9 @@ class AsyncRawAgentsClient:
         per_file_view_window_char_limit : typing.Optional[int]
             The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
 
+        hidden : typing.Optional[bool]
+            If set to True, the agent will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1422,6 +1436,7 @@ class AsyncRawAgentsClient:
                 "timezone": timezone,
                 "max_files_open": max_files_open,
                 "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                "hidden": hidden,
             },
             headers={
                 "content-type": "application/json",
@@ -1771,6 +1786,7 @@ class AsyncRawAgentsClient:
         timezone: typing.Optional[str] = OMIT,
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AgentState]:
         """
@@ -1861,6 +1877,9 @@ class AsyncRawAgentsClient:
         per_file_view_window_char_limit : typing.Optional[int]
             The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
 
+        hidden : typing.Optional[bool]
+            If set to True, the agent will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1908,6 +1927,7 @@ class AsyncRawAgentsClient:
                 "timezone": timezone,
                 "max_files_open": max_files_open,
                 "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                "hidden": hidden,
             },
             headers={
                 "content-type": "application/json",

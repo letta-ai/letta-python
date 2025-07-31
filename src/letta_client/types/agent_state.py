@@ -196,6 +196,11 @@ class AgentState(UncheckedBaseModel):
     The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
     """
 
+    hidden: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, the agent will be hidden.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

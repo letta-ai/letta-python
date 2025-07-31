@@ -230,6 +230,7 @@ class AgentsClient:
         timezone: typing.Optional[str] = OMIT,
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -360,6 +361,9 @@ class AgentsClient:
         per_file_view_window_char_limit : typing.Optional[int]
             The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
 
+        hidden : typing.Optional[bool]
+            If set to True, the agent will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -420,6 +424,7 @@ class AgentsClient:
             timezone=timezone,
             max_files_open=max_files_open,
             per_file_view_window_char_limit=per_file_view_window_char_limit,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data
@@ -646,6 +651,7 @@ class AgentsClient:
         timezone: typing.Optional[str] = OMIT,
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -736,6 +742,9 @@ class AgentsClient:
         per_file_view_window_char_limit : typing.Optional[int]
             The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
 
+        hidden : typing.Optional[bool]
+            If set to True, the agent will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -785,6 +794,7 @@ class AgentsClient:
             timezone=timezone,
             max_files_open=max_files_open,
             per_file_view_window_char_limit=per_file_view_window_char_limit,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data
@@ -1095,6 +1105,7 @@ class AsyncAgentsClient:
         timezone: typing.Optional[str] = OMIT,
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1225,6 +1236,9 @@ class AsyncAgentsClient:
         per_file_view_window_char_limit : typing.Optional[int]
             The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
 
+        hidden : typing.Optional[bool]
+            If set to True, the agent will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1293,6 +1307,7 @@ class AsyncAgentsClient:
             timezone=timezone,
             max_files_open=max_files_open,
             per_file_view_window_char_limit=per_file_view_window_char_limit,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data
@@ -1559,6 +1574,7 @@ class AsyncAgentsClient:
         timezone: typing.Optional[str] = OMIT,
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1649,6 +1665,9 @@ class AsyncAgentsClient:
         per_file_view_window_char_limit : typing.Optional[int]
             The per-file view window character limit for this agent. Setting this too high may exceed the context window, which will break the agent.
 
+        hidden : typing.Optional[bool]
+            If set to True, the agent will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1706,6 +1725,7 @@ class AsyncAgentsClient:
             timezone=timezone,
             max_files_open=max_files_open,
             per_file_view_window_char_limit=per_file_view_window_char_limit,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data
