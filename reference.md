@@ -3306,7 +3306,7 @@ client.agents.list()
 <dl>
 <dd>
 
-**project_id:** `typing.Optional[str]` — Search agents by project ID
+**project_id:** `typing.Optional[str]` — Search agents by project ID - this will default to your default project on cloud
     
 </dd>
 </dl>
