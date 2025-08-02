@@ -226,7 +226,7 @@ class RawPassagesClient:
         created_at: typing.Optional[dt.datetime] = OMIT,
         updated_at: typing.Optional[dt.datetime] = OMIT,
         is_deleted: typing.Optional[bool] = OMIT,
-        passage_update_agent_id: typing.Optional[str] = OMIT,
+        archive_id: typing.Optional[str] = OMIT,
         source_id: typing.Optional[str] = OMIT,
         file_id: typing.Optional[str] = OMIT,
         file_name: typing.Optional[str] = OMIT,
@@ -263,8 +263,8 @@ class RawPassagesClient:
         is_deleted : typing.Optional[bool]
             Whether this passage is deleted or not.
 
-        passage_update_agent_id : typing.Optional[str]
-            The unique identifier of the agent associated with the passage.
+        archive_id : typing.Optional[str]
+            The unique identifier of the archive containing this passage.
 
         source_id : typing.Optional[str]
             The data source of the passage.
@@ -304,7 +304,7 @@ class RawPassagesClient:
                 "created_at": created_at,
                 "updated_at": updated_at,
                 "is_deleted": is_deleted,
-                "agent_id": passage_update_agent_id,
+                "archive_id": archive_id,
                 "source_id": source_id,
                 "file_id": file_id,
                 "file_name": file_name,
@@ -555,7 +555,7 @@ class AsyncRawPassagesClient:
         created_at: typing.Optional[dt.datetime] = OMIT,
         updated_at: typing.Optional[dt.datetime] = OMIT,
         is_deleted: typing.Optional[bool] = OMIT,
-        passage_update_agent_id: typing.Optional[str] = OMIT,
+        archive_id: typing.Optional[str] = OMIT,
         source_id: typing.Optional[str] = OMIT,
         file_id: typing.Optional[str] = OMIT,
         file_name: typing.Optional[str] = OMIT,
@@ -592,8 +592,8 @@ class AsyncRawPassagesClient:
         is_deleted : typing.Optional[bool]
             Whether this passage is deleted or not.
 
-        passage_update_agent_id : typing.Optional[str]
-            The unique identifier of the agent associated with the passage.
+        archive_id : typing.Optional[str]
+            The unique identifier of the archive containing this passage.
 
         source_id : typing.Optional[str]
             The data source of the passage.
@@ -633,7 +633,7 @@ class AsyncRawPassagesClient:
                 "created_at": created_at,
                 "updated_at": updated_at,
                 "is_deleted": is_deleted,
-                "agent_id": passage_update_agent_id,
+                "archive_id": archive_id,
                 "source_id": source_id,
                 "file_id": file_id,
                 "file_name": file_name,

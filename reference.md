@@ -10981,7 +10981,7 @@ client.agents.passages.modify(
 <dl>
 <dd>
 
-**passage_update_agent_id:** `typing.Optional[str]` — The unique identifier of the agent associated with the passage.
+**archive_id:** `typing.Optional[str]` — The unique identifier of the archive containing this passage.
     
 </dd>
 </dl>
