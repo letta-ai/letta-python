@@ -164,8 +164,10 @@ from .message_role import MessageRole
 from .message_schema import MessageSchema
 from .message_type import MessageType
 from .modal_sandbox_config import ModalSandboxConfig
+from .modal_sandbox_config_language import ModalSandboxConfigLanguage
 from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
+from .npm_requirement import NpmRequirement
 from .omitted_reasoning_content import OmittedReasoningContent
 from .openai_types_chat_chat_completion_message_tool_call_param_function import (
     OpenaiTypesChatChatCompletionMessageToolCallParamFunction,
@@ -435,8 +437,10 @@ __all__ = [
     "MessageSchema",
     "MessageType",
     "ModalSandboxConfig",
+    "ModalSandboxConfigLanguage",
     "NotFoundErrorBody",
     "NotFoundErrorBodyMessage",
+    "NpmRequirement",
     "OmittedReasoningContent",
     "OpenaiTypesChatChatCompletionMessageToolCallParamFunction",
     "OpenaiTypesChatChatCompletionNamedToolChoiceParamFunction",

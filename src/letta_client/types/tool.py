@@ -7,6 +7,7 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .npm_requirement import NpmRequirement
 from .pip_requirement import PipRequirement
 from .tool_type import ToolType
 
@@ -76,6 +77,11 @@ class Tool(UncheckedBaseModel):
     pip_requirements: typing.Optional[typing.List[PipRequirement]] = pydantic.Field(default=None)
     """
     Optional list of pip packages required by this tool.
+    """
+
+    npm_requirements: typing.Optional[typing.List[NpmRequirement]] = pydantic.Field(default=None)
+    """
+    Optional list of npm packages required by this tool.
     """
 
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)

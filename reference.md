@@ -265,6 +265,14 @@ client.tools.modify(
 <dl>
 <dd>
 
+**npm_requirements:** `typing.Optional[typing.Sequence[NpmRequirement]]` — Optional list of npm packages required by this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -546,6 +554,14 @@ client.tools.create(
 <dl>
 <dd>
 
+**npm_requirements:** `typing.Optional[typing.Sequence[NpmRequirement]]` — Optional list of npm packages required by this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -666,6 +682,14 @@ client.tools.upsert(
 <dd>
 
 **pip_requirements:** `typing.Optional[typing.Sequence[PipRequirement]]` — Optional list of pip packages required by this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**npm_requirements:** `typing.Optional[typing.Sequence[NpmRequirement]]` — Optional list of npm packages required by this tool.
     
 </dd>
 </dl>
@@ -855,6 +879,14 @@ client.tools.run_tool_from_source(
 <dd>
 
 **pip_requirements:** `typing.Optional[typing.Sequence[PipRequirement]]` — Optional list of pip packages required by this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**npm_requirements:** `typing.Optional[typing.Sequence[NpmRequirement]]` — Optional list of npm packages required by this tool.
     
 </dd>
 </dl>

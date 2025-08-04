@@ -7,6 +7,7 @@ from ..core.request_options import RequestOptions
 from ..types.action_model import ActionModel
 from ..types.app_model import AppModel
 from ..types.mcp_tool import McpTool
+from ..types.npm_requirement import NpmRequirement
 from ..types.pip_requirement import PipRequirement
 from ..types.tool import Tool
 from ..types.tool_return_message import ToolReturnMessage
@@ -116,6 +117,7 @@ class ToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -149,6 +151,9 @@ class ToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -179,6 +184,7 @@ class ToolsClient:
             args_json_schema=args_json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
             request_options=request_options,
         )
         return _response.data
@@ -269,6 +275,7 @@ class ToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -300,6 +307,9 @@ class ToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -329,6 +339,7 @@ class ToolsClient:
             args_json_schema=args_json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
             request_options=request_options,
         )
         return _response.data
@@ -344,6 +355,7 @@ class ToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -375,6 +387,9 @@ class ToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -404,6 +419,7 @@ class ToolsClient:
             args_json_schema=args_json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
             request_options=request_options,
         )
         return _response.data
@@ -446,6 +462,7 @@ class ToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ToolReturnMessage:
         """
@@ -477,6 +494,9 @@ class ToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -507,6 +527,7 @@ class ToolsClient:
             args_json_schema=args_json_schema,
             json_schema=json_schema,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
             request_options=request_options,
         )
         return _response.data
@@ -1006,6 +1027,7 @@ class AsyncToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1038,6 +1060,9 @@ class AsyncToolsClient:
 
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
+
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1077,6 +1102,7 @@ class AsyncToolsClient:
             args_json_schema=args_json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
             request_options=request_options,
         )
         return _response.data
@@ -1183,6 +1209,7 @@ class AsyncToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1213,6 +1240,9 @@ class AsyncToolsClient:
 
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
+
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1251,6 +1281,7 @@ class AsyncToolsClient:
             args_json_schema=args_json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
             request_options=request_options,
         )
         return _response.data
@@ -1266,6 +1297,7 @@ class AsyncToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1296,6 +1328,9 @@ class AsyncToolsClient:
 
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
+
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1334,6 +1369,7 @@ class AsyncToolsClient:
             args_json_schema=args_json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
             request_options=request_options,
         )
         return _response.data
@@ -1384,6 +1420,7 @@ class AsyncToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ToolReturnMessage:
         """
@@ -1414,6 +1451,9 @@ class AsyncToolsClient:
 
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
+
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1453,6 +1493,7 @@ class AsyncToolsClient:
             args_json_schema=args_json_schema,
             json_schema=json_schema,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
             request_options=request_options,
         )
         return _response.data

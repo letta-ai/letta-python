@@ -18,6 +18,7 @@ from ..types.action_model import ActionModel
 from ..types.app_model import AppModel
 from ..types.http_validation_error import HttpValidationError
 from ..types.mcp_tool import McpTool
+from ..types.npm_requirement import NpmRequirement
 from ..types.pip_requirement import PipRequirement
 from ..types.tool import Tool
 from ..types.tool_return_message import ToolReturnMessage
@@ -149,6 +150,7 @@ class RawToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -182,6 +184,9 @@ class RawToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -203,6 +208,9 @@ class RawToolsClient:
                 "return_char_limit": return_char_limit,
                 "pip_requirements": convert_and_respect_annotation_metadata(
                     object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
+                "npm_requirements": convert_and_respect_annotation_metadata(
+                    object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
             },
             headers={
@@ -367,6 +375,7 @@ class RawToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -398,6 +407,9 @@ class RawToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -419,6 +431,9 @@ class RawToolsClient:
                 "return_char_limit": return_char_limit,
                 "pip_requirements": convert_and_respect_annotation_metadata(
                     object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
+                "npm_requirements": convert_and_respect_annotation_metadata(
+                    object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
             },
             headers={
@@ -464,6 +479,7 @@ class RawToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -495,6 +511,9 @@ class RawToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -516,6 +535,9 @@ class RawToolsClient:
                 "return_char_limit": return_char_limit,
                 "pip_requirements": convert_and_respect_annotation_metadata(
                     object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
+                "npm_requirements": convert_and_respect_annotation_metadata(
+                    object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
             },
             headers={
@@ -608,6 +630,7 @@ class RawToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ToolReturnMessage]:
         """
@@ -639,6 +662,9 @@ class RawToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -660,6 +686,9 @@ class RawToolsClient:
                 "json_schema": json_schema,
                 "pip_requirements": convert_and_respect_annotation_metadata(
                     object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
+                "npm_requirements": convert_and_respect_annotation_metadata(
+                    object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
             },
             headers={
@@ -1415,6 +1444,7 @@ class AsyncRawToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1448,6 +1478,9 @@ class AsyncRawToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1469,6 +1502,9 @@ class AsyncRawToolsClient:
                 "return_char_limit": return_char_limit,
                 "pip_requirements": convert_and_respect_annotation_metadata(
                     object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
+                "npm_requirements": convert_and_respect_annotation_metadata(
+                    object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
             },
             headers={
@@ -1633,6 +1669,7 @@ class AsyncRawToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1664,6 +1701,9 @@ class AsyncRawToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1685,6 +1725,9 @@ class AsyncRawToolsClient:
                 "return_char_limit": return_char_limit,
                 "pip_requirements": convert_and_respect_annotation_metadata(
                     object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
+                "npm_requirements": convert_and_respect_annotation_metadata(
+                    object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
             },
             headers={
@@ -1730,6 +1773,7 @@ class AsyncRawToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1761,6 +1805,9 @@ class AsyncRawToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1782,6 +1829,9 @@ class AsyncRawToolsClient:
                 "return_char_limit": return_char_limit,
                 "pip_requirements": convert_and_respect_annotation_metadata(
                     object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
+                "npm_requirements": convert_and_respect_annotation_metadata(
+                    object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
             },
             headers={
@@ -1874,6 +1924,7 @@ class AsyncRawToolsClient:
         args_json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         json_schema: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ToolReturnMessage]:
         """
@@ -1905,6 +1956,9 @@ class AsyncRawToolsClient:
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
 
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1926,6 +1980,9 @@ class AsyncRawToolsClient:
                 "json_schema": json_schema,
                 "pip_requirements": convert_and_respect_annotation_metadata(
                     object_=pip_requirements, annotation=typing.Sequence[PipRequirement], direction="write"
+                ),
+                "npm_requirements": convert_and_respect_annotation_metadata(
+                    object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
             },
             headers={

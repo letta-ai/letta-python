@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .modal_sandbox_config_language import ModalSandboxConfigLanguage
 
 
 class ModalSandboxConfig(UncheckedBaseModel):
@@ -17,6 +18,13 @@ class ModalSandboxConfig(UncheckedBaseModel):
     """
     A list of pip packages to install in the Modal sandbox
     """
+
+    npm_requirements: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    A list of npm packages to install in the Modal sandbox
+    """
+
+    language: typing.Optional[ModalSandboxConfigLanguage] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
