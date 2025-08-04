@@ -13,6 +13,7 @@ ToolType = typing.Union[
         "letta_builtin",
         "letta_files_core",
         "external_composio",
+        "external_langchain",
         "external_mcp",
     ],
     typing.Any,
