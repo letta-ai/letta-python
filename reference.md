@@ -4034,6 +4034,14 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
+**env_vars:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Environment variables to pass to the agent for tool execution.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

@@ -540,10 +540,11 @@ class RawAgentsClient:
         self,
         *,
         file: core.File,
-        append_copy_suffix: typing.Optional[bool] = None,
-        override_existing_tools: typing.Optional[bool] = None,
-        project_id: typing.Optional[str] = None,
-        strip_messages: typing.Optional[bool] = None,
+        append_copy_suffix: typing.Optional[bool] = OMIT,
+        override_existing_tools: typing.Optional[bool] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
+        strip_messages: typing.Optional[bool] = OMIT,
+        env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AgentState]:
         """
@@ -566,6 +567,9 @@ class RawAgentsClient:
         strip_messages : typing.Optional[bool]
             If set to True, strips all messages from the agent before importing.
 
+        env_vars : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Environment variables to pass to the agent for tool execution.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -577,13 +581,13 @@ class RawAgentsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/agents/import",
             method="POST",
-            params={
+            data={
                 "append_copy_suffix": append_copy_suffix,
                 "override_existing_tools": override_existing_tools,
                 "project_id": project_id,
                 "strip_messages": strip_messages,
+                "env_vars": env_vars,
             },
-            data={},
             files={
                 "file": file,
             },
@@ -1568,10 +1572,11 @@ class AsyncRawAgentsClient:
         self,
         *,
         file: core.File,
-        append_copy_suffix: typing.Optional[bool] = None,
-        override_existing_tools: typing.Optional[bool] = None,
-        project_id: typing.Optional[str] = None,
-        strip_messages: typing.Optional[bool] = None,
+        append_copy_suffix: typing.Optional[bool] = OMIT,
+        override_existing_tools: typing.Optional[bool] = OMIT,
+        project_id: typing.Optional[str] = OMIT,
+        strip_messages: typing.Optional[bool] = OMIT,
+        env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AgentState]:
         """
@@ -1594,6 +1599,9 @@ class AsyncRawAgentsClient:
         strip_messages : typing.Optional[bool]
             If set to True, strips all messages from the agent before importing.
 
+        env_vars : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
+            Environment variables to pass to the agent for tool execution.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1605,13 +1613,13 @@ class AsyncRawAgentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/agents/import",
             method="POST",
-            params={
+            data={
                 "append_copy_suffix": append_copy_suffix,
                 "override_existing_tools": override_existing_tools,
                 "project_id": project_id,
                 "strip_messages": strip_messages,
+                "env_vars": env_vars,
             },
-            data={},
             files={
                 "file": file,
             },
