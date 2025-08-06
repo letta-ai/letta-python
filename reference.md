@@ -3671,6 +3671,14 @@ client.agents.create()
 <dl>
 <dd>
 
+**reasoning:** `typing.Optional[bool]` — Whether to enable reasoning for this agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **from_template:** `typing.Optional[str]` — The template id used to configure the agent
     
 </dd>
@@ -4416,6 +4424,14 @@ client.agents.modify(
 <dd>
 
 **embedding:** `typing.Optional[str]` — The embedding configuration handle used by the agent, specified in the format provider/model-name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reasoning:** `typing.Optional[bool]` — Whether to enable reasoning for this agent.
     
 </dd>
 </dl>

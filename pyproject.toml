@@ -3,7 +3,7 @@ name = "letta-client"
 
 [tool.poetry]
 name = "letta-client"
-version = "0.1.242"
+version = "0.1.243"
 description = ""
 readme = "README.md"
 authors = []

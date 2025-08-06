@@ -215,6 +215,7 @@ class AgentsClient:
         max_tokens: typing.Optional[int] = OMIT,
         max_reasoning_tokens: typing.Optional[int] = OMIT,
         enable_reasoner: typing.Optional[bool] = OMIT,
+        reasoning: typing.Optional[bool] = OMIT,
         from_template: typing.Optional[str] = OMIT,
         template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
@@ -316,6 +317,9 @@ class AgentsClient:
         enable_reasoner : typing.Optional[bool]
             Whether to enable internal extended thinking step for a reasoner model.
 
+        reasoning : typing.Optional[bool]
+            Whether to enable reasoning for this agent.
+
         from_template : typing.Optional[str]
             The template id used to configure the agent
 
@@ -409,6 +413,7 @@ class AgentsClient:
             max_tokens=max_tokens,
             max_reasoning_tokens=max_reasoning_tokens,
             enable_reasoner=enable_reasoner,
+            reasoning=reasoning,
             from_template=from_template,
             template=template,
             project=project,
@@ -649,6 +654,7 @@ class AgentsClient:
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         model: typing.Optional[str] = OMIT,
         embedding: typing.Optional[str] = OMIT,
+        reasoning: typing.Optional[bool] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
         response_format: typing.Optional[UpdateAgentResponseFormat] = OMIT,
         last_run_completion: typing.Optional[dt.datetime] = OMIT,
@@ -726,6 +732,9 @@ class AgentsClient:
         embedding : typing.Optional[str]
             The embedding configuration handle used by the agent, specified in the format provider/model-name.
 
+        reasoning : typing.Optional[bool]
+            Whether to enable reasoning for this agent.
+
         enable_sleeptime : typing.Optional[bool]
             If set to True, memory management will move to a background agent thread.
 
@@ -792,6 +801,7 @@ class AgentsClient:
             message_buffer_autoclear=message_buffer_autoclear,
             model=model,
             embedding=embedding,
+            reasoning=reasoning,
             enable_sleeptime=enable_sleeptime,
             response_format=response_format,
             last_run_completion=last_run_completion,
@@ -1095,6 +1105,7 @@ class AsyncAgentsClient:
         max_tokens: typing.Optional[int] = OMIT,
         max_reasoning_tokens: typing.Optional[int] = OMIT,
         enable_reasoner: typing.Optional[bool] = OMIT,
+        reasoning: typing.Optional[bool] = OMIT,
         from_template: typing.Optional[str] = OMIT,
         template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
@@ -1195,6 +1206,9 @@ class AsyncAgentsClient:
 
         enable_reasoner : typing.Optional[bool]
             Whether to enable internal extended thinking step for a reasoner model.
+
+        reasoning : typing.Optional[bool]
+            Whether to enable reasoning for this agent.
 
         from_template : typing.Optional[str]
             The template id used to configure the agent
@@ -1297,6 +1311,7 @@ class AsyncAgentsClient:
             max_tokens=max_tokens,
             max_reasoning_tokens=max_reasoning_tokens,
             enable_reasoner=enable_reasoner,
+            reasoning=reasoning,
             from_template=from_template,
             template=template,
             project=project,
@@ -1577,6 +1592,7 @@ class AsyncAgentsClient:
         message_buffer_autoclear: typing.Optional[bool] = OMIT,
         model: typing.Optional[str] = OMIT,
         embedding: typing.Optional[str] = OMIT,
+        reasoning: typing.Optional[bool] = OMIT,
         enable_sleeptime: typing.Optional[bool] = OMIT,
         response_format: typing.Optional[UpdateAgentResponseFormat] = OMIT,
         last_run_completion: typing.Optional[dt.datetime] = OMIT,
@@ -1654,6 +1670,9 @@ class AsyncAgentsClient:
         embedding : typing.Optional[str]
             The embedding configuration handle used by the agent, specified in the format provider/model-name.
 
+        reasoning : typing.Optional[bool]
+            Whether to enable reasoning for this agent.
+
         enable_sleeptime : typing.Optional[bool]
             If set to True, memory management will move to a background agent thread.
 
@@ -1728,6 +1747,7 @@ class AsyncAgentsClient:
             message_buffer_autoclear=message_buffer_autoclear,
             model=model,
             embedding=embedding,
+            reasoning=reasoning,
             enable_sleeptime=enable_sleeptime,
             response_format=response_format,
             last_run_completion=last_run_completion,
