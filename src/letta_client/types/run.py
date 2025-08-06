@@ -80,6 +80,16 @@ class Run(UncheckedBaseModel):
     Optional error message from attempting to POST the callback endpoint.
     """
 
+    ttft_ns: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Time to first token for a run in nanoseconds
+    """
+
+    total_duration_ns: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Total run duration in nanoseconds
+    """
+
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-friendly ID of the Run
