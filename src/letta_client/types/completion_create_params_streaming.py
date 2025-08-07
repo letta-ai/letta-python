@@ -39,8 +39,10 @@ class CompletionCreateParamsStreaming(UncheckedBaseModel):
     parallel_tool_calls: typing.Optional[bool] = None
     prediction: typing.Optional[ChatCompletionPredictionContentParam] = None
     presence_penalty: typing.Optional[float] = None
+    prompt_cache_key: typing.Optional[str] = None
     reasoning_effort: typing.Optional[CompletionCreateParamsStreamingReasoningEffort] = None
     response_format: typing.Optional[CompletionCreateParamsStreamingResponseFormat] = None
+    safety_identifier: typing.Optional[str] = None
     seed: typing.Optional[int] = None
     service_tier: typing.Optional[CompletionCreateParamsStreamingServiceTier] = None
     stop: typing.Optional[CompletionCreateParamsStreamingStop] = None
