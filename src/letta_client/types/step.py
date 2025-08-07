@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .message import Message
 from .step_feedback import StepFeedback
+from .step_status import StepStatus
 from .stop_reason_type import StopReasonType
 
 
@@ -116,6 +117,21 @@ class Step(UncheckedBaseModel):
     project_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The project that the agent that executed this step belongs to (cloud only).
+    """
+
+    error_type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The type/class of the error that occurred
+    """
+
+    error_data: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    """
+    Error details including message, traceback, and additional context
+    """
+
+    status: typing.Optional[StepStatus] = pydantic.Field(default=None)
+    """
+    Step status: pending, success, or failed
     """
 
     if IS_PYDANTIC_V2:
