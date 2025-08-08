@@ -83,7 +83,7 @@ class LlmConfig(UncheckedBaseModel):
 
     max_reasoning_tokens: typing.Optional[int] = pydantic.Field(default=None)
     """
-    Configurable thinking budget for extended thinking, only used if enable_reasoner is True. Minimum value is 1024.
+    Configurable thinking budget for extended thinking. Used for enable_reasoner and also for Google Vertex models like Gemini 2.5 Flash. Minimum value is 1024 when used with enable_reasoner.
     """
 
     frequency_penalty: typing.Optional[float] = pydantic.Field(default=None)
