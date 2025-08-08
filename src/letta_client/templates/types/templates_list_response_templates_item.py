@@ -10,6 +10,12 @@ from ...core.unchecked_base_model import UncheckedBaseModel
 class TemplatesListResponseTemplatesItem(UncheckedBaseModel):
     name: str
     id: str
+    project_id: str
+    project_slug: str
+    template_deployment_slug: str = pydantic.Field()
+    """
+    The full name of the template, including version and project slug
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

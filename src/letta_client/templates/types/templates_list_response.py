@@ -3,16 +3,14 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
-from ...core.serialization import FieldMetadata
 from ...core.unchecked_base_model import UncheckedBaseModel
 from .templates_list_response_templates_item import TemplatesListResponseTemplatesItem
 
 
 class TemplatesListResponse(UncheckedBaseModel):
     templates: typing.List[TemplatesListResponseTemplatesItem]
-    has_next_page: typing_extensions.Annotated[bool, FieldMetadata(alias="hasNextPage")]
+    has_next_page: bool
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
