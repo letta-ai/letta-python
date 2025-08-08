@@ -493,7 +493,11 @@ class RawAgentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def export_file(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        max_steps: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[str]:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
@@ -501,6 +505,8 @@ class RawAgentsClient:
         Parameters
         ----------
         agent_id : str
+
+        max_steps : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -513,6 +519,9 @@ class RawAgentsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/export",
             method="GET",
+            params={
+                "max_steps": max_steps,
+            },
             request_options=request_options,
         )
         try:
@@ -1535,7 +1544,11 @@ class AsyncRawAgentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def export_file(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        max_steps: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[str]:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
@@ -1543,6 +1556,8 @@ class AsyncRawAgentsClient:
         Parameters
         ----------
         agent_id : str
+
+        max_steps : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1555,6 +1570,9 @@ class AsyncRawAgentsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/export",
             method="GET",
+            params={
+                "max_steps": max_steps,
+            },
             request_options=request_options,
         )
         try:

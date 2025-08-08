@@ -461,13 +461,21 @@ class AgentsClient:
         _response = self._raw_client.count(request_options=request_options)
         return _response.data
 
-    def export_file(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    def export_file(
+        self,
+        agent_id: str,
+        *,
+        max_steps: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
 
         Parameters
         ----------
         agent_id : str
+
+        max_steps : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -489,7 +497,7 @@ class AgentsClient:
             agent_id="agent_id",
         )
         """
-        _response = self._raw_client.export_file(agent_id, request_options=request_options)
+        _response = self._raw_client.export_file(agent_id, max_steps=max_steps, request_options=request_options)
         return _response.data
 
     def import_file(
@@ -1367,13 +1375,21 @@ class AsyncAgentsClient:
         _response = await self._raw_client.count(request_options=request_options)
         return _response.data
 
-    async def export_file(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
+    async def export_file(
+        self,
+        agent_id: str,
+        *,
+        max_steps: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
 
         Parameters
         ----------
         agent_id : str
+
+        max_steps : typing.Optional[int]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1403,7 +1419,7 @@ class AsyncAgentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.export_file(agent_id, request_options=request_options)
+        _response = await self._raw_client.export_file(agent_id, max_steps=max_steps, request_options=request_options)
         return _response.data
 
     async def import_file(

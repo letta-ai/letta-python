@@ -3939,6 +3939,14 @@ client.agents.export_file(
 <dl>
 <dd>
 
+**max_steps:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
