@@ -1424,7 +1424,7 @@ client.tools.add_mcp_tool(
 <dl>
 <dd>
 
-Add a new MCP server to the Letta MCP server config
+Delete a MCP server configuration
 </dd>
 </dl>
 </dd>

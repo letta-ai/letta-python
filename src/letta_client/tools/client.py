@@ -770,7 +770,7 @@ class ToolsClient:
         self, mcp_server_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[DeleteMcpServerResponseItem]:
         """
-        Add a new MCP server to the Letta MCP server config
+        Delete a MCP server configuration
 
         Parameters
         ----------
@@ -1794,7 +1794,7 @@ class AsyncToolsClient:
         self, mcp_server_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.List[DeleteMcpServerResponseItem]:
         """
-        Add a new MCP server to the Letta MCP server config
+        Delete a MCP server configuration
 
         Parameters
         ----------
