@@ -51,6 +51,11 @@ class Provider(UncheckedBaseModel):
     Region used for requests to the provider.
     """
 
+    api_version: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    API version used for requests to the provider.
+    """
+
     updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The last update timestamp of the provider.

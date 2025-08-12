@@ -97,6 +97,8 @@ class RawProvidersClient:
         api_key: str,
         access_key: typing.Optional[str] = OMIT,
         region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Provider]:
         """
@@ -119,6 +121,12 @@ class RawProvidersClient:
         region : typing.Optional[str]
             Region used for requests to the provider.
 
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -136,6 +144,8 @@ class RawProvidersClient:
                 "api_key": api_key,
                 "access_key": access_key,
                 "region": region,
+                "base_url": base_url,
+                "api_version": api_version,
             },
             headers={
                 "content-type": "application/json",
@@ -227,6 +237,8 @@ class RawProvidersClient:
         api_key: str,
         access_key: typing.Optional[str] = OMIT,
         region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Provider]:
         """
@@ -245,6 +257,12 @@ class RawProvidersClient:
         region : typing.Optional[str]
             Region used for requests to the provider.
 
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -260,6 +278,8 @@ class RawProvidersClient:
                 "api_key": api_key,
                 "access_key": access_key,
                 "region": region,
+                "base_url": base_url,
+                "api_version": api_version,
             },
             headers={
                 "content-type": "application/json",
@@ -420,6 +440,8 @@ class AsyncRawProvidersClient:
         api_key: str,
         access_key: typing.Optional[str] = OMIT,
         region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Provider]:
         """
@@ -442,6 +464,12 @@ class AsyncRawProvidersClient:
         region : typing.Optional[str]
             Region used for requests to the provider.
 
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -459,6 +487,8 @@ class AsyncRawProvidersClient:
                 "api_key": api_key,
                 "access_key": access_key,
                 "region": region,
+                "base_url": base_url,
+                "api_version": api_version,
             },
             headers={
                 "content-type": "application/json",
@@ -550,6 +580,8 @@ class AsyncRawProvidersClient:
         api_key: str,
         access_key: typing.Optional[str] = OMIT,
         region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Provider]:
         """
@@ -568,6 +600,12 @@ class AsyncRawProvidersClient:
         region : typing.Optional[str]
             Region used for requests to the provider.
 
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -583,6 +621,8 @@ class AsyncRawProvidersClient:
                 "api_key": api_key,
                 "access_key": access_key,
                 "region": region,
+                "base_url": base_url,
+                "api_version": api_version,
             },
             headers={
                 "content-type": "application/json",

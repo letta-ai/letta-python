@@ -80,6 +80,8 @@ class ProvidersClient:
         api_key: str,
         access_key: typing.Optional[str] = OMIT,
         region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
@@ -101,6 +103,12 @@ class ProvidersClient:
 
         region : typing.Optional[str]
             Region used for requests to the provider.
+
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -130,6 +138,8 @@ class ProvidersClient:
             api_key=api_key,
             access_key=access_key,
             region=region,
+            base_url=base_url,
+            api_version=api_version,
             request_options=request_options,
         )
         return _response.data
@@ -174,6 +184,8 @@ class ProvidersClient:
         api_key: str,
         access_key: typing.Optional[str] = OMIT,
         region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
@@ -191,6 +203,12 @@ class ProvidersClient:
 
         region : typing.Optional[str]
             Region used for requests to the provider.
+
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -214,7 +232,13 @@ class ProvidersClient:
         )
         """
         _response = self._raw_client.modify(
-            provider_id, api_key=api_key, access_key=access_key, region=region, request_options=request_options
+            provider_id,
+            api_key=api_key,
+            access_key=access_key,
+            region=region,
+            base_url=base_url,
+            api_version=api_version,
+            request_options=request_options,
         )
         return _response.data
 
@@ -320,6 +344,8 @@ class AsyncProvidersClient:
         api_key: str,
         access_key: typing.Optional[str] = OMIT,
         region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
@@ -341,6 +367,12 @@ class AsyncProvidersClient:
 
         region : typing.Optional[str]
             Region used for requests to the provider.
+
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -378,6 +410,8 @@ class AsyncProvidersClient:
             api_key=api_key,
             access_key=access_key,
             region=region,
+            base_url=base_url,
+            api_version=api_version,
             request_options=request_options,
         )
         return _response.data
@@ -430,6 +464,8 @@ class AsyncProvidersClient:
         api_key: str,
         access_key: typing.Optional[str] = OMIT,
         region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
@@ -447,6 +483,12 @@ class AsyncProvidersClient:
 
         region : typing.Optional[str]
             Region used for requests to the provider.
+
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -478,7 +520,13 @@ class AsyncProvidersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.modify(
-            provider_id, api_key=api_key, access_key=access_key, region=region, request_options=request_options
+            provider_id,
+            api_key=api_key,
+            access_key=access_key,
+            region=region,
+            base_url=base_url,
+            api_version=api_version,
+            request_options=request_options,
         )
         return _response.data
 

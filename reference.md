@@ -7299,6 +7299,22 @@ client.providers.create(
 <dl>
 <dd>
 
+**base_url:** `typing.Optional[str]` — Base URL used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_version:** `typing.Optional[str]` — API version used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -7459,6 +7475,22 @@ client.providers.modify(
 <dd>
 
 **region:** `typing.Optional[str]` — Region used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**base_url:** `typing.Optional[str]` — Base URL used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_version:** `typing.Optional[str]` — API version used for requests to the provider.
     
 </dd>
 </dl>

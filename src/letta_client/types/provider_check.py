@@ -29,6 +29,16 @@ class ProviderCheck(UncheckedBaseModel):
     Region used for requests to the provider.
     """
 
+    base_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Base URL used for requests to the provider.
+    """
+
+    api_version: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    API version used for requests to the provider.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
