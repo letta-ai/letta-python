@@ -7,6 +7,6 @@ from .child_tool_rule_schema import ChildToolRuleSchema
 from .conditional_tool_rule_schema import ConditionalToolRuleSchema
 from .max_count_per_step_tool_rule_schema import MaxCountPerStepToolRuleSchema
 
-AgentSchemaToolRulesItem = typing.Union[
+LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem = typing.Union[
     BaseToolRuleSchema, ChildToolRuleSchema, MaxCountPerStepToolRuleSchema, ConditionalToolRuleSchema
 ]

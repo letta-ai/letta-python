@@ -3893,6 +3893,10 @@ client.agents.count()
 <dd>
 
 Export the serialized JSON representation of an agent, formatted with indentation.
+
+Supports two export formats:
+- Legacy format (use_legacy_format=true): Single agent with inline tools/blocks
+- New format (default): Multi-entity format with separate agents, tools, blocks, files, etc.
 </dd>
 </dl>
 </dd>
@@ -3947,6 +3951,14 @@ client.agents.export_file(
 <dl>
 <dd>
 
+**use_legacy_format:** `typing.Optional[bool]` — If true, exports using the legacy single-agent format. If false, exports using the new multi-entity format.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -3971,7 +3983,8 @@ client.agents.export_file(
 <dl>
 <dd>
 
-Import a serialized agent file and recreate the agent in the system.
+Import a serialized agent file and recreate the agent(s) in the system.
+Returns the IDs of all imported agents.
 </dd>
 </dl>
 </dd>

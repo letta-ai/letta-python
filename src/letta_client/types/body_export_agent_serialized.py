@@ -5,20 +5,15 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .letta_message_content_union import LettaMessageContentUnion
+from .agent_file_schema import AgentFileSchema
+from .letta_serialize_schemas_pydantic_agent_schema_agent_schema import (
+    LettaSerializeSchemasPydanticAgentSchemaAgentSchema,
+)
 
 
-class MessageSchema(UncheckedBaseModel):
-    created_at: str
-    group_id: typing.Optional[str] = None
-    model: typing.Optional[str] = None
-    name: typing.Optional[str] = None
-    role: str
-    content: typing.List[LettaMessageContentUnion]
-    tool_call_id: typing.Optional[str] = None
-    tool_calls: typing.List[typing.Optional[typing.Any]]
-    tool_returns: typing.List[typing.Optional[typing.Any]]
-    updated_at: str
+class BodyExportAgentSerialized(UncheckedBaseModel):
+    spec: typing.Optional[AgentFileSchema] = None
+    legacy_spec: typing.Optional[LettaSerializeSchemasPydanticAgentSchemaAgentSchema] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

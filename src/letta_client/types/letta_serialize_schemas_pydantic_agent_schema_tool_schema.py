@@ -10,7 +10,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 from .tool_json_schema import ToolJsonSchema
 
 
-class ToolSchema(UncheckedBaseModel):
+class LettaSerializeSchemasPydanticAgentSchemaToolSchema(UncheckedBaseModel):
     args_json_schema: typing.Optional[typing.Any] = None
     created_at: str
     description: str

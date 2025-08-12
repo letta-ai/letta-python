@@ -18,6 +18,7 @@ from ..types.agent_type import AgentType
 from ..types.create_block import CreateBlock
 from ..types.embedding_config import EmbeddingConfig
 from ..types.http_validation_error import HttpValidationError
+from ..types.imported_agents_response import ImportedAgentsResponse
 from ..types.llm_config import LlmConfig
 from ..types.message_create import MessageCreate
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
@@ -497,16 +498,24 @@ class RawAgentsClient:
         agent_id: str,
         *,
         max_steps: typing.Optional[int] = None,
+        use_legacy_format: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[str]:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
+
+        Supports two export formats:
+        - Legacy format (use_legacy_format=true): Single agent with inline tools/blocks
+        - New format (default): Multi-entity format with separate agents, tools, blocks, files, etc.
 
         Parameters
         ----------
         agent_id : str
 
         max_steps : typing.Optional[int]
+
+        use_legacy_format : typing.Optional[bool]
+            If true, exports using the legacy single-agent format. If false, exports using the new multi-entity format.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -521,6 +530,7 @@ class RawAgentsClient:
             method="GET",
             params={
                 "max_steps": max_steps,
+                "use_legacy_format": use_legacy_format,
             },
             request_options=request_options,
         )
@@ -560,9 +570,10 @@ class RawAgentsClient:
         strip_messages: typing.Optional[bool] = OMIT,
         env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[AgentState]:
+    ) -> HttpResponse[ImportedAgentsResponse]:
         """
-        Import a serialized agent file and recreate the agent in the system.
+        Import a serialized agent file and recreate the agent(s) in the system.
+        Returns the IDs of all imported agents.
 
         Parameters
         ----------
@@ -589,7 +600,7 @@ class RawAgentsClient:
 
         Returns
         -------
-        HttpResponse[AgentState]
+        HttpResponse[ImportedAgentsResponse]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -612,9 +623,9 @@ class RawAgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AgentState,
+                    ImportedAgentsResponse,
                     construct_type(
-                        type_=AgentState,  # type: ignore
+                        type_=ImportedAgentsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1548,16 +1559,24 @@ class AsyncRawAgentsClient:
         agent_id: str,
         *,
         max_steps: typing.Optional[int] = None,
+        use_legacy_format: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[str]:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
+
+        Supports two export formats:
+        - Legacy format (use_legacy_format=true): Single agent with inline tools/blocks
+        - New format (default): Multi-entity format with separate agents, tools, blocks, files, etc.
 
         Parameters
         ----------
         agent_id : str
 
         max_steps : typing.Optional[int]
+
+        use_legacy_format : typing.Optional[bool]
+            If true, exports using the legacy single-agent format. If false, exports using the new multi-entity format.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1572,6 +1591,7 @@ class AsyncRawAgentsClient:
             method="GET",
             params={
                 "max_steps": max_steps,
+                "use_legacy_format": use_legacy_format,
             },
             request_options=request_options,
         )
@@ -1611,9 +1631,10 @@ class AsyncRawAgentsClient:
         strip_messages: typing.Optional[bool] = OMIT,
         env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[AgentState]:
+    ) -> AsyncHttpResponse[ImportedAgentsResponse]:
         """
-        Import a serialized agent file and recreate the agent in the system.
+        Import a serialized agent file and recreate the agent(s) in the system.
+        Returns the IDs of all imported agents.
 
         Parameters
         ----------
@@ -1640,7 +1661,7 @@ class AsyncRawAgentsClient:
 
         Returns
         -------
-        AsyncHttpResponse[AgentState]
+        AsyncHttpResponse[ImportedAgentsResponse]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1663,9 +1684,9 @@ class AsyncRawAgentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    AgentState,
+                    ImportedAgentsResponse,
                     construct_type(
-                        type_=AgentState,  # type: ignore
+                        type_=ImportedAgentsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

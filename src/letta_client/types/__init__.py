@@ -6,8 +6,7 @@ from .action_model import ActionModel
 from .action_parameters_model import ActionParametersModel
 from .action_response_model import ActionResponseModel
 from .agent_environment_variable import AgentEnvironmentVariable
-from .agent_schema import AgentSchema
-from .agent_schema_tool_rules_item import AgentSchemaToolRulesItem
+from .agent_file_schema import AgentFileSchema
 from .agent_state import AgentState
 from .agent_state_response_format import AgentStateResponseFormat
 from .agent_state_tool_rules_item import AgentStateToolRulesItem
@@ -26,7 +25,9 @@ from .base_64_image import Base64Image
 from .base_tool_rule_schema import BaseToolRuleSchema
 from .batch_job import BatchJob
 from .block import Block
+from .block_schema import BlockSchema
 from .block_update import BlockUpdate
+from .body_export_agent_serialized import BodyExportAgentSerialized
 from .chat_completion_assistant_message_param import ChatCompletionAssistantMessageParam
 from .chat_completion_assistant_message_param_content import ChatCompletionAssistantMessageParamContent
 from .chat_completion_assistant_message_param_content_item import ChatCompletionAssistantMessageParamContentItem
@@ -94,10 +95,12 @@ from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
 from .feedback_type import FeedbackType
 from .file import File
+from .file_agent_schema import FileAgentSchema
 from .file_block import FileBlock
 from .file_file import FileFile
 from .file_metadata import FileMetadata
 from .file_processing_status import FileProcessingStatus
+from .file_schema import FileSchema
 from .file_stats import FileStats
 from .folder import Folder
 from .function_call import FunctionCall
@@ -108,6 +111,8 @@ from .function_tool import FunctionTool
 from .generate_tool_input import GenerateToolInput
 from .generate_tool_output import GenerateToolOutput
 from .group import Group
+from .group_schema import GroupSchema
+from .group_schema_manager_config import GroupSchemaManagerConfig
 from .health import Health
 from .hidden_reasoning_message import HiddenReasoningMessage
 from .hidden_reasoning_message_state import HiddenReasoningMessageState
@@ -121,6 +126,7 @@ from .image_content import ImageContent
 from .image_content_source import ImageContentSource
 from .image_url import ImageUrl
 from .image_url_detail import ImageUrlDetail
+from .imported_agents_response import ImportedAgentsResponse
 from .init_tool_rule import InitToolRule
 from .input_audio import InputAudio
 from .input_audio_format import InputAudioFormat
@@ -140,6 +146,24 @@ from .letta_ping import LettaPing
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
 from .letta_response import LettaResponse
+from .letta_schemas_agent_file_agent_schema import LettaSchemasAgentFileAgentSchema
+from .letta_schemas_agent_file_agent_schema_response_format import LettaSchemasAgentFileAgentSchemaResponseFormat
+from .letta_schemas_agent_file_agent_schema_tool_rules_item import LettaSchemasAgentFileAgentSchemaToolRulesItem
+from .letta_schemas_agent_file_message_schema import LettaSchemasAgentFileMessageSchema
+from .letta_schemas_agent_file_message_schema_content import LettaSchemasAgentFileMessageSchemaContent
+from .letta_schemas_agent_file_tool_schema import LettaSchemasAgentFileToolSchema
+from .letta_serialize_schemas_pydantic_agent_schema_agent_schema import (
+    LettaSerializeSchemasPydanticAgentSchemaAgentSchema,
+)
+from .letta_serialize_schemas_pydantic_agent_schema_agent_schema_tool_rules_item import (
+    LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem,
+)
+from .letta_serialize_schemas_pydantic_agent_schema_message_schema import (
+    LettaSerializeSchemasPydanticAgentSchemaMessageSchema,
+)
+from .letta_serialize_schemas_pydantic_agent_schema_tool_schema import (
+    LettaSerializeSchemasPydanticAgentSchemaToolSchema,
+)
 from .letta_stop_reason import LettaStopReason
 from .letta_streaming_request import LettaStreamingRequest
 from .letta_usage_statistics import LettaUsageStatistics
@@ -152,6 +176,7 @@ from .local_sandbox_config import LocalSandboxConfig
 from .manager_type import ManagerType
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .max_count_per_step_tool_rule_schema import MaxCountPerStepToolRuleSchema
+from .mcp_server_schema import McpServerSchema
 from .mcp_server_type import McpServerType
 from .mcp_tool import McpTool
 from .memory import Memory
@@ -161,7 +186,6 @@ from .message_create import MessageCreate
 from .message_create_content import MessageCreateContent
 from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
-from .message_schema import MessageSchema
 from .message_type import MessageType
 from .modal_sandbox_config import ModalSandboxConfig
 from .modal_sandbox_config_language import ModalSandboxConfigLanguage
@@ -215,6 +239,7 @@ from .sleeptime_manager import SleeptimeManager
 from .sleeptime_manager_update import SleeptimeManagerUpdate
 from .source import Source
 from .source_create import SourceCreate
+from .source_schema import SourceSchema
 from .source_stats import SourceStats
 from .source_update import SourceUpdate
 from .sse_server_config import SseServerConfig
@@ -246,7 +271,6 @@ from .tool_return_content import ToolReturnContent
 from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
 from .tool_return_status import ToolReturnStatus
-from .tool_schema import ToolSchema
 from .tool_type import ToolType
 from .update_assistant_message import UpdateAssistantMessage
 from .update_assistant_message_content import UpdateAssistantMessageContent
@@ -280,8 +304,7 @@ __all__ = [
     "ActionParametersModel",
     "ActionResponseModel",
     "AgentEnvironmentVariable",
-    "AgentSchema",
-    "AgentSchemaToolRulesItem",
+    "AgentFileSchema",
     "AgentState",
     "AgentStateResponseFormat",
     "AgentStateToolRulesItem",
@@ -300,7 +323,9 @@ __all__ = [
     "BaseToolRuleSchema",
     "BatchJob",
     "Block",
+    "BlockSchema",
     "BlockUpdate",
+    "BodyExportAgentSerialized",
     "ChatCompletionAssistantMessageParam",
     "ChatCompletionAssistantMessageParamContent",
     "ChatCompletionAssistantMessageParamContentItem",
@@ -368,10 +393,12 @@ __all__ = [
     "EmbeddingConfigEmbeddingEndpointType",
     "FeedbackType",
     "File",
+    "FileAgentSchema",
     "FileBlock",
     "FileFile",
     "FileMetadata",
     "FileProcessingStatus",
+    "FileSchema",
     "FileStats",
     "Folder",
     "FunctionCall",
@@ -382,6 +409,8 @@ __all__ = [
     "GenerateToolInput",
     "GenerateToolOutput",
     "Group",
+    "GroupSchema",
+    "GroupSchemaManagerConfig",
     "Health",
     "HiddenReasoningMessage",
     "HiddenReasoningMessageState",
@@ -395,6 +424,7 @@ __all__ = [
     "ImageContentSource",
     "ImageUrl",
     "ImageUrlDetail",
+    "ImportedAgentsResponse",
     "InitToolRule",
     "InputAudio",
     "InputAudioFormat",
@@ -414,6 +444,16 @@ __all__ = [
     "LettaRequest",
     "LettaRequestConfig",
     "LettaResponse",
+    "LettaSchemasAgentFileAgentSchema",
+    "LettaSchemasAgentFileAgentSchemaResponseFormat",
+    "LettaSchemasAgentFileAgentSchemaToolRulesItem",
+    "LettaSchemasAgentFileMessageSchema",
+    "LettaSchemasAgentFileMessageSchemaContent",
+    "LettaSchemasAgentFileToolSchema",
+    "LettaSerializeSchemasPydanticAgentSchemaAgentSchema",
+    "LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem",
+    "LettaSerializeSchemasPydanticAgentSchemaMessageSchema",
+    "LettaSerializeSchemasPydanticAgentSchemaToolSchema",
     "LettaStopReason",
     "LettaStreamingRequest",
     "LettaUsageStatistics",
@@ -426,6 +466,7 @@ __all__ = [
     "ManagerType",
     "MaxCountPerStepToolRule",
     "MaxCountPerStepToolRuleSchema",
+    "McpServerSchema",
     "McpServerType",
     "McpTool",
     "Memory",
@@ -435,7 +476,6 @@ __all__ = [
     "MessageCreateContent",
     "MessageCreateRole",
     "MessageRole",
-    "MessageSchema",
     "MessageType",
     "ModalSandboxConfig",
     "ModalSandboxConfigLanguage",
@@ -485,6 +525,7 @@ __all__ = [
     "SleeptimeManagerUpdate",
     "Source",
     "SourceCreate",
+    "SourceSchema",
     "SourceStats",
     "SourceUpdate",
     "SseServerConfig",
@@ -516,7 +557,6 @@ __all__ = [
     "ToolReturnMessage",
     "ToolReturnMessageStatus",
     "ToolReturnStatus",
-    "ToolSchema",
     "ToolType",
     "UpdateAssistantMessage",
     "UpdateAssistantMessageContent",

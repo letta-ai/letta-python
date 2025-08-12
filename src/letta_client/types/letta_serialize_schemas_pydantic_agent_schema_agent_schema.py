@@ -7,17 +7,23 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.serialization import FieldMetadata
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .agent_schema_tool_rules_item import AgentSchemaToolRulesItem
 from .core_memory_block_schema import CoreMemoryBlockSchema
 from .embedding_config import EmbeddingConfig
+from .letta_serialize_schemas_pydantic_agent_schema_agent_schema_tool_rules_item import (
+    LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem,
+)
+from .letta_serialize_schemas_pydantic_agent_schema_message_schema import (
+    LettaSerializeSchemasPydanticAgentSchemaMessageSchema,
+)
+from .letta_serialize_schemas_pydantic_agent_schema_tool_schema import (
+    LettaSerializeSchemasPydanticAgentSchemaToolSchema,
+)
 from .llm_config import LlmConfig
-from .message_schema import MessageSchema
 from .tag_schema import TagSchema
 from .tool_env_var_schema import ToolEnvVarSchema
-from .tool_schema import ToolSchema
 
 
-class AgentSchema(UncheckedBaseModel):
+class LettaSerializeSchemasPydanticAgentSchemaAgentSchema(UncheckedBaseModel):
     agent_type: str
     core_memory: typing.List[CoreMemoryBlockSchema]
     created_at: str
@@ -26,7 +32,7 @@ class AgentSchema(UncheckedBaseModel):
     llm_config: LlmConfig
     message_buffer_autoclear: bool
     in_context_message_indices: typing.List[int]
-    messages: typing.List[MessageSchema]
+    messages: typing.List[LettaSerializeSchemasPydanticAgentSchemaMessageSchema]
     metadata: typing_extensions.Annotated[
         typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]], FieldMetadata(alias="metadata_")
     ] = None
@@ -35,8 +41,8 @@ class AgentSchema(UncheckedBaseModel):
     system: str
     tags: typing.List[TagSchema]
     tool_exec_environment_variables: typing.List[ToolEnvVarSchema]
-    tool_rules: typing.List[AgentSchemaToolRulesItem]
-    tools: typing.List[ToolSchema]
+    tool_rules: typing.List[LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem]
+    tools: typing.List[LettaSerializeSchemasPydanticAgentSchemaToolSchema]
     updated_at: str
     version: str
 

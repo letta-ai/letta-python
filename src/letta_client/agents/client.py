@@ -10,6 +10,7 @@ from ..types.agent_state import AgentState
 from ..types.agent_type import AgentType
 from ..types.create_block import CreateBlock
 from ..types.embedding_config import EmbeddingConfig
+from ..types.imported_agents_response import ImportedAgentsResponse
 from ..types.llm_config import LlmConfig
 from ..types.message_create import MessageCreate
 from .blocks.client import AsyncBlocksClient, BlocksClient
@@ -466,16 +467,24 @@ class AgentsClient:
         agent_id: str,
         *,
         max_steps: typing.Optional[int] = None,
+        use_legacy_format: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
+
+        Supports two export formats:
+        - Legacy format (use_legacy_format=true): Single agent with inline tools/blocks
+        - New format (default): Multi-entity format with separate agents, tools, blocks, files, etc.
 
         Parameters
         ----------
         agent_id : str
 
         max_steps : typing.Optional[int]
+
+        use_legacy_format : typing.Optional[bool]
+            If true, exports using the legacy single-agent format. If false, exports using the new multi-entity format.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -497,7 +506,9 @@ class AgentsClient:
             agent_id="agent_id",
         )
         """
-        _response = self._raw_client.export_file(agent_id, max_steps=max_steps, request_options=request_options)
+        _response = self._raw_client.export_file(
+            agent_id, max_steps=max_steps, use_legacy_format=use_legacy_format, request_options=request_options
+        )
         return _response.data
 
     def import_file(
@@ -510,9 +521,10 @@ class AgentsClient:
         strip_messages: typing.Optional[bool] = OMIT,
         env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentState:
+    ) -> ImportedAgentsResponse:
         """
-        Import a serialized agent file and recreate the agent in the system.
+        Import a serialized agent file and recreate the agent(s) in the system.
+        Returns the IDs of all imported agents.
 
         Parameters
         ----------
@@ -539,7 +551,7 @@ class AgentsClient:
 
         Returns
         -------
-        AgentState
+        ImportedAgentsResponse
             Successful Response
 
         Examples
@@ -1380,16 +1392,24 @@ class AsyncAgentsClient:
         agent_id: str,
         *,
         max_steps: typing.Optional[int] = None,
+        use_legacy_format: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with indentation.
+
+        Supports two export formats:
+        - Legacy format (use_legacy_format=true): Single agent with inline tools/blocks
+        - New format (default): Multi-entity format with separate agents, tools, blocks, files, etc.
 
         Parameters
         ----------
         agent_id : str
 
         max_steps : typing.Optional[int]
+
+        use_legacy_format : typing.Optional[bool]
+            If true, exports using the legacy single-agent format. If false, exports using the new multi-entity format.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1419,7 +1439,9 @@ class AsyncAgentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.export_file(agent_id, max_steps=max_steps, request_options=request_options)
+        _response = await self._raw_client.export_file(
+            agent_id, max_steps=max_steps, use_legacy_format=use_legacy_format, request_options=request_options
+        )
         return _response.data
 
     async def import_file(
@@ -1432,9 +1454,10 @@ class AsyncAgentsClient:
         strip_messages: typing.Optional[bool] = OMIT,
         env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentState:
+    ) -> ImportedAgentsResponse:
         """
-        Import a serialized agent file and recreate the agent in the system.
+        Import a serialized agent file and recreate the agent(s) in the system.
+        Returns the IDs of all imported agents.
 
         Parameters
         ----------
@@ -1461,7 +1484,7 @@ class AsyncAgentsClient:
 
         Returns
         -------
-        AgentState
+        ImportedAgentsResponse
             Successful Response
 
         Examples
