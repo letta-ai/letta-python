@@ -12258,6 +12258,14 @@ client.agents.templates.create_version(
 <dl>
 <dd>
 
+**preserve_tool_variables:** `typing.Optional[bool]` — If true, preserves the existing agent's tool environment variables when migrating deployed agents
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -12350,6 +12358,14 @@ client.agents.templates.migrate(
 <dd>
 
 **variables:** `typing.Optional[typing.Dict[str, str]]` — If you chose to not preserve core memories, you should provide the new variables for the core memories
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**preserve_tool_variables:** `typing.Optional[bool]` — If true, preserves the existing agent's tool environment variables instead of using the template's variables
     
 </dd>
 </dl>

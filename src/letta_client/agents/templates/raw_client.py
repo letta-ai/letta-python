@@ -32,6 +32,7 @@ class RawTemplatesClient:
         return_agent_state: typing.Optional[TemplatesCreateVersionRequestReturnAgentState] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
         message: typing.Optional[str] = OMIT,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[None]:
         """
@@ -50,6 +51,9 @@ class RawTemplatesClient:
 
         message : typing.Optional[str]
 
+        preserve_tool_variables : typing.Optional[bool]
+            If true, preserves the existing agent's tool environment variables when migrating deployed agents
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -66,6 +70,7 @@ class RawTemplatesClient:
             json={
                 "migrate_deployed_agents": migrate_deployed_agents,
                 "message": message,
+                "preserve_tool_variables": preserve_tool_variables,
             },
             headers={
                 "content-type": "application/json",
@@ -110,6 +115,7 @@ class RawTemplatesClient:
         to_template: str,
         preserve_core_memories: bool,
         variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TemplatesMigrateResponse]:
         """
@@ -128,6 +134,9 @@ class RawTemplatesClient:
         variables : typing.Optional[typing.Dict[str, str]]
             If you chose to not preserve core memories, you should provide the new variables for the core memories
 
+        preserve_tool_variables : typing.Optional[bool]
+            If true, preserves the existing agent's tool environment variables instead of using the template's variables
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -143,6 +152,7 @@ class RawTemplatesClient:
                 "to_template": to_template,
                 "variables": variables,
                 "preserve_core_memories": preserve_core_memories,
+                "preserve_tool_variables": preserve_tool_variables,
             },
             headers={
                 "content-type": "application/json",
@@ -274,6 +284,7 @@ class AsyncRawTemplatesClient:
         return_agent_state: typing.Optional[TemplatesCreateVersionRequestReturnAgentState] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
         message: typing.Optional[str] = OMIT,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[None]:
         """
@@ -292,6 +303,9 @@ class AsyncRawTemplatesClient:
 
         message : typing.Optional[str]
 
+        preserve_tool_variables : typing.Optional[bool]
+            If true, preserves the existing agent's tool environment variables when migrating deployed agents
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -308,6 +322,7 @@ class AsyncRawTemplatesClient:
             json={
                 "migrate_deployed_agents": migrate_deployed_agents,
                 "message": message,
+                "preserve_tool_variables": preserve_tool_variables,
             },
             headers={
                 "content-type": "application/json",
@@ -352,6 +367,7 @@ class AsyncRawTemplatesClient:
         to_template: str,
         preserve_core_memories: bool,
         variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TemplatesMigrateResponse]:
         """
@@ -370,6 +386,9 @@ class AsyncRawTemplatesClient:
         variables : typing.Optional[typing.Dict[str, str]]
             If you chose to not preserve core memories, you should provide the new variables for the core memories
 
+        preserve_tool_variables : typing.Optional[bool]
+            If true, preserves the existing agent's tool environment variables instead of using the template's variables
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -385,6 +404,7 @@ class AsyncRawTemplatesClient:
                 "to_template": to_template,
                 "variables": variables,
                 "preserve_core_memories": preserve_core_memories,
+                "preserve_tool_variables": preserve_tool_variables,
             },
             headers={
                 "content-type": "application/json",

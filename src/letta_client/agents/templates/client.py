@@ -35,6 +35,7 @@ class TemplatesClient:
         return_agent_state: typing.Optional[TemplatesCreateVersionRequestReturnAgentState] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
         message: typing.Optional[str] = OMIT,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -52,6 +53,9 @@ class TemplatesClient:
         migrate_deployed_agents : typing.Optional[bool]
 
         message : typing.Optional[str]
+
+        preserve_tool_variables : typing.Optional[bool]
+            If true, preserves the existing agent's tool environment variables when migrating deployed agents
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -77,6 +81,7 @@ class TemplatesClient:
             return_agent_state=return_agent_state,
             migrate_deployed_agents=migrate_deployed_agents,
             message=message,
+            preserve_tool_variables=preserve_tool_variables,
             request_options=request_options,
         )
         return _response.data
@@ -88,6 +93,7 @@ class TemplatesClient:
         to_template: str,
         preserve_core_memories: bool,
         variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TemplatesMigrateResponse:
         """
@@ -105,6 +111,9 @@ class TemplatesClient:
 
         variables : typing.Optional[typing.Dict[str, str]]
             If you chose to not preserve core memories, you should provide the new variables for the core memories
+
+        preserve_tool_variables : typing.Optional[bool]
+            If true, preserves the existing agent's tool environment variables instead of using the template's variables
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -133,6 +142,7 @@ class TemplatesClient:
             to_template=to_template,
             preserve_core_memories=preserve_core_memories,
             variables=variables,
+            preserve_tool_variables=preserve_tool_variables,
             request_options=request_options,
         )
         return _response.data
@@ -201,6 +211,7 @@ class AsyncTemplatesClient:
         return_agent_state: typing.Optional[TemplatesCreateVersionRequestReturnAgentState] = None,
         migrate_deployed_agents: typing.Optional[bool] = OMIT,
         message: typing.Optional[str] = OMIT,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -218,6 +229,9 @@ class AsyncTemplatesClient:
         migrate_deployed_agents : typing.Optional[bool]
 
         message : typing.Optional[str]
+
+        preserve_tool_variables : typing.Optional[bool]
+            If true, preserves the existing agent's tool environment variables when migrating deployed agents
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -251,6 +265,7 @@ class AsyncTemplatesClient:
             return_agent_state=return_agent_state,
             migrate_deployed_agents=migrate_deployed_agents,
             message=message,
+            preserve_tool_variables=preserve_tool_variables,
             request_options=request_options,
         )
         return _response.data
@@ -262,6 +277,7 @@ class AsyncTemplatesClient:
         to_template: str,
         preserve_core_memories: bool,
         variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TemplatesMigrateResponse:
         """
@@ -279,6 +295,9 @@ class AsyncTemplatesClient:
 
         variables : typing.Optional[typing.Dict[str, str]]
             If you chose to not preserve core memories, you should provide the new variables for the core memories
+
+        preserve_tool_variables : typing.Optional[bool]
+            If true, preserves the existing agent's tool environment variables instead of using the template's variables
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -315,6 +334,7 @@ class AsyncTemplatesClient:
             to_template=to_template,
             preserve_core_memories=preserve_core_memories,
             variables=variables,
+            preserve_tool_variables=preserve_tool_variables,
             request_options=request_options,
         )
         return _response.data
