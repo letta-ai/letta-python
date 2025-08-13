@@ -12,6 +12,7 @@ from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from ..types.step import Step
+from ..types.step_metrics import StepMetrics
 from .types.steps_list_request_feedback import StepsListRequestFeedback
 
 
@@ -183,6 +184,55 @@ class RawStepsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def retrieve_step_metrics(
+        self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[StepMetrics]:
+        """
+        Get step metrics by step ID.
+
+        Parameters
+        ----------
+        step_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[StepMetrics]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/steps/{jsonable_encoder(step_id)}/metrics",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    StepMetrics,
+                    construct_type(
+                        type_=StepMetrics,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawStepsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -334,6 +384,55 @@ class AsyncRawStepsClient:
                     Step,
                     construct_type(
                         type_=Step,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def retrieve_step_metrics(
+        self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[StepMetrics]:
+        """
+        Get step metrics by step ID.
+
+        Parameters
+        ----------
+        step_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[StepMetrics]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/steps/{jsonable_encoder(step_id)}/metrics",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    StepMetrics,
+                    construct_type(
+                        type_=StepMetrics,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

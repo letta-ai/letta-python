@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.step import Step
+from ..types.step_metrics import StepMetrics
 from .feedback.client import AsyncFeedbackClient, FeedbackClient
 from .raw_client import AsyncRawStepsClient, RawStepsClient
 from .types.steps_list_request_feedback import StepsListRequestFeedback
@@ -154,6 +155,39 @@ class StepsClient:
         )
         """
         _response = self._raw_client.retrieve(step_id, request_options=request_options)
+        return _response.data
+
+    def retrieve_step_metrics(
+        self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> StepMetrics:
+        """
+        Get step metrics by step ID.
+
+        Parameters
+        ----------
+        step_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StepMetrics
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.steps.retrieve_step_metrics(
+            step_id="step_id",
+        )
+        """
+        _response = self._raw_client.retrieve_step_metrics(step_id, request_options=request_options)
         return _response.data
 
 
@@ -317,4 +351,45 @@ class AsyncStepsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(step_id, request_options=request_options)
+        return _response.data
+
+    async def retrieve_step_metrics(
+        self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> StepMetrics:
+        """
+        Get step metrics by step ID.
+
+        Parameters
+        ----------
+        step_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        StepMetrics
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.steps.retrieve_step_metrics(
+                step_id="step_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.retrieve_step_metrics(step_id, request_options=request_options)
         return _response.data
