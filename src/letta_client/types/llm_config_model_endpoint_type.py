@@ -6,7 +6,6 @@ LlmConfigModelEndpointType = typing.Union[
     typing.Literal[
         "openai",
         "anthropic",
-        "cohere",
         "google_ai",
         "google_vertex",
         "azure",

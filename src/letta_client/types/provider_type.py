@@ -20,7 +20,6 @@ ProviderType = typing.Union[
         "azure",
         "vllm",
         "bedrock",
-        "cohere",
     ],
     typing.Any,
 ]
