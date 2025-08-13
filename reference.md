@@ -7557,6 +7557,104 @@ client.providers.check()
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">check_provider</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.providers.check_provider(
+    provider_type="anthropic",
+    api_key="api_key",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider_type:** `ProviderType` — The type of the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_key:** `str` — API key or secret key used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**access_key:** `typing.Optional[str]` — Access key used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**region:** `typing.Optional[str]` — Region used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**base_url:** `typing.Optional[str]` — Base URL used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_version:** `typing.Optional[str]` — API version used for requests to the provider.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Runs
 <details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">list</a>(...)</code></summary>
 <dl>

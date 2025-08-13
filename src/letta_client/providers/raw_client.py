@@ -313,12 +313,62 @@ class RawProvidersClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def check(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+    def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[None]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v1/providers/check",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return HttpResponse(response=_response, data=None)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def check_provider(
+        self,
+        *,
+        provider_type: ProviderType,
+        api_key: str,
+        access_key: typing.Optional[str] = OMIT,
+        region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
         """
         Parameters
         ----------
+        provider_type : ProviderType
+            The type of the provider.
+
+        api_key : str
+            API key or secret key used for requests to the provider.
+
+        access_key : typing.Optional[str]
+            Access key used for requests to the provider.
+
+        region : typing.Optional[str]
+            Region used for requests to the provider.
+
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -329,8 +379,20 @@ class RawProvidersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/providers/check",
-            method="GET",
+            method="POST",
+            json={
+                "provider_type": provider_type,
+                "api_key": api_key,
+                "access_key": access_key,
+                "region": region,
+                "base_url": base_url,
+                "api_version": api_version,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if _response is None or not _response.text.strip():
@@ -656,12 +718,62 @@ class AsyncRawProvidersClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def check(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+    async def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> AsyncHttpResponse[None]:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[None]
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v1/providers/check",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return AsyncHttpResponse(response=_response, data=None)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def check_provider(
+        self,
+        *,
+        provider_type: ProviderType,
+        api_key: str,
+        access_key: typing.Optional[str] = OMIT,
+        region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
         """
         Parameters
         ----------
+        provider_type : ProviderType
+            The type of the provider.
+
+        api_key : str
+            API key or secret key used for requests to the provider.
+
+        access_key : typing.Optional[str]
+            Access key used for requests to the provider.
+
+        region : typing.Optional[str]
+            Region used for requests to the provider.
+
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -672,8 +784,20 @@ class AsyncRawProvidersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/providers/check",
-            method="GET",
+            method="POST",
+            json={
+                "provider_type": provider_type,
+                "api_key": api_key,
+                "access_key": access_key,
+                "region": region,
+                "base_url": base_url,
+                "api_version": api_version,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if _response is None or not _response.text.strip():

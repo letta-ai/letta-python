@@ -242,10 +242,62 @@ class ProvidersClient:
         )
         return _response.data
 
-    def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.Optional[typing.Any]:
+    def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Parameters
         ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.providers.check()
+        """
+        _response = self._raw_client.check(request_options=request_options)
+        return _response.data
+
+    def check_provider(
+        self,
+        *,
+        provider_type: ProviderType,
+        api_key: str,
+        access_key: typing.Optional[str] = OMIT,
+        region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Parameters
+        ----------
+        provider_type : ProviderType
+            The type of the provider.
+
+        api_key : str
+            API key or secret key used for requests to the provider.
+
+        access_key : typing.Optional[str]
+            Access key used for requests to the provider.
+
+        region : typing.Optional[str]
+            Region used for requests to the provider.
+
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -262,9 +314,20 @@ class ProvidersClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.providers.check()
+        client.providers.check_provider(
+            provider_type="anthropic",
+            api_key="api_key",
+        )
         """
-        _response = self._raw_client.check(request_options=request_options)
+        _response = self._raw_client.check_provider(
+            provider_type=provider_type,
+            api_key=api_key,
+            access_key=access_key,
+            region=region,
+            base_url=base_url,
+            api_version=api_version,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -530,10 +593,70 @@ class AsyncProvidersClient:
         )
         return _response.data
 
-    async def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.Optional[typing.Any]:
+    async def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
         Parameters
         ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.providers.check()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.check(request_options=request_options)
+        return _response.data
+
+    async def check_provider(
+        self,
+        *,
+        provider_type: ProviderType,
+        api_key: str,
+        access_key: typing.Optional[str] = OMIT,
+        region: typing.Optional[str] = OMIT,
+        base_url: typing.Optional[str] = OMIT,
+        api_version: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Optional[typing.Any]:
+        """
+        Parameters
+        ----------
+        provider_type : ProviderType
+            The type of the provider.
+
+        api_key : str
+            API key or secret key used for requests to the provider.
+
+        access_key : typing.Optional[str]
+            Access key used for requests to the provider.
+
+        region : typing.Optional[str]
+            Region used for requests to the provider.
+
+        base_url : typing.Optional[str]
+            Base URL used for requests to the provider.
+
+        api_version : typing.Optional[str]
+            API version used for requests to the provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -555,10 +678,21 @@ class AsyncProvidersClient:
 
 
         async def main() -> None:
-            await client.providers.check()
+            await client.providers.check_provider(
+                provider_type="anthropic",
+                api_key="api_key",
+            )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.check(request_options=request_options)
+        _response = await self._raw_client.check_provider(
+            provider_type=provider_type,
+            api_key=api_key,
+            access_key=access_key,
+            region=region,
+            base_url=base_url,
+            api_version=api_version,
+            request_options=request_options,
+        )
         return _response.data
