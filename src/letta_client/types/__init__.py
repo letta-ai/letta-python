@@ -179,6 +179,7 @@ from .max_count_per_step_tool_rule_schema import MaxCountPerStepToolRuleSchema
 from .mcp_server_schema import McpServerSchema
 from .mcp_server_type import McpServerType
 from .mcp_tool import McpTool
+from .mcp_tool_execute_request import McpToolExecuteRequest
 from .memory import Memory
 from .message import Message
 from .message_content_item import MessageContentItem
@@ -469,6 +470,7 @@ __all__ = [
     "McpServerSchema",
     "McpServerType",
     "McpTool",
+    "McpToolExecuteRequest",
     "Memory",
     "Message",
     "MessageContentItem",
