@@ -419,7 +419,6 @@ class RawMessagesClient:
         self,
         agent_id: str,
         *,
-        cancel_agent_run_request_agent_id: str,
         run_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
@@ -431,9 +430,6 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
-
-        cancel_agent_run_request_agent_id : str
-            ID of the agent to cancel runs for
 
         run_ids : typing.Optional[typing.Sequence[str]]
             Optional list of run IDs to cancel
@@ -450,7 +446,6 @@ class RawMessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/cancel",
             method="POST",
             json={
-                "agent_id": cancel_agent_run_request_agent_id,
                 "run_ids": run_ids,
             },
             headers={
@@ -1104,7 +1099,6 @@ class AsyncRawMessagesClient:
         self,
         agent_id: str,
         *,
-        cancel_agent_run_request_agent_id: str,
         run_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
@@ -1116,9 +1110,6 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
-
-        cancel_agent_run_request_agent_id : str
-            ID of the agent to cancel runs for
 
         run_ids : typing.Optional[typing.Sequence[str]]
             Optional list of run IDs to cancel
@@ -1135,7 +1126,6 @@ class AsyncRawMessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/cancel",
             method="POST",
             json={
-                "agent_id": cancel_agent_run_request_agent_id,
                 "run_ids": run_ids,
             },
             headers={
