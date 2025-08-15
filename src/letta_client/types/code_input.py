@@ -10,7 +10,12 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 class CodeInput(UncheckedBaseModel):
     code: str = pydantic.Field()
     """
-    Python source code to parse for JSON schema
+    Source code to parse for JSON schema
+    """
+
+    source_type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The source type of the code (python or typescript)
     """
 
     if IS_PYDANTIC_V2:

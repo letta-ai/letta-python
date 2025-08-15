@@ -273,6 +273,14 @@ client.tools.modify(
 <dl>
 <dd>
 
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — A dictionary of additional metadata for the tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
