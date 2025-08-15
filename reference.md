@@ -11894,6 +11894,7 @@ client = Letta(
 )
 client.agents.messages.cancel(
     agent_id="agent_id",
+    cancel_agent_run_request_agent_id="agent_id",
 )
 
 ```
@@ -11918,7 +11919,15 @@ client.agents.messages.cancel(
 <dl>
 <dd>
 
-**request:** `typing.Optional[typing.Sequence[str]]` 
+**cancel_agent_run_request_agent_id:** `str` — ID of the agent to cancel runs for
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_ids:** `typing.Optional[typing.Sequence[str]]` — Optional list of run IDs to cancel
     
 </dd>
 </dl>

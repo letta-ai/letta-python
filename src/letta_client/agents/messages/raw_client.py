@@ -419,7 +419,8 @@ class RawMessagesClient:
         self,
         agent_id: str,
         *,
-        request: typing.Optional[typing.Sequence[str]] = None,
+        cancel_agent_run_request_agent_id: str,
+        run_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
         """
@@ -431,7 +432,11 @@ class RawMessagesClient:
         ----------
         agent_id : str
 
-        request : typing.Optional[typing.Sequence[str]]
+        cancel_agent_run_request_agent_id : str
+            ID of the agent to cancel runs for
+
+        run_ids : typing.Optional[typing.Sequence[str]]
+            Optional list of run IDs to cancel
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -444,7 +449,10 @@ class RawMessagesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/cancel",
             method="POST",
-            json=request,
+            json={
+                "agent_id": cancel_agent_run_request_agent_id,
+                "run_ids": run_ids,
+            },
             headers={
                 "content-type": "application/json",
             },
@@ -1096,7 +1104,8 @@ class AsyncRawMessagesClient:
         self,
         agent_id: str,
         *,
-        request: typing.Optional[typing.Sequence[str]] = None,
+        cancel_agent_run_request_agent_id: str,
+        run_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
         """
@@ -1108,7 +1117,11 @@ class AsyncRawMessagesClient:
         ----------
         agent_id : str
 
-        request : typing.Optional[typing.Sequence[str]]
+        cancel_agent_run_request_agent_id : str
+            ID of the agent to cancel runs for
+
+        run_ids : typing.Optional[typing.Sequence[str]]
+            Optional list of run IDs to cancel
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1121,7 +1134,10 @@ class AsyncRawMessagesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/cancel",
             method="POST",
-            json=request,
+            json={
+                "agent_id": cancel_agent_run_request_agent_id,
+                "run_ids": run_ids,
+            },
             headers={
                 "content-type": "application/json",
             },

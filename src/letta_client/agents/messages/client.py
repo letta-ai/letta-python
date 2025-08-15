@@ -347,7 +347,8 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
-        request: typing.Optional[typing.Sequence[str]] = None,
+        cancel_agent_run_request_agent_id: str,
+        run_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Dict[str, typing.Optional[typing.Any]]:
         """
@@ -359,7 +360,11 @@ class MessagesClient:
         ----------
         agent_id : str
 
-        request : typing.Optional[typing.Sequence[str]]
+        cancel_agent_run_request_agent_id : str
+            ID of the agent to cancel runs for
+
+        run_ids : typing.Optional[typing.Sequence[str]]
+            Optional list of run IDs to cancel
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -379,9 +384,15 @@ class MessagesClient:
         )
         client.agents.messages.cancel(
             agent_id="agent_id",
+            cancel_agent_run_request_agent_id="agent_id",
         )
         """
-        _response = self._raw_client.cancel(agent_id, request=request, request_options=request_options)
+        _response = self._raw_client.cancel(
+            agent_id,
+            cancel_agent_run_request_agent_id=cancel_agent_run_request_agent_id,
+            run_ids=run_ids,
+            request_options=request_options,
+        )
         return _response.data
 
     def create_async(
@@ -937,7 +948,8 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
-        request: typing.Optional[typing.Sequence[str]] = None,
+        cancel_agent_run_request_agent_id: str,
+        run_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Dict[str, typing.Optional[typing.Any]]:
         """
@@ -949,7 +961,11 @@ class AsyncMessagesClient:
         ----------
         agent_id : str
 
-        request : typing.Optional[typing.Sequence[str]]
+        cancel_agent_run_request_agent_id : str
+            ID of the agent to cancel runs for
+
+        run_ids : typing.Optional[typing.Sequence[str]]
+            Optional list of run IDs to cancel
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -974,12 +990,18 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.agents.messages.cancel(
                 agent_id="agent_id",
+                cancel_agent_run_request_agent_id="agent_id",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.cancel(agent_id, request=request, request_options=request_options)
+        _response = await self._raw_client.cancel(
+            agent_id,
+            cancel_agent_run_request_agent_id=cancel_agent_run_request_agent_id,
+            run_ids=run_ids,
+            request_options=request_options,
+        )
         return _response.data
 
     async def create_async(
