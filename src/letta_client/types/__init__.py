@@ -187,6 +187,7 @@ from .llm_config import LlmConfig
 from .llm_config_compatibility_type import LlmConfigCompatibilityType
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .llm_config_reasoning_effort import LlmConfigReasoningEffort
+from .llm_config_verbosity import LlmConfigVerbosity
 from .local_sandbox_config import LocalSandboxConfig
 from .manager_type import ManagerType
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
@@ -506,6 +507,7 @@ __all__ = [
     "LlmConfigCompatibilityType",
     "LlmConfigModelEndpointType",
     "LlmConfigReasoningEffort",
+    "LlmConfigVerbosity",
     "LocalSandboxConfig",
     "ManagerType",
     "MaxCountPerStepToolRule",

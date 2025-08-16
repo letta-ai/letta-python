@@ -8,6 +8,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 from .llm_config_compatibility_type import LlmConfigCompatibilityType
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
 from .llm_config_reasoning_effort import LlmConfigReasoningEffort
+from .llm_config_verbosity import LlmConfigVerbosity
 from .provider_category import ProviderCategory
 
 
@@ -94,6 +95,11 @@ class LlmConfig(UncheckedBaseModel):
     compatibility_type: typing.Optional[LlmConfigCompatibilityType] = pydantic.Field(default=None)
     """
     The framework compatibility type for the model.
+    """
+
+    verbosity: typing.Optional[LlmConfigVerbosity] = pydantic.Field(default=None)
+    """
+    Soft control for how verbose model output should be, used for GPT-5 models.
     """
 
     if IS_PYDANTIC_V2:
