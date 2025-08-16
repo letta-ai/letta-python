@@ -2,4 +2,6 @@
 
 import typing
 
-CompletionCreateParamsNonStreamingReasoningEffort = typing.Union[typing.Literal["low", "medium", "high"], typing.Any]
+CompletionCreateParamsNonStreamingReasoningEffort = typing.Union[
+    typing.Literal["minimal", "low", "medium", "high"], typing.Any
+]

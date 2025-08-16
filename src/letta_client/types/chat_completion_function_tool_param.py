@@ -5,11 +5,12 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .function_definition_input import FunctionDefinitionInput
 
 
-class ChatCompletionStreamOptionsParam(UncheckedBaseModel):
-    include_obfuscation: typing.Optional[bool] = None
-    include_usage: typing.Optional[bool] = None
+class ChatCompletionFunctionToolParam(UncheckedBaseModel):
+    function: FunctionDefinitionInput
+    type: typing.Literal["function"] = "function"
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

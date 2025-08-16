@@ -7,9 +7,8 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 
 
-class ChatCompletionStreamOptionsParam(UncheckedBaseModel):
-    include_obfuscation: typing.Optional[bool] = None
-    include_usage: typing.Optional[bool] = None
+class CustomFormatText(UncheckedBaseModel):
+    type: typing.Literal["text"] = "text"
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -5,15 +5,12 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .openai_types_chat_chat_completion_message_tool_call_param_function import (
-    OpenaiTypesChatChatCompletionMessageToolCallParamFunction,
-)
+from .chat_completion_allowed_tools_param_mode import ChatCompletionAllowedToolsParamMode
 
 
-class ChatCompletionMessageToolCallParam(UncheckedBaseModel):
-    id: str
-    function: OpenaiTypesChatChatCompletionMessageToolCallParamFunction
-    type: typing.Literal["function"] = "function"
+class ChatCompletionAllowedToolsParam(UncheckedBaseModel):
+    mode: ChatCompletionAllowedToolsParamMode
+    tools: typing.List[typing.Dict[str, typing.Optional[typing.Any]]]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

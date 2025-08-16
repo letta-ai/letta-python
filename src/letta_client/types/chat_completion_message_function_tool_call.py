@@ -8,7 +8,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 from .function_output import FunctionOutput
 
 
-class ChatCompletionMessageToolCall(UncheckedBaseModel):
+class ChatCompletionMessageFunctionToolCall(UncheckedBaseModel):
     id: str
     function: FunctionOutput
     type: typing.Literal["function"] = "function"

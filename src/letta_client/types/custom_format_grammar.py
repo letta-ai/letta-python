@@ -5,11 +5,12 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .custom_format_grammar_grammar import CustomFormatGrammarGrammar
 
 
-class ChatCompletionStreamOptionsParam(UncheckedBaseModel):
-    include_obfuscation: typing.Optional[bool] = None
-    include_usage: typing.Optional[bool] = None
+class CustomFormatGrammar(UncheckedBaseModel):
+    grammar: CustomFormatGrammarGrammar
+    type: typing.Literal["grammar"] = "grammar"
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

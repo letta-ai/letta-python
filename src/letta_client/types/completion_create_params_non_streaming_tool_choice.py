@@ -2,8 +2,15 @@
 
 import typing
 
+from .chat_completion_allowed_tool_choice_param import ChatCompletionAllowedToolChoiceParam
+from .chat_completion_named_tool_choice_custom_param import ChatCompletionNamedToolChoiceCustomParam
 from .chat_completion_named_tool_choice_param import ChatCompletionNamedToolChoiceParam
 
 CompletionCreateParamsNonStreamingToolChoice = typing.Union[
-    typing.Literal["none"], typing.Literal["auto"], typing.Literal["required"], ChatCompletionNamedToolChoiceParam
+    typing.Literal["none"],
+    typing.Literal["auto"],
+    typing.Literal["required"],
+    ChatCompletionAllowedToolChoiceParam,
+    ChatCompletionNamedToolChoiceParam,
+    ChatCompletionNamedToolChoiceCustomParam,
 ]

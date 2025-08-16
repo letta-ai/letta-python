@@ -5,11 +5,14 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .openai_types_chat_chat_completion_custom_tool_param_custom import (
+    OpenaiTypesChatChatCompletionCustomToolParamCustom,
+)
 
 
-class ChatCompletionStreamOptionsParam(UncheckedBaseModel):
-    include_obfuscation: typing.Optional[bool] = None
-    include_usage: typing.Optional[bool] = None
+class ChatCompletionCustomToolParam(UncheckedBaseModel):
+    custom: OpenaiTypesChatChatCompletionCustomToolParamCustom
+    type: typing.Literal["custom"] = "custom"
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

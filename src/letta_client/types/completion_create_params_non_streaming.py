@@ -8,7 +8,6 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 from .chat_completion_audio_param import ChatCompletionAudioParam
 from .chat_completion_prediction_content_param import ChatCompletionPredictionContentParam
 from .chat_completion_stream_options_param import ChatCompletionStreamOptionsParam
-from .chat_completion_tool_param import ChatCompletionToolParam
 from .completion_create_params_non_streaming_function_call import CompletionCreateParamsNonStreamingFunctionCall
 from .completion_create_params_non_streaming_messages_item import CompletionCreateParamsNonStreamingMessagesItem
 from .completion_create_params_non_streaming_modalities_item import CompletionCreateParamsNonStreamingModalitiesItem
@@ -18,6 +17,8 @@ from .completion_create_params_non_streaming_response_format import CompletionCr
 from .completion_create_params_non_streaming_service_tier import CompletionCreateParamsNonStreamingServiceTier
 from .completion_create_params_non_streaming_stop import CompletionCreateParamsNonStreamingStop
 from .completion_create_params_non_streaming_tool_choice import CompletionCreateParamsNonStreamingToolChoice
+from .completion_create_params_non_streaming_tools_item import CompletionCreateParamsNonStreamingToolsItem
+from .completion_create_params_non_streaming_verbosity import CompletionCreateParamsNonStreamingVerbosity
 from .openai_types_chat_completion_create_params_function import OpenaiTypesChatCompletionCreateParamsFunction
 from .web_search_options import WebSearchOptions
 
@@ -50,10 +51,11 @@ class CompletionCreateParamsNonStreaming(UncheckedBaseModel):
     stream_options: typing.Optional[ChatCompletionStreamOptionsParam] = None
     temperature: typing.Optional[float] = None
     tool_choice: typing.Optional[CompletionCreateParamsNonStreamingToolChoice] = None
-    tools: typing.Optional[typing.List[ChatCompletionToolParam]] = None
+    tools: typing.Optional[typing.List[CompletionCreateParamsNonStreamingToolsItem]] = None
     top_logprobs: typing.Optional[int] = None
     top_p: typing.Optional[float] = None
     user: typing.Optional[str] = None
+    verbosity: typing.Optional[CompletionCreateParamsNonStreamingVerbosity] = None
     web_search_options: typing.Optional[WebSearchOptions] = None
     stream: typing.Optional[bool] = None
 

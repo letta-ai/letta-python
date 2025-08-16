@@ -6,7 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .chat_completion_message_function_tool_call import ChatCompletionMessageFunctionToolCall
 from .message_content_item import MessageContentItem
 from .message_role import MessageRole
 from .tool_return import ToolReturn
@@ -85,7 +85,7 @@ class Message(UncheckedBaseModel):
     For role user/assistant: the (optional) name of the participant. For role tool/function: the name of the function called.
     """
 
-    tool_calls: typing.Optional[typing.List[ChatCompletionMessageToolCall]] = pydantic.Field(default=None)
+    tool_calls: typing.Optional[typing.List[ChatCompletionMessageFunctionToolCall]] = pydantic.Field(default=None)
     """
     The list of tool calls requested. Only applicable for role assistant.
     """

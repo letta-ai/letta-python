@@ -28,9 +28,13 @@ from .block import Block
 from .block_schema import BlockSchema
 from .block_update import BlockUpdate
 from .body_export_agent_serialized import BodyExportAgentSerialized
+from .chat_completion_allowed_tool_choice_param import ChatCompletionAllowedToolChoiceParam
+from .chat_completion_allowed_tools_param import ChatCompletionAllowedToolsParam
+from .chat_completion_allowed_tools_param_mode import ChatCompletionAllowedToolsParamMode
 from .chat_completion_assistant_message_param import ChatCompletionAssistantMessageParam
 from .chat_completion_assistant_message_param_content import ChatCompletionAssistantMessageParamContent
 from .chat_completion_assistant_message_param_content_item import ChatCompletionAssistantMessageParamContentItem
+from .chat_completion_assistant_message_param_tool_calls_item import ChatCompletionAssistantMessageParamToolCallsItem
 from .chat_completion_audio_param import ChatCompletionAudioParam
 from .chat_completion_audio_param_format import ChatCompletionAudioParamFormat
 from .chat_completion_audio_param_voice import ChatCompletionAudioParamVoice
@@ -38,12 +42,16 @@ from .chat_completion_content_part_image_param import ChatCompletionContentPartI
 from .chat_completion_content_part_input_audio_param import ChatCompletionContentPartInputAudioParam
 from .chat_completion_content_part_refusal_param import ChatCompletionContentPartRefusalParam
 from .chat_completion_content_part_text_param import ChatCompletionContentPartTextParam
+from .chat_completion_custom_tool_param import ChatCompletionCustomToolParam
 from .chat_completion_developer_message_param import ChatCompletionDeveloperMessageParam
 from .chat_completion_developer_message_param_content import ChatCompletionDeveloperMessageParamContent
 from .chat_completion_function_call_option_param import ChatCompletionFunctionCallOptionParam
 from .chat_completion_function_message_param import ChatCompletionFunctionMessageParam
-from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
-from .chat_completion_message_tool_call_param import ChatCompletionMessageToolCallParam
+from .chat_completion_function_tool_param import ChatCompletionFunctionToolParam
+from .chat_completion_message_custom_tool_call_param import ChatCompletionMessageCustomToolCallParam
+from .chat_completion_message_function_tool_call import ChatCompletionMessageFunctionToolCall
+from .chat_completion_message_function_tool_call_param import ChatCompletionMessageFunctionToolCallParam
+from .chat_completion_named_tool_choice_custom_param import ChatCompletionNamedToolChoiceCustomParam
 from .chat_completion_named_tool_choice_param import ChatCompletionNamedToolChoiceParam
 from .chat_completion_prediction_content_param import ChatCompletionPredictionContentParam
 from .chat_completion_prediction_content_param_content import ChatCompletionPredictionContentParamContent
@@ -52,7 +60,6 @@ from .chat_completion_system_message_param import ChatCompletionSystemMessagePar
 from .chat_completion_system_message_param_content import ChatCompletionSystemMessageParamContent
 from .chat_completion_tool_message_param import ChatCompletionToolMessageParam
 from .chat_completion_tool_message_param_content import ChatCompletionToolMessageParamContent
-from .chat_completion_tool_param import ChatCompletionToolParam
 from .chat_completion_user_message_param import ChatCompletionUserMessageParam
 from .chat_completion_user_message_param_content import ChatCompletionUserMessageParamContent
 from .chat_completion_user_message_param_content_item import ChatCompletionUserMessageParamContentItem
@@ -69,6 +76,8 @@ from .completion_create_params_non_streaming_response_format import CompletionCr
 from .completion_create_params_non_streaming_service_tier import CompletionCreateParamsNonStreamingServiceTier
 from .completion_create_params_non_streaming_stop import CompletionCreateParamsNonStreamingStop
 from .completion_create_params_non_streaming_tool_choice import CompletionCreateParamsNonStreamingToolChoice
+from .completion_create_params_non_streaming_tools_item import CompletionCreateParamsNonStreamingToolsItem
+from .completion_create_params_non_streaming_verbosity import CompletionCreateParamsNonStreamingVerbosity
 from .completion_create_params_streaming import CompletionCreateParamsStreaming
 from .completion_create_params_streaming_function_call import CompletionCreateParamsStreamingFunctionCall
 from .completion_create_params_streaming_messages_item import CompletionCreateParamsStreamingMessagesItem
@@ -79,6 +88,8 @@ from .completion_create_params_streaming_response_format import CompletionCreate
 from .completion_create_params_streaming_service_tier import CompletionCreateParamsStreamingServiceTier
 from .completion_create_params_streaming_stop import CompletionCreateParamsStreamingStop
 from .completion_create_params_streaming_tool_choice import CompletionCreateParamsStreamingToolChoice
+from .completion_create_params_streaming_tools_item import CompletionCreateParamsStreamingToolsItem
+from .completion_create_params_streaming_verbosity import CompletionCreateParamsStreamingVerbosity
 from .components_schemas_text_content import ComponentsSchemasTextContent
 from .conditional_tool_rule import ConditionalToolRule
 from .conditional_tool_rule_schema import ConditionalToolRuleSchema
@@ -87,6 +98,10 @@ from .context_window_overview import ContextWindowOverview
 from .continue_tool_rule import ContinueToolRule
 from .core_memory_block_schema import CoreMemoryBlockSchema
 from .create_block import CreateBlock
+from .custom_format_grammar import CustomFormatGrammar
+from .custom_format_grammar_grammar import CustomFormatGrammarGrammar
+from .custom_format_grammar_grammar_syntax import CustomFormatGrammarGrammarSyntax
+from .custom_format_text import CustomFormatText
 from .duplicate_file_handling import DuplicateFileHandling
 from .dynamic_manager import DynamicManager
 from .dynamic_manager_update import DynamicManagerUpdate
@@ -195,8 +210,20 @@ from .not_found_error_body import NotFoundErrorBody
 from .not_found_error_body_message import NotFoundErrorBodyMessage
 from .npm_requirement import NpmRequirement
 from .omitted_reasoning_content import OmittedReasoningContent
-from .openai_types_chat_chat_completion_message_tool_call_param_function import (
-    OpenaiTypesChatChatCompletionMessageToolCallParamFunction,
+from .openai_types_chat_chat_completion_custom_tool_param_custom import (
+    OpenaiTypesChatChatCompletionCustomToolParamCustom,
+)
+from .openai_types_chat_chat_completion_custom_tool_param_custom_format import (
+    OpenaiTypesChatChatCompletionCustomToolParamCustomFormat,
+)
+from .openai_types_chat_chat_completion_message_custom_tool_call_param_custom import (
+    OpenaiTypesChatChatCompletionMessageCustomToolCallParamCustom,
+)
+from .openai_types_chat_chat_completion_message_function_tool_call_param_function import (
+    OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction,
+)
+from .openai_types_chat_chat_completion_named_tool_choice_custom_param_custom import (
+    OpenaiTypesChatChatCompletionNamedToolChoiceCustomParamCustom,
 )
 from .openai_types_chat_chat_completion_named_tool_choice_param_function import (
     OpenaiTypesChatChatCompletionNamedToolChoiceParamFunction,
@@ -328,9 +355,13 @@ __all__ = [
     "BlockSchema",
     "BlockUpdate",
     "BodyExportAgentSerialized",
+    "ChatCompletionAllowedToolChoiceParam",
+    "ChatCompletionAllowedToolsParam",
+    "ChatCompletionAllowedToolsParamMode",
     "ChatCompletionAssistantMessageParam",
     "ChatCompletionAssistantMessageParamContent",
     "ChatCompletionAssistantMessageParamContentItem",
+    "ChatCompletionAssistantMessageParamToolCallsItem",
     "ChatCompletionAudioParam",
     "ChatCompletionAudioParamFormat",
     "ChatCompletionAudioParamVoice",
@@ -338,12 +369,16 @@ __all__ = [
     "ChatCompletionContentPartInputAudioParam",
     "ChatCompletionContentPartRefusalParam",
     "ChatCompletionContentPartTextParam",
+    "ChatCompletionCustomToolParam",
     "ChatCompletionDeveloperMessageParam",
     "ChatCompletionDeveloperMessageParamContent",
     "ChatCompletionFunctionCallOptionParam",
     "ChatCompletionFunctionMessageParam",
-    "ChatCompletionMessageToolCall",
-    "ChatCompletionMessageToolCallParam",
+    "ChatCompletionFunctionToolParam",
+    "ChatCompletionMessageCustomToolCallParam",
+    "ChatCompletionMessageFunctionToolCall",
+    "ChatCompletionMessageFunctionToolCallParam",
+    "ChatCompletionNamedToolChoiceCustomParam",
     "ChatCompletionNamedToolChoiceParam",
     "ChatCompletionPredictionContentParam",
     "ChatCompletionPredictionContentParamContent",
@@ -352,7 +387,6 @@ __all__ = [
     "ChatCompletionSystemMessageParamContent",
     "ChatCompletionToolMessageParam",
     "ChatCompletionToolMessageParamContent",
-    "ChatCompletionToolParam",
     "ChatCompletionUserMessageParam",
     "ChatCompletionUserMessageParamContent",
     "ChatCompletionUserMessageParamContentItem",
@@ -369,6 +403,8 @@ __all__ = [
     "CompletionCreateParamsNonStreamingServiceTier",
     "CompletionCreateParamsNonStreamingStop",
     "CompletionCreateParamsNonStreamingToolChoice",
+    "CompletionCreateParamsNonStreamingToolsItem",
+    "CompletionCreateParamsNonStreamingVerbosity",
     "CompletionCreateParamsStreaming",
     "CompletionCreateParamsStreamingFunctionCall",
     "CompletionCreateParamsStreamingMessagesItem",
@@ -379,6 +415,8 @@ __all__ = [
     "CompletionCreateParamsStreamingServiceTier",
     "CompletionCreateParamsStreamingStop",
     "CompletionCreateParamsStreamingToolChoice",
+    "CompletionCreateParamsStreamingToolsItem",
+    "CompletionCreateParamsStreamingVerbosity",
     "ComponentsSchemasTextContent",
     "ConditionalToolRule",
     "ConditionalToolRuleSchema",
@@ -387,6 +425,10 @@ __all__ = [
     "ContinueToolRule",
     "CoreMemoryBlockSchema",
     "CreateBlock",
+    "CustomFormatGrammar",
+    "CustomFormatGrammarGrammar",
+    "CustomFormatGrammarGrammarSyntax",
+    "CustomFormatText",
     "DuplicateFileHandling",
     "DynamicManager",
     "DynamicManagerUpdate",
@@ -487,7 +529,11 @@ __all__ = [
     "NotFoundErrorBodyMessage",
     "NpmRequirement",
     "OmittedReasoningContent",
-    "OpenaiTypesChatChatCompletionMessageToolCallParamFunction",
+    "OpenaiTypesChatChatCompletionCustomToolParamCustom",
+    "OpenaiTypesChatChatCompletionCustomToolParamCustomFormat",
+    "OpenaiTypesChatChatCompletionMessageCustomToolCallParamCustom",
+    "OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction",
+    "OpenaiTypesChatChatCompletionNamedToolChoiceCustomParamCustom",
     "OpenaiTypesChatChatCompletionNamedToolChoiceParamFunction",
     "OpenaiTypesChatCompletionCreateParamsFunction",
     "Organization",

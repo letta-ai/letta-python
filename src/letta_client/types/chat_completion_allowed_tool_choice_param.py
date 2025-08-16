@@ -5,11 +5,12 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .chat_completion_allowed_tools_param import ChatCompletionAllowedToolsParam
 
 
-class ChatCompletionStreamOptionsParam(UncheckedBaseModel):
-    include_obfuscation: typing.Optional[bool] = None
-    include_usage: typing.Optional[bool] = None
+class ChatCompletionAllowedToolChoiceParam(UncheckedBaseModel):
+    allowed_tools: ChatCompletionAllowedToolsParam
+    type: typing.Literal["allowed_tools"] = "allowed_tools"
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

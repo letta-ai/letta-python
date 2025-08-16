@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .audio import Audio
 from .chat_completion_assistant_message_param_content import ChatCompletionAssistantMessageParamContent
-from .chat_completion_message_tool_call_param import ChatCompletionMessageToolCallParam
+from .chat_completion_assistant_message_param_tool_calls_item import ChatCompletionAssistantMessageParamToolCallsItem
 from .function_call import FunctionCall
 
 
@@ -18,7 +18,7 @@ class ChatCompletionAssistantMessageParam(UncheckedBaseModel):
     function_call: typing.Optional[FunctionCall] = None
     name: typing.Optional[str] = None
     refusal: typing.Optional[str] = None
-    tool_calls: typing.Optional[typing.List[ChatCompletionMessageToolCallParam]] = None
+    tool_calls: typing.Optional[typing.List[ChatCompletionAssistantMessageParamToolCallsItem]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
