@@ -9,12 +9,6 @@ from ...core.http_response import AsyncHttpResponse, HttpResponse
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.request_options import RequestOptions
 from ...core.unchecked_base_model import construct_type
-from ...errors.conflict_error import ConflictError
-from ...errors.internal_server_error import InternalServerError
-from ...errors.not_found_error import NotFoundError
-from ...types.conflict_error_body import ConflictErrorBody
-from .types.templates_create_response import TemplatesCreateResponse
-from .types.templates_create_version_request_return_agent_state import TemplatesCreateVersionRequestReturnAgentState
 from .types.templates_migrate_response import TemplatesMigrateResponse
 
 # this is used as the default value for optional parameters
@@ -25,96 +19,12 @@ class RawTemplatesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def create_version(
-        self,
-        agent_id: str,
-        *,
-        return_agent_state: typing.Optional[TemplatesCreateVersionRequestReturnAgentState] = None,
-        migrate_deployed_agents: typing.Optional[bool] = OMIT,
-        message: typing.Optional[str] = OMIT,
-        preserve_tool_variables: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[None]:
-        """
-        <Note>This endpoint is only available on Letta Cloud.</Note>
-
-        Creates a new version of the template version of the agent.
-
-        Parameters
-        ----------
-        agent_id : str
-            The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
-
-        return_agent_state : typing.Optional[TemplatesCreateVersionRequestReturnAgentState]
-
-        migrate_deployed_agents : typing.Optional[bool]
-
-        message : typing.Optional[str]
-
-        preserve_tool_variables : typing.Optional[bool]
-            If true, preserves the existing agent's tool environment variables when migrating deployed agents
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[None]
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/version-template",
-            method="POST",
-            params={
-                "returnAgentState": return_agent_state,
-            },
-            json={
-                "migrate_deployed_agents": migrate_deployed_agents,
-                "message": message,
-                "preserve_tool_variables": preserve_tool_variables,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return HttpResponse(response=_response, data=None)
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def migrate(
         self,
         agent_id: str,
         *,
         to_template: str,
         preserve_core_memories: bool,
-        variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TemplatesMigrateResponse]:
@@ -130,9 +40,6 @@ class RawTemplatesClient:
         to_template : str
 
         preserve_core_memories : bool
-
-        variables : typing.Optional[typing.Dict[str, str]]
-            If you chose to not preserve core memories, you should provide the new variables for the core memories
 
         preserve_tool_variables : typing.Optional[bool]
             If true, preserves the existing agent's tool environment variables instead of using the template's variables
@@ -150,7 +57,6 @@ class RawTemplatesClient:
             method="POST",
             json={
                 "to_template": to_template,
-                "variables": variables,
                 "preserve_core_memories": preserve_core_memories,
                 "preserve_tool_variables": preserve_tool_variables,
             },
@@ -170,51 +76,12 @@ class RawTemplatesClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ConflictErrorBody,
-                        construct_type(
-                            type_=ConflictErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def create(
-        self,
-        agent_id: str,
-        *,
-        project: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[TemplatesCreateResponse]:
+    def create(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
         <Note>This endpoint is only available on Letta Cloud.</Note>
 
@@ -224,49 +91,53 @@ class RawTemplatesClient:
         ----------
         agent_id : str
 
-        project : typing.Optional[str]
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[None]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/template",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return HttpResponse(response=_response, data=None)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def create_version(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[None]:
+        """
+        <Note>This endpoint is only available on Letta Cloud.</Note>
+
+        Creates a new version of the template version of the agent.
+
+        Parameters
+        ----------
+        agent_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[TemplatesCreateResponse]
-            201
+        HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/template",
+            f"v1/agents/{jsonable_encoder(agent_id)}/version-template",
             method="POST",
-            json={
-                "project": project,
-            },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
-            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    TemplatesCreateResponse,
-                    construct_type(
-                        type_=TemplatesCreateResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
+                return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -277,96 +148,12 @@ class AsyncRawTemplatesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def create_version(
-        self,
-        agent_id: str,
-        *,
-        return_agent_state: typing.Optional[TemplatesCreateVersionRequestReturnAgentState] = None,
-        migrate_deployed_agents: typing.Optional[bool] = OMIT,
-        message: typing.Optional[str] = OMIT,
-        preserve_tool_variables: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[None]:
-        """
-        <Note>This endpoint is only available on Letta Cloud.</Note>
-
-        Creates a new version of the template version of the agent.
-
-        Parameters
-        ----------
-        agent_id : str
-            The agent ID of the agent to migrate, if this agent is not a template, it will create a agent template from the agent provided as well
-
-        return_agent_state : typing.Optional[TemplatesCreateVersionRequestReturnAgentState]
-
-        migrate_deployed_agents : typing.Optional[bool]
-
-        message : typing.Optional[str]
-
-        preserve_tool_variables : typing.Optional[bool]
-            If true, preserves the existing agent's tool environment variables when migrating deployed agents
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[None]
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/version-template",
-            method="POST",
-            params={
-                "returnAgentState": return_agent_state,
-            },
-            json={
-                "migrate_deployed_agents": migrate_deployed_agents,
-                "message": message,
-                "preserve_tool_variables": preserve_tool_variables,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return AsyncHttpResponse(response=_response, data=None)
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     async def migrate(
         self,
         agent_id: str,
         *,
         to_template: str,
         preserve_core_memories: bool,
-        variables: typing.Optional[typing.Dict[str, str]] = OMIT,
         preserve_tool_variables: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TemplatesMigrateResponse]:
@@ -382,9 +169,6 @@ class AsyncRawTemplatesClient:
         to_template : str
 
         preserve_core_memories : bool
-
-        variables : typing.Optional[typing.Dict[str, str]]
-            If you chose to not preserve core memories, you should provide the new variables for the core memories
 
         preserve_tool_variables : typing.Optional[bool]
             If true, preserves the existing agent's tool environment variables instead of using the template's variables
@@ -402,7 +186,6 @@ class AsyncRawTemplatesClient:
             method="POST",
             json={
                 "to_template": to_template,
-                "variables": variables,
                 "preserve_core_memories": preserve_core_memories,
                 "preserve_tool_variables": preserve_tool_variables,
             },
@@ -422,51 +205,14 @@ class AsyncRawTemplatesClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        ConflictErrorBody,
-                        construct_type(
-                            type_=ConflictErrorBody,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self,
-        agent_id: str,
-        *,
-        project: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[TemplatesCreateResponse]:
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[None]:
         """
         <Note>This endpoint is only available on Letta Cloud.</Note>
 
@@ -476,49 +222,53 @@ class AsyncRawTemplatesClient:
         ----------
         agent_id : str
 
-        project : typing.Optional[str]
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[None]
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/template",
+            method="POST",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return AsyncHttpResponse(response=_response, data=None)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def create_version(
+        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[None]:
+        """
+        <Note>This endpoint is only available on Letta Cloud.</Note>
+
+        Creates a new version of the template version of the agent.
+
+        Parameters
+        ----------
+        agent_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[TemplatesCreateResponse]
-            201
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/template",
+            f"v1/agents/{jsonable_encoder(agent_id)}/version-template",
             method="POST",
-            json={
-                "project": project,
-            },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
-            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    TemplatesCreateResponse,
-                    construct_type(
-                        type_=TemplatesCreateResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Optional[typing.Any],
-                        construct_type(
-                            type_=typing.Optional[typing.Any],  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
+                return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

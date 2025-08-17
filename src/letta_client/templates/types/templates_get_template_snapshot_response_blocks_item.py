@@ -3,29 +3,21 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
+from ...core.serialization import FieldMetadata
 from ...core.unchecked_base_model import UncheckedBaseModel
 
 
-class TemplatesListResponseTemplatesItem(UncheckedBaseModel):
-    name: str = pydantic.Field()
-    """
-    The exact name of the template
-    """
-
-    id: str
-    project_id: str
-    project_slug: str
-    latest_version: str = pydantic.Field()
-    """
-    The latest version of the template
-    """
-
-    description: typing.Optional[str] = None
-    template_deployment_slug: str = pydantic.Field()
-    """
-    The full name of the template, including version and project slug
-    """
+class TemplatesGetTemplateSnapshotResponseBlocksItem(UncheckedBaseModel):
+    label: str
+    value: str
+    limit: float
+    description: str
+    preserve_on_migration: typing_extensions.Annotated[
+        typing.Optional[bool], FieldMetadata(alias="preserveOnMigration")
+    ] = None
+    read_only: typing_extensions.Annotated[bool, FieldMetadata(alias="readOnly")]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -145,7 +145,6 @@ from .imported_agents_response import ImportedAgentsResponse
 from .init_tool_rule import InitToolRule
 from .input_audio import InputAudio
 from .input_audio_format import InputAudioFormat
-from .internal_server_error_body import InternalServerErrorBody
 from .job import Job
 from .job_status import JobStatus
 from .job_type import JobType
@@ -208,7 +207,6 @@ from .message_type import MessageType
 from .modal_sandbox_config import ModalSandboxConfig
 from .modal_sandbox_config_language import ModalSandboxConfigLanguage
 from .not_found_error_body import NotFoundErrorBody
-from .not_found_error_body_message import NotFoundErrorBodyMessage
 from .npm_requirement import NpmRequirement
 from .omitted_reasoning_content import OmittedReasoningContent
 from .openai_types_chat_chat_completion_custom_tool_param_custom import (
@@ -473,7 +471,6 @@ __all__ = [
     "InitToolRule",
     "InputAudio",
     "InputAudioFormat",
-    "InternalServerErrorBody",
     "Job",
     "JobStatus",
     "JobType",
@@ -528,7 +525,6 @@ __all__ = [
     "ModalSandboxConfig",
     "ModalSandboxConfigLanguage",
     "NotFoundErrorBody",
-    "NotFoundErrorBodyMessage",
     "NpmRequirement",
     "OmittedReasoningContent",
     "OpenaiTypesChatChatCompletionCustomToolParamCustom",

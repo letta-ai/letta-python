@@ -3,12 +3,15 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from ..core.unchecked_base_model import UncheckedBaseModel
+from ...core.pydantic_utilities import IS_PYDANTIC_V2
+from ...core.unchecked_base_model import UncheckedBaseModel
 
 
-class ConflictErrorBody(UncheckedBaseModel):
-    message: str
+class TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemZero(UncheckedBaseModel):
+    tool_name: str
+    type: typing.Optional[typing.Literal["constrain_child_tools"]] = None
+    prompt_template: typing.Optional[str] = None
+    children: typing.List[str]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

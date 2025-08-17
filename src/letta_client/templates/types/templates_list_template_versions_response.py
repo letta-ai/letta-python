@@ -5,27 +5,13 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 from ...core.unchecked_base_model import UncheckedBaseModel
+from .templates_list_template_versions_response_versions_item import TemplatesListTemplateVersionsResponseVersionsItem
 
 
-class TemplatesListResponseTemplatesItem(UncheckedBaseModel):
-    name: str = pydantic.Field()
-    """
-    The exact name of the template
-    """
-
-    id: str
-    project_id: str
-    project_slug: str
-    latest_version: str = pydantic.Field()
-    """
-    The latest version of the template
-    """
-
-    description: typing.Optional[str] = None
-    template_deployment_slug: str = pydantic.Field()
-    """
-    The full name of the template, including version and project slug
-    """
+class TemplatesListTemplateVersionsResponse(UncheckedBaseModel):
+    versions: typing.List[TemplatesListTemplateVersionsResponseVersionsItem]
+    has_next_page: bool
+    total_count: float
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

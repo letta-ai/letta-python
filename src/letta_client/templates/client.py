@@ -6,7 +6,17 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .agents.client import AgentsClient, AsyncAgentsClient
 from .raw_client import AsyncRawTemplatesClient, RawTemplatesClient
+from .types.templates_create_template_response import TemplatesCreateTemplateResponse
+from .types.templates_delete_template_response import TemplatesDeleteTemplateResponse
+from .types.templates_fork_template_response import TemplatesForkTemplateResponse
+from .types.templates_get_template_snapshot_response import TemplatesGetTemplateSnapshotResponse
 from .types.templates_list_response import TemplatesListResponse
+from .types.templates_list_template_versions_response import TemplatesListTemplateVersionsResponse
+from .types.templates_rename_template_response import TemplatesRenameTemplateResponse
+from .types.templates_save_template_version_response import TemplatesSaveTemplateVersionResponse
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class TemplatesClient:
@@ -30,7 +40,10 @@ class TemplatesClient:
         *,
         offset: typing.Optional[str] = None,
         limit: typing.Optional[str] = None,
+        template_id: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
+        project_slug: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TemplatesListResponse:
@@ -43,7 +56,13 @@ class TemplatesClient:
 
         limit : typing.Optional[str]
 
+        template_id : typing.Optional[str]
+
         name : typing.Optional[str]
+
+        search : typing.Optional[str]
+
+        project_slug : typing.Optional[str]
 
         project_id : typing.Optional[str]
 
@@ -66,7 +85,349 @@ class TemplatesClient:
         client.templates.list()
         """
         _response = self._raw_client.list(
-            offset=offset, limit=limit, name=name, project_id=project_id, request_options=request_options
+            offset=offset,
+            limit=limit,
+            template_id=template_id,
+            name=name,
+            search=search,
+            project_slug=project_slug,
+            project_id=project_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def savetemplateversion(
+        self,
+        project: str,
+        template_name: str,
+        *,
+        preserve_environment_variables_on_migration: typing.Optional[bool] = OMIT,
+        preserve_core_memories_on_migration: typing.Optional[bool] = OMIT,
+        migrate_agents: typing.Optional[bool] = OMIT,
+        message: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesSaveTemplateVersionResponse:
+        """
+        Saves the current version of the template as a new version
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_name : str
+            The template version, formatted as {template-name}, any version appended will be ignored
+
+        preserve_environment_variables_on_migration : typing.Optional[bool]
+            If true, the environment variables will be preserved in the template version when migrating agents
+
+        preserve_core_memories_on_migration : typing.Optional[bool]
+            If true, the core memories will be preserved in the template version when migrating agents
+
+        migrate_agents : typing.Optional[bool]
+            If true, existing agents attached to this template will be migrated to the new template version
+
+        message : typing.Optional[str]
+            A message to describe the changes made in this template version
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesSaveTemplateVersionResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.savetemplateversion(
+            project="project",
+            template_name="template_name",
+        )
+        """
+        _response = self._raw_client.savetemplateversion(
+            project,
+            template_name,
+            preserve_environment_variables_on_migration=preserve_environment_variables_on_migration,
+            preserve_core_memories_on_migration=preserve_core_memories_on_migration,
+            migrate_agents=migrate_agents,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def deletetemplate(
+        self, project: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> TemplatesDeleteTemplateResponse:
+        """
+        Deletes all versions of a template with the specified name
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_name : str
+            The template name (without version)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesDeleteTemplateResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.deletetemplate(
+            project="project",
+            template_name="template_name",
+        )
+        """
+        _response = self._raw_client.deletetemplate(project, template_name, request_options=request_options)
+        return _response.data
+
+    def gettemplatesnapshot(
+        self, project: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> TemplatesGetTemplateSnapshotResponse:
+        """
+        Get a snapshot of the template version, this will return the template state at a specific version
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_version : str
+            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesGetTemplateSnapshotResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.gettemplatesnapshot(
+            project="project",
+            template_version="template_version",
+        )
+        """
+        _response = self._raw_client.gettemplatesnapshot(project, template_version, request_options=request_options)
+        return _response.data
+
+    def forktemplate(
+        self,
+        project: str,
+        template_version: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesForkTemplateResponse:
+        """
+        Forks a template version into a new template
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_version : str
+            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        name : typing.Optional[str]
+            Optional custom name for the forked template. If not provided, a random name will be generated.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesForkTemplateResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.forktemplate(
+            project="project",
+            template_version="template_version",
+        )
+        """
+        _response = self._raw_client.forktemplate(project, template_version, name=name, request_options=request_options)
+        return _response.data
+
+    def createtemplate(
+        self,
+        project: str,
+        *,
+        agent_id: str,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesCreateTemplateResponse:
+        """
+        Creates a new template from an existing agent
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        agent_id : str
+            The ID of the agent to use as a template, can be from any project
+
+        name : typing.Optional[str]
+            Optional custom name for the template. If not provided, a random name will be generated.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesCreateTemplateResponse
+            201
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.createtemplate(
+            project="project",
+            agent_id="agent_id",
+        )
+        """
+        _response = self._raw_client.createtemplate(
+            project, agent_id=agent_id, name=name, request_options=request_options
+        )
+        return _response.data
+
+    def renametemplate(
+        self,
+        project: str,
+        template_name: str,
+        *,
+        new_name: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesRenameTemplateResponse:
+        """
+        Renames all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included.
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_name : str
+            The current template name (version will be automatically stripped if included)
+
+        new_name : str
+            The new name for the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesRenameTemplateResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.renametemplate(
+            project="project",
+            template_name="template_name",
+            new_name="new_name",
+        )
+        """
+        _response = self._raw_client.renametemplate(
+            project, template_name, new_name=new_name, request_options=request_options
+        )
+        return _response.data
+
+    def listtemplateversions(
+        self,
+        project_slug: str,
+        name: str,
+        *,
+        offset: typing.Optional[str] = None,
+        limit: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesListTemplateVersionsResponse:
+        """
+        List all versions of a specific template
+
+        Parameters
+        ----------
+        project_slug : str
+            The project slug
+
+        name : str
+            The template name (without version)
+
+        offset : typing.Optional[str]
+
+        limit : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesListTemplateVersionsResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.listtemplateversions(
+            project_slug="project_slug",
+            name="name",
+        )
+        """
+        _response = self._raw_client.listtemplateversions(
+            project_slug, name, offset=offset, limit=limit, request_options=request_options
         )
         return _response.data
 
@@ -92,7 +453,10 @@ class AsyncTemplatesClient:
         *,
         offset: typing.Optional[str] = None,
         limit: typing.Optional[str] = None,
+        template_id: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
+        project_slug: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TemplatesListResponse:
@@ -105,7 +469,13 @@ class AsyncTemplatesClient:
 
         limit : typing.Optional[str]
 
+        template_id : typing.Optional[str]
+
         name : typing.Optional[str]
+
+        search : typing.Optional[str]
+
+        project_slug : typing.Optional[str]
 
         project_id : typing.Optional[str]
 
@@ -136,6 +506,408 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            offset=offset, limit=limit, name=name, project_id=project_id, request_options=request_options
+            offset=offset,
+            limit=limit,
+            template_id=template_id,
+            name=name,
+            search=search,
+            project_slug=project_slug,
+            project_id=project_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def savetemplateversion(
+        self,
+        project: str,
+        template_name: str,
+        *,
+        preserve_environment_variables_on_migration: typing.Optional[bool] = OMIT,
+        preserve_core_memories_on_migration: typing.Optional[bool] = OMIT,
+        migrate_agents: typing.Optional[bool] = OMIT,
+        message: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesSaveTemplateVersionResponse:
+        """
+        Saves the current version of the template as a new version
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_name : str
+            The template version, formatted as {template-name}, any version appended will be ignored
+
+        preserve_environment_variables_on_migration : typing.Optional[bool]
+            If true, the environment variables will be preserved in the template version when migrating agents
+
+        preserve_core_memories_on_migration : typing.Optional[bool]
+            If true, the core memories will be preserved in the template version when migrating agents
+
+        migrate_agents : typing.Optional[bool]
+            If true, existing agents attached to this template will be migrated to the new template version
+
+        message : typing.Optional[str]
+            A message to describe the changes made in this template version
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesSaveTemplateVersionResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.savetemplateversion(
+                project="project",
+                template_name="template_name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.savetemplateversion(
+            project,
+            template_name,
+            preserve_environment_variables_on_migration=preserve_environment_variables_on_migration,
+            preserve_core_memories_on_migration=preserve_core_memories_on_migration,
+            migrate_agents=migrate_agents,
+            message=message,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def deletetemplate(
+        self, project: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> TemplatesDeleteTemplateResponse:
+        """
+        Deletes all versions of a template with the specified name
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_name : str
+            The template name (without version)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesDeleteTemplateResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.deletetemplate(
+                project="project",
+                template_name="template_name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.deletetemplate(project, template_name, request_options=request_options)
+        return _response.data
+
+    async def gettemplatesnapshot(
+        self, project: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> TemplatesGetTemplateSnapshotResponse:
+        """
+        Get a snapshot of the template version, this will return the template state at a specific version
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_version : str
+            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesGetTemplateSnapshotResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.gettemplatesnapshot(
+                project="project",
+                template_version="template_version",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.gettemplatesnapshot(
+            project, template_version, request_options=request_options
+        )
+        return _response.data
+
+    async def forktemplate(
+        self,
+        project: str,
+        template_version: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesForkTemplateResponse:
+        """
+        Forks a template version into a new template
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_version : str
+            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        name : typing.Optional[str]
+            Optional custom name for the forked template. If not provided, a random name will be generated.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesForkTemplateResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.forktemplate(
+                project="project",
+                template_version="template_version",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.forktemplate(
+            project, template_version, name=name, request_options=request_options
+        )
+        return _response.data
+
+    async def createtemplate(
+        self,
+        project: str,
+        *,
+        agent_id: str,
+        name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesCreateTemplateResponse:
+        """
+        Creates a new template from an existing agent
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        agent_id : str
+            The ID of the agent to use as a template, can be from any project
+
+        name : typing.Optional[str]
+            Optional custom name for the template. If not provided, a random name will be generated.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesCreateTemplateResponse
+            201
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.createtemplate(
+                project="project",
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.createtemplate(
+            project, agent_id=agent_id, name=name, request_options=request_options
+        )
+        return _response.data
+
+    async def renametemplate(
+        self,
+        project: str,
+        template_name: str,
+        *,
+        new_name: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesRenameTemplateResponse:
+        """
+        Renames all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included.
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_name : str
+            The current template name (version will be automatically stripped if included)
+
+        new_name : str
+            The new name for the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesRenameTemplateResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.renametemplate(
+                project="project",
+                template_name="template_name",
+                new_name="new_name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.renametemplate(
+            project, template_name, new_name=new_name, request_options=request_options
+        )
+        return _response.data
+
+    async def listtemplateversions(
+        self,
+        project_slug: str,
+        name: str,
+        *,
+        offset: typing.Optional[str] = None,
+        limit: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesListTemplateVersionsResponse:
+        """
+        List all versions of a specific template
+
+        Parameters
+        ----------
+        project_slug : str
+            The project slug
+
+        name : str
+            The template name (without version)
+
+        offset : typing.Optional[str]
+
+        limit : typing.Optional[str]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesListTemplateVersionsResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.listtemplateversions(
+                project_slug="project_slug",
+                name="name",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.listtemplateversions(
+            project_slug, name, offset=offset, limit=limit, request_options=request_options
         )
         return _response.data

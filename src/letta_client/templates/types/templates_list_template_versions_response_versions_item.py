@@ -7,24 +7,25 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 from ...core.unchecked_base_model import UncheckedBaseModel
 
 
-class TemplatesListResponseTemplatesItem(UncheckedBaseModel):
-    name: str = pydantic.Field()
+class TemplatesListTemplateVersionsResponseVersionsItem(UncheckedBaseModel):
+    version: str = pydantic.Field()
     """
-    The exact name of the template
-    """
-
-    id: str
-    project_id: str
-    project_slug: str
-    latest_version: str = pydantic.Field()
-    """
-    The latest version of the template
+    The version number
     """
 
-    description: typing.Optional[str] = None
-    template_deployment_slug: str = pydantic.Field()
+    created_at: str = pydantic.Field()
     """
-    The full name of the template, including version and project slug
+    When the version was created
+    """
+
+    message: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Version description message
+    """
+
+    is_latest: bool = pydantic.Field()
+    """
+    Whether this is the latest version
     """
 
     if IS_PYDANTIC_V2:

@@ -7,25 +7,13 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 from ...core.unchecked_base_model import UncheckedBaseModel
 
 
-class TemplatesListResponseTemplatesItem(UncheckedBaseModel):
-    name: str = pydantic.Field()
-    """
-    The exact name of the template
-    """
-
-    id: str
-    project_id: str
-    project_slug: str
-    latest_version: str = pydantic.Field()
-    """
-    The latest version of the template
-    """
-
-    description: typing.Optional[str] = None
-    template_deployment_slug: str = pydantic.Field()
-    """
-    The full name of the template, including version and project slug
-    """
+class TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildOutputMapping(UncheckedBaseModel):
+    tool_name: str
+    type: typing.Optional[typing.Literal["conditional"]] = None
+    prompt_template: typing.Optional[str] = None
+    default_child: typing.Optional[str] = None
+    child_output_mapping: typing.Dict[str, str]
+    require_output_mapping: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

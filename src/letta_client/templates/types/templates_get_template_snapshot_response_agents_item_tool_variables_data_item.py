@@ -4,14 +4,15 @@ import typing
 
 import pydantic
 import typing_extensions
-from ....core.pydantic_utilities import IS_PYDANTIC_V2
-from ....core.serialization import FieldMetadata
-from ....core.unchecked_base_model import UncheckedBaseModel
+from ...core.pydantic_utilities import IS_PYDANTIC_V2
+from ...core.serialization import FieldMetadata
+from ...core.unchecked_base_model import UncheckedBaseModel
 
 
-class TemplatesCreateResponse(UncheckedBaseModel):
-    template_name: typing_extensions.Annotated[str, FieldMetadata(alias="templateName")]
-    template_id: typing_extensions.Annotated[str, FieldMetadata(alias="templateId")]
+class TemplatesGetTemplateSnapshotResponseAgentsItemToolVariablesDataItem(UncheckedBaseModel):
+    key: str
+    default_value: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="defaultValue")] = None
+    type: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

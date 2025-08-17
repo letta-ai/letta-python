@@ -7,25 +7,13 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 from ...core.unchecked_base_model import UncheckedBaseModel
 
 
-class TemplatesListResponseTemplatesItem(UncheckedBaseModel):
-    name: str = pydantic.Field()
-    """
-    The exact name of the template
-    """
-
-    id: str
-    project_id: str
-    project_slug: str
-    latest_version: str = pydantic.Field()
-    """
-    The latest version of the template
-    """
-
-    description: typing.Optional[str] = None
-    template_deployment_slug: str = pydantic.Field()
-    """
-    The full name of the template, including version and project slug
-    """
+class TemplatesGetTemplateSnapshotResponseAgentsItemProperties(UncheckedBaseModel):
+    context_window_limit: typing.Optional[float] = None
+    max_tokens: typing.Optional[float] = None
+    max_reasoning_tokens: typing.Optional[float] = None
+    max_files_open: typing.Optional[float] = None
+    message_buffer_autoclear: typing.Optional[bool] = None
+    per_file_view_window_char_limit: typing.Optional[float] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

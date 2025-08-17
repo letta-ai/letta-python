@@ -3,12 +3,14 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2
-from ..core.unchecked_base_model import UncheckedBaseModel
+from ...core.pydantic_utilities import IS_PYDANTIC_V2
+from ...core.unchecked_base_model import UncheckedBaseModel
 
 
-class InternalServerErrorBody(UncheckedBaseModel):
-    message: typing.Literal["Failed to create agent template"] = "Failed to create agent template"
+class TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemTwo(UncheckedBaseModel):
+    tool_name: str
+    type: typing.Optional[typing.Literal["exit_loop"]] = None
+    prompt_template: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
