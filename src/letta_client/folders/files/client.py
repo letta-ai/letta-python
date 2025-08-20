@@ -34,6 +34,7 @@ class FilesClient:
         *,
         file: core.File,
         duplicate_handling: typing.Optional[DuplicateFileHandling] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FileMetadata:
         """
@@ -48,6 +49,9 @@ class FilesClient:
 
         duplicate_handling : typing.Optional[DuplicateFileHandling]
             How to handle duplicate filenames
+
+        name : typing.Optional[str]
+            Optional custom name to override the uploaded file's name
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -70,7 +74,7 @@ class FilesClient:
         )
         """
         _response = self._raw_client.upload(
-            folder_id, file=file, duplicate_handling=duplicate_handling, request_options=request_options
+            folder_id, file=file, duplicate_handling=duplicate_handling, name=name, request_options=request_options
         )
         return _response.data
 
@@ -179,6 +183,7 @@ class AsyncFilesClient:
         *,
         file: core.File,
         duplicate_handling: typing.Optional[DuplicateFileHandling] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> FileMetadata:
         """
@@ -193,6 +198,9 @@ class AsyncFilesClient:
 
         duplicate_handling : typing.Optional[DuplicateFileHandling]
             How to handle duplicate filenames
+
+        name : typing.Optional[str]
+            Optional custom name to override the uploaded file's name
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -223,7 +231,7 @@ class AsyncFilesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.upload(
-            folder_id, file=file, duplicate_handling=duplicate_handling, request_options=request_options
+            folder_id, file=file, duplicate_handling=duplicate_handling, name=name, request_options=request_options
         )
         return _response.data
 

@@ -13485,6 +13485,14 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
+**name:** `typing.Optional[str]` — Optional custom name to override the uploaded file's name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -14800,6 +14808,14 @@ core.File` — See core.File for more documentation
 <dd>
 
 **duplicate_handling:** `typing.Optional[DuplicateFileHandling]` — How to handle duplicate filenames
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Optional custom name to override the uploaded file's name
     
 </dd>
 </dl>

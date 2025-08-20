@@ -29,6 +29,7 @@ class RawFilesClient:
         *,
         file: core.File,
         duplicate_handling: typing.Optional[DuplicateFileHandling] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[FileMetadata]:
         """
@@ -44,6 +45,9 @@ class RawFilesClient:
         duplicate_handling : typing.Optional[DuplicateFileHandling]
             How to handle duplicate filenames
 
+        name : typing.Optional[str]
+            Optional custom name to override the uploaded file's name
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -57,6 +61,7 @@ class RawFilesClient:
             method="POST",
             params={
                 "duplicate_handling": duplicate_handling,
+                "name": name,
             },
             data={},
             files={
@@ -215,6 +220,7 @@ class AsyncRawFilesClient:
         *,
         file: core.File,
         duplicate_handling: typing.Optional[DuplicateFileHandling] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[FileMetadata]:
         """
@@ -230,6 +236,9 @@ class AsyncRawFilesClient:
         duplicate_handling : typing.Optional[DuplicateFileHandling]
             How to handle duplicate filenames
 
+        name : typing.Optional[str]
+            Optional custom name to override the uploaded file's name
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -243,6 +252,7 @@ class AsyncRawFilesClient:
             method="POST",
             params={
                 "duplicate_handling": duplicate_handling,
+                "name": name,
             },
             data={},
             files={
