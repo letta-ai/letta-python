@@ -8,6 +8,8 @@ from ...core.unchecked_base_model import UncheckedBaseModel
 
 
 class TemplatesGetTemplateSnapshotResponseAgentsItemProperties(UncheckedBaseModel):
+    enable_reasoner: typing.Optional[bool] = None
+    put_inner_thoughts_in_kwargs: typing.Optional[bool] = None
     context_window_limit: typing.Optional[float] = None
     max_tokens: typing.Optional[float] = None
     max_reasoning_tokens: typing.Optional[float] = None

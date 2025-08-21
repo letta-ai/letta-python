@@ -13,6 +13,7 @@ from ..types.embedding_config import EmbeddingConfig
 from ..types.imported_agents_response import ImportedAgentsResponse
 from ..types.llm_config import LlmConfig
 from ..types.message_create import MessageCreate
+from ..types.paginated_agent_files import PaginatedAgentFiles
 from .blocks.client import AsyncBlocksClient, BlocksClient
 from .context.client import AsyncContextClient, ContextClient
 from .core_memory.client import AsyncCoreMemoryClient, CoreMemoryClient
@@ -831,6 +832,56 @@ class AgentsClient:
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
             request_options=request_options,
+        )
+        return _response.data
+
+    def list_agent_files(
+        self,
+        agent_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        is_open: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedAgentFiles:
+        """
+        Get the files attached to an agent with their open/closed status (paginated).
+
+        Parameters
+        ----------
+        agent_id : str
+
+        cursor : typing.Optional[str]
+            Pagination cursor from previous response
+
+        limit : typing.Optional[int]
+            Number of items to return (1-100)
+
+        is_open : typing.Optional[bool]
+            Filter by open status (true for open files, false for closed files)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedAgentFiles
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.list_agent_files(
+            agent_id="agent_id",
+        )
+        """
+        _response = self._raw_client.list_agent_files(
+            agent_id, cursor=cursor, limit=limit, is_open=is_open, request_options=request_options
         )
         return _response.data
 
@@ -1796,6 +1847,64 @@ class AsyncAgentsClient:
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
             request_options=request_options,
+        )
+        return _response.data
+
+    async def list_agent_files(
+        self,
+        agent_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        is_open: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedAgentFiles:
+        """
+        Get the files attached to an agent with their open/closed status (paginated).
+
+        Parameters
+        ----------
+        agent_id : str
+
+        cursor : typing.Optional[str]
+            Pagination cursor from previous response
+
+        limit : typing.Optional[int]
+            Number of items to return (1-100)
+
+        is_open : typing.Optional[bool]
+            Filter by open status (true for open files, false for closed files)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedAgentFiles
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.list_agent_files(
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_agent_files(
+            agent_id, cursor=cursor, limit=limit, is_open=is_open, request_options=request_options
         )
         return _response.data
 

@@ -6,6 +6,7 @@ from .action_model import ActionModel
 from .action_parameters_model import ActionParametersModel
 from .action_response_model import ActionResponseModel
 from .agent_environment_variable import AgentEnvironmentVariable
+from .agent_file_attachment import AgentFileAttachment
 from .agent_file_schema import AgentFileSchema
 from .agent_state import AgentState
 from .agent_state_response_format import AgentStateResponseFormat
@@ -49,7 +50,8 @@ from .chat_completion_function_call_option_param import ChatCompletionFunctionCa
 from .chat_completion_function_message_param import ChatCompletionFunctionMessageParam
 from .chat_completion_function_tool_param import ChatCompletionFunctionToolParam
 from .chat_completion_message_custom_tool_call_param import ChatCompletionMessageCustomToolCallParam
-from .chat_completion_message_function_tool_call import ChatCompletionMessageFunctionToolCall
+from .chat_completion_message_function_tool_call_input import ChatCompletionMessageFunctionToolCallInput
+from .chat_completion_message_function_tool_call_output import ChatCompletionMessageFunctionToolCallOutput
 from .chat_completion_message_function_tool_call_param import ChatCompletionMessageFunctionToolCallParam
 from .chat_completion_named_tool_choice_custom_param import ChatCompletionNamedToolChoiceCustomParam
 from .chat_completion_named_tool_choice_param import ChatCompletionNamedToolChoiceParam
@@ -218,6 +220,9 @@ from .openai_types_chat_chat_completion_custom_tool_param_custom_format import (
 from .openai_types_chat_chat_completion_message_custom_tool_call_param_custom import (
     OpenaiTypesChatChatCompletionMessageCustomToolCallParamCustom,
 )
+from .openai_types_chat_chat_completion_message_function_tool_call_function import (
+    OpenaiTypesChatChatCompletionMessageFunctionToolCallFunction,
+)
 from .openai_types_chat_chat_completion_message_function_tool_call_param_function import (
     OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction,
 )
@@ -232,6 +237,7 @@ from .organization import Organization
 from .organization_create import OrganizationCreate
 from .organization_sources_stats import OrganizationSourcesStats
 from .organization_update import OrganizationUpdate
+from .paginated_agent_files import PaginatedAgentFiles
 from .parameter_properties import ParameterProperties
 from .parameters_schema import ParametersSchema
 from .parent_tool_rule import ParentToolRule
@@ -332,6 +338,7 @@ __all__ = [
     "ActionParametersModel",
     "ActionResponseModel",
     "AgentEnvironmentVariable",
+    "AgentFileAttachment",
     "AgentFileSchema",
     "AgentState",
     "AgentStateResponseFormat",
@@ -375,7 +382,8 @@ __all__ = [
     "ChatCompletionFunctionMessageParam",
     "ChatCompletionFunctionToolParam",
     "ChatCompletionMessageCustomToolCallParam",
-    "ChatCompletionMessageFunctionToolCall",
+    "ChatCompletionMessageFunctionToolCallInput",
+    "ChatCompletionMessageFunctionToolCallOutput",
     "ChatCompletionMessageFunctionToolCallParam",
     "ChatCompletionNamedToolChoiceCustomParam",
     "ChatCompletionNamedToolChoiceParam",
@@ -530,6 +538,7 @@ __all__ = [
     "OpenaiTypesChatChatCompletionCustomToolParamCustom",
     "OpenaiTypesChatChatCompletionCustomToolParamCustomFormat",
     "OpenaiTypesChatChatCompletionMessageCustomToolCallParamCustom",
+    "OpenaiTypesChatChatCompletionMessageFunctionToolCallFunction",
     "OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction",
     "OpenaiTypesChatChatCompletionNamedToolChoiceCustomParamCustom",
     "OpenaiTypesChatChatCompletionNamedToolChoiceParamFunction",
@@ -538,6 +547,7 @@ __all__ = [
     "OrganizationCreate",
     "OrganizationSourcesStats",
     "OrganizationUpdate",
+    "PaginatedAgentFiles",
     "ParameterProperties",
     "ParametersSchema",
     "ParentToolRule",

@@ -21,6 +21,7 @@ from ..types.http_validation_error import HttpValidationError
 from ..types.imported_agents_response import ImportedAgentsResponse
 from ..types.llm_config import LlmConfig
 from ..types.message_create import MessageCreate
+from ..types.paginated_agent_files import PaginatedAgentFiles
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .types.agents_search_request_sort_by import AgentsSearchRequestSortBy
 from .types.agents_search_response import AgentsSearchResponse
@@ -947,6 +948,75 @@ class RawAgentsClient:
                     AgentState,
                     construct_type(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_agent_files(
+        self,
+        agent_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        is_open: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PaginatedAgentFiles]:
+        """
+        Get the files attached to an agent with their open/closed status (paginated).
+
+        Parameters
+        ----------
+        agent_id : str
+
+        cursor : typing.Optional[str]
+            Pagination cursor from previous response
+
+        limit : typing.Optional[int]
+            Number of items to return (1-100)
+
+        is_open : typing.Optional[bool]
+            Filter by open status (true for open files, false for closed files)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PaginatedAgentFiles]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/files",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "limit": limit,
+                "is_open": is_open,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedAgentFiles,
+                    construct_type(
+                        type_=PaginatedAgentFiles,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2008,6 +2078,75 @@ class AsyncRawAgentsClient:
                     AgentState,
                     construct_type(
                         type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_agent_files(
+        self,
+        agent_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        is_open: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PaginatedAgentFiles]:
+        """
+        Get the files attached to an agent with their open/closed status (paginated).
+
+        Parameters
+        ----------
+        agent_id : str
+
+        cursor : typing.Optional[str]
+            Pagination cursor from previous response
+
+        limit : typing.Optional[int]
+            Number of items to return (1-100)
+
+        is_open : typing.Optional[bool]
+            Filter by open status (true for open files, false for closed files)
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PaginatedAgentFiles]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/files",
+            method="GET",
+            params={
+                "cursor": cursor,
+                "limit": limit,
+                "is_open": is_open,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedAgentFiles,
+                    construct_type(
+                        type_=PaginatedAgentFiles,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
