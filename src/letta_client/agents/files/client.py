@@ -135,6 +135,34 @@ class FilesClient:
         _response = self._raw_client.close(agent_id, file_id, request_options=request_options)
         return _response.data
 
+    def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        agent_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.files.list(
+            agent_id="agent_id",
+        )
+        """
+        _response = self._raw_client.list(agent_id, request_options=request_options)
+        return _response.data
+
 
 class AsyncFilesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -288,4 +316,40 @@ class AsyncFilesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.close(agent_id, file_id, request_options=request_options)
+        return _response.data
+
+    async def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        agent_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.files.list(
+                agent_id="agent_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list(agent_id, request_options=request_options)
         return _response.data
