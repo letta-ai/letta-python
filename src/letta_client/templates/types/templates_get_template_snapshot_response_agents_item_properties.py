@@ -16,6 +16,7 @@ class TemplatesGetTemplateSnapshotResponseAgentsItemProperties(UncheckedBaseMode
     max_files_open: typing.Optional[float] = None
     message_buffer_autoclear: typing.Optional[bool] = None
     per_file_view_window_char_limit: typing.Optional[float] = None
+    temperature: typing.Optional[float] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
