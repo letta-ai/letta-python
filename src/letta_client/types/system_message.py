@@ -27,6 +27,7 @@ class SystemMessage(UncheckedBaseModel):
     sender_id: typing.Optional[str] = None
     step_id: typing.Optional[str] = None
     is_err: typing.Optional[bool] = None
+    seq_id: typing.Optional[int] = None
     content: str = pydantic.Field()
     """
     The message content sent by the system
