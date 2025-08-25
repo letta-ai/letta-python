@@ -225,6 +225,7 @@ class RawMessagesClient:
         enable_thinking: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         include_pings: typing.Optional[bool] = OMIT,
+        background: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[HttpResponse[typing.Iterator[LettaStreamingResponse]]]:
         """
@@ -263,6 +264,9 @@ class RawMessagesClient:
         include_pings : typing.Optional[bool]
             Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
 
+        background : typing.Optional[bool]
+            Whether to process the request in the background.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -286,6 +290,7 @@ class RawMessagesClient:
                 "enable_thinking": enable_thinking,
                 "stream_tokens": stream_tokens,
                 "include_pings": include_pings,
+                "background": background,
             },
             headers={
                 "content-type": "application/json",
@@ -652,6 +657,7 @@ class AsyncRawMessagesClient:
         enable_thinking: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         include_pings: typing.Optional[bool] = OMIT,
+        background: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[AsyncHttpResponse[typing.AsyncIterator[LettaStreamingResponse]]]:
         """
@@ -690,6 +696,9 @@ class AsyncRawMessagesClient:
         include_pings : typing.Optional[bool]
             Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
 
+        background : typing.Optional[bool]
+            Whether to process the request in the background.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -713,6 +722,7 @@ class AsyncRawMessagesClient:
                 "enable_thinking": enable_thinking,
                 "stream_tokens": stream_tokens,
                 "include_pings": include_pings,
+                "background": background,
             },
             headers={
                 "content-type": "application/json",

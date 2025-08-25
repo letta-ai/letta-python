@@ -12662,6 +12662,14 @@ for chunk in response.data:
 <dl>
 <dd>
 
+**background:** `typing.Optional[bool]` — Whether to process the request in the background.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -14324,6 +14332,14 @@ for chunk in response.data:
 <dd>
 
 **include_pings:** `typing.Optional[bool]` — Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**background:** `typing.Optional[bool]` — Whether to process the request in the background.
     
 </dd>
 </dl>

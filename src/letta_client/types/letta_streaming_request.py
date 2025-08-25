@@ -55,6 +55,11 @@ class LettaStreamingRequest(UncheckedBaseModel):
     Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
     """
 
+    background: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether to process the request in the background.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

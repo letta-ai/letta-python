@@ -199,6 +199,7 @@ class MessagesClient:
         enable_thinking: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         include_pings: typing.Optional[bool] = OMIT,
+        background: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Iterator[LettaStreamingResponse]:
         """
@@ -236,6 +237,9 @@ class MessagesClient:
 
         include_pings : typing.Optional[bool]
             Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
+
+        background : typing.Optional[bool]
+            Whether to process the request in the background.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -280,6 +284,7 @@ class MessagesClient:
             enable_thinking=enable_thinking,
             stream_tokens=stream_tokens,
             include_pings=include_pings,
+            background=background,
             request_options=request_options,
         ) as r:
             yield from r.data
@@ -562,6 +567,7 @@ class AsyncMessagesClient:
         enable_thinking: typing.Optional[str] = OMIT,
         stream_tokens: typing.Optional[bool] = OMIT,
         include_pings: typing.Optional[bool] = OMIT,
+        background: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.AsyncIterator[LettaStreamingResponse]:
         """
@@ -599,6 +605,9 @@ class AsyncMessagesClient:
 
         include_pings : typing.Optional[bool]
             Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
+
+        background : typing.Optional[bool]
+            Whether to process the request in the background.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -651,6 +660,7 @@ class AsyncMessagesClient:
             enable_thinking=enable_thinking,
             stream_tokens=stream_tokens,
             include_pings=include_pings,
+            background=background,
             request_options=request_options,
         ) as r:
             async for _chunk in r.data:
