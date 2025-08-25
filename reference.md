@@ -15177,6 +15177,14 @@ client.sources.files.list(
 <dl>
 <dd>
 
+**check_status_updates:** `typing.Optional[bool]` — Whether to check and update file processing status (from the vector db service). If False, will not fetch and update the status, which may lead to performance gains.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

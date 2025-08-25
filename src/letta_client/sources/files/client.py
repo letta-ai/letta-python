@@ -85,6 +85,7 @@ class FilesClient:
         limit: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         include_content: typing.Optional[bool] = None,
+        check_status_updates: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[FileMetadata]:
         """
@@ -102,6 +103,9 @@ class FilesClient:
 
         include_content : typing.Optional[bool]
             Whether to include full file content
+
+        check_status_updates : typing.Optional[bool]
+            Whether to check and update file processing status (from the vector db service). If False, will not fetch and update the status, which may lead to performance gains.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -124,7 +128,12 @@ class FilesClient:
         )
         """
         _response = self._raw_client.list(
-            source_id, limit=limit, after=after, include_content=include_content, request_options=request_options
+            source_id,
+            limit=limit,
+            after=after,
+            include_content=include_content,
+            check_status_updates=check_status_updates,
+            request_options=request_options,
         )
         return _response.data
 
@@ -242,6 +251,7 @@ class AsyncFilesClient:
         limit: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         include_content: typing.Optional[bool] = None,
+        check_status_updates: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[FileMetadata]:
         """
@@ -259,6 +269,9 @@ class AsyncFilesClient:
 
         include_content : typing.Optional[bool]
             Whether to include full file content
+
+        check_status_updates : typing.Optional[bool]
+            Whether to check and update file processing status (from the vector db service). If False, will not fetch and update the status, which may lead to performance gains.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -289,7 +302,12 @@ class AsyncFilesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            source_id, limit=limit, after=after, include_content=include_content, request_options=request_options
+            source_id,
+            limit=limit,
+            after=after,
+            include_content=include_content,
+            check_status_updates=check_status_updates,
+            request_options=request_options,
         )
         return _response.data
 

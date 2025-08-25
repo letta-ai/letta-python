@@ -104,6 +104,7 @@ class RawFilesClient:
         limit: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         include_content: typing.Optional[bool] = None,
+        check_status_updates: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[FileMetadata]]:
         """
@@ -122,6 +123,9 @@ class RawFilesClient:
         include_content : typing.Optional[bool]
             Whether to include full file content
 
+        check_status_updates : typing.Optional[bool]
+            Whether to check and update file processing status (from the vector db service). If False, will not fetch and update the status, which may lead to performance gains.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -137,6 +141,7 @@ class RawFilesClient:
                 "limit": limit,
                 "after": after,
                 "include_content": include_content,
+                "check_status_updates": check_status_updates,
             },
             request_options=request_options,
         )
@@ -295,6 +300,7 @@ class AsyncRawFilesClient:
         limit: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         include_content: typing.Optional[bool] = None,
+        check_status_updates: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[FileMetadata]]:
         """
@@ -313,6 +319,9 @@ class AsyncRawFilesClient:
         include_content : typing.Optional[bool]
             Whether to include full file content
 
+        check_status_updates : typing.Optional[bool]
+            Whether to check and update file processing status (from the vector db service). If False, will not fetch and update the status, which may lead to performance gains.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -328,6 +337,7 @@ class AsyncRawFilesClient:
                 "limit": limit,
                 "after": after,
                 "include_content": include_content,
+                "check_status_updates": check_status_updates,
             },
             request_options=request_options,
         )
