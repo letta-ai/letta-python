@@ -8039,6 +8039,97 @@ client.runs.delete(
 </dl>
 </details>
 
+<details><summary><code>client.runs.<a href="src/letta_client/runs/client.py">stream</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+response = client.runs.stream(
+    run_id="run_id",
+)
+for chunk in response.data:
+    yield chunk
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**run_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**starting_after:** `typing.Optional[int]` — Sequence id to use as a cursor for pagination. Response will start streaming after this chunk sequence id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_pings:** `typing.Optional[bool]` — Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**poll_interval:** `typing.Optional[float]` — Seconds to wait between polls when no new data.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**batch_size:** `typing.Optional[int]` — Number of entries to read per batch.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Steps
 <details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">list</a>(...)</code></summary>
 <dl>

@@ -370,6 +370,7 @@ from .client_side_access_tokens import (
 from .environment import LettaEnvironment
 from .groups import GroupCreateManagerConfig, GroupUpdateManagerConfig
 from .projects import ProjectsListResponse, ProjectsListResponseProjectsItem
+from .runs import LettaStreamingResponse
 from .steps import StepsListRequestFeedback
 from .templates import (
     TemplatesCreateTemplateResponse,
@@ -623,6 +624,7 @@ __all__ = [
     "LettaSerializeSchemasPydanticAgentSchemaToolSchema",
     "LettaStopReason",
     "LettaStreamingRequest",
+    "LettaStreamingResponse",
     "LettaUsageStatistics",
     "LettaUserMessageContentUnion",
     "ListMcpServersResponseValue",

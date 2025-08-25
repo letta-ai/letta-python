@@ -2,6 +2,7 @@
 
 # isort: skip_file
 
+from .types import LettaStreamingResponse
 from . import messages, steps, usage
 
-__all__ = ["messages", "steps", "usage"]
+__all__ = ["LettaStreamingResponse", "messages", "steps", "usage"]

@@ -8,7 +8,11 @@ from ..types.run import Run
 from .messages.client import AsyncMessagesClient, MessagesClient
 from .raw_client import AsyncRawRunsClient, RawRunsClient
 from .steps.client import AsyncStepsClient, StepsClient
+from .types.letta_streaming_response import LettaStreamingResponse
 from .usage.client import AsyncUsageClient, UsageClient
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class RunsClient:
@@ -162,6 +166,65 @@ class RunsClient:
         """
         _response = self._raw_client.delete(run_id, request_options=request_options)
         return _response.data
+
+    def stream(
+        self,
+        run_id: str,
+        *,
+        starting_after: typing.Optional[int] = OMIT,
+        include_pings: typing.Optional[bool] = OMIT,
+        poll_interval: typing.Optional[float] = OMIT,
+        batch_size: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.Iterator[LettaStreamingResponse]:
+        """
+        Parameters
+        ----------
+        run_id : str
+
+        starting_after : typing.Optional[int]
+            Sequence id to use as a cursor for pagination. Response will start streaming after this chunk sequence id
+
+        include_pings : typing.Optional[bool]
+            Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
+
+        poll_interval : typing.Optional[float]
+            Seconds to wait between polls when no new data.
+
+        batch_size : typing.Optional[int]
+            Number of entries to read per batch.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Yields
+        ------
+        typing.Iterator[LettaStreamingResponse]
+            Successful response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        response = client.runs.stream(
+            run_id="run_id",
+        )
+        for chunk in response:
+            yield chunk
+        """
+        with self._raw_client.stream(
+            run_id,
+            starting_after=starting_after,
+            include_pings=include_pings,
+            poll_interval=poll_interval,
+            batch_size=batch_size,
+            request_options=request_options,
+        ) as r:
+            yield from r.data
 
 
 class AsyncRunsClient:
@@ -347,3 +410,71 @@ class AsyncRunsClient:
         """
         _response = await self._raw_client.delete(run_id, request_options=request_options)
         return _response.data
+
+    async def stream(
+        self,
+        run_id: str,
+        *,
+        starting_after: typing.Optional[int] = OMIT,
+        include_pings: typing.Optional[bool] = OMIT,
+        poll_interval: typing.Optional[float] = OMIT,
+        batch_size: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.AsyncIterator[LettaStreamingResponse]:
+        """
+        Parameters
+        ----------
+        run_id : str
+
+        starting_after : typing.Optional[int]
+            Sequence id to use as a cursor for pagination. Response will start streaming after this chunk sequence id
+
+        include_pings : typing.Optional[bool]
+            Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
+
+        poll_interval : typing.Optional[float]
+            Seconds to wait between polls when no new data.
+
+        batch_size : typing.Optional[int]
+            Number of entries to read per batch.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Yields
+        ------
+        typing.AsyncIterator[LettaStreamingResponse]
+            Successful response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.runs.stream(
+                run_id="run_id",
+            )
+            async for chunk in response:
+                yield chunk
+
+
+        asyncio.run(main())
+        """
+        async with self._raw_client.stream(
+            run_id,
+            starting_after=starting_after,
+            include_pings=include_pings,
+            poll_interval=poll_interval,
+            batch_size=batch_size,
+            request_options=request_options,
+        ) as r:
+            async for _chunk in r.data:
+                yield _chunk
