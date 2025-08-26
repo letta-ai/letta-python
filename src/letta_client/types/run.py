@@ -36,7 +36,7 @@ class Run(UncheckedBaseModel):
 
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    The timestamp when the object was created.
+    The unix timestamp of when the job was created.
     """
 
     updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
