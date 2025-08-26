@@ -520,7 +520,7 @@ class AgentsClient:
         override_existing_tools: typing.Optional[bool] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         strip_messages: typing.Optional[bool] = OMIT,
-        env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        env_vars_json: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ImportedAgentsResponse:
         """
@@ -544,8 +544,8 @@ class AgentsClient:
         strip_messages : typing.Optional[bool]
             If set to True, strips all messages from the agent before importing.
 
-        env_vars : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Environment variables to pass to the agent for tool execution.
+        env_vars_json : typing.Optional[str]
+            Environment variables as a JSON string to pass to the agent for tool execution.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -571,7 +571,7 @@ class AgentsClient:
             override_existing_tools=override_existing_tools,
             project_id=project_id,
             strip_messages=strip_messages,
-            env_vars=env_vars,
+            env_vars_json=env_vars_json,
             request_options=request_options,
         )
         return _response.data
@@ -1503,7 +1503,7 @@ class AsyncAgentsClient:
         override_existing_tools: typing.Optional[bool] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         strip_messages: typing.Optional[bool] = OMIT,
-        env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        env_vars_json: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ImportedAgentsResponse:
         """
@@ -1527,8 +1527,8 @@ class AsyncAgentsClient:
         strip_messages : typing.Optional[bool]
             If set to True, strips all messages from the agent before importing.
 
-        env_vars : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Environment variables to pass to the agent for tool execution.
+        env_vars_json : typing.Optional[str]
+            Environment variables as a JSON string to pass to the agent for tool execution.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1562,7 +1562,7 @@ class AsyncAgentsClient:
             override_existing_tools=override_existing_tools,
             project_id=project_id,
             strip_messages=strip_messages,
-            env_vars=env_vars,
+            env_vars_json=env_vars_json,
             request_options=request_options,
         )
         return _response.data

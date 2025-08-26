@@ -569,7 +569,7 @@ class RawAgentsClient:
         override_existing_tools: typing.Optional[bool] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         strip_messages: typing.Optional[bool] = OMIT,
-        env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        env_vars_json: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ImportedAgentsResponse]:
         """
@@ -593,8 +593,8 @@ class RawAgentsClient:
         strip_messages : typing.Optional[bool]
             If set to True, strips all messages from the agent before importing.
 
-        env_vars : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Environment variables to pass to the agent for tool execution.
+        env_vars_json : typing.Optional[str]
+            Environment variables as a JSON string to pass to the agent for tool execution.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -612,7 +612,7 @@ class RawAgentsClient:
                 "override_existing_tools": override_existing_tools,
                 "project_id": project_id,
                 "strip_messages": strip_messages,
-                "env_vars": env_vars,
+                "env_vars_json": env_vars_json,
             },
             files={
                 "file": file,
@@ -1699,7 +1699,7 @@ class AsyncRawAgentsClient:
         override_existing_tools: typing.Optional[bool] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         strip_messages: typing.Optional[bool] = OMIT,
-        env_vars: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        env_vars_json: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ImportedAgentsResponse]:
         """
@@ -1723,8 +1723,8 @@ class AsyncRawAgentsClient:
         strip_messages : typing.Optional[bool]
             If set to True, strips all messages from the agent before importing.
 
-        env_vars : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            Environment variables to pass to the agent for tool execution.
+        env_vars_json : typing.Optional[str]
+            Environment variables as a JSON string to pass to the agent for tool execution.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1742,7 +1742,7 @@ class AsyncRawAgentsClient:
                 "override_existing_tools": override_existing_tools,
                 "project_id": project_id,
                 "strip_messages": strip_messages,
-                "env_vars": env_vars,
+                "env_vars_json": env_vars_json,
             },
             files={
                 "file": file,

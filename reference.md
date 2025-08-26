@@ -4071,7 +4071,7 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
-**env_vars:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Environment variables to pass to the agent for tool execution.
+**env_vars_json:** `typing.Optional[str]` — Environment variables as a JSON string to pass to the agent for tool execution.
     
 </dd>
 </dl>
