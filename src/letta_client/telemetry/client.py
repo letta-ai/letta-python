@@ -25,7 +25,7 @@ class TelemetryClient:
 
     def retrieve_provider_trace(
         self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ProviderTrace:
+    ) -> typing.Optional[ProviderTrace]:
         """
         Parameters
         ----------
@@ -36,7 +36,7 @@ class TelemetryClient:
 
         Returns
         -------
-        ProviderTrace
+        typing.Optional[ProviderTrace]
             Successful Response
 
         Examples
@@ -72,7 +72,7 @@ class AsyncTelemetryClient:
 
     async def retrieve_provider_trace(
         self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> ProviderTrace:
+    ) -> typing.Optional[ProviderTrace]:
         """
         Parameters
         ----------
@@ -83,7 +83,7 @@ class AsyncTelemetryClient:
 
         Returns
         -------
-        ProviderTrace
+        typing.Optional[ProviderTrace]
             Successful Response
 
         Examples

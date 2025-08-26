@@ -20,7 +20,7 @@ class RawTelemetryClient:
 
     def retrieve_provider_trace(
         self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[ProviderTrace]:
+    ) -> HttpResponse[typing.Optional[ProviderTrace]]:
         """
         Parameters
         ----------
@@ -31,7 +31,7 @@ class RawTelemetryClient:
 
         Returns
         -------
-        HttpResponse[ProviderTrace]
+        HttpResponse[typing.Optional[ProviderTrace]]
             Successful Response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -40,11 +40,13 @@ class RawTelemetryClient:
             request_options=request_options,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ProviderTrace,
+                    typing.Optional[ProviderTrace],
                     construct_type(
-                        type_=ProviderTrace,  # type: ignore
+                        type_=typing.Optional[ProviderTrace],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -72,7 +74,7 @@ class AsyncRawTelemetryClient:
 
     async def retrieve_provider_trace(
         self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[ProviderTrace]:
+    ) -> AsyncHttpResponse[typing.Optional[ProviderTrace]]:
         """
         Parameters
         ----------
@@ -83,7 +85,7 @@ class AsyncRawTelemetryClient:
 
         Returns
         -------
-        AsyncHttpResponse[ProviderTrace]
+        AsyncHttpResponse[typing.Optional[ProviderTrace]]
             Successful Response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -92,11 +94,13 @@ class AsyncRawTelemetryClient:
             request_options=request_options,
         )
         try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    ProviderTrace,
+                    typing.Optional[ProviderTrace],
                     construct_type(
-                        type_=ProviderTrace,  # type: ignore
+                        type_=typing.Optional[ProviderTrace],  # type: ignore
                         object_=_response.json(),
                     ),
                 )
