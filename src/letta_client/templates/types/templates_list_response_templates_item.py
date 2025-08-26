@@ -27,6 +27,11 @@ class TemplatesListResponseTemplatesItem(UncheckedBaseModel):
     The full name of the template, including version and project slug
     """
 
+    updated_at: str = pydantic.Field()
+    """
+    When the template was last updated
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

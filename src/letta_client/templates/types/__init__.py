@@ -52,6 +52,7 @@ from .templates_get_template_snapshot_response_agents_item_tool_variables_data_i
 from .templates_get_template_snapshot_response_blocks_item import TemplatesGetTemplateSnapshotResponseBlocksItem
 from .templates_get_template_snapshot_response_configuration import TemplatesGetTemplateSnapshotResponseConfiguration
 from .templates_get_template_snapshot_response_type import TemplatesGetTemplateSnapshotResponseType
+from .templates_list_request_sort_by import TemplatesListRequestSortBy
 from .templates_list_response import TemplatesListResponse
 from .templates_list_response_templates_item import TemplatesListResponseTemplatesItem
 from .templates_list_template_versions_response import TemplatesListTemplateVersionsResponse
@@ -82,6 +83,7 @@ __all__ = [
     "TemplatesGetTemplateSnapshotResponseBlocksItem",
     "TemplatesGetTemplateSnapshotResponseConfiguration",
     "TemplatesGetTemplateSnapshotResponseType",
+    "TemplatesListRequestSortBy",
     "TemplatesListResponse",
     "TemplatesListResponseTemplatesItem",
     "TemplatesListTemplateVersionsResponse",

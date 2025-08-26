@@ -17,6 +17,7 @@ from .types.templates_create_template_response import TemplatesCreateTemplateRes
 from .types.templates_delete_template_response import TemplatesDeleteTemplateResponse
 from .types.templates_fork_template_response import TemplatesForkTemplateResponse
 from .types.templates_get_template_snapshot_response import TemplatesGetTemplateSnapshotResponse
+from .types.templates_list_request_sort_by import TemplatesListRequestSortBy
 from .types.templates_list_response import TemplatesListResponse
 from .types.templates_list_template_versions_response import TemplatesListTemplateVersionsResponse
 from .types.templates_rename_template_response import TemplatesRenameTemplateResponse
@@ -40,6 +41,7 @@ class RawTemplatesClient:
         search: typing.Optional[str] = None,
         project_slug: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
+        sort_by: typing.Optional[TemplatesListRequestSortBy] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TemplatesListResponse]:
         """
@@ -61,6 +63,8 @@ class RawTemplatesClient:
 
         project_id : typing.Optional[str]
 
+        sort_by : typing.Optional[TemplatesListRequestSortBy]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -80,6 +84,7 @@ class RawTemplatesClient:
                 "search": search,
                 "project_slug": project_slug,
                 "project_id": project_id,
+                "sort_by": sort_by,
             },
             request_options=request_options,
         )
@@ -591,6 +596,7 @@ class AsyncRawTemplatesClient:
         search: typing.Optional[str] = None,
         project_slug: typing.Optional[str] = None,
         project_id: typing.Optional[str] = None,
+        sort_by: typing.Optional[TemplatesListRequestSortBy] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TemplatesListResponse]:
         """
@@ -612,6 +618,8 @@ class AsyncRawTemplatesClient:
 
         project_id : typing.Optional[str]
 
+        sort_by : typing.Optional[TemplatesListRequestSortBy]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -631,6 +639,7 @@ class AsyncRawTemplatesClient:
                 "search": search,
                 "project_slug": project_slug,
                 "project_id": project_id,
+                "sort_by": sort_by,
             },
             request_options=request_options,
         )

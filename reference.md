@@ -9221,6 +9221,14 @@ client.templates.list()
 <dl>
 <dd>
 
+**sort_by:** `typing.Optional[TemplatesListRequestSortBy]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
