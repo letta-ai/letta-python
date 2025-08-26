@@ -7824,6 +7824,38 @@ client.runs.list()
 <dl>
 <dd>
 
+**after:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Cursor for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of runs to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ascending:** `typing.Optional[bool]` — Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
