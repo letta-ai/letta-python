@@ -5,12 +5,11 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 from ...core.unchecked_base_model import UncheckedBaseModel
-from .agents_search_request_search_item_field_operator import AgentsSearchRequestSearchItemFieldOperator
 
 
 class AgentsSearchRequestSearchItemField(UncheckedBaseModel):
     field: typing.Literal["templateName"] = "templateName"
-    operator: AgentsSearchRequestSearchItemFieldOperator
+    operator: typing.Literal["eq"] = "eq"
     value: str
 
     if IS_PYDANTIC_V2:

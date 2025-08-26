@@ -5,7 +5,6 @@
 from .types import (
     AgentsSearchRequestSearchItem,
     AgentsSearchRequestSearchItemField,
-    AgentsSearchRequestSearchItemFieldOperator,
     AgentsSearchRequestSearchItemOne,
     AgentsSearchRequestSearchItemOneOperator,
     AgentsSearchRequestSearchItemThree,
@@ -44,7 +43,6 @@ from .templates import TemplatesMigrateResponse
 __all__ = [
     "AgentsSearchRequestSearchItem",
     "AgentsSearchRequestSearchItemField",
-    "AgentsSearchRequestSearchItemFieldOperator",
     "AgentsSearchRequestSearchItemOne",
     "AgentsSearchRequestSearchItemOneOperator",
     "AgentsSearchRequestSearchItemThree",

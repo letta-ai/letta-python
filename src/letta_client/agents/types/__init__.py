@@ -4,7 +4,6 @@
 
 from .agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .agents_search_request_search_item_field import AgentsSearchRequestSearchItemField
-from .agents_search_request_search_item_field_operator import AgentsSearchRequestSearchItemFieldOperator
 from .agents_search_request_search_item_one import AgentsSearchRequestSearchItemOne
 from .agents_search_request_search_item_one_operator import AgentsSearchRequestSearchItemOneOperator
 from .agents_search_request_search_item_three import AgentsSearchRequestSearchItemThree
@@ -20,7 +19,6 @@ from .update_agent_tool_rules_item import UpdateAgentToolRulesItem
 __all__ = [
     "AgentsSearchRequestSearchItem",
     "AgentsSearchRequestSearchItemField",
-    "AgentsSearchRequestSearchItemFieldOperator",
     "AgentsSearchRequestSearchItemOne",
     "AgentsSearchRequestSearchItemOneOperator",
     "AgentsSearchRequestSearchItemThree",

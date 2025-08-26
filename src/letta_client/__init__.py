@@ -340,7 +340,6 @@ from . import (
 from .agents import (
     AgentsSearchRequestSearchItem,
     AgentsSearchRequestSearchItemField,
-    AgentsSearchRequestSearchItemFieldOperator,
     AgentsSearchRequestSearchItemOne,
     AgentsSearchRequestSearchItemOneOperator,
     AgentsSearchRequestSearchItemThree,
@@ -432,7 +431,6 @@ __all__ = [
     "AgentType",
     "AgentsSearchRequestSearchItem",
     "AgentsSearchRequestSearchItemField",
-    "AgentsSearchRequestSearchItemFieldOperator",
     "AgentsSearchRequestSearchItemOne",
     "AgentsSearchRequestSearchItemOneOperator",
     "AgentsSearchRequestSearchItemThree",
