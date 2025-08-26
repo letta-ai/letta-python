@@ -29,6 +29,7 @@ class RawRunsClient:
         self,
         *,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Run]]:
         """
@@ -38,6 +39,9 @@ class RawRunsClient:
         ----------
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             The unique identifier of the agent associated with the run.
+
+        background : typing.Optional[bool]
+            If True, filters for runs that were created in background mode.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -52,6 +56,7 @@ class RawRunsClient:
             method="GET",
             params={
                 "agent_ids": agent_ids,
+                "background": background,
             },
             request_options=request_options,
         )
@@ -85,6 +90,7 @@ class RawRunsClient:
         self,
         *,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Run]]:
         """
@@ -94,6 +100,9 @@ class RawRunsClient:
         ----------
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             The unique identifier of the agent associated with the run.
+
+        background : typing.Optional[bool]
+            If True, filters for runs that were created in background mode.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -108,6 +117,7 @@ class RawRunsClient:
             method="GET",
             params={
                 "agent_ids": agent_ids,
+                "background": background,
             },
             request_options=request_options,
         )
@@ -335,6 +345,7 @@ class AsyncRawRunsClient:
         self,
         *,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Run]]:
         """
@@ -344,6 +355,9 @@ class AsyncRawRunsClient:
         ----------
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             The unique identifier of the agent associated with the run.
+
+        background : typing.Optional[bool]
+            If True, filters for runs that were created in background mode.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -358,6 +372,7 @@ class AsyncRawRunsClient:
             method="GET",
             params={
                 "agent_ids": agent_ids,
+                "background": background,
             },
             request_options=request_options,
         )
@@ -391,6 +406,7 @@ class AsyncRawRunsClient:
         self,
         *,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Run]]:
         """
@@ -400,6 +416,9 @@ class AsyncRawRunsClient:
         ----------
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             The unique identifier of the agent associated with the run.
+
+        background : typing.Optional[bool]
+            If True, filters for runs that were created in background mode.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -414,6 +433,7 @@ class AsyncRawRunsClient:
             method="GET",
             params={
                 "agent_ids": agent_ids,
+                "background": background,
             },
             request_options=request_options,
         )

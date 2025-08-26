@@ -7816,6 +7816,14 @@ client.runs.list()
 <dl>
 <dd>
 
+**background:** `typing.Optional[bool]` — If True, filters for runs that were created in background mode.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -7878,6 +7886,14 @@ client.runs.list_active()
 <dd>
 
 **agent_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — The unique identifier of the agent associated with the run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**background:** `typing.Optional[bool]` — If True, filters for runs that were created in background mode.
     
 </dd>
 </dl>
