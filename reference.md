@@ -4055,6 +4055,14 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
+**override_embedding_handle:** `typing.Optional[str]` — Override import with specific embedding handle.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **project_id:** `typing.Optional[str]` — The project ID to associate the uploaded agent with.
     
 </dd>

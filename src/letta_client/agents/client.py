@@ -518,6 +518,7 @@ class AgentsClient:
         file: core.File,
         append_copy_suffix: typing.Optional[bool] = OMIT,
         override_existing_tools: typing.Optional[bool] = OMIT,
+        override_embedding_handle: typing.Optional[str] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         strip_messages: typing.Optional[bool] = OMIT,
         env_vars_json: typing.Optional[str] = OMIT,
@@ -537,6 +538,9 @@ class AgentsClient:
 
         override_existing_tools : typing.Optional[bool]
             If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
+
+        override_embedding_handle : typing.Optional[str]
+            Override import with specific embedding handle.
 
         project_id : typing.Optional[str]
             The project ID to associate the uploaded agent with.
@@ -569,6 +573,7 @@ class AgentsClient:
             file=file,
             append_copy_suffix=append_copy_suffix,
             override_existing_tools=override_existing_tools,
+            override_embedding_handle=override_embedding_handle,
             project_id=project_id,
             strip_messages=strip_messages,
             env_vars_json=env_vars_json,
@@ -1501,6 +1506,7 @@ class AsyncAgentsClient:
         file: core.File,
         append_copy_suffix: typing.Optional[bool] = OMIT,
         override_existing_tools: typing.Optional[bool] = OMIT,
+        override_embedding_handle: typing.Optional[str] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         strip_messages: typing.Optional[bool] = OMIT,
         env_vars_json: typing.Optional[str] = OMIT,
@@ -1520,6 +1526,9 @@ class AsyncAgentsClient:
 
         override_existing_tools : typing.Optional[bool]
             If set to True, existing tools can get their source code overwritten by the uploaded tool definitions. Note that Letta core tools can never be updated externally.
+
+        override_embedding_handle : typing.Optional[str]
+            Override import with specific embedding handle.
 
         project_id : typing.Optional[str]
             The project ID to associate the uploaded agent with.
@@ -1560,6 +1569,7 @@ class AsyncAgentsClient:
             file=file,
             append_copy_suffix=append_copy_suffix,
             override_existing_tools=override_existing_tools,
+            override_embedding_handle=override_embedding_handle,
             project_id=project_id,
             strip_messages=strip_messages,
             env_vars_json=env_vars_json,
