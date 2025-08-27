@@ -516,7 +516,7 @@ class RawAgentsClient:
         max_steps : typing.Optional[int]
 
         use_legacy_format : typing.Optional[bool]
-            If true, exports using the legacy single-agent format. If false, exports using the new multi-entity format.
+            If true, exports using the legacy single-agent format (v1). If false, exports using the new multi-entity format (v2).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1646,7 +1646,7 @@ class AsyncRawAgentsClient:
         max_steps : typing.Optional[int]
 
         use_legacy_format : typing.Optional[bool]
-            If true, exports using the legacy single-agent format. If false, exports using the new multi-entity format.
+            If true, exports using the legacy single-agent format (v1). If false, exports using the new multi-entity format (v2).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

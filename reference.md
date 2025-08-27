@@ -3959,7 +3959,7 @@ client.agents.export_file(
 <dl>
 <dd>
 
-**use_legacy_format:** `typing.Optional[bool]` — If true, exports using the legacy single-agent format. If false, exports using the new multi-entity format.
+**use_legacy_format:** `typing.Optional[bool]` — If true, exports using the legacy single-agent format (v1). If false, exports using the new multi-entity format (v2).
     
 </dd>
 </dl>
