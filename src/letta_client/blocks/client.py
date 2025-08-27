@@ -143,6 +143,9 @@ class BlocksClient:
         project_id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
+        base_template_id: typing.Optional[str] = OMIT,
+        deployment_id: typing.Optional[str] = OMIT,
+        entity_id: typing.Optional[str] = OMIT,
         preserve_on_migration: typing.Optional[bool] = OMIT,
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
@@ -165,9 +168,18 @@ class BlocksClient:
             The associated project id.
 
         name : typing.Optional[str]
-            Name of the block if it is a template.
+            The id of the template.
 
         is_template : typing.Optional[bool]
+
+        base_template_id : typing.Optional[str]
+            The base template id of the block.
+
+        deployment_id : typing.Optional[str]
+            The id of the deployment.
+
+        entity_id : typing.Optional[str]
+            The id of the entity within the template.
 
         preserve_on_migration : typing.Optional[bool]
             Preserve the block on template migration.
@@ -209,6 +221,9 @@ class BlocksClient:
             project_id=project_id,
             name=name,
             is_template=is_template,
+            base_template_id=base_template_id,
+            deployment_id=deployment_id,
+            entity_id=entity_id,
             preserve_on_migration=preserve_on_migration,
             read_only=read_only,
             description=description,
@@ -313,6 +328,9 @@ class BlocksClient:
         project_id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
+        base_template_id: typing.Optional[str] = OMIT,
+        deployment_id: typing.Optional[str] = OMIT,
+        entity_id: typing.Optional[str] = OMIT,
         preserve_on_migration: typing.Optional[bool] = OMIT,
         label: typing.Optional[str] = OMIT,
         read_only: typing.Optional[bool] = OMIT,
@@ -335,10 +353,19 @@ class BlocksClient:
             The associated project id.
 
         name : typing.Optional[str]
-            Name of the block if it is a template.
+            The id of the template.
 
         is_template : typing.Optional[bool]
             Whether the block is a template (e.g. saved human/persona options).
+
+        base_template_id : typing.Optional[str]
+            The base template id of the block.
+
+        deployment_id : typing.Optional[str]
+            The id of the deployment.
+
+        entity_id : typing.Optional[str]
+            The id of the entity within the template.
 
         preserve_on_migration : typing.Optional[bool]
             Preserve the block on template migration.
@@ -382,6 +409,9 @@ class BlocksClient:
             project_id=project_id,
             name=name,
             is_template=is_template,
+            base_template_id=base_template_id,
+            deployment_id=deployment_id,
+            entity_id=entity_id,
             preserve_on_migration=preserve_on_migration,
             label=label,
             read_only=read_only,
@@ -531,6 +561,9 @@ class AsyncBlocksClient:
         project_id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
+        base_template_id: typing.Optional[str] = OMIT,
+        deployment_id: typing.Optional[str] = OMIT,
+        entity_id: typing.Optional[str] = OMIT,
         preserve_on_migration: typing.Optional[bool] = OMIT,
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
@@ -553,9 +586,18 @@ class AsyncBlocksClient:
             The associated project id.
 
         name : typing.Optional[str]
-            Name of the block if it is a template.
+            The id of the template.
 
         is_template : typing.Optional[bool]
+
+        base_template_id : typing.Optional[str]
+            The base template id of the block.
+
+        deployment_id : typing.Optional[str]
+            The id of the deployment.
+
+        entity_id : typing.Optional[str]
+            The id of the entity within the template.
 
         preserve_on_migration : typing.Optional[bool]
             Preserve the block on template migration.
@@ -605,6 +647,9 @@ class AsyncBlocksClient:
             project_id=project_id,
             name=name,
             is_template=is_template,
+            base_template_id=base_template_id,
+            deployment_id=deployment_id,
+            entity_id=entity_id,
             preserve_on_migration=preserve_on_migration,
             read_only=read_only,
             description=description,
@@ -733,6 +778,9 @@ class AsyncBlocksClient:
         project_id: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         is_template: typing.Optional[bool] = OMIT,
+        base_template_id: typing.Optional[str] = OMIT,
+        deployment_id: typing.Optional[str] = OMIT,
+        entity_id: typing.Optional[str] = OMIT,
         preserve_on_migration: typing.Optional[bool] = OMIT,
         label: typing.Optional[str] = OMIT,
         read_only: typing.Optional[bool] = OMIT,
@@ -755,10 +803,19 @@ class AsyncBlocksClient:
             The associated project id.
 
         name : typing.Optional[str]
-            Name of the block if it is a template.
+            The id of the template.
 
         is_template : typing.Optional[bool]
             Whether the block is a template (e.g. saved human/persona options).
+
+        base_template_id : typing.Optional[str]
+            The base template id of the block.
+
+        deployment_id : typing.Optional[str]
+            The id of the deployment.
+
+        entity_id : typing.Optional[str]
+            The id of the entity within the template.
 
         preserve_on_migration : typing.Optional[bool]
             Preserve the block on template migration.
@@ -810,6 +867,9 @@ class AsyncBlocksClient:
             project_id=project_id,
             name=name,
             is_template=is_template,
+            base_template_id=base_template_id,
+            deployment_id=deployment_id,
+            entity_id=entity_id,
             preserve_on_migration=preserve_on_migration,
             label=label,
             read_only=read_only,

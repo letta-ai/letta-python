@@ -29,10 +29,25 @@ class BlockSchema(UncheckedBaseModel):
 
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Name of the block if it is a template.
+    The id of the template.
     """
 
     is_template: typing.Optional[bool] = None
+    base_template_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The base template id of the block.
+    """
+
+    deployment_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the deployment.
+    """
+
+    entity_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the entity within the template.
+    """
+
     preserve_on_migration: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Preserve the block on template migration.

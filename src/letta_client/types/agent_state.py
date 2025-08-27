@@ -151,6 +151,16 @@ class AgentState(UncheckedBaseModel):
     The base template id of the agent.
     """
 
+    deployment_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the deployment.
+    """
+
+    entity_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the entity within the template.
+    """
+
     identity_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     The ids of the identities associated with this agent.

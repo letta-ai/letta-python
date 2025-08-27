@@ -34,6 +34,21 @@ class Group(UncheckedBaseModel):
     The associated project id.
     """
 
+    template_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the template.
+    """
+
+    base_template_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The base template id.
+    """
+
+    deployment_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the deployment.
+    """
+
     shared_block_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     

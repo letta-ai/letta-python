@@ -6375,7 +6375,7 @@ client.blocks.create(
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` — Name of the block if it is a template.
+**name:** `typing.Optional[str]` — The id of the template.
     
 </dd>
 </dl>
@@ -6384,6 +6384,30 @@ client.blocks.create(
 <dd>
 
 **is_template:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**base_template_id:** `typing.Optional[str]` — The base template id of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**deployment_id:** `typing.Optional[str]` — The id of the deployment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_id:** `typing.Optional[str]` — The id of the entity within the template.
     
 </dd>
 </dl>
@@ -6679,7 +6703,7 @@ client.blocks.modify(
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` — Name of the block if it is a template.
+**name:** `typing.Optional[str]` — The id of the template.
     
 </dd>
 </dl>
@@ -6688,6 +6712,30 @@ client.blocks.modify(
 <dd>
 
 **is_template:** `typing.Optional[bool]` — Whether the block is a template (e.g. saved human/persona options).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**base_template_id:** `typing.Optional[str]` — The base template id of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**deployment_id:** `typing.Optional[str]` — The id of the deployment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_id:** `typing.Optional[str]` — The id of the entity within the template.
     
 </dd>
 </dl>
@@ -11535,7 +11583,7 @@ client.agents.blocks.modify(
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` — Name of the block if it is a template.
+**name:** `typing.Optional[str]` — The id of the template.
     
 </dd>
 </dl>
@@ -11544,6 +11592,30 @@ client.agents.blocks.modify(
 <dd>
 
 **is_template:** `typing.Optional[bool]` — Whether the block is a template (e.g. saved human/persona options).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**base_template_id:** `typing.Optional[str]` — The base template id of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**deployment_id:** `typing.Optional[str]` — The id of the deployment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_id:** `typing.Optional[str]` — The id of the entity within the template.
     
 </dd>
 </dl>
