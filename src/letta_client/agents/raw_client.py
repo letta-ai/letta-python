@@ -565,6 +565,7 @@ class RawAgentsClient:
         self,
         *,
         file: core.File,
+        override_embedding_model: typing.Optional[str] = None,
         append_copy_suffix: typing.Optional[bool] = OMIT,
         override_existing_tools: typing.Optional[bool] = OMIT,
         override_embedding_handle: typing.Optional[str] = OMIT,
@@ -581,6 +582,8 @@ class RawAgentsClient:
         ----------
         file : core.File
             See core.File for more documentation
+
+        override_embedding_model : typing.Optional[str]
 
         append_copy_suffix : typing.Optional[bool]
             If set to True, appends "_copy" to the end of the agent name.
@@ -621,6 +624,11 @@ class RawAgentsClient:
             },
             files={
                 "file": file,
+            },
+            headers={
+                "x-override-embedding-model": str(override_embedding_model)
+                if override_embedding_model is not None
+                else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1700,6 +1708,7 @@ class AsyncRawAgentsClient:
         self,
         *,
         file: core.File,
+        override_embedding_model: typing.Optional[str] = None,
         append_copy_suffix: typing.Optional[bool] = OMIT,
         override_existing_tools: typing.Optional[bool] = OMIT,
         override_embedding_handle: typing.Optional[str] = OMIT,
@@ -1716,6 +1725,8 @@ class AsyncRawAgentsClient:
         ----------
         file : core.File
             See core.File for more documentation
+
+        override_embedding_model : typing.Optional[str]
 
         append_copy_suffix : typing.Optional[bool]
             If set to True, appends "_copy" to the end of the agent name.
@@ -1756,6 +1767,11 @@ class AsyncRawAgentsClient:
             },
             files={
                 "file": file,
+            },
+            headers={
+                "x-override-embedding-model": str(override_embedding_model)
+                if override_embedding_model is not None
+                else None,
             },
             request_options=request_options,
             omit=OMIT,

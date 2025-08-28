@@ -4039,6 +4039,14 @@ core.File` — See core.File for more documentation
 <dl>
 <dd>
 
+**override_embedding_model:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **append_copy_suffix:** `typing.Optional[bool]` — If set to True, appends "_copy" to the end of the agent name.
     
 </dd>

@@ -516,6 +516,7 @@ class AgentsClient:
         self,
         *,
         file: core.File,
+        override_embedding_model: typing.Optional[str] = None,
         append_copy_suffix: typing.Optional[bool] = OMIT,
         override_existing_tools: typing.Optional[bool] = OMIT,
         override_embedding_handle: typing.Optional[str] = OMIT,
@@ -532,6 +533,8 @@ class AgentsClient:
         ----------
         file : core.File
             See core.File for more documentation
+
+        override_embedding_model : typing.Optional[str]
 
         append_copy_suffix : typing.Optional[bool]
             If set to True, appends "_copy" to the end of the agent name.
@@ -571,6 +574,7 @@ class AgentsClient:
         """
         _response = self._raw_client.import_file(
             file=file,
+            override_embedding_model=override_embedding_model,
             append_copy_suffix=append_copy_suffix,
             override_existing_tools=override_existing_tools,
             override_embedding_handle=override_embedding_handle,
@@ -1504,6 +1508,7 @@ class AsyncAgentsClient:
         self,
         *,
         file: core.File,
+        override_embedding_model: typing.Optional[str] = None,
         append_copy_suffix: typing.Optional[bool] = OMIT,
         override_existing_tools: typing.Optional[bool] = OMIT,
         override_embedding_handle: typing.Optional[str] = OMIT,
@@ -1520,6 +1525,8 @@ class AsyncAgentsClient:
         ----------
         file : core.File
             See core.File for more documentation
+
+        override_embedding_model : typing.Optional[str]
 
         append_copy_suffix : typing.Optional[bool]
             If set to True, appends "_copy" to the end of the agent name.
@@ -1567,6 +1574,7 @@ class AsyncAgentsClient:
         """
         _response = await self._raw_client.import_file(
             file=file,
+            override_embedding_model=override_embedding_model,
             append_copy_suffix=append_copy_suffix,
             override_existing_tools=override_existing_tools,
             override_embedding_handle=override_embedding_handle,
