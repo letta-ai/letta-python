@@ -70,6 +70,30 @@ class ModelsClient:
         )
         return _response.data
 
+    def listembeddingmodels(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.models.listembeddingmodels()
+        """
+        _response = self._raw_client.listembeddingmodels(request_options=request_options)
+        return _response.data
+
 
 class AsyncModelsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -137,4 +161,36 @@ class AsyncModelsClient:
             provider_type=provider_type,
             request_options=request_options,
         )
+        return _response.data
+
+    async def listembeddingmodels(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+        """
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.models.listembeddingmodels()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.listembeddingmodels(request_options=request_options)
         return _response.data

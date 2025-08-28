@@ -6083,6 +6083,53 @@ client.models.list()
 </dl>
 </details>
 
+<details><summary><code>client.models.<a href="src/letta_client/models/client.py">listembeddingmodels</a>()</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.models.listembeddingmodels()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## EmbeddingModels
 <details><summary><code>client.embedding_models.<a href="src/letta_client/embedding_models/client.py">list</a>()</code></summary>
 <dl>

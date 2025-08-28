@@ -102,6 +102,11 @@ class LlmConfig(UncheckedBaseModel):
     Soft control for how verbose model output should be, used for GPT-5 models.
     """
 
+    tier: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The cost tier for the model (cloud only).
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
