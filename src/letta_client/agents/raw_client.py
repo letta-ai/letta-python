@@ -981,6 +981,67 @@ class RawAgentsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def modify_approval(
+        self,
+        agent_id: str,
+        tool_name: str,
+        *,
+        requires_approval: bool,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[AgentState]:
+        """
+        Attach a tool to an agent.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        tool_name : str
+
+        requires_approval : bool
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[AgentState]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/tools/approval/{jsonable_encoder(tool_name)}",
+            method="PATCH",
+            params={
+                "requires_approval": requires_approval,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AgentState,
+                    construct_type(
+                        type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def list_agent_files(
         self,
         agent_id: str,
@@ -2097,6 +2158,67 @@ class AsyncRawAgentsClient:
             },
             request_options=request_options,
             omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AgentState,
+                    construct_type(
+                        type_=AgentState,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def modify_approval(
+        self,
+        agent_id: str,
+        tool_name: str,
+        *,
+        requires_approval: bool,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[AgentState]:
+        """
+        Attach a tool to an agent.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        tool_name : str
+
+        requires_approval : bool
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[AgentState]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/tools/approval/{jsonable_encoder(tool_name)}",
+            method="PATCH",
+            params={
+                "requires_approval": requires_approval,
+            },
+            request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:

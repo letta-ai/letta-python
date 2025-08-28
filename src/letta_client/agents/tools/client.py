@@ -127,6 +127,39 @@ class ToolsClient:
         _response = self._raw_client.detach(agent_id, tool_id, request_options=request_options)
         return _response.data
 
+    def modify_approval(
+        self, agent_id: str, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Parameters
+        ----------
+        agent_id : str
+
+        tool_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.tools.modify_approval(
+            agent_id="agent_id",
+            tool_id="tool_id",
+        )
+        """
+        _response = self._raw_client.modify_approval(agent_id, tool_id, request_options=request_options)
+        return _response.data
+
 
 class AsyncToolsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -270,4 +303,45 @@ class AsyncToolsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.detach(agent_id, tool_id, request_options=request_options)
+        return _response.data
+
+    async def modify_approval(
+        self, agent_id: str, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Parameters
+        ----------
+        agent_id : str
+
+        tool_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.tools.modify_approval(
+                agent_id="agent_id",
+                tool_id="tool_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.modify_approval(agent_id, tool_id, request_options=request_options)
         return _response.data
