@@ -9,10 +9,8 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.http_response import AsyncHttpResponse, HttpResponse
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.request_options import RequestOptions
-from ...core.serialization import convert_and_respect_annotation_metadata
 from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
-from ...types.embedding_config import EmbeddingConfig
 from ...types.http_validation_error import HttpValidationError
 from ...types.passage import Passage
 
@@ -104,7 +102,13 @@ class RawPassagesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
-        self, agent_id: str, *, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        text: str,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        created_at: typing.Optional[dt.datetime] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Passage]]:
         """
         Insert a memory into an agent's archival memory store.
@@ -115,6 +119,12 @@ class RawPassagesClient:
 
         text : str
             Text to write to archival memory.
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Optional list of tags to attach to the memory.
+
+        created_at : typing.Optional[dt.datetime]
+            Optional timestamp for the memory (defaults to current UTC time).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -129,6 +139,8 @@ class RawPassagesClient:
             method="POST",
             json={
                 "text": text,
+                "tags": tags,
+                "created_at": created_at,
             },
             headers={
                 "content-type": "application/json",
@@ -216,133 +228,30 @@ class RawPassagesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def modify(
-        self,
-        agent_id: str,
-        memory_id: str,
-        *,
-        id: str,
-        created_by_id: typing.Optional[str] = OMIT,
-        last_updated_by_id: typing.Optional[str] = OMIT,
-        created_at: typing.Optional[dt.datetime] = OMIT,
-        updated_at: typing.Optional[dt.datetime] = OMIT,
-        is_deleted: typing.Optional[bool] = OMIT,
-        archive_id: typing.Optional[str] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
-        file_id: typing.Optional[str] = OMIT,
-        file_name: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        text: typing.Optional[str] = OMIT,
-        embedding: typing.Optional[typing.Sequence[float]] = OMIT,
-        embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[typing.List[Passage]]:
+        self, agent_id: str, memory_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[None]:
         """
-        Modify a memory in the agent's archival memory store.
-
         Parameters
         ----------
         agent_id : str
 
         memory_id : str
 
-        id : str
-            The unique identifier of the passage.
-
-        created_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        last_updated_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        created_at : typing.Optional[dt.datetime]
-            The timestamp when the object was created.
-
-        updated_at : typing.Optional[dt.datetime]
-            The timestamp when the object was last updated.
-
-        is_deleted : typing.Optional[bool]
-            Whether this passage is deleted or not.
-
-        archive_id : typing.Optional[str]
-            The unique identifier of the archive containing this passage.
-
-        source_id : typing.Optional[str]
-            The data source of the passage.
-
-        file_id : typing.Optional[str]
-            The unique identifier of the file associated with the passage.
-
-        file_name : typing.Optional[str]
-            The name of the file (only for source passages).
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the passage.
-
-        text : typing.Optional[str]
-            The text of the passage.
-
-        embedding : typing.Optional[typing.Sequence[float]]
-            The embedding of the passage.
-
-        embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the passage.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[typing.List[Passage]]
-            Successful Response
+        HttpResponse[None]
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/archival-memory/{jsonable_encoder(memory_id)}",
             method="PATCH",
-            json={
-                "created_by_id": created_by_id,
-                "last_updated_by_id": last_updated_by_id,
-                "created_at": created_at,
-                "updated_at": updated_at,
-                "is_deleted": is_deleted,
-                "archive_id": archive_id,
-                "source_id": source_id,
-                "file_id": file_id,
-                "file_name": file_name,
-                "metadata_": metadata,
-                "text": text,
-                "embedding": embedding,
-                "embedding_config": convert_and_respect_annotation_metadata(
-                    object_=embedding_config, annotation=EmbeddingConfig, direction="write"
-                ),
-                "id": id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
-            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[Passage],
-                    construct_type(
-                        type_=typing.List[Passage],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
+                return HttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -433,7 +342,13 @@ class AsyncRawPassagesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self, agent_id: str, *, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        text: str,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        created_at: typing.Optional[dt.datetime] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Passage]]:
         """
         Insert a memory into an agent's archival memory store.
@@ -444,6 +359,12 @@ class AsyncRawPassagesClient:
 
         text : str
             Text to write to archival memory.
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Optional list of tags to attach to the memory.
+
+        created_at : typing.Optional[dt.datetime]
+            Optional timestamp for the memory (defaults to current UTC time).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -458,6 +379,8 @@ class AsyncRawPassagesClient:
             method="POST",
             json={
                 "text": text,
+                "tags": tags,
+                "created_at": created_at,
             },
             headers={
                 "content-type": "application/json",
@@ -545,133 +468,30 @@ class AsyncRawPassagesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def modify(
-        self,
-        agent_id: str,
-        memory_id: str,
-        *,
-        id: str,
-        created_by_id: typing.Optional[str] = OMIT,
-        last_updated_by_id: typing.Optional[str] = OMIT,
-        created_at: typing.Optional[dt.datetime] = OMIT,
-        updated_at: typing.Optional[dt.datetime] = OMIT,
-        is_deleted: typing.Optional[bool] = OMIT,
-        archive_id: typing.Optional[str] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
-        file_id: typing.Optional[str] = OMIT,
-        file_name: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        text: typing.Optional[str] = OMIT,
-        embedding: typing.Optional[typing.Sequence[float]] = OMIT,
-        embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[typing.List[Passage]]:
+        self, agent_id: str, memory_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[None]:
         """
-        Modify a memory in the agent's archival memory store.
-
         Parameters
         ----------
         agent_id : str
 
         memory_id : str
 
-        id : str
-            The unique identifier of the passage.
-
-        created_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        last_updated_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        created_at : typing.Optional[dt.datetime]
-            The timestamp when the object was created.
-
-        updated_at : typing.Optional[dt.datetime]
-            The timestamp when the object was last updated.
-
-        is_deleted : typing.Optional[bool]
-            Whether this passage is deleted or not.
-
-        archive_id : typing.Optional[str]
-            The unique identifier of the archive containing this passage.
-
-        source_id : typing.Optional[str]
-            The data source of the passage.
-
-        file_id : typing.Optional[str]
-            The unique identifier of the file associated with the passage.
-
-        file_name : typing.Optional[str]
-            The name of the file (only for source passages).
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the passage.
-
-        text : typing.Optional[str]
-            The text of the passage.
-
-        embedding : typing.Optional[typing.Sequence[float]]
-            The embedding of the passage.
-
-        embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the passage.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[typing.List[Passage]]
-            Successful Response
+        AsyncHttpResponse[None]
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/archival-memory/{jsonable_encoder(memory_id)}",
             method="PATCH",
-            json={
-                "created_by_id": created_by_id,
-                "last_updated_by_id": last_updated_by_id,
-                "created_at": created_at,
-                "updated_at": updated_at,
-                "is_deleted": is_deleted,
-                "archive_id": archive_id,
-                "source_id": source_id,
-                "file_id": file_id,
-                "file_name": file_name,
-                "metadata_": metadata,
-                "text": text,
-                "embedding": embedding,
-                "embedding_config": convert_and_respect_annotation_metadata(
-                    object_=embedding_config, annotation=EmbeddingConfig, direction="write"
-                ),
-                "id": id,
-            },
-            headers={
-                "content-type": "application/json",
-            },
             request_options=request_options,
-            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[Passage],
-                    construct_type(
-                        type_=typing.List[Passage],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
+                return AsyncHttpResponse(response=_response, data=None)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

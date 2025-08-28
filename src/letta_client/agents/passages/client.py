@@ -5,7 +5,6 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
-from ...types.embedding_config import EmbeddingConfig
 from ...types.passage import Passage
 from .raw_client import AsyncRawPassagesClient, RawPassagesClient
 
@@ -93,7 +92,13 @@ class PassagesClient:
         return _response.data
 
     def create(
-        self, agent_id: str, *, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        text: str,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        created_at: typing.Optional[dt.datetime] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Passage]:
         """
         Insert a memory into an agent's archival memory store.
@@ -104,6 +109,12 @@ class PassagesClient:
 
         text : str
             Text to write to archival memory.
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Optional list of tags to attach to the memory.
+
+        created_at : typing.Optional[dt.datetime]
+            Optional timestamp for the memory (defaults to current UTC time).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -126,7 +137,9 @@ class PassagesClient:
             text="text",
         )
         """
-        _response = self._raw_client.create(agent_id, text=text, request_options=request_options)
+        _response = self._raw_client.create(
+            agent_id, text=text, tags=tags, created_at=created_at, request_options=request_options
+        )
         return _response.data
 
     def delete(
@@ -165,85 +178,20 @@ class PassagesClient:
         _response = self._raw_client.delete(agent_id, memory_id, request_options=request_options)
         return _response.data
 
-    def modify(
-        self,
-        agent_id: str,
-        memory_id: str,
-        *,
-        id: str,
-        created_by_id: typing.Optional[str] = OMIT,
-        last_updated_by_id: typing.Optional[str] = OMIT,
-        created_at: typing.Optional[dt.datetime] = OMIT,
-        updated_at: typing.Optional[dt.datetime] = OMIT,
-        is_deleted: typing.Optional[bool] = OMIT,
-        archive_id: typing.Optional[str] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
-        file_id: typing.Optional[str] = OMIT,
-        file_name: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        text: typing.Optional[str] = OMIT,
-        embedding: typing.Optional[typing.Sequence[float]] = OMIT,
-        embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[Passage]:
+    def modify(self, agent_id: str, memory_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
         """
-        Modify a memory in the agent's archival memory store.
-
         Parameters
         ----------
         agent_id : str
 
         memory_id : str
 
-        id : str
-            The unique identifier of the passage.
-
-        created_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        last_updated_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        created_at : typing.Optional[dt.datetime]
-            The timestamp when the object was created.
-
-        updated_at : typing.Optional[dt.datetime]
-            The timestamp when the object was last updated.
-
-        is_deleted : typing.Optional[bool]
-            Whether this passage is deleted or not.
-
-        archive_id : typing.Optional[str]
-            The unique identifier of the archive containing this passage.
-
-        source_id : typing.Optional[str]
-            The data source of the passage.
-
-        file_id : typing.Optional[str]
-            The unique identifier of the file associated with the passage.
-
-        file_name : typing.Optional[str]
-            The name of the file (only for source passages).
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the passage.
-
-        text : typing.Optional[str]
-            The text of the passage.
-
-        embedding : typing.Optional[typing.Sequence[float]]
-            The embedding of the passage.
-
-        embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the passage.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[Passage]
-            Successful Response
+        None
 
         Examples
         --------
@@ -256,28 +204,9 @@ class PassagesClient:
         client.agents.passages.modify(
             agent_id="agent_id",
             memory_id="memory_id",
-            id="id",
         )
         """
-        _response = self._raw_client.modify(
-            agent_id,
-            memory_id,
-            id=id,
-            created_by_id=created_by_id,
-            last_updated_by_id=last_updated_by_id,
-            created_at=created_at,
-            updated_at=updated_at,
-            is_deleted=is_deleted,
-            archive_id=archive_id,
-            source_id=source_id,
-            file_id=file_id,
-            file_name=file_name,
-            metadata=metadata,
-            text=text,
-            embedding=embedding,
-            embedding_config=embedding_config,
-            request_options=request_options,
-        )
+        _response = self._raw_client.modify(agent_id, memory_id, request_options=request_options)
         return _response.data
 
 
@@ -369,7 +298,13 @@ class AsyncPassagesClient:
         return _response.data
 
     async def create(
-        self, agent_id: str, *, text: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        text: str,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        created_at: typing.Optional[dt.datetime] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Passage]:
         """
         Insert a memory into an agent's archival memory store.
@@ -380,6 +315,12 @@ class AsyncPassagesClient:
 
         text : str
             Text to write to archival memory.
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Optional list of tags to attach to the memory.
+
+        created_at : typing.Optional[dt.datetime]
+            Optional timestamp for the memory (defaults to current UTC time).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -410,7 +351,9 @@ class AsyncPassagesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(agent_id, text=text, request_options=request_options)
+        _response = await self._raw_client.create(
+            agent_id, text=text, tags=tags, created_at=created_at, request_options=request_options
+        )
         return _response.data
 
     async def delete(
@@ -458,84 +401,21 @@ class AsyncPassagesClient:
         return _response.data
 
     async def modify(
-        self,
-        agent_id: str,
-        memory_id: str,
-        *,
-        id: str,
-        created_by_id: typing.Optional[str] = OMIT,
-        last_updated_by_id: typing.Optional[str] = OMIT,
-        created_at: typing.Optional[dt.datetime] = OMIT,
-        updated_at: typing.Optional[dt.datetime] = OMIT,
-        is_deleted: typing.Optional[bool] = OMIT,
-        archive_id: typing.Optional[str] = OMIT,
-        source_id: typing.Optional[str] = OMIT,
-        file_id: typing.Optional[str] = OMIT,
-        file_name: typing.Optional[str] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
-        text: typing.Optional[str] = OMIT,
-        embedding: typing.Optional[typing.Sequence[float]] = OMIT,
-        embedding_config: typing.Optional[EmbeddingConfig] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> typing.List[Passage]:
+        self, agent_id: str, memory_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
         """
-        Modify a memory in the agent's archival memory store.
-
         Parameters
         ----------
         agent_id : str
 
         memory_id : str
 
-        id : str
-            The unique identifier of the passage.
-
-        created_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        last_updated_by_id : typing.Optional[str]
-            The id of the user that made this object.
-
-        created_at : typing.Optional[dt.datetime]
-            The timestamp when the object was created.
-
-        updated_at : typing.Optional[dt.datetime]
-            The timestamp when the object was last updated.
-
-        is_deleted : typing.Optional[bool]
-            Whether this passage is deleted or not.
-
-        archive_id : typing.Optional[str]
-            The unique identifier of the archive containing this passage.
-
-        source_id : typing.Optional[str]
-            The data source of the passage.
-
-        file_id : typing.Optional[str]
-            The unique identifier of the file associated with the passage.
-
-        file_name : typing.Optional[str]
-            The name of the file (only for source passages).
-
-        metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
-            The metadata of the passage.
-
-        text : typing.Optional[str]
-            The text of the passage.
-
-        embedding : typing.Optional[typing.Sequence[float]]
-            The embedding of the passage.
-
-        embedding_config : typing.Optional[EmbeddingConfig]
-            The embedding configuration used by the passage.
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        typing.List[Passage]
-            Successful Response
+        None
 
         Examples
         --------
@@ -553,29 +433,10 @@ class AsyncPassagesClient:
             await client.agents.passages.modify(
                 agent_id="agent_id",
                 memory_id="memory_id",
-                id="id",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.modify(
-            agent_id,
-            memory_id,
-            id=id,
-            created_by_id=created_by_id,
-            last_updated_by_id=last_updated_by_id,
-            created_at=created_at,
-            updated_at=updated_at,
-            is_deleted=is_deleted,
-            archive_id=archive_id,
-            source_id=source_id,
-            file_id=file_id,
-            file_name=file_name,
-            metadata=metadata,
-            text=text,
-            embedding=embedding,
-            embedding_config=embedding_config,
-            request_options=request_options,
-        )
+        _response = await self._raw_client.modify(agent_id, memory_id, request_options=request_options)
         return _response.data

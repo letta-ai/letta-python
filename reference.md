@@ -12149,6 +12149,22 @@ client.agents.passages.create(
 <dl>
 <dd>
 
+**tags:** `typing.Optional[typing.Sequence[str]]` — Optional list of tags to attach to the memory.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_at:** `typing.Optional[dt.datetime]` — Optional timestamp for the memory (defaults to current UTC time).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -12245,20 +12261,6 @@ client.agents.passages.delete(
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Modify a memory in the agent's archival memory store.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -12277,7 +12279,6 @@ client = Letta(
 client.agents.passages.modify(
     agent_id="agent_id",
     memory_id="memory_id",
-    id="id",
 )
 
 ```
@@ -12303,118 +12304,6 @@ client.agents.passages.modify(
 <dd>
 
 **memory_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_by_id:** `typing.Optional[str]` — The id of the user that made this object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last_updated_by_id:** `typing.Optional[str]` — The id of the user that made this object.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**created_at:** `typing.Optional[dt.datetime]` — The timestamp when the object was created.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**updated_at:** `typing.Optional[dt.datetime]` — The timestamp when the object was last updated.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_deleted:** `typing.Optional[bool]` — Whether this passage is deleted or not.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**archive_id:** `typing.Optional[str]` — The unique identifier of the archive containing this passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**source_id:** `typing.Optional[str]` — The data source of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**file_id:** `typing.Optional[str]` — The unique identifier of the file associated with the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**file_name:** `typing.Optional[str]` — The name of the file (only for source passages).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — The metadata of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**text:** `typing.Optional[str]` — The text of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**embedding:** `typing.Optional[typing.Sequence[float]]` — The embedding of the passage.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**embedding_config:** `typing.Optional[EmbeddingConfig]` — The embedding configuration used by the passage.
     
 </dd>
 </dl>
