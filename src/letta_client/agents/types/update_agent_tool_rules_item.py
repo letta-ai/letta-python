@@ -9,6 +9,7 @@ from ...types.init_tool_rule import InitToolRule
 from ...types.max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from ...types.parent_tool_rule import ParentToolRule
 from ...types.required_before_exit_tool_rule import RequiredBeforeExitToolRule
+from ...types.requires_approval_tool_rule import RequiresApprovalToolRule
 from ...types.terminal_tool_rule import TerminalToolRule
 
 UpdateAgentToolRulesItem = typing.Union[
@@ -19,5 +20,6 @@ UpdateAgentToolRulesItem = typing.Union[
     MaxCountPerStepToolRule,
     ParentToolRule,
     RequiredBeforeExitToolRule,
+    RequiresApprovalToolRule,
     InitToolRule,
 ]

@@ -253,6 +253,7 @@ from .reasoning_message import ReasoningMessage
 from .reasoning_message_source import ReasoningMessageSource
 from .redacted_reasoning_content import RedactedReasoningContent
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
+from .requires_approval_tool_rule import RequiresApprovalToolRule
 from .response_format_json_object import ResponseFormatJsonObject
 from .response_format_json_schema import ResponseFormatJsonSchema
 from .response_format_text import ResponseFormatText
@@ -563,6 +564,7 @@ __all__ = [
     "ReasoningMessageSource",
     "RedactedReasoningContent",
     "RequiredBeforeExitToolRule",
+    "RequiresApprovalToolRule",
     "ResponseFormatJsonObject",
     "ResponseFormatJsonSchema",
     "ResponseFormatText",

@@ -34,6 +34,9 @@ from .templates_get_template_snapshot_response_agents_item_tool_rules_item_max_c
 from .templates_get_template_snapshot_response_agents_item_tool_rules_item_one import (
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemOne,
 )
+from .templates_get_template_snapshot_response_agents_item_tool_rules_item_prompt_template import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate,
+)
 from .templates_get_template_snapshot_response_agents_item_tool_rules_item_seven import (
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven,
 )
@@ -75,6 +78,7 @@ __all__ = [
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour",
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxCountLimit",
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemOne",
+    "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate",
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemSeven",
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemTwo",
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemZero",
