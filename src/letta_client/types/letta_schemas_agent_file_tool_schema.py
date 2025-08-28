@@ -77,6 +77,11 @@ class LettaSchemasAgentFileToolSchema(UncheckedBaseModel):
     Optional list of npm packages required by this tool.
     """
 
+    default_requires_approval: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Default value for whether or not executing this tool requires approval.
+    """
+
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the user that made this Tool.

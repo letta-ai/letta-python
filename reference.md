@@ -281,6 +281,14 @@ client.tools.modify(
 <dl>
 <dd>
 
+**default_requires_approval:** `typing.Optional[bool]` — Whether or not to require approval before executing this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -570,6 +578,14 @@ client.tools.create(
 <dl>
 <dd>
 
+**default_requires_approval:** `typing.Optional[bool]` — Whether or not to require approval before executing this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -698,6 +714,14 @@ client.tools.upsert(
 <dd>
 
 **npm_requirements:** `typing.Optional[typing.Sequence[NpmRequirement]]` — Optional list of npm packages required by this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**default_requires_approval:** `typing.Optional[bool]` — Whether or not to require approval before executing this tool.
     
 </dd>
 </dl>

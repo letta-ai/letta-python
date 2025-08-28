@@ -119,6 +119,7 @@ class ToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -158,6 +159,9 @@ class ToolsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A dictionary of additional metadata for the tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -190,6 +194,7 @@ class ToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             metadata=metadata,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
         return _response.data
@@ -281,6 +286,7 @@ class ToolsClient:
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -315,6 +321,9 @@ class ToolsClient:
         npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
             Optional list of npm packages required by this tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -345,6 +354,7 @@ class ToolsClient:
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
         return _response.data
@@ -361,6 +371,7 @@ class ToolsClient:
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -395,6 +406,9 @@ class ToolsClient:
         npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
             Optional list of npm packages required by this tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -425,6 +439,7 @@ class ToolsClient:
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
         return _response.data
@@ -1034,6 +1049,7 @@ class AsyncToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1072,6 +1088,9 @@ class AsyncToolsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A dictionary of additional metadata for the tool.
+
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1113,6 +1132,7 @@ class AsyncToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             metadata=metadata,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
         return _response.data
@@ -1220,6 +1240,7 @@ class AsyncToolsClient:
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1253,6 +1274,9 @@ class AsyncToolsClient:
 
         npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
             Optional list of npm packages required by this tool.
+
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1292,6 +1316,7 @@ class AsyncToolsClient:
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
         return _response.data
@@ -1308,6 +1333,7 @@ class AsyncToolsClient:
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1341,6 +1367,9 @@ class AsyncToolsClient:
 
         npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
             Optional list of npm packages required by this tool.
+
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1380,6 +1409,7 @@ class AsyncToolsClient:
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
         return _response.data

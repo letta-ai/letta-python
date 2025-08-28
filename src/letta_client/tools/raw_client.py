@@ -152,6 +152,7 @@ class RawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -191,6 +192,9 @@ class RawToolsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A dictionary of additional metadata for the tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -217,6 +221,7 @@ class RawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "metadata_": metadata,
+                "default_requires_approval": default_requires_approval,
             },
             headers={
                 "content-type": "application/json",
@@ -381,6 +386,7 @@ class RawToolsClient:
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -415,6 +421,9 @@ class RawToolsClient:
         npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
             Optional list of npm packages required by this tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -440,6 +449,7 @@ class RawToolsClient:
                 "npm_requirements": convert_and_respect_annotation_metadata(
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
+                "default_requires_approval": default_requires_approval,
             },
             headers={
                 "content-type": "application/json",
@@ -485,6 +495,7 @@ class RawToolsClient:
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -519,6 +530,9 @@ class RawToolsClient:
         npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
             Optional list of npm packages required by this tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -544,6 +558,7 @@ class RawToolsClient:
                 "npm_requirements": convert_and_respect_annotation_metadata(
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
+                "default_requires_approval": default_requires_approval,
             },
             headers={
                 "content-type": "application/json",
@@ -1451,6 +1466,7 @@ class AsyncRawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1490,6 +1506,9 @@ class AsyncRawToolsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             A dictionary of additional metadata for the tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1516,6 +1535,7 @@ class AsyncRawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "metadata_": metadata,
+                "default_requires_approval": default_requires_approval,
             },
             headers={
                 "content-type": "application/json",
@@ -1680,6 +1700,7 @@ class AsyncRawToolsClient:
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1714,6 +1735,9 @@ class AsyncRawToolsClient:
         npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
             Optional list of npm packages required by this tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1739,6 +1763,7 @@ class AsyncRawToolsClient:
                 "npm_requirements": convert_and_respect_annotation_metadata(
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
+                "default_requires_approval": default_requires_approval,
             },
             headers={
                 "content-type": "application/json",
@@ -1784,6 +1809,7 @@ class AsyncRawToolsClient:
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1818,6 +1844,9 @@ class AsyncRawToolsClient:
         npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
             Optional list of npm packages required by this tool.
 
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1843,6 +1872,7 @@ class AsyncRawToolsClient:
                 "npm_requirements": convert_and_respect_annotation_metadata(
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
+                "default_requires_approval": default_requires_approval,
             },
             headers={
                 "content-type": "application/json",

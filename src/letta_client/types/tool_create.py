@@ -55,6 +55,11 @@ class ToolCreate(UncheckedBaseModel):
     Optional list of npm packages required by this tool.
     """
 
+    default_requires_approval: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether or not to require approval before executing this tool.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
