@@ -12,7 +12,11 @@ class ApprovalCreate(UncheckedBaseModel):
     Input to approve or deny a tool call request
     """
 
-    type: typing.Literal["approval"] = "approval"
+    type: typing.Optional[typing.Literal["approval"]] = pydantic.Field(default=None)
+    """
+    The message type to be created.
+    """
+
     approve: bool = pydantic.Field()
     """
     Whether the tool has been approved

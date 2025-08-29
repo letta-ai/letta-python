@@ -8945,7 +8945,7 @@ Creates a job that will fan out messages to all listed agents and process them i
 <dd>
 
 ```python
-from letta_client import ApprovalCreate, Letta, LettaBatchRequest
+from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -8955,9 +8955,13 @@ client.batches.create(
     requests=[
         LettaBatchRequest(
             messages=[
-                ApprovalCreate(
-                    approve=True,
-                    approval_request_id="approval_request_id",
+                MessageCreate(
+                    role="user",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
             agent_id="agent_id",
@@ -12678,7 +12682,7 @@ This endpoint accepts a message from a user and processes it through the agent.
 <dd>
 
 ```python
-from letta_client import ApprovalCreate, Letta
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -12687,9 +12691,13 @@ client = Letta(
 client.agents.messages.create(
     agent_id="agent_id",
     messages=[
-        ApprovalCreate(
-            approve=True,
-            approval_request_id="approval_request_id",
+        MessageCreate(
+            role="user",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )
@@ -12904,7 +12912,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 <dd>
 
 ```python
-from letta_client import ApprovalCreate, Letta
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -12913,9 +12921,13 @@ client = Letta(
 response = client.agents.messages.create_stream(
     agent_id="agent_id",
     messages=[
-        ApprovalCreate(
-            approve=True,
-            approval_request_id="approval_request_id",
+        MessageCreate(
+            role="user",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )
@@ -13148,7 +13160,7 @@ This is more like `send_message_job`
 <dd>
 
 ```python
-from letta_client import ApprovalCreate, Letta
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -13157,9 +13169,13 @@ client = Letta(
 client.agents.messages.create_async(
     agent_id="agent_id",
     messages=[
-        ApprovalCreate(
-            approve=True,
-            approval_request_id="approval_request_id",
+        MessageCreate(
+            role="user",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )
@@ -13372,7 +13388,7 @@ be sent to the LLM provider. Useful for debugging and inspection.
 <dd>
 
 ```python
-from letta_client import ApprovalCreate, Letta, LettaRequest
+from letta_client import Letta, LettaRequest, MessageCreate, TextContent
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -13382,9 +13398,13 @@ client.agents.messages.preview_raw_payload(
     agent_id="agent_id",
     request=LettaRequest(
         messages=[
-            ApprovalCreate(
-                approve=True,
-                approval_request_id="approval_request_id",
+            MessageCreate(
+                role="user",
+                content=[
+                    TextContent(
+                        text="text",
+                    )
+                ],
             )
         ],
     ),
@@ -14430,7 +14450,7 @@ This endpoint accepts a message from a user and processes it through through age
 <dd>
 
 ```python
-from letta_client import ApprovalCreate, Letta
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -14439,9 +14459,13 @@ client = Letta(
 client.groups.messages.create(
     group_id="group_id",
     messages=[
-        ApprovalCreate(
-            approve=True,
-            approval_request_id="approval_request_id",
+        MessageCreate(
+            role="user",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )
@@ -14565,7 +14589,7 @@ It will stream the steps of the response always, and stream the tokens if 'strea
 <dd>
 
 ```python
-from letta_client import ApprovalCreate, Letta
+from letta_client import Letta, MessageCreate, TextContent
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -14574,9 +14598,13 @@ client = Letta(
 response = client.groups.messages.create_stream(
     group_id="group_id",
     messages=[
-        ApprovalCreate(
-            approve=True,
-            approval_request_id="approval_request_id",
+        MessageCreate(
+            role="user",
+            content=[
+                TextContent(
+                    text="text",
+                )
+            ],
         )
     ],
 )

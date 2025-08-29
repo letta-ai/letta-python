@@ -168,7 +168,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import ApprovalCreate, Letta
+        from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -177,9 +177,13 @@ class MessagesClient:
         client.agents.messages.create(
             agent_id="agent_id",
             messages=[
-                ApprovalCreate(
-                    approve=True,
-                    approval_request_id="approval_request_id",
+                MessageCreate(
+                    role="user",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
         )
@@ -308,7 +312,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import ApprovalCreate, Letta
+        from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -317,9 +321,13 @@ class MessagesClient:
         response = client.agents.messages.create_stream(
             agent_id="agent_id",
             messages=[
-                ApprovalCreate(
-                    approve=True,
-                    approval_request_id="approval_request_id",
+                MessageCreate(
+                    role="user",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
         )
@@ -443,7 +451,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import ApprovalCreate, Letta
+        from letta_client import Letta, MessageCreate, TextContent
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -452,9 +460,13 @@ class MessagesClient:
         client.agents.messages.create_async(
             agent_id="agent_id",
             messages=[
-                ApprovalCreate(
-                    approve=True,
-                    approval_request_id="approval_request_id",
+                MessageCreate(
+                    role="user",
+                    content=[
+                        TextContent(
+                            text="text",
+                        )
+                    ],
                 )
             ],
         )
@@ -545,7 +557,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import ApprovalCreate, Letta, LettaRequest
+        from letta_client import Letta, LettaRequest, MessageCreate, TextContent
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -555,9 +567,13 @@ class MessagesClient:
             agent_id="agent_id",
             request=LettaRequest(
                 messages=[
-                    ApprovalCreate(
-                        approve=True,
-                        approval_request_id="approval_request_id",
+                    MessageCreate(
+                        role="user",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             ),
@@ -723,7 +739,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import ApprovalCreate, AsyncLetta
+        from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -735,9 +751,13 @@ class AsyncMessagesClient:
             await client.agents.messages.create(
                 agent_id="agent_id",
                 messages=[
-                    ApprovalCreate(
-                        approve=True,
-                        approval_request_id="approval_request_id",
+                    MessageCreate(
+                        role="user",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             )
@@ -881,7 +901,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import ApprovalCreate, AsyncLetta
+        from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -893,9 +913,13 @@ class AsyncMessagesClient:
             response = await client.agents.messages.create_stream(
                 agent_id="agent_id",
                 messages=[
-                    ApprovalCreate(
-                        approve=True,
-                        approval_request_id="approval_request_id",
+                    MessageCreate(
+                        role="user",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             )
@@ -1033,7 +1057,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import ApprovalCreate, AsyncLetta
+        from letta_client import AsyncLetta, MessageCreate, TextContent
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -1045,9 +1069,13 @@ class AsyncMessagesClient:
             await client.agents.messages.create_async(
                 agent_id="agent_id",
                 messages=[
-                    ApprovalCreate(
-                        approve=True,
-                        approval_request_id="approval_request_id",
+                    MessageCreate(
+                        role="user",
+                        content=[
+                            TextContent(
+                                text="text",
+                            )
+                        ],
                     )
                 ],
             )
@@ -1151,7 +1179,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import ApprovalCreate, AsyncLetta, LettaRequest
+        from letta_client import AsyncLetta, LettaRequest, MessageCreate, TextContent
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -1164,9 +1192,13 @@ class AsyncMessagesClient:
                 agent_id="agent_id",
                 request=LettaRequest(
                     messages=[
-                        ApprovalCreate(
-                            approve=True,
-                            approval_request_id="approval_request_id",
+                        MessageCreate(
+                            role="user",
+                            content=[
+                                TextContent(
+                                    text="text",
+                                )
+                            ],
                         )
                     ],
                 ),

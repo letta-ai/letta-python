@@ -14,7 +14,11 @@ class MessageCreate(UncheckedBaseModel):
     Request to create a message
     """
 
-    type: typing.Literal["message"] = "message"
+    type: typing.Optional[typing.Literal["message"]] = pydantic.Field(default=None)
+    """
+    The message type to be created.
+    """
+
     role: MessageCreateRole = pydantic.Field()
     """
     The role of the participant.

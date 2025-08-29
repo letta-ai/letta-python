@@ -83,7 +83,7 @@ class BatchesClient:
 
         Examples
         --------
-        from letta_client import ApprovalCreate, Letta, LettaBatchRequest
+        from letta_client import Letta, LettaBatchRequest, MessageCreate, TextContent
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -93,9 +93,13 @@ class BatchesClient:
             requests=[
                 LettaBatchRequest(
                     messages=[
-                        ApprovalCreate(
-                            approve=True,
-                            approval_request_id="approval_request_id",
+                        MessageCreate(
+                            role="user",
+                            content=[
+                                TextContent(
+                                    text="text",
+                                )
+                            ],
                         )
                     ],
                     agent_id="agent_id",
@@ -254,7 +258,12 @@ class AsyncBatchesClient:
         --------
         import asyncio
 
-        from letta_client import ApprovalCreate, AsyncLetta, LettaBatchRequest
+        from letta_client import (
+            AsyncLetta,
+            LettaBatchRequest,
+            MessageCreate,
+            TextContent,
+        )
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -267,9 +276,13 @@ class AsyncBatchesClient:
                 requests=[
                     LettaBatchRequest(
                         messages=[
-                            ApprovalCreate(
-                                approve=True,
-                                approval_request_id="approval_request_id",
+                            MessageCreate(
+                                role="user",
+                                content=[
+                                    TextContent(
+                                        text="text",
+                                    )
+                                ],
                             )
                         ],
                         agent_id="agent_id",

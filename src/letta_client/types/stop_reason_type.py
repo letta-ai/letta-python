@@ -12,6 +12,7 @@ StopReasonType = typing.Union[
         "no_tool_call",
         "tool_rule",
         "cancelled",
+        "requires_approval",
     ],
     typing.Any,
 ]

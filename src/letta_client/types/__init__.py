@@ -210,7 +210,6 @@ from .message_content_item import MessageContentItem
 from .message_create import MessageCreate
 from .message_create_content import MessageCreateContent
 from .message_create_role import MessageCreateRole
-from .message_create_union import MessageCreateUnion
 from .message_role import MessageRole
 from .message_type import MessageType
 from .modal_sandbox_config import ModalSandboxConfig
@@ -542,7 +541,6 @@ __all__ = [
     "MessageCreate",
     "MessageCreateContent",
     "MessageCreateRole",
-    "MessageCreateUnion",
     "MessageRole",
     "MessageType",
     "ModalSandboxConfig",
