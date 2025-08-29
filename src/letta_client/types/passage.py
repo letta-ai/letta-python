@@ -74,6 +74,11 @@ class Passage(UncheckedBaseModel):
     The metadata of the passage.
     """
 
+    tags: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Tags associated with this passage.
+    """
+
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-friendly ID of the Passage
