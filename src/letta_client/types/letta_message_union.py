@@ -2,6 +2,8 @@
 
 import typing
 
+from .approval_request_message import ApprovalRequestMessage
+from .approval_response_message import ApprovalResponseMessage
 from .assistant_message import AssistantMessage
 from .hidden_reasoning_message import HiddenReasoningMessage
 from .reasoning_message import ReasoningMessage
@@ -18,4 +20,6 @@ LettaMessageUnion = typing.Union[
     ToolCallMessage,
     ToolReturnMessage,
     AssistantMessage,
+    ApprovalRequestMessage,
+    ApprovalResponseMessage,
 ]

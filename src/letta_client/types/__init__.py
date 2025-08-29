@@ -16,6 +16,8 @@ from .app_auth_scheme import AppAuthScheme
 from .app_auth_scheme_auth_mode import AppAuthSchemeAuthMode
 from .app_model import AppModel
 from .approval_create import ApprovalCreate
+from .approval_request_message import ApprovalRequestMessage
+from .approval_response_message import ApprovalResponseMessage
 from .assistant_message import AssistantMessage
 from .assistant_message_content import AssistantMessageContent
 from .audio import Audio
@@ -354,6 +356,8 @@ __all__ = [
     "AppAuthSchemeAuthMode",
     "AppModel",
     "ApprovalCreate",
+    "ApprovalRequestMessage",
+    "ApprovalResponseMessage",
     "AssistantMessage",
     "AssistantMessageContent",
     "Audio",

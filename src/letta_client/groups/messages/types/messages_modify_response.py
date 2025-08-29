@@ -2,6 +2,8 @@
 
 import typing
 
+from ....types.approval_request_message import ApprovalRequestMessage
+from ....types.approval_response_message import ApprovalResponseMessage
 from ....types.assistant_message import AssistantMessage
 from ....types.hidden_reasoning_message import HiddenReasoningMessage
 from ....types.reasoning_message import ReasoningMessage
@@ -18,4 +20,6 @@ MessagesModifyResponse = typing.Union[
     ToolCallMessage,
     ToolReturnMessage,
     AssistantMessage,
+    ApprovalRequestMessage,
+    ApprovalResponseMessage,
 ]
