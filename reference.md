@@ -9393,7 +9393,23 @@ client.templates.list()
 <dl>
 <dd>
 
+**exact:** `typing.Optional[str]` — Whether to search for an exact name match
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **limit:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `typing.Optional[str]` — Specify the version you want to return, otherwise will return the latest version
     
 </dd>
 </dl>

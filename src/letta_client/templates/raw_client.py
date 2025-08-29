@@ -35,7 +35,9 @@ class RawTemplatesClient:
         self,
         *,
         offset: typing.Optional[str] = None,
+        exact: typing.Optional[str] = None,
         limit: typing.Optional[str] = None,
+        version: typing.Optional[str] = None,
         template_id: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         search: typing.Optional[str] = None,
@@ -51,7 +53,13 @@ class RawTemplatesClient:
         ----------
         offset : typing.Optional[str]
 
+        exact : typing.Optional[str]
+            Whether to search for an exact name match
+
         limit : typing.Optional[str]
+
+        version : typing.Optional[str]
+            Specify the version you want to return, otherwise will return the latest version
 
         template_id : typing.Optional[str]
 
@@ -78,7 +86,9 @@ class RawTemplatesClient:
             method="GET",
             params={
                 "offset": offset,
+                "exact": exact,
                 "limit": limit,
+                "version": version,
                 "template_id": template_id,
                 "name": name,
                 "search": search,
@@ -590,7 +600,9 @@ class AsyncRawTemplatesClient:
         self,
         *,
         offset: typing.Optional[str] = None,
+        exact: typing.Optional[str] = None,
         limit: typing.Optional[str] = None,
+        version: typing.Optional[str] = None,
         template_id: typing.Optional[str] = None,
         name: typing.Optional[str] = None,
         search: typing.Optional[str] = None,
@@ -606,7 +618,13 @@ class AsyncRawTemplatesClient:
         ----------
         offset : typing.Optional[str]
 
+        exact : typing.Optional[str]
+            Whether to search for an exact name match
+
         limit : typing.Optional[str]
+
+        version : typing.Optional[str]
+            Specify the version you want to return, otherwise will return the latest version
 
         template_id : typing.Optional[str]
 
@@ -633,7 +651,9 @@ class AsyncRawTemplatesClient:
             method="GET",
             params={
                 "offset": offset,
+                "exact": exact,
                 "limit": limit,
+                "version": version,
                 "template_id": template_id,
                 "name": name,
                 "search": search,
