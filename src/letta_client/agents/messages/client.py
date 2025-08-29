@@ -6,11 +6,13 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.agent_state import AgentState
 from ...types.letta_message_union import LettaMessageUnion
+from ...types.letta_request_messages_item import LettaRequestMessagesItem
 from ...types.letta_response import LettaResponse
-from ...types.message_create import MessageCreate
+from ...types.letta_streaming_request_messages_item import LettaStreamingRequestMessagesItem
 from ...types.message_type import MessageType
 from ...types.run import Run
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
+from .types.letta_async_request_messages_item import LettaAsyncRequestMessagesItem
 from .types.letta_streaming_response import LettaStreamingResponse
 from .types.messages_modify_request import MessagesModifyRequest
 from .types.messages_modify_response import MessagesModifyResponse
@@ -118,7 +120,7 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
-        messages: typing.Sequence[MessageCreate],
+        messages: typing.Sequence[LettaRequestMessagesItem],
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
@@ -135,7 +137,7 @@ class MessagesClient:
         ----------
         agent_id : str
 
-        messages : typing.Sequence[MessageCreate]
+        messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
 
         max_steps : typing.Optional[int]
@@ -166,7 +168,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate, TextContent
+        from letta_client import ApprovalCreate, Letta
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -175,13 +177,9 @@ class MessagesClient:
         client.agents.messages.create(
             agent_id="agent_id",
             messages=[
-                MessageCreate(
-                    role="user",
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
+                ApprovalCreate(
+                    approve=True,
+                    approval_request_id="approval_request_id",
                 )
             ],
         )
@@ -249,7 +247,7 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
-        messages: typing.Sequence[MessageCreate],
+        messages: typing.Sequence[LettaStreamingRequestMessagesItem],
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
@@ -270,7 +268,7 @@ class MessagesClient:
         ----------
         agent_id : str
 
-        messages : typing.Sequence[MessageCreate]
+        messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
 
         max_steps : typing.Optional[int]
@@ -310,7 +308,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate, TextContent
+        from letta_client import ApprovalCreate, Letta
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -319,13 +317,9 @@ class MessagesClient:
         response = client.agents.messages.create_stream(
             agent_id="agent_id",
             messages=[
-                MessageCreate(
-                    role="user",
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
+                ApprovalCreate(
+                    approve=True,
+                    approval_request_id="approval_request_id",
                 )
             ],
         )
@@ -394,7 +388,7 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
-        messages: typing.Sequence[MessageCreate],
+        messages: typing.Sequence[LettaAsyncRequestMessagesItem],
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
@@ -415,7 +409,7 @@ class MessagesClient:
         ----------
         agent_id : str
 
-        messages : typing.Sequence[MessageCreate]
+        messages : typing.Sequence[LettaAsyncRequestMessagesItem]
             The messages to be sent to the agent.
 
         max_steps : typing.Optional[int]
@@ -449,7 +443,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, MessageCreate, TextContent
+        from letta_client import ApprovalCreate, Letta
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -458,13 +452,9 @@ class MessagesClient:
         client.agents.messages.create_async(
             agent_id="agent_id",
             messages=[
-                MessageCreate(
-                    role="user",
-                    content=[
-                        TextContent(
-                            text="text",
-                        )
-                    ],
+                ApprovalCreate(
+                    approve=True,
+                    approval_request_id="approval_request_id",
                 )
             ],
         )
@@ -555,7 +545,7 @@ class MessagesClient:
 
         Examples
         --------
-        from letta_client import Letta, LettaRequest, MessageCreate, TextContent
+        from letta_client import ApprovalCreate, Letta, LettaRequest
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -565,13 +555,9 @@ class MessagesClient:
             agent_id="agent_id",
             request=LettaRequest(
                 messages=[
-                    MessageCreate(
-                        role="user",
-                        content=[
-                            TextContent(
-                                text="text",
-                            )
-                        ],
+                    ApprovalCreate(
+                        approve=True,
+                        approval_request_id="approval_request_id",
                     )
                 ],
             ),
@@ -687,7 +673,7 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
-        messages: typing.Sequence[MessageCreate],
+        messages: typing.Sequence[LettaRequestMessagesItem],
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
@@ -704,7 +690,7 @@ class AsyncMessagesClient:
         ----------
         agent_id : str
 
-        messages : typing.Sequence[MessageCreate]
+        messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
 
         max_steps : typing.Optional[int]
@@ -737,7 +723,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate, TextContent
+        from letta_client import ApprovalCreate, AsyncLetta
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -749,13 +735,9 @@ class AsyncMessagesClient:
             await client.agents.messages.create(
                 agent_id="agent_id",
                 messages=[
-                    MessageCreate(
-                        role="user",
-                        content=[
-                            TextContent(
-                                text="text",
-                            )
-                        ],
+                    ApprovalCreate(
+                        approve=True,
+                        approval_request_id="approval_request_id",
                     )
                 ],
             )
@@ -836,7 +818,7 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
-        messages: typing.Sequence[MessageCreate],
+        messages: typing.Sequence[LettaStreamingRequestMessagesItem],
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
@@ -857,7 +839,7 @@ class AsyncMessagesClient:
         ----------
         agent_id : str
 
-        messages : typing.Sequence[MessageCreate]
+        messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
 
         max_steps : typing.Optional[int]
@@ -899,7 +881,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate, TextContent
+        from letta_client import ApprovalCreate, AsyncLetta
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -911,13 +893,9 @@ class AsyncMessagesClient:
             response = await client.agents.messages.create_stream(
                 agent_id="agent_id",
                 messages=[
-                    MessageCreate(
-                        role="user",
-                        content=[
-                            TextContent(
-                                text="text",
-                            )
-                        ],
+                    ApprovalCreate(
+                        approve=True,
+                        approval_request_id="approval_request_id",
                     )
                 ],
             )
@@ -998,7 +976,7 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
-        messages: typing.Sequence[MessageCreate],
+        messages: typing.Sequence[LettaAsyncRequestMessagesItem],
         max_steps: typing.Optional[int] = OMIT,
         use_assistant_message: typing.Optional[bool] = OMIT,
         assistant_message_tool_name: typing.Optional[str] = OMIT,
@@ -1019,7 +997,7 @@ class AsyncMessagesClient:
         ----------
         agent_id : str
 
-        messages : typing.Sequence[MessageCreate]
+        messages : typing.Sequence[LettaAsyncRequestMessagesItem]
             The messages to be sent to the agent.
 
         max_steps : typing.Optional[int]
@@ -1055,7 +1033,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, MessageCreate, TextContent
+        from letta_client import ApprovalCreate, AsyncLetta
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -1067,13 +1045,9 @@ class AsyncMessagesClient:
             await client.agents.messages.create_async(
                 agent_id="agent_id",
                 messages=[
-                    MessageCreate(
-                        role="user",
-                        content=[
-                            TextContent(
-                                text="text",
-                            )
-                        ],
+                    ApprovalCreate(
+                        approve=True,
+                        approval_request_id="approval_request_id",
                     )
                 ],
             )
@@ -1177,7 +1151,7 @@ class AsyncMessagesClient:
         --------
         import asyncio
 
-        from letta_client import AsyncLetta, LettaRequest, MessageCreate, TextContent
+        from letta_client import ApprovalCreate, AsyncLetta, LettaRequest
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -1190,13 +1164,9 @@ class AsyncMessagesClient:
                 agent_id="agent_id",
                 request=LettaRequest(
                     messages=[
-                        MessageCreate(
-                            role="user",
-                            content=[
-                                TextContent(
-                                    text="text",
-                                )
-                            ],
+                        ApprovalCreate(
+                            approve=True,
+                            approval_request_id="approval_request_id",
                         )
                     ],
                 ),

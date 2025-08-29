@@ -33,6 +33,7 @@ from . import (
 )
 from .memory_variables import MemoryVariablesListResponse
 from .messages import (
+    LettaAsyncRequestMessagesItem,
     LettaStreamingResponse,
     MessagesModifyRequest,
     MessagesModifyResponse,
@@ -52,6 +53,7 @@ __all__ = [
     "AgentsSearchResponse",
     "CreateAgentRequestResponseFormat",
     "CreateAgentRequestToolRulesItem",
+    "LettaAsyncRequestMessagesItem",
     "LettaStreamingResponse",
     "MemoryVariablesListResponse",
     "MessagesModifyRequest",

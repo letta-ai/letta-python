@@ -3,6 +3,7 @@
 # isort: skip_file
 
 from .types import (
+    LettaAsyncRequestMessagesItem,
     LettaStreamingResponse,
     MessagesModifyRequest,
     MessagesModifyResponse,
@@ -10,6 +11,7 @@ from .types import (
 )
 
 __all__ = [
+    "LettaAsyncRequestMessagesItem",
     "LettaStreamingResponse",
     "MessagesModifyRequest",
     "MessagesModifyResponse",

@@ -17,6 +17,11 @@ class LettaSchemasAgentFileMessageSchema(UncheckedBaseModel):
     Message with human-readable ID for agent file
     """
 
+    type: typing.Optional[typing.Literal["message"]] = pydantic.Field(default=None)
+    """
+    The message type to be created.
+    """
+
     role: MessageRole = pydantic.Field()
     """
     The role of the participant.

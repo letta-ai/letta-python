@@ -15,6 +15,7 @@ from .agent_type import AgentType
 from .app_auth_scheme import AppAuthScheme
 from .app_auth_scheme_auth_mode import AppAuthSchemeAuthMode
 from .app_model import AppModel
+from .approval_create import ApprovalCreate
 from .assistant_message import AssistantMessage
 from .assistant_message_content import AssistantMessageContent
 from .audio import Audio
@@ -155,12 +156,14 @@ from .json_schema import JsonSchema
 from .json_schema_response_format import JsonSchemaResponseFormat
 from .letta_batch_messages import LettaBatchMessages
 from .letta_batch_request import LettaBatchRequest
+from .letta_batch_request_messages_item import LettaBatchRequestMessagesItem
 from .letta_image import LettaImage
 from .letta_message_content_union import LettaMessageContentUnion
 from .letta_message_union import LettaMessageUnion
 from .letta_ping import LettaPing
 from .letta_request import LettaRequest
 from .letta_request_config import LettaRequestConfig
+from .letta_request_messages_item import LettaRequestMessagesItem
 from .letta_response import LettaResponse
 from .letta_schemas_agent_file_agent_schema import LettaSchemasAgentFileAgentSchema
 from .letta_schemas_agent_file_agent_schema_response_format import LettaSchemasAgentFileAgentSchemaResponseFormat
@@ -182,6 +185,7 @@ from .letta_serialize_schemas_pydantic_agent_schema_tool_schema import (
 )
 from .letta_stop_reason import LettaStopReason
 from .letta_streaming_request import LettaStreamingRequest
+from .letta_streaming_request_messages_item import LettaStreamingRequestMessagesItem
 from .letta_usage_statistics import LettaUsageStatistics
 from .letta_user_message_content_union import LettaUserMessageContentUnion
 from .llm_config import LlmConfig
@@ -204,6 +208,7 @@ from .message_content_item import MessageContentItem
 from .message_create import MessageCreate
 from .message_create_content import MessageCreateContent
 from .message_create_role import MessageCreateRole
+from .message_create_union import MessageCreateUnion
 from .message_role import MessageRole
 from .message_type import MessageType
 from .modal_sandbox_config import ModalSandboxConfig
@@ -348,6 +353,7 @@ __all__ = [
     "AppAuthScheme",
     "AppAuthSchemeAuthMode",
     "AppModel",
+    "ApprovalCreate",
     "AssistantMessage",
     "AssistantMessageContent",
     "Audio",
@@ -488,12 +494,14 @@ __all__ = [
     "JsonSchemaResponseFormat",
     "LettaBatchMessages",
     "LettaBatchRequest",
+    "LettaBatchRequestMessagesItem",
     "LettaImage",
     "LettaMessageContentUnion",
     "LettaMessageUnion",
     "LettaPing",
     "LettaRequest",
     "LettaRequestConfig",
+    "LettaRequestMessagesItem",
     "LettaResponse",
     "LettaSchemasAgentFileAgentSchema",
     "LettaSchemasAgentFileAgentSchemaResponseFormat",
@@ -507,6 +515,7 @@ __all__ = [
     "LettaSerializeSchemasPydanticAgentSchemaToolSchema",
     "LettaStopReason",
     "LettaStreamingRequest",
+    "LettaStreamingRequestMessagesItem",
     "LettaUsageStatistics",
     "LettaUserMessageContentUnion",
     "LlmConfig",
@@ -529,6 +538,7 @@ __all__ = [
     "MessageCreate",
     "MessageCreateContent",
     "MessageCreateRole",
+    "MessageCreateUnion",
     "MessageRole",
     "MessageType",
     "ModalSandboxConfig",

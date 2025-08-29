@@ -5,12 +5,12 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .message_create import MessageCreate
+from .letta_batch_request_messages_item import LettaBatchRequestMessagesItem
 from .message_type import MessageType
 
 
 class LettaBatchRequest(UncheckedBaseModel):
-    messages: typing.List[MessageCreate] = pydantic.Field()
+    messages: typing.List[LettaBatchRequestMessagesItem] = pydantic.Field()
     """
     The messages to be sent to the agent.
     """
