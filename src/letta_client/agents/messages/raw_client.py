@@ -337,7 +337,7 @@ class RawMessagesClient:
             If set to True, enables reasoning before responses or tool calls from the agent.
 
         stream_tokens : typing.Optional[bool]
-            Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+            Flag to determine if individual tokens should be streamed, rather than streaming per step.
 
         include_pings : typing.Optional[bool]
             Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.
@@ -1022,7 +1022,7 @@ class AsyncRawMessagesClient:
             If set to True, enables reasoning before responses or tool calls from the agent.
 
         stream_tokens : typing.Optional[bool]
-            Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+            Flag to determine if individual tokens should be streamed, rather than streaming per step.
 
         include_pings : typing.Optional[bool]
             Whether to include periodic keepalive ping messages in the stream to prevent connection timeouts.

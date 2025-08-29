@@ -47,7 +47,7 @@ class LettaStreamingRequest(UncheckedBaseModel):
 
     stream_tokens: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+    Flag to determine if individual tokens should be streamed, rather than streaming per step.
     """
 
     include_pings: typing.Optional[bool] = pydantic.Field(default=None)

@@ -12996,7 +12996,7 @@ for chunk in response.data:
 <dl>
 <dd>
 
-**stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+**stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed, rather than streaming per step.
     
 </dd>
 </dl>
@@ -14673,7 +14673,7 @@ for chunk in response.data:
 <dl>
 <dd>
 
-**stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed. Set to True for token streaming (requires stream_steps = True).
+**stream_tokens:** `typing.Optional[bool]` — Flag to determine if individual tokens should be streamed, rather than streaming per step.
     
 </dd>
 </dl>
