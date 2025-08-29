@@ -8,6 +8,7 @@ from .base_client import AsyncLettaBase, LettaBase
 from .core.request_options import RequestOptions
 from .tools.client import ToolsClient as ToolsClientBase
 from .tools.client import AsyncToolsClient as AsyncToolsClientBase
+from .types.npm_requirement import NpmRequirement
 from .types.pip_requirement import PipRequirement
 from .types.tool import Tool
 
@@ -144,6 +145,8 @@ class ToolsClient(ToolsClientBase):
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -174,6 +177,12 @@ class ToolsClient(ToolsClientBase):
 
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
+
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -221,6 +230,8 @@ class ToolsClient(ToolsClientBase):
             json_schema=json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
 
@@ -238,6 +249,8 @@ class ToolsClient(ToolsClientBase):
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -268,6 +281,12 @@ class ToolsClient(ToolsClientBase):
 
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
+
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -315,6 +334,8 @@ class ToolsClient(ToolsClientBase):
             json_schema=json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
     
@@ -391,6 +412,8 @@ class ToolsClient(ToolsClientBase):
             json_schema=tool.json_schema or OMIT,
             return_char_limit=tool.return_char_limit or OMIT,
             pip_requirements=tool.pip_requirements or OMIT,
+            npm_requirements=tool.npm_requirements or OMIT,
+            default_requires_approval=tool.default_requires_approval or OMIT,
             request_options=request_options,
         )
     
@@ -410,6 +433,8 @@ class AsyncToolsClient(AsyncToolsClientBase):
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -440,6 +465,12 @@ class AsyncToolsClient(AsyncToolsClientBase):
 
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
+
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -487,6 +518,8 @@ class AsyncToolsClient(AsyncToolsClientBase):
             json_schema=json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
 
@@ -504,6 +537,8 @@ class AsyncToolsClient(AsyncToolsClientBase):
         ] = OMIT,
         return_char_limit: typing.Optional[int] = OMIT,
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
+        npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
+        default_requires_approval: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -534,6 +569,12 @@ class AsyncToolsClient(AsyncToolsClientBase):
 
         pip_requirements : typing.Optional[typing.Sequence[PipRequirement]]
             Optional list of pip packages required by this tool.
+
+        npm_requirements : typing.Optional[typing.Sequence[NpmRequirement]]
+            Optional list of npm packages required by this tool.
+
+        default_requires_approval : typing.Optional[bool]
+            Whether or not to require approval before executing this tool.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -581,6 +622,8 @@ class AsyncToolsClient(AsyncToolsClientBase):
             json_schema=json_schema,
             return_char_limit=return_char_limit,
             pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
             request_options=request_options,
         )
     
@@ -657,5 +700,7 @@ class AsyncToolsClient(AsyncToolsClientBase):
             json_schema=tool.json_schema or OMIT,
             return_char_limit=tool.return_char_limit or OMIT,
             pip_requirements=tool.pip_requirements or OMIT,
+            npm_requirements=tool.npm_requirements or OMIT,
+            default_requires_approval=tool.default_requires_approval or OMIT,
             request_options=request_options,
         )
