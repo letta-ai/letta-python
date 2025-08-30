@@ -128,21 +128,31 @@ class ToolsClient:
         return _response.data
 
     def modify_approval(
-        self, agent_id: str, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> None:
+        self,
+        agent_id: str,
+        tool_name: str,
+        *,
+        requires_approval: bool,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AgentState:
         """
+        Attach a tool to an agent.
+
         Parameters
         ----------
         agent_id : str
 
-        tool_id : str
+        tool_name : str
+
+        requires_approval : bool
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        AgentState
+            Successful Response
 
         Examples
         --------
@@ -154,10 +164,13 @@ class ToolsClient:
         )
         client.agents.tools.modify_approval(
             agent_id="agent_id",
-            tool_id="tool_id",
+            tool_name="tool_name",
+            requires_approval=True,
         )
         """
-        _response = self._raw_client.modify_approval(agent_id, tool_id, request_options=request_options)
+        _response = self._raw_client.modify_approval(
+            agent_id, tool_name, requires_approval=requires_approval, request_options=request_options
+        )
         return _response.data
 
 
@@ -306,21 +319,31 @@ class AsyncToolsClient:
         return _response.data
 
     async def modify_approval(
-        self, agent_id: str, tool_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> None:
+        self,
+        agent_id: str,
+        tool_name: str,
+        *,
+        requires_approval: bool,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AgentState:
         """
+        Attach a tool to an agent.
+
         Parameters
         ----------
         agent_id : str
 
-        tool_id : str
+        tool_name : str
+
+        requires_approval : bool
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        AgentState
+            Successful Response
 
         Examples
         --------
@@ -337,11 +360,14 @@ class AsyncToolsClient:
         async def main() -> None:
             await client.agents.tools.modify_approval(
                 agent_id="agent_id",
-                tool_id="tool_id",
+                tool_name="tool_name",
+                requires_approval=True,
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.modify_approval(agent_id, tool_id, request_options=request_options)
+        _response = await self._raw_client.modify_approval(
+            agent_id, tool_name, requires_approval=requires_approval, request_options=request_options
+        )
         return _response.data

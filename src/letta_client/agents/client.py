@@ -844,52 +844,6 @@ class AgentsClient:
         )
         return _response.data
 
-    def modify_approval(
-        self,
-        agent_id: str,
-        tool_name: str,
-        *,
-        requires_approval: bool,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentState:
-        """
-        Attach a tool to an agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        tool_name : str
-
-        requires_approval : bool
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AgentState
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.agents.modify_approval(
-            agent_id="agent_id",
-            tool_name="tool_name",
-            requires_approval=True,
-        )
-        """
-        _response = self._raw_client.modify_approval(
-            agent_id, tool_name, requires_approval=requires_approval, request_options=request_options
-        )
-        return _response.data
-
     def list_agent_files(
         self,
         agent_id: str,
@@ -1911,60 +1865,6 @@ class AsyncAgentsClient:
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
             request_options=request_options,
-        )
-        return _response.data
-
-    async def modify_approval(
-        self,
-        agent_id: str,
-        tool_name: str,
-        *,
-        requires_approval: bool,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentState:
-        """
-        Attach a tool to an agent.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        tool_name : str
-
-        requires_approval : bool
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AgentState
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.modify_approval(
-                agent_id="agent_id",
-                tool_name="tool_name",
-                requires_approval=True,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.modify_approval(
-            agent_id, tool_name, requires_approval=requires_approval, request_options=request_options
         )
         return _response.data
 
