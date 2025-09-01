@@ -130,6 +130,21 @@ class Message(UncheckedBaseModel):
     Whether this message is part of an error step. Used only for debugging purposes.
     """
 
+    approval_request_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the approval request if this message is associated with a tool call request.
+    """
+
+    approve: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether tool call is approved.
+    """
+
+    denial_reason: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The reason the tool call request was denied.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
