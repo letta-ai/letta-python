@@ -258,7 +258,14 @@ class RawToolsClient:
     def count(
         self,
         *,
-        include_base_tools: typing.Optional[bool] = None,
+        name: typing.Optional[str] = None,
+        names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        tool_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        search: typing.Optional[str] = None,
+        tool_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        exclude_tool_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        return_only_letta_tools: typing.Optional[bool] = None,
+        exclude_letta_tools: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[int]:
         """
@@ -266,8 +273,28 @@ class RawToolsClient:
 
         Parameters
         ----------
-        include_base_tools : typing.Optional[bool]
-            Include built-in Letta tools in the count
+        name : typing.Optional[str]
+
+        names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by specific tool names
+
+        tool_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by specific tool IDs - accepts repeated params or comma-separated values
+
+        search : typing.Optional[str]
+            Search tool names (case-insensitive partial match)
+
+        tool_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by tool type(s) - accepts repeated params or comma-separated values
+
+        exclude_tool_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Tool type(s) to exclude - accepts repeated params or comma-separated values
+
+        return_only_letta_tools : typing.Optional[bool]
+            Count only tools with tool_type starting with 'letta_'
+
+        exclude_letta_tools : typing.Optional[bool]
+            Exclude built-in Letta tools from the count
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -281,7 +308,14 @@ class RawToolsClient:
             "v1/tools/count",
             method="GET",
             params={
-                "include_base_tools": include_base_tools,
+                "name": name,
+                "names": names,
+                "tool_ids": tool_ids,
+                "search": search,
+                "tool_types": tool_types,
+                "exclude_tool_types": exclude_tool_types,
+                "return_only_letta_tools": return_only_letta_tools,
+                "exclude_letta_tools": exclude_letta_tools,
             },
             request_options=request_options,
         )
@@ -317,6 +351,12 @@ class RawToolsClient:
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         name: typing.Optional[str] = None,
+        names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        tool_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        search: typing.Optional[str] = None,
+        tool_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        exclude_tool_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        return_only_letta_tools: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Tool]]:
         """
@@ -329,6 +369,24 @@ class RawToolsClient:
         limit : typing.Optional[int]
 
         name : typing.Optional[str]
+
+        names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by specific tool names
+
+        tool_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by specific tool IDs - accepts repeated params or comma-separated values
+
+        search : typing.Optional[str]
+            Search tool names (case-insensitive partial match)
+
+        tool_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by tool type(s) - accepts repeated params or comma-separated values
+
+        exclude_tool_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Tool type(s) to exclude - accepts repeated params or comma-separated values
+
+        return_only_letta_tools : typing.Optional[bool]
+            Return only tools with tool_type starting with 'letta_'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -345,6 +403,12 @@ class RawToolsClient:
                 "after": after,
                 "limit": limit,
                 "name": name,
+                "names": names,
+                "tool_ids": tool_ids,
+                "search": search,
+                "tool_types": tool_types,
+                "exclude_tool_types": exclude_tool_types,
+                "return_only_letta_tools": return_only_letta_tools,
             },
             request_options=request_options,
         )
@@ -1572,7 +1636,14 @@ class AsyncRawToolsClient:
     async def count(
         self,
         *,
-        include_base_tools: typing.Optional[bool] = None,
+        name: typing.Optional[str] = None,
+        names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        tool_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        search: typing.Optional[str] = None,
+        tool_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        exclude_tool_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        return_only_letta_tools: typing.Optional[bool] = None,
+        exclude_letta_tools: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[int]:
         """
@@ -1580,8 +1651,28 @@ class AsyncRawToolsClient:
 
         Parameters
         ----------
-        include_base_tools : typing.Optional[bool]
-            Include built-in Letta tools in the count
+        name : typing.Optional[str]
+
+        names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by specific tool names
+
+        tool_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by specific tool IDs - accepts repeated params or comma-separated values
+
+        search : typing.Optional[str]
+            Search tool names (case-insensitive partial match)
+
+        tool_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by tool type(s) - accepts repeated params or comma-separated values
+
+        exclude_tool_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Tool type(s) to exclude - accepts repeated params or comma-separated values
+
+        return_only_letta_tools : typing.Optional[bool]
+            Count only tools with tool_type starting with 'letta_'
+
+        exclude_letta_tools : typing.Optional[bool]
+            Exclude built-in Letta tools from the count
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1595,7 +1686,14 @@ class AsyncRawToolsClient:
             "v1/tools/count",
             method="GET",
             params={
-                "include_base_tools": include_base_tools,
+                "name": name,
+                "names": names,
+                "tool_ids": tool_ids,
+                "search": search,
+                "tool_types": tool_types,
+                "exclude_tool_types": exclude_tool_types,
+                "return_only_letta_tools": return_only_letta_tools,
+                "exclude_letta_tools": exclude_letta_tools,
             },
             request_options=request_options,
         )
@@ -1631,6 +1729,12 @@ class AsyncRawToolsClient:
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         name: typing.Optional[str] = None,
+        names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        tool_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        search: typing.Optional[str] = None,
+        tool_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        exclude_tool_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        return_only_letta_tools: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Tool]]:
         """
@@ -1643,6 +1747,24 @@ class AsyncRawToolsClient:
         limit : typing.Optional[int]
 
         name : typing.Optional[str]
+
+        names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by specific tool names
+
+        tool_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by specific tool IDs - accepts repeated params or comma-separated values
+
+        search : typing.Optional[str]
+            Search tool names (case-insensitive partial match)
+
+        tool_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter by tool type(s) - accepts repeated params or comma-separated values
+
+        exclude_tool_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Tool type(s) to exclude - accepts repeated params or comma-separated values
+
+        return_only_letta_tools : typing.Optional[bool]
+            Return only tools with tool_type starting with 'letta_'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1659,6 +1781,12 @@ class AsyncRawToolsClient:
                 "after": after,
                 "limit": limit,
                 "name": name,
+                "names": names,
+                "tool_ids": tool_ids,
+                "search": search,
+                "tool_types": tool_types,
+                "exclude_tool_types": exclude_tool_types,
+                "return_only_letta_tools": return_only_letta_tools,
             },
             request_options=request_options,
         )

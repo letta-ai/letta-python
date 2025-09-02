@@ -350,7 +350,63 @@ client.tools.count()
 <dl>
 <dd>
 
-**include_base_tools:** `typing.Optional[bool]` — Include built-in Letta tools in the count
+**name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**names:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by specific tool names
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by specific tool IDs - accepts repeated params or comma-separated values
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `typing.Optional[str]` — Search tool names (case-insensitive partial match)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by tool type(s) - accepts repeated params or comma-separated values
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**exclude_tool_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Tool type(s) to exclude - accepts repeated params or comma-separated values
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**return_only_letta_tools:** `typing.Optional[bool]` — Count only tools with tool_type starting with 'letta_'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**exclude_letta_tools:** `typing.Optional[bool]` — Exclude built-in Letta tools from the count
     
 </dd>
 </dl>
@@ -436,6 +492,54 @@ client.tools.list()
 <dd>
 
 **name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**names:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by specific tool names
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by specific tool IDs - accepts repeated params or comma-separated values
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `typing.Optional[str]` — Search tool names (case-insensitive partial match)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter by tool type(s) - accepts repeated params or comma-separated values
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**exclude_tool_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Tool type(s) to exclude - accepts repeated params or comma-separated values
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**return_only_letta_tools:** `typing.Optional[bool]` — Return only tools with tool_type starting with 'letta_'
     
 </dd>
 </dl>
