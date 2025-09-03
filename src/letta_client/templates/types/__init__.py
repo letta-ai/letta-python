@@ -7,6 +7,9 @@ from .templates_delete_template_response import TemplatesDeleteTemplateResponse
 from .templates_fork_template_response import TemplatesForkTemplateResponse
 from .templates_get_template_snapshot_response import TemplatesGetTemplateSnapshotResponse
 from .templates_get_template_snapshot_response_agents_item import TemplatesGetTemplateSnapshotResponseAgentsItem
+from .templates_get_template_snapshot_response_agents_item_agent_type import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemAgentType,
+)
 from .templates_get_template_snapshot_response_agents_item_memory_variables import (
     TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables,
 )
@@ -69,6 +72,7 @@ __all__ = [
     "TemplatesForkTemplateResponse",
     "TemplatesGetTemplateSnapshotResponse",
     "TemplatesGetTemplateSnapshotResponseAgentsItem",
+    "TemplatesGetTemplateSnapshotResponseAgentsItemAgentType",
     "TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables",
     "TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariablesDataItem",
     "TemplatesGetTemplateSnapshotResponseAgentsItemProperties",

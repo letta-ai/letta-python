@@ -10,7 +10,9 @@ from ...core.unchecked_base_model import UncheckedBaseModel
 
 
 class TemplatesGetTemplateSnapshotResponseConfiguration(UncheckedBaseModel):
-    manager_agent_id: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="managerAgentId")] = None
+    manager_agent_entity_id: typing_extensions.Annotated[
+        typing.Optional[str], FieldMetadata(alias="managerAgentEntityId")
+    ] = None
     manager_type: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="managerType")] = None
     termination_token: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="terminationToken")] = None
     max_turns: typing_extensions.Annotated[typing.Optional[float], FieldMetadata(alias="maxTurns")] = None

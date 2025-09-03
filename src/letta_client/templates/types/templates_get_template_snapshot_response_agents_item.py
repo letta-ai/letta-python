@@ -7,6 +7,9 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 from ...core.serialization import FieldMetadata
 from ...core.unchecked_base_model import UncheckedBaseModel
+from .templates_get_template_snapshot_response_agents_item_agent_type import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemAgentType,
+)
 from .templates_get_template_snapshot_response_agents_item_memory_variables import (
     TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables,
 )
@@ -43,6 +46,9 @@ class TemplatesGetTemplateSnapshotResponseAgentsItem(UncheckedBaseModel):
         typing.Optional[typing.List[TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem]],
         FieldMetadata(alias="toolRules"),
     ] = None
+    agent_type: typing_extensions.Annotated[
+        TemplatesGetTemplateSnapshotResponseAgentsItemAgentType, FieldMetadata(alias="agentType")
+    ]
     entity_id: typing_extensions.Annotated[str, FieldMetadata(alias="entityId")]
     name: str
 
