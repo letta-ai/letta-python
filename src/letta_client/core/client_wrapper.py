@@ -24,10 +24,10 @@ class BaseClientWrapper:
 
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {
-            "User-Agent": "letta-client/0.1.304",
+            "User-Agent": "letta-client/0.1.305",
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "letta-client",
-            "X-Fern-SDK-Version": "0.1.304",
+            "X-Fern-SDK-Version": "0.1.305",
             **(self.get_custom_headers() or {}),
         }
         if self._project is not None:

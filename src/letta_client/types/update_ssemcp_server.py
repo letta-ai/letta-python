@@ -12,11 +12,6 @@ class UpdateSsemcpServer(UncheckedBaseModel):
     Update an SSE MCP server
     """
 
-    server_name: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The name of the server
-    """
-
     server_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The URL of the server (MCP SSE client will connect to this URL)

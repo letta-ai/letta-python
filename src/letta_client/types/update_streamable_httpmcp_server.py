@@ -12,11 +12,6 @@ class UpdateStreamableHttpmcpServer(UncheckedBaseModel):
     Update a Streamable HTTP MCP server
     """
 
-    server_name: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The name of the server
-    """
-
     server_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The URL path for the streamable HTTP server (e.g., 'example/mcp')

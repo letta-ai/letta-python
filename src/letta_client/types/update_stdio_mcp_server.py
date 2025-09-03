@@ -13,11 +13,6 @@ class UpdateStdioMcpServer(UncheckedBaseModel):
     Update a Stdio MCP server
     """
 
-    server_name: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The name of the server
-    """
-
     stdio_config: typing.Optional[StdioServerConfig] = pydantic.Field(default=None)
     """
     The configuration for the server (MCP 'local' client will run this command)
