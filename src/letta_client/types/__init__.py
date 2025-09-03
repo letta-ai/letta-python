@@ -18,6 +18,8 @@ from .app_model import AppModel
 from .approval_create import ApprovalCreate
 from .approval_request_message import ApprovalRequestMessage
 from .approval_response_message import ApprovalResponseMessage
+from .archival_memory_search_response import ArchivalMemorySearchResponse
+from .archival_memory_search_result import ArchivalMemorySearchResult
 from .assistant_message import AssistantMessage
 from .assistant_message_content import AssistantMessageContent
 from .audio import Audio
@@ -357,6 +359,8 @@ __all__ = [
     "ApprovalCreate",
     "ApprovalRequestMessage",
     "ApprovalResponseMessage",
+    "ArchivalMemorySearchResponse",
+    "ArchivalMemorySearchResult",
     "AssistantMessage",
     "AssistantMessageContent",
     "Audio",

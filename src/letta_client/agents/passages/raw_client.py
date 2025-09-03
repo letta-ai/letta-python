@@ -11,8 +11,10 @@ from ...core.jsonable_encoder import jsonable_encoder
 from ...core.request_options import RequestOptions
 from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
+from ...types.archival_memory_search_response import ArchivalMemorySearchResponse
 from ...types.http_validation_error import HttpValidationError
 from ...types.passage import Passage
+from .types.passages_search_request_tag_match_mode import PassagesSearchRequestTagMatchMode
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -154,6 +156,94 @@ class RawPassagesClient:
                     typing.List[Passage],
                     construct_type(
                         type_=typing.List[Passage],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def search(
+        self,
+        agent_id: str,
+        *,
+        query: str,
+        tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        tag_match_mode: typing.Optional[PassagesSearchRequestTagMatchMode] = None,
+        top_k: typing.Optional[int] = None,
+        start_datetime: typing.Optional[str] = None,
+        end_datetime: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ArchivalMemorySearchResponse]:
+        """
+        Search archival memory using semantic (embedding-based) search with optional temporal filtering.
+
+        This endpoint allows manual triggering of archival memory searches, enabling users to query
+        an agent's archival memory store directly via the API. The search uses the same functionality
+        as the agent's archival_memory_search tool but is accessible for external API usage.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        query : str
+            String to search for using semantic similarity
+
+        tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Optional list of tags to filter search results
+
+        tag_match_mode : typing.Optional[PassagesSearchRequestTagMatchMode]
+            How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
+
+        top_k : typing.Optional[int]
+            Maximum number of results to return. Uses system default if not specified
+
+        start_datetime : typing.Optional[str]
+            Filter results to passages created after this datetime. ISO 8601 format
+
+        end_datetime : typing.Optional[str]
+            Filter results to passages created before this datetime. ISO 8601 format
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ArchivalMemorySearchResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/archival-memory/search",
+            method="GET",
+            params={
+                "query": query,
+                "tags": tags,
+                "tag_match_mode": tag_match_mode,
+                "top_k": top_k,
+                "start_datetime": start_datetime,
+                "end_datetime": end_datetime,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ArchivalMemorySearchResponse,
+                    construct_type(
+                        type_=ArchivalMemorySearchResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -394,6 +484,94 @@ class AsyncRawPassagesClient:
                     typing.List[Passage],
                     construct_type(
                         type_=typing.List[Passage],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def search(
+        self,
+        agent_id: str,
+        *,
+        query: str,
+        tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        tag_match_mode: typing.Optional[PassagesSearchRequestTagMatchMode] = None,
+        top_k: typing.Optional[int] = None,
+        start_datetime: typing.Optional[str] = None,
+        end_datetime: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ArchivalMemorySearchResponse]:
+        """
+        Search archival memory using semantic (embedding-based) search with optional temporal filtering.
+
+        This endpoint allows manual triggering of archival memory searches, enabling users to query
+        an agent's archival memory store directly via the API. The search uses the same functionality
+        as the agent's archival_memory_search tool but is accessible for external API usage.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        query : str
+            String to search for using semantic similarity
+
+        tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Optional list of tags to filter search results
+
+        tag_match_mode : typing.Optional[PassagesSearchRequestTagMatchMode]
+            How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
+
+        top_k : typing.Optional[int]
+            Maximum number of results to return. Uses system default if not specified
+
+        start_datetime : typing.Optional[str]
+            Filter results to passages created after this datetime. ISO 8601 format
+
+        end_datetime : typing.Optional[str]
+            Filter results to passages created before this datetime. ISO 8601 format
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ArchivalMemorySearchResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/archival-memory/search",
+            method="GET",
+            params={
+                "query": query,
+                "tags": tags,
+                "tag_match_mode": tag_match_mode,
+                "top_k": top_k,
+                "start_datetime": start_datetime,
+                "end_datetime": end_datetime,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ArchivalMemorySearchResponse,
+                    construct_type(
+                        type_=ArchivalMemorySearchResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

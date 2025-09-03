@@ -2,6 +2,6 @@
 
 # isort: skip_file
 
-from .types import PassagesSearchRequestTagMatchMode
+from .passages_search_request_tag_match_mode import PassagesSearchRequestTagMatchMode
 
 __all__ = ["PassagesSearchRequestTagMatchMode"]

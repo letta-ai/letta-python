@@ -12410,6 +12410,130 @@ client.agents.passages.create(
 </dl>
 </details>
 
+<details><summary><code>client.agents.passages.<a href="src/letta_client/agents/passages/client.py">search</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search archival memory using semantic (embedding-based) search with optional temporal filtering.
+
+This endpoint allows manual triggering of archival memory searches, enabling users to query
+an agent's archival memory store directly via the API. The search uses the same functionality
+as the agent's archival_memory_search tool but is accessible for external API usage.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.passages.search(
+    agent_id="agent_id",
+    query="query",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query:** `str` — String to search for using semantic similarity
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Optional list of tags to filter search results
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tag_match_mode:** `typing.Optional[PassagesSearchRequestTagMatchMode]` — How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**top_k:** `typing.Optional[int]` — Maximum number of results to return. Uses system default if not specified
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_datetime:** `typing.Optional[str]` — Filter results to passages created after this datetime. ISO 8601 format
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_datetime:** `typing.Optional[str]` — Filter results to passages created before this datetime. ISO 8601 format
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.passages.<a href="src/letta_client/agents/passages/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>

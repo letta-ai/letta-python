@@ -5,8 +5,10 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
+from ...types.archival_memory_search_response import ArchivalMemorySearchResponse
 from ...types.passage import Passage
 from .raw_client import AsyncRawPassagesClient, RawPassagesClient
+from .types.passages_search_request_tag_match_mode import PassagesSearchRequestTagMatchMode
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -139,6 +141,80 @@ class PassagesClient:
         """
         _response = self._raw_client.create(
             agent_id, text=text, tags=tags, created_at=created_at, request_options=request_options
+        )
+        return _response.data
+
+    def search(
+        self,
+        agent_id: str,
+        *,
+        query: str,
+        tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        tag_match_mode: typing.Optional[PassagesSearchRequestTagMatchMode] = None,
+        top_k: typing.Optional[int] = None,
+        start_datetime: typing.Optional[str] = None,
+        end_datetime: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ArchivalMemorySearchResponse:
+        """
+        Search archival memory using semantic (embedding-based) search with optional temporal filtering.
+
+        This endpoint allows manual triggering of archival memory searches, enabling users to query
+        an agent's archival memory store directly via the API. The search uses the same functionality
+        as the agent's archival_memory_search tool but is accessible for external API usage.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        query : str
+            String to search for using semantic similarity
+
+        tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Optional list of tags to filter search results
+
+        tag_match_mode : typing.Optional[PassagesSearchRequestTagMatchMode]
+            How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
+
+        top_k : typing.Optional[int]
+            Maximum number of results to return. Uses system default if not specified
+
+        start_datetime : typing.Optional[str]
+            Filter results to passages created after this datetime. ISO 8601 format
+
+        end_datetime : typing.Optional[str]
+            Filter results to passages created before this datetime. ISO 8601 format
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ArchivalMemorySearchResponse
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.passages.search(
+            agent_id="agent_id",
+            query="query",
+        )
+        """
+        _response = self._raw_client.search(
+            agent_id,
+            query=query,
+            tags=tags,
+            tag_match_mode=tag_match_mode,
+            top_k=top_k,
+            start_datetime=start_datetime,
+            end_datetime=end_datetime,
+            request_options=request_options,
         )
         return _response.data
 
@@ -353,6 +429,88 @@ class AsyncPassagesClient:
         """
         _response = await self._raw_client.create(
             agent_id, text=text, tags=tags, created_at=created_at, request_options=request_options
+        )
+        return _response.data
+
+    async def search(
+        self,
+        agent_id: str,
+        *,
+        query: str,
+        tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        tag_match_mode: typing.Optional[PassagesSearchRequestTagMatchMode] = None,
+        top_k: typing.Optional[int] = None,
+        start_datetime: typing.Optional[str] = None,
+        end_datetime: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ArchivalMemorySearchResponse:
+        """
+        Search archival memory using semantic (embedding-based) search with optional temporal filtering.
+
+        This endpoint allows manual triggering of archival memory searches, enabling users to query
+        an agent's archival memory store directly via the API. The search uses the same functionality
+        as the agent's archival_memory_search tool but is accessible for external API usage.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        query : str
+            String to search for using semantic similarity
+
+        tags : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Optional list of tags to filter search results
+
+        tag_match_mode : typing.Optional[PassagesSearchRequestTagMatchMode]
+            How to match tags - 'any' to match passages with any of the tags, 'all' to match only passages with all tags
+
+        top_k : typing.Optional[int]
+            Maximum number of results to return. Uses system default if not specified
+
+        start_datetime : typing.Optional[str]
+            Filter results to passages created after this datetime. ISO 8601 format
+
+        end_datetime : typing.Optional[str]
+            Filter results to passages created before this datetime. ISO 8601 format
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ArchivalMemorySearchResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.passages.search(
+                agent_id="agent_id",
+                query="query",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.search(
+            agent_id,
+            query=query,
+            tags=tags,
+            tag_match_mode=tag_match_mode,
+            top_k=top_k,
+            start_datetime=start_datetime,
+            end_datetime=end_datetime,
+            request_options=request_options,
         )
         return _response.data
 

@@ -39,6 +39,7 @@ from .messages import (
     MessagesModifyResponse,
     MessagesPreviewRawPayloadRequest,
 )
+from .passages import PassagesSearchRequestTagMatchMode
 from .templates import TemplatesMigrateResponse
 
 __all__ = [
@@ -59,6 +60,7 @@ __all__ = [
     "MessagesModifyRequest",
     "MessagesModifyResponse",
     "MessagesPreviewRawPayloadRequest",
+    "PassagesSearchRequestTagMatchMode",
     "TemplatesMigrateResponse",
     "UpdateAgentResponseFormat",
     "UpdateAgentToolRulesItem",
