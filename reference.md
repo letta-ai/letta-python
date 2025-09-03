@@ -10033,6 +10033,94 @@ client.templates.renametemplate(
 </dl>
 </details>
 
+<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">updatetemplatedescription</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the description for all versions of a template with the specified name. Versions are automatically stripped from the current template name if accidentally included.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.templates.updatetemplatedescription(
+    project="project",
+    template_name="template_name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `str` — The project slug
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_name:** `str` — The template name (version will be automatically stripped if included)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — The new description for the template
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">listtemplateversions</a>(...)</code></summary>
 <dl>
 <dd>

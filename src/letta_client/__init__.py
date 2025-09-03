@@ -412,6 +412,7 @@ from .templates import (
     TemplatesListTemplateVersionsResponseVersionsItem,
     TemplatesRenameTemplateResponse,
     TemplatesSaveTemplateVersionResponse,
+    TemplatesUpdateTemplateDescriptionResponse,
 )
 from .tools import (
     AddMcpServerRequest,
@@ -773,6 +774,7 @@ __all__ = [
     "TemplatesListTemplateVersionsResponseVersionsItem",
     "TemplatesRenameTemplateResponse",
     "TemplatesSaveTemplateVersionResponse",
+    "TemplatesUpdateTemplateDescriptionResponse",
     "TerminalToolRule",
     "TestMcpServerRequest",
     "TextContent",

@@ -34,6 +34,7 @@ from .types import (
     TemplatesListTemplateVersionsResponseVersionsItem,
     TemplatesRenameTemplateResponse,
     TemplatesSaveTemplateVersionResponse,
+    TemplatesUpdateTemplateDescriptionResponse,
 )
 from . import agents
 from .agents import (
@@ -77,5 +78,6 @@ __all__ = [
     "TemplatesListTemplateVersionsResponseVersionsItem",
     "TemplatesRenameTemplateResponse",
     "TemplatesSaveTemplateVersionResponse",
+    "TemplatesUpdateTemplateDescriptionResponse",
     "agents",
 ]

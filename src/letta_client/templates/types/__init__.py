@@ -65,6 +65,7 @@ from .templates_list_template_versions_response import TemplatesListTemplateVers
 from .templates_list_template_versions_response_versions_item import TemplatesListTemplateVersionsResponseVersionsItem
 from .templates_rename_template_response import TemplatesRenameTemplateResponse
 from .templates_save_template_version_response import TemplatesSaveTemplateVersionResponse
+from .templates_update_template_description_response import TemplatesUpdateTemplateDescriptionResponse
 
 __all__ = [
     "TemplatesCreateTemplateResponse",
@@ -98,4 +99,5 @@ __all__ = [
     "TemplatesListTemplateVersionsResponseVersionsItem",
     "TemplatesRenameTemplateResponse",
     "TemplatesSaveTemplateVersionResponse",
+    "TemplatesUpdateTemplateDescriptionResponse",
 ]
