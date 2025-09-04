@@ -109,6 +109,8 @@ from .custom_format_grammar import CustomFormatGrammar
 from .custom_format_grammar_grammar import CustomFormatGrammarGrammar
 from .custom_format_grammar_grammar_syntax import CustomFormatGrammarGrammarSyntax
 from .custom_format_text import CustomFormatText
+from .delete_deployment_response import DeleteDeploymentResponse
+from .deployment_entity import DeploymentEntity
 from .duplicate_file_handling import DuplicateFileHandling
 from .dynamic_manager import DynamicManager
 from .dynamic_manager_update import DynamicManagerUpdate
@@ -198,6 +200,7 @@ from .letta_streaming_request import LettaStreamingRequest
 from .letta_streaming_request_messages_item import LettaStreamingRequestMessagesItem
 from .letta_usage_statistics import LettaUsageStatistics
 from .letta_user_message_content_union import LettaUserMessageContentUnion
+from .list_deployment_entities_response import ListDeploymentEntitiesResponse
 from .llm_config import LlmConfig
 from .llm_config_compatibility_type import LlmConfigCompatibilityType
 from .llm_config_model_endpoint_type import LlmConfigModelEndpointType
@@ -456,6 +459,8 @@ __all__ = [
     "CustomFormatGrammarGrammar",
     "CustomFormatGrammarGrammarSyntax",
     "CustomFormatText",
+    "DeleteDeploymentResponse",
+    "DeploymentEntity",
     "DuplicateFileHandling",
     "DynamicManager",
     "DynamicManagerUpdate",
@@ -537,6 +542,7 @@ __all__ = [
     "LettaStreamingRequestMessagesItem",
     "LettaUsageStatistics",
     "LettaUserMessageContentUnion",
+    "ListDeploymentEntitiesResponse",
     "LlmConfig",
     "LlmConfigCompatibilityType",
     "LlmConfigModelEndpointType",
