@@ -9868,7 +9868,7 @@ client.templates.forktemplate(
 <dl>
 <dd>
 
-Creates a new template from an existing agent
+Creates a new template from an existing agent or agent file
 </dd>
 </dl>
 </dd>
@@ -9884,6 +9884,7 @@ Creates a new template from an existing agent
 
 ```python
 from letta_client import Letta
+from letta_client.templates import TemplatesCreateTemplateRequestAgentId
 
 client = Letta(
     project="YOUR_PROJECT",
@@ -9891,7 +9892,9 @@ client = Letta(
 )
 client.templates.createtemplate(
     project="project",
-    agent_id="agent_id",
+    request=TemplatesCreateTemplateRequestAgentId(
+        agent_id="agent_id",
+    ),
 )
 
 ```
@@ -9916,15 +9919,7 @@ client.templates.createtemplate(
 <dl>
 <dd>
 
-**agent_id:** `str` — The ID of the agent to use as a template, can be from any project
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**name:** `typing.Optional[str]` — Optional custom name for the template. If not provided, a random name will be generated.
+**request:** `TemplatesCreateTemplateRequest` 
     
 </dd>
 </dl>

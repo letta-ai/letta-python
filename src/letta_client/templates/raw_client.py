@@ -8,11 +8,13 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.unchecked_base_model import construct_type
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.not_found_error import NotFoundError
 from ..types.conflict_error_body import ConflictErrorBody
+from .types.templates_create_template_request import TemplatesCreateTemplateRequest
 from .types.templates_create_template_response import TemplatesCreateTemplateResponse
 from .types.templates_delete_template_response import TemplatesDeleteTemplateResponse
 from .types.templates_fork_template_response import TemplatesForkTemplateResponse
@@ -369,23 +371,18 @@ class RawTemplatesClient:
         self,
         project: str,
         *,
-        agent_id: str,
-        name: typing.Optional[str] = OMIT,
+        request: TemplatesCreateTemplateRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TemplatesCreateTemplateResponse]:
         """
-        Creates a new template from an existing agent
+        Creates a new template from an existing agent or agent file
 
         Parameters
         ----------
         project : str
             The project slug
 
-        agent_id : str
-            The ID of the agent to use as a template, can be from any project
-
-        name : typing.Optional[str]
-            Optional custom name for the template. If not provided, a random name will be generated.
+        request : TemplatesCreateTemplateRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -398,11 +395,9 @@ class RawTemplatesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/templates/{jsonable_encoder(project)}",
             method="POST",
-            json={
-                "agent_id": agent_id,
-                "name": name,
-                "type": "agent",
-            },
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=TemplatesCreateTemplateRequest, direction="write"
+            ),
             headers={
                 "content-type": "application/json",
             },
@@ -1013,23 +1008,18 @@ class AsyncRawTemplatesClient:
         self,
         project: str,
         *,
-        agent_id: str,
-        name: typing.Optional[str] = OMIT,
+        request: TemplatesCreateTemplateRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TemplatesCreateTemplateResponse]:
         """
-        Creates a new template from an existing agent
+        Creates a new template from an existing agent or agent file
 
         Parameters
         ----------
         project : str
             The project slug
 
-        agent_id : str
-            The ID of the agent to use as a template, can be from any project
-
-        name : typing.Optional[str]
-            Optional custom name for the template. If not provided, a random name will be generated.
+        request : TemplatesCreateTemplateRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1042,11 +1032,9 @@ class AsyncRawTemplatesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/templates/{jsonable_encoder(project)}",
             method="POST",
-            json={
-                "agent_id": agent_id,
-                "name": name,
-                "type": "agent",
-            },
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=TemplatesCreateTemplateRequest, direction="write"
+            ),
             headers={
                 "content-type": "application/json",
             },

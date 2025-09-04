@@ -2,6 +2,9 @@
 
 # isort: skip_file
 
+from .templates_create_template_request import TemplatesCreateTemplateRequest
+from .templates_create_template_request_agent_file import TemplatesCreateTemplateRequestAgentFile
+from .templates_create_template_request_agent_id import TemplatesCreateTemplateRequestAgentId
 from .templates_create_template_response import TemplatesCreateTemplateResponse
 from .templates_delete_template_response import TemplatesDeleteTemplateResponse
 from .templates_fork_template_response import TemplatesForkTemplateResponse
@@ -68,6 +71,9 @@ from .templates_save_template_version_response import TemplatesSaveTemplateVersi
 from .templates_update_template_description_response import TemplatesUpdateTemplateDescriptionResponse
 
 __all__ = [
+    "TemplatesCreateTemplateRequest",
+    "TemplatesCreateTemplateRequestAgentFile",
+    "TemplatesCreateTemplateRequestAgentId",
     "TemplatesCreateTemplateResponse",
     "TemplatesDeleteTemplateResponse",
     "TemplatesForkTemplateResponse",

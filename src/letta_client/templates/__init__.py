@@ -3,6 +3,9 @@
 # isort: skip_file
 
 from .types import (
+    TemplatesCreateTemplateRequest,
+    TemplatesCreateTemplateRequestAgentFile,
+    TemplatesCreateTemplateRequestAgentId,
     TemplatesCreateTemplateResponse,
     TemplatesDeleteTemplateResponse,
     TemplatesForkTemplateResponse,
@@ -47,6 +50,9 @@ __all__ = [
     "AgentsCreateRequestInitialMessageSequenceItem",
     "AgentsCreateRequestInitialMessageSequenceItemRole",
     "AgentsCreateResponse",
+    "TemplatesCreateTemplateRequest",
+    "TemplatesCreateTemplateRequestAgentFile",
+    "TemplatesCreateTemplateRequestAgentId",
     "TemplatesCreateTemplateResponse",
     "TemplatesDeleteTemplateResponse",
     "TemplatesForkTemplateResponse",

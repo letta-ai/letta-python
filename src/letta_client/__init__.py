@@ -381,6 +381,9 @@ from .projects import ProjectsListResponse, ProjectsListResponseProjectsItem
 from .runs import LettaStreamingResponse
 from .steps import StepsListRequestFeedback
 from .templates import (
+    TemplatesCreateTemplateRequest,
+    TemplatesCreateTemplateRequestAgentFile,
+    TemplatesCreateTemplateRequestAgentId,
     TemplatesCreateTemplateResponse,
     TemplatesDeleteTemplateResponse,
     TemplatesForkTemplateResponse,
@@ -743,6 +746,9 @@ __all__ = [
     "SupervisorManagerUpdate",
     "SystemMessage",
     "TagSchema",
+    "TemplatesCreateTemplateRequest",
+    "TemplatesCreateTemplateRequestAgentFile",
+    "TemplatesCreateTemplateRequestAgentId",
     "TemplatesCreateTemplateResponse",
     "TemplatesDeleteTemplateResponse",
     "TemplatesForkTemplateResponse",

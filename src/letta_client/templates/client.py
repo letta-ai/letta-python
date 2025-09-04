@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .agents.client import AgentsClient, AsyncAgentsClient
 from .raw_client import AsyncRawTemplatesClient, RawTemplatesClient
+from .types.templates_create_template_request import TemplatesCreateTemplateRequest
 from .types.templates_create_template_response import TemplatesCreateTemplateResponse
 from .types.templates_delete_template_response import TemplatesDeleteTemplateResponse
 from .types.templates_fork_template_response import TemplatesForkTemplateResponse
@@ -304,23 +305,18 @@ class TemplatesClient:
         self,
         project: str,
         *,
-        agent_id: str,
-        name: typing.Optional[str] = OMIT,
+        request: TemplatesCreateTemplateRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TemplatesCreateTemplateResponse:
         """
-        Creates a new template from an existing agent
+        Creates a new template from an existing agent or agent file
 
         Parameters
         ----------
         project : str
             The project slug
 
-        agent_id : str
-            The ID of the agent to use as a template, can be from any project
-
-        name : typing.Optional[str]
-            Optional custom name for the template. If not provided, a random name will be generated.
+        request : TemplatesCreateTemplateRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -333,6 +329,7 @@ class TemplatesClient:
         Examples
         --------
         from letta_client import Letta
+        from letta_client.templates import TemplatesCreateTemplateRequestAgentId
 
         client = Letta(
             project="YOUR_PROJECT",
@@ -340,12 +337,12 @@ class TemplatesClient:
         )
         client.templates.createtemplate(
             project="project",
-            agent_id="agent_id",
+            request=TemplatesCreateTemplateRequestAgentId(
+                agent_id="agent_id",
+            ),
         )
         """
-        _response = self._raw_client.createtemplate(
-            project, agent_id=agent_id, name=name, request_options=request_options
-        )
+        _response = self._raw_client.createtemplate(project, request=request, request_options=request_options)
         return _response.data
 
     def renametemplate(
@@ -823,23 +820,18 @@ class AsyncTemplatesClient:
         self,
         project: str,
         *,
-        agent_id: str,
-        name: typing.Optional[str] = OMIT,
+        request: TemplatesCreateTemplateRequest,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TemplatesCreateTemplateResponse:
         """
-        Creates a new template from an existing agent
+        Creates a new template from an existing agent or agent file
 
         Parameters
         ----------
         project : str
             The project slug
 
-        agent_id : str
-            The ID of the agent to use as a template, can be from any project
-
-        name : typing.Optional[str]
-            Optional custom name for the template. If not provided, a random name will be generated.
+        request : TemplatesCreateTemplateRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -854,6 +846,7 @@ class AsyncTemplatesClient:
         import asyncio
 
         from letta_client import AsyncLetta
+        from letta_client.templates import TemplatesCreateTemplateRequestAgentId
 
         client = AsyncLetta(
             project="YOUR_PROJECT",
@@ -864,15 +857,15 @@ class AsyncTemplatesClient:
         async def main() -> None:
             await client.templates.createtemplate(
                 project="project",
-                agent_id="agent_id",
+                request=TemplatesCreateTemplateRequestAgentId(
+                    agent_id="agent_id",
+                ),
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.createtemplate(
-            project, agent_id=agent_id, name=name, request_options=request_options
-        )
+        _response = await self._raw_client.createtemplate(project, request=request, request_options=request_options)
         return _response.data
 
     async def renametemplate(
