@@ -22,6 +22,12 @@ from .templates_get_template_snapshot_response_agents_item_memory_variables_data
 from .templates_get_template_snapshot_response_agents_item_properties import (
     TemplatesGetTemplateSnapshotResponseAgentsItemProperties,
 )
+from .templates_get_template_snapshot_response_agents_item_properties_reasoning_effort import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort,
+)
+from .templates_get_template_snapshot_response_agents_item_properties_verbosity_level import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel,
+)
 from .templates_get_template_snapshot_response_agents_item_tool_rules_item import (
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem,
 )
@@ -83,6 +89,8 @@ __all__ = [
     "TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables",
     "TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariablesDataItem",
     "TemplatesGetTemplateSnapshotResponseAgentsItemProperties",
+    "TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort",
+    "TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel",
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem",
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildOutputMapping",
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFive",

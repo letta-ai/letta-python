@@ -29,7 +29,6 @@ class TemplatesGetTemplateSnapshotResponseAgentsItem(UncheckedBaseModel):
     system_prompt: typing_extensions.Annotated[str, FieldMetadata(alias="systemPrompt")]
     tool_ids: typing_extensions.Annotated[typing.Optional[typing.List[str]], FieldMetadata(alias="toolIds")] = None
     source_ids: typing_extensions.Annotated[typing.Optional[typing.List[str]], FieldMetadata(alias="sourceIds")] = None
-    properties: typing.Optional[TemplatesGetTemplateSnapshotResponseAgentsItemProperties] = None
     memory_variables: typing_extensions.Annotated[
         typing.Optional[TemplatesGetTemplateSnapshotResponseAgentsItemMemoryVariables],
         FieldMetadata(alias="memoryVariables"),
@@ -49,6 +48,7 @@ class TemplatesGetTemplateSnapshotResponseAgentsItem(UncheckedBaseModel):
     agent_type: typing_extensions.Annotated[
         TemplatesGetTemplateSnapshotResponseAgentsItemAgentType, FieldMetadata(alias="agentType")
     ]
+    properties: typing.Optional[TemplatesGetTemplateSnapshotResponseAgentsItemProperties] = None
     entity_id: typing_extensions.Annotated[str, FieldMetadata(alias="entityId")]
     name: str
 

@@ -5,6 +5,12 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 from ...core.unchecked_base_model import UncheckedBaseModel
+from .templates_get_template_snapshot_response_agents_item_properties_reasoning_effort import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort,
+)
+from .templates_get_template_snapshot_response_agents_item_properties_verbosity_level import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel,
+)
 
 
 class TemplatesGetTemplateSnapshotResponseAgentsItemProperties(UncheckedBaseModel):
@@ -15,6 +21,8 @@ class TemplatesGetTemplateSnapshotResponseAgentsItemProperties(UncheckedBaseMode
     max_reasoning_tokens: typing.Optional[float] = None
     max_files_open: typing.Optional[float] = None
     message_buffer_autoclear: typing.Optional[bool] = None
+    verbosity_level: typing.Optional[TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesVerbosityLevel] = None
+    reasoning_effort: typing.Optional[TemplatesGetTemplateSnapshotResponseAgentsItemPropertiesReasoningEffort] = None
     per_file_view_window_char_limit: typing.Optional[float] = None
     temperature: typing.Optional[float] = None
 
