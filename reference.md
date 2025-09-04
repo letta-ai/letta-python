@@ -5179,6 +5179,14 @@ client.groups.create(
 <dl>
 <dd>
 
+**hidden:** `typing.Optional[bool]` — If set to True, the group will be hidden.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -6638,6 +6646,14 @@ client.blocks.create(
 <dl>
 <dd>
 
+**hidden:** `typing.Optional[bool]` — If set to True, the block will be hidden.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -6967,6 +6983,14 @@ client.blocks.modify(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hidden:** `typing.Optional[bool]` — If set to True, the block will be hidden.
     
 </dd>
 </dl>
@@ -12035,6 +12059,14 @@ client.agents.blocks.modify(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]` — Metadata of the block.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hidden:** `typing.Optional[bool]` — If set to True, the block will be hidden.
     
 </dd>
 </dl>

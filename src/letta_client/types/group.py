@@ -94,6 +94,11 @@ class Group(UncheckedBaseModel):
     The desired minimum length of messages in the context window of the convo agent. This is a best effort, and may be off-by-one due to user/assistant interleaving.
     """
 
+    hidden: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, the group will be hidden.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

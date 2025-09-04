@@ -73,6 +73,11 @@ class BlockSchema(UncheckedBaseModel):
     Metadata of the block.
     """
 
+    hidden: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, the block will be hidden.
+    """
+
     id: str = pydantic.Field()
     """
     Human-readable identifier for this block in the file

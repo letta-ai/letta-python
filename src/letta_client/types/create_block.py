@@ -73,6 +73,11 @@ class CreateBlock(UncheckedBaseModel):
     Metadata of the block.
     """
 
+    hidden: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, the block will be hidden.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

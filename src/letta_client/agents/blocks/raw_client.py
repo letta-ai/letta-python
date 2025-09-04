@@ -91,6 +91,7 @@ class RawBlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Block]:
         """
@@ -141,6 +142,9 @@ class RawBlocksClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
 
+        hidden : typing.Optional[bool]
+            If set to True, the block will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -166,6 +170,7 @@ class RawBlocksClient:
                 "read_only": read_only,
                 "description": description,
                 "metadata": metadata,
+                "hidden": hidden,
             },
             headers={
                 "content-type": "application/json",
@@ -424,6 +429,7 @@ class AsyncRawBlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Block]:
         """
@@ -474,6 +480,9 @@ class AsyncRawBlocksClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
 
+        hidden : typing.Optional[bool]
+            If set to True, the block will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -499,6 +508,7 @@ class AsyncRawBlocksClient:
                 "read_only": read_only,
                 "description": description,
                 "metadata": metadata,
+                "hidden": hidden,
             },
             headers={
                 "content-type": "application/json",

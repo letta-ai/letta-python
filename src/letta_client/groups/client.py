@@ -97,6 +97,7 @@ class GroupsClient:
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
@@ -118,6 +119,9 @@ class GroupsClient:
 
         shared_block_ids : typing.Optional[typing.Sequence[str]]
 
+
+        hidden : typing.Optional[bool]
+            If set to True, the group will be hidden.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -146,6 +150,7 @@ class GroupsClient:
             manager_config=manager_config,
             project_id=project_id,
             shared_block_ids=shared_block_ids,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data
@@ -396,6 +401,7 @@ class AsyncGroupsClient:
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Group:
         """
@@ -417,6 +423,9 @@ class AsyncGroupsClient:
 
         shared_block_ids : typing.Optional[typing.Sequence[str]]
 
+
+        hidden : typing.Optional[bool]
+            If set to True, the group will be hidden.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -453,6 +462,7 @@ class AsyncGroupsClient:
             manager_config=manager_config,
             project_id=project_id,
             shared_block_ids=shared_block_ids,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data

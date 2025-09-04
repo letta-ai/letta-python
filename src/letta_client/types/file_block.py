@@ -74,6 +74,11 @@ class FileBlock(UncheckedBaseModel):
     Metadata of the block.
     """
 
+    hidden: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, the block will be hidden.
+    """
+
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The human-friendly ID of the Block

@@ -109,6 +109,7 @@ class RawGroupsClient:
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Group]:
         """
@@ -131,6 +132,9 @@ class RawGroupsClient:
         shared_block_ids : typing.Optional[typing.Sequence[str]]
 
 
+        hidden : typing.Optional[bool]
+            If set to True, the group will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -150,6 +154,7 @@ class RawGroupsClient:
                 ),
                 "project_id": project_id,
                 "shared_block_ids": shared_block_ids,
+                "hidden": hidden,
             },
             headers={
                 "content-type": "application/json",
@@ -502,6 +507,7 @@ class AsyncRawGroupsClient:
         manager_config: typing.Optional[GroupCreateManagerConfig] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         shared_block_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Group]:
         """
@@ -524,6 +530,9 @@ class AsyncRawGroupsClient:
         shared_block_ids : typing.Optional[typing.Sequence[str]]
 
 
+        hidden : typing.Optional[bool]
+            If set to True, the group will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -543,6 +552,7 @@ class AsyncRawGroupsClient:
                 ),
                 "project_id": project_id,
                 "shared_block_ids": shared_block_ids,
+                "hidden": hidden,
             },
             headers={
                 "content-type": "application/json",

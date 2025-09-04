@@ -150,6 +150,7 @@ class BlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
@@ -193,6 +194,9 @@ class BlocksClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
 
+        hidden : typing.Optional[bool]
+            If set to True, the block will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -228,6 +232,7 @@ class BlocksClient:
             read_only=read_only,
             description=description,
             metadata=metadata,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data
@@ -336,6 +341,7 @@ class BlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
@@ -382,6 +388,9 @@ class BlocksClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
 
+        hidden : typing.Optional[bool]
+            If set to True, the block will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -417,6 +426,7 @@ class BlocksClient:
             read_only=read_only,
             description=description,
             metadata=metadata,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data
@@ -568,6 +578,7 @@ class AsyncBlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
@@ -610,6 +621,9 @@ class AsyncBlocksClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
+
+        hidden : typing.Optional[bool]
+            If set to True, the block will be hidden.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -654,6 +668,7 @@ class AsyncBlocksClient:
             read_only=read_only,
             description=description,
             metadata=metadata,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data
@@ -786,6 +801,7 @@ class AsyncBlocksClient:
         read_only: typing.Optional[bool] = OMIT,
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
+        hidden: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Block:
         """
@@ -832,6 +848,9 @@ class AsyncBlocksClient:
         metadata : typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]]
             Metadata of the block.
 
+        hidden : typing.Optional[bool]
+            If set to True, the block will be hidden.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -875,6 +894,7 @@ class AsyncBlocksClient:
             read_only=read_only,
             description=description,
             metadata=metadata,
+            hidden=hidden,
             request_options=request_options,
         )
         return _response.data

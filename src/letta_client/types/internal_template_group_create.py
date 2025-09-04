@@ -38,6 +38,11 @@ class InternalTemplateGroupCreate(UncheckedBaseModel):
     
     """
 
+    hidden: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, the group will be hidden.
+    """
+
     base_template_id: str = pydantic.Field()
     """
     The id of the base template.

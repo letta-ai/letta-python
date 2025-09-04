@@ -38,6 +38,11 @@ class GroupSchema(UncheckedBaseModel):
     
     """
 
+    hidden: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, the group will be hidden.
+    """
+
     id: str = pydantic.Field()
     """
     Human-readable identifier for this group in the file
