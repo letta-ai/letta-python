@@ -6,6 +6,7 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.datetime_utils import serialize_datetime
 from ...core.http_response import AsyncHttpResponse, HttpResponse
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.request_options import RequestOptions
@@ -184,8 +185,8 @@ class RawPassagesClient:
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         tag_match_mode: typing.Optional[PassagesSearchRequestTagMatchMode] = None,
         top_k: typing.Optional[int] = None,
-        start_datetime: typing.Optional[str] = None,
-        end_datetime: typing.Optional[str] = None,
+        start_datetime: typing.Optional[dt.datetime] = None,
+        end_datetime: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ArchivalMemorySearchResponse]:
         """
@@ -211,11 +212,11 @@ class RawPassagesClient:
         top_k : typing.Optional[int]
             Maximum number of results to return. Uses system default if not specified
 
-        start_datetime : typing.Optional[str]
-            Filter results to passages created after this datetime. ISO 8601 format
+        start_datetime : typing.Optional[dt.datetime]
+            Filter results to passages created after this datetime
 
-        end_datetime : typing.Optional[str]
-            Filter results to passages created before this datetime. ISO 8601 format
+        end_datetime : typing.Optional[dt.datetime]
+            Filter results to passages created before this datetime
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -233,8 +234,8 @@ class RawPassagesClient:
                 "tags": tags,
                 "tag_match_mode": tag_match_mode,
                 "top_k": top_k,
-                "start_datetime": start_datetime,
-                "end_datetime": end_datetime,
+                "start_datetime": serialize_datetime(start_datetime) if start_datetime is not None else None,
+                "end_datetime": serialize_datetime(end_datetime) if end_datetime is not None else None,
             },
             request_options=request_options,
         )
@@ -512,8 +513,8 @@ class AsyncRawPassagesClient:
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         tag_match_mode: typing.Optional[PassagesSearchRequestTagMatchMode] = None,
         top_k: typing.Optional[int] = None,
-        start_datetime: typing.Optional[str] = None,
-        end_datetime: typing.Optional[str] = None,
+        start_datetime: typing.Optional[dt.datetime] = None,
+        end_datetime: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ArchivalMemorySearchResponse]:
         """
@@ -539,11 +540,11 @@ class AsyncRawPassagesClient:
         top_k : typing.Optional[int]
             Maximum number of results to return. Uses system default if not specified
 
-        start_datetime : typing.Optional[str]
-            Filter results to passages created after this datetime. ISO 8601 format
+        start_datetime : typing.Optional[dt.datetime]
+            Filter results to passages created after this datetime
 
-        end_datetime : typing.Optional[str]
-            Filter results to passages created before this datetime. ISO 8601 format
+        end_datetime : typing.Optional[dt.datetime]
+            Filter results to passages created before this datetime
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -561,8 +562,8 @@ class AsyncRawPassagesClient:
                 "tags": tags,
                 "tag_match_mode": tag_match_mode,
                 "top_k": top_k,
-                "start_datetime": start_datetime,
-                "end_datetime": end_datetime,
+                "start_datetime": serialize_datetime(start_datetime) if start_datetime is not None else None,
+                "end_datetime": serialize_datetime(end_datetime) if end_datetime is not None else None,
             },
             request_options=request_options,
         )

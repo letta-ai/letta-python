@@ -12589,7 +12589,7 @@ client.agents.passages.search(
 <dl>
 <dd>
 
-**start_datetime:** `typing.Optional[str]` — Filter results to passages created after this datetime. ISO 8601 format
+**start_datetime:** `typing.Optional[dt.datetime]` — Filter results to passages created after this datetime
     
 </dd>
 </dl>
@@ -12597,7 +12597,7 @@ client.agents.passages.search(
 <dl>
 <dd>
 
-**end_datetime:** `typing.Optional[str]` — Filter results to passages created before this datetime. ISO 8601 format
+**end_datetime:** `typing.Optional[dt.datetime]` — Filter results to passages created before this datetime
     
 </dd>
 </dl>

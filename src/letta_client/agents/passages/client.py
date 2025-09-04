@@ -152,8 +152,8 @@ class PassagesClient:
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         tag_match_mode: typing.Optional[PassagesSearchRequestTagMatchMode] = None,
         top_k: typing.Optional[int] = None,
-        start_datetime: typing.Optional[str] = None,
-        end_datetime: typing.Optional[str] = None,
+        start_datetime: typing.Optional[dt.datetime] = None,
+        end_datetime: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ArchivalMemorySearchResponse:
         """
@@ -179,11 +179,11 @@ class PassagesClient:
         top_k : typing.Optional[int]
             Maximum number of results to return. Uses system default if not specified
 
-        start_datetime : typing.Optional[str]
-            Filter results to passages created after this datetime. ISO 8601 format
+        start_datetime : typing.Optional[dt.datetime]
+            Filter results to passages created after this datetime
 
-        end_datetime : typing.Optional[str]
-            Filter results to passages created before this datetime. ISO 8601 format
+        end_datetime : typing.Optional[dt.datetime]
+            Filter results to passages created before this datetime
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -440,8 +440,8 @@ class AsyncPassagesClient:
         tags: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         tag_match_mode: typing.Optional[PassagesSearchRequestTagMatchMode] = None,
         top_k: typing.Optional[int] = None,
-        start_datetime: typing.Optional[str] = None,
-        end_datetime: typing.Optional[str] = None,
+        start_datetime: typing.Optional[dt.datetime] = None,
+        end_datetime: typing.Optional[dt.datetime] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ArchivalMemorySearchResponse:
         """
@@ -467,11 +467,11 @@ class AsyncPassagesClient:
         top_k : typing.Optional[int]
             Maximum number of results to return. Uses system default if not specified
 
-        start_datetime : typing.Optional[str]
-            Filter results to passages created after this datetime. ISO 8601 format
+        start_datetime : typing.Optional[dt.datetime]
+            Filter results to passages created after this datetime
 
-        end_datetime : typing.Optional[str]
-            Filter results to passages created before this datetime. ISO 8601 format
+        end_datetime : typing.Optional[dt.datetime]
+            Filter results to passages created before this datetime
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
