@@ -222,6 +222,7 @@ from .message_create import MessageCreate
 from .message_create_content import MessageCreateContent
 from .message_create_role import MessageCreateRole
 from .message_role import MessageRole
+from .message_search_result import MessageSearchResult
 from .message_type import MessageType
 from .modal_sandbox_config import ModalSandboxConfig
 from .modal_sandbox_config_language import ModalSandboxConfigLanguage
@@ -564,6 +565,7 @@ __all__ = [
     "MessageCreateContent",
     "MessageCreateRole",
     "MessageRole",
+    "MessageSearchResult",
     "MessageType",
     "ModalSandboxConfig",
     "ModalSandboxConfigLanguage",

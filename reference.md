@@ -13406,6 +13406,126 @@ client.agents.messages.cancel(
 </dl>
 </details>
 
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">search</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search messages across the entire organization with optional project filtering.
+Returns messages with FTS/vector ranks and total RRF score.
+
+Requires message embedding and Turbopuffer to be enabled.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.messages.search()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**query_text:** `typing.Optional[str]` — Text query for full-text search
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search_mode:** `typing.Optional[MessageSearchRequestSearchMode]` — Search mode to use
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**roles:** `typing.Optional[typing.Sequence[MessageRole]]` — Filter messages by role
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_id:** `typing.Optional[str]` — Filter messages by project ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of results to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**start_date:** `typing.Optional[dt.datetime]` — Filter messages created after this date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**end_date:** `typing.Optional[dt.datetime]` — Filter messages created on or before this date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">create_async</a>(...)</code></summary>
 <dl>
 <dd>

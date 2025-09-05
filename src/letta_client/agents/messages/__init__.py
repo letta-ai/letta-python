@@ -5,6 +5,7 @@
 from .types import (
     LettaAsyncRequestMessagesItem,
     LettaStreamingResponse,
+    MessageSearchRequestSearchMode,
     MessagesModifyRequest,
     MessagesModifyResponse,
     MessagesPreviewRawPayloadRequest,
@@ -13,6 +14,7 @@ from .types import (
 __all__ = [
     "LettaAsyncRequestMessagesItem",
     "LettaStreamingResponse",
+    "MessageSearchRequestSearchMode",
     "MessagesModifyRequest",
     "MessagesModifyResponse",
     "MessagesPreviewRawPayloadRequest",

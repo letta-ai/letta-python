@@ -35,6 +35,7 @@ from .memory_variables import MemoryVariablesListResponse
 from .messages import (
     LettaAsyncRequestMessagesItem,
     LettaStreamingResponse,
+    MessageSearchRequestSearchMode,
     MessagesModifyRequest,
     MessagesModifyResponse,
     MessagesPreviewRawPayloadRequest,
@@ -57,6 +58,7 @@ __all__ = [
     "LettaAsyncRequestMessagesItem",
     "LettaStreamingResponse",
     "MemoryVariablesListResponse",
+    "MessageSearchRequestSearchMode",
     "MessagesModifyRequest",
     "MessagesModifyResponse",
     "MessagesPreviewRawPayloadRequest",
