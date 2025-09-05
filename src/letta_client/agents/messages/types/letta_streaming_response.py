@@ -2,7 +2,10 @@
 
 import typing
 
+from ....types.approval_request_message import ApprovalRequestMessage
+from ....types.approval_response_message import ApprovalResponseMessage
 from ....types.assistant_message import AssistantMessage
+from ....types.hidden_reasoning_message import HiddenReasoningMessage
 from ....types.letta_ping import LettaPing
 from ....types.letta_stop_reason import LettaStopReason
 from ....types.letta_usage_statistics import LettaUsageStatistics
@@ -16,9 +19,12 @@ LettaStreamingResponse = typing.Union[
     SystemMessage,
     UserMessage,
     ReasoningMessage,
+    HiddenReasoningMessage,
     ToolCallMessage,
     ToolReturnMessage,
     AssistantMessage,
+    ApprovalRequestMessage,
+    ApprovalResponseMessage,
     LettaPing,
     LettaStopReason,
     LettaUsageStatistics,
