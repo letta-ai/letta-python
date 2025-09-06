@@ -399,7 +399,7 @@ class MessagesClient:
     def search(
         self,
         *,
-        query_text: typing.Optional[str] = OMIT,
+        query: typing.Optional[str] = OMIT,
         search_mode: typing.Optional[MessageSearchRequestSearchMode] = OMIT,
         roles: typing.Optional[typing.Sequence[MessageRole]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
@@ -409,14 +409,13 @@ class MessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[MessageSearchResult]:
         """
-        Search messages across the entire organization with optional project filtering.
-        Returns messages with FTS/vector ranks and total RRF score.
+        Search messages across the entire organization with optional project filtering. Returns messages with FTS/vector ranks and total RRF score.
 
-        Requires message embedding and Turbopuffer to be enabled.
+        This is a cloud-only feature.
 
         Parameters
         ----------
-        query_text : typing.Optional[str]
+        query : typing.Optional[str]
             Text query for full-text search
 
         search_mode : typing.Optional[MessageSearchRequestSearchMode]
@@ -456,7 +455,7 @@ class MessagesClient:
         client.agents.messages.search()
         """
         _response = self._raw_client.search(
-            query_text=query_text,
+            query=query,
             search_mode=search_mode,
             roles=roles,
             project_id=project_id,
@@ -1074,7 +1073,7 @@ class AsyncMessagesClient:
     async def search(
         self,
         *,
-        query_text: typing.Optional[str] = OMIT,
+        query: typing.Optional[str] = OMIT,
         search_mode: typing.Optional[MessageSearchRequestSearchMode] = OMIT,
         roles: typing.Optional[typing.Sequence[MessageRole]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
@@ -1084,14 +1083,13 @@ class AsyncMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[MessageSearchResult]:
         """
-        Search messages across the entire organization with optional project filtering.
-        Returns messages with FTS/vector ranks and total RRF score.
+        Search messages across the entire organization with optional project filtering. Returns messages with FTS/vector ranks and total RRF score.
 
-        Requires message embedding and Turbopuffer to be enabled.
+        This is a cloud-only feature.
 
         Parameters
         ----------
-        query_text : typing.Optional[str]
+        query : typing.Optional[str]
             Text query for full-text search
 
         search_mode : typing.Optional[MessageSearchRequestSearchMode]
@@ -1139,7 +1137,7 @@ class AsyncMessagesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.search(
-            query_text=query_text,
+            query=query,
             search_mode=search_mode,
             roles=roles,
             project_id=project_id,

@@ -17,6 +17,7 @@ from .app_auth_scheme_auth_mode import AppAuthSchemeAuthMode
 from .app_model import AppModel
 from .approval_create import ApprovalCreate
 from .approval_request_message import ApprovalRequestMessage
+from .approval_request_message_tool_call import ApprovalRequestMessageToolCall
 from .approval_response_message import ApprovalResponseMessage
 from .archival_memory_search_response import ArchivalMemorySearchResponse
 from .archival_memory_search_result import ArchivalMemorySearchResult
@@ -368,6 +369,7 @@ __all__ = [
     "AppModel",
     "ApprovalCreate",
     "ApprovalRequestMessage",
+    "ApprovalRequestMessageToolCall",
     "ApprovalResponseMessage",
     "ArchivalMemorySearchResponse",
     "ArchivalMemorySearchResult",

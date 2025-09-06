@@ -6,7 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .tool_call import ToolCall
+from .approval_request_message_tool_call import ApprovalRequestMessageToolCall
 
 
 class ApprovalRequestMessage(UncheckedBaseModel):
@@ -30,7 +30,7 @@ class ApprovalRequestMessage(UncheckedBaseModel):
     is_err: typing.Optional[bool] = None
     seq_id: typing.Optional[int] = None
     run_id: typing.Optional[str] = None
-    tool_call: ToolCall = pydantic.Field()
+    tool_call: ApprovalRequestMessageToolCall = pydantic.Field()
     """
     The tool call that has been requested by the llm to run
     """

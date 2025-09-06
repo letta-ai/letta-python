@@ -13,24 +13,19 @@ class MessageSearchResult(UncheckedBaseModel):
     Result from a message search operation with scoring details.
     """
 
-    message: Message = pydantic.Field()
+    embedded_text: str = pydantic.Field()
     """
-    The message content and metadata
+    The embedded content (LLM-friendly)
     """
 
-    fts_score: typing.Optional[float] = pydantic.Field(default=None)
+    message: Message = pydantic.Field()
     """
-    Full-text search (BM25) score if FTS was used
+    The raw message object
     """
 
     fts_rank: typing.Optional[int] = pydantic.Field(default=None)
     """
     Full-text search rank position if FTS was used
-    """
-
-    vector_score: typing.Optional[float] = pydantic.Field(default=None)
-    """
-    Vector similarity score if vector search was used
     """
 
     vector_rank: typing.Optional[int] = pydantic.Field(default=None)
