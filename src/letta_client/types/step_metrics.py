@@ -28,6 +28,16 @@ class StepMetrics(UncheckedBaseModel):
     The unique identifier of the agent.
     """
 
+    step_start_ns: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The timestamp of the start of the step in nanoseconds.
+    """
+
+    llm_request_start_ns: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The timestamp of the start of the llm request in nanoseconds.
+    """
+
     llm_request_ns: typing.Optional[int] = pydantic.Field(default=None)
     """
     Time spent on LLM requests in nanoseconds.
