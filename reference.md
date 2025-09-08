@@ -13418,7 +13418,7 @@ client.agents.messages.cancel(
 <dl>
 <dd>
 
-Search messages across the entire organization with optional project filtering. Returns messages with FTS/vector ranks and total RRF score.
+Search messages across the entire organization with optional project and template filtering. Returns messages with FTS/vector ranks and total RRF score.
 
 This is a cloud-only feature.
 </dd>
@@ -13482,6 +13482,14 @@ client.agents.messages.search()
 <dd>
 
 **project_id:** `typing.Optional[str]` — Filter messages by project ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_id:** `typing.Optional[str]` — Filter messages by template ID
     
 </dd>
 </dl>

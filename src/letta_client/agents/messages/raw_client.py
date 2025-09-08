@@ -498,13 +498,14 @@ class RawMessagesClient:
         search_mode: typing.Optional[MessageSearchRequestSearchMode] = OMIT,
         roles: typing.Optional[typing.Sequence[MessageRole]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
+        template_id: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         start_date: typing.Optional[dt.datetime] = OMIT,
         end_date: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[MessageSearchResult]]:
         """
-        Search messages across the entire organization with optional project filtering. Returns messages with FTS/vector ranks and total RRF score.
+        Search messages across the entire organization with optional project and template filtering. Returns messages with FTS/vector ranks and total RRF score.
 
         This is a cloud-only feature.
 
@@ -521,6 +522,9 @@ class RawMessagesClient:
 
         project_id : typing.Optional[str]
             Filter messages by project ID
+
+        template_id : typing.Optional[str]
+            Filter messages by template ID
 
         limit : typing.Optional[int]
             Maximum number of results to return
@@ -547,6 +551,7 @@ class RawMessagesClient:
                 "search_mode": search_mode,
                 "roles": roles,
                 "project_id": project_id,
+                "template_id": template_id,
                 "limit": limit,
                 "start_date": start_date,
                 "end_date": end_date,
@@ -1275,13 +1280,14 @@ class AsyncRawMessagesClient:
         search_mode: typing.Optional[MessageSearchRequestSearchMode] = OMIT,
         roles: typing.Optional[typing.Sequence[MessageRole]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
+        template_id: typing.Optional[str] = OMIT,
         limit: typing.Optional[int] = OMIT,
         start_date: typing.Optional[dt.datetime] = OMIT,
         end_date: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[MessageSearchResult]]:
         """
-        Search messages across the entire organization with optional project filtering. Returns messages with FTS/vector ranks and total RRF score.
+        Search messages across the entire organization with optional project and template filtering. Returns messages with FTS/vector ranks and total RRF score.
 
         This is a cloud-only feature.
 
@@ -1298,6 +1304,9 @@ class AsyncRawMessagesClient:
 
         project_id : typing.Optional[str]
             Filter messages by project ID
+
+        template_id : typing.Optional[str]
+            Filter messages by template ID
 
         limit : typing.Optional[int]
             Maximum number of results to return
@@ -1324,6 +1333,7 @@ class AsyncRawMessagesClient:
                 "search_mode": search_mode,
                 "roles": roles,
                 "project_id": project_id,
+                "template_id": template_id,
                 "limit": limit,
                 "start_date": start_date,
                 "end_date": end_date,
