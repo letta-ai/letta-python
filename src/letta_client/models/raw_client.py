@@ -9,6 +9,7 @@ from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.request_options import RequestOptions
 from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.embedding_config import EmbeddingConfig
 from ..types.http_validation_error import HttpValidationError
 from ..types.llm_config import LlmConfig
 from ..types.provider_category import ProviderCategory
@@ -82,7 +83,7 @@ class RawModelsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def listembeddingmodels(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
+    def listembeddingmodels(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[typing.List[EmbeddingConfig]]:
         """
         Parameters
         ----------
@@ -91,16 +92,23 @@ class RawModelsClient:
 
         Returns
         -------
-        HttpResponse[None]
+        HttpResponse[typing.List[EmbeddingConfig]]
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/models/embeddings",
+            "v1/models/embedding",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return HttpResponse(response=_response, data=None)
+                _data = typing.cast(
+                    typing.List[EmbeddingConfig],
+                    construct_type(
+                        type_=typing.List[EmbeddingConfig],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -176,7 +184,7 @@ class AsyncRawModelsClient:
 
     async def listembeddingmodels(
         self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[None]:
+    ) -> AsyncHttpResponse[typing.List[EmbeddingConfig]]:
         """
         Parameters
         ----------
@@ -185,16 +193,23 @@ class AsyncRawModelsClient:
 
         Returns
         -------
-        AsyncHttpResponse[None]
+        AsyncHttpResponse[typing.List[EmbeddingConfig]]
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/models/embeddings",
+            "v1/models/embedding",
             method="GET",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return AsyncHttpResponse(response=_response, data=None)
+                _data = typing.cast(
+                    typing.List[EmbeddingConfig],
+                    construct_type(
+                        type_=typing.List[EmbeddingConfig],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
