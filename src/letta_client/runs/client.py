@@ -39,6 +39,7 @@ class RunsClient:
     def list(
         self,
         *,
+        agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
         stop_reason: typing.Optional[StopReasonType] = None,
@@ -54,8 +55,11 @@ class RunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
+
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            (DEPRECATED) The unique identifiers of the agents associated with the run.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
@@ -97,6 +101,7 @@ class RunsClient:
         client.runs.list()
         """
         _response = self._raw_client.list(
+            agent_id=agent_id,
             agent_ids=agent_ids,
             background=background,
             stop_reason=stop_reason,
@@ -112,7 +117,7 @@ class RunsClient:
     def list_active(
         self,
         *,
-        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        agent_id: typing.Optional[str] = None,
         background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Run]:
@@ -121,7 +126,7 @@ class RunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
 
         background : typing.Optional[bool]
@@ -146,7 +151,7 @@ class RunsClient:
         client.runs.list_active()
         """
         _response = self._raw_client.list_active(
-            agent_ids=agent_ids, background=background, request_options=request_options
+            agent_id=agent_id, background=background, request_options=request_options
         )
         return _response.data
 
@@ -295,6 +300,7 @@ class AsyncRunsClient:
     async def list(
         self,
         *,
+        agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
         stop_reason: typing.Optional[StopReasonType] = None,
@@ -310,8 +316,11 @@ class AsyncRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
+
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            (DEPRECATED) The unique identifiers of the agents associated with the run.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
@@ -361,6 +370,7 @@ class AsyncRunsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
+            agent_id=agent_id,
             agent_ids=agent_ids,
             background=background,
             stop_reason=stop_reason,
@@ -376,7 +386,7 @@ class AsyncRunsClient:
     async def list_active(
         self,
         *,
-        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        agent_id: typing.Optional[str] = None,
         background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Run]:
@@ -385,7 +395,7 @@ class AsyncRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
 
         background : typing.Optional[bool]
@@ -418,7 +428,7 @@ class AsyncRunsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list_active(
-            agent_ids=agent_ids, background=background, request_options=request_options
+            agent_id=agent_id, background=background, request_options=request_options
         )
         return _response.data
 

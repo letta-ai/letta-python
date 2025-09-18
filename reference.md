@@ -8241,7 +8241,15 @@ client.runs.list()
 <dl>
 <dd>
 
-**agent_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — The unique identifier of the agent associated with the run.
+**agent_id:** `typing.Optional[str]` — The unique identifier of the agent associated with the run.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — (DEPRECATED) The unique identifiers of the agents associated with the run.
     
 </dd>
 </dl>
@@ -8366,7 +8374,7 @@ client.runs.list_active()
 <dl>
 <dd>
 
-**agent_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — The unique identifier of the agent associated with the run.
+**agent_id:** `typing.Optional[str]` — The unique identifier of the agent associated with the run.
     
 </dd>
 </dl>

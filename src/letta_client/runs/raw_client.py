@@ -29,6 +29,7 @@ class RawRunsClient:
     def list(
         self,
         *,
+        agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
         stop_reason: typing.Optional[StopReasonType] = None,
@@ -44,8 +45,11 @@ class RawRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
+
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            (DEPRECATED) The unique identifiers of the agents associated with the run.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
@@ -80,6 +84,7 @@ class RawRunsClient:
             "v1/runs/",
             method="GET",
             params={
+                "agent_id": agent_id,
                 "agent_ids": agent_ids,
                 "background": background,
                 "stop_reason": stop_reason,
@@ -120,7 +125,7 @@ class RawRunsClient:
     def list_active(
         self,
         *,
-        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        agent_id: typing.Optional[str] = None,
         background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Run]]:
@@ -129,7 +134,7 @@ class RawRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
 
         background : typing.Optional[bool]
@@ -147,7 +152,7 @@ class RawRunsClient:
             "v1/runs/active",
             method="GET",
             params={
-                "agent_ids": agent_ids,
+                "agent_id": agent_id,
                 "background": background,
             },
             request_options=request_options,
@@ -375,6 +380,7 @@ class AsyncRawRunsClient:
     async def list(
         self,
         *,
+        agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
         stop_reason: typing.Optional[StopReasonType] = None,
@@ -390,8 +396,11 @@ class AsyncRawRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
+
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            (DEPRECATED) The unique identifiers of the agents associated with the run.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
@@ -426,6 +435,7 @@ class AsyncRawRunsClient:
             "v1/runs/",
             method="GET",
             params={
+                "agent_id": agent_id,
                 "agent_ids": agent_ids,
                 "background": background,
                 "stop_reason": stop_reason,
@@ -466,7 +476,7 @@ class AsyncRawRunsClient:
     async def list_active(
         self,
         *,
-        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        agent_id: typing.Optional[str] = None,
         background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Run]]:
@@ -475,7 +485,7 @@ class AsyncRawRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
 
         background : typing.Optional[bool]
@@ -493,7 +503,7 @@ class AsyncRawRunsClient:
             "v1/runs/active",
             method="GET",
             params={
-                "agent_ids": agent_ids,
+                "agent_id": agent_id,
                 "background": background,
             },
             request_options=request_options,
