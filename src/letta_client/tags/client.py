@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawTagsClient, RawTagsClient
+from .types.tags_list_request_order import TagsListRequestOrder
 
 
 class TagsClient:
@@ -25,21 +26,40 @@ class TagsClient:
     def list(
         self,
         *,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[TagsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["name"]] = None,
         query_text: typing.Optional[str] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[str]:
         """
-        Get a list of all tags in the database
+        Get the list of all agent tags that have been created.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Tag cursor for pagination. Returns tags that come before this tag in the specified sort order
+
         after : typing.Optional[str]
+            Tag cursor for pagination. Returns tags that come after this tag in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of tags to return
+
+        order : typing.Optional[TagsListRequestOrder]
+            Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order
+
+        order_by : typing.Optional[typing.Literal["name"]]
+            Field to sort by
 
         query_text : typing.Optional[str]
+            Filter tags by text search. Deprecated, please use name field instead
+
+        name : typing.Optional[str]
+            Filter tags by name
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -60,7 +80,14 @@ class TagsClient:
         client.tags.list()
         """
         _response = self._raw_client.list(
-            after=after, limit=limit, query_text=query_text, request_options=request_options
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            query_text=query_text,
+            name=name,
+            request_options=request_options,
         )
         return _response.data
 
@@ -83,21 +110,40 @@ class AsyncTagsClient:
     async def list(
         self,
         *,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[TagsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["name"]] = None,
         query_text: typing.Optional[str] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[str]:
         """
-        Get a list of all tags in the database
+        Get the list of all agent tags that have been created.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Tag cursor for pagination. Returns tags that come before this tag in the specified sort order
+
         after : typing.Optional[str]
+            Tag cursor for pagination. Returns tags that come after this tag in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of tags to return
+
+        order : typing.Optional[TagsListRequestOrder]
+            Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order
+
+        order_by : typing.Optional[typing.Literal["name"]]
+            Field to sort by
 
         query_text : typing.Optional[str]
+            Filter tags by text search. Deprecated, please use name field instead
+
+        name : typing.Optional[str]
+            Filter tags by name
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -126,6 +172,13 @@ class AsyncTagsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            after=after, limit=limit, query_text=query_text, request_options=request_options
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            query_text=query_text,
+            name=name,
+            request_options=request_options,
         )
         return _response.data

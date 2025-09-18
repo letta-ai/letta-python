@@ -3,6 +3,8 @@
 # isort: skip_file
 
 from .types import (
+    AgentsListRequestOrder,
+    AgentsListRequestOrderBy,
     AgentsSearchRequestSearchItem,
     AgentsSearchRequestSearchItemField,
     AgentsSearchRequestSearchItemOne,
@@ -38,12 +40,14 @@ from .messages import (
     MessageSearchRequestSearchMode,
     MessagesModifyRequest,
     MessagesModifyResponse,
-    MessagesPreviewRawPayloadRequest,
+    MessagesPreviewRequest,
 )
 from .passages import PassagesSearchRequestTagMatchMode
 from .templates import TemplatesMigrateResponse
 
 __all__ = [
+    "AgentsListRequestOrder",
+    "AgentsListRequestOrderBy",
     "AgentsSearchRequestSearchItem",
     "AgentsSearchRequestSearchItemField",
     "AgentsSearchRequestSearchItemOne",
@@ -61,7 +65,7 @@ __all__ = [
     "MessageSearchRequestSearchMode",
     "MessagesModifyRequest",
     "MessagesModifyResponse",
-    "MessagesPreviewRawPayloadRequest",
+    "MessagesPreviewRequest",
     "PassagesSearchRequestTagMatchMode",
     "TemplatesMigrateResponse",
     "UpdateAgentResponseFormat",

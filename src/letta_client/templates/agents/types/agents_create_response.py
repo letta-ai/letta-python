@@ -6,10 +6,16 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2
 from ....core.unchecked_base_model import UncheckedBaseModel
 from ....types.agent_state import AgentState
+from .agents_create_response_group import AgentsCreateResponseGroup
 
 
 class AgentsCreateResponse(UncheckedBaseModel):
     agents: typing.List[AgentState]
+    group: typing.Optional[AgentsCreateResponseGroup] = None
+    deployment_id: str = pydantic.Field()
+    """
+    The deployment ID of the created agents, group and blocks, can be used to identify from a specific invokation
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

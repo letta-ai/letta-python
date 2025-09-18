@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.run import Run
+from ..types.stop_reason_type import StopReasonType
 from .messages.client import AsyncMessagesClient, MessagesClient
 from .raw_client import AsyncRawRunsClient, RawRunsClient
 from .steps.client import AsyncStepsClient, StepsClient
@@ -40,9 +41,11 @@ class RunsClient:
         *,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
+        stop_reason: typing.Optional[StopReasonType] = None,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Run]:
@@ -57,6 +60,9 @@ class RunsClient:
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
 
+        stop_reason : typing.Optional[StopReasonType]
+            Filter runs by stop reason.
+
         after : typing.Optional[str]
             Cursor for pagination
 
@@ -65,6 +71,9 @@ class RunsClient:
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        active : typing.Optional[bool]
+            Filter for active runs.
 
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
@@ -90,9 +99,11 @@ class RunsClient:
         _response = self._raw_client.list(
             agent_ids=agent_ids,
             background=background,
+            stop_reason=stop_reason,
             after=after,
             before=before,
             limit=limit,
+            active=active,
             ascending=ascending,
             request_options=request_options,
         )
@@ -286,9 +297,11 @@ class AsyncRunsClient:
         *,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
+        stop_reason: typing.Optional[StopReasonType] = None,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Run]:
@@ -303,6 +316,9 @@ class AsyncRunsClient:
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
 
+        stop_reason : typing.Optional[StopReasonType]
+            Filter runs by stop reason.
+
         after : typing.Optional[str]
             Cursor for pagination
 
@@ -311,6 +327,9 @@ class AsyncRunsClient:
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        active : typing.Optional[bool]
+            Filter for active runs.
 
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
@@ -344,9 +363,11 @@ class AsyncRunsClient:
         _response = await self._raw_client.list(
             agent_ids=agent_ids,
             background=background,
+            stop_reason=stop_reason,
             after=after,
             before=before,
             limit=limit,
+            active=active,
             ascending=ascending,
             request_options=request_options,
         )

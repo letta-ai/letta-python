@@ -66,14 +66,19 @@ from .templates_get_template_snapshot_response_agents_item_tool_variables_data_i
 )
 from .templates_get_template_snapshot_response_blocks_item import TemplatesGetTemplateSnapshotResponseBlocksItem
 from .templates_get_template_snapshot_response_configuration import TemplatesGetTemplateSnapshotResponseConfiguration
+from .templates_get_template_snapshot_response_relationships_item import (
+    TemplatesGetTemplateSnapshotResponseRelationshipsItem,
+)
 from .templates_get_template_snapshot_response_type import TemplatesGetTemplateSnapshotResponseType
 from .templates_list_request_sort_by import TemplatesListRequestSortBy
 from .templates_list_response import TemplatesListResponse
 from .templates_list_response_templates_item import TemplatesListResponseTemplatesItem
 from .templates_list_template_versions_response import TemplatesListTemplateVersionsResponse
 from .templates_list_template_versions_response_versions_item import TemplatesListTemplateVersionsResponseVersionsItem
+from .templates_migrate_deployment_response import TemplatesMigrateDeploymentResponse
 from .templates_rename_template_response import TemplatesRenameTemplateResponse
 from .templates_save_template_version_response import TemplatesSaveTemplateVersionResponse
+from .templates_set_current_template_from_snapshot_response import TemplatesSetCurrentTemplateFromSnapshotResponse
 from .templates_update_template_description_response import TemplatesUpdateTemplateDescriptionResponse
 
 __all__ = [
@@ -105,13 +110,16 @@ __all__ = [
     "TemplatesGetTemplateSnapshotResponseAgentsItemToolVariablesDataItem",
     "TemplatesGetTemplateSnapshotResponseBlocksItem",
     "TemplatesGetTemplateSnapshotResponseConfiguration",
+    "TemplatesGetTemplateSnapshotResponseRelationshipsItem",
     "TemplatesGetTemplateSnapshotResponseType",
     "TemplatesListRequestSortBy",
     "TemplatesListResponse",
     "TemplatesListResponseTemplatesItem",
     "TemplatesListTemplateVersionsResponse",
     "TemplatesListTemplateVersionsResponseVersionsItem",
+    "TemplatesMigrateDeploymentResponse",
     "TemplatesRenameTemplateResponse",
     "TemplatesSaveTemplateVersionResponse",
+    "TemplatesSetCurrentTemplateFromSnapshotResponse",
     "TemplatesUpdateTemplateDescriptionResponse",
 ]

@@ -30,7 +30,7 @@ from .types.letta_streaming_response import LettaStreamingResponse
 from .types.message_search_request_search_mode import MessageSearchRequestSearchMode
 from .types.messages_modify_request import MessagesModifyRequest
 from .types.messages_modify_response import MessagesModifyResponse
-from .types.messages_preview_raw_payload_request import MessagesPreviewRawPayloadRequest
+from .types.messages_preview_request import MessagesPreviewRequest
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -751,12 +751,8 @@ class RawMessagesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def preview_raw_payload(
-        self,
-        agent_id: str,
-        *,
-        request: MessagesPreviewRawPayloadRequest,
-        request_options: typing.Optional[RequestOptions] = None,
+    def preview(
+        self, agent_id: str, *, request: MessagesPreviewRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
         """
         Inspect the raw LLM request payload without sending it.
@@ -769,7 +765,7 @@ class RawMessagesClient:
         ----------
         agent_id : str
 
-        request : MessagesPreviewRawPayloadRequest
+        request : MessagesPreviewRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -783,7 +779,7 @@ class RawMessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/preview-raw-payload",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=MessagesPreviewRawPayloadRequest, direction="write"
+                object_=request, annotation=MessagesPreviewRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -801,6 +797,56 @@ class RawMessagesClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def summarize(
+        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[None]:
+        """
+        Summarize an agent's conversation history to a target message length.
+
+        This endpoint summarizes the current message history for a given agent,
+        truncating and compressing it down to the specified `max_message_length`.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        max_message_length : int
+            Maximum number of messages to retain after summarization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[None]
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/summarize",
+            method="POST",
+            params={
+                "max_message_length": max_message_length,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return HttpResponse(response=_response, data=None)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -1533,12 +1579,8 @@ class AsyncRawMessagesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def preview_raw_payload(
-        self,
-        agent_id: str,
-        *,
-        request: MessagesPreviewRawPayloadRequest,
-        request_options: typing.Optional[RequestOptions] = None,
+    async def preview(
+        self, agent_id: str, *, request: MessagesPreviewRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.Dict[str, typing.Optional[typing.Any]]]:
         """
         Inspect the raw LLM request payload without sending it.
@@ -1551,7 +1593,7 @@ class AsyncRawMessagesClient:
         ----------
         agent_id : str
 
-        request : MessagesPreviewRawPayloadRequest
+        request : MessagesPreviewRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1565,7 +1607,7 @@ class AsyncRawMessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages/preview-raw-payload",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=MessagesPreviewRawPayloadRequest, direction="write"
+                object_=request, annotation=MessagesPreviewRequest, direction="write"
             ),
             headers={
                 "content-type": "application/json",
@@ -1583,6 +1625,56 @@ class AsyncRawMessagesClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def summarize(
+        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[None]:
+        """
+        Summarize an agent's conversation history to a target message length.
+
+        This endpoint summarizes the current message history for a given agent,
+        truncating and compressing it down to the specified `max_message_length`.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        max_message_length : int
+            Maximum number of messages to retain after summarization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[None]
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/agents/{jsonable_encoder(agent_id)}/summarize",
+            method="POST",
+            params={
+                "max_message_length": max_message_length,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return AsyncHttpResponse(response=_response, data=None)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),

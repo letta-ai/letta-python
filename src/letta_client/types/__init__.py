@@ -21,6 +21,7 @@ from .approval_request_message_tool_call import ApprovalRequestMessageToolCall
 from .approval_response_message import ApprovalResponseMessage
 from .archival_memory_search_response import ArchivalMemorySearchResponse
 from .archival_memory_search_result import ArchivalMemorySearchResult
+from .archive import Archive
 from .assistant_message import AssistantMessage
 from .assistant_message_content import AssistantMessageContent
 from .audio import Audio
@@ -34,7 +35,7 @@ from .batch_job import BatchJob
 from .block import Block
 from .block_schema import BlockSchema
 from .block_update import BlockUpdate
-from .body_export_agent_serialized import BodyExportAgentSerialized
+from .body_export_agent import BodyExportAgent
 from .chat_completion_allowed_tool_choice_param import ChatCompletionAllowedToolChoiceParam
 from .chat_completion_allowed_tools_param import ChatCompletionAllowedToolsParam
 from .chat_completion_allowed_tools_param_mode import ChatCompletionAllowedToolsParamMode
@@ -155,6 +156,7 @@ from .imported_agents_response import ImportedAgentsResponse
 from .init_tool_rule import InitToolRule
 from .input_audio import InputAudio
 from .input_audio_format import InputAudioFormat
+from .internal_server_error_body import InternalServerErrorBody
 from .internal_template_agent_create import InternalTemplateAgentCreate
 from .internal_template_agent_create_response_format import InternalTemplateAgentCreateResponseFormat
 from .internal_template_agent_create_tool_rules_item import InternalTemplateAgentCreateToolRulesItem
@@ -217,6 +219,7 @@ from .mcp_tool import McpTool
 from .mcp_tool_execute_request import McpToolExecuteRequest
 from .mcp_tool_health import McpToolHealth
 from .memory import Memory
+from .memory_agent_type import MemoryAgentType
 from .message import Message
 from .message_content_item import MessageContentItem
 from .message_create import MessageCreate
@@ -346,6 +349,7 @@ from .user_message_content import UserMessageContent
 from .user_update import UserUpdate
 from .validation_error import ValidationError
 from .validation_error_loc_item import ValidationErrorLocItem
+from .vector_db_provider import VectorDbProvider
 from .voice_sleeptime_manager import VoiceSleeptimeManager
 from .voice_sleeptime_manager_update import VoiceSleeptimeManagerUpdate
 from .web_search_options import WebSearchOptions
@@ -373,6 +377,7 @@ __all__ = [
     "ApprovalResponseMessage",
     "ArchivalMemorySearchResponse",
     "ArchivalMemorySearchResult",
+    "Archive",
     "AssistantMessage",
     "AssistantMessageContent",
     "Audio",
@@ -386,7 +391,7 @@ __all__ = [
     "Block",
     "BlockSchema",
     "BlockUpdate",
-    "BodyExportAgentSerialized",
+    "BodyExportAgent",
     "ChatCompletionAllowedToolChoiceParam",
     "ChatCompletionAllowedToolsParam",
     "ChatCompletionAllowedToolsParamMode",
@@ -507,6 +512,7 @@ __all__ = [
     "InitToolRule",
     "InputAudio",
     "InputAudioFormat",
+    "InternalServerErrorBody",
     "InternalTemplateAgentCreate",
     "InternalTemplateAgentCreateResponseFormat",
     "InternalTemplateAgentCreateToolRulesItem",
@@ -561,6 +567,7 @@ __all__ = [
     "McpToolExecuteRequest",
     "McpToolHealth",
     "Memory",
+    "MemoryAgentType",
     "Message",
     "MessageContentItem",
     "MessageCreate",
@@ -676,6 +683,7 @@ __all__ = [
     "UserUpdate",
     "ValidationError",
     "ValidationErrorLocItem",
+    "VectorDbProvider",
     "VoiceSleeptimeManager",
     "VoiceSleeptimeManagerUpdate",
     "WebSearchOptions",

@@ -6,6 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.passage import Passage
 from .raw_client import AsyncRawPassagesClient, RawPassagesClient
+from .types.passages_list_request_order import PassagesListRequestOrder
 
 
 class PassagesClient:
@@ -27,9 +28,11 @@ class PassagesClient:
         self,
         folder_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[PassagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Passage]:
         """
@@ -39,14 +42,20 @@ class PassagesClient:
         ----------
         folder_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Passage ID cursor for pagination. Returns passages that come before this passage ID in the specified sort order
+
+        after : typing.Optional[str]
+            Passage ID cursor for pagination. Returns passages that come after this passage ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of passages to return
+
+        order : typing.Optional[PassagesListRequestOrder]
+            Sort order for passages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -69,7 +78,13 @@ class PassagesClient:
         )
         """
         _response = self._raw_client.list(
-            folder_id, after=after, before=before, limit=limit, request_options=request_options
+            folder_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
         )
         return _response.data
 
@@ -93,9 +108,11 @@ class AsyncPassagesClient:
         self,
         folder_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[PassagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Passage]:
         """
@@ -105,14 +122,20 @@ class AsyncPassagesClient:
         ----------
         folder_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Passage ID cursor for pagination. Returns passages that come before this passage ID in the specified sort order
+
+        after : typing.Optional[str]
+            Passage ID cursor for pagination. Returns passages that come after this passage ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of passages to return
+
+        order : typing.Optional[PassagesListRequestOrder]
+            Sort order for passages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -143,6 +166,12 @@ class AsyncPassagesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            folder_id, after=after, before=before, limit=limit, request_options=request_options
+            folder_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
         )
         return _response.data

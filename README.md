@@ -26,8 +26,8 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.tools.create(
-    source_code="source_code",
+client.archives.create_archive(
+    name="name",
 )
 ```
 
@@ -47,8 +47,8 @@ client = AsyncLetta(
 
 
 async def main() -> None:
-    await client.tools.create(
-        source_code="source_code",
+    await client.archives.create_archive(
+        name="name",
     )
 
 
@@ -64,7 +64,7 @@ will be thrown.
 from letta_client.core.api_error import ApiError
 
 try:
-    client.tools.create(...)
+    client.archives.create_archive(...)
 except ApiError as e:
     print(e.status_code)
     print(e.body)
@@ -105,7 +105,7 @@ from letta_client import Letta
 client = Letta(
     ...,
 )
-response = client.tools.with_raw_response.create(...)
+response = client.archives.with_raw_response.create_archive(...)
 print(response.headers)  # access the response headers
 print(response.data)  # access the underlying object
 with client.tools.with_raw_response.connect_mcp_server(...) as response:
@@ -129,7 +129,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.tools.create(..., request_options={
+client.archives.create_archive(..., request_options={
     "max_retries": 1
 })
 ```
@@ -149,7 +149,7 @@ client = Letta(
 
 
 # Override timeout for a specific method
-client.tools.create(..., request_options={
+client.archives.create_archive(..., request_options={
     "timeout_in_seconds": 1
 })
 ```

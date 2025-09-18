@@ -8,7 +8,7 @@ from .types import (
     MessageSearchRequestSearchMode,
     MessagesModifyRequest,
     MessagesModifyResponse,
-    MessagesPreviewRawPayloadRequest,
+    MessagesPreviewRequest,
 )
 
 __all__ = [
@@ -17,5 +17,5 @@ __all__ = [
     "MessageSearchRequestSearchMode",
     "MessagesModifyRequest",
     "MessagesModifyResponse",
-    "MessagesPreviewRawPayloadRequest",
+    "MessagesPreviewRequest",
 ]

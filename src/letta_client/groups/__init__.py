@@ -2,14 +2,16 @@
 
 # isort: skip_file
 
-from .types import GroupCreateManagerConfig, GroupUpdateManagerConfig
+from .types import GroupCreateManagerConfig, GroupUpdateManagerConfig, GroupsListRequestOrder
 from . import messages
-from .messages import LettaStreamingResponse, MessagesModifyRequest, MessagesModifyResponse
+from .messages import LettaStreamingResponse, MessagesListRequestOrder, MessagesModifyRequest, MessagesModifyResponse
 
 __all__ = [
     "GroupCreateManagerConfig",
     "GroupUpdateManagerConfig",
+    "GroupsListRequestOrder",
     "LettaStreamingResponse",
+    "MessagesListRequestOrder",
     "MessagesModifyRequest",
     "MessagesModifyResponse",
     "messages",

@@ -7,11 +7,17 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .block import Block
 from .file_block import FileBlock
+from .memory_agent_type import MemoryAgentType
 
 
 class Memory(UncheckedBaseModel):
     """
     Represents the in-context memory (i.e. Core memory) of the agent. This includes both the `Block` objects (labelled by sections), as well as tools to edit the blocks.
+    """
+
+    agent_type: typing.Optional[MemoryAgentType] = pydantic.Field(default=None)
+    """
+    Agent type controlling prompt rendering.
     """
 
     blocks: typing.List[Block] = pydantic.Field()
@@ -26,7 +32,7 @@ class Memory(UncheckedBaseModel):
 
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Jinja2 template for compiling memory blocks into a prompt string
+    Deprecated. Ignored for performance.
     """
 
     if IS_PYDANTIC_V2:

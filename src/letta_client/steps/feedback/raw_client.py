@@ -14,6 +14,9 @@ from ...types.feedback_type import FeedbackType
 from ...types.http_validation_error import HttpValidationError
 from ...types.step import Step
 
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
+
 
 class RawFeedbackClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
@@ -23,17 +26,22 @@ class RawFeedbackClient:
         self,
         step_id: str,
         *,
-        feedback: typing.Optional[FeedbackType] = None,
+        feedback: typing.Optional[FeedbackType] = OMIT,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Step]:
         """
-        Add feedback to a step.
+        Modify feedback for a given step.
 
         Parameters
         ----------
         step_id : str
 
         feedback : typing.Optional[FeedbackType]
+            Whether this feedback is positive or negative
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Feedback tags to add to the step
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -46,10 +54,15 @@ class RawFeedbackClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/steps/{jsonable_encoder(step_id)}/feedback",
             method="PATCH",
-            params={
+            json={
                 "feedback": feedback,
+                "tags": tags,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -86,17 +99,22 @@ class AsyncRawFeedbackClient:
         self,
         step_id: str,
         *,
-        feedback: typing.Optional[FeedbackType] = None,
+        feedback: typing.Optional[FeedbackType] = OMIT,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Step]:
         """
-        Add feedback to a step.
+        Modify feedback for a given step.
 
         Parameters
         ----------
         step_id : str
 
         feedback : typing.Optional[FeedbackType]
+            Whether this feedback is positive or negative
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Feedback tags to add to the step
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -109,10 +127,15 @@ class AsyncRawFeedbackClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/steps/{jsonable_encoder(step_id)}/feedback",
             method="PATCH",
-            params={
+            json={
                 "feedback": feedback,
+                "tags": tags,
+            },
+            headers={
+                "content-type": "application/json",
             },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:

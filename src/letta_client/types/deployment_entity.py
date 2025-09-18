@@ -16,6 +16,8 @@ class DeploymentEntity(UncheckedBaseModel):
     type: str
     name: typing.Optional[str] = None
     description: typing.Optional[str] = None
+    entity_id: typing.Optional[str] = None
+    project_id: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

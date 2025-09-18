@@ -2,3 +2,6 @@
 
 # isort: skip_file
 
+from . import embeddings
+
+__all__ = ["embeddings"]

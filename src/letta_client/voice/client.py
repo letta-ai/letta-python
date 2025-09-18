@@ -30,7 +30,6 @@ class VoiceClient:
         agent_id: str,
         *,
         request: typing.Dict[str, typing.Optional[typing.Any]],
-        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -39,8 +38,6 @@ class VoiceClient:
         agent_id : str
 
         request : typing.Dict[str, typing.Optional[typing.Any]]
-
-        user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -64,7 +61,7 @@ class VoiceClient:
         )
         """
         _response = self._raw_client.create_voice_chat_completions(
-            agent_id, request=request, user_id=user_id, request_options=request_options
+            agent_id, request=request, request_options=request_options
         )
         return _response.data
 
@@ -89,7 +86,6 @@ class AsyncVoiceClient:
         agent_id: str,
         *,
         request: typing.Dict[str, typing.Optional[typing.Any]],
-        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
@@ -98,8 +94,6 @@ class AsyncVoiceClient:
         agent_id : str
 
         request : typing.Dict[str, typing.Optional[typing.Any]]
-
-        user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -131,6 +125,6 @@ class AsyncVoiceClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create_voice_chat_completions(
-            agent_id, request=request, user_id=user_id, request_options=request_options
+            agent_id, request=request, request_options=request_options
         )
         return _response.data

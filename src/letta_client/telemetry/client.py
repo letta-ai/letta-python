@@ -27,6 +27,10 @@ class TelemetryClient:
         self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[ProviderTrace]:
         """
+        **DEPRECATED**: Use `GET /steps/{step_id}/trace` instead.
+
+        Retrieve provider trace by step ID.
+
         Parameters
         ----------
         step_id : str
@@ -74,6 +78,10 @@ class AsyncTelemetryClient:
         self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[ProviderTrace]:
         """
+        **DEPRECATED**: Use `GET /steps/{step_id}/trace` instead.
+
+        Retrieve provider trace by step ID.
+
         Parameters
         ----------
         step_id : str

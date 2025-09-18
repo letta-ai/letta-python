@@ -7,12 +7,14 @@ from ..core.request_options import RequestOptions
 from ..types.llm_config import LlmConfig
 from ..types.provider_category import ProviderCategory
 from ..types.provider_type import ProviderType
+from .embeddings.client import AsyncEmbeddingsClient, EmbeddingsClient
 from .raw_client import AsyncRawModelsClient, RawModelsClient
 
 
 class ModelsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawModelsClient(client_wrapper=client_wrapper)
+        self.embeddings = EmbeddingsClient(client_wrapper=client_wrapper)
 
     @property
     def with_raw_response(self) -> RawModelsClient:
@@ -98,6 +100,7 @@ class ModelsClient:
 class AsyncModelsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawModelsClient(client_wrapper=client_wrapper)
+        self.embeddings = AsyncEmbeddingsClient(client_wrapper=client_wrapper)
 
     @property
     def with_raw_response(self) -> AsyncRawModelsClient:

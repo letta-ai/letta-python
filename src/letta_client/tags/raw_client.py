@@ -10,6 +10,7 @@ from ..core.request_options import RequestOptions
 from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
+from .types.tags_list_request_order import TagsListRequestOrder
 
 
 class RawTagsClient:
@@ -19,21 +20,40 @@ class RawTagsClient:
     def list(
         self,
         *,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[TagsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["name"]] = None,
         query_text: typing.Optional[str] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[str]]:
         """
-        Get a list of all tags in the database
+        Get the list of all agent tags that have been created.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Tag cursor for pagination. Returns tags that come before this tag in the specified sort order
+
         after : typing.Optional[str]
+            Tag cursor for pagination. Returns tags that come after this tag in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of tags to return
+
+        order : typing.Optional[TagsListRequestOrder]
+            Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order
+
+        order_by : typing.Optional[typing.Literal["name"]]
+            Field to sort by
 
         query_text : typing.Optional[str]
+            Filter tags by text search. Deprecated, please use name field instead
+
+        name : typing.Optional[str]
+            Filter tags by name
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -47,9 +67,13 @@ class RawTagsClient:
             "v1/tags/",
             method="GET",
             params={
+                "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "query_text": query_text,
+                "name": name,
             },
             request_options=request_options,
         )
@@ -87,21 +111,40 @@ class AsyncRawTagsClient:
     async def list(
         self,
         *,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[TagsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["name"]] = None,
         query_text: typing.Optional[str] = None,
+        name: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[str]]:
         """
-        Get a list of all tags in the database
+        Get the list of all agent tags that have been created.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Tag cursor for pagination. Returns tags that come before this tag in the specified sort order
+
         after : typing.Optional[str]
+            Tag cursor for pagination. Returns tags that come after this tag in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of tags to return
+
+        order : typing.Optional[TagsListRequestOrder]
+            Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order
+
+        order_by : typing.Optional[typing.Literal["name"]]
+            Field to sort by
 
         query_text : typing.Optional[str]
+            Filter tags by text search. Deprecated, please use name field instead
+
+        name : typing.Optional[str]
+            Filter tags by name
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -115,9 +158,13 @@ class AsyncRawTagsClient:
             "v1/tags/",
             method="GET",
             params={
+                "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "query_text": query_text,
+                "name": name,
             },
             request_options=request_options,
         )

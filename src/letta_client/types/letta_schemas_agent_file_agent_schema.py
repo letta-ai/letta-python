@@ -177,6 +177,11 @@ class LettaSchemasAgentFileAgentSchema(UncheckedBaseModel):
         default=None
     )
     """
+    Deprecated: use `secrets` field instead.
+    """
+
+    secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
+    """
     The environment variables for tool execution specific to this agent.
     """
 

@@ -30,12 +30,12 @@ class JobsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Job]:
         """
         List all jobs.
-        TODO (cliandy): implementation for pagination
 
         Parameters
         ----------
@@ -50,6 +50,9 @@ class JobsClient:
 
         limit : typing.Optional[int]
             Limit for pagination
+
+        active : typing.Optional[bool]
+            Filter for active jobs.
 
         ascending : typing.Optional[bool]
             Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
@@ -77,6 +80,7 @@ class JobsClient:
             before=before,
             after=after,
             limit=limit,
+            active=active,
             ascending=ascending,
             request_options=request_options,
         )
@@ -259,12 +263,12 @@ class AsyncJobsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Job]:
         """
         List all jobs.
-        TODO (cliandy): implementation for pagination
 
         Parameters
         ----------
@@ -279,6 +283,9 @@ class AsyncJobsClient:
 
         limit : typing.Optional[int]
             Limit for pagination
+
+        active : typing.Optional[bool]
+            Filter for active jobs.
 
         ascending : typing.Optional[bool]
             Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
@@ -314,6 +321,7 @@ class AsyncJobsClient:
             before=before,
             after=after,
             limit=limit,
+            active=active,
             ascending=ascending,
             request_options=request_options,
         )

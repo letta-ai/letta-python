@@ -20,7 +20,7 @@ class MaxCountPerStepToolRule(UncheckedBaseModel):
     type: typing.Literal["max_count_per_step"] = "max_count_per_step"
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional Jinja2 template for generating agent prompt about this tool rule.
+    Optional template string (ignored).
     """
 
     max_count_limit: int = pydantic.Field()

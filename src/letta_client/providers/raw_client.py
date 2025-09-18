@@ -13,6 +13,7 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from ..types.provider import Provider
 from ..types.provider_type import ProviderType
+from .types.providers_list_request_order import ProvidersListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -25,24 +26,40 @@ class RawProvidersClient:
     def list(
         self,
         *,
-        name: typing.Optional[str] = None,
-        provider_type: typing.Optional[ProviderType] = None,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[ProvidersListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        name: typing.Optional[str] = None,
+        provider_type: typing.Optional[ProviderType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Provider]]:
         """
-        Get a list of all custom providers in the database
+        Get a list of all custom providers.
 
         Parameters
         ----------
-        name : typing.Optional[str]
-
-        provider_type : typing.Optional[ProviderType]
+        before : typing.Optional[str]
+            Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order
 
         after : typing.Optional[str]
+            Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of providers to return
+
+        order : typing.Optional[ProvidersListRequestOrder]
+            Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
+        name : typing.Optional[str]
+            Filter providers by name
+
+        provider_type : typing.Optional[ProviderType]
+            Filter providers by type
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -56,10 +73,13 @@ class RawProvidersClient:
             "v1/providers/",
             method="GET",
             params={
-                "name": name,
-                "provider_type": provider_type,
+                "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
+                "name": name,
+                "provider_type": provider_type,
             },
             request_options=request_options,
         )
@@ -102,7 +122,7 @@ class RawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Provider]:
         """
-        Create a new custom provider
+        Create a new custom provider.
 
         Parameters
         ----------
@@ -179,11 +199,60 @@ class RawProvidersClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def retrieve_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[Provider]:
+        """
+        Get a provider by ID.
+
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[Provider]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/providers/{jsonable_encoder(provider_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    Provider,
+                    construct_type(
+                        type_=Provider,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def delete(
         self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.Optional[typing.Any]]:
         """
-        Delete an existing custom provider
+        Delete an existing custom provider.
 
         Parameters
         ----------
@@ -242,7 +311,7 @@ class RawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Provider]:
         """
-        Update an existing custom provider
+        Update an existing custom provider.
 
         Parameters
         ----------
@@ -313,31 +382,7 @@ class RawProvidersClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
-        """
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[None]
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v1/providers/check",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return HttpResponse(response=_response, data=None)
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def check_provider(
+    def check(
         self,
         *,
         provider_type: ProviderType,
@@ -349,6 +394,8 @@ class RawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
         """
+        Verify the API key and additional parameters for a provider.
+
         Parameters
         ----------
         provider_type : ProviderType
@@ -430,24 +477,40 @@ class AsyncRawProvidersClient:
     async def list(
         self,
         *,
-        name: typing.Optional[str] = None,
-        provider_type: typing.Optional[ProviderType] = None,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[ProvidersListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        name: typing.Optional[str] = None,
+        provider_type: typing.Optional[ProviderType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Provider]]:
         """
-        Get a list of all custom providers in the database
+        Get a list of all custom providers.
 
         Parameters
         ----------
-        name : typing.Optional[str]
-
-        provider_type : typing.Optional[ProviderType]
+        before : typing.Optional[str]
+            Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order
 
         after : typing.Optional[str]
+            Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of providers to return
+
+        order : typing.Optional[ProvidersListRequestOrder]
+            Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
+        name : typing.Optional[str]
+            Filter providers by name
+
+        provider_type : typing.Optional[ProviderType]
+            Filter providers by type
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -461,10 +524,13 @@ class AsyncRawProvidersClient:
             "v1/providers/",
             method="GET",
             params={
-                "name": name,
-                "provider_type": provider_type,
+                "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
+                "name": name,
+                "provider_type": provider_type,
             },
             request_options=request_options,
         )
@@ -507,7 +573,7 @@ class AsyncRawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Provider]:
         """
-        Create a new custom provider
+        Create a new custom provider.
 
         Parameters
         ----------
@@ -584,11 +650,60 @@ class AsyncRawProvidersClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def retrieve_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[Provider]:
+        """
+        Get a provider by ID.
+
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[Provider]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/providers/{jsonable_encoder(provider_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    Provider,
+                    construct_type(
+                        type_=Provider,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def delete(
         self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
         """
-        Delete an existing custom provider
+        Delete an existing custom provider.
 
         Parameters
         ----------
@@ -647,7 +762,7 @@ class AsyncRawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Provider]:
         """
-        Update an existing custom provider
+        Update an existing custom provider.
 
         Parameters
         ----------
@@ -718,31 +833,7 @@ class AsyncRawProvidersClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> AsyncHttpResponse[None]:
-        """
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[None]
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/providers/check",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return AsyncHttpResponse(response=_response, data=None)
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def check_provider(
+    async def check(
         self,
         *,
         provider_type: ProviderType,
@@ -754,6 +845,8 @@ class AsyncRawProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
         """
+        Verify the API key and additional parameters for a provider.
+
         Parameters
         ----------
         provider_type : ProviderType

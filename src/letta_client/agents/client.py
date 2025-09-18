@@ -13,7 +13,6 @@ from ..types.embedding_config import EmbeddingConfig
 from ..types.imported_agents_response import ImportedAgentsResponse
 from ..types.llm_config import LlmConfig
 from ..types.message_create import MessageCreate
-from ..types.paginated_agent_files import PaginatedAgentFiles
 from .blocks.client import AsyncBlocksClient, BlocksClient
 from .context.client import AsyncContextClient, ContextClient
 from .core_memory.client import AsyncCoreMemoryClient, CoreMemoryClient
@@ -27,6 +26,8 @@ from .raw_client import AsyncRawAgentsClient, RawAgentsClient
 from .sources.client import AsyncSourcesClient, SourcesClient
 from .templates.client import AsyncTemplatesClient, TemplatesClient
 from .tools.client import AsyncToolsClient, ToolsClient
+from .types.agents_list_request_order import AgentsListRequestOrder
+from .types.agents_list_request_order_by import AgentsListRequestOrderBy
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .types.agents_search_request_sort_by import AgentsSearchRequestSortBy
 from .types.agents_search_response import AgentsSearchResponse
@@ -93,15 +94,14 @@ class AgentsClient:
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order: typing.Optional[AgentsListRequestOrder] = None,
+        order_by: typing.Optional[AgentsListRequestOrderBy] = None,
         ascending: typing.Optional[bool] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
-        List all agents associated with a given user.
-
-        This endpoint retrieves a list of all agents and their configurations
-        associated with the specified user ID.
+        Get a list of all agents.
 
         Parameters
         ----------
@@ -144,6 +144,12 @@ class AgentsClient:
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
+        order : typing.Optional[AgentsListRequestOrder]
+            Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[AgentsListRequestOrderBy]
+            Field to sort by
+
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
 
@@ -182,6 +188,8 @@ class AgentsClient:
             identity_id=identity_id,
             identifier_keys=identifier_keys,
             include_relationships=include_relationships,
+            order=order,
+            order_by=order_by,
             ascending=ascending,
             sort_by=sort_by,
             request_options=request_options,
@@ -222,6 +230,7 @@ class AgentsClient:
         template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
@@ -237,7 +246,7 @@ class AgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
-        Create a new agent with the specified configuration.
+        Create an agent.
 
         Parameters
         ----------
@@ -332,6 +341,9 @@ class AgentsClient:
             Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Deprecated: use `secrets` field instead.
+
+        secrets : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
         memory_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
@@ -420,6 +432,7 @@ class AgentsClient:
             template=template,
             project=project,
             tool_exec_environment_variables=tool_exec_environment_variables,
+            secrets=secrets,
             memory_variables=memory_variables,
             project_id=project_id,
             template_id=template_id,
@@ -438,7 +451,7 @@ class AgentsClient:
 
     def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
         """
-        Get the count of all agents associated with a given user.
+        Get the total number of agents.
 
         Parameters
         ----------
@@ -677,6 +690,7 @@ class AgentsClient:
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
@@ -696,7 +710,7 @@ class AgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
-        Update an existing agent
+        Update an existing agent.
 
         Parameters
         ----------
@@ -739,6 +753,9 @@ class AgentsClient:
             The metadata of the agent.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Deprecated: use `secrets` field instead
+
+        secrets : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
         project_id : typing.Optional[str]
@@ -824,6 +841,7 @@ class AgentsClient:
             description=description,
             metadata=metadata,
             tool_exec_environment_variables=tool_exec_environment_variables,
+            secrets=secrets,
             project_id=project_id,
             template_id=template_id,
             base_template_id=base_template_id,
@@ -841,97 +859,6 @@ class AgentsClient:
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
             request_options=request_options,
-        )
-        return _response.data
-
-    def list_agent_files(
-        self,
-        agent_id: str,
-        *,
-        cursor: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        is_open: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAgentFiles:
-        """
-        Get the files attached to an agent with their open/closed status (paginated).
-
-        Parameters
-        ----------
-        agent_id : str
-
-        cursor : typing.Optional[str]
-            Pagination cursor from previous response
-
-        limit : typing.Optional[int]
-            Number of items to return (1-100)
-
-        is_open : typing.Optional[bool]
-            Filter by open status (true for open files, false for closed files)
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PaginatedAgentFiles
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.agents.list_agent_files(
-            agent_id="agent_id",
-        )
-        """
-        _response = self._raw_client.list_agent_files(
-            agent_id, cursor=cursor, limit=limit, is_open=is_open, request_options=request_options
-        )
-        return _response.data
-
-    def summarize_agent_conversation(
-        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> None:
-        """
-        Summarize an agent's conversation history to a target message length.
-
-        This endpoint summarizes the current message history for a given agent,
-        truncating and compressing it down to the specified `max_message_length`.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        max_message_length : int
-            Maximum number of messages to retain after summarization.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.agents.summarize_agent_conversation(
-            agent_id="agent_id",
-            max_message_length=1,
-        )
-        """
-        _response = self._raw_client.summarize_agent_conversation(
-            agent_id, max_message_length=max_message_length, request_options=request_options
         )
         return _response.data
 
@@ -1053,15 +980,14 @@ class AsyncAgentsClient:
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order: typing.Optional[AgentsListRequestOrder] = None,
+        order_by: typing.Optional[AgentsListRequestOrderBy] = None,
         ascending: typing.Optional[bool] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
         """
-        List all agents associated with a given user.
-
-        This endpoint retrieves a list of all agents and their configurations
-        associated with the specified user ID.
+        Get a list of all agents.
 
         Parameters
         ----------
@@ -1103,6 +1029,12 @@ class AsyncAgentsClient:
 
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
+
+        order : typing.Optional[AgentsListRequestOrder]
+            Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[AgentsListRequestOrderBy]
+            Field to sort by
 
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
@@ -1150,6 +1082,8 @@ class AsyncAgentsClient:
             identity_id=identity_id,
             identifier_keys=identifier_keys,
             include_relationships=include_relationships,
+            order=order,
+            order_by=order_by,
             ascending=ascending,
             sort_by=sort_by,
             request_options=request_options,
@@ -1190,6 +1124,7 @@ class AsyncAgentsClient:
         template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
@@ -1205,7 +1140,7 @@ class AsyncAgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
-        Create a new agent with the specified configuration.
+        Create an agent.
 
         Parameters
         ----------
@@ -1300,6 +1235,9 @@ class AsyncAgentsClient:
             Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Deprecated: use `secrets` field instead.
+
+        secrets : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
         memory_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
@@ -1396,6 +1334,7 @@ class AsyncAgentsClient:
             template=template,
             project=project,
             tool_exec_environment_variables=tool_exec_environment_variables,
+            secrets=secrets,
             memory_variables=memory_variables,
             project_id=project_id,
             template_id=template_id,
@@ -1414,7 +1353,7 @@ class AsyncAgentsClient:
 
     async def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> int:
         """
-        Get the count of all agents associated with a given user.
+        Get the total number of agents.
 
         Parameters
         ----------
@@ -1693,6 +1632,7 @@ class AsyncAgentsClient:
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
@@ -1712,7 +1652,7 @@ class AsyncAgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
-        Update an existing agent
+        Update an existing agent.
 
         Parameters
         ----------
@@ -1755,6 +1695,9 @@ class AsyncAgentsClient:
             The metadata of the agent.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Deprecated: use `secrets` field instead
+
+        secrets : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
         project_id : typing.Optional[str]
@@ -1848,6 +1791,7 @@ class AsyncAgentsClient:
             description=description,
             metadata=metadata,
             tool_exec_environment_variables=tool_exec_environment_variables,
+            secrets=secrets,
             project_id=project_id,
             template_id=template_id,
             base_template_id=base_template_id,
@@ -1865,113 +1809,6 @@ class AsyncAgentsClient:
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
             request_options=request_options,
-        )
-        return _response.data
-
-    async def list_agent_files(
-        self,
-        agent_id: str,
-        *,
-        cursor: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        is_open: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> PaginatedAgentFiles:
-        """
-        Get the files attached to an agent with their open/closed status (paginated).
-
-        Parameters
-        ----------
-        agent_id : str
-
-        cursor : typing.Optional[str]
-            Pagination cursor from previous response
-
-        limit : typing.Optional[int]
-            Number of items to return (1-100)
-
-        is_open : typing.Optional[bool]
-            Filter by open status (true for open files, false for closed files)
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        PaginatedAgentFiles
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.list_agent_files(
-                agent_id="agent_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.list_agent_files(
-            agent_id, cursor=cursor, limit=limit, is_open=is_open, request_options=request_options
-        )
-        return _response.data
-
-    async def summarize_agent_conversation(
-        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> None:
-        """
-        Summarize an agent's conversation history to a target message length.
-
-        This endpoint summarizes the current message history for a given agent,
-        truncating and compressing it down to the specified `max_message_length`.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        max_message_length : int
-            Maximum number of messages to retain after summarization.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.agents.summarize_agent_conversation(
-                agent_id="agent_id",
-                max_message_length=1,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.summarize_agent_conversation(
-            agent_id, max_message_length=max_message_length, request_options=request_options
         )
         return _response.data
 

@@ -14,6 +14,7 @@ from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.batch_job import BatchJob
 from ..types.http_validation_error import HttpValidationError
 from ..types.letta_batch_request import LettaBatchRequest
+from .types.batches_list_request_order import BatchesListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -23,12 +24,36 @@ class RawBatchesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[typing.List[BatchJob]]:
+    def list(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BatchesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[typing.List[BatchJob]]:
         """
         List all batch runs.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
+
+        after : typing.Optional[str]
+            Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of jobs to return
+
+        order : typing.Optional[BatchesListRequestOrder]
+            Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -40,6 +65,13 @@ class RawBatchesClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/messages/batches",
             method="GET",
+            params={
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            },
             request_options=request_options,
         )
         try:
@@ -76,8 +108,10 @@ class RawBatchesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[BatchJob]:
         """
-        Submit a batch of agent messages for asynchronous processing.
+        Submit a batch of agent runs for asynchronous processing.
+
         Creates a job that will fan out messages to all listed agents and process them in parallel.
+        The request will be rejected if it exceeds 256MB.
 
         Parameters
         ----------
@@ -140,7 +174,7 @@ class RawBatchesClient:
         self, batch_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[BatchJob]:
         """
-        Get the status of a batch run.
+        Retrieve the status and details of a batch run.
 
         Parameters
         ----------
@@ -242,13 +276,35 @@ class AsyncRawBatchesClient:
         self._client_wrapper = client_wrapper
 
     async def list(
-        self, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BatchesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[BatchJob]]:
         """
         List all batch runs.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
+
+        after : typing.Optional[str]
+            Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of jobs to return
+
+        order : typing.Optional[BatchesListRequestOrder]
+            Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -260,6 +316,13 @@ class AsyncRawBatchesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/messages/batches",
             method="GET",
+            params={
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            },
             request_options=request_options,
         )
         try:
@@ -296,8 +359,10 @@ class AsyncRawBatchesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[BatchJob]:
         """
-        Submit a batch of agent messages for asynchronous processing.
+        Submit a batch of agent runs for asynchronous processing.
+
         Creates a job that will fan out messages to all listed agents and process them in parallel.
+        The request will be rejected if it exceeds 256MB.
 
         Parameters
         ----------
@@ -360,7 +425,7 @@ class AsyncRawBatchesClient:
         self, batch_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[BatchJob]:
         """
-        Get the status of a batch run.
+        Retrieve the status and details of a batch run.
 
         Parameters
         ----------

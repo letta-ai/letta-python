@@ -5,16 +5,25 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.step import Step
-from ..types.step_metrics import StepMetrics
 from .feedback.client import AsyncFeedbackClient, FeedbackClient
+from .messages.client import AsyncMessagesClient, MessagesClient
+from .metrics.client import AsyncMetricsClient, MetricsClient
 from .raw_client import AsyncRawStepsClient, RawStepsClient
+from .trace.client import AsyncTraceClient, TraceClient
 from .types.steps_list_request_feedback import StepsListRequestFeedback
+from .types.steps_list_request_order import StepsListRequestOrder
 
 
 class StepsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawStepsClient(client_wrapper=client_wrapper)
+        self.metrics = MetricsClient(client_wrapper=client_wrapper)
+
+        self.trace = TraceClient(client_wrapper=client_wrapper)
+
         self.feedback = FeedbackClient(client_wrapper=client_wrapper)
+
+        self.messages = MessagesClient(client_wrapper=client_wrapper)
 
     @property
     def with_raw_response(self) -> RawStepsClient:
@@ -33,7 +42,8 @@ class StepsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        order: typing.Optional[str] = None,
+        order: typing.Optional[StepsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         start_date: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         model: typing.Optional[str] = None,
@@ -47,7 +57,6 @@ class StepsClient:
     ) -> typing.List[Step]:
         """
         List steps with optional pagination and date filters.
-        Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
 
         Parameters
         ----------
@@ -60,8 +69,11 @@ class StepsClient:
         limit : typing.Optional[int]
             Maximum number of steps to return
 
-        order : typing.Optional[str]
-            Sort order (asc or desc)
+        order : typing.Optional[StepsListRequestOrder]
+            Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         start_date : typing.Optional[str]
             Return steps after this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
@@ -113,6 +125,7 @@ class StepsClient:
             after=after,
             limit=limit,
             order=order,
+            order_by=order_by,
             start_date=start_date,
             end_date=end_date,
             model=model,
@@ -157,44 +170,17 @@ class StepsClient:
         _response = self._raw_client.retrieve(step_id, request_options=request_options)
         return _response.data
 
-    def retrieve_step_metrics(
-        self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> StepMetrics:
-        """
-        Get step metrics by step ID.
-
-        Parameters
-        ----------
-        step_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        StepMetrics
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.steps.retrieve_step_metrics(
-            step_id="step_id",
-        )
-        """
-        _response = self._raw_client.retrieve_step_metrics(step_id, request_options=request_options)
-        return _response.data
-
 
 class AsyncStepsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawStepsClient(client_wrapper=client_wrapper)
+        self.metrics = AsyncMetricsClient(client_wrapper=client_wrapper)
+
+        self.trace = AsyncTraceClient(client_wrapper=client_wrapper)
+
         self.feedback = AsyncFeedbackClient(client_wrapper=client_wrapper)
+
+        self.messages = AsyncMessagesClient(client_wrapper=client_wrapper)
 
     @property
     def with_raw_response(self) -> AsyncRawStepsClient:
@@ -213,7 +199,8 @@ class AsyncStepsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        order: typing.Optional[str] = None,
+        order: typing.Optional[StepsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         start_date: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         model: typing.Optional[str] = None,
@@ -227,7 +214,6 @@ class AsyncStepsClient:
     ) -> typing.List[Step]:
         """
         List steps with optional pagination and date filters.
-        Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
 
         Parameters
         ----------
@@ -240,8 +226,11 @@ class AsyncStepsClient:
         limit : typing.Optional[int]
             Maximum number of steps to return
 
-        order : typing.Optional[str]
-            Sort order (asc or desc)
+        order : typing.Optional[StepsListRequestOrder]
+            Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         start_date : typing.Optional[str]
             Return steps after this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
@@ -301,6 +290,7 @@ class AsyncStepsClient:
             after=after,
             limit=limit,
             order=order,
+            order_by=order_by,
             start_date=start_date,
             end_date=end_date,
             model=model,
@@ -351,45 +341,4 @@ class AsyncStepsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(step_id, request_options=request_options)
-        return _response.data
-
-    async def retrieve_step_metrics(
-        self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> StepMetrics:
-        """
-        Get step metrics by step ID.
-
-        Parameters
-        ----------
-        step_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        StepMetrics
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.steps.retrieve_step_metrics(
-                step_id="step_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.retrieve_step_metrics(step_id, request_options=request_options)
         return _response.data

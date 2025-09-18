@@ -5,8 +5,8 @@ import typing
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.letta_message_union import LettaMessageUnion
-from ...types.message_role import MessageRole
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
+from .types.messages_list_request_order import MessagesListRequestOrder
 
 
 class MessagesClient:
@@ -31,44 +31,27 @@ class MessagesClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        order: typing.Optional[str] = None,
-        role: typing.Optional[MessageRole] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LettaMessageUnion]:
         """
-        Get messages associated with a run with filtering options.
-
-        Args:
-            run_id: ID of the run
-            before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-            after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-            limit: Maximum number of messages to return
-            order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-            role: Filter by role (user/assistant/system/tool)
-            return_message_object: Whether to return Message objects or LettaMessage objects
-            user_id: ID of the user making the request
-
-        Returns:
-            A list of messages associated with the run. Default is List[LettaMessage].
+        Get response messages associated with a run.
 
         Parameters
         ----------
         run_id : str
 
         before : typing.Optional[str]
-            Cursor for pagination
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
             Maximum number of messages to return
 
-        order : typing.Optional[str]
-            Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-
-        role : typing.Optional[MessageRole]
-            Filter by role
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -91,7 +74,7 @@ class MessagesClient:
         )
         """
         _response = self._raw_client.list(
-            run_id, before=before, after=after, limit=limit, order=order, role=role, request_options=request_options
+            run_id, before=before, after=after, limit=limit, order=order, request_options=request_options
         )
         return _response.data
 
@@ -118,44 +101,27 @@ class AsyncMessagesClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        order: typing.Optional[str] = None,
-        role: typing.Optional[MessageRole] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LettaMessageUnion]:
         """
-        Get messages associated with a run with filtering options.
-
-        Args:
-            run_id: ID of the run
-            before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-            after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-            limit: Maximum number of messages to return
-            order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-            role: Filter by role (user/assistant/system/tool)
-            return_message_object: Whether to return Message objects or LettaMessage objects
-            user_id: ID of the user making the request
-
-        Returns:
-            A list of messages associated with the run. Default is List[LettaMessage].
+        Get response messages associated with a run.
 
         Parameters
         ----------
         run_id : str
 
         before : typing.Optional[str]
-            Cursor for pagination
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
             Maximum number of messages to return
 
-        order : typing.Optional[str]
-            Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-
-        role : typing.Optional[MessageRole]
-            Filter by role
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -186,6 +152,6 @@ class AsyncMessagesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            run_id, before=before, after=after, limit=limit, order=order, role=role, request_options=request_options
+            run_id, before=before, after=after, limit=limit, order=order, request_options=request_options
         )
         return _response.data

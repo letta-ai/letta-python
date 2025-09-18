@@ -8,12 +8,16 @@ from ...core.unchecked_base_model import UncheckedBaseModel
 from .templates_get_template_snapshot_response_agents_item import TemplatesGetTemplateSnapshotResponseAgentsItem
 from .templates_get_template_snapshot_response_blocks_item import TemplatesGetTemplateSnapshotResponseBlocksItem
 from .templates_get_template_snapshot_response_configuration import TemplatesGetTemplateSnapshotResponseConfiguration
+from .templates_get_template_snapshot_response_relationships_item import (
+    TemplatesGetTemplateSnapshotResponseRelationshipsItem,
+)
 from .templates_get_template_snapshot_response_type import TemplatesGetTemplateSnapshotResponseType
 
 
 class TemplatesGetTemplateSnapshotResponse(UncheckedBaseModel):
     agents: typing.List[TemplatesGetTemplateSnapshotResponseAgentsItem]
     blocks: typing.List[TemplatesGetTemplateSnapshotResponseBlocksItem]
+    relationships: typing.List[TemplatesGetTemplateSnapshotResponseRelationshipsItem]
     configuration: TemplatesGetTemplateSnapshotResponseConfiguration
     type: TemplatesGetTemplateSnapshotResponseType
     version: str

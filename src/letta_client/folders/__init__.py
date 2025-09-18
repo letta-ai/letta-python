@@ -2,6 +2,18 @@
 
 # isort: skip_file
 
-from . import files, passages
+from .types import FoldersListRequestOrder
+from . import agents, files, passages
+from .agents import AgentsListRequestOrder
+from .files import FilesListRequestOrder
+from .passages import PassagesListRequestOrder
 
-__all__ = ["files", "passages"]
+__all__ = [
+    "AgentsListRequestOrder",
+    "FilesListRequestOrder",
+    "FoldersListRequestOrder",
+    "PassagesListRequestOrder",
+    "agents",
+    "files",
+    "passages",
+]

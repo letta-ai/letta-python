@@ -9,6 +9,7 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 from .job_status import JobStatus
 from .job_type import JobType
 from .letta_request_config import LettaRequestConfig
+from .stop_reason_type import StopReasonType
 
 
 class Run(UncheckedBaseModel):
@@ -52,6 +53,11 @@ class Run(UncheckedBaseModel):
     completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The unix timestamp of when the job was completed.
+    """
+
+    stop_reason: typing.Optional[StopReasonType] = pydantic.Field(default=None)
+    """
+    The reason why the run was stopped.
     """
 
     metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)

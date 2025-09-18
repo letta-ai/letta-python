@@ -1,4 +1,280 @@
 # Reference
+## Archives
+<details><summary><code>client.archives.<a href="src/letta_client/archives/client.py">list_archives</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a list of all archives for the current organization with optional filters and pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.archives.list_archives()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Archive ID cursor for pagination. Returns archives that come before this archive ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Archive ID cursor for pagination. Returns archives that come after this archive ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of archives to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListArchivesRequestOrder]` — Sort order for archives by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter by archive name (exact match)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `typing.Optional[str]` — Only archives attached to this agent ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.archives.<a href="src/letta_client/archives/client.py">create_archive</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new archive.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.archives.create_archive(
+    name="name",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.archives.<a href="src/letta_client/archives/client.py">modify_archive</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing archive's name and/or description.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.archives.modify_archive(
+    archive_id="archive_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**archive_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Tools
 <details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">retrieve</a>(...)</code></summary>
 <dl>
@@ -438,7 +714,7 @@ client.tools.count()
 <dl>
 <dd>
 
-Get a list of all tools available to agents belonging to the org of the user
+Get a list of all tools available to agents.
 </dd>
 </dl>
 </dd>
@@ -475,7 +751,7 @@ client.tools.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` 
+**before:** `typing.Optional[str]` — Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
     
 </dd>
 </dl>
@@ -483,7 +759,7 @@ client.tools.list()
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
+**after:** `typing.Optional[str]` — Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
     
 </dd>
 </dl>
@@ -491,7 +767,31 @@ client.tools.list()
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` 
+**limit:** `typing.Optional[int]` — Maximum number of tools to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ToolsListRequestOrder]` — Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter by single tool name
     
 </dd>
 </dl>
@@ -1042,7 +1342,7 @@ client.tools.run_tool_from_source(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_composio_apps</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_composio_apps</a>()</code></summary>
 <dl>
 <dd>
 
@@ -1087,14 +1387,6 @@ client.tools.list_composio_apps()
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**user_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -1253,7 +1545,7 @@ client.tools.add_composio_tool(
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_mcp_servers</a>(...)</code></summary>
+<details><summary><code>client.tools.<a href="src/letta_client/tools/client.py">list_mcp_servers</a>()</code></summary>
 <dl>
 <dd>
 
@@ -1298,14 +1590,6 @@ client.tools.list_mcp_servers()
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**user_id:** `typing.Optional[str]` 
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -2980,7 +3264,10 @@ client.folders.modify(
 <dl>
 <dd>
 
-Get a folder by name
+**Deprecated**: Please use the list endpoint `GET /v1/folders?name=` instead.
+
+
+Get a folder by name.
 </dd>
 </dl>
 </dd>
@@ -3039,7 +3326,7 @@ client.folders.retrieve_by_name(
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">get_folders_metadata</a>(...)</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">retrieve_metadata</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3078,7 +3365,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.folders.get_folders_metadata()
+client.folders.retrieve_metadata()
 
 ```
 </dd>
@@ -3114,7 +3401,7 @@ client.folders.get_folders_metadata()
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list</a>()</code></summary>
+<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -3159,6 +3446,54 @@ client.folders.list()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Folder ID cursor for pagination. Returns folders that come before this folder ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Folder ID cursor for pagination. Returns folders that come after this folder ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of folders to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[FoldersListRequestOrder]` — Sort order for folders by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Folder name to filter by
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -3294,77 +3629,6 @@ client.folders.create(
 </dl>
 </details>
 
-<details><summary><code>client.folders.<a href="src/letta_client/folders/client.py">get_agents_for_folder</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get all agent IDs that have the specified folder attached.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.folders.get_agents_for_folder(
-    folder_id="folder_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**folder_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Agents
 <details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">list</a>(...)</code></summary>
 <dl>
@@ -3378,10 +3642,7 @@ client.folders.get_agents_for_folder(
 <dl>
 <dd>
 
-List all agents associated with a given user.
-
-This endpoint retrieves a list of all agents and their configurations
-associated with the specified user ID.
+Get a list of all agents.
 </dd>
 </dl>
 </dd>
@@ -3522,6 +3783,22 @@ client.agents.list()
 <dl>
 <dd>
 
+**order:** `typing.Optional[AgentsListRequestOrder]` — Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[AgentsListRequestOrderBy]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **ascending:** `typing.Optional[bool]` — Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
     
 </dd>
@@ -3562,7 +3839,7 @@ client.agents.list()
 <dl>
 <dd>
 
-Create a new agent with the specified configuration.
+Create an agent.
 </dd>
 </dl>
 </dd>
@@ -3839,7 +4116,15 @@ client.agents.create()
 <dl>
 <dd>
 
-**tool_exec_environment_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The environment variables for tool execution specific to this agent.
+**tool_exec_environment_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Deprecated: use `secrets` field instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secrets:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The environment variables for tool execution specific to this agent.
     
 </dd>
 </dl>
@@ -3967,7 +4252,7 @@ client.agents.create()
 <dl>
 <dd>
 
-Get the count of all agents associated with a given user.
+Get the total number of agents.
 </dd>
 </dl>
 </dd>
@@ -4397,7 +4682,7 @@ client.agents.delete(
 <dl>
 <dd>
 
-Update an existing agent
+Update an existing agent.
 </dd>
 </dl>
 </dd>
@@ -4540,7 +4825,15 @@ client.agents.modify(
 <dl>
 <dd>
 
-**tool_exec_environment_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The environment variables for tool execution specific to this agent.
+**tool_exec_environment_variables:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Deprecated: use `secrets` field instead
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secrets:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — The environment variables for tool execution specific to this agent.
     
 </dd>
 </dl>
@@ -4669,184 +4962,6 @@ client.agents.modify(
 <dd>
 
 **hidden:** `typing.Optional[bool]` — If set to True, the agent will be hidden.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">list_agent_files</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get the files attached to an agent with their open/closed status (paginated).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.agents.list_agent_files(
-    agent_id="agent_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — Pagination cursor from previous response
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Number of items to return (1-100)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**is_open:** `typing.Optional[bool]` — Filter by open status (true for open files, false for closed files)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agents.<a href="src/letta_client/agents/client.py">summarize_agent_conversation</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Summarize an agent's conversation history to a target message length.
-
-This endpoint summarizes the current message history for a given agent,
-truncating and compressing it down to the specified `max_message_length`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.agents.summarize_agent_conversation(
-    agent_id="agent_id",
-    max_message_length=1,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**agent_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**max_message_length:** `int` — Maximum number of messages to retain after summarization.
     
 </dd>
 </dl>
@@ -5043,7 +5158,7 @@ client.groups.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor for pagination
+**before:** `typing.Optional[str]` — Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order
     
 </dd>
 </dl>
@@ -5051,7 +5166,7 @@ client.groups.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor for pagination
+**after:** `typing.Optional[str]` — Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order
     
 </dd>
 </dl>
@@ -5059,7 +5174,23 @@ client.groups.list()
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — Limit for pagination
+**limit:** `typing.Optional[int]` — Maximum number of groups to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[GroupsListRequestOrder]` — Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
     
 </dd>
 </dl>
@@ -5595,7 +5726,7 @@ client.identities.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` 
+**before:** `typing.Optional[str]` — Identity ID cursor for pagination. Returns identities that come before this identity ID in the specified sort order
     
 </dd>
 </dl>
@@ -5603,7 +5734,7 @@ client.identities.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` 
+**after:** `typing.Optional[str]` — Identity ID cursor for pagination. Returns identities that come after this identity ID in the specified sort order
     
 </dd>
 </dl>
@@ -5611,7 +5742,23 @@ client.identities.list()
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
+**limit:** `typing.Optional[int]` — Maximum number of identities to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[IdentitiesListRequestOrder]` — Sort order for identities by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
     
 </dd>
 </dl>
@@ -6274,68 +6421,6 @@ client.models.listembeddingmodels()
 </dl>
 </details>
 
-## EmbeddingModels
-<details><summary><code>client.embedding_models.<a href="src/letta_client/embedding_models/client.py">list</a>()</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List available embedding models using the asynchronous implementation for improved performance
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.embedding_models.list()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Blocks
 <details><summary><code>client.blocks.<a href="src/letta_client/blocks/client.py">list</a>(...)</code></summary>
 <dl>
@@ -6428,7 +6513,7 @@ client.blocks.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor for pagination. If provided, returns blocks before this cursor.
+**before:** `typing.Optional[str]` — Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
     
 </dd>
 </dl>
@@ -6436,7 +6521,23 @@ client.blocks.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor for pagination. If provided, returns blocks after this cursor.
+**after:** `typing.Optional[str]` — Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[BlocksListRequestOrder]` — Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
     
 </dd>
 </dl>
@@ -7024,7 +7125,6 @@ client.blocks.modify(
 <dd>
 
 List all jobs.
-TODO (cliandy): implementation for pagination
 </dd>
 </dl>
 </dd>
@@ -7086,6 +7186,14 @@ client.jobs.list()
 <dd>
 
 **limit:** `typing.Optional[int]` — Limit for pagination
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**active:** `typing.Optional[bool]` — Filter for active jobs.
     
 </dd>
 </dl>
@@ -7491,7 +7599,7 @@ client.health.check()
 <dl>
 <dd>
 
-Get a list of all custom providers in the database
+Get a list of all custom providers.
 </dd>
 </dl>
 </dd>
@@ -7528,7 +7636,7 @@ client.providers.list()
 <dl>
 <dd>
 
-**name:** `typing.Optional[str]` 
+**before:** `typing.Optional[str]` — Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order
     
 </dd>
 </dl>
@@ -7536,7 +7644,7 @@ client.providers.list()
 <dl>
 <dd>
 
-**provider_type:** `typing.Optional[ProviderType]` 
+**after:** `typing.Optional[str]` — Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order
     
 </dd>
 </dl>
@@ -7544,7 +7652,7 @@ client.providers.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` 
+**limit:** `typing.Optional[int]` — Maximum number of providers to return
     
 </dd>
 </dl>
@@ -7552,7 +7660,31 @@ client.providers.list()
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
+**order:** `typing.Optional[ProvidersListRequestOrder]` — Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter providers by name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**provider_type:** `typing.Optional[ProviderType]` — Filter providers by type
     
 </dd>
 </dl>
@@ -7584,7 +7716,7 @@ client.providers.list()
 <dl>
 <dd>
 
-Create a new custom provider
+Create a new custom provider.
 </dd>
 </dl>
 </dd>
@@ -7693,6 +7825,77 @@ client.providers.create(
 </dl>
 </details>
 
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">retrieve_provider</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a provider by ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.providers.retrieve_provider(
+    provider_id="provider_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**provider_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">delete</a>(...)</code></summary>
 <dl>
 <dd>
@@ -7705,7 +7908,7 @@ client.providers.create(
 <dl>
 <dd>
 
-Delete an existing custom provider
+Delete an existing custom provider.
 </dd>
 </dl>
 </dd>
@@ -7776,7 +7979,7 @@ client.providers.delete(
 <dl>
 <dd>
 
-Update an existing custom provider
+Update an existing custom provider.
 </dd>
 </dl>
 </dd>
@@ -7876,9 +8079,23 @@ client.providers.modify(
 </dl>
 </details>
 
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">check</a>()</code></summary>
+<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">check</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Verify the API key and additional parameters for a provider.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -7895,54 +8112,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.providers.check()
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.providers.<a href="src/letta_client/providers/client.py">check_provider</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.providers.check_provider(
+client.providers.check(
     provider_type="anthropic",
     api_key="api_key",
 )
@@ -8087,6 +8257,14 @@ client.runs.list()
 <dl>
 <dd>
 
+**stop_reason:** `typing.Optional[StopReasonType]` — Filter runs by stop reason.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **after:** `typing.Optional[str]` — Cursor for pagination
     
 </dd>
@@ -8104,6 +8282,14 @@ client.runs.list()
 <dd>
 
 **limit:** `typing.Optional[int]` — Maximum number of runs to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**active:** `typing.Optional[bool]` — Filter for active runs.
     
 </dd>
 </dl>
@@ -8455,7 +8641,6 @@ for chunk in response.data:
 <dd>
 
 List steps with optional pagination and date filters.
-Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
 </dd>
 </dl>
 </dd>
@@ -8516,7 +8701,15 @@ client.steps.list()
 <dl>
 <dd>
 
-**order:** `typing.Optional[str]` — Sort order (asc or desc)
+**order:** `typing.Optional[StepsListRequestOrder]` — Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
     
 </dd>
 </dl>
@@ -8679,77 +8872,6 @@ client.steps.retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.steps.<a href="src/letta_client/steps/client.py">retrieve_step_metrics</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get step metrics by step ID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.steps.retrieve_step_metrics(
-    step_id="step_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**step_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Tags
 <details><summary><code>client.tags.<a href="src/letta_client/tags/client.py">list</a>(...)</code></summary>
 <dl>
@@ -8763,7 +8885,7 @@ client.steps.retrieve_step_metrics(
 <dl>
 <dd>
 
-Get a list of all tags in the database
+Get the list of all agent tags that have been created.
 </dd>
 </dl>
 </dd>
@@ -8800,7 +8922,7 @@ client.tags.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` 
+**before:** `typing.Optional[str]` — Tag cursor for pagination. Returns tags that come before this tag in the specified sort order
     
 </dd>
 </dl>
@@ -8808,7 +8930,7 @@ client.tags.list()
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` 
+**after:** `typing.Optional[str]` — Tag cursor for pagination. Returns tags that come after this tag in the specified sort order
     
 </dd>
 </dl>
@@ -8816,7 +8938,39 @@ client.tags.list()
 <dl>
 <dd>
 
-**query_text:** `typing.Optional[str]` 
+**limit:** `typing.Optional[int]` — Maximum number of tags to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[TagsListRequestOrder]` — Sort order for tags. 'asc' for alphabetical order, 'desc' for reverse alphabetical order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["name"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query_text:** `typing.Optional[str]` — Filter tags by text search. Deprecated, please use name field instead
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Filter tags by name
     
 </dd>
 </dl>
@@ -8840,6 +8994,22 @@ client.tags.list()
 <details><summary><code>client.telemetry.<a href="src/letta_client/telemetry/client.py">retrieve_provider_trace</a>(...)</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**DEPRECATED**: Use `GET /steps/{step_id}/trace` instead.
+
+Retrieve provider trace by step ID.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -8895,7 +9065,7 @@ client.telemetry.retrieve_provider_trace(
 </details>
 
 ## Batches
-<details><summary><code>client.batches.<a href="src/letta_client/batches/client.py">list</a>()</code></summary>
+<details><summary><code>client.batches.<a href="src/letta_client/batches/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -8944,6 +9114,46 @@ client.batches.list()
 <dl>
 <dd>
 
+**before:** `typing.Optional[str]` — Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of jobs to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[BatchesListRequestOrder]` — Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -8968,8 +9178,10 @@ client.batches.list()
 <dl>
 <dd>
 
-Submit a batch of agent messages for asynchronous processing.
+Submit a batch of agent runs for asynchronous processing.
+
 Creates a job that will fan out messages to all listed agents and process them in parallel.
+The request will be rejected if it exceeds 256MB.
 </dd>
 </dl>
 </dd>
@@ -9062,7 +9274,7 @@ client.batches.create(
 <dl>
 <dd>
 
-Get the status of a batch run.
+Retrieve the status and details of a batch run.
 </dd>
 </dl>
 </dd>
@@ -9192,117 +9404,6 @@ client.batches.cancel(
 </dl>
 </details>
 
-## Messages
-<details><summary><code>client.messages.<a href="src/letta_client/messages/client.py">list_batch_messages</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get messages for a specific batch job.
-
-Returns messages associated with the batch in chronological order.
-
-Pagination:
-- For the first page, omit the cursor parameter
-- For subsequent pages, use the ID of the last message from the previous response as the cursor
-- Results will include messages before/after the cursor based on sort_descending
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from letta_client import Letta
-
-client = Letta(
-    project="YOUR_PROJECT",
-    token="YOUR_TOKEN",
-)
-client.messages.list_batch_messages(
-    batch_id="batch_id",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**batch_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Maximum number of messages to return
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cursor:** `typing.Optional[str]` — Message ID to use as pagination cursor (get messages before/after this ID) depending on sort_descending.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**agent_id:** `typing.Optional[str]` — Filter messages by agent ID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**sort_descending:** `typing.Optional[bool]` — Sort messages by creation time (true=newest first)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Voice
 <details><summary><code>client.voice.<a href="src/letta_client/voice/client.py">create_voice_chat_completions</a>(...)</code></summary>
 <dl>
@@ -9351,14 +9452,6 @@ client.voice.create_voice_chat_completions(
 <dd>
 
 **request:** `typing.Dict[str, typing.Optional[typing.Any]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**user_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -9773,6 +9866,95 @@ client.templates.gettemplatesnapshot(
 <dd>
 
 **template_version:** `str` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">setcurrenttemplatefromsnapshot</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the current working version of a template from a snapshot
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.templates.setcurrenttemplatefromsnapshot(
+    project="project",
+    template_version="template_version",
+    request={"key": "value"},
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `str` — The project slug
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_version:** `str` — The template name with :current version (e.g., my-template:current)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `typing.Optional[typing.Any]` 
     
 </dd>
 </dl>
@@ -10217,6 +10399,128 @@ client.templates.listtemplateversions(
 <dd>
 
 **limit:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">migratedeployment</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Migrates a deployment to a specific template version
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.templates.migratedeployment(
+    project="project",
+    template_name="template_name",
+    deployment_id="deployment_id",
+    version="version",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project:** `str` — The project slug
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_name:** `str` — The template name (without version)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**deployment_id:** `str` — The deployment ID to migrate
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `str` — The target template version to migrate to
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**preserve_tool_variables:** `typing.Optional[bool]` — Whether to preserve existing tool variables during migration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**preserve_core_memories:** `typing.Optional[bool]` — Whether to preserve existing core memories during migration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memory_variables:** `typing.Optional[typing.Dict[str, str]]` — Additional memory variables to apply during migration
     
 </dd>
 </dl>
@@ -11687,6 +11991,20 @@ client.agents.files.close(
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the files attached to an agent with their open/closed status (paginated).
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -11721,6 +12039,30 @@ client.agents.files.list(
 <dd>
 
 **agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `typing.Optional[str]` — Pagination cursor from previous response
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Number of items to return (1-100)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**is_open:** `typing.Optional[bool]` — Filter by open status (true for open files, false for closed files)
     
 </dd>
 </dl>
@@ -12972,7 +13314,7 @@ client.agents.messages.create(
             role="user",
             content=[
                 TextContent(
-                    text="text",
+                    text="The sky above the port was the color of television, tuned to a dead channel.",
                 )
             ],
         )
@@ -13202,7 +13544,7 @@ response = client.agents.messages.create_stream(
             role="user",
             content=[
                 TextContent(
-                    text="text",
+                    text="The sky above the port was the color of television, tuned to a dead channel.",
                 )
             ],
         )
@@ -13761,7 +14103,7 @@ client.agents.messages.reset(
 </dl>
 </details>
 
-<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">preview_raw_payload</a>(...)</code></summary>
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">preview</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -13798,7 +14140,7 @@ client = Letta(
     project="YOUR_PROJECT",
     token="YOUR_TOKEN",
 )
-client.agents.messages.preview_raw_payload(
+client.agents.messages.preview(
     agent_id="agent_id",
     request=LettaRequest(
         messages=[
@@ -13836,7 +14178,90 @@ client.agents.messages.preview_raw_payload(
 <dl>
 <dd>
 
-**request:** `MessagesPreviewRawPayloadRequest` 
+**request:** `MessagesPreviewRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agents.messages.<a href="src/letta_client/agents/messages/client.py">summarize</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Summarize an agent's conversation history to a target message length.
+
+This endpoint summarizes the current message history for a given agent,
+truncating and compressing it down to the specified `max_message_length`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.agents.messages.summarize(
+    agent_id="agent_id",
+    max_message_length=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_message_length:** `int` — Maximum number of messages to retain after summarization.
     
 </dd>
 </dl>
@@ -14256,6 +14681,126 @@ client.agents.memory_variables.list(
 </dl>
 </details>
 
+## Batches Messages
+<details><summary><code>client.batches.messages.<a href="src/letta_client/batches/messages/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get response messages for a specific batch job.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.batches.messages.list(
+    batch_id="batch_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**batch_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[MessagesListRequestOrder]` — Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_id:** `typing.Optional[str]` — Filter messages by agent ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Blocks Agents
 <details><summary><code>client.blocks.agents.<a href="src/letta_client/blocks/agents/client.py">list</a>(...)</code></summary>
 <dl>
@@ -14310,6 +14855,46 @@ client.blocks.agents.list(
 <dd>
 
 **block_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of agents to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[AgentsListRequestOrder]` — Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
     
 </dd>
 </dl>
@@ -14494,7 +15079,7 @@ client.folders.files.list(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — Number of files to return
+**before:** `typing.Optional[str]` — File ID cursor for pagination. Returns files that come before this file ID in the specified sort order
     
 </dd>
 </dl>
@@ -14502,7 +15087,31 @@ client.folders.files.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Pagination cursor to fetch the next set of results
+**after:** `typing.Optional[str]` — File ID cursor for pagination. Returns files that come after this file ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of files to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[FilesListRequestOrder]` — Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
     
 </dd>
 </dl>
@@ -14610,6 +15219,118 @@ client.folders.files.delete(
 </dl>
 </details>
 
+## Folders Agents
+<details><summary><code>client.folders.agents.<a href="src/letta_client/folders/agents/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all agent IDs that have the specified folder attached.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.folders.agents.list(
+    folder_id="folder_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**folder_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of agents to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[AgentsListRequestOrder]` — Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Folders Passages
 <details><summary><code>client.folders.passages.<a href="src/letta_client/folders/passages/client.py">list</a>(...)</code></summary>
 <dl>
@@ -14670,7 +15391,7 @@ client.folders.passages.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Message after which to retrieve the returned messages.
+**before:** `typing.Optional[str]` — Passage ID cursor for pagination. Returns passages that come before this passage ID in the specified sort order
     
 </dd>
 </dl>
@@ -14678,7 +15399,7 @@ client.folders.passages.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Message before which to retrieve the returned messages.
+**after:** `typing.Optional[str]` — Passage ID cursor for pagination. Returns passages that come after this passage ID in the specified sort order
     
 </dd>
 </dl>
@@ -14686,7 +15407,23 @@ client.folders.passages.list(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — Maximum number of messages to retrieve.
+**limit:** `typing.Optional[int]` — Maximum number of passages to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[PassagesListRequestOrder]` — Sort order for passages by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
     
 </dd>
 </dl>
@@ -14766,7 +15503,7 @@ client.groups.messages.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Message after which to retrieve the returned messages.
+**before:** `typing.Optional[str]` — Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
     
 </dd>
 </dl>
@@ -14774,7 +15511,7 @@ client.groups.messages.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Message before which to retrieve the returned messages.
+**after:** `typing.Optional[str]` — Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
     
 </dd>
 </dl>
@@ -14782,7 +15519,23 @@ client.groups.messages.list(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — Maximum number of messages to retrieve.
+**limit:** `typing.Optional[int]` — Maximum number of messages to retrieve
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[MessagesListRequestOrder]` — Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
     
 </dd>
 </dl>
@@ -14867,7 +15620,7 @@ client.groups.messages.create(
             role="user",
             content=[
                 TextContent(
-                    text="text",
+                    text="The sky above the port was the color of television, tuned to a dead channel.",
                 )
             ],
         )
@@ -15006,7 +15759,7 @@ response = client.groups.messages.create_stream(
             role="user",
             content=[
                 TextContent(
-                    text="text",
+                    text="The sky above the port was the color of television, tuned to a dead channel.",
                 )
             ],
         )
@@ -15364,6 +16117,292 @@ client.identities.properties.upsert(
 </dl>
 </details>
 
+## Identities Agents
+<details><summary><code>client.identities.agents.<a href="src/letta_client/identities/agents/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all agents associated with the specified identity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.identities.agents.list(
+    identity_id="identity_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of agents to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[AgentsListRequestOrder]` — Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Identities Blocks
+<details><summary><code>client.identities.blocks.<a href="src/letta_client/identities/blocks/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get all blocks associated with the specified identity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.identities.blocks.list(
+    identity_id="identity_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**identity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of blocks to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[BlocksListRequestOrder]` — Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Field to sort by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Models Embeddings
+<details><summary><code>client.models.embeddings.<a href="src/letta_client/models/embeddings/client.py">list</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List available embedding models using the asynchronous implementation for improved performance
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.models.embeddings.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Runs Messages
 <details><summary><code>client.runs.messages.<a href="src/letta_client/runs/messages/client.py">list</a>(...)</code></summary>
 <dl>
@@ -15377,20 +16416,7 @@ client.identities.properties.upsert(
 <dl>
 <dd>
 
-Get messages associated with a run with filtering options.
-
-Args:
-    run_id: ID of the run
-    before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-    after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-    limit: Maximum number of messages to return
-    order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-    role: Filter by role (user/assistant/system/tool)
-    return_message_object: Whether to return Message objects or LettaMessage objects
-    user_id: ID of the user making the request
-
-Returns:
-    A list of messages associated with the run. Default is List[LettaMessage].
+Get response messages associated with a run.
 </dd>
 </dl>
 </dd>
@@ -15437,7 +16463,7 @@ client.runs.messages.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor for pagination
+**before:** `typing.Optional[str]` — Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
     
 </dd>
 </dl>
@@ -15445,7 +16471,7 @@ client.runs.messages.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor for pagination
+**after:** `typing.Optional[str]` — Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
     
 </dd>
 </dl>
@@ -15461,15 +16487,7 @@ client.runs.messages.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[str]` — Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**role:** `typing.Optional[MessageRole]` — Filter by role
+**order:** `typing.Optional[MessagesListRequestOrder]` — Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
     
 </dd>
 </dl>
@@ -16052,6 +17070,136 @@ client.sources.passages.list(
 </dl>
 </details>
 
+## Steps Metrics
+<details><summary><code>client.steps.metrics.<a href="src/letta_client/steps/metrics/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get step metrics by step ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.steps.metrics.retrieve(
+    step_id="step_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**step_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Steps Trace
+<details><summary><code>client.steps.trace.<a href="src/letta_client/steps/trace/client.py">retrieve</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.steps.trace.retrieve(
+    step_id="step_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**step_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Steps Feedback
 <details><summary><code>client.steps.feedback.<a href="src/letta_client/steps/feedback/client.py">create</a>(...)</code></summary>
 <dl>
@@ -16065,7 +17213,7 @@ client.sources.passages.list(
 <dl>
 <dd>
 
-Add feedback to a step.
+Modify feedback for a given step.
 </dd>
 </dl>
 </dd>
@@ -16112,7 +17260,127 @@ client.steps.feedback.create(
 <dl>
 <dd>
 
-**feedback:** `typing.Optional[FeedbackType]` 
+**feedback:** `typing.Optional[FeedbackType]` — Whether this feedback is positive or negative
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Sequence[str]]` — Feedback tags to add to the step
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Steps Messages
+<details><summary><code>client.steps.messages.<a href="src/letta_client/steps/messages/client.py">list</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List messages for a given step.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.steps.messages.list(
+    step_id="step_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**step_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of messages to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[MessagesListRequestOrder]` — Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[typing.Literal["created_at"]]` — Sort by field
     
 </dd>
 </dl>

@@ -106,7 +106,7 @@ class Step(UncheckedBaseModel):
 
     messages: typing.Optional[typing.List[Message]] = pydantic.Field(default=None)
     """
-    The messages generated during this step.
+    The messages generated during this step. Deprecated: use `GET /v1/steps/{step_id}/messages` endpoint instead
     """
 
     feedback: typing.Optional[StepFeedback] = pydantic.Field(default=None)

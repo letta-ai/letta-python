@@ -15,6 +15,7 @@ from ..types.http_validation_error import HttpValidationError
 from ..types.identity import Identity
 from ..types.identity_property import IdentityProperty
 from ..types.identity_type import IdentityType
+from .types.identities_list_request_order import IdentitiesListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -34,6 +35,8 @@ class RawIdentitiesClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[IdentitiesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Identity]]:
         """
@@ -50,10 +53,19 @@ class RawIdentitiesClient:
         identity_type : typing.Optional[IdentityType]
 
         before : typing.Optional[str]
+            Identity ID cursor for pagination. Returns identities that come before this identity ID in the specified sort order
 
         after : typing.Optional[str]
+            Identity ID cursor for pagination. Returns identities that come after this identity ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of identities to return
+
+        order : typing.Optional[IdentitiesListRequestOrder]
+            Sort order for identities by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -74,6 +86,8 @@ class RawIdentitiesClient:
                 "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
             },
             request_options=request_options,
         )
@@ -529,6 +543,8 @@ class AsyncRawIdentitiesClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[IdentitiesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Identity]]:
         """
@@ -545,10 +561,19 @@ class AsyncRawIdentitiesClient:
         identity_type : typing.Optional[IdentityType]
 
         before : typing.Optional[str]
+            Identity ID cursor for pagination. Returns identities that come before this identity ID in the specified sort order
 
         after : typing.Optional[str]
+            Identity ID cursor for pagination. Returns identities that come after this identity ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of identities to return
+
+        order : typing.Optional[IdentitiesListRequestOrder]
+            Sort order for identities by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -569,6 +594,8 @@ class AsyncRawIdentitiesClient:
                 "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
             },
             request_options=request_options,
         )

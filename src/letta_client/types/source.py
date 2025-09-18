@@ -7,6 +7,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .embedding_config import EmbeddingConfig
+from .vector_db_provider import VectorDbProvider
 
 
 class Source(UncheckedBaseModel):
@@ -50,6 +51,11 @@ class Source(UncheckedBaseModel):
     embedding_config: EmbeddingConfig = pydantic.Field()
     """
     The embedding configuration used by the source.
+    """
+
+    vector_db_provider: typing.Optional[VectorDbProvider] = pydantic.Field(default=None)
+    """
+    The vector database provider used for this source's passages
     """
 
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)

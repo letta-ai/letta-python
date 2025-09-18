@@ -12,8 +12,8 @@ from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from ..types.step import Step
-from ..types.step_metrics import StepMetrics
 from .types.steps_list_request_feedback import StepsListRequestFeedback
+from .types.steps_list_request_order import StepsListRequestOrder
 
 
 class RawStepsClient:
@@ -26,7 +26,8 @@ class RawStepsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        order: typing.Optional[str] = None,
+        order: typing.Optional[StepsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         start_date: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         model: typing.Optional[str] = None,
@@ -40,7 +41,6 @@ class RawStepsClient:
     ) -> HttpResponse[typing.List[Step]]:
         """
         List steps with optional pagination and date filters.
-        Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
 
         Parameters
         ----------
@@ -53,8 +53,11 @@ class RawStepsClient:
         limit : typing.Optional[int]
             Maximum number of steps to return
 
-        order : typing.Optional[str]
-            Sort order (asc or desc)
+        order : typing.Optional[StepsListRequestOrder]
+            Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         start_date : typing.Optional[str]
             Return steps after this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
@@ -99,6 +102,7 @@ class RawStepsClient:
                 "after": after,
                 "limit": limit,
                 "order": order,
+                "order_by": order_by,
                 "start_date": start_date,
                 "end_date": end_date,
                 "model": model,
@@ -184,55 +188,6 @@ class RawStepsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def retrieve_step_metrics(
-        self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[StepMetrics]:
-        """
-        Get step metrics by step ID.
-
-        Parameters
-        ----------
-        step_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[StepMetrics]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/steps/{jsonable_encoder(step_id)}/metrics",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    StepMetrics,
-                    construct_type(
-                        type_=StepMetrics,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
 
 class AsyncRawStepsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -244,7 +199,8 @@ class AsyncRawStepsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        order: typing.Optional[str] = None,
+        order: typing.Optional[StepsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         start_date: typing.Optional[str] = None,
         end_date: typing.Optional[str] = None,
         model: typing.Optional[str] = None,
@@ -258,7 +214,6 @@ class AsyncRawStepsClient:
     ) -> AsyncHttpResponse[typing.List[Step]]:
         """
         List steps with optional pagination and date filters.
-        Dates should be provided in ISO 8601 format (e.g. 2025-01-29T15:01:19-08:00)
 
         Parameters
         ----------
@@ -271,8 +226,11 @@ class AsyncRawStepsClient:
         limit : typing.Optional[int]
             Maximum number of steps to return
 
-        order : typing.Optional[str]
-            Sort order (asc or desc)
+        order : typing.Optional[StepsListRequestOrder]
+            Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         start_date : typing.Optional[str]
             Return steps after this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
@@ -317,6 +275,7 @@ class AsyncRawStepsClient:
                 "after": after,
                 "limit": limit,
                 "order": order,
+                "order_by": order_by,
                 "start_date": start_date,
                 "end_date": end_date,
                 "model": model,
@@ -384,55 +343,6 @@ class AsyncRawStepsClient:
                     Step,
                     construct_type(
                         type_=Step,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def retrieve_step_metrics(
-        self, step_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[StepMetrics]:
-        """
-        Get step metrics by step ID.
-
-        Parameters
-        ----------
-        step_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[StepMetrics]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/steps/{jsonable_encoder(step_id)}/metrics",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    StepMetrics,
-                    construct_type(
-                        type_=StepMetrics,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

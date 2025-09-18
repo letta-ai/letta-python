@@ -8,6 +8,9 @@ from ...types.feedback_type import FeedbackType
 from ...types.step import Step
 from .raw_client import AsyncRawFeedbackClient, RawFeedbackClient
 
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
+
 
 class FeedbackClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
@@ -28,17 +31,22 @@ class FeedbackClient:
         self,
         step_id: str,
         *,
-        feedback: typing.Optional[FeedbackType] = None,
+        feedback: typing.Optional[FeedbackType] = OMIT,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Step:
         """
-        Add feedback to a step.
+        Modify feedback for a given step.
 
         Parameters
         ----------
         step_id : str
 
         feedback : typing.Optional[FeedbackType]
+            Whether this feedback is positive or negative
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Feedback tags to add to the step
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -60,7 +68,7 @@ class FeedbackClient:
             step_id="step_id",
         )
         """
-        _response = self._raw_client.create(step_id, feedback=feedback, request_options=request_options)
+        _response = self._raw_client.create(step_id, feedback=feedback, tags=tags, request_options=request_options)
         return _response.data
 
 
@@ -83,17 +91,22 @@ class AsyncFeedbackClient:
         self,
         step_id: str,
         *,
-        feedback: typing.Optional[FeedbackType] = None,
+        feedback: typing.Optional[FeedbackType] = OMIT,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Step:
         """
-        Add feedback to a step.
+        Modify feedback for a given step.
 
         Parameters
         ----------
         step_id : str
 
         feedback : typing.Optional[FeedbackType]
+            Whether this feedback is positive or negative
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Feedback tags to add to the step
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -123,5 +136,7 @@ class AsyncFeedbackClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(step_id, feedback=feedback, request_options=request_options)
+        _response = await self._raw_client.create(
+            step_id, feedback=feedback, tags=tags, request_options=request_options
+        )
         return _response.data

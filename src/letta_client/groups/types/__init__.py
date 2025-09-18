@@ -4,5 +4,6 @@
 
 from .group_create_manager_config import GroupCreateManagerConfig
 from .group_update_manager_config import GroupUpdateManagerConfig
+from .groups_list_request_order import GroupsListRequestOrder
 
-__all__ = ["GroupCreateManagerConfig", "GroupUpdateManagerConfig"]
+__all__ = ["GroupCreateManagerConfig", "GroupUpdateManagerConfig", "GroupsListRequestOrder"]

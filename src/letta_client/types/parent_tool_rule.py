@@ -20,7 +20,7 @@ class ParentToolRule(UncheckedBaseModel):
     type: typing.Literal["parent_last_tool"] = "parent_last_tool"
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional Jinja2 template for generating agent prompt about this tool rule.
+    Optional template string (ignored).
     """
 
     children: typing.List[str] = pydantic.Field()

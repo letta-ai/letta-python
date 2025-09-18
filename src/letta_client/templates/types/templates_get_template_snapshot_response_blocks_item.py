@@ -10,6 +10,7 @@ from ...core.unchecked_base_model import UncheckedBaseModel
 
 
 class TemplatesGetTemplateSnapshotResponseBlocksItem(UncheckedBaseModel):
+    entity_id: typing_extensions.Annotated[str, FieldMetadata(alias="entityId")]
     label: str
     value: str
     limit: float

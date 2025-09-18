@@ -14,8 +14,10 @@ from .types.templates_get_template_snapshot_response import TemplatesGetTemplate
 from .types.templates_list_request_sort_by import TemplatesListRequestSortBy
 from .types.templates_list_response import TemplatesListResponse
 from .types.templates_list_template_versions_response import TemplatesListTemplateVersionsResponse
+from .types.templates_migrate_deployment_response import TemplatesMigrateDeploymentResponse
 from .types.templates_rename_template_response import TemplatesRenameTemplateResponse
 from .types.templates_save_template_version_response import TemplatesSaveTemplateVersionResponse
+from .types.templates_set_current_template_from_snapshot_response import TemplatesSetCurrentTemplateFromSnapshotResponse
 from .types.templates_update_template_description_response import TemplatesUpdateTemplateDescriptionResponse
 
 # this is used as the default value for optional parameters
@@ -255,6 +257,54 @@ class TemplatesClient:
         _response = self._raw_client.gettemplatesnapshot(project, template_version, request_options=request_options)
         return _response.data
 
+    def setcurrenttemplatefromsnapshot(
+        self,
+        project: str,
+        template_version: str,
+        *,
+        request: typing.Optional[typing.Any] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesSetCurrentTemplateFromSnapshotResponse:
+        """
+        Updates the current working version of a template from a snapshot
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_version : str
+            The template name with :current version (e.g., my-template:current)
+
+        request : typing.Optional[typing.Any]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesSetCurrentTemplateFromSnapshotResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.setcurrenttemplatefromsnapshot(
+            project="project",
+            template_version="template_version",
+            request={"key": "value"},
+        )
+        """
+        _response = self._raw_client.setcurrenttemplatefromsnapshot(
+            project, template_version, request=request, request_options=request_options
+        )
+        return _response.data
+
     def forktemplate(
         self,
         project: str,
@@ -489,6 +539,79 @@ class TemplatesClient:
         """
         _response = self._raw_client.listtemplateversions(
             project_slug, name, offset=offset, limit=limit, request_options=request_options
+        )
+        return _response.data
+
+    def migratedeployment(
+        self,
+        project: str,
+        template_name: str,
+        deployment_id: str,
+        *,
+        version: str,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
+        preserve_core_memories: typing.Optional[bool] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesMigrateDeploymentResponse:
+        """
+        Migrates a deployment to a specific template version
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_name : str
+            The template name (without version)
+
+        deployment_id : str
+            The deployment ID to migrate
+
+        version : str
+            The target template version to migrate to
+
+        preserve_tool_variables : typing.Optional[bool]
+            Whether to preserve existing tool variables during migration
+
+        preserve_core_memories : typing.Optional[bool]
+            Whether to preserve existing core memories during migration
+
+        memory_variables : typing.Optional[typing.Dict[str, str]]
+            Additional memory variables to apply during migration
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesMigrateDeploymentResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.migratedeployment(
+            project="project",
+            template_name="template_name",
+            deployment_id="deployment_id",
+            version="version",
+        )
+        """
+        _response = self._raw_client.migratedeployment(
+            project,
+            template_name,
+            deployment_id,
+            version=version,
+            preserve_tool_variables=preserve_tool_variables,
+            preserve_core_memories=preserve_core_memories,
+            memory_variables=memory_variables,
+            request_options=request_options,
         )
         return _response.data
 
@@ -757,6 +880,62 @@ class AsyncTemplatesClient:
         """
         _response = await self._raw_client.gettemplatesnapshot(
             project, template_version, request_options=request_options
+        )
+        return _response.data
+
+    async def setcurrenttemplatefromsnapshot(
+        self,
+        project: str,
+        template_version: str,
+        *,
+        request: typing.Optional[typing.Any] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesSetCurrentTemplateFromSnapshotResponse:
+        """
+        Updates the current working version of a template from a snapshot
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_version : str
+            The template name with :current version (e.g., my-template:current)
+
+        request : typing.Optional[typing.Any]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesSetCurrentTemplateFromSnapshotResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.setcurrenttemplatefromsnapshot(
+                project="project",
+                template_version="template_version",
+                request={"key": "value"},
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.setcurrenttemplatefromsnapshot(
+            project, template_version, request=request, request_options=request_options
         )
         return _response.data
 
@@ -1036,5 +1215,86 @@ class AsyncTemplatesClient:
         """
         _response = await self._raw_client.listtemplateversions(
             project_slug, name, offset=offset, limit=limit, request_options=request_options
+        )
+        return _response.data
+
+    async def migratedeployment(
+        self,
+        project: str,
+        template_name: str,
+        deployment_id: str,
+        *,
+        version: str,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
+        preserve_core_memories: typing.Optional[bool] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesMigrateDeploymentResponse:
+        """
+        Migrates a deployment to a specific template version
+
+        Parameters
+        ----------
+        project : str
+            The project slug
+
+        template_name : str
+            The template name (without version)
+
+        deployment_id : str
+            The deployment ID to migrate
+
+        version : str
+            The target template version to migrate to
+
+        preserve_tool_variables : typing.Optional[bool]
+            Whether to preserve existing tool variables during migration
+
+        preserve_core_memories : typing.Optional[bool]
+            Whether to preserve existing core memories during migration
+
+        memory_variables : typing.Optional[typing.Dict[str, str]]
+            Additional memory variables to apply during migration
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesMigrateDeploymentResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.migratedeployment(
+                project="project",
+                template_name="template_name",
+                deployment_id="deployment_id",
+                version="version",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.migratedeployment(
+            project,
+            template_name,
+            deployment_id,
+            version=version,
+            preserve_tool_variables=preserve_tool_variables,
+            preserve_core_memories=preserve_core_memories,
+            memory_variables=memory_variables,
+            request_options=request_options,
         )
         return _response.data
