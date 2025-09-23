@@ -5,11 +5,11 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .function_definition_output import FunctionDefinitionOutput
+from .function_definition import FunctionDefinition
 
 
 class FunctionTool(UncheckedBaseModel):
-    function: FunctionDefinitionOutput
+    function: FunctionDefinition
     type: typing.Literal["function"] = "function"
 
     if IS_PYDANTIC_V2:

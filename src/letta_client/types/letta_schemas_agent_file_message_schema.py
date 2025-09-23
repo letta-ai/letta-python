@@ -6,7 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .chat_completion_message_function_tool_call_input import ChatCompletionMessageFunctionToolCallInput
+from .chat_completion_message_function_tool_call import ChatCompletionMessageFunctionToolCall
 from .letta_schemas_agent_file_message_schema_content import LettaSchemasAgentFileMessageSchemaContent
 from .message_role import MessageRole
 from .tool_return import ToolReturn
@@ -72,7 +72,7 @@ class LettaSchemasAgentFileMessageSchema(UncheckedBaseModel):
     The unique identifier of the agent
     """
 
-    tool_calls: typing.Optional[typing.List[ChatCompletionMessageFunctionToolCallInput]] = pydantic.Field(default=None)
+    tool_calls: typing.Optional[typing.List[ChatCompletionMessageFunctionToolCall]] = pydantic.Field(default=None)
     """
     The list of tool calls requested. Only applicable for role assistant.
     """

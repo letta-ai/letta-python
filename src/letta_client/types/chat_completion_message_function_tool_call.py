@@ -5,12 +5,13 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .chat_completion_allowed_tools_param_mode import ChatCompletionAllowedToolsParamMode
+from .function import Function
 
 
-class ChatCompletionAllowedToolsParam(UncheckedBaseModel):
-    mode: ChatCompletionAllowedToolsParamMode
-    tools: typing.List[typing.Dict[str, typing.Optional[typing.Any]]]
+class ChatCompletionMessageFunctionToolCall(UncheckedBaseModel):
+    id: str
+    function: Function
+    type: typing.Literal["function"] = "function"
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
