@@ -7,12 +7,16 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 
 
-class OmittedReasoningContent(UncheckedBaseModel):
+class SummarizedReasoningContentPart(UncheckedBaseModel):
+    index: int = pydantic.Field()
     """
-    A placeholder for reasoning content we know is present, but isn't returned by the provider (e.g. OpenAI GPT-5 on ChatCompletions)
+    The index of the summary part.
     """
 
-    type: typing.Literal["omitted_reasoning"] = "omitted_reasoning"
+    text: str = pydantic.Field()
+    """
+    The text of the summary part.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

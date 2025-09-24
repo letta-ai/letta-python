@@ -8,6 +8,10 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class ReasoningContent(UncheckedBaseModel):
+    """
+    Sent via the Anthropic Messages API
+    """
+
     type: typing.Literal["reasoning"] = "reasoning"
     is_native: bool = pydantic.Field()
     """

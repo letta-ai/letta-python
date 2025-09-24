@@ -208,6 +208,8 @@ from .step_metrics import StepMetrics
 from .step_status import StepStatus
 from .stop_reason_type import StopReasonType
 from .streamable_http_server_config import StreamableHttpServerConfig
+from .summarized_reasoning_content import SummarizedReasoningContent
+from .summarized_reasoning_content_part import SummarizedReasoningContentPart
 from .supervisor_manager import SupervisorManager
 from .supervisor_manager_update import SupervisorManagerUpdate
 from .system_message import SystemMessage
@@ -454,6 +456,8 @@ __all__ = [
     "StepStatus",
     "StopReasonType",
     "StreamableHttpServerConfig",
+    "SummarizedReasoningContent",
+    "SummarizedReasoningContentPart",
     "SupervisorManager",
     "SupervisorManagerUpdate",
     "SystemMessage",

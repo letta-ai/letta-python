@@ -6,6 +6,7 @@ from .image_content import ImageContent
 from .omitted_reasoning_content import OmittedReasoningContent
 from .reasoning_content import ReasoningContent
 from .redacted_reasoning_content import RedactedReasoningContent
+from .summarized_reasoning_content import SummarizedReasoningContent
 from .text_content import TextContent
 from .tool_call_content import ToolCallContent
 from .tool_return_content import ToolReturnContent
@@ -15,6 +16,7 @@ MessageContentItem = typing.Union[
     OmittedReasoningContent,
     ReasoningContent,
     RedactedReasoningContent,
+    SummarizedReasoningContent,
     TextContent,
     ToolCallContent,
     ToolReturnContent,
