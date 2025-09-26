@@ -9480,6 +9480,138 @@ client.voice.create_voice_chat_completions(
 </details>
 
 ## Templates
+<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">createagentsfromtemplate</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an Agent or multiple Agents from a template
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.templates.createagentsfromtemplate(
+    project_id="project_id",
+    template_version="template_version",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` — The project id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_version:** `str` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Sequence[str]]` — The tags to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_name:** `typing.Optional[str]` — The name of the agent, optional otherwise a random one will be assigned
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**initial_message_sequence:** `typing.Optional[
+    typing.Sequence[
+        TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem
+    ]
+]` — Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**memory_variables:** `typing.Optional[typing.Dict[str, str]]` — The memory variables to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tool_variables:** `typing.Optional[typing.Dict[str, str]]` — The tool variables to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity_ids:** `typing.Optional[typing.Sequence[str]]` — The identity ids to assign to the agent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">list</a>(...)</code></summary>
 <dl>
 <dd>
@@ -9655,7 +9787,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.savetemplateversion(
-    project="project",
+    project_id="project_id",
     template_name="template_name",
 )
 
@@ -9673,7 +9805,7 @@ client.templates.savetemplateversion(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -9767,7 +9899,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.deletetemplate(
-    project="project",
+    project_id="project_id",
     template_name="template_name",
 )
 
@@ -9785,7 +9917,7 @@ client.templates.deletetemplate(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -9847,7 +9979,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.gettemplatesnapshot(
-    project="project",
+    project_id="project_id",
     template_version="template_version",
 )
 
@@ -9865,7 +9997,7 @@ client.templates.gettemplatesnapshot(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -9927,7 +10059,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.setcurrenttemplatefromsnapshot(
-    project="project",
+    project_id="project_id",
     template_version="template_version",
     request={"key": "value"},
 )
@@ -9946,7 +10078,7 @@ client.templates.setcurrenttemplatefromsnapshot(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -10016,7 +10148,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.forktemplate(
-    project="project",
+    project_id="project_id",
     template_version="template_version",
 )
 
@@ -10034,7 +10166,7 @@ client.templates.forktemplate(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -10105,7 +10237,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.createtemplate(
-    project="project",
+    project_id="project_id",
     request=TemplatesCreateTemplateRequestAgentId(
         agent_id="agent_id",
     ),
@@ -10125,7 +10257,7 @@ client.templates.createtemplate(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -10187,7 +10319,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.renametemplate(
-    project="project",
+    project_id="project_id",
     template_name="template_name",
     new_name="new_name",
 )
@@ -10206,7 +10338,7 @@ client.templates.renametemplate(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -10276,7 +10408,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.updatetemplatedescription(
-    project="project",
+    project_id="project_id",
     template_name="template_name",
 )
 
@@ -10294,7 +10426,7 @@ client.templates.updatetemplatedescription(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -10364,7 +10496,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.listtemplateversions(
-    project_slug="project_slug",
+    project_id="project_id",
     name="name",
 )
 
@@ -10382,7 +10514,7 @@ client.templates.listtemplateversions(
 <dl>
 <dd>
 
-**project_slug:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -10460,7 +10592,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.templates.migratedeployment(
-    project="project",
+    project_id="project_id",
     template_name="template_name",
     deployment_id="deployment_id",
     version="version",
@@ -10480,7 +10612,7 @@ client.templates.migratedeployment(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project_id:** `str` — The project id
     
 </dd>
 </dl>
@@ -17413,20 +17545,6 @@ client.steps.messages.list(
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates an Agent or multiple Agents from a template
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -17461,7 +17579,7 @@ client.templates.agents.create(
 <dl>
 <dd>
 
-**project:** `str` — The project slug
+**project:** `str` 
     
 </dd>
 </dl>
@@ -17469,55 +17587,7 @@ client.templates.agents.create(
 <dl>
 <dd>
 
-**template_version:** `str` — The template version, formatted as {template-name}:{version-number} or {template-name}:latest
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tags:** `typing.Optional[typing.Sequence[str]]` — The tags to assign to the agent
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**agent_name:** `typing.Optional[str]` — The name of the agent, optional otherwise a random one will be assigned
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**initial_message_sequence:** `typing.Optional[typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]]` — Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**memory_variables:** `typing.Optional[typing.Dict[str, str]]` — The memory variables to assign to the agent
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tool_variables:** `typing.Optional[typing.Dict[str, str]]` — The tool variables to assign to the agent
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**identity_ids:** `typing.Optional[typing.Sequence[str]]` — The identity ids to assign to the agent
+**template_version:** `str` 
     
 </dd>
 </dl>

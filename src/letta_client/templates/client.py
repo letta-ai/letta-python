@@ -6,6 +6,10 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .agents.client import AgentsClient, AsyncAgentsClient
 from .raw_client import AsyncRawTemplatesClient, RawTemplatesClient
+from .types.templates_create_agents_from_template_request_initial_message_sequence_item import (
+    TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem,
+)
+from .types.templates_create_agents_from_template_response import TemplatesCreateAgentsFromTemplateResponse
 from .types.templates_create_template_request import TemplatesCreateTemplateRequest
 from .types.templates_create_template_response import TemplatesCreateTemplateResponse
 from .types.templates_delete_template_response import TemplatesDeleteTemplateResponse
@@ -39,6 +43,84 @@ class TemplatesClient:
         RawTemplatesClient
         """
         return self._raw_client
+
+    def createagentsfromtemplate(
+        self,
+        project_id: str,
+        template_version: str,
+        *,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        agent_name: typing.Optional[str] = OMIT,
+        initial_message_sequence: typing.Optional[
+            typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem]
+        ] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesCreateAgentsFromTemplateResponse:
+        """
+        Creates an Agent or multiple Agents from a template
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_version : str
+            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        tags : typing.Optional[typing.Sequence[str]]
+            The tags to assign to the agent
+
+        agent_name : typing.Optional[str]
+            The name of the agent, optional otherwise a random one will be assigned
+
+        initial_message_sequence : typing.Optional[typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem]]
+            Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
+
+        memory_variables : typing.Optional[typing.Dict[str, str]]
+            The memory variables to assign to the agent
+
+        tool_variables : typing.Optional[typing.Dict[str, str]]
+            The tool variables to assign to the agent
+
+        identity_ids : typing.Optional[typing.Sequence[str]]
+            The identity ids to assign to the agent
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesCreateAgentsFromTemplateResponse
+            201
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.createagentsfromtemplate(
+            project_id="project_id",
+            template_version="template_version",
+        )
+        """
+        _response = self._raw_client.createagentsfromtemplate(
+            project_id,
+            template_version,
+            tags=tags,
+            agent_name=agent_name,
+            initial_message_sequence=initial_message_sequence,
+            memory_variables=memory_variables,
+            tool_variables=tool_variables,
+            identity_ids=identity_ids,
+            request_options=request_options,
+        )
+        return _response.data
 
     def list(
         self,
@@ -117,7 +199,7 @@ class TemplatesClient:
 
     def savetemplateversion(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         preserve_environment_variables_on_migration: typing.Optional[bool] = OMIT,
@@ -131,8 +213,8 @@ class TemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template version, formatted as {template-name}, any version appended will be ignored
@@ -166,12 +248,12 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.savetemplateversion(
-            project="project",
+            project_id="project_id",
             template_name="template_name",
         )
         """
         _response = self._raw_client.savetemplateversion(
-            project,
+            project_id,
             template_name,
             preserve_environment_variables_on_migration=preserve_environment_variables_on_migration,
             preserve_core_memories_on_migration=preserve_core_memories_on_migration,
@@ -182,15 +264,15 @@ class TemplatesClient:
         return _response.data
 
     def deletetemplate(
-        self, project: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, project_id: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> TemplatesDeleteTemplateResponse:
         """
         Deletes all versions of a template with the specified name
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (without version)
@@ -212,23 +294,23 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.deletetemplate(
-            project="project",
+            project_id="project_id",
             template_name="template_name",
         )
         """
-        _response = self._raw_client.deletetemplate(project, template_name, request_options=request_options)
+        _response = self._raw_client.deletetemplate(project_id, template_name, request_options=request_options)
         return _response.data
 
     def gettemplatesnapshot(
-        self, project: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, project_id: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> TemplatesGetTemplateSnapshotResponse:
         """
         Get a snapshot of the template version, this will return the template state at a specific version
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
@@ -250,16 +332,16 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.gettemplatesnapshot(
-            project="project",
+            project_id="project_id",
             template_version="template_version",
         )
         """
-        _response = self._raw_client.gettemplatesnapshot(project, template_version, request_options=request_options)
+        _response = self._raw_client.gettemplatesnapshot(project_id, template_version, request_options=request_options)
         return _response.data
 
     def setcurrenttemplatefromsnapshot(
         self,
-        project: str,
+        project_id: str,
         template_version: str,
         *,
         request: typing.Optional[typing.Any] = None,
@@ -270,8 +352,8 @@ class TemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template name with :current version (e.g., my-template:current)
@@ -295,19 +377,19 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.setcurrenttemplatefromsnapshot(
-            project="project",
+            project_id="project_id",
             template_version="template_version",
             request={"key": "value"},
         )
         """
         _response = self._raw_client.setcurrenttemplatefromsnapshot(
-            project, template_version, request=request, request_options=request_options
+            project_id, template_version, request=request, request_options=request_options
         )
         return _response.data
 
     def forktemplate(
         self,
-        project: str,
+        project_id: str,
         template_version: str,
         *,
         name: typing.Optional[str] = OMIT,
@@ -318,8 +400,8 @@ class TemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
@@ -344,16 +426,18 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.forktemplate(
-            project="project",
+            project_id="project_id",
             template_version="template_version",
         )
         """
-        _response = self._raw_client.forktemplate(project, template_version, name=name, request_options=request_options)
+        _response = self._raw_client.forktemplate(
+            project_id, template_version, name=name, request_options=request_options
+        )
         return _response.data
 
     def createtemplate(
         self,
-        project: str,
+        project_id: str,
         *,
         request: TemplatesCreateTemplateRequest,
         request_options: typing.Optional[RequestOptions] = None,
@@ -363,8 +447,8 @@ class TemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         request : TemplatesCreateTemplateRequest
 
@@ -386,18 +470,18 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.createtemplate(
-            project="project",
+            project_id="project_id",
             request=TemplatesCreateTemplateRequestAgentId(
                 agent_id="agent_id",
             ),
         )
         """
-        _response = self._raw_client.createtemplate(project, request=request, request_options=request_options)
+        _response = self._raw_client.createtemplate(project_id, request=request, request_options=request_options)
         return _response.data
 
     def renametemplate(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         new_name: str,
@@ -408,8 +492,8 @@ class TemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The current template name (version will be automatically stripped if included)
@@ -434,19 +518,19 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.renametemplate(
-            project="project",
+            project_id="project_id",
             template_name="template_name",
             new_name="new_name",
         )
         """
         _response = self._raw_client.renametemplate(
-            project, template_name, new_name=new_name, request_options=request_options
+            project_id, template_name, new_name=new_name, request_options=request_options
         )
         return _response.data
 
     def updatetemplatedescription(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         description: typing.Optional[str] = OMIT,
@@ -457,8 +541,8 @@ class TemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (version will be automatically stripped if included)
@@ -483,18 +567,18 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.updatetemplatedescription(
-            project="project",
+            project_id="project_id",
             template_name="template_name",
         )
         """
         _response = self._raw_client.updatetemplatedescription(
-            project, template_name, description=description, request_options=request_options
+            project_id, template_name, description=description, request_options=request_options
         )
         return _response.data
 
     def listtemplateversions(
         self,
-        project_slug: str,
+        project_id: str,
         name: str,
         *,
         offset: typing.Optional[str] = None,
@@ -506,8 +590,8 @@ class TemplatesClient:
 
         Parameters
         ----------
-        project_slug : str
-            The project slug
+        project_id : str
+            The project id
 
         name : str
             The template name (without version)
@@ -533,18 +617,18 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.listtemplateversions(
-            project_slug="project_slug",
+            project_id="project_id",
             name="name",
         )
         """
         _response = self._raw_client.listtemplateversions(
-            project_slug, name, offset=offset, limit=limit, request_options=request_options
+            project_id, name, offset=offset, limit=limit, request_options=request_options
         )
         return _response.data
 
     def migratedeployment(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         deployment_id: str,
         *,
@@ -559,8 +643,8 @@ class TemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (without version)
@@ -597,14 +681,14 @@ class TemplatesClient:
             token="YOUR_TOKEN",
         )
         client.templates.migratedeployment(
-            project="project",
+            project_id="project_id",
             template_name="template_name",
             deployment_id="deployment_id",
             version="version",
         )
         """
         _response = self._raw_client.migratedeployment(
-            project,
+            project_id,
             template_name,
             deployment_id,
             version=version,
@@ -631,6 +715,92 @@ class AsyncTemplatesClient:
         AsyncRawTemplatesClient
         """
         return self._raw_client
+
+    async def createagentsfromtemplate(
+        self,
+        project_id: str,
+        template_version: str,
+        *,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        agent_name: typing.Optional[str] = OMIT,
+        initial_message_sequence: typing.Optional[
+            typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem]
+        ] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesCreateAgentsFromTemplateResponse:
+        """
+        Creates an Agent or multiple Agents from a template
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_version : str
+            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        tags : typing.Optional[typing.Sequence[str]]
+            The tags to assign to the agent
+
+        agent_name : typing.Optional[str]
+            The name of the agent, optional otherwise a random one will be assigned
+
+        initial_message_sequence : typing.Optional[typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem]]
+            Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
+
+        memory_variables : typing.Optional[typing.Dict[str, str]]
+            The memory variables to assign to the agent
+
+        tool_variables : typing.Optional[typing.Dict[str, str]]
+            The tool variables to assign to the agent
+
+        identity_ids : typing.Optional[typing.Sequence[str]]
+            The identity ids to assign to the agent
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesCreateAgentsFromTemplateResponse
+            201
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.createagentsfromtemplate(
+                project_id="project_id",
+                template_version="template_version",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.createagentsfromtemplate(
+            project_id,
+            template_version,
+            tags=tags,
+            agent_name=agent_name,
+            initial_message_sequence=initial_message_sequence,
+            memory_variables=memory_variables,
+            tool_variables=tool_variables,
+            identity_ids=identity_ids,
+            request_options=request_options,
+        )
+        return _response.data
 
     async def list(
         self,
@@ -717,7 +887,7 @@ class AsyncTemplatesClient:
 
     async def savetemplateversion(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         preserve_environment_variables_on_migration: typing.Optional[bool] = OMIT,
@@ -731,8 +901,8 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template version, formatted as {template-name}, any version appended will be ignored
@@ -771,7 +941,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.savetemplateversion(
-                project="project",
+                project_id="project_id",
                 template_name="template_name",
             )
 
@@ -779,7 +949,7 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.savetemplateversion(
-            project,
+            project_id,
             template_name,
             preserve_environment_variables_on_migration=preserve_environment_variables_on_migration,
             preserve_core_memories_on_migration=preserve_core_memories_on_migration,
@@ -790,15 +960,15 @@ class AsyncTemplatesClient:
         return _response.data
 
     async def deletetemplate(
-        self, project: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, project_id: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> TemplatesDeleteTemplateResponse:
         """
         Deletes all versions of a template with the specified name
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (without version)
@@ -825,26 +995,26 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.deletetemplate(
-                project="project",
+                project_id="project_id",
                 template_name="template_name",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.deletetemplate(project, template_name, request_options=request_options)
+        _response = await self._raw_client.deletetemplate(project_id, template_name, request_options=request_options)
         return _response.data
 
     async def gettemplatesnapshot(
-        self, project: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, project_id: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> TemplatesGetTemplateSnapshotResponse:
         """
         Get a snapshot of the template version, this will return the template state at a specific version
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
@@ -871,7 +1041,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.gettemplatesnapshot(
-                project="project",
+                project_id="project_id",
                 template_version="template_version",
             )
 
@@ -879,13 +1049,13 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.gettemplatesnapshot(
-            project, template_version, request_options=request_options
+            project_id, template_version, request_options=request_options
         )
         return _response.data
 
     async def setcurrenttemplatefromsnapshot(
         self,
-        project: str,
+        project_id: str,
         template_version: str,
         *,
         request: typing.Optional[typing.Any] = None,
@@ -896,8 +1066,8 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template name with :current version (e.g., my-template:current)
@@ -926,7 +1096,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.setcurrenttemplatefromsnapshot(
-                project="project",
+                project_id="project_id",
                 template_version="template_version",
                 request={"key": "value"},
             )
@@ -935,13 +1105,13 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.setcurrenttemplatefromsnapshot(
-            project, template_version, request=request, request_options=request_options
+            project_id, template_version, request=request, request_options=request_options
         )
         return _response.data
 
     async def forktemplate(
         self,
-        project: str,
+        project_id: str,
         template_version: str,
         *,
         name: typing.Optional[str] = OMIT,
@@ -952,8 +1122,8 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
@@ -983,7 +1153,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.forktemplate(
-                project="project",
+                project_id="project_id",
                 template_version="template_version",
             )
 
@@ -991,13 +1161,13 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.forktemplate(
-            project, template_version, name=name, request_options=request_options
+            project_id, template_version, name=name, request_options=request_options
         )
         return _response.data
 
     async def createtemplate(
         self,
-        project: str,
+        project_id: str,
         *,
         request: TemplatesCreateTemplateRequest,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1007,8 +1177,8 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         request : TemplatesCreateTemplateRequest
 
@@ -1035,7 +1205,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.createtemplate(
-                project="project",
+                project_id="project_id",
                 request=TemplatesCreateTemplateRequestAgentId(
                     agent_id="agent_id",
                 ),
@@ -1044,12 +1214,12 @@ class AsyncTemplatesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.createtemplate(project, request=request, request_options=request_options)
+        _response = await self._raw_client.createtemplate(project_id, request=request, request_options=request_options)
         return _response.data
 
     async def renametemplate(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         new_name: str,
@@ -1060,8 +1230,8 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The current template name (version will be automatically stripped if included)
@@ -1091,7 +1261,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.renametemplate(
-                project="project",
+                project_id="project_id",
                 template_name="template_name",
                 new_name="new_name",
             )
@@ -1100,13 +1270,13 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.renametemplate(
-            project, template_name, new_name=new_name, request_options=request_options
+            project_id, template_name, new_name=new_name, request_options=request_options
         )
         return _response.data
 
     async def updatetemplatedescription(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         description: typing.Optional[str] = OMIT,
@@ -1117,8 +1287,8 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (version will be automatically stripped if included)
@@ -1148,7 +1318,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.updatetemplatedescription(
-                project="project",
+                project_id="project_id",
                 template_name="template_name",
             )
 
@@ -1156,13 +1326,13 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.updatetemplatedescription(
-            project, template_name, description=description, request_options=request_options
+            project_id, template_name, description=description, request_options=request_options
         )
         return _response.data
 
     async def listtemplateversions(
         self,
-        project_slug: str,
+        project_id: str,
         name: str,
         *,
         offset: typing.Optional[str] = None,
@@ -1174,8 +1344,8 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        project_slug : str
-            The project slug
+        project_id : str
+            The project id
 
         name : str
             The template name (without version)
@@ -1206,7 +1376,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.listtemplateversions(
-                project_slug="project_slug",
+                project_id="project_id",
                 name="name",
             )
 
@@ -1214,13 +1384,13 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.listtemplateversions(
-            project_slug, name, offset=offset, limit=limit, request_options=request_options
+            project_id, name, offset=offset, limit=limit, request_options=request_options
         )
         return _response.data
 
     async def migratedeployment(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         deployment_id: str,
         *,
@@ -1235,8 +1405,8 @@ class AsyncTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (without version)
@@ -1278,7 +1448,7 @@ class AsyncTemplatesClient:
 
         async def main() -> None:
             await client.templates.migratedeployment(
-                project="project",
+                project_id="project_id",
                 template_name="template_name",
                 deployment_id="deployment_id",
                 version="version",
@@ -1288,7 +1458,7 @@ class AsyncTemplatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.migratedeployment(
-            project,
+            project_id,
             template_name,
             deployment_id,
             version=version,
