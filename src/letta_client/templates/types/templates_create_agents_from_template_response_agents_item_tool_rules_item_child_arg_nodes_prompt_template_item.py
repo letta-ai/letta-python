@@ -2,6 +2,6 @@
 
 import typing
 
-TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemOnePromptTemplateItem = typing.Union[
+TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemChildArgNodesPromptTemplateItem = typing.Union[
     str, typing.Optional[str]
 ]

@@ -489,8 +489,7 @@ class MessagesClient:
         Asynchronously process a user message and return a run object.
         The actual processing happens in the background, and the status can be checked using the run ID.
 
-        This is "asynchronous" in the sense that it's a background job and explicitly must be fetched by the run ID.
-        This is more like `send_message_job`
+        This is "asynchronous" in the sense that it's a background run and explicitly must be fetched by the run ID.
 
         Parameters
         ----------
@@ -1213,8 +1212,7 @@ class AsyncMessagesClient:
         Asynchronously process a user message and return a run object.
         The actual processing happens in the background, and the status can be checked using the run ID.
 
-        This is "asynchronous" in the sense that it's a background job and explicitly must be fetched by the run ID.
-        This is more like `send_message_job`
+        This is "asynchronous" in the sense that it's a background run and explicitly must be fetched by the run ID.
 
         Parameters
         ----------

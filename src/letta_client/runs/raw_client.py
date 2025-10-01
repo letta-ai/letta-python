@@ -49,7 +49,7 @@ class RawRunsClient:
             The unique identifier of the agent associated with the run.
 
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            (DEPRECATED) The unique identifiers of the agents associated with the run.
+            The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
@@ -400,7 +400,7 @@ class AsyncRawRunsClient:
             The unique identifier of the agent associated with the run.
 
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            (DEPRECATED) The unique identifiers of the agents associated with the run.
+            The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.

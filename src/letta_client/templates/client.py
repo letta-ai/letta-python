@@ -22,6 +22,9 @@ from .types.templates_migrate_deployment_response import TemplatesMigrateDeploym
 from .types.templates_rename_template_response import TemplatesRenameTemplateResponse
 from .types.templates_save_template_version_response import TemplatesSaveTemplateVersionResponse
 from .types.templates_set_current_template_from_snapshot_response import TemplatesSetCurrentTemplateFromSnapshotResponse
+from .types.templates_update_current_template_from_agent_file_response import (
+    TemplatesUpdateCurrentTemplateFromAgentFileResponse,
+)
 from .types.templates_update_template_description_response import TemplatesUpdateTemplateDescriptionResponse
 
 # this is used as the default value for optional parameters
@@ -695,6 +698,68 @@ class TemplatesClient:
             preserve_tool_variables=preserve_tool_variables,
             preserve_core_memories=preserve_core_memories,
             memory_variables=memory_variables,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def updatecurrenttemplatefromagentfile(
+        self,
+        project_id: str,
+        template_name: str,
+        *,
+        agent_file_json: typing.Dict[str, typing.Optional[typing.Any]],
+        update_existing_tools: typing.Optional[bool] = OMIT,
+        save_existing_changes: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesUpdateCurrentTemplateFromAgentFileResponse:
+        """
+        Updates the current working version of a template from an agent file
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_name : str
+            The template name (without version)
+
+        agent_file_json : typing.Dict[str, typing.Optional[typing.Any]]
+            The agent file to update the current template version from
+
+        update_existing_tools : typing.Optional[bool]
+            If true, update existing custom tools source_code and json_schema (source_type cannot be changed)
+
+        save_existing_changes : typing.Optional[bool]
+            If true, Letta will automatically save any changes as a version before updating the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesUpdateCurrentTemplateFromAgentFileResponse
+            200
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.templates.updatecurrenttemplatefromagentfile(
+            project_id="project_id",
+            template_name="template_name",
+            agent_file_json={"key": "value"},
+        )
+        """
+        _response = self._raw_client.updatecurrenttemplatefromagentfile(
+            project_id,
+            template_name,
+            agent_file_json=agent_file_json,
+            update_existing_tools=update_existing_tools,
+            save_existing_changes=save_existing_changes,
             request_options=request_options,
         )
         return _response.data
@@ -1465,6 +1530,76 @@ class AsyncTemplatesClient:
             preserve_tool_variables=preserve_tool_variables,
             preserve_core_memories=preserve_core_memories,
             memory_variables=memory_variables,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def updatecurrenttemplatefromagentfile(
+        self,
+        project_id: str,
+        template_name: str,
+        *,
+        agent_file_json: typing.Dict[str, typing.Optional[typing.Any]],
+        update_existing_tools: typing.Optional[bool] = OMIT,
+        save_existing_changes: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> TemplatesUpdateCurrentTemplateFromAgentFileResponse:
+        """
+        Updates the current working version of a template from an agent file
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_name : str
+            The template name (without version)
+
+        agent_file_json : typing.Dict[str, typing.Optional[typing.Any]]
+            The agent file to update the current template version from
+
+        update_existing_tools : typing.Optional[bool]
+            If true, update existing custom tools source_code and json_schema (source_type cannot be changed)
+
+        save_existing_changes : typing.Optional[bool]
+            If true, Letta will automatically save any changes as a version before updating the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TemplatesUpdateCurrentTemplateFromAgentFileResponse
+            200
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.templates.updatecurrenttemplatefromagentfile(
+                project_id="project_id",
+                template_name="template_name",
+                agent_file_json={"key": "value"},
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.updatecurrenttemplatefromagentfile(
+            project_id,
+            template_name,
+            agent_file_json=agent_file_json,
+            update_existing_tools=update_existing_tools,
+            save_existing_changes=save_existing_changes,
             request_options=request_options,
         )
         return _response.data

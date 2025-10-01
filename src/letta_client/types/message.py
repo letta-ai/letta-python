@@ -100,6 +100,11 @@ class Message(UncheckedBaseModel):
     The id of the step that this message was created in.
     """
 
+    run_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The id of the run that this message was created in.
+    """
+
     otid: typing.Optional[str] = pydantic.Field(default=None)
     """
     The offline threading id associated with this message

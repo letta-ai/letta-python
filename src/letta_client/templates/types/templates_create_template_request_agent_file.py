@@ -23,6 +23,11 @@ class TemplatesCreateTemplateRequestAgentFile(UncheckedBaseModel):
     Optional custom name for the template. If not provided, a random name will be generated.
     """
 
+    update_existing_tools: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If true, update existing custom tools source_code and json_schema (source_type cannot be changed)
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

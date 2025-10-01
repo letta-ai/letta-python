@@ -8249,7 +8249,7 @@ client.runs.list()
 <dl>
 <dd>
 
-**agent_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — (DEPRECATED) The unique identifiers of the agents associated with the run.
+**agent_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
     
 </dd>
 </dl>
@@ -10661,6 +10661,111 @@ client.templates.migratedeployment(
 <dd>
 
 **memory_variables:** `typing.Optional[typing.Dict[str, str]]` — Additional memory variables to apply during migration
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.templates.<a href="src/letta_client/templates/client.py">updatecurrenttemplatefromagentfile</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the current working version of a template from an agent file
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from letta_client import Letta
+
+client = Letta(
+    project="YOUR_PROJECT",
+    token="YOUR_TOKEN",
+)
+client.templates.updatecurrenttemplatefromagentfile(
+    project_id="project_id",
+    template_name="template_name",
+    agent_file_json={"key": "value"},
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` — The project id
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**template_name:** `str` — The template name (without version)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_file_json:** `typing.Dict[str, typing.Optional[typing.Any]]` — The agent file to update the current template version from
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**update_existing_tools:** `typing.Optional[bool]` — If true, update existing custom tools source_code and json_schema (source_type cannot be changed)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**save_existing_changes:** `typing.Optional[bool]` — If true, Letta will automatically save any changes as a version before updating the template
     
 </dd>
 </dl>
@@ -14030,8 +14135,7 @@ client.agents.messages.search()
 Asynchronously process a user message and return a run object.
 The actual processing happens in the background, and the status can be checked using the run ID.
 
-This is "asynchronous" in the sense that it's a background job and explicitly must be fetched by the run ID.
-This is more like `send_message_job`
+This is "asynchronous" in the sense that it's a background run and explicitly must be fetched by the run ID.
 </dd>
 </dl>
 </dd>

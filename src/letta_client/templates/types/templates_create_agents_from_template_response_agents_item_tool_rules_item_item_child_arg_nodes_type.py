@@ -2,6 +2,6 @@
 
 import typing
 
-TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemZeroType = typing.Union[
+TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemItemChildArgNodesType = typing.Union[
     str, typing.Optional[typing.Any]
 ]

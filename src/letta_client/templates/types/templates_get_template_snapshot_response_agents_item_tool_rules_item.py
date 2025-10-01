@@ -2,6 +2,12 @@
 
 import typing
 
+from .templates_get_template_snapshot_response_agents_item_tool_rules_item_args import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemArgs,
+)
+from .templates_get_template_snapshot_response_agents_item_tool_rules_item_child_arg_nodes import (
+    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildArgNodes,
+)
 from .templates_get_template_snapshot_response_agents_item_tool_rules_item_child_output_mapping import (
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildOutputMapping,
 )
@@ -14,9 +20,6 @@ from .templates_get_template_snapshot_response_agents_item_tool_rules_item_four 
 from .templates_get_template_snapshot_response_agents_item_tool_rules_item_max_count_limit import (
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemMaxCountLimit,
 )
-from .templates_get_template_snapshot_response_agents_item_tool_rules_item_one import (
-    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemOne,
-)
 from .templates_get_template_snapshot_response_agents_item_tool_rules_item_prompt_template import (
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemPromptTemplate,
 )
@@ -26,13 +29,10 @@ from .templates_get_template_snapshot_response_agents_item_tool_rules_item_seven
 from .templates_get_template_snapshot_response_agents_item_tool_rules_item_two import (
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemTwo,
 )
-from .templates_get_template_snapshot_response_agents_item_tool_rules_item_zero import (
-    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemZero,
-)
 
 TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItem = typing.Union[
-    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemZero,
-    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemOne,
+    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildArgNodes,
+    TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemArgs,
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemTwo,
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemChildOutputMapping,
     TemplatesGetTemplateSnapshotResponseAgentsItemToolRulesItemFour,

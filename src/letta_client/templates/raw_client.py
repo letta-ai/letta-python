@@ -33,6 +33,9 @@ from .types.templates_migrate_deployment_response import TemplatesMigrateDeploym
 from .types.templates_rename_template_response import TemplatesRenameTemplateResponse
 from .types.templates_save_template_version_response import TemplatesSaveTemplateVersionResponse
 from .types.templates_set_current_template_from_snapshot_response import TemplatesSetCurrentTemplateFromSnapshotResponse
+from .types.templates_update_current_template_from_agent_file_response import (
+    TemplatesUpdateCurrentTemplateFromAgentFileResponse,
+)
 from .types.templates_update_template_description_response import TemplatesUpdateTemplateDescriptionResponse
 
 # this is used as the default value for optional parameters
@@ -970,6 +973,106 @@ class RawTemplatesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def updatecurrenttemplatefromagentfile(
+        self,
+        project_id: str,
+        template_name: str,
+        *,
+        agent_file_json: typing.Dict[str, typing.Optional[typing.Any]],
+        update_existing_tools: typing.Optional[bool] = OMIT,
+        save_existing_changes: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TemplatesUpdateCurrentTemplateFromAgentFileResponse]:
+        """
+        Updates the current working version of a template from an agent file
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_name : str
+            The template name (without version)
+
+        agent_file_json : typing.Dict[str, typing.Optional[typing.Any]]
+            The agent file to update the current template version from
+
+        update_existing_tools : typing.Optional[bool]
+            If true, update existing custom tools source_code and json_schema (source_type cannot be changed)
+
+        save_existing_changes : typing.Optional[bool]
+            If true, Letta will automatically save any changes as a version before updating the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TemplatesUpdateCurrentTemplateFromAgentFileResponse]
+            200
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/agent-file",
+            method="PUT",
+            json={
+                "agent_file_json": agent_file_json,
+                "update_existing_tools": update_existing_tools,
+                "save_existing_changes": save_existing_changes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesUpdateCurrentTemplateFromAgentFileResponse,
+                    construct_type(
+                        type_=TemplatesUpdateCurrentTemplateFromAgentFileResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawTemplatesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -1860,6 +1963,106 @@ class AsyncRawTemplatesClient:
                     TemplatesMigrateDeploymentResponse,
                     construct_type(
                         type_=TemplatesMigrateDeploymentResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def updatecurrenttemplatefromagentfile(
+        self,
+        project_id: str,
+        template_name: str,
+        *,
+        agent_file_json: typing.Dict[str, typing.Optional[typing.Any]],
+        update_existing_tools: typing.Optional[bool] = OMIT,
+        save_existing_changes: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TemplatesUpdateCurrentTemplateFromAgentFileResponse]:
+        """
+        Updates the current working version of a template from an agent file
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_name : str
+            The template name (without version)
+
+        agent_file_json : typing.Dict[str, typing.Optional[typing.Any]]
+            The agent file to update the current template version from
+
+        update_existing_tools : typing.Optional[bool]
+            If true, update existing custom tools source_code and json_schema (source_type cannot be changed)
+
+        save_existing_changes : typing.Optional[bool]
+            If true, Letta will automatically save any changes as a version before updating the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TemplatesUpdateCurrentTemplateFromAgentFileResponse]
+            200
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/agent-file",
+            method="PUT",
+            json={
+                "agent_file_json": agent_file_json,
+                "update_existing_tools": update_existing_tools,
+                "save_existing_changes": save_existing_changes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesUpdateCurrentTemplateFromAgentFileResponse,
+                    construct_type(
+                        type_=TemplatesUpdateCurrentTemplateFromAgentFileResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
