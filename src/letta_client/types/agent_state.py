@@ -133,6 +133,11 @@ class AgentState(UncheckedBaseModel):
         default=None
     )
     """
+    Deprecated: use `secrets` field instead.
+    """
+
+    secrets: typing.Optional[typing.List[AgentEnvironmentVariable]] = pydantic.Field(default=None)
+    """
     The environment variables for tool execution specific to this agent.
     """
 

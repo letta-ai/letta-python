@@ -7,6 +7,7 @@ from ..core.request_options import RequestOptions
 from ..types.provider import Provider
 from ..types.provider_type import ProviderType
 from .raw_client import AsyncRawProvidersClient, RawProvidersClient
+from .types.providers_list_request_order import ProvidersListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -30,24 +31,40 @@ class ProvidersClient:
     def list(
         self,
         *,
-        name: typing.Optional[str] = None,
-        provider_type: typing.Optional[ProviderType] = None,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[ProvidersListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        name: typing.Optional[str] = None,
+        provider_type: typing.Optional[ProviderType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Provider]:
         """
-        Get a list of all custom providers in the database
+        Get a list of all custom providers.
 
         Parameters
         ----------
-        name : typing.Optional[str]
-
-        provider_type : typing.Optional[ProviderType]
+        before : typing.Optional[str]
+            Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order
 
         after : typing.Optional[str]
+            Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of providers to return
+
+        order : typing.Optional[ProvidersListRequestOrder]
+            Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
+        name : typing.Optional[str]
+            Filter providers by name
+
+        provider_type : typing.Optional[ProviderType]
+            Filter providers by type
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -68,7 +85,14 @@ class ProvidersClient:
         client.providers.list()
         """
         _response = self._raw_client.list(
-            name=name, provider_type=provider_type, after=after, limit=limit, request_options=request_options
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            name=name,
+            provider_type=provider_type,
+            request_options=request_options,
         )
         return _response.data
 
@@ -85,7 +109,7 @@ class ProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
-        Create a new custom provider
+        Create a new custom provider.
 
         Parameters
         ----------
@@ -144,11 +168,44 @@ class ProvidersClient:
         )
         return _response.data
 
+    def retrieve_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> Provider:
+        """
+        Get a provider by ID.
+
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Provider
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.providers.retrieve_provider(
+            provider_id="provider_id",
+        )
+        """
+        _response = self._raw_client.retrieve_provider(provider_id, request_options=request_options)
+        return _response.data
+
     def delete(
         self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
-        Delete an existing custom provider
+        Delete an existing custom provider.
 
         Parameters
         ----------
@@ -189,7 +246,7 @@ class ProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
-        Update an existing custom provider
+        Update an existing custom provider.
 
         Parameters
         ----------
@@ -242,31 +299,7 @@ class ProvidersClient:
         )
         return _response.data
 
-    def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.providers.check()
-        """
-        _response = self._raw_client.check(request_options=request_options)
-        return _response.data
-
-    def check_provider(
+    def check(
         self,
         *,
         provider_type: ProviderType,
@@ -278,6 +311,8 @@ class ProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
+        Verify the API key and additional parameters for a provider.
+
         Parameters
         ----------
         provider_type : ProviderType
@@ -314,12 +349,12 @@ class ProvidersClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.providers.check_provider(
+        client.providers.check(
             provider_type="anthropic",
             api_key="api_key",
         )
         """
-        _response = self._raw_client.check_provider(
+        _response = self._raw_client.check(
             provider_type=provider_type,
             api_key=api_key,
             access_key=access_key,
@@ -349,24 +384,40 @@ class AsyncProvidersClient:
     async def list(
         self,
         *,
-        name: typing.Optional[str] = None,
-        provider_type: typing.Optional[ProviderType] = None,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[ProvidersListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        name: typing.Optional[str] = None,
+        provider_type: typing.Optional[ProviderType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Provider]:
         """
-        Get a list of all custom providers in the database
+        Get a list of all custom providers.
 
         Parameters
         ----------
-        name : typing.Optional[str]
-
-        provider_type : typing.Optional[ProviderType]
+        before : typing.Optional[str]
+            Provider ID cursor for pagination. Returns providers that come before this provider ID in the specified sort order
 
         after : typing.Optional[str]
+            Provider ID cursor for pagination. Returns providers that come after this provider ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of providers to return
+
+        order : typing.Optional[ProvidersListRequestOrder]
+            Sort order for providers by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
+        name : typing.Optional[str]
+            Filter providers by name
+
+        provider_type : typing.Optional[ProviderType]
+            Filter providers by type
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -395,7 +446,14 @@ class AsyncProvidersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            name=name, provider_type=provider_type, after=after, limit=limit, request_options=request_options
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            name=name,
+            provider_type=provider_type,
+            request_options=request_options,
         )
         return _response.data
 
@@ -412,7 +470,7 @@ class AsyncProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
-        Create a new custom provider
+        Create a new custom provider.
 
         Parameters
         ----------
@@ -479,11 +537,52 @@ class AsyncProvidersClient:
         )
         return _response.data
 
+    async def retrieve_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> Provider:
+        """
+        Get a provider by ID.
+
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Provider
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.providers.retrieve_provider(
+                provider_id="provider_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.retrieve_provider(provider_id, request_options=request_options)
+        return _response.data
+
     async def delete(
         self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Optional[typing.Any]:
         """
-        Delete an existing custom provider
+        Delete an existing custom provider.
 
         Parameters
         ----------
@@ -532,7 +631,7 @@ class AsyncProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Provider:
         """
-        Update an existing custom provider
+        Update an existing custom provider.
 
         Parameters
         ----------
@@ -593,39 +692,7 @@ class AsyncProvidersClient:
         )
         return _response.data
 
-    async def check(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.providers.check()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.check(request_options=request_options)
-        return _response.data
-
-    async def check_provider(
+    async def check(
         self,
         *,
         provider_type: ProviderType,
@@ -637,6 +704,8 @@ class AsyncProvidersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
+        Verify the API key and additional parameters for a provider.
+
         Parameters
         ----------
         provider_type : ProviderType
@@ -678,7 +747,7 @@ class AsyncProvidersClient:
 
 
         async def main() -> None:
-            await client.providers.check_provider(
+            await client.providers.check(
                 provider_type="anthropic",
                 api_key="api_key",
             )
@@ -686,7 +755,7 @@ class AsyncProvidersClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.check_provider(
+        _response = await self._raw_client.check(
             provider_type=provider_type,
             api_key=api_key,
             access_key=access_key,

@@ -12,8 +12,15 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.unchecked_base_model import construct_type
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
+from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
+from ..errors.payment_required_error import PaymentRequiredError
 from ..types.conflict_error_body import ConflictErrorBody
+from ..types.payment_required_error_body import PaymentRequiredErrorBody
+from .types.templates_create_agents_from_template_request_initial_message_sequence_item import (
+    TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem,
+)
+from .types.templates_create_agents_from_template_response import TemplatesCreateAgentsFromTemplateResponse
 from .types.templates_create_template_request import TemplatesCreateTemplateRequest
 from .types.templates_create_template_response import TemplatesCreateTemplateResponse
 from .types.templates_delete_template_response import TemplatesDeleteTemplateResponse
@@ -22,8 +29,13 @@ from .types.templates_get_template_snapshot_response import TemplatesGetTemplate
 from .types.templates_list_request_sort_by import TemplatesListRequestSortBy
 from .types.templates_list_response import TemplatesListResponse
 from .types.templates_list_template_versions_response import TemplatesListTemplateVersionsResponse
+from .types.templates_migrate_deployment_response import TemplatesMigrateDeploymentResponse
 from .types.templates_rename_template_response import TemplatesRenameTemplateResponse
 from .types.templates_save_template_version_response import TemplatesSaveTemplateVersionResponse
+from .types.templates_set_current_template_from_snapshot_response import TemplatesSetCurrentTemplateFromSnapshotResponse
+from .types.templates_update_current_template_from_agent_file_response import (
+    TemplatesUpdateCurrentTemplateFromAgentFileResponse,
+)
 from .types.templates_update_template_description_response import TemplatesUpdateTemplateDescriptionResponse
 
 # this is used as the default value for optional parameters
@@ -33,6 +45,105 @@ OMIT = typing.cast(typing.Any, ...)
 class RawTemplatesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def createagentsfromtemplate(
+        self,
+        project_id: str,
+        template_version: str,
+        *,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        agent_name: typing.Optional[str] = OMIT,
+        initial_message_sequence: typing.Optional[
+            typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem]
+        ] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TemplatesCreateAgentsFromTemplateResponse]:
+        """
+        Creates an Agent or multiple Agents from a template
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_version : str
+            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        tags : typing.Optional[typing.Sequence[str]]
+            The tags to assign to the agent
+
+        agent_name : typing.Optional[str]
+            The name of the agent, optional otherwise a random one will be assigned
+
+        initial_message_sequence : typing.Optional[typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem]]
+            Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
+
+        memory_variables : typing.Optional[typing.Dict[str, str]]
+            The memory variables to assign to the agent
+
+        tool_variables : typing.Optional[typing.Dict[str, str]]
+            The tool variables to assign to the agent
+
+        identity_ids : typing.Optional[typing.Sequence[str]]
+            The identity ids to assign to the agent
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TemplatesCreateAgentsFromTemplateResponse]
+            201
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_version)}/agents",
+            method="POST",
+            json={
+                "tags": tags,
+                "agent_name": agent_name,
+                "initial_message_sequence": convert_and_respect_annotation_metadata(
+                    object_=initial_message_sequence,
+                    annotation=typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem],
+                    direction="write",
+                ),
+                "memory_variables": memory_variables,
+                "tool_variables": tool_variables,
+                "identity_ids": identity_ids,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesCreateAgentsFromTemplateResponse,
+                    construct_type(
+                        type_=TemplatesCreateAgentsFromTemplateResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PaymentRequiredErrorBody,
+                        construct_type(
+                            type_=PaymentRequiredErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def list(
         self,
@@ -118,7 +229,7 @@ class RawTemplatesClient:
 
     def savetemplateversion(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         preserve_environment_variables_on_migration: typing.Optional[bool] = OMIT,
@@ -132,8 +243,8 @@ class RawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template version, formatted as {template-name}, any version appended will be ignored
@@ -159,7 +270,7 @@ class RawTemplatesClient:
             200
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_name)}",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}",
             method="POST",
             json={
                 "preserve_environment_variables_on_migration": preserve_environment_variables_on_migration,
@@ -200,15 +311,15 @@ class RawTemplatesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def deletetemplate(
-        self, project: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, project_id: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[TemplatesDeleteTemplateResponse]:
         """
         Deletes all versions of a template with the specified name
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (without version)
@@ -222,7 +333,7 @@ class RawTemplatesClient:
             200
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_name)}",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}",
             method="DELETE",
             json={},
             headers={
@@ -258,15 +369,15 @@ class RawTemplatesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def gettemplatesnapshot(
-        self, project: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, project_id: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[TemplatesGetTemplateSnapshotResponse]:
         """
         Get a snapshot of the template version, this will return the template state at a specific version
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
@@ -280,7 +391,7 @@ class RawTemplatesClient:
             200
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_version)}/snapshot",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_version)}/snapshot",
             method="GET",
             request_options=request_options,
         )
@@ -299,9 +410,96 @@ class RawTemplatesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def setcurrenttemplatefromsnapshot(
+        self,
+        project_id: str,
+        template_version: str,
+        *,
+        request: typing.Optional[typing.Any] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TemplatesSetCurrentTemplateFromSnapshotResponse]:
+        """
+        Updates the current working version of a template from a snapshot
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_version : str
+            The template name with :current version (e.g., my-template:current)
+
+        request : typing.Optional[typing.Any]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TemplatesSetCurrentTemplateFromSnapshotResponse]
+            200
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_version)}/snapshot",
+            method="PUT",
+            json=request,
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesSetCurrentTemplateFromSnapshotResponse,
+                    construct_type(
+                        type_=TemplatesSetCurrentTemplateFromSnapshotResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def forktemplate(
         self,
-        project: str,
+        project_id: str,
         template_version: str,
         *,
         name: typing.Optional[str] = OMIT,
@@ -312,8 +510,8 @@ class RawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
@@ -330,7 +528,7 @@ class RawTemplatesClient:
             200
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_version)}/fork",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_version)}/fork",
             method="POST",
             json={
                 "name": name,
@@ -369,7 +567,7 @@ class RawTemplatesClient:
 
     def createtemplate(
         self,
-        project: str,
+        project_id: str,
         *,
         request: TemplatesCreateTemplateRequest,
         request_options: typing.Optional[RequestOptions] = None,
@@ -379,8 +577,8 @@ class RawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         request : TemplatesCreateTemplateRequest
 
@@ -393,7 +591,7 @@ class RawTemplatesClient:
             201
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}",
+            f"v1/templates/{jsonable_encoder(project_id)}",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=TemplatesCreateTemplateRequest, direction="write"
@@ -432,7 +630,7 @@ class RawTemplatesClient:
 
     def renametemplate(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         new_name: str,
@@ -443,8 +641,8 @@ class RawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The current template name (version will be automatically stripped if included)
@@ -461,7 +659,7 @@ class RawTemplatesClient:
             200
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_name)}/name",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/name",
             method="PATCH",
             json={
                 "new_name": new_name,
@@ -522,7 +720,7 @@ class RawTemplatesClient:
 
     def updatetemplatedescription(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         description: typing.Optional[str] = OMIT,
@@ -533,8 +731,8 @@ class RawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (version will be automatically stripped if included)
@@ -551,7 +749,7 @@ class RawTemplatesClient:
             200
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_name)}/description",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/description",
             method="PATCH",
             json={
                 "description": description,
@@ -601,7 +799,7 @@ class RawTemplatesClient:
 
     def listtemplateversions(
         self,
-        project_slug: str,
+        project_id: str,
         name: str,
         *,
         offset: typing.Optional[str] = None,
@@ -613,8 +811,8 @@ class RawTemplatesClient:
 
         Parameters
         ----------
-        project_slug : str
-            The project slug
+        project_id : str
+            The project id
 
         name : str
             The template name (without version)
@@ -632,7 +830,7 @@ class RawTemplatesClient:
             200
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project_slug)}/{jsonable_encoder(name)}/versions",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(name)}/versions",
             method="GET",
             params={
                 "offset": offset,
@@ -666,10 +864,318 @@ class RawTemplatesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def migratedeployment(
+        self,
+        project_id: str,
+        template_name: str,
+        deployment_id: str,
+        *,
+        version: str,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
+        preserve_core_memories: typing.Optional[bool] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TemplatesMigrateDeploymentResponse]:
+        """
+        Migrates a deployment to a specific template version
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_name : str
+            The template name (without version)
+
+        deployment_id : str
+            The deployment ID to migrate
+
+        version : str
+            The target template version to migrate to
+
+        preserve_tool_variables : typing.Optional[bool]
+            Whether to preserve existing tool variables during migration
+
+        preserve_core_memories : typing.Optional[bool]
+            Whether to preserve existing core memories during migration
+
+        memory_variables : typing.Optional[typing.Dict[str, str]]
+            Additional memory variables to apply during migration
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TemplatesMigrateDeploymentResponse]
+            200
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/deployments/{jsonable_encoder(deployment_id)}/migrate",
+            method="POST",
+            json={
+                "version": version,
+                "preserve_tool_variables": preserve_tool_variables,
+                "preserve_core_memories": preserve_core_memories,
+                "memory_variables": memory_variables,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesMigrateDeploymentResponse,
+                    construct_type(
+                        type_=TemplatesMigrateDeploymentResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def updatecurrenttemplatefromagentfile(
+        self,
+        project_id: str,
+        template_name: str,
+        *,
+        agent_file_json: typing.Dict[str, typing.Optional[typing.Any]],
+        update_existing_tools: typing.Optional[bool] = OMIT,
+        save_existing_changes: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[TemplatesUpdateCurrentTemplateFromAgentFileResponse]:
+        """
+        Updates the current working version of a template from an agent file
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_name : str
+            The template name (without version)
+
+        agent_file_json : typing.Dict[str, typing.Optional[typing.Any]]
+            The agent file to update the current template version from
+
+        update_existing_tools : typing.Optional[bool]
+            If true, update existing custom tools source_code and json_schema (source_type cannot be changed)
+
+        save_existing_changes : typing.Optional[bool]
+            If true, Letta will automatically save any changes as a version before updating the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[TemplatesUpdateCurrentTemplateFromAgentFileResponse]
+            200
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/agent-file",
+            method="PUT",
+            json={
+                "agent_file_json": agent_file_json,
+                "update_existing_tools": update_existing_tools,
+                "save_existing_changes": save_existing_changes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesUpdateCurrentTemplateFromAgentFileResponse,
+                    construct_type(
+                        type_=TemplatesUpdateCurrentTemplateFromAgentFileResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawTemplatesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def createagentsfromtemplate(
+        self,
+        project_id: str,
+        template_version: str,
+        *,
+        tags: typing.Optional[typing.Sequence[str]] = OMIT,
+        agent_name: typing.Optional[str] = OMIT,
+        initial_message_sequence: typing.Optional[
+            typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem]
+        ] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TemplatesCreateAgentsFromTemplateResponse]:
+        """
+        Creates an Agent or multiple Agents from a template
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_version : str
+            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
+
+        tags : typing.Optional[typing.Sequence[str]]
+            The tags to assign to the agent
+
+        agent_name : typing.Optional[str]
+            The name of the agent, optional otherwise a random one will be assigned
+
+        initial_message_sequence : typing.Optional[typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem]]
+            Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
+
+        memory_variables : typing.Optional[typing.Dict[str, str]]
+            The memory variables to assign to the agent
+
+        tool_variables : typing.Optional[typing.Dict[str, str]]
+            The tool variables to assign to the agent
+
+        identity_ids : typing.Optional[typing.Sequence[str]]
+            The identity ids to assign to the agent
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TemplatesCreateAgentsFromTemplateResponse]
+            201
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_version)}/agents",
+            method="POST",
+            json={
+                "tags": tags,
+                "agent_name": agent_name,
+                "initial_message_sequence": convert_and_respect_annotation_metadata(
+                    object_=initial_message_sequence,
+                    annotation=typing.Sequence[TemplatesCreateAgentsFromTemplateRequestInitialMessageSequenceItem],
+                    direction="write",
+                ),
+                "memory_variables": memory_variables,
+                "tool_variables": tool_variables,
+                "identity_ids": identity_ids,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesCreateAgentsFromTemplateResponse,
+                    construct_type(
+                        type_=TemplatesCreateAgentsFromTemplateResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 402:
+                raise PaymentRequiredError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        PaymentRequiredErrorBody,
+                        construct_type(
+                            type_=PaymentRequiredErrorBody,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def list(
         self,
@@ -755,7 +1261,7 @@ class AsyncRawTemplatesClient:
 
     async def savetemplateversion(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         preserve_environment_variables_on_migration: typing.Optional[bool] = OMIT,
@@ -769,8 +1275,8 @@ class AsyncRawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template version, formatted as {template-name}, any version appended will be ignored
@@ -796,7 +1302,7 @@ class AsyncRawTemplatesClient:
             200
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_name)}",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}",
             method="POST",
             json={
                 "preserve_environment_variables_on_migration": preserve_environment_variables_on_migration,
@@ -837,15 +1343,15 @@ class AsyncRawTemplatesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def deletetemplate(
-        self, project: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, project_id: str, template_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[TemplatesDeleteTemplateResponse]:
         """
         Deletes all versions of a template with the specified name
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (without version)
@@ -859,7 +1365,7 @@ class AsyncRawTemplatesClient:
             200
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_name)}",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}",
             method="DELETE",
             json={},
             headers={
@@ -895,15 +1401,15 @@ class AsyncRawTemplatesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def gettemplatesnapshot(
-        self, project: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, project_id: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[TemplatesGetTemplateSnapshotResponse]:
         """
         Get a snapshot of the template version, this will return the template state at a specific version
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
@@ -917,7 +1423,7 @@ class AsyncRawTemplatesClient:
             200
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_version)}/snapshot",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_version)}/snapshot",
             method="GET",
             request_options=request_options,
         )
@@ -936,9 +1442,96 @@ class AsyncRawTemplatesClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def setcurrenttemplatefromsnapshot(
+        self,
+        project_id: str,
+        template_version: str,
+        *,
+        request: typing.Optional[typing.Any] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TemplatesSetCurrentTemplateFromSnapshotResponse]:
+        """
+        Updates the current working version of a template from a snapshot
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_version : str
+            The template name with :current version (e.g., my-template:current)
+
+        request : typing.Optional[typing.Any]
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TemplatesSetCurrentTemplateFromSnapshotResponse]
+            200
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_version)}/snapshot",
+            method="PUT",
+            json=request,
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesSetCurrentTemplateFromSnapshotResponse,
+                    construct_type(
+                        type_=TemplatesSetCurrentTemplateFromSnapshotResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def forktemplate(
         self,
-        project: str,
+        project_id: str,
         template_version: str,
         *,
         name: typing.Optional[str] = OMIT,
@@ -949,8 +1542,8 @@ class AsyncRawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_version : str
             The template version, formatted as {template-name}:{version-number} or {template-name}:latest
@@ -967,7 +1560,7 @@ class AsyncRawTemplatesClient:
             200
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_version)}/fork",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_version)}/fork",
             method="POST",
             json={
                 "name": name,
@@ -1006,7 +1599,7 @@ class AsyncRawTemplatesClient:
 
     async def createtemplate(
         self,
-        project: str,
+        project_id: str,
         *,
         request: TemplatesCreateTemplateRequest,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1016,8 +1609,8 @@ class AsyncRawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         request : TemplatesCreateTemplateRequest
 
@@ -1030,7 +1623,7 @@ class AsyncRawTemplatesClient:
             201
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}",
+            f"v1/templates/{jsonable_encoder(project_id)}",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=TemplatesCreateTemplateRequest, direction="write"
@@ -1069,7 +1662,7 @@ class AsyncRawTemplatesClient:
 
     async def renametemplate(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         new_name: str,
@@ -1080,8 +1673,8 @@ class AsyncRawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The current template name (version will be automatically stripped if included)
@@ -1098,7 +1691,7 @@ class AsyncRawTemplatesClient:
             200
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_name)}/name",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/name",
             method="PATCH",
             json={
                 "new_name": new_name,
@@ -1159,7 +1752,7 @@ class AsyncRawTemplatesClient:
 
     async def updatetemplatedescription(
         self,
-        project: str,
+        project_id: str,
         template_name: str,
         *,
         description: typing.Optional[str] = OMIT,
@@ -1170,8 +1763,8 @@ class AsyncRawTemplatesClient:
 
         Parameters
         ----------
-        project : str
-            The project slug
+        project_id : str
+            The project id
 
         template_name : str
             The template name (version will be automatically stripped if included)
@@ -1188,7 +1781,7 @@ class AsyncRawTemplatesClient:
             200
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project)}/{jsonable_encoder(template_name)}/description",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/description",
             method="PATCH",
             json={
                 "description": description,
@@ -1238,7 +1831,7 @@ class AsyncRawTemplatesClient:
 
     async def listtemplateversions(
         self,
-        project_slug: str,
+        project_id: str,
         name: str,
         *,
         offset: typing.Optional[str] = None,
@@ -1250,8 +1843,8 @@ class AsyncRawTemplatesClient:
 
         Parameters
         ----------
-        project_slug : str
-            The project slug
+        project_id : str
+            The project id
 
         name : str
             The template name (without version)
@@ -1269,7 +1862,7 @@ class AsyncRawTemplatesClient:
             200
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/templates/{jsonable_encoder(project_slug)}/{jsonable_encoder(name)}/versions",
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(name)}/versions",
             method="GET",
             params={
                 "offset": offset,
@@ -1289,6 +1882,215 @@ class AsyncRawTemplatesClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def migratedeployment(
+        self,
+        project_id: str,
+        template_name: str,
+        deployment_id: str,
+        *,
+        version: str,
+        preserve_tool_variables: typing.Optional[bool] = OMIT,
+        preserve_core_memories: typing.Optional[bool] = OMIT,
+        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TemplatesMigrateDeploymentResponse]:
+        """
+        Migrates a deployment to a specific template version
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_name : str
+            The template name (without version)
+
+        deployment_id : str
+            The deployment ID to migrate
+
+        version : str
+            The target template version to migrate to
+
+        preserve_tool_variables : typing.Optional[bool]
+            Whether to preserve existing tool variables during migration
+
+        preserve_core_memories : typing.Optional[bool]
+            Whether to preserve existing core memories during migration
+
+        memory_variables : typing.Optional[typing.Dict[str, str]]
+            Additional memory variables to apply during migration
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TemplatesMigrateDeploymentResponse]
+            200
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/deployments/{jsonable_encoder(deployment_id)}/migrate",
+            method="POST",
+            json={
+                "version": version,
+                "preserve_tool_variables": preserve_tool_variables,
+                "preserve_core_memories": preserve_core_memories,
+                "memory_variables": memory_variables,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesMigrateDeploymentResponse,
+                    construct_type(
+                        type_=TemplatesMigrateDeploymentResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def updatecurrenttemplatefromagentfile(
+        self,
+        project_id: str,
+        template_name: str,
+        *,
+        agent_file_json: typing.Dict[str, typing.Optional[typing.Any]],
+        update_existing_tools: typing.Optional[bool] = OMIT,
+        save_existing_changes: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[TemplatesUpdateCurrentTemplateFromAgentFileResponse]:
+        """
+        Updates the current working version of a template from an agent file
+
+        Parameters
+        ----------
+        project_id : str
+            The project id
+
+        template_name : str
+            The template name (without version)
+
+        agent_file_json : typing.Dict[str, typing.Optional[typing.Any]]
+            The agent file to update the current template version from
+
+        update_existing_tools : typing.Optional[bool]
+            If true, update existing custom tools source_code and json_schema (source_type cannot be changed)
+
+        save_existing_changes : typing.Optional[bool]
+            If true, Letta will automatically save any changes as a version before updating the template
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[TemplatesUpdateCurrentTemplateFromAgentFileResponse]
+            200
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/templates/{jsonable_encoder(project_id)}/{jsonable_encoder(template_name)}/agent-file",
+            method="PUT",
+            json={
+                "agent_file_json": agent_file_json,
+                "update_existing_tools": update_existing_tools,
+                "save_existing_changes": save_existing_changes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    TemplatesUpdateCurrentTemplateFromAgentFileResponse,
+                    construct_type(
+                        type_=TemplatesUpdateCurrentTemplateFromAgentFileResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Optional[typing.Any],

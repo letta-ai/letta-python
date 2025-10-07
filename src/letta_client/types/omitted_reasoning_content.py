@@ -8,6 +8,10 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class OmittedReasoningContent(UncheckedBaseModel):
+    """
+    A placeholder for reasoning content we know is present, but isn't returned by the provider (e.g. OpenAI GPT-5 on ChatCompletions)
+    """
+
     type: typing.Literal["omitted_reasoning"] = "omitted_reasoning"
 
     if IS_PYDANTIC_V2:

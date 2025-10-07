@@ -7,9 +7,11 @@ from ..core.request_options import RequestOptions
 from ..types.embedding_config import EmbeddingConfig
 from ..types.folder import Folder
 from ..types.organization_sources_stats import OrganizationSourcesStats
+from .agents.client import AgentsClient, AsyncAgentsClient
 from .files.client import AsyncFilesClient, FilesClient
 from .passages.client import AsyncPassagesClient, PassagesClient
 from .raw_client import AsyncRawFoldersClient, RawFoldersClient
+from .types.folders_list_request_order import FoldersListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -19,6 +21,8 @@ class FoldersClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawFoldersClient(client_wrapper=client_wrapper)
         self.files = FilesClient(client_wrapper=client_wrapper)
+
+        self.agents = AgentsClient(client_wrapper=client_wrapper)
 
         self.passages = PassagesClient(client_wrapper=client_wrapper)
 
@@ -190,7 +194,10 @@ class FoldersClient:
 
     def retrieve_by_name(self, folder_name: str, *, request_options: typing.Optional[RequestOptions] = None) -> str:
         """
-        Get a folder by name
+        **Deprecated**: Please use the list endpoint `GET /v1/folders?name=` instead.
+
+
+        Get a folder by name.
 
         Parameters
         ----------
@@ -219,7 +226,7 @@ class FoldersClient:
         _response = self._raw_client.retrieve_by_name(folder_name, request_options=request_options)
         return _response.data
 
-    def get_folders_metadata(
+    def retrieve_metadata(
         self,
         *,
         include_detailed_per_source_metadata: typing.Optional[bool] = None,
@@ -254,19 +261,47 @@ class FoldersClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.folders.get_folders_metadata()
+        client.folders.retrieve_metadata()
         """
-        _response = self._raw_client.get_folders_metadata(
+        _response = self._raw_client.retrieve_metadata(
             include_detailed_per_source_metadata=include_detailed_per_source_metadata, request_options=request_options
         )
         return _response.data
 
-    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Folder]:
+    def list(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[FoldersListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        name: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Folder]:
         """
         List all data folders created by a user.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Folder ID cursor for pagination. Returns folders that come before this folder ID in the specified sort order
+
+        after : typing.Optional[str]
+            Folder ID cursor for pagination. Returns folders that come after this folder ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of folders to return
+
+        order : typing.Optional[FoldersListRequestOrder]
+            Sort order for folders by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
+        name : typing.Optional[str]
+            Folder name to filter by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -285,7 +320,15 @@ class FoldersClient:
         )
         client.folders.list()
         """
-        _response = self._raw_client.list(request_options=request_options)
+        _response = self._raw_client.list(
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            name=name,
+            request_options=request_options,
+        )
         return _response.data
 
     def create(
@@ -358,44 +401,13 @@ class FoldersClient:
         )
         return _response.data
 
-    def get_agents_for_folder(
-        self, folder_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[str]:
-        """
-        Get all agent IDs that have the specified folder attached.
-
-        Parameters
-        ----------
-        folder_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[str]
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.folders.get_agents_for_folder(
-            folder_id="folder_id",
-        )
-        """
-        _response = self._raw_client.get_agents_for_folder(folder_id, request_options=request_options)
-        return _response.data
-
 
 class AsyncFoldersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawFoldersClient(client_wrapper=client_wrapper)
         self.files = AsyncFilesClient(client_wrapper=client_wrapper)
+
+        self.agents = AsyncAgentsClient(client_wrapper=client_wrapper)
 
         self.passages = AsyncPassagesClient(client_wrapper=client_wrapper)
 
@@ -601,7 +613,10 @@ class AsyncFoldersClient:
         self, folder_name: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> str:
         """
-        Get a folder by name
+        **Deprecated**: Please use the list endpoint `GET /v1/folders?name=` instead.
+
+
+        Get a folder by name.
 
         Parameters
         ----------
@@ -638,7 +653,7 @@ class AsyncFoldersClient:
         _response = await self._raw_client.retrieve_by_name(folder_name, request_options=request_options)
         return _response.data
 
-    async def get_folders_metadata(
+    async def retrieve_metadata(
         self,
         *,
         include_detailed_per_source_metadata: typing.Optional[bool] = None,
@@ -678,22 +693,50 @@ class AsyncFoldersClient:
 
 
         async def main() -> None:
-            await client.folders.get_folders_metadata()
+            await client.folders.retrieve_metadata()
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_folders_metadata(
+        _response = await self._raw_client.retrieve_metadata(
             include_detailed_per_source_metadata=include_detailed_per_source_metadata, request_options=request_options
         )
         return _response.data
 
-    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Folder]:
+    async def list(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[FoldersListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        name: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Folder]:
         """
         List all data folders created by a user.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Folder ID cursor for pagination. Returns folders that come before this folder ID in the specified sort order
+
+        after : typing.Optional[str]
+            Folder ID cursor for pagination. Returns folders that come after this folder ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of folders to return
+
+        order : typing.Optional[FoldersListRequestOrder]
+            Sort order for folders by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
+        name : typing.Optional[str]
+            Folder name to filter by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -720,7 +763,15 @@ class AsyncFoldersClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(request_options=request_options)
+        _response = await self._raw_client.list(
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            name=name,
+            request_options=request_options,
+        )
         return _response.data
 
     async def create(
@@ -799,45 +850,4 @@ class AsyncFoldersClient:
             embedding_config=embedding_config,
             request_options=request_options,
         )
-        return _response.data
-
-    async def get_agents_for_folder(
-        self, folder_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[str]:
-        """
-        Get all agent IDs that have the specified folder attached.
-
-        Parameters
-        ----------
-        folder_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[str]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.folders.get_agents_for_folder(
-                folder_id="folder_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.get_agents_for_folder(folder_id, request_options=request_options)
         return _response.data

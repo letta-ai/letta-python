@@ -8,6 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .job_status import JobStatus
 from .job_type import JobType
+from .stop_reason_type import StopReasonType
 
 
 class Job(UncheckedBaseModel):
@@ -52,6 +53,11 @@ class Job(UncheckedBaseModel):
     The unix timestamp of when the job was completed.
     """
 
+    stop_reason: typing.Optional[StopReasonType] = pydantic.Field(default=None)
+    """
+    The reason why the job was stopped.
+    """
+
     metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     The metadata of the job.
@@ -60,6 +66,16 @@ class Job(UncheckedBaseModel):
     job_type: typing.Optional[JobType] = pydantic.Field(default=None)
     """
     The type of the job.
+    """
+
+    background: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the job was created in background mode.
+    """
+
+    agent_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The agent associated with this job/run.
     """
 
     callback_url: typing.Optional[str] = pydantic.Field(default=None)

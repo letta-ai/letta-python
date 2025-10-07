@@ -29,6 +29,7 @@ from .types.delete_mcp_server_response_item import DeleteMcpServerResponseItem
 from .types.list_mcp_servers_response_value import ListMcpServersResponseValue
 from .types.streaming_response import StreamingResponse
 from .types.test_mcp_server_request import TestMcpServerRequest
+from .types.tools_list_request_order import ToolsListRequestOrder
 from .types.update_mcp_server_request import UpdateMcpServerRequest
 from .types.update_mcp_server_response import UpdateMcpServerResponse
 
@@ -348,8 +349,11 @@ class RawToolsClient:
     def list(
         self,
         *,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[ToolsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         name: typing.Optional[str] = None,
         names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         tool_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -360,15 +364,27 @@ class RawToolsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Tool]]:
         """
-        Get a list of all tools available to agents belonging to the org of the user
+        Get a list of all tools available to agents.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
+
         after : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of tools to return
+
+        order : typing.Optional[ToolsListRequestOrder]
+            Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         name : typing.Optional[str]
+            Filter by single tool name
 
         names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by specific tool names
@@ -400,8 +416,11 @@ class RawToolsClient:
             "v1/tools/",
             method="GET",
             params={
+                "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "name": name,
                 "names": names,
                 "tool_ids": tool_ids,
@@ -808,15 +827,13 @@ class RawToolsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def list_composio_apps(
-        self, *, user_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.List[AppModel]]:
         """
         Get a list of all Composio apps
 
         Parameters
         ----------
-        user_id : typing.Optional[str]
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -828,9 +845,6 @@ class RawToolsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/tools/composio/apps",
             method="GET",
-            headers={
-                "user-id": str(user_id) if user_id is not None else None,
-            },
             request_options=request_options,
         )
         try:
@@ -958,15 +972,13 @@ class RawToolsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def list_mcp_servers(
-        self, *, user_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[typing.Dict[str, ListMcpServersResponseValue]]:
         """
         Get a list of all configured MCP servers
 
         Parameters
         ----------
-        user_id : typing.Optional[str]
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -978,9 +990,6 @@ class RawToolsClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/tools/mcp/servers",
             method="GET",
-            headers={
-                "user-id": str(user_id) if user_id is not None else None,
-            },
             request_options=request_options,
         )
         try:
@@ -1726,8 +1735,11 @@ class AsyncRawToolsClient:
     async def list(
         self,
         *,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[ToolsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         name: typing.Optional[str] = None,
         names: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         tool_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -1738,15 +1750,27 @@ class AsyncRawToolsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Tool]]:
         """
-        Get a list of all tools available to agents belonging to the org of the user
+        Get a list of all tools available to agents.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
+
         after : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of tools to return
+
+        order : typing.Optional[ToolsListRequestOrder]
+            Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         name : typing.Optional[str]
+            Filter by single tool name
 
         names : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter by specific tool names
@@ -1778,8 +1802,11 @@ class AsyncRawToolsClient:
             "v1/tools/",
             method="GET",
             params={
+                "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "name": name,
                 "names": names,
                 "tool_ids": tool_ids,
@@ -2186,15 +2213,13 @@ class AsyncRawToolsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def list_composio_apps(
-        self, *, user_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.List[AppModel]]:
         """
         Get a list of all Composio apps
 
         Parameters
         ----------
-        user_id : typing.Optional[str]
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2206,9 +2231,6 @@ class AsyncRawToolsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/tools/composio/apps",
             method="GET",
-            headers={
-                "user-id": str(user_id) if user_id is not None else None,
-            },
             request_options=request_options,
         )
         try:
@@ -2336,15 +2358,13 @@ class AsyncRawToolsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def list_mcp_servers(
-        self, *, user_id: typing.Optional[str] = None, request_options: typing.Optional[RequestOptions] = None
+        self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[typing.Dict[str, ListMcpServersResponseValue]]:
         """
         Get a list of all configured MCP servers
 
         Parameters
         ----------
-        user_id : typing.Optional[str]
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2356,9 +2376,6 @@ class AsyncRawToolsClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/tools/mcp/servers",
             method="GET",
-            headers={
-                "user-id": str(user_id) if user_id is not None else None,
-            },
             request_options=request_options,
         )
         try:

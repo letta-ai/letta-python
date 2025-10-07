@@ -4,6 +4,7 @@ import typing
 
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
+from ...types.paginated_agent_files import PaginatedAgentFiles
 from .raw_client import AsyncRawFilesClient, RawFilesClient
 
 
@@ -135,18 +136,38 @@ class FilesClient:
         _response = self._raw_client.close(agent_id, file_id, request_options=request_options)
         return _response.data
 
-    def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        is_open: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedAgentFiles:
         """
+        Get the files attached to an agent with their open/closed status (paginated).
+
         Parameters
         ----------
         agent_id : str
+
+        cursor : typing.Optional[str]
+            Pagination cursor from previous response
+
+        limit : typing.Optional[int]
+            Number of items to return (1-100)
+
+        is_open : typing.Optional[bool]
+            Filter by open status (true for open files, false for closed files)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        PaginatedAgentFiles
+            Successful Response
 
         Examples
         --------
@@ -160,7 +181,9 @@ class FilesClient:
             agent_id="agent_id",
         )
         """
-        _response = self._raw_client.list(agent_id, request_options=request_options)
+        _response = self._raw_client.list(
+            agent_id, cursor=cursor, limit=limit, is_open=is_open, request_options=request_options
+        )
         return _response.data
 
 
@@ -318,18 +341,38 @@ class AsyncFilesClient:
         _response = await self._raw_client.close(agent_id, file_id, request_options=request_options)
         return _response.data
 
-    async def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def list(
+        self,
+        agent_id: str,
+        *,
+        cursor: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        is_open: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedAgentFiles:
         """
+        Get the files attached to an agent with their open/closed status (paginated).
+
         Parameters
         ----------
         agent_id : str
+
+        cursor : typing.Optional[str]
+            Pagination cursor from previous response
+
+        limit : typing.Optional[int]
+            Number of items to return (1-100)
+
+        is_open : typing.Optional[bool]
+            Filter by open status (true for open files, false for closed files)
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        PaginatedAgentFiles
+            Successful Response
 
         Examples
         --------
@@ -351,5 +394,7 @@ class AsyncFilesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(agent_id, request_options=request_options)
+        _response = await self._raw_client.list(
+            agent_id, cursor=cursor, limit=limit, is_open=is_open, request_options=request_options
+        )
         return _response.data

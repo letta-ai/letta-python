@@ -6,6 +6,7 @@ AgentType = typing.Union[
     typing.Literal[
         "memgpt_agent",
         "memgpt_v2_agent",
+        "letta_v1_agent",
         "react_agent",
         "workflow_agent",
         "split_thread_agent",

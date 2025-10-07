@@ -6,6 +6,7 @@ StopReasonType = typing.Union[
     typing.Literal[
         "end_turn",
         "error",
+        "llm_api_error",
         "invalid_llm_response",
         "invalid_tool_call",
         "max_steps",

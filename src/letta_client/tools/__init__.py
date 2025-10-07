@@ -11,6 +11,7 @@ from .types import (
     ListMcpServersResponseValue,
     StreamingResponse,
     TestMcpServerRequest,
+    ToolsListRequestOrder,
     UpdateMcpServerRequest,
     UpdateMcpServerResponse,
 )
@@ -24,6 +25,7 @@ __all__ = [
     "ListMcpServersResponseValue",
     "StreamingResponse",
     "TestMcpServerRequest",
+    "ToolsListRequestOrder",
     "UpdateMcpServerRequest",
     "UpdateMcpServerResponse",
 ]

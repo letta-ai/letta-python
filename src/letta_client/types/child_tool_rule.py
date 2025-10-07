@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .tool_call_node import ToolCallNode
 
 
 class ChildToolRule(UncheckedBaseModel):
@@ -20,12 +21,17 @@ class ChildToolRule(UncheckedBaseModel):
     type: typing.Literal["constrain_child_tools"] = "constrain_child_tools"
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional Jinja2 template for generating agent prompt about this tool rule.
+    Optional template string (ignored).
     """
 
     children: typing.List[str] = pydantic.Field()
     """
     The children tools that can be invoked.
+    """
+
+    child_arg_nodes: typing.Optional[typing.List[ToolCallNode]] = pydantic.Field(default=None)
+    """
+    Optional list of typed child argument overrides. Each node must reference a child in 'children'.
     """
 
     if IS_PYDANTIC_V2:

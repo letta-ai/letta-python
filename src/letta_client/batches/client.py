@@ -6,7 +6,9 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.batch_job import BatchJob
 from ..types.letta_batch_request import LettaBatchRequest
+from .messages.client import AsyncMessagesClient, MessagesClient
 from .raw_client import AsyncRawBatchesClient, RawBatchesClient
+from .types.batches_list_request_order import BatchesListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -15,6 +17,7 @@ OMIT = typing.cast(typing.Any, ...)
 class BatchesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawBatchesClient(client_wrapper=client_wrapper)
+        self.messages = MessagesClient(client_wrapper=client_wrapper)
 
     @property
     def with_raw_response(self) -> RawBatchesClient:
@@ -27,12 +30,36 @@ class BatchesClient:
         """
         return self._raw_client
 
-    def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[BatchJob]:
+    def list(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BatchesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[BatchJob]:
         """
         List all batch runs.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
+
+        after : typing.Optional[str]
+            Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of jobs to return
+
+        order : typing.Optional[BatchesListRequestOrder]
+            Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -51,7 +78,9 @@ class BatchesClient:
         )
         client.batches.list()
         """
-        _response = self._raw_client.list(request_options=request_options)
+        _response = self._raw_client.list(
+            before=before, after=after, limit=limit, order=order, order_by=order_by, request_options=request_options
+        )
         return _response.data
 
     def create(
@@ -62,8 +91,10 @@ class BatchesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BatchJob:
         """
-        Submit a batch of agent messages for asynchronous processing.
+        Submit a batch of agent runs for asynchronous processing.
+
         Creates a job that will fan out messages to all listed agents and process them in parallel.
+        The request will be rejected if it exceeds 256MB.
 
         Parameters
         ----------
@@ -114,7 +145,7 @@ class BatchesClient:
 
     def retrieve(self, batch_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> BatchJob:
         """
-        Get the status of a batch run.
+        Retrieve the status and details of a batch run.
 
         Parameters
         ----------
@@ -180,6 +211,7 @@ class BatchesClient:
 class AsyncBatchesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawBatchesClient(client_wrapper=client_wrapper)
+        self.messages = AsyncMessagesClient(client_wrapper=client_wrapper)
 
     @property
     def with_raw_response(self) -> AsyncRawBatchesClient:
@@ -192,12 +224,36 @@ class AsyncBatchesClient:
         """
         return self._raw_client
 
-    async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[BatchJob]:
+    async def list(
+        self,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BatchesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[BatchJob]:
         """
         List all batch runs.
 
         Parameters
         ----------
+        before : typing.Optional[str]
+            Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
+
+        after : typing.Optional[str]
+            Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of jobs to return
+
+        order : typing.Optional[BatchesListRequestOrder]
+            Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -224,7 +280,9 @@ class AsyncBatchesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(request_options=request_options)
+        _response = await self._raw_client.list(
+            before=before, after=after, limit=limit, order=order, order_by=order_by, request_options=request_options
+        )
         return _response.data
 
     async def create(
@@ -235,8 +293,10 @@ class AsyncBatchesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BatchJob:
         """
-        Submit a batch of agent messages for asynchronous processing.
+        Submit a batch of agent runs for asynchronous processing.
+
         Creates a job that will fan out messages to all listed agents and process them in parallel.
+        The request will be rejected if it exceeds 256MB.
 
         Parameters
         ----------
@@ -300,7 +360,7 @@ class AsyncBatchesClient:
 
     async def retrieve(self, batch_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> BatchJob:
         """
-        Get the status of a batch run.
+        Retrieve the status and details of a batch run.
 
         Parameters
         ----------

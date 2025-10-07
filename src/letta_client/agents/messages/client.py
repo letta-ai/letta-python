@@ -20,7 +20,7 @@ from .types.letta_streaming_response import LettaStreamingResponse
 from .types.message_search_request_search_mode import MessageSearchRequestSearchMode
 from .types.messages_modify_request import MessagesModifyRequest
 from .types.messages_modify_response import MessagesModifyResponse
-from .types.messages_preview_raw_payload_request import MessagesPreviewRawPayloadRequest
+from .types.messages_preview_request import MessagesPreviewRequest
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -185,7 +185,7 @@ class MessagesClient:
                     role="user",
                     content=[
                         TextContent(
-                            text="text",
+                            text="The sky above the port was the color of television, tuned to a dead channel.",
                         )
                     ],
                 )
@@ -329,7 +329,7 @@ class MessagesClient:
                     role="user",
                     content=[
                         TextContent(
-                            text="text",
+                            text="The sky above the port was the color of television, tuned to a dead channel.",
                         )
                     ],
                 )
@@ -489,8 +489,7 @@ class MessagesClient:
         Asynchronously process a user message and return a run object.
         The actual processing happens in the background, and the status can be checked using the run ID.
 
-        This is "asynchronous" in the sense that it's a background job and explicitly must be fetched by the run ID.
-        This is more like `send_message_job`
+        This is "asynchronous" in the sense that it's a background run and explicitly must be fetched by the run ID.
 
         Parameters
         ----------
@@ -606,12 +605,8 @@ class MessagesClient:
         )
         return _response.data
 
-    def preview_raw_payload(
-        self,
-        agent_id: str,
-        *,
-        request: MessagesPreviewRawPayloadRequest,
-        request_options: typing.Optional[RequestOptions] = None,
+    def preview(
+        self, agent_id: str, *, request: MessagesPreviewRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Dict[str, typing.Optional[typing.Any]]:
         """
         Inspect the raw LLM request payload without sending it.
@@ -624,7 +619,7 @@ class MessagesClient:
         ----------
         agent_id : str
 
-        request : MessagesPreviewRawPayloadRequest
+        request : MessagesPreviewRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -642,7 +637,7 @@ class MessagesClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.agents.messages.preview_raw_payload(
+        client.agents.messages.preview(
             agent_id="agent_id",
             request=LettaRequest(
                 messages=[
@@ -658,7 +653,48 @@ class MessagesClient:
             ),
         )
         """
-        _response = self._raw_client.preview_raw_payload(agent_id, request=request, request_options=request_options)
+        _response = self._raw_client.preview(agent_id, request=request, request_options=request_options)
+        return _response.data
+
+    def summarize(
+        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Summarize an agent's conversation history to a target message length.
+
+        This endpoint summarizes the current message history for a given agent,
+        truncating and compressing it down to the specified `max_message_length`.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        max_message_length : int
+            Maximum number of messages to retain after summarization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.agents.messages.summarize(
+            agent_id="agent_id",
+            max_message_length=1,
+        )
+        """
+        _response = self._raw_client.summarize(
+            agent_id, max_message_length=max_message_length, request_options=request_options
+        )
         return _response.data
 
 
@@ -834,7 +870,7 @@ class AsyncMessagesClient:
                         role="user",
                         content=[
                             TextContent(
-                                text="text",
+                                text="The sky above the port was the color of television, tuned to a dead channel.",
                             )
                         ],
                     )
@@ -996,7 +1032,7 @@ class AsyncMessagesClient:
                         role="user",
                         content=[
                             TextContent(
-                                text="text",
+                                text="The sky above the port was the color of television, tuned to a dead channel.",
                             )
                         ],
                     )
@@ -1176,8 +1212,7 @@ class AsyncMessagesClient:
         Asynchronously process a user message and return a run object.
         The actual processing happens in the background, and the status can be checked using the run ID.
 
-        This is "asynchronous" in the sense that it's a background job and explicitly must be fetched by the run ID.
-        This is more like `send_message_job`
+        This is "asynchronous" in the sense that it's a background run and explicitly must be fetched by the run ID.
 
         Parameters
         ----------
@@ -1309,12 +1344,8 @@ class AsyncMessagesClient:
         )
         return _response.data
 
-    async def preview_raw_payload(
-        self,
-        agent_id: str,
-        *,
-        request: MessagesPreviewRawPayloadRequest,
-        request_options: typing.Optional[RequestOptions] = None,
+    async def preview(
+        self, agent_id: str, *, request: MessagesPreviewRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> typing.Dict[str, typing.Optional[typing.Any]]:
         """
         Inspect the raw LLM request payload without sending it.
@@ -1327,7 +1358,7 @@ class AsyncMessagesClient:
         ----------
         agent_id : str
 
-        request : MessagesPreviewRawPayloadRequest
+        request : MessagesPreviewRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1350,7 +1381,7 @@ class AsyncMessagesClient:
 
 
         async def main() -> None:
-            await client.agents.messages.preview_raw_payload(
+            await client.agents.messages.preview(
                 agent_id="agent_id",
                 request=LettaRequest(
                     messages=[
@@ -1369,7 +1400,54 @@ class AsyncMessagesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.preview_raw_payload(
-            agent_id, request=request, request_options=request_options
+        _response = await self._raw_client.preview(agent_id, request=request, request_options=request_options)
+        return _response.data
+
+    async def summarize(
+        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Summarize an agent's conversation history to a target message length.
+
+        This endpoint summarizes the current message history for a given agent,
+        truncating and compressing it down to the specified `max_message_length`.
+
+        Parameters
+        ----------
+        agent_id : str
+
+        max_message_length : int
+            Maximum number of messages to retain after summarization.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.agents.messages.summarize(
+                agent_id="agent_id",
+                max_message_length=1,
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.summarize(
+            agent_id, max_message_length=max_message_length, request_options=request_options
         )
         return _response.data

@@ -3,7 +3,8 @@
 # isort: skip_file
 
 from .letta_streaming_response import LettaStreamingResponse
+from .messages_list_request_order import MessagesListRequestOrder
 from .messages_modify_request import MessagesModifyRequest
 from .messages_modify_response import MessagesModifyResponse
 
-__all__ = ["LettaStreamingResponse", "MessagesModifyRequest", "MessagesModifyResponse"]
+__all__ = ["LettaStreamingResponse", "MessagesListRequestOrder", "MessagesModifyRequest", "MessagesModifyResponse"]

@@ -7,6 +7,7 @@ from ..core.request_options import RequestOptions
 from ..types.block import Block
 from .agents.client import AgentsClient, AsyncAgentsClient
 from .raw_client import AsyncRawBlocksClient, RawBlocksClient
+from .types.blocks_list_request_order import BlocksListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -40,6 +41,8 @@ class BlocksClient:
         limit: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
+        order: typing.Optional[BlocksListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         label_search: typing.Optional[str] = None,
         description_search: typing.Optional[str] = None,
         value_search: typing.Optional[str] = None,
@@ -73,10 +76,16 @@ class BlocksClient:
             Number of blocks to return
 
         before : typing.Optional[str]
-            Cursor for pagination. If provided, returns blocks before this cursor.
+            Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination. If provided, returns blocks after this cursor.
+            Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+
+        order : typing.Optional[BlocksListRequestOrder]
+            Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         label_search : typing.Optional[str]
             Search blocks by label. If provided, returns blocks that match this label. This is a full-text search on labels.
@@ -124,6 +133,8 @@ class BlocksClient:
             limit=limit,
             before=before,
             after=after,
+            order=order,
+            order_by=order_by,
             label_search=label_search,
             description_search=description_search,
             value_search=value_search,
@@ -460,6 +471,8 @@ class AsyncBlocksClient:
         limit: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
+        order: typing.Optional[BlocksListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         label_search: typing.Optional[str] = None,
         description_search: typing.Optional[str] = None,
         value_search: typing.Optional[str] = None,
@@ -493,10 +506,16 @@ class AsyncBlocksClient:
             Number of blocks to return
 
         before : typing.Optional[str]
-            Cursor for pagination. If provided, returns blocks before this cursor.
+            Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination. If provided, returns blocks after this cursor.
+            Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+
+        order : typing.Optional[BlocksListRequestOrder]
+            Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         label_search : typing.Optional[str]
             Search blocks by label. If provided, returns blocks that match this label. This is a full-text search on labels.
@@ -552,6 +571,8 @@ class AsyncBlocksClient:
             limit=limit,
             before=before,
             after=after,
+            order=order,
+            order_by=order_by,
             label_search=label_search,
             description_search=description_search,
             value_search=value_search,

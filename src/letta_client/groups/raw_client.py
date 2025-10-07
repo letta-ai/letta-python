@@ -16,6 +16,7 @@ from ..types.http_validation_error import HttpValidationError
 from ..types.manager_type import ManagerType
 from .types.group_create_manager_config import GroupCreateManagerConfig
 from .types.group_update_manager_config import GroupUpdateManagerConfig
+from .types.groups_list_request_order import GroupsListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -32,6 +33,8 @@ class RawGroupsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[GroupsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Group]]:
@@ -44,13 +47,19 @@ class RawGroupsClient:
             Search groups by manager type
 
         before : typing.Optional[str]
-            Cursor for pagination
+            Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination
+            Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order
 
         limit : typing.Optional[int]
-            Limit for pagination
+            Maximum number of groups to return
+
+        order : typing.Optional[GroupsListRequestOrder]
+            Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         project_id : typing.Optional[str]
             Search groups by project id
@@ -71,6 +80,8 @@ class RawGroupsClient:
                 "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "project_id": project_id,
             },
             request_options=request_options,
@@ -430,6 +441,8 @@ class AsyncRawGroupsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[GroupsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         project_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Group]]:
@@ -442,13 +455,19 @@ class AsyncRawGroupsClient:
             Search groups by manager type
 
         before : typing.Optional[str]
-            Cursor for pagination
+            Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination
+            Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order
 
         limit : typing.Optional[int]
-            Limit for pagination
+            Maximum number of groups to return
+
+        order : typing.Optional[GroupsListRequestOrder]
+            Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         project_id : typing.Optional[str]
             Search groups by project id
@@ -469,6 +488,8 @@ class AsyncRawGroupsClient:
                 "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "project_id": project_id,
             },
             request_options=request_options,

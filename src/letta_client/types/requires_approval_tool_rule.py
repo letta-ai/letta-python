@@ -20,7 +20,7 @@ class RequiresApprovalToolRule(UncheckedBaseModel):
     type: typing.Literal["requires_approval"] = "requires_approval"
     prompt_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional Jinja2 template for generating agent prompt about this tool rule. Template can use variables like 'tool_name' and rule-specific attributes.
+    Optional template string (ignored). Rendering uses fast built-in formatting for performance.
     """
 
     if IS_PYDANTIC_V2:

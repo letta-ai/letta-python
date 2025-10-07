@@ -21,7 +21,8 @@ from ..types.http_validation_error import HttpValidationError
 from ..types.imported_agents_response import ImportedAgentsResponse
 from ..types.llm_config import LlmConfig
 from ..types.message_create import MessageCreate
-from ..types.paginated_agent_files import PaginatedAgentFiles
+from .types.agents_list_request_order import AgentsListRequestOrder
+from .types.agents_list_request_order_by import AgentsListRequestOrderBy
 from .types.agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .types.agents_search_request_sort_by import AgentsSearchRequestSortBy
 from .types.agents_search_response import AgentsSearchResponse
@@ -54,15 +55,14 @@ class RawAgentsClient:
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order: typing.Optional[AgentsListRequestOrder] = None,
+        order_by: typing.Optional[AgentsListRequestOrderBy] = None,
         ascending: typing.Optional[bool] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[AgentState]]:
         """
-        List all agents associated with a given user.
-
-        This endpoint retrieves a list of all agents and their configurations
-        associated with the specified user ID.
+        Get a list of all agents.
 
         Parameters
         ----------
@@ -105,6 +105,12 @@ class RawAgentsClient:
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
+        order : typing.Optional[AgentsListRequestOrder]
+            Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[AgentsListRequestOrderBy]
+            Field to sort by
+
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
 
@@ -136,6 +142,8 @@ class RawAgentsClient:
                 "identity_id": identity_id,
                 "identifier_keys": identifier_keys,
                 "include_relationships": include_relationships,
+                "order": order,
+                "order_by": order_by,
                 "ascending": ascending,
                 "sort_by": sort_by,
             },
@@ -201,6 +209,7 @@ class RawAgentsClient:
         template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
@@ -216,7 +225,7 @@ class RawAgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AgentState]:
         """
-        Create a new agent with the specified configuration.
+        Create an agent.
 
         Parameters
         ----------
@@ -311,6 +320,9 @@ class RawAgentsClient:
             Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Deprecated: use `secrets` field instead.
+
+        secrets : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
         memory_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
@@ -402,6 +414,7 @@ class RawAgentsClient:
                 "template": template,
                 "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
+                "secrets": secrets,
                 "memory_variables": memory_variables,
                 "project_id": project_id,
                 "template_id": template_id,
@@ -451,7 +464,7 @@ class RawAgentsClient:
 
     def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[int]:
         """
-        Get the count of all agents associated with a given user.
+        Get the total number of agents.
 
         Parameters
         ----------
@@ -787,6 +800,7 @@ class RawAgentsClient:
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
@@ -806,7 +820,7 @@ class RawAgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AgentState]:
         """
-        Update an existing agent
+        Update an existing agent.
 
         Parameters
         ----------
@@ -849,6 +863,9 @@ class RawAgentsClient:
             The metadata of the agent.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Deprecated: use `secrets` field instead
+
+        secrets : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
         project_id : typing.Optional[str]
@@ -930,6 +947,7 @@ class RawAgentsClient:
                 "description": description,
                 "metadata": metadata,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
+                "secrets": secrets,
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
@@ -965,125 +983,6 @@ class RawAgentsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def list_agent_files(
-        self,
-        agent_id: str,
-        *,
-        cursor: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        is_open: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[PaginatedAgentFiles]:
-        """
-        Get the files attached to an agent with their open/closed status (paginated).
-
-        Parameters
-        ----------
-        agent_id : str
-
-        cursor : typing.Optional[str]
-            Pagination cursor from previous response
-
-        limit : typing.Optional[int]
-            Number of items to return (1-100)
-
-        is_open : typing.Optional[bool]
-            Filter by open status (true for open files, false for closed files)
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[PaginatedAgentFiles]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/files",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "limit": limit,
-                "is_open": is_open,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PaginatedAgentFiles,
-                    construct_type(
-                        type_=PaginatedAgentFiles,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def summarize_agent_conversation(
-        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[None]:
-        """
-        Summarize an agent's conversation history to a target message length.
-
-        This endpoint summarizes the current message history for a given agent,
-        truncating and compressing it down to the specified `max_message_length`.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        max_message_length : int
-            Maximum number of messages to retain after summarization.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[None]
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/summarize",
-            method="POST",
-            params={
-                "max_message_length": max_message_length,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return HttpResponse(response=_response, data=None)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -1197,15 +1096,14 @@ class AsyncRawAgentsClient:
         identity_id: typing.Optional[str] = None,
         identifier_keys: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order: typing.Optional[AgentsListRequestOrder] = None,
+        order_by: typing.Optional[AgentsListRequestOrderBy] = None,
         ascending: typing.Optional[bool] = None,
         sort_by: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[AgentState]]:
         """
-        List all agents associated with a given user.
-
-        This endpoint retrieves a list of all agents and their configurations
-        associated with the specified user ID.
+        Get a list of all agents.
 
         Parameters
         ----------
@@ -1248,6 +1146,12 @@ class AsyncRawAgentsClient:
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
 
+        order : typing.Optional[AgentsListRequestOrder]
+            Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[AgentsListRequestOrderBy]
+            Field to sort by
+
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
 
@@ -1279,6 +1183,8 @@ class AsyncRawAgentsClient:
                 "identity_id": identity_id,
                 "identifier_keys": identifier_keys,
                 "include_relationships": include_relationships,
+                "order": order,
+                "order_by": order_by,
                 "ascending": ascending,
                 "sort_by": sort_by,
             },
@@ -1344,6 +1250,7 @@ class AsyncRawAgentsClient:
         template: typing.Optional[bool] = OMIT,
         project: typing.Optional[str] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         memory_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
@@ -1359,7 +1266,7 @@ class AsyncRawAgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AgentState]:
         """
-        Create a new agent with the specified configuration.
+        Create an agent.
 
         Parameters
         ----------
@@ -1454,6 +1361,9 @@ class AsyncRawAgentsClient:
             Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Deprecated: use `secrets` field instead.
+
+        secrets : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
         memory_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
@@ -1545,6 +1455,7 @@ class AsyncRawAgentsClient:
                 "template": template,
                 "project": project,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
+                "secrets": secrets,
                 "memory_variables": memory_variables,
                 "project_id": project_id,
                 "template_id": template_id,
@@ -1594,7 +1505,7 @@ class AsyncRawAgentsClient:
 
     async def count(self, *, request_options: typing.Optional[RequestOptions] = None) -> AsyncHttpResponse[int]:
         """
-        Get the count of all agents associated with a given user.
+        Get the total number of agents.
 
         Parameters
         ----------
@@ -1930,6 +1841,7 @@ class AsyncRawAgentsClient:
         description: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         tool_exec_environment_variables: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        secrets: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         project_id: typing.Optional[str] = OMIT,
         template_id: typing.Optional[str] = OMIT,
         base_template_id: typing.Optional[str] = OMIT,
@@ -1949,7 +1861,7 @@ class AsyncRawAgentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AgentState]:
         """
-        Update an existing agent
+        Update an existing agent.
 
         Parameters
         ----------
@@ -1992,6 +1904,9 @@ class AsyncRawAgentsClient:
             The metadata of the agent.
 
         tool_exec_environment_variables : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Deprecated: use `secrets` field instead
+
+        secrets : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             The environment variables for tool execution specific to this agent.
 
         project_id : typing.Optional[str]
@@ -2073,6 +1988,7 @@ class AsyncRawAgentsClient:
                 "description": description,
                 "metadata": metadata,
                 "tool_exec_environment_variables": tool_exec_environment_variables,
+                "secrets": secrets,
                 "project_id": project_id,
                 "template_id": template_id,
                 "base_template_id": base_template_id,
@@ -2108,125 +2024,6 @@ class AsyncRawAgentsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def list_agent_files(
-        self,
-        agent_id: str,
-        *,
-        cursor: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        is_open: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[PaginatedAgentFiles]:
-        """
-        Get the files attached to an agent with their open/closed status (paginated).
-
-        Parameters
-        ----------
-        agent_id : str
-
-        cursor : typing.Optional[str]
-            Pagination cursor from previous response
-
-        limit : typing.Optional[int]
-            Number of items to return (1-100)
-
-        is_open : typing.Optional[bool]
-            Filter by open status (true for open files, false for closed files)
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[PaginatedAgentFiles]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/files",
-            method="GET",
-            params={
-                "cursor": cursor,
-                "limit": limit,
-                "is_open": is_open,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    PaginatedAgentFiles,
-                    construct_type(
-                        type_=PaginatedAgentFiles,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def summarize_agent_conversation(
-        self, agent_id: str, *, max_message_length: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[None]:
-        """
-        Summarize an agent's conversation history to a target message length.
-
-        This endpoint summarizes the current message history for a given agent,
-        truncating and compressing it down to the specified `max_message_length`.
-
-        Parameters
-        ----------
-        agent_id : str
-
-        max_message_length : int
-            Maximum number of messages to retain after summarization.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[None]
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/agents/{jsonable_encoder(agent_id)}/summarize",
-            method="POST",
-            params={
-                "max_message_length": max_message_length,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return AsyncHttpResponse(response=_response, data=None)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),

@@ -11,6 +11,7 @@ from ...types.letta_streaming_request_messages_item import LettaStreamingRequest
 from ...types.message_type import MessageType
 from .raw_client import AsyncRawMessagesClient, RawMessagesClient
 from .types.letta_streaming_response import LettaStreamingResponse
+from .types.messages_list_request_order import MessagesListRequestOrder
 from .types.messages_modify_request import MessagesModifyRequest
 from .types.messages_modify_response import MessagesModifyResponse
 
@@ -37,9 +38,11 @@ class MessagesClient:
         self,
         group_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
         assistant_message_tool_kwarg: typing.Optional[str] = None,
@@ -52,14 +55,20 @@ class MessagesClient:
         ----------
         group_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+
+        after : typing.Optional[str]
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of messages to retrieve
+
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         use_assistant_message : typing.Optional[bool]
             Whether to use assistant messages
@@ -92,9 +101,11 @@ class MessagesClient:
         """
         _response = self._raw_client.list(
             group_id,
-            after=after,
             before=before,
+            after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             use_assistant_message=use_assistant_message,
             assistant_message_tool_name=assistant_message_tool_name,
             assistant_message_tool_kwarg=assistant_message_tool_kwarg,
@@ -167,7 +178,7 @@ class MessagesClient:
                     role="user",
                     content=[
                         TextContent(
-                            text="text",
+                            text="The sky above the port was the color of television, tuned to a dead channel.",
                         )
                     ],
                 )
@@ -265,7 +276,7 @@ class MessagesClient:
                     role="user",
                     content=[
                         TextContent(
-                            text="text",
+                            text="The sky above the port was the color of television, tuned to a dead channel.",
                         )
                     ],
                 )
@@ -389,9 +400,11 @@ class AsyncMessagesClient:
         self,
         group_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
         assistant_message_tool_kwarg: typing.Optional[str] = None,
@@ -404,14 +417,20 @@ class AsyncMessagesClient:
         ----------
         group_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+
+        after : typing.Optional[str]
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of messages to retrieve
+
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         use_assistant_message : typing.Optional[bool]
             Whether to use assistant messages
@@ -452,9 +471,11 @@ class AsyncMessagesClient:
         """
         _response = await self._raw_client.list(
             group_id,
-            after=after,
             before=before,
+            after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             use_assistant_message=use_assistant_message,
             assistant_message_tool_name=assistant_message_tool_name,
             assistant_message_tool_kwarg=assistant_message_tool_kwarg,
@@ -532,7 +553,7 @@ class AsyncMessagesClient:
                         role="user",
                         content=[
                             TextContent(
-                                text="text",
+                                text="The sky above the port was the color of television, tuned to a dead channel.",
                             )
                         ],
                     )
@@ -638,7 +659,7 @@ class AsyncMessagesClient:
                         role="user",
                         content=[
                             TextContent(
-                                text="text",
+                                text="The sky above the port was the color of television, tuned to a dead channel.",
                             )
                         ],
                     )

@@ -6,63 +6,76 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .job_status import JobStatus
-from .job_type import JobType
 from .letta_request_config import LettaRequestConfig
+from .run_status import RunStatus
+from .stop_reason_type import StopReasonType
 
 
 class Run(UncheckedBaseModel):
     """
-    Representation of a run, which is a job with a 'run' prefix in its ID.
-    Inherits all fields and behavior from Job except for the ID prefix.
+    Representation of a run - a conversation or processing session for an agent.
+    Runs track when agents process messages and maintain the relationship between agents, steps, and messages.
 
     Parameters:
         id (str): The unique identifier of the run (prefixed with 'run-').
-        status (JobStatus): The status of the run.
-        created_at (datetime): The unix timestamp of when the run was created.
-        completed_at (datetime): The unix timestamp of when the run was completed.
-        user_id (str): The unique identifier of the user associated with the run.
+        status (JobStatus): The current status of the run.
+        created_at (datetime): The timestamp when the run was created.
+        completed_at (datetime): The timestamp when the run was completed.
+        agent_id (str): The unique identifier of the agent associated with the run.
+        stop_reason (StopReasonType): The reason why the run was stopped.
+        background (bool): Whether the run was created in background mode.
+        metadata (dict): Additional metadata for the run.
+        request_config (LettaRequestConfig): The request configuration for the run.
     """
 
-    created_by_id: typing.Optional[str] = pydantic.Field(default=None)
+    id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The id of the user that made this object.
+    The human-friendly ID of the Run
     """
 
-    last_updated_by_id: typing.Optional[str] = pydantic.Field(default=None)
+    status: typing.Optional[RunStatus] = pydantic.Field(default=None)
     """
-    The id of the user that made this object.
+    The current status of the run.
     """
 
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    The unix timestamp of when the job was created.
-    """
-
-    updated_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
-    """
-    The timestamp when the object was last updated.
-    """
-
-    status: typing.Optional[JobStatus] = pydantic.Field(default=None)
-    """
-    The status of the job.
+    The timestamp when the run was created.
     """
 
     completed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    The unix timestamp of when the job was completed.
+    The timestamp when the run was completed.
+    """
+
+    agent_id: str = pydantic.Field()
+    """
+    The unique identifier of the agent associated with the run.
+    """
+
+    background: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the run was created in background mode.
     """
 
     metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
-    The metadata of the job.
+    Additional metadata for the run.
     """
 
-    job_type: typing.Optional[JobType] = None
+    request_config: typing.Optional[LettaRequestConfig] = pydantic.Field(default=None)
+    """
+    The request configuration for the run.
+    """
+
+    stop_reason: typing.Optional[StopReasonType] = pydantic.Field(default=None)
+    """
+    The reason why the run was stopped.
+    """
+
     callback_url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    If set, POST to this URL when the job completes.
+    If set, POST to this URL when the run completes.
     """
 
     callback_sent_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
@@ -88,16 +101,6 @@ class Run(UncheckedBaseModel):
     total_duration_ns: typing.Optional[int] = pydantic.Field(default=None)
     """
     Total run duration in nanoseconds
-    """
-
-    id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The human-friendly ID of the Run
-    """
-
-    request_config: typing.Optional[LettaRequestConfig] = pydantic.Field(default=None)
-    """
-    The request configuration for the run.
     """
 
     if IS_PYDANTIC_V2:

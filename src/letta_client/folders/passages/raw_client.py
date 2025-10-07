@@ -12,6 +12,7 @@ from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from ...types.passage import Passage
+from .types.passages_list_request_order import PassagesListRequestOrder
 
 
 class RawPassagesClient:
@@ -22,9 +23,11 @@ class RawPassagesClient:
         self,
         folder_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[PassagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Passage]]:
         """
@@ -34,14 +37,20 @@ class RawPassagesClient:
         ----------
         folder_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Passage ID cursor for pagination. Returns passages that come before this passage ID in the specified sort order
+
+        after : typing.Optional[str]
+            Passage ID cursor for pagination. Returns passages that come after this passage ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of passages to return
+
+        order : typing.Optional[PassagesListRequestOrder]
+            Sort order for passages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -55,9 +64,11 @@ class RawPassagesClient:
             f"v1/folders/{jsonable_encoder(folder_id)}/passages",
             method="GET",
             params={
-                "after": after,
                 "before": before,
+                "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
             },
             request_options=request_options,
         )
@@ -96,9 +107,11 @@ class AsyncRawPassagesClient:
         self,
         folder_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[PassagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Passage]]:
         """
@@ -108,14 +121,20 @@ class AsyncRawPassagesClient:
         ----------
         folder_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Passage ID cursor for pagination. Returns passages that come before this passage ID in the specified sort order
+
+        after : typing.Optional[str]
+            Passage ID cursor for pagination. Returns passages that come after this passage ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of passages to return
+
+        order : typing.Optional[PassagesListRequestOrder]
+            Sort order for passages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -129,9 +148,11 @@ class AsyncRawPassagesClient:
             f"v1/folders/{jsonable_encoder(folder_id)}/passages",
             method="GET",
             params={
-                "after": after,
                 "before": before,
+                "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
             },
             request_options=request_options,
         )

@@ -18,9 +18,9 @@ class StepMetrics(UncheckedBaseModel):
     The unique identifier of the provider.
     """
 
-    job_id: typing.Optional[str] = pydantic.Field(default=None)
+    run_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The unique identifier of the job.
+    The unique identifier of the run.
     """
 
     agent_id: typing.Optional[str] = pydantic.Field(default=None)

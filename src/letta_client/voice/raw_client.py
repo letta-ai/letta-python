@@ -25,7 +25,6 @@ class RawVoiceClient:
         agent_id: str,
         *,
         request: typing.Dict[str, typing.Optional[typing.Any]],
-        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
         """
@@ -34,8 +33,6 @@ class RawVoiceClient:
         agent_id : str
 
         request : typing.Dict[str, typing.Optional[typing.Any]]
-
-        user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -51,7 +48,6 @@ class RawVoiceClient:
             json=request,
             headers={
                 "content-type": "application/json",
-                "user-id": str(user_id) if user_id is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -94,7 +90,6 @@ class AsyncRawVoiceClient:
         agent_id: str,
         *,
         request: typing.Dict[str, typing.Optional[typing.Any]],
-        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
         """
@@ -103,8 +98,6 @@ class AsyncRawVoiceClient:
         agent_id : str
 
         request : typing.Dict[str, typing.Optional[typing.Any]]
-
-        user_id : typing.Optional[str]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -120,7 +113,6 @@ class AsyncRawVoiceClient:
             json=request,
             headers={
                 "content-type": "application/json",
-                "user-id": str(user_id) if user_id is not None else None,
             },
             request_options=request_options,
             omit=OMIT,

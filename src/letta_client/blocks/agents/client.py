@@ -6,6 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.agent_state import AgentState
 from .raw_client import AsyncRawAgentsClient, RawAgentsClient
+from .types.agents_list_request_order import AgentsListRequestOrder
 
 
 class AgentsClient:
@@ -27,6 +28,11 @@ class AgentsClient:
         self,
         block_id: str,
         *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[AgentsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
@@ -37,6 +43,21 @@ class AgentsClient:
         Parameters
         ----------
         block_id : str
+
+        before : typing.Optional[str]
+            Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
+
+        after : typing.Optional[str]
+            Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of agents to return
+
+        order : typing.Optional[AgentsListRequestOrder]
+            Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
@@ -62,7 +83,14 @@ class AgentsClient:
         )
         """
         _response = self._raw_client.list(
-            block_id, include_relationships=include_relationships, request_options=request_options
+            block_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            include_relationships=include_relationships,
+            request_options=request_options,
         )
         return _response.data
 
@@ -86,6 +114,11 @@ class AsyncAgentsClient:
         self,
         block_id: str,
         *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[AgentsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         include_relationships: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[AgentState]:
@@ -96,6 +129,21 @@ class AsyncAgentsClient:
         Parameters
         ----------
         block_id : str
+
+        before : typing.Optional[str]
+            Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
+
+        after : typing.Optional[str]
+            Agent ID cursor for pagination. Returns agents that come after this agent ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of agents to return
+
+        order : typing.Optional[AgentsListRequestOrder]
+            Sort order for agents by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
@@ -129,6 +177,13 @@ class AsyncAgentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            block_id, include_relationships=include_relationships, request_options=request_options
+            block_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            include_relationships=include_relationships,
+            request_options=request_options,
         )
         return _response.data

@@ -2,6 +2,8 @@
 
 # isort: skip_file
 
+from .agents_list_request_order import AgentsListRequestOrder
+from .agents_list_request_order_by import AgentsListRequestOrderBy
 from .agents_search_request_search_item import AgentsSearchRequestSearchItem
 from .agents_search_request_search_item_field import AgentsSearchRequestSearchItemField
 from .agents_search_request_search_item_one import AgentsSearchRequestSearchItemOne
@@ -17,6 +19,8 @@ from .update_agent_response_format import UpdateAgentResponseFormat
 from .update_agent_tool_rules_item import UpdateAgentToolRulesItem
 
 __all__ = [
+    "AgentsListRequestOrder",
+    "AgentsListRequestOrderBy",
     "AgentsSearchRequestSearchItem",
     "AgentsSearchRequestSearchItemField",
     "AgentsSearchRequestSearchItemOne",

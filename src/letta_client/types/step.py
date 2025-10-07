@@ -27,9 +27,9 @@ class Step(UncheckedBaseModel):
     The unique identifier of the provider that was configured for this step
     """
 
-    job_id: typing.Optional[str] = pydantic.Field(default=None)
+    run_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The unique identifier of the job that this step belongs to. Only included for async calls.
+    The unique identifier of the run that this step belongs to. Only included for async calls.
     """
 
     agent_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -106,7 +106,7 @@ class Step(UncheckedBaseModel):
 
     messages: typing.Optional[typing.List[Message]] = pydantic.Field(default=None)
     """
-    The messages generated during this step.
+    The messages generated during this step. Deprecated: use `GET /v1/steps/{step_id}/messages` endpoint instead
     """
 
     feedback: typing.Optional[StepFeedback] = pydantic.Field(default=None)

@@ -4,6 +4,7 @@ import typing
 
 TemplatesGetTemplateSnapshotResponseAgentsItemAgentType = typing.Union[
     typing.Literal[
+        "letta_v1_agent",
         "memgpt_agent",
         "memgpt_v2_agent",
         "react_agent",

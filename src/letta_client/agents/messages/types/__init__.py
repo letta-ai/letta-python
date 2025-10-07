@@ -7,7 +7,7 @@ from .letta_streaming_response import LettaStreamingResponse
 from .message_search_request_search_mode import MessageSearchRequestSearchMode
 from .messages_modify_request import MessagesModifyRequest
 from .messages_modify_response import MessagesModifyResponse
-from .messages_preview_raw_payload_request import MessagesPreviewRawPayloadRequest
+from .messages_preview_request import MessagesPreviewRequest
 
 __all__ = [
     "LettaAsyncRequestMessagesItem",
@@ -15,5 +15,5 @@ __all__ = [
     "MessageSearchRequestSearchMode",
     "MessagesModifyRequest",
     "MessagesModifyResponse",
-    "MessagesPreviewRawPayloadRequest",
+    "MessagesPreviewRequest",
 ]

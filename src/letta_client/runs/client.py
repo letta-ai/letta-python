@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.run import Run
+from ..types.stop_reason_type import StopReasonType
 from .messages.client import AsyncMessagesClient, MessagesClient
 from .raw_client import AsyncRawRunsClient, RawRunsClient
 from .steps.client import AsyncStepsClient, StepsClient
@@ -38,11 +39,14 @@ class RunsClient:
     def list(
         self,
         *,
+        agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
+        stop_reason: typing.Optional[StopReasonType] = None,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Run]:
@@ -51,11 +55,17 @@ class RunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
+
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
+
+        stop_reason : typing.Optional[StopReasonType]
+            Filter runs by stop reason.
 
         after : typing.Optional[str]
             Cursor for pagination
@@ -65,6 +75,9 @@ class RunsClient:
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        active : typing.Optional[bool]
+            Filter for active runs.
 
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
@@ -88,11 +101,14 @@ class RunsClient:
         client.runs.list()
         """
         _response = self._raw_client.list(
+            agent_id=agent_id,
             agent_ids=agent_ids,
             background=background,
+            stop_reason=stop_reason,
             after=after,
             before=before,
             limit=limit,
+            active=active,
             ascending=ascending,
             request_options=request_options,
         )
@@ -101,7 +117,7 @@ class RunsClient:
     def list_active(
         self,
         *,
-        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        agent_id: typing.Optional[str] = None,
         background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Run]:
@@ -110,7 +126,7 @@ class RunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
 
         background : typing.Optional[bool]
@@ -135,7 +151,7 @@ class RunsClient:
         client.runs.list_active()
         """
         _response = self._raw_client.list_active(
-            agent_ids=agent_ids, background=background, request_options=request_options
+            agent_id=agent_id, background=background, request_options=request_options
         )
         return _response.data
 
@@ -284,11 +300,14 @@ class AsyncRunsClient:
     async def list(
         self,
         *,
+        agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
+        stop_reason: typing.Optional[StopReasonType] = None,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Run]:
@@ -297,11 +316,17 @@ class AsyncRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
+
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
+
+        stop_reason : typing.Optional[StopReasonType]
+            Filter runs by stop reason.
 
         after : typing.Optional[str]
             Cursor for pagination
@@ -311,6 +336,9 @@ class AsyncRunsClient:
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        active : typing.Optional[bool]
+            Filter for active runs.
 
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
@@ -342,11 +370,14 @@ class AsyncRunsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
+            agent_id=agent_id,
             agent_ids=agent_ids,
             background=background,
+            stop_reason=stop_reason,
             after=after,
             before=before,
             limit=limit,
+            active=active,
             ascending=ascending,
             request_options=request_options,
         )
@@ -355,7 +386,7 @@ class AsyncRunsClient:
     async def list_active(
         self,
         *,
-        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        agent_id: typing.Optional[str] = None,
         background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Run]:
@@ -364,7 +395,7 @@ class AsyncRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
 
         background : typing.Optional[bool]
@@ -397,7 +428,7 @@ class AsyncRunsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list_active(
-            agent_ids=agent_ids, background=background, request_options=request_options
+            agent_id=agent_id, background=background, request_options=request_options
         )
         return _response.data
 

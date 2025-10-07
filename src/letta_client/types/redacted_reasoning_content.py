@@ -8,6 +8,10 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 
 
 class RedactedReasoningContent(UncheckedBaseModel):
+    """
+    Sent via the Anthropic Messages API
+    """
+
     type: typing.Literal["redacted_reasoning"] = "redacted_reasoning"
     data: str = pydantic.Field()
     """

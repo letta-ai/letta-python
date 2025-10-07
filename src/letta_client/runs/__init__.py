@@ -4,5 +4,6 @@
 
 from .types import LettaStreamingResponse
 from . import messages, steps, usage
+from .messages import MessagesListRequestOrder
 
-__all__ = ["LettaStreamingResponse", "messages", "steps", "usage"]
+__all__ = ["LettaStreamingResponse", "MessagesListRequestOrder", "messages", "steps", "usage"]

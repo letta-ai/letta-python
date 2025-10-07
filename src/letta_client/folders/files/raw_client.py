@@ -14,6 +14,7 @@ from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.duplicate_file_handling import DuplicateFileHandling
 from ...types.file_metadata import FileMetadata
 from ...types.http_validation_error import HttpValidationError
+from .types.files_list_request_order import FilesListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -101,8 +102,11 @@ class RawFilesClient:
         self,
         folder_id: str,
         *,
-        limit: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[FilesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         include_content: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[FileMetadata]]:
@@ -113,11 +117,20 @@ class RawFilesClient:
         ----------
         folder_id : str
 
-        limit : typing.Optional[int]
-            Number of files to return
+        before : typing.Optional[str]
+            File ID cursor for pagination. Returns files that come before this file ID in the specified sort order
 
         after : typing.Optional[str]
-            Pagination cursor to fetch the next set of results
+            File ID cursor for pagination. Returns files that come after this file ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of files to return
+
+        order : typing.Optional[FilesListRequestOrder]
+            Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         include_content : typing.Optional[bool]
             Whether to include full file content
@@ -134,8 +147,11 @@ class RawFilesClient:
             f"v1/folders/{jsonable_encoder(folder_id)}/files",
             method="GET",
             params={
-                "limit": limit,
+                "before": before,
                 "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "include_content": include_content,
             },
             request_options=request_options,
@@ -292,8 +308,11 @@ class AsyncRawFilesClient:
         self,
         folder_id: str,
         *,
-        limit: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[FilesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         include_content: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[FileMetadata]]:
@@ -304,11 +323,20 @@ class AsyncRawFilesClient:
         ----------
         folder_id : str
 
-        limit : typing.Optional[int]
-            Number of files to return
+        before : typing.Optional[str]
+            File ID cursor for pagination. Returns files that come before this file ID in the specified sort order
 
         after : typing.Optional[str]
-            Pagination cursor to fetch the next set of results
+            File ID cursor for pagination. Returns files that come after this file ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of files to return
+
+        order : typing.Optional[FilesListRequestOrder]
+            Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         include_content : typing.Optional[bool]
             Whether to include full file content
@@ -325,8 +353,11 @@ class AsyncRawFilesClient:
             f"v1/folders/{jsonable_encoder(folder_id)}/files",
             method="GET",
             params={
-                "limit": limit,
+                "before": before,
                 "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "include_content": include_content,
             },
             request_options=request_options,

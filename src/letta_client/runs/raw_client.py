@@ -15,6 +15,7 @@ from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from ..types.run import Run
+from ..types.stop_reason_type import StopReasonType
 from .types.letta_streaming_response import LettaStreamingResponse
 
 # this is used as the default value for optional parameters
@@ -28,11 +29,14 @@ class RawRunsClient:
     def list(
         self,
         *,
+        agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
+        stop_reason: typing.Optional[StopReasonType] = None,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Run]]:
@@ -41,11 +45,17 @@ class RawRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
+
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
+
+        stop_reason : typing.Optional[StopReasonType]
+            Filter runs by stop reason.
 
         after : typing.Optional[str]
             Cursor for pagination
@@ -55,6 +65,9 @@ class RawRunsClient:
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        active : typing.Optional[bool]
+            Filter for active runs.
 
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
@@ -71,11 +84,14 @@ class RawRunsClient:
             "v1/runs/",
             method="GET",
             params={
+                "agent_id": agent_id,
                 "agent_ids": agent_ids,
                 "background": background,
+                "stop_reason": stop_reason,
                 "after": after,
                 "before": before,
                 "limit": limit,
+                "active": active,
                 "ascending": ascending,
             },
             request_options=request_options,
@@ -109,7 +125,7 @@ class RawRunsClient:
     def list_active(
         self,
         *,
-        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        agent_id: typing.Optional[str] = None,
         background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Run]]:
@@ -118,7 +134,7 @@ class RawRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
 
         background : typing.Optional[bool]
@@ -136,7 +152,7 @@ class RawRunsClient:
             "v1/runs/active",
             method="GET",
             params={
-                "agent_ids": agent_ids,
+                "agent_id": agent_id,
                 "background": background,
             },
             request_options=request_options,
@@ -364,11 +380,14 @@ class AsyncRawRunsClient:
     async def list(
         self,
         *,
+        agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
+        stop_reason: typing.Optional[StopReasonType] = None,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Run]]:
@@ -377,11 +396,17 @@ class AsyncRawRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
+
+        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
+
+        stop_reason : typing.Optional[StopReasonType]
+            Filter runs by stop reason.
 
         after : typing.Optional[str]
             Cursor for pagination
@@ -391,6 +416,9 @@ class AsyncRawRunsClient:
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        active : typing.Optional[bool]
+            Filter for active runs.
 
         ascending : typing.Optional[bool]
             Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
@@ -407,11 +435,14 @@ class AsyncRawRunsClient:
             "v1/runs/",
             method="GET",
             params={
+                "agent_id": agent_id,
                 "agent_ids": agent_ids,
                 "background": background,
+                "stop_reason": stop_reason,
                 "after": after,
                 "before": before,
                 "limit": limit,
+                "active": active,
                 "ascending": ascending,
             },
             request_options=request_options,
@@ -445,7 +476,7 @@ class AsyncRawRunsClient:
     async def list_active(
         self,
         *,
-        agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        agent_id: typing.Optional[str] = None,
         background: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Run]]:
@@ -454,7 +485,7 @@ class AsyncRawRunsClient:
 
         Parameters
         ----------
-        agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        agent_id : typing.Optional[str]
             The unique identifier of the agent associated with the run.
 
         background : typing.Optional[bool]
@@ -472,7 +503,7 @@ class AsyncRawRunsClient:
             "v1/runs/active",
             method="GET",
             params={
-                "agent_ids": agent_ids,
+                "agent_id": agent_id,
                 "background": background,
             },
             request_options=request_options,

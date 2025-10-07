@@ -4,18 +4,17 @@ import typing
 
 import httpx
 from .agents.client import AgentsClient, AsyncAgentsClient
+from .archives.client import ArchivesClient, AsyncArchivesClient
 from .batches.client import AsyncBatchesClient, BatchesClient
 from .blocks.client import AsyncBlocksClient, BlocksClient
 from .client_side_access_tokens.client import AsyncClientSideAccessTokensClient, ClientSideAccessTokensClient
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .embedding_models.client import AsyncEmbeddingModelsClient, EmbeddingModelsClient
 from .environment import LettaEnvironment
 from .folders.client import AsyncFoldersClient, FoldersClient
 from .groups.client import AsyncGroupsClient, GroupsClient
 from .health.client import AsyncHealthClient, HealthClient
 from .identities.client import AsyncIdentitiesClient, IdentitiesClient
 from .jobs.client import AsyncJobsClient, JobsClient
-from .messages.client import AsyncMessagesClient, MessagesClient
 from .models.client import AsyncModelsClient, ModelsClient
 from .projects.client import AsyncProjectsClient, ProjectsClient
 from .providers.client import AsyncProvidersClient, ProvidersClient
@@ -98,6 +97,7 @@ class LettaBase:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.archives = ArchivesClient(client_wrapper=self._client_wrapper)
         self.tools = ToolsClient(client_wrapper=self._client_wrapper)
         self.sources = SourcesClient(client_wrapper=self._client_wrapper)
         self.folders = FoldersClient(client_wrapper=self._client_wrapper)
@@ -105,7 +105,6 @@ class LettaBase:
         self.groups = GroupsClient(client_wrapper=self._client_wrapper)
         self.identities = IdentitiesClient(client_wrapper=self._client_wrapper)
         self.models = ModelsClient(client_wrapper=self._client_wrapper)
-        self.embedding_models = EmbeddingModelsClient(client_wrapper=self._client_wrapper)
         self.blocks = BlocksClient(client_wrapper=self._client_wrapper)
         self.jobs = JobsClient(client_wrapper=self._client_wrapper)
         self.health = HealthClient(client_wrapper=self._client_wrapper)
@@ -115,7 +114,6 @@ class LettaBase:
         self.tags = TagsClient(client_wrapper=self._client_wrapper)
         self.telemetry = TelemetryClient(client_wrapper=self._client_wrapper)
         self.batches = BatchesClient(client_wrapper=self._client_wrapper)
-        self.messages = MessagesClient(client_wrapper=self._client_wrapper)
         self.voice = VoiceClient(client_wrapper=self._client_wrapper)
         self.templates = TemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = ClientSideAccessTokensClient(client_wrapper=self._client_wrapper)
@@ -191,6 +189,7 @@ class AsyncLettaBase:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.archives = AsyncArchivesClient(client_wrapper=self._client_wrapper)
         self.tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
         self.sources = AsyncSourcesClient(client_wrapper=self._client_wrapper)
         self.folders = AsyncFoldersClient(client_wrapper=self._client_wrapper)
@@ -198,7 +197,6 @@ class AsyncLettaBase:
         self.groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
         self.identities = AsyncIdentitiesClient(client_wrapper=self._client_wrapper)
         self.models = AsyncModelsClient(client_wrapper=self._client_wrapper)
-        self.embedding_models = AsyncEmbeddingModelsClient(client_wrapper=self._client_wrapper)
         self.blocks = AsyncBlocksClient(client_wrapper=self._client_wrapper)
         self.jobs = AsyncJobsClient(client_wrapper=self._client_wrapper)
         self.health = AsyncHealthClient(client_wrapper=self._client_wrapper)
@@ -208,7 +206,6 @@ class AsyncLettaBase:
         self.tags = AsyncTagsClient(client_wrapper=self._client_wrapper)
         self.telemetry = AsyncTelemetryClient(client_wrapper=self._client_wrapper)
         self.batches = AsyncBatchesClient(client_wrapper=self._client_wrapper)
-        self.messages = AsyncMessagesClient(client_wrapper=self._client_wrapper)
         self.voice = AsyncVoiceClient(client_wrapper=self._client_wrapper)
         self.templates = AsyncTemplatesClient(client_wrapper=self._client_wrapper)
         self.client_side_access_tokens = AsyncClientSideAccessTokensClient(client_wrapper=self._client_wrapper)

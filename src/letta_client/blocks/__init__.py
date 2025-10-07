@@ -2,6 +2,8 @@
 
 # isort: skip_file
 
+from .types import BlocksListRequestOrder
 from . import agents
+from .agents import AgentsListRequestOrder
 
-__all__ = ["agents"]
+__all__ = ["AgentsListRequestOrder", "BlocksListRequestOrder", "agents"]

@@ -7,8 +7,11 @@ from ..core.request_options import RequestOptions
 from ..types.identity import Identity
 from ..types.identity_property import IdentityProperty
 from ..types.identity_type import IdentityType
+from .agents.client import AgentsClient, AsyncAgentsClient
+from .blocks.client import AsyncBlocksClient, BlocksClient
 from .properties.client import AsyncPropertiesClient, PropertiesClient
 from .raw_client import AsyncRawIdentitiesClient, RawIdentitiesClient
+from .types.identities_list_request_order import IdentitiesListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -18,6 +21,10 @@ class IdentitiesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawIdentitiesClient(client_wrapper=client_wrapper)
         self.properties = PropertiesClient(client_wrapper=client_wrapper)
+
+        self.agents = AgentsClient(client_wrapper=client_wrapper)
+
+        self.blocks = BlocksClient(client_wrapper=client_wrapper)
 
     @property
     def with_raw_response(self) -> RawIdentitiesClient:
@@ -40,6 +47,8 @@ class IdentitiesClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[IdentitiesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Identity]:
         """
@@ -56,10 +65,19 @@ class IdentitiesClient:
         identity_type : typing.Optional[IdentityType]
 
         before : typing.Optional[str]
+            Identity ID cursor for pagination. Returns identities that come before this identity ID in the specified sort order
 
         after : typing.Optional[str]
+            Identity ID cursor for pagination. Returns identities that come after this identity ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of identities to return
+
+        order : typing.Optional[IdentitiesListRequestOrder]
+            Sort order for identities by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -87,6 +105,8 @@ class IdentitiesClient:
             before=before,
             after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             request_options=request_options,
         )
         return _response.data
@@ -393,6 +413,10 @@ class AsyncIdentitiesClient:
         self._raw_client = AsyncRawIdentitiesClient(client_wrapper=client_wrapper)
         self.properties = AsyncPropertiesClient(client_wrapper=client_wrapper)
 
+        self.agents = AsyncAgentsClient(client_wrapper=client_wrapper)
+
+        self.blocks = AsyncBlocksClient(client_wrapper=client_wrapper)
+
     @property
     def with_raw_response(self) -> AsyncRawIdentitiesClient:
         """
@@ -414,6 +438,8 @@ class AsyncIdentitiesClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[IdentitiesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Identity]:
         """
@@ -430,10 +456,19 @@ class AsyncIdentitiesClient:
         identity_type : typing.Optional[IdentityType]
 
         before : typing.Optional[str]
+            Identity ID cursor for pagination. Returns identities that come before this identity ID in the specified sort order
 
         after : typing.Optional[str]
+            Identity ID cursor for pagination. Returns identities that come after this identity ID in the specified sort order
 
         limit : typing.Optional[int]
+            Maximum number of identities to return
+
+        order : typing.Optional[IdentitiesListRequestOrder]
+            Sort order for identities by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -469,6 +504,8 @@ class AsyncIdentitiesClient:
             before=before,
             after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             request_options=request_options,
         )
         return _response.data

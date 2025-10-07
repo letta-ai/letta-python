@@ -5,11 +5,6 @@ import typing
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from .raw_client import AsyncRawAgentsClient, RawAgentsClient
-from .types.agents_create_request_initial_message_sequence_item import AgentsCreateRequestInitialMessageSequenceItem
-from .types.agents_create_response import AgentsCreateResponse
-
-# this is used as the default value for optional parameters
-OMIT = typing.cast(typing.Any, ...)
 
 
 class AgentsClient:
@@ -28,56 +23,21 @@ class AgentsClient:
         return self._raw_client
 
     def create(
-        self,
-        project: str,
-        template_version: str,
-        *,
-        tags: typing.Optional[typing.Sequence[str]] = OMIT,
-        agent_name: typing.Optional[str] = OMIT,
-        initial_message_sequence: typing.Optional[
-            typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]
-        ] = OMIT,
-        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
-        tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
-        identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentsCreateResponse:
+        self, project: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
         """
-        Creates an Agent or multiple Agents from a template
-
         Parameters
         ----------
         project : str
-            The project slug
 
         template_version : str
-            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
-
-        tags : typing.Optional[typing.Sequence[str]]
-            The tags to assign to the agent
-
-        agent_name : typing.Optional[str]
-            The name of the agent, optional otherwise a random one will be assigned
-
-        initial_message_sequence : typing.Optional[typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]]
-            Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
-
-        memory_variables : typing.Optional[typing.Dict[str, str]]
-            The memory variables to assign to the agent
-
-        tool_variables : typing.Optional[typing.Dict[str, str]]
-            The tool variables to assign to the agent
-
-        identity_ids : typing.Optional[typing.Sequence[str]]
-            The identity ids to assign to the agent
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AgentsCreateResponse
-            201
+        None
 
         Examples
         --------
@@ -92,17 +52,7 @@ class AgentsClient:
             template_version="template_version",
         )
         """
-        _response = self._raw_client.create(
-            project,
-            template_version,
-            tags=tags,
-            agent_name=agent_name,
-            initial_message_sequence=initial_message_sequence,
-            memory_variables=memory_variables,
-            tool_variables=tool_variables,
-            identity_ids=identity_ids,
-            request_options=request_options,
-        )
+        _response = self._raw_client.create(project, template_version, request_options=request_options)
         return _response.data
 
 
@@ -122,56 +72,21 @@ class AsyncAgentsClient:
         return self._raw_client
 
     async def create(
-        self,
-        project: str,
-        template_version: str,
-        *,
-        tags: typing.Optional[typing.Sequence[str]] = OMIT,
-        agent_name: typing.Optional[str] = OMIT,
-        initial_message_sequence: typing.Optional[
-            typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]
-        ] = OMIT,
-        memory_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
-        tool_variables: typing.Optional[typing.Dict[str, str]] = OMIT,
-        identity_ids: typing.Optional[typing.Sequence[str]] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AgentsCreateResponse:
+        self, project: str, template_version: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
         """
-        Creates an Agent or multiple Agents from a template
-
         Parameters
         ----------
         project : str
-            The project slug
 
         template_version : str
-            The template version, formatted as {template-name}:{version-number} or {template-name}:latest
-
-        tags : typing.Optional[typing.Sequence[str]]
-            The tags to assign to the agent
-
-        agent_name : typing.Optional[str]
-            The name of the agent, optional otherwise a random one will be assigned
-
-        initial_message_sequence : typing.Optional[typing.Sequence[AgentsCreateRequestInitialMessageSequenceItem]]
-            Set an initial sequence of messages, if not provided, the agent will start with the default message sequence, if an empty array is provided, the agent will start with no messages
-
-        memory_variables : typing.Optional[typing.Dict[str, str]]
-            The memory variables to assign to the agent
-
-        tool_variables : typing.Optional[typing.Dict[str, str]]
-            The tool variables to assign to the agent
-
-        identity_ids : typing.Optional[typing.Sequence[str]]
-            The identity ids to assign to the agent
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AgentsCreateResponse
-            201
+        None
 
         Examples
         --------
@@ -194,15 +109,5 @@ class AsyncAgentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(
-            project,
-            template_version,
-            tags=tags,
-            agent_name=agent_name,
-            initial_message_sequence=initial_message_sequence,
-            memory_variables=memory_variables,
-            tool_variables=tool_variables,
-            identity_ids=identity_ids,
-            request_options=request_options,
-        )
+        _response = await self._raw_client.create(project, template_version, request_options=request_options)
         return _response.data
