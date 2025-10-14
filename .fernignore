@@ -1,7 +1,9 @@
 # Specify files that shouldn't be modified by Fern
 
+README.md
 tests/custom/test_client.py
 tests/custom/conftest.py
+tests/readme-examples/
 .github/workflows/ci.yml
 .github/workflows/tests.yml
 src/letta_client/client.py
