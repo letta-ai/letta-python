@@ -7,3 +7,5 @@ tests/readme-examples/
 .github/workflows/ci.yml
 .github/workflows/tests.yml
 src/letta_client/client.py
+src/letta_client/memory/client.py
+src/letta_client/memory/messages/client.py

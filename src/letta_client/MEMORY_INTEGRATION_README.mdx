@@ -1,0 +1,673 @@
+---
+title: Integrating Letta Memory with LLM SDKs
+slug: guides/integrations/memory-sdk-integration
+subtitle: Add persistent memory to any LLM SDK with just one line of code
+---
+
+<Note>
+Letta Memory integration automatically captures and stores interactions from popular LLM SDKs into Letta's memory system. Supports Claude Agent SDK, Anthropic SDK, OpenAI SDK, and Gemini SDK. For questions or feedback, visit our [Discord](https://discord.gg/letta).
+</Note>
+
+Give your AI agents persistent memory across sessions with a single line. The `memory()` context manager automatically captures all interactions and makes them available in future conversations—no code changes required.
+
+## Supported SDKs
+
+✅ **Claude Agent SDK** - Full support (streaming + non-streaming)
+✅ **Anthropic SDK** - Full support (streaming + non-streaming)
+✅ **OpenAI SDK** - Full support (streaming + non-streaming)
+✅ **Gemini SDK** - Full support (streaming + non-streaming)
+
+## Quick Examples
+
+### Claude Agent SDK
+
+```python
+from claude_agent_sdk import ClaudeSDKClient
+from letta_client.memory import memory
+
+async with memory(agent="dev_assistant"):
+    client = ClaudeSDKClient()
+    await client.connect()
+    await client.query("My name is Alice. Help me build a Python web app.")
+    async for message in client.receive_response():
+        print(message)
+    await client.disconnect()
+```
+
+### Anthropic SDK
+
+```python
+from anthropic import AsyncAnthropic
+from letta_client.memory import memory
+
+anthropic = AsyncAnthropic(api_key="...")
+
+async with memory(agent="assistant"):
+    response = await anthropic.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        messages=[{"role": "user", "content": "My name is Bob"}]
+    )
+    print(response.content[0].text)
+```
+
+### OpenAI SDK
+
+```python
+from openai import AsyncOpenAI
+from letta_client.memory import memory
+
+openai = AsyncOpenAI(api_key="...")
+
+async with memory(agent="assistant"):
+    response = await openai.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": "My name is Charlie"}]
+    )
+    print(response.choices[0].message.content)
+```
+
+### Gemini SDK
+
+```python
+import google.generativeai as genai
+from letta_client.memory import memory
+
+genai.configure(api_key="...")
+model = genai.GenerativeModel('gemini-2.5-flash')
+
+async with memory(agent="assistant"):
+    response = await model.generate_content_async("My name is David")
+    print(response.text)
+```
+
+That's it! Your agents now remember conversations across sessions.
+
+## Why Add Memory?
+
+**The Problem**: Most LLM SDKs start fresh every session. Agents can't remember your preferences, previous work, or ongoing projects.
+
+**The Solution**: Letta automatically captures every conversation and injects relevant context into new sessions. Your agents become more helpful over time, learning your preferences and maintaining continuity across restarts.
+
+**Key Benefits**:
+- **One Line Setup**: Just wrap your code with `async with memory()`
+- **Automatic Recall**: Previous conversations automatically inform new interactions
+- **Zero Code Changes**: Your existing SDK code stays the same
+- **Cross-Session Memory**: Works across restarts, deployments, and different machines
+- **Multi-SDK Support**: Use different SDKs with the same agent memory
+
+## Installation
+
+```bash
+# Install Letta client
+pip install letta-client
+
+# Install your preferred SDK(s)
+pip install anthropic          # For Anthropic SDK
+pip install openai             # For OpenAI SDK
+pip install google-generativeai  # For Gemini SDK
+pip install claude-agent-sdk   # For Claude Agent SDK
+```
+
+## Quick Start
+
+### 1. Configure Letta Connection
+
+```python
+from letta_client.client import Letta
+
+# Option 1: Use Letta Cloud
+letta = Letta(token="letta-your-api-key")
+
+# Option 2: Use local Letta server
+letta = Letta(base_url="http://localhost:8283", token=None)
+```
+
+### 2. Add Memory to Your Code
+
+Just wrap your SDK calls with `memory()`:
+
+```python
+from letta_client.memory import memory
+
+# Works with ANY supported SDK!
+async with memory(agent="my_agent", client=letta):
+    # Your SDK code here - memory automatically works
+    pass
+```
+
+## Cross-Session Memory Example
+
+Here's how memory persists across different sessions:
+
+```python
+import asyncio
+from anthropic import AsyncAnthropic
+from letta_client.client import Letta
+from letta_client.memory import memory
+
+async def main():
+    letta = Letta(base_url="http://localhost:8283", token=None)
+    anthropic = AsyncAnthropic(api_key="...")
+
+    # ==========================================
+    # SESSION 1: Initial conversation
+    # ==========================================
+    print("=== SESSION 1 ===\n")
+
+    async with memory(agent="assistant", client=letta):
+        response = await anthropic.messages.create(
+            model="claude-3-5-sonnet-20241022",
+            messages=[{"role": "user", "content": "My name is Alice. I'm building a FastAPI app."}]
+        )
+        print(response.content[0].text)
+
+    print("\n=== Waiting for memory to save ===")
+    await asyncio.sleep(2)
+
+    # ==========================================
+    # SESSION 2: New session - memory recall
+    # ==========================================
+    print("\n=== SESSION 2 (NEW SESSION) ===\n")
+
+    async with memory(agent="assistant", client=letta):
+        response = await anthropic.messages.create(
+            model="claude-3-5-sonnet-20241022",
+            messages=[{"role": "user", "content": "What is my name and what am I working on?"}]
+        )
+        print(response.content[0].text)
+        # Output: "Your name is Alice and you're building a FastAPI app."
+
+asyncio.run(main())
+```
+
+**Expected Behavior**:
+- Session 1: Agent learns your name (Alice) and project details
+- Session 2: Agent correctly recalls both from memory in a brand new session
+
+## Streaming Support
+
+All SDKs support streaming with automatic memory capture:
+
+### Anthropic Streaming
+
+```python
+async with memory(agent="assistant", client=letta):
+    stream = await anthropic.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        messages=[{"role": "user", "content": "Count to 10"}],
+        stream=True
+    )
+
+    async for event in stream:
+        if event.type == "content_block_delta":
+            if hasattr(event.delta, 'text'):
+                print(event.delta.text, end="", flush=True)
+
+    # Memory automatically captured when stream completes!
+```
+
+### OpenAI Streaming
+
+```python
+async with memory(agent="assistant", client=letta):
+    stream = await openai.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": "Count to 10"}],
+        stream=True
+    )
+
+    async for chunk in stream:
+        if chunk.choices[0].delta.content:
+            print(chunk.choices[0].delta.content, end="", flush=True)
+
+    # Memory automatically captured!
+```
+
+### Gemini Streaming
+
+```python
+async with memory(agent="assistant", client=letta):
+    response = await model.generate_content_async(
+        "Count to 10",
+        stream=True
+    )
+
+    async for chunk in response:
+        print(chunk.text, end="", flush=True)
+
+    # Memory automatically captured!
+```
+
+## Named Agents for Different Contexts
+
+Create separately scoped memory for different tasks:
+
+```python
+from letta_client.memory import memory
+
+# Code assistant with its own memory
+async with memory(agent="code_assistant", client=letta):
+    await client.query("Review my FastAPI code")
+
+# Research assistant with separate memory
+async with memory(agent="research_assistant", client=letta):
+    await client.query("Research latest AI papers")
+
+# DevOps assistant with separate memory
+async with memory(agent="devops_assistant", client=letta):
+    await client.query("Help me debug this deployment issue")
+```
+
+Each agent maintains its own conversation history and context.
+
+## Multi-SDK Usage
+
+Use different SDKs with the same agent memory:
+
+```python
+from anthropic import AsyncAnthropic
+from openai import AsyncOpenAI
+import google.generativeai as genai
+
+# Session 1: User starts with OpenAI
+async with memory(agent="user_123", client=letta):
+    response = await openai.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": "I prefer Python over JavaScript"}]
+    )
+
+# Session 2: Continue with Anthropic (remembers preference!)
+async with memory(agent="user_123", client=letta):
+    response = await anthropic.messages.create(
+        model="claude-3-5-sonnet-20241022",
+        messages=[{"role": "user", "content": "Help me with a code example"}]
+    )
+    # Claude knows you prefer Python from the OpenAI session!
+
+# Session 3: Continue with Gemini (still remembers!)
+async with memory(agent="user_123", client=letta):
+    response = await model.generate_content_async("Show me another example")
+    # Gemini also knows your Python preference!
+```
+
+Memory persists across different SDKs when using the same agent name!
+
+## Advanced Features
+
+### Capture-Only Mode (Lower Latency)
+
+Skip memory injection while still capturing conversations:
+
+```python
+# Captures messages but skips memory retrieval
+async with memory(agent="fast_agent", client=letta, capture_only=True):
+    # Lower latency, still builds history
+    response = await client.query("Quick query")
+```
+
+Use this when:
+- Building up initial conversation history
+- Latency is critical
+- You want analytics without context injection
+
+### Query Stored Memory
+
+Ask questions about what's stored in memory:
+
+```python
+from letta_client.client import Letta
+
+letta = Letta(base_url="http://localhost:8283", token=None)
+
+# Ask about previous work
+response = letta.memory.query(
+    agent="dev_assistant",
+    prompt="What tasks are we currently working on?"
+)
+
+for message in response:
+    print(message.content)
+```
+
+### Retrieve Memory Content
+
+Fetch raw memory content for custom use:
+
+```python
+# Get memory content
+memory_content = letta.memory.retrieve(agent="dev_assistant")
+
+if memory_content:
+    print(f"Found {len(memory_content)} chars of memory")
+    print(memory_content)
+```
+
+### Manually Add to Memory
+
+Inject context without a conversation:
+
+```python
+# Add project context
+letta.memory.create(
+    agent="dev_assistant",
+    prompt="Project stack: FastAPI, PostgreSQL, Next.js, deployed on AWS"
+)
+
+# Add user preferences
+letta.memory.create(
+    agent="code_assistant",
+    prompt="User prefers TypeScript over JavaScript and uses trailing commas"
+)
+```
+
+## How It Works
+
+The memory integration uses **SDK method interception** to seamlessly capture conversations:
+
+1. **Auto-Detection**: Automatically detects which SDKs are installed
+2. **Interception**: Patches SDK methods to intercept requests/responses
+3. **Capture**: Captures user messages and assistant responses
+4. **Store**: Batches and saves conversations to Letta in the background
+5. **Inject**: Automatically retrieves relevant context for new sessions
+6. **Stream**: Preserves all original streaming behavior
+
+The integration is non-invasive—your code works exactly as before, with memory as an added capability.
+
+### Implementation Details
+
+Each SDK uses a different interception strategy:
+
+| SDK | Interception Point | Memory Injection |
+|-----|-------------------|------------------|
+| Claude Agent SDK | Transport layer | System prompt |
+| Anthropic SDK | `AsyncMessages.create()` | System parameter |
+| OpenAI SDK | `AsyncCompletions.create()` | System message |
+| Gemini SDK | `GenerativeModel.generate_content_async()` | First user message |
+
+All interceptors are installed automatically when you enter a `memory()` context.
+
+## Complete Examples
+
+### Claude Agent SDK Example
+
+```python
+import asyncio
+from claude_agent_sdk import ClaudeSDKClient, ClaudeAgentOptions, AssistantMessage, TextBlock
+from letta_client.client import Letta
+from letta_client.memory import memory
+
+async def main():
+    letta = Letta(base_url="http://localhost:8283", token=None)
+
+    options = ClaudeAgentOptions(
+        allowed_tools=["Read", "Write", "Bash"],
+        permission_mode="acceptEdits"
+    )
+
+    # Session 1
+    client = ClaudeSDKClient(options)
+    async with memory(agent="project_assistant", client=letta):
+        await client.connect()
+        await client.query("My name is Alice. I'm building a FastAPI app.")
+
+        async for message in client.receive_response():
+            if isinstance(message, AssistantMessage):
+                for block in message.content:
+                    if isinstance(block, TextBlock):
+                        print(block.text, end="", flush=True)
+
+        await client.disconnect()
+
+    await asyncio.sleep(2)
+
+    # Session 2 - New client, remembers Alice and FastAPI!
+    client2 = ClaudeSDKClient(options)
+    async with memory(agent="project_assistant", client=letta):
+        await client2.connect()
+        await client2.query("What's my name and project?")
+
+        async for message in client2.receive_response():
+            if isinstance(message, AssistantMessage):
+                for block in message.content:
+                    if isinstance(block, TextBlock):
+                        print(block.text, end="", flush=True)
+
+        await client2.disconnect()
+
+asyncio.run(main())
+```
+
+### Anthropic SDK Example
+
+```python
+import asyncio
+from anthropic import AsyncAnthropic
+from letta_client.client import Letta
+from letta_client.memory import memory
+
+async def main():
+    letta = Letta(base_url="http://localhost:8283", token=None)
+    anthropic = AsyncAnthropic(api_key="...")
+
+    # Session 1
+    async with memory(agent="assistant", client=letta):
+        response = await anthropic.messages.create(
+            model="claude-3-5-sonnet-20241022",
+            messages=[{"role": "user", "content": "My favorite color is blue"}]
+        )
+        print(response.content[0].text)
+
+    await asyncio.sleep(2)
+
+    # Session 2 - Remembers blue!
+    async with memory(agent="assistant", client=letta):
+        response = await anthropic.messages.create(
+            model="claude-3-5-sonnet-20241022",
+            messages=[{"role": "user", "content": "What's my favorite color?"}]
+        )
+        print(response.content[0].text)  # "Your favorite color is blue!"
+
+asyncio.run(main())
+```
+
+### OpenAI SDK Example
+
+```python
+import asyncio
+from openai import AsyncOpenAI
+from letta_client.client import Letta
+from letta_client.memory import memory
+
+async def main():
+    letta = Letta(base_url="http://localhost:8283", token=None)
+    openai = AsyncOpenAI(api_key="...")
+
+    # Session 1
+    async with memory(agent="assistant", client=letta):
+        response = await openai.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": "My name is Charlie"}]
+        )
+        print(response.choices[0].message.content)
+
+    await asyncio.sleep(2)
+
+    # Session 2 - Remembers Charlie!
+    async with memory(agent="assistant", client=letta):
+        response = await openai.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": "What's my name?"}]
+        )
+        print(response.choices[0].message.content)  # "Your name is Charlie!"
+
+asyncio.run(main())
+```
+
+### Gemini SDK Example
+
+```python
+import asyncio
+import google.generativeai as genai
+from letta_client.client import Letta
+from letta_client.memory import memory
+
+async def main():
+    letta = Letta(base_url="http://localhost:8283", token=None)
+    genai.configure(api_key="...")
+    model = genai.GenerativeModel('gemini-2.5-flash')
+
+    # Session 1
+    async with memory(agent="assistant", client=letta):
+        response = await model.generate_content_async("My favorite food is pizza")
+        print(response.text)
+
+    await asyncio.sleep(2)
+
+    # Session 2 - Remembers pizza!
+    async with memory(agent="assistant", client=letta):
+        response = await model.generate_content_async("What's my favorite food?")
+        print(response.text)  # "Your favorite food is pizza!"
+
+asyncio.run(main())
+```
+
+## Production Considerations
+
+### Error Handling
+
+Memory integration includes graceful error handling:
+
+```python
+async with memory(agent="assistant", client=letta):
+    try:
+        response = await client.create(...)
+    except Exception as e:
+        # Your SDK errors still propagate normally
+        print(f"SDK Error: {e}")
+        # Memory capture continues in background
+```
+
+### Performance
+
+- **Memory Injection**: ~50-100ms overhead (sync fetch from Letta)
+- **Memory Capture**: ~0ms overhead (async background task)
+- **Batching**: One API call per conversation turn (user + assistant)
+
+### Logging
+
+Memory integration provides clean logging for debugging:
+
+```
+[Letta Memory] Entering memory context for agent: my_agent
+[Letta Memory] ✅ Installed anthropic interceptor
+[Letta Memory] Injected memory into request (385 chars)
+[Letta Memory] ✅ Saved conversation to agent agent-abc123
+[Letta Memory] Exiting memory context for agent: my_agent
+```
+
+## Troubleshooting
+
+### Memory Not Persisting
+
+Ensure you:
+1. Wait 1-2 seconds after exiting `memory()` context for async saves
+2. Use the same agent name across sessions
+3. Have Letta server running (for local setup)
+4. Check Letta API key is valid (for cloud setup)
+
+### SDK Not Detected
+
+If an SDK isn't being intercepted:
+1. Verify the SDK is installed: `pip list | grep <sdk-name>`
+2. Check interceptor logs for installation confirmation
+3. Ensure you're using async versions of SDK methods
+
+### Import Errors
+
+If you get import errors:
+```python
+# The SDKs are optional - install only what you need
+pip install anthropic  # If using Anthropic
+pip install openai     # If using OpenAI
+pip install google-generativeai  # If using Gemini
+```
+
+## API Reference
+
+### `memory()`
+
+Context manager for memory integration.
+
+**Parameters**:
+- `agent` (str): Agent name for memory scoping. Default: `"letta_agent"`
+- `client` (Letta): Letta client instance. If None, uses environment variables
+- `capture_only` (bool): Skip memory injection, only capture. Default: `False`
+
+**Returns**: Context manager
+
+**Example**:
+```python
+async with memory(agent="my_agent", client=letta, capture_only=False):
+    # Your SDK code here
+    pass
+```
+
+### `letta.memory.retrieve()`
+
+Retrieve memory content for an agent.
+
+**Parameters**:
+- `agent` (str): Agent name
+
+**Returns**: String containing memory content
+
+**Example**:
+```python
+content = letta.memory.retrieve(agent="my_agent")
+print(content)
+```
+
+### `letta.memory.query()`
+
+Query memory with a question.
+
+**Parameters**:
+- `agent` (str): Agent name
+- `prompt` (str): Question to ask about memory
+
+**Returns**: List of message objects
+
+**Example**:
+```python
+response = letta.memory.query(
+    agent="my_agent",
+    prompt="What did we discuss?"
+)
+```
+
+### `letta.memory.create()`
+
+Manually add information to memory.
+
+**Parameters**:
+- `agent` (str): Agent name
+- `prompt` (str): Information to store
+
+**Returns**: String containing updated memory
+
+**Example**:
+```python
+letta.memory.create(
+    agent="my_agent",
+    prompt="User prefers Python"
+)
+```
+
+## Next Steps
+
+- **Try it**: Add `async with memory()` to your existing code
+- **Experiment**: Test different agent names for different contexts
+- **Explore**: Check out the [complete examples](https://github.com/letta-ai/letta-python/tree/main/tests/custom)
+- **Get Help**: Join our [Discord](https://discord.gg/letta) for support
+
+Memory integration works with zero configuration—just wrap your SDK code and start building agents that remember! 🚀

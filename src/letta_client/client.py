@@ -6,6 +6,7 @@ from abc import abstractmethod
 
 from .base_client import AsyncLettaBase, LettaBase
 from .core.request_options import RequestOptions
+from .memory.client import AsyncMemoryClient, MemoryClient
 from .tools.client import ToolsClient as ToolsClientBase
 from .tools.client import AsyncToolsClient as AsyncToolsClientBase
 from .types.npm_requirement import NpmRequirement
@@ -21,6 +22,7 @@ class Letta(LettaBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tools = ToolsClient(client_wrapper=self._client_wrapper)
+        self.memory = MemoryClient(client_wrapper=self._client_wrapper)
 
 
 class AsyncLetta(AsyncLettaBase):
@@ -28,6 +30,7 @@ class AsyncLetta(AsyncLettaBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tools = AsyncToolsClient(client_wrapper=self._client_wrapper)
+        self.memory = AsyncMemoryClient(client_wrapper=self._client_wrapper)
 
 
 class BaseTool(Tool):

@@ -41,6 +41,13 @@ pydantic = ">= 1.9.2"
 pydantic-core = ">=2.18.2"
 typing_extensions = ">= 4.0.0"
 
+# Temporary: SDK dependencies for development convenience
+# TODO: Move these to optional dependencies before production
+anthropic = ">=0.64.0"
+openai = ">=1.102.0"
+google-generativeai = ">=0.8.0"
+# claude-agent-sdk = ">=0.1.0"  # Install separately if needed
+
 [tool.poetry.group.dev.dependencies]
 mypy = "==1.13.0"
 pytest = "^7.4.0"
