@@ -12,6 +12,7 @@ from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.http_validation_error import HttpValidationError
 from ...types.paginated_agent_files import PaginatedAgentFiles
+from .types.files_list_request_order import FilesListRequestOrder
 
 
 class RawFilesClient:
@@ -185,8 +186,12 @@ class RawFilesClient:
         self,
         agent_id: str,
         *,
-        cursor: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[FilesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        cursor: typing.Optional[str] = None,
         is_open: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaginatedAgentFiles]:
@@ -197,11 +202,23 @@ class RawFilesClient:
         ----------
         agent_id : str
 
-        cursor : typing.Optional[str]
-            Pagination cursor from previous response
+        before : typing.Optional[str]
+            File ID cursor for pagination. Returns files that come before this file ID in the specified sort order
+
+        after : typing.Optional[str]
+            File ID cursor for pagination. Returns files that come after this file ID in the specified sort order
 
         limit : typing.Optional[int]
-            Number of items to return (1-100)
+            Maximum number of files to return
+
+        order : typing.Optional[FilesListRequestOrder]
+            Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
+        cursor : typing.Optional[str]
+            Pagination cursor from previous response (deprecated, use before/after)
 
         is_open : typing.Optional[bool]
             Filter by open status (true for open files, false for closed files)
@@ -218,8 +235,12 @@ class RawFilesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/files",
             method="GET",
             params={
-                "cursor": cursor,
+                "before": before,
+                "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
+                "cursor": cursor,
                 "is_open": is_open,
             },
             request_options=request_options,
@@ -422,8 +443,12 @@ class AsyncRawFilesClient:
         self,
         agent_id: str,
         *,
-        cursor: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[FilesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        cursor: typing.Optional[str] = None,
         is_open: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaginatedAgentFiles]:
@@ -434,11 +459,23 @@ class AsyncRawFilesClient:
         ----------
         agent_id : str
 
-        cursor : typing.Optional[str]
-            Pagination cursor from previous response
+        before : typing.Optional[str]
+            File ID cursor for pagination. Returns files that come before this file ID in the specified sort order
+
+        after : typing.Optional[str]
+            File ID cursor for pagination. Returns files that come after this file ID in the specified sort order
 
         limit : typing.Optional[int]
-            Number of items to return (1-100)
+            Maximum number of files to return
+
+        order : typing.Optional[FilesListRequestOrder]
+            Sort order for files by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
+        cursor : typing.Optional[str]
+            Pagination cursor from previous response (deprecated, use before/after)
 
         is_open : typing.Optional[bool]
             Filter by open status (true for open files, false for closed files)
@@ -455,8 +492,12 @@ class AsyncRawFilesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/files",
             method="GET",
             params={
-                "cursor": cursor,
+                "before": before,
+                "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
+                "cursor": cursor,
                 "is_open": is_open,
             },
             request_options=request_options,

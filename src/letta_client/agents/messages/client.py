@@ -18,6 +18,7 @@ from .raw_client import AsyncRawMessagesClient, RawMessagesClient
 from .types.letta_async_request_messages_item import LettaAsyncRequestMessagesItem
 from .types.letta_streaming_response import LettaStreamingResponse
 from .types.message_search_request_search_mode import MessageSearchRequestSearchMode
+from .types.messages_list_request_order import MessagesListRequestOrder
 from .types.messages_modify_request import MessagesModifyRequest
 from .types.messages_modify_response import MessagesModifyResponse
 from .types.messages_preview_request import MessagesPreviewRequest
@@ -45,9 +46,11 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         group_id: typing.Optional[str] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
@@ -62,14 +65,20 @@ class MessagesClient:
         ----------
         agent_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+
+        after : typing.Optional[str]
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of messages to return
+
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         group_id : typing.Optional[str]
             Group ID to filter messages by.
@@ -104,13 +113,24 @@ class MessagesClient:
         )
         client.agents.messages.list(
             agent_id="agent_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            group_id="group_id",
+            use_assistant_message=True,
+            assistant_message_tool_name="assistant_message_tool_name",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            include_err=True,
         )
         """
         _response = self._raw_client.list(
             agent_id,
-            after=after,
             before=before,
+            after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             group_id=group_id,
             use_assistant_message=use_assistant_message,
             assistant_message_tool_name=assistant_message_tool_name,
@@ -598,6 +618,7 @@ class MessagesClient:
         )
         client.agents.messages.reset(
             agent_id="agent_id",
+            add_default_initial_messages=True,
         )
         """
         _response = self._raw_client.reset(
@@ -717,9 +738,11 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         group_id: typing.Optional[str] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
@@ -734,14 +757,20 @@ class AsyncMessagesClient:
         ----------
         agent_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+
+        after : typing.Optional[str]
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of messages to return
+
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         group_id : typing.Optional[str]
             Group ID to filter messages by.
@@ -781,6 +810,15 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.agents.messages.list(
                 agent_id="agent_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                group_id="group_id",
+                use_assistant_message=True,
+                assistant_message_tool_name="assistant_message_tool_name",
+                assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+                include_err=True,
             )
 
 
@@ -788,9 +826,11 @@ class AsyncMessagesClient:
         """
         _response = await self._raw_client.list(
             agent_id,
-            after=after,
             before=before,
+            after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             group_id=group_id,
             use_assistant_message=use_assistant_message,
             assistant_message_tool_name=assistant_message_tool_name,
@@ -1334,6 +1374,7 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.agents.messages.reset(
                 agent_id="agent_id",
+                add_default_initial_messages=True,
             )
 
 

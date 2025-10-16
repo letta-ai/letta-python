@@ -26,6 +26,9 @@ from .templates_create_agents_from_template_response_agents_item_tool_exec_envir
 from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables_item_updated_at import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemUpdatedAt,
 )
+from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables_item_value_enc import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc,
+)
 
 
 class TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItem(UncheckedBaseModel):
@@ -49,6 +52,9 @@ class TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVari
     ] = None
     organization_id: typing.Optional[
         TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemOrganizationId
+    ] = None
+    value_enc: typing.Optional[
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc
     ] = None
     agent_id: str
 

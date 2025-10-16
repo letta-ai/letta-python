@@ -7,6 +7,7 @@ from ...core.request_options import RequestOptions
 from ...types.agent_state import AgentState
 from ...types.block import Block
 from .raw_client import AsyncRawBlocksClient, RawBlocksClient
+from .types.blocks_list_request_order import BlocksListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -177,13 +178,38 @@ class BlocksClient:
         )
         return _response.data
 
-    def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Block]:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BlocksListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Block]:
         """
         Retrieve the core memory blocks of a specific agent.
 
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
+
+        after : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of blocks to return
+
+        order : typing.Optional[BlocksListRequestOrder]
+            Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -203,9 +229,21 @@ class BlocksClient:
         )
         client.agents.blocks.list(
             agent_id="agent_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
-        _response = self._raw_client.list(agent_id, request_options=request_options)
+        _response = self._raw_client.list(
+            agent_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data
 
     def attach(
@@ -463,7 +501,15 @@ class AsyncBlocksClient:
         return _response.data
 
     async def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BlocksListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Block]:
         """
         Retrieve the core memory blocks of a specific agent.
@@ -471,6 +517,21 @@ class AsyncBlocksClient:
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
+
+        after : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of blocks to return
+
+        order : typing.Optional[BlocksListRequestOrder]
+            Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -495,12 +556,24 @@ class AsyncBlocksClient:
         async def main() -> None:
             await client.agents.blocks.list(
                 agent_id="agent_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(agent_id, request_options=request_options)
+        _response = await self._raw_client.list(
+            agent_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data
 
     async def attach(

@@ -255,7 +255,9 @@ class SourcesClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.sources.get_sources_metadata()
+        client.sources.get_sources_metadata(
+            include_detailed_per_source_metadata=True,
+        )
         """
         _response = self._raw_client.get_sources_metadata(
             include_detailed_per_source_metadata=include_detailed_per_source_metadata, request_options=request_options
@@ -431,6 +433,7 @@ class SourcesClient:
         client.sources.get_file_metadata(
             source_id="source_id",
             file_id="file_id",
+            include_content=True,
         )
         """
         _response = self._raw_client.get_file_metadata(
@@ -725,7 +728,9 @@ class AsyncSourcesClient:
 
 
         async def main() -> None:
-            await client.sources.get_sources_metadata()
+            await client.sources.get_sources_metadata(
+                include_detailed_per_source_metadata=True,
+            )
 
 
         asyncio.run(main())
@@ -933,6 +938,7 @@ class AsyncSourcesClient:
             await client.sources.get_file_metadata(
                 source_id="source_id",
                 file_id="file_id",
+                include_content=True,
             )
 
 

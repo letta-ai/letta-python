@@ -28,6 +28,7 @@ from ...types.run import Run
 from .types.letta_async_request_messages_item import LettaAsyncRequestMessagesItem
 from .types.letta_streaming_response import LettaStreamingResponse
 from .types.message_search_request_search_mode import MessageSearchRequestSearchMode
+from .types.messages_list_request_order import MessagesListRequestOrder
 from .types.messages_modify_request import MessagesModifyRequest
 from .types.messages_modify_response import MessagesModifyResponse
 from .types.messages_preview_request import MessagesPreviewRequest
@@ -44,9 +45,11 @@ class RawMessagesClient:
         self,
         agent_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         group_id: typing.Optional[str] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
@@ -61,14 +64,20 @@ class RawMessagesClient:
         ----------
         agent_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+
+        after : typing.Optional[str]
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of messages to return
+
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         group_id : typing.Optional[str]
             Group ID to filter messages by.
@@ -97,9 +106,11 @@ class RawMessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages",
             method="GET",
             params={
-                "after": after,
                 "before": before,
+                "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "group_id": group_id,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,
@@ -871,9 +882,11 @@ class AsyncRawMessagesClient:
         self,
         agent_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         group_id: typing.Optional[str] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
@@ -888,14 +901,20 @@ class AsyncRawMessagesClient:
         ----------
         agent_id : str
 
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
-
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+
+        after : typing.Optional[str]
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of messages to return
+
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         group_id : typing.Optional[str]
             Group ID to filter messages by.
@@ -924,9 +943,11 @@ class AsyncRawMessagesClient:
             f"v1/agents/{jsonable_encoder(agent_id)}/messages",
             method="GET",
             params={
-                "after": after,
                 "before": before,
+                "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "group_id": group_id,
                 "use_assistant_message": use_assistant_message,
                 "assistant_message_tool_name": assistant_message_tool_name,

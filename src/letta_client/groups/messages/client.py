@@ -97,6 +97,13 @@ class MessagesClient:
         )
         client.groups.messages.list(
             group_id="group_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            use_assistant_message=True,
+            assistant_message_tool_name="assistant_message_tool_name",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
         )
         """
         _response = self._raw_client.list(
@@ -464,6 +471,13 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.groups.messages.list(
                 group_id="group_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                use_assistant_message=True,
+                assistant_message_tool_name="assistant_message_tool_name",
+                assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             )
 
 

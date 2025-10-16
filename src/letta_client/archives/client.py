@@ -77,7 +77,14 @@ class ArchivesClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.archives.list_archives()
+        client.archives.list_archives(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            name="name",
+            agent_id="agent_id",
+        )
         """
         _response = self._raw_client.list_archives(
             before=before,
@@ -244,7 +251,14 @@ class AsyncArchivesClient:
 
 
         async def main() -> None:
-            await client.archives.list_archives()
+            await client.archives.list_archives(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                name="name",
+                agent_id="agent_id",
+            )
 
 
         asyncio.run(main())

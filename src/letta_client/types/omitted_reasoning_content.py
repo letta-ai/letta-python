@@ -13,6 +13,10 @@ class OmittedReasoningContent(UncheckedBaseModel):
     """
 
     type: typing.Literal["omitted_reasoning"] = "omitted_reasoning"
+    signature: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A unique identifier for this reasoning step.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -8,6 +8,9 @@ from ...core.unchecked_base_model import UncheckedBaseModel
 from .templates_create_agents_from_template_response_agents_item_llm_config_compatibility_type import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityType,
 )
+from .templates_create_agents_from_template_response_agents_item_llm_config_display_name import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName,
+)
 from .templates_create_agents_from_template_response_agents_item_llm_config_enable_reasoner import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigEnableReasoner,
 )
@@ -57,6 +60,7 @@ from .templates_create_agents_from_template_response_agents_item_llm_config_verb
 
 class TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig(UncheckedBaseModel):
     model: str
+    display_name: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName] = None
     model_endpoint_type: TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType
     model_endpoint: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpoint] = None
     provider_name: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderName] = None

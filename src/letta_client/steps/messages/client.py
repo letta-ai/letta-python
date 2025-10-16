@@ -75,6 +75,10 @@ class MessagesClient:
         )
         client.steps.messages.list(
             step_id="step_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
         _response = self._raw_client.list(
@@ -160,6 +164,10 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.steps.messages.list(
                 step_id="step_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 

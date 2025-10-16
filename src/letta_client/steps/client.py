@@ -118,7 +118,19 @@ class StepsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.steps.list()
+        client.steps.list(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            start_date="start_date",
+            end_date="end_date",
+            model="model",
+            agent_id="agent_id",
+            feedback="positive",
+            has_feedback=True,
+            project_id="project_id",
+        )
         """
         _response = self._raw_client.list(
             before=before,
@@ -280,7 +292,19 @@ class AsyncStepsClient:
 
 
         async def main() -> None:
-            await client.steps.list()
+            await client.steps.list(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                start_date="start_date",
+                end_date="end_date",
+                model="model",
+                agent_id="agent_id",
+                feedback="positive",
+                has_feedback=True,
+                project_id="project_id",
+            )
 
 
         asyncio.run(main())

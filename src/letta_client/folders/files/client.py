@@ -72,6 +72,8 @@ class FilesClient:
         )
         client.folders.files.upload(
             folder_id="folder_id",
+            duplicate_handling="skip",
+            name="name",
         )
         """
         _response = self._raw_client.upload(
@@ -134,6 +136,11 @@ class FilesClient:
         )
         client.folders.files.list(
             folder_id="folder_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            include_content=True,
         )
         """
         _response = self._raw_client.list(
@@ -245,6 +252,8 @@ class AsyncFilesClient:
         async def main() -> None:
             await client.folders.files.upload(
                 folder_id="folder_id",
+                duplicate_handling="skip",
+                name="name",
             )
 
 
@@ -315,6 +324,11 @@ class AsyncFilesClient:
         async def main() -> None:
             await client.folders.files.list(
                 folder_id="folder_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                include_content=True,
             )
 
 

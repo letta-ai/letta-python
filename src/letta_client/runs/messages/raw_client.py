@@ -27,6 +27,7 @@ class RawMessagesClient:
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[LettaMessageUnion]]:
         """
@@ -48,6 +49,9 @@ class RawMessagesClient:
         order : typing.Optional[MessagesListRequestOrder]
             Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
 
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -64,6 +68,7 @@ class RawMessagesClient:
                 "after": after,
                 "limit": limit,
                 "order": order,
+                "order_by": order_by,
             },
             request_options=request_options,
         )
@@ -106,6 +111,7 @@ class AsyncRawMessagesClient:
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[LettaMessageUnion]]:
         """
@@ -127,6 +133,9 @@ class AsyncRawMessagesClient:
         order : typing.Optional[MessagesListRequestOrder]
             Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
 
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -143,6 +152,7 @@ class AsyncRawMessagesClient:
                 "after": after,
                 "limit": limit,
                 "order": order,
+                "order_by": order_by,
             },
             request_options=request_options,
         )

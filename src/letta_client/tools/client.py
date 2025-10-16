@@ -4,8 +4,6 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.action_model import ActionModel
-from ..types.app_model import AppModel
 from ..types.mcp_tool import McpTool
 from ..types.npm_requirement import NpmRequirement
 from ..types.pip_requirement import PipRequirement
@@ -257,7 +255,12 @@ class ToolsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.tools.count()
+        client.tools.count(
+            name="name",
+            search="search",
+            return_only_letta_tools=True,
+            exclude_letta_tools=True,
+        )
         """
         _response = self._raw_client.count(
             name=name,
@@ -346,7 +349,15 @@ class ToolsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.tools.list()
+        client.tools.list(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            name="name",
+            search="search",
+            return_only_letta_tools=True,
+        )
         """
         _response = self._raw_client.list(
             before=before,
@@ -641,99 +652,6 @@ class ToolsClient:
             npm_requirements=npm_requirements,
             request_options=request_options,
         )
-        return _response.data
-
-    def list_composio_apps(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[AppModel]:
-        """
-        Get a list of all Composio apps
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[AppModel]
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.tools.list_composio_apps()
-        """
-        _response = self._raw_client.list_composio_apps(request_options=request_options)
-        return _response.data
-
-    def list_composio_actions_by_app(
-        self, composio_app_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[ActionModel]:
-        """
-        Get a list of all Composio actions for a specific app
-
-        Parameters
-        ----------
-        composio_app_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[ActionModel]
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.tools.list_composio_actions_by_app(
-            composio_app_name="composio_app_name",
-        )
-        """
-        _response = self._raw_client.list_composio_actions_by_app(composio_app_name, request_options=request_options)
-        return _response.data
-
-    def add_composio_tool(
-        self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Tool:
-        """
-        Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
-
-        Parameters
-        ----------
-        composio_action_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Tool
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.tools.add_composio_tool(
-            composio_action_name="composio_action_name",
-        )
-        """
-        _response = self._raw_client.add_composio_tool(composio_action_name, request_options=request_options)
         return _response.data
 
     def list_mcp_servers(
@@ -1284,7 +1202,12 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.count()
+            await client.tools.count(
+                name="name",
+                search="search",
+                return_only_letta_tools=True,
+                exclude_letta_tools=True,
+            )
 
 
         asyncio.run(main())
@@ -1381,7 +1304,15 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.list()
+            await client.tools.list(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                name="name",
+                search="search",
+                return_only_letta_tools=True,
+            )
 
 
         asyncio.run(main())
@@ -1711,127 +1642,6 @@ class AsyncToolsClient:
             npm_requirements=npm_requirements,
             request_options=request_options,
         )
-        return _response.data
-
-    async def list_composio_apps(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[AppModel]:
-        """
-        Get a list of all Composio apps
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[AppModel]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.tools.list_composio_apps()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.list_composio_apps(request_options=request_options)
-        return _response.data
-
-    async def list_composio_actions_by_app(
-        self, composio_app_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[ActionModel]:
-        """
-        Get a list of all Composio actions for a specific app
-
-        Parameters
-        ----------
-        composio_app_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[ActionModel]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.tools.list_composio_actions_by_app(
-                composio_app_name="composio_app_name",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.list_composio_actions_by_app(
-            composio_app_name, request_options=request_options
-        )
-        return _response.data
-
-    async def add_composio_tool(
-        self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Tool:
-        """
-        Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
-
-        Parameters
-        ----------
-        composio_action_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Tool
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.tools.add_composio_tool(
-                composio_action_name="composio_action_name",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.add_composio_tool(composio_action_name, request_options=request_options)
         return _response.data
 
     async def list_mcp_servers(

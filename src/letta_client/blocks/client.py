@@ -121,7 +121,22 @@ class BlocksClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.blocks.list()
+        client.blocks.list(
+            label="label",
+            templates_only=True,
+            name="name",
+            identity_id="identity_id",
+            project_id="project_id",
+            limit=1,
+            before="before",
+            after="after",
+            order="asc",
+            label_search="label_search",
+            description_search="description_search",
+            value_search="value_search",
+            connected_to_agents_count_gt=1,
+            connected_to_agents_count_lt=1,
+        )
         """
         _response = self._raw_client.list(
             label=label,
@@ -556,7 +571,22 @@ class AsyncBlocksClient:
 
 
         async def main() -> None:
-            await client.blocks.list()
+            await client.blocks.list(
+                label="label",
+                templates_only=True,
+                name="name",
+                identity_id="identity_id",
+                project_id="project_id",
+                limit=1,
+                before="before",
+                after="after",
+                order="asc",
+                label_search="label_search",
+                description_search="description_search",
+                value_search="value_search",
+                connected_to_agents_count_gt=1,
+                connected_to_agents_count_lt=1,
+            )
 
 
         asyncio.run(main())

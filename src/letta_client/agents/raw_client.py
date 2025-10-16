@@ -311,10 +311,10 @@ class RawAgentsClient:
             Whether to enable reasoning for this agent.
 
         from_template : typing.Optional[str]
-            The template id used to configure the agent
+            Deprecated: please use the 'create agents from a template' endpoint instead.
 
         template : typing.Optional[bool]
-            Whether the agent is a template
+            Deprecated: No longer used
 
         project : typing.Optional[str]
             Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
@@ -1352,10 +1352,10 @@ class AsyncRawAgentsClient:
             Whether to enable reasoning for this agent.
 
         from_template : typing.Optional[str]
-            The template id used to configure the agent
+            Deprecated: please use the 'create agents from a template' endpoint instead.
 
         template : typing.Optional[bool]
-            Whether the agent is a template
+            Deprecated: No longer used
 
         project : typing.Optional[str]
             Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.

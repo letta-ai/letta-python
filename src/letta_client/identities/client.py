@@ -95,7 +95,16 @@ class IdentitiesClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.identities.list()
+        client.identities.list(
+            name="name",
+            project_id="project_id",
+            identifier_key="identifier_key",
+            identity_type="org",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+        )
         """
         _response = self._raw_client.list(
             name=name,
@@ -491,7 +500,16 @@ class AsyncIdentitiesClient:
 
 
         async def main() -> None:
-            await client.identities.list()
+            await client.identities.list(
+                name="name",
+                project_id="project_id",
+                identifier_key="identifier_key",
+                identity_type="org",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+            )
 
 
         asyncio.run(main())

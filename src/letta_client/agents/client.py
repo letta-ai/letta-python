@@ -24,7 +24,6 @@ from .messages.client import AsyncMessagesClient, MessagesClient
 from .passages.client import AsyncPassagesClient, PassagesClient
 from .raw_client import AsyncRawAgentsClient, RawAgentsClient
 from .sources.client import AsyncSourcesClient, SourcesClient
-from .templates.client import AsyncTemplatesClient, TemplatesClient
 from .tools.client import AsyncToolsClient, ToolsClient
 from .types.agents_list_request_order import AgentsListRequestOrder
 from .types.agents_list_request_order_by import AgentsListRequestOrderBy
@@ -62,8 +61,6 @@ class AgentsClient:
         self.messages = MessagesClient(client_wrapper=client_wrapper)
 
         self.groups = GroupsClient(client_wrapper=client_wrapper)
-
-        self.templates = TemplatesClient(client_wrapper=client_wrapper)
 
         self.memory_variables = MemoryVariablesClient(client_wrapper=client_wrapper)
 
@@ -172,7 +169,22 @@ class AgentsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.agents.list()
+        client.agents.list(
+            name="name",
+            match_all_tags=True,
+            before="before",
+            after="after",
+            limit=1,
+            query_text="query_text",
+            project_id="project_id",
+            template_id="template_id",
+            base_template_id="base_template_id",
+            identity_id="identity_id",
+            order="asc",
+            order_by="created_at",
+            ascending=True,
+            sort_by="sort_by",
+        )
         """
         _response = self._raw_client.list(
             name=name,
@@ -332,10 +344,10 @@ class AgentsClient:
             Whether to enable reasoning for this agent.
 
         from_template : typing.Optional[str]
-            The template id used to configure the agent
+            Deprecated: please use the 'create agents from a template' endpoint instead.
 
         template : typing.Optional[bool]
-            Whether the agent is a template
+            Deprecated: No longer used
 
         project : typing.Optional[str]
             Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
@@ -518,6 +530,8 @@ class AgentsClient:
         )
         client.agents.export_file(
             agent_id="agent_id",
+            max_steps=1,
+            use_legacy_format=True,
         )
         """
         _response = self._raw_client.export_file(
@@ -583,7 +597,9 @@ class AgentsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.agents.import_file()
+        client.agents.import_file(
+            override_embedding_model="x-override-embedding-model",
+        )
         """
         _response = self._raw_client.import_file(
             file=file,
@@ -949,8 +965,6 @@ class AsyncAgentsClient:
 
         self.groups = AsyncGroupsClient(client_wrapper=client_wrapper)
 
-        self.templates = AsyncTemplatesClient(client_wrapper=client_wrapper)
-
         self.memory_variables = AsyncMemoryVariablesClient(client_wrapper=client_wrapper)
 
     @property
@@ -1063,7 +1077,22 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.list()
+            await client.agents.list(
+                name="name",
+                match_all_tags=True,
+                before="before",
+                after="after",
+                limit=1,
+                query_text="query_text",
+                project_id="project_id",
+                template_id="template_id",
+                base_template_id="base_template_id",
+                identity_id="identity_id",
+                order="asc",
+                order_by="created_at",
+                ascending=True,
+                sort_by="sort_by",
+            )
 
 
         asyncio.run(main())
@@ -1226,10 +1255,10 @@ class AsyncAgentsClient:
             Whether to enable reasoning for this agent.
 
         from_template : typing.Optional[str]
-            The template id used to configure the agent
+            Deprecated: please use the 'create agents from a template' endpoint instead.
 
         template : typing.Optional[bool]
-            Whether the agent is a template
+            Deprecated: No longer used
 
         project : typing.Optional[str]
             Deprecated: Project should now be passed via the X-Project header instead of in the request body. If using the sdk, this can be done via the new x_project field below.
@@ -1433,6 +1462,8 @@ class AsyncAgentsClient:
         async def main() -> None:
             await client.agents.export_file(
                 agent_id="agent_id",
+                max_steps=1,
+                use_legacy_format=True,
             )
 
 
@@ -1506,7 +1537,9 @@ class AsyncAgentsClient:
 
 
         async def main() -> None:
-            await client.agents.import_file()
+            await client.agents.import_file(
+                override_embedding_model="x-override-embedding-model",
+            )
 
 
         asyncio.run(main())

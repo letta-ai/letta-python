@@ -82,7 +82,14 @@ class ProvidersClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.providers.list()
+        client.providers.list(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            name="name",
+            provider_type="anthropic",
+        )
         """
         _response = self._raw_client.list(
             before=before,
@@ -365,6 +372,39 @@ class ProvidersClient:
         )
         return _response.data
 
+    def check_existing_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
+        """
+        Verify the API key and additional parameters for an existing provider.
+
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.providers.check_existing_provider(
+            provider_id="provider_id",
+        )
+        """
+        _response = self._raw_client.check_existing_provider(provider_id, request_options=request_options)
+        return _response.data
+
 
 class AsyncProvidersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -440,7 +480,14 @@ class AsyncProvidersClient:
 
 
         async def main() -> None:
-            await client.providers.list()
+            await client.providers.list(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                name="name",
+                provider_type="anthropic",
+            )
 
 
         asyncio.run(main())
@@ -764,4 +811,45 @@ class AsyncProvidersClient:
             api_version=api_version,
             request_options=request_options,
         )
+        return _response.data
+
+    async def check_existing_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
+        """
+        Verify the API key and additional parameters for an existing provider.
+
+        Parameters
+        ----------
+        provider_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.providers.check_existing_provider(
+                provider_id="provider_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.check_existing_provider(provider_id, request_options=request_options)
         return _response.data

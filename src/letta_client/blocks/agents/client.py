@@ -80,6 +80,10 @@ class AgentsClient:
         )
         client.blocks.agents.list(
             block_id="block_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
         _response = self._raw_client.list(
@@ -171,6 +175,10 @@ class AsyncAgentsClient:
         async def main() -> None:
             await client.blocks.agents.list(
                 block_id="block_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 

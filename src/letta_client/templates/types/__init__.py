@@ -138,6 +138,12 @@ from .templates_create_agents_from_template_response_agents_item_llm_config_comp
 from .templates_create_agents_from_template_response_agents_item_llm_config_compatibility_type_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityTypeItem,
 )
+from .templates_create_agents_from_template_response_agents_item_llm_config_display_name import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName,
+)
+from .templates_create_agents_from_template_response_agents_item_llm_config_display_name_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayNameItem,
+)
 from .templates_create_agents_from_template_response_agents_item_llm_config_enable_reasoner import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigEnableReasoner,
 )
@@ -699,6 +705,12 @@ from .templates_create_agents_from_template_response_agents_item_secrets_item_up
 from .templates_create_agents_from_template_response_agents_item_secrets_item_updated_at_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemUpdatedAtItem,
 )
+from .templates_create_agents_from_template_response_agents_item_secrets_item_value_enc import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc,
+)
+from .templates_create_agents_from_template_response_agents_item_secrets_item_value_enc_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEncItem,
+)
 from .templates_create_agents_from_template_response_agents_item_sources_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem,
 )
@@ -857,6 +869,12 @@ from .templates_create_agents_from_template_response_agents_item_tool_exec_envir
 )
 from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables_item_updated_at_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemUpdatedAtItem,
+)
+from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables_item_value_enc import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc,
+)
+from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables_item_value_enc_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEncItem,
 )
 from .templates_create_agents_from_template_response_agents_item_tool_rules import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRules,
@@ -1486,6 +1504,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityTypeItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayNameItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigEnableReasoner",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigFrequencyPenalty",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigFrequencyPenaltyItem",
@@ -1673,6 +1693,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemOrganizationIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemUpdatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemUpdatedAtItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEncItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemCreatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemCreatedAtItem",
@@ -1726,6 +1748,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemOrganizationIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemUpdatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemUpdatedAtItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEncItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRules",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemArgs",

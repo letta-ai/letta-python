@@ -2,3 +2,6 @@
 
 # isort: skip_file
 
+from .types import BlocksListRequestOrder
+
+__all__ = ["BlocksListRequestOrder"]

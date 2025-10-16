@@ -12,6 +12,7 @@ from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from ..types.job import Job
+from .types.jobs_list_request_order import JobsListRequestOrder
 
 
 class RawJobsClient:
@@ -25,6 +26,8 @@ class RawJobsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[JobsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -38,19 +41,25 @@ class RawJobsClient:
             Only list jobs associated with the source.
 
         before : typing.Optional[str]
-            Cursor for pagination
+            Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination
+            Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
 
         limit : typing.Optional[int]
-            Limit for pagination
+            Maximum number of jobs to return
+
+        order : typing.Optional[JobsListRequestOrder]
+            Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         active : typing.Optional[bool]
             Filter for active jobs.
 
         ascending : typing.Optional[bool]
-            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
+            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -68,6 +77,8 @@ class RawJobsClient:
                 "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "active": active,
                 "ascending": ascending,
             },
@@ -331,6 +342,8 @@ class AsyncRawJobsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[JobsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -344,19 +357,25 @@ class AsyncRawJobsClient:
             Only list jobs associated with the source.
 
         before : typing.Optional[str]
-            Cursor for pagination
+            Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination
+            Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
 
         limit : typing.Optional[int]
-            Limit for pagination
+            Maximum number of jobs to return
+
+        order : typing.Optional[JobsListRequestOrder]
+            Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         active : typing.Optional[bool]
             Filter for active jobs.
 
         ascending : typing.Optional[bool]
-            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
+            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -374,6 +393,8 @@ class AsyncRawJobsClient:
                 "before": before,
                 "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "active": active,
                 "ascending": ascending,
             },

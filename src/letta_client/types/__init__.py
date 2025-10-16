@@ -2,9 +2,6 @@
 
 # isort: skip_file
 
-from .action_model import ActionModel
-from .action_parameters_model import ActionParametersModel
-from .action_response_model import ActionResponseModel
 from .agent_environment_variable import AgentEnvironmentVariable
 from .agent_file_attachment import AgentFileAttachment
 from .agent_file_schema import AgentFileSchema
@@ -12,21 +9,23 @@ from .agent_state import AgentState
 from .agent_state_response_format import AgentStateResponseFormat
 from .agent_state_tool_rules_item import AgentStateToolRulesItem
 from .agent_type import AgentType
-from .app_auth_scheme import AppAuthScheme
-from .app_auth_scheme_auth_mode import AppAuthSchemeAuthMode
-from .app_model import AppModel
+from .annotation import Annotation
+from .annotation_url_citation import AnnotationUrlCitation
 from .approval_create import ApprovalCreate
+from .approval_create_approvals_item import ApprovalCreateApprovalsItem
 from .approval_request_message import ApprovalRequestMessage
 from .approval_request_message_tool_call import ApprovalRequestMessageToolCall
 from .approval_response_message import ApprovalResponseMessage
+from .approval_response_message_approvals_item import ApprovalResponseMessageApprovalsItem
+from .approval_return import ApprovalReturn
 from .archival_memory_search_response import ArchivalMemorySearchResponse
 from .archival_memory_search_result import ArchivalMemorySearchResult
 from .archive import Archive
 from .assistant_message import AssistantMessage
 from .assistant_message_content import AssistantMessageContent
+from .audio import Audio
 from .auth_request import AuthRequest
 from .auth_response import AuthResponse
-from .auth_scheme_field import AuthSchemeField
 from .bad_request_error_body import BadRequestErrorBody
 from .base_64_image import Base64Image
 from .base_tool_rule_schema import BaseToolRuleSchema
@@ -35,10 +34,43 @@ from .block import Block
 from .block_schema import BlockSchema
 from .block_update import BlockUpdate
 from .body_export_agent import BodyExportAgent
-from .chat_completion_message_function_tool_call import ChatCompletionMessageFunctionToolCall
+from .chat_completion import ChatCompletion
+from .chat_completion_assistant_message_param import ChatCompletionAssistantMessageParam
+from .chat_completion_assistant_message_param_content import ChatCompletionAssistantMessageParamContent
+from .chat_completion_assistant_message_param_content_item import ChatCompletionAssistantMessageParamContentItem
+from .chat_completion_assistant_message_param_tool_calls_item import ChatCompletionAssistantMessageParamToolCallsItem
+from .chat_completion_audio import ChatCompletionAudio
+from .chat_completion_content_part_image_param import ChatCompletionContentPartImageParam
+from .chat_completion_content_part_input_audio_param import ChatCompletionContentPartInputAudioParam
+from .chat_completion_content_part_refusal_param import ChatCompletionContentPartRefusalParam
+from .chat_completion_content_part_text_param import ChatCompletionContentPartTextParam
+from .chat_completion_developer_message_param import ChatCompletionDeveloperMessageParam
+from .chat_completion_developer_message_param_content import ChatCompletionDeveloperMessageParamContent
+from .chat_completion_function_message_param import ChatCompletionFunctionMessageParam
+from .chat_completion_message import ChatCompletionMessage
+from .chat_completion_message_custom_tool_call import ChatCompletionMessageCustomToolCall
+from .chat_completion_message_custom_tool_call_param import ChatCompletionMessageCustomToolCallParam
+from .chat_completion_message_function_tool_call_input import ChatCompletionMessageFunctionToolCallInput
+from .chat_completion_message_function_tool_call_output import ChatCompletionMessageFunctionToolCallOutput
+from .chat_completion_message_function_tool_call_param import ChatCompletionMessageFunctionToolCallParam
+from .chat_completion_message_tool_calls_item import ChatCompletionMessageToolCallsItem
+from .chat_completion_service_tier import ChatCompletionServiceTier
+from .chat_completion_system_message_param import ChatCompletionSystemMessageParam
+from .chat_completion_system_message_param_content import ChatCompletionSystemMessageParamContent
+from .chat_completion_token_logprob import ChatCompletionTokenLogprob
+from .chat_completion_tool_message_param import ChatCompletionToolMessageParam
+from .chat_completion_tool_message_param_content import ChatCompletionToolMessageParamContent
+from .chat_completion_user_message_param import ChatCompletionUserMessageParam
+from .chat_completion_user_message_param_content import ChatCompletionUserMessageParamContent
+from .chat_completion_user_message_param_content_item import ChatCompletionUserMessageParamContentItem
 from .child_tool_rule import ChildToolRule
 from .child_tool_rule_schema import ChildToolRuleSchema
+from .choice import Choice
+from .choice_finish_reason import ChoiceFinishReason
+from .choice_logprobs import ChoiceLogprobs
 from .code_input import CodeInput
+from .completion_tokens_details import CompletionTokensDetails
+from .completion_usage import CompletionUsage
 from .components_schemas_text_content import ComponentsSchemasTextContent
 from .conditional_tool_rule import ConditionalToolRule
 from .conditional_tool_rule_schema import ConditionalToolRuleSchema
@@ -47,6 +79,8 @@ from .context_window_overview import ContextWindowOverview
 from .continue_tool_rule import ContinueToolRule
 from .core_memory_block_schema import CoreMemoryBlockSchema
 from .create_block import CreateBlock
+from .custom_input import CustomInput
+from .custom_output import CustomOutput
 from .delete_deployment_response import DeleteDeploymentResponse
 from .deployment_entity import DeploymentEntity
 from .duplicate_file_handling import DuplicateFileHandling
@@ -56,15 +90,19 @@ from .e_2_b_sandbox_config import E2BSandboxConfig
 from .embedding_config import EmbeddingConfig
 from .embedding_config_embedding_endpoint_type import EmbeddingConfigEmbeddingEndpointType
 from .feedback_type import FeedbackType
+from .file import File
 from .file_agent_schema import FileAgentSchema
 from .file_block import FileBlock
+from .file_file import FileFile
 from .file_metadata import FileMetadata
 from .file_processing_status import FileProcessingStatus
 from .file_schema import FileSchema
 from .file_stats import FileStats
 from .folder import Folder
-from .function import Function
+from .function_call_input import FunctionCallInput
+from .function_call_output import FunctionCallOutput
 from .function_definition import FunctionDefinition
+from .function_output import FunctionOutput
 from .function_tool import FunctionTool
 from .generate_tool_input import GenerateToolInput
 from .generate_tool_output import GenerateToolOutput
@@ -82,8 +120,12 @@ from .identity_property_value import IdentityPropertyValue
 from .identity_type import IdentityType
 from .image_content import ImageContent
 from .image_content_source import ImageContentSource
+from .image_url import ImageUrl
+from .image_url_detail import ImageUrlDetail
 from .imported_agents_response import ImportedAgentsResponse
 from .init_tool_rule import InitToolRule
+from .input_audio import InputAudio
+from .input_audio_format import InputAudioFormat
 from .internal_server_error_body import InternalServerErrorBody
 from .internal_template_agent_create import InternalTemplateAgentCreate
 from .internal_template_agent_create_response_format import InternalTemplateAgentCreateResponseFormat
@@ -111,8 +153,13 @@ from .letta_schemas_agent_file_agent_schema import LettaSchemasAgentFileAgentSch
 from .letta_schemas_agent_file_agent_schema_response_format import LettaSchemasAgentFileAgentSchemaResponseFormat
 from .letta_schemas_agent_file_agent_schema_tool_rules_item import LettaSchemasAgentFileAgentSchemaToolRulesItem
 from .letta_schemas_agent_file_message_schema import LettaSchemasAgentFileMessageSchema
+from .letta_schemas_agent_file_message_schema_approvals_item import LettaSchemasAgentFileMessageSchemaApprovalsItem
 from .letta_schemas_agent_file_message_schema_content import LettaSchemasAgentFileMessageSchemaContent
 from .letta_schemas_agent_file_tool_schema import LettaSchemasAgentFileToolSchema
+from .letta_schemas_letta_message_tool_return import LettaSchemasLettaMessageToolReturn
+from .letta_schemas_letta_message_tool_return_status import LettaSchemasLettaMessageToolReturnStatus
+from .letta_schemas_message_tool_return import LettaSchemasMessageToolReturn
+from .letta_schemas_message_tool_return_status import LettaSchemasMessageToolReturnStatus
 from .letta_serialize_schemas_pydantic_agent_schema_agent_schema import (
     LettaSerializeSchemasPydanticAgentSchemaAgentSchema,
 )
@@ -148,6 +195,7 @@ from .mcp_tool_health import McpToolHealth
 from .memory import Memory
 from .memory_agent_type import MemoryAgentType
 from .message import Message
+from .message_approvals_item import MessageApprovalsItem
 from .message_content_item import MessageContentItem
 from .message_create import MessageCreate
 from .message_create_content import MessageCreateContent
@@ -160,6 +208,12 @@ from .modal_sandbox_config_language import ModalSandboxConfigLanguage
 from .not_found_error_body import NotFoundErrorBody
 from .npm_requirement import NpmRequirement
 from .omitted_reasoning_content import OmittedReasoningContent
+from .openai_types_chat_chat_completion_message_function_tool_call_function import (
+    OpenaiTypesChatChatCompletionMessageFunctionToolCallFunction,
+)
+from .openai_types_chat_chat_completion_message_function_tool_call_param_function import (
+    OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction,
+)
 from .organization import Organization
 from .organization_create import OrganizationCreate
 from .organization_sources_stats import OrganizationSourcesStats
@@ -171,6 +225,7 @@ from .parent_tool_rule import ParentToolRule
 from .passage import Passage
 from .payment_required_error_body import PaymentRequiredErrorBody
 from .pip_requirement import PipRequirement
+from .prompt_tokens_details import PromptTokensDetails
 from .provider import Provider
 from .provider_category import ProviderCategory
 from .provider_trace import ProviderTrace
@@ -184,6 +239,7 @@ from .requires_approval_tool_rule import RequiresApprovalToolRule
 from .round_robin_manager import RoundRobinManager
 from .round_robin_manager_update import RoundRobinManagerUpdate
 from .run import Run
+from .run_metrics import RunMetrics
 from .run_status import RunStatus
 from .sandbox_config import SandboxConfig
 from .sandbox_config_create import SandboxConfigCreate
@@ -225,16 +281,16 @@ from .tool_call_content import ToolCallContent
 from .tool_call_delta import ToolCallDelta
 from .tool_call_message import ToolCallMessage
 from .tool_call_message_tool_call import ToolCallMessageToolCall
+from .tool_call_message_tool_calls import ToolCallMessageToolCalls
 from .tool_call_node import ToolCallNode
 from .tool_create import ToolCreate
 from .tool_env_var_schema import ToolEnvVarSchema
 from .tool_json_schema import ToolJsonSchema
-from .tool_return import ToolReturn
 from .tool_return_content import ToolReturnContent
 from .tool_return_message import ToolReturnMessage
 from .tool_return_message_status import ToolReturnMessageStatus
-from .tool_return_status import ToolReturnStatus
 from .tool_type import ToolType
+from .top_logprob import TopLogprob
 from .update_assistant_message import UpdateAssistantMessage
 from .update_assistant_message_content import UpdateAssistantMessageContent
 from .update_reasoning_message import UpdateReasoningMessage
@@ -260,9 +316,6 @@ from .voice_sleeptime_manager import VoiceSleeptimeManager
 from .voice_sleeptime_manager_update import VoiceSleeptimeManagerUpdate
 
 __all__ = [
-    "ActionModel",
-    "ActionParametersModel",
-    "ActionResponseModel",
     "AgentEnvironmentVariable",
     "AgentFileAttachment",
     "AgentFileSchema",
@@ -270,21 +323,23 @@ __all__ = [
     "AgentStateResponseFormat",
     "AgentStateToolRulesItem",
     "AgentType",
-    "AppAuthScheme",
-    "AppAuthSchemeAuthMode",
-    "AppModel",
+    "Annotation",
+    "AnnotationUrlCitation",
     "ApprovalCreate",
+    "ApprovalCreateApprovalsItem",
     "ApprovalRequestMessage",
     "ApprovalRequestMessageToolCall",
     "ApprovalResponseMessage",
+    "ApprovalResponseMessageApprovalsItem",
+    "ApprovalReturn",
     "ArchivalMemorySearchResponse",
     "ArchivalMemorySearchResult",
     "Archive",
     "AssistantMessage",
     "AssistantMessageContent",
+    "Audio",
     "AuthRequest",
     "AuthResponse",
-    "AuthSchemeField",
     "BadRequestErrorBody",
     "Base64Image",
     "BaseToolRuleSchema",
@@ -293,10 +348,43 @@ __all__ = [
     "BlockSchema",
     "BlockUpdate",
     "BodyExportAgent",
-    "ChatCompletionMessageFunctionToolCall",
+    "ChatCompletion",
+    "ChatCompletionAssistantMessageParam",
+    "ChatCompletionAssistantMessageParamContent",
+    "ChatCompletionAssistantMessageParamContentItem",
+    "ChatCompletionAssistantMessageParamToolCallsItem",
+    "ChatCompletionAudio",
+    "ChatCompletionContentPartImageParam",
+    "ChatCompletionContentPartInputAudioParam",
+    "ChatCompletionContentPartRefusalParam",
+    "ChatCompletionContentPartTextParam",
+    "ChatCompletionDeveloperMessageParam",
+    "ChatCompletionDeveloperMessageParamContent",
+    "ChatCompletionFunctionMessageParam",
+    "ChatCompletionMessage",
+    "ChatCompletionMessageCustomToolCall",
+    "ChatCompletionMessageCustomToolCallParam",
+    "ChatCompletionMessageFunctionToolCallInput",
+    "ChatCompletionMessageFunctionToolCallOutput",
+    "ChatCompletionMessageFunctionToolCallParam",
+    "ChatCompletionMessageToolCallsItem",
+    "ChatCompletionServiceTier",
+    "ChatCompletionSystemMessageParam",
+    "ChatCompletionSystemMessageParamContent",
+    "ChatCompletionTokenLogprob",
+    "ChatCompletionToolMessageParam",
+    "ChatCompletionToolMessageParamContent",
+    "ChatCompletionUserMessageParam",
+    "ChatCompletionUserMessageParamContent",
+    "ChatCompletionUserMessageParamContentItem",
     "ChildToolRule",
     "ChildToolRuleSchema",
+    "Choice",
+    "ChoiceFinishReason",
+    "ChoiceLogprobs",
     "CodeInput",
+    "CompletionTokensDetails",
+    "CompletionUsage",
     "ComponentsSchemasTextContent",
     "ConditionalToolRule",
     "ConditionalToolRuleSchema",
@@ -305,6 +393,8 @@ __all__ = [
     "ContinueToolRule",
     "CoreMemoryBlockSchema",
     "CreateBlock",
+    "CustomInput",
+    "CustomOutput",
     "DeleteDeploymentResponse",
     "DeploymentEntity",
     "DuplicateFileHandling",
@@ -314,15 +404,19 @@ __all__ = [
     "EmbeddingConfig",
     "EmbeddingConfigEmbeddingEndpointType",
     "FeedbackType",
+    "File",
     "FileAgentSchema",
     "FileBlock",
+    "FileFile",
     "FileMetadata",
     "FileProcessingStatus",
     "FileSchema",
     "FileStats",
     "Folder",
-    "Function",
+    "FunctionCallInput",
+    "FunctionCallOutput",
     "FunctionDefinition",
+    "FunctionOutput",
     "FunctionTool",
     "GenerateToolInput",
     "GenerateToolOutput",
@@ -340,8 +434,12 @@ __all__ = [
     "IdentityType",
     "ImageContent",
     "ImageContentSource",
+    "ImageUrl",
+    "ImageUrlDetail",
     "ImportedAgentsResponse",
     "InitToolRule",
+    "InputAudio",
+    "InputAudioFormat",
     "InternalServerErrorBody",
     "InternalTemplateAgentCreate",
     "InternalTemplateAgentCreateResponseFormat",
@@ -369,8 +467,13 @@ __all__ = [
     "LettaSchemasAgentFileAgentSchemaResponseFormat",
     "LettaSchemasAgentFileAgentSchemaToolRulesItem",
     "LettaSchemasAgentFileMessageSchema",
+    "LettaSchemasAgentFileMessageSchemaApprovalsItem",
     "LettaSchemasAgentFileMessageSchemaContent",
     "LettaSchemasAgentFileToolSchema",
+    "LettaSchemasLettaMessageToolReturn",
+    "LettaSchemasLettaMessageToolReturnStatus",
+    "LettaSchemasMessageToolReturn",
+    "LettaSchemasMessageToolReturnStatus",
     "LettaSerializeSchemasPydanticAgentSchemaAgentSchema",
     "LettaSerializeSchemasPydanticAgentSchemaAgentSchemaToolRulesItem",
     "LettaSerializeSchemasPydanticAgentSchemaMessageSchema",
@@ -398,6 +501,7 @@ __all__ = [
     "Memory",
     "MemoryAgentType",
     "Message",
+    "MessageApprovalsItem",
     "MessageContentItem",
     "MessageCreate",
     "MessageCreateContent",
@@ -410,6 +514,8 @@ __all__ = [
     "NotFoundErrorBody",
     "NpmRequirement",
     "OmittedReasoningContent",
+    "OpenaiTypesChatChatCompletionMessageFunctionToolCallFunction",
+    "OpenaiTypesChatChatCompletionMessageFunctionToolCallParamFunction",
     "Organization",
     "OrganizationCreate",
     "OrganizationSourcesStats",
@@ -421,6 +527,7 @@ __all__ = [
     "Passage",
     "PaymentRequiredErrorBody",
     "PipRequirement",
+    "PromptTokensDetails",
     "Provider",
     "ProviderCategory",
     "ProviderTrace",
@@ -434,6 +541,7 @@ __all__ = [
     "RoundRobinManager",
     "RoundRobinManagerUpdate",
     "Run",
+    "RunMetrics",
     "RunStatus",
     "SandboxConfig",
     "SandboxConfigCreate",
@@ -475,16 +583,16 @@ __all__ = [
     "ToolCallDelta",
     "ToolCallMessage",
     "ToolCallMessageToolCall",
+    "ToolCallMessageToolCalls",
     "ToolCallNode",
     "ToolCreate",
     "ToolEnvVarSchema",
     "ToolJsonSchema",
-    "ToolReturn",
     "ToolReturnContent",
     "ToolReturnMessage",
     "ToolReturnMessageStatus",
-    "ToolReturnStatus",
     "ToolType",
+    "TopLogprob",
     "UpdateAssistantMessage",
     "UpdateAssistantMessageContent",
     "UpdateReasoningMessage",

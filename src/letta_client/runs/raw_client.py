@@ -15,8 +15,10 @@ from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 from ..types.run import Run
+from ..types.run_metrics import RunMetrics
 from ..types.stop_reason_type import StopReasonType
 from .types.letta_streaming_response import LettaStreamingResponse
+from .types.runs_list_request_order import RunsListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -31,11 +33,14 @@ class RawRunsClient:
         *,
         agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        statuses: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
         stop_reason: typing.Optional[StopReasonType] = None,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[RunsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -51,26 +56,35 @@ class RawRunsClient:
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
+        statuses : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter runs by status. Can specify multiple statuses.
+
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
 
         stop_reason : typing.Optional[StopReasonType]
             Filter runs by stop reason.
 
-        after : typing.Optional[str]
-            Cursor for pagination
-
         before : typing.Optional[str]
-            Cursor for pagination
+            Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order
+
+        after : typing.Optional[str]
+            Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        order : typing.Optional[RunsListRequestOrder]
+            Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         active : typing.Optional[bool]
             Filter for active runs.
 
         ascending : typing.Optional[bool]
-            Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+            Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -86,11 +100,14 @@ class RawRunsClient:
             params={
                 "agent_id": agent_id,
                 "agent_ids": agent_ids,
+                "statuses": statuses,
                 "background": background,
                 "stop_reason": stop_reason,
-                "after": after,
                 "before": before,
+                "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "active": active,
                 "ascending": ascending,
             },
@@ -277,6 +294,55 @@ class RawRunsClient:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def retrieve_metrics_for_run(
+        self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[RunMetrics]:
+        """
+        Get run metrics by run ID.
+
+        Parameters
+        ----------
+        run_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[RunMetrics]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/runs/{jsonable_encoder(run_id)}/metrics",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RunMetrics,
+                    construct_type(
+                        type_=RunMetrics,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     @contextlib.contextmanager
     def stream(
         self,
@@ -382,11 +448,14 @@ class AsyncRawRunsClient:
         *,
         agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        statuses: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
         stop_reason: typing.Optional[StopReasonType] = None,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[RunsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -402,26 +471,35 @@ class AsyncRawRunsClient:
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
+        statuses : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter runs by status. Can specify multiple statuses.
+
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
 
         stop_reason : typing.Optional[StopReasonType]
             Filter runs by stop reason.
 
-        after : typing.Optional[str]
-            Cursor for pagination
-
         before : typing.Optional[str]
-            Cursor for pagination
+            Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order
+
+        after : typing.Optional[str]
+            Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        order : typing.Optional[RunsListRequestOrder]
+            Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         active : typing.Optional[bool]
             Filter for active runs.
 
         ascending : typing.Optional[bool]
-            Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+            Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -437,11 +515,14 @@ class AsyncRawRunsClient:
             params={
                 "agent_id": agent_id,
                 "agent_ids": agent_ids,
+                "statuses": statuses,
                 "background": background,
                 "stop_reason": stop_reason,
-                "after": after,
                 "before": before,
+                "after": after,
                 "limit": limit,
+                "order": order,
+                "order_by": order_by,
                 "active": active,
                 "ascending": ascending,
             },
@@ -612,6 +693,55 @@ class AsyncRawRunsClient:
                     Run,
                     construct_type(
                         type_=Run,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def retrieve_metrics_for_run(
+        self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[RunMetrics]:
+        """
+        Get run metrics by run ID.
+
+        Parameters
+        ----------
+        run_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[RunMetrics]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/runs/{jsonable_encoder(run_id)}/metrics",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    RunMetrics,
+                    construct_type(
+                        type_=RunMetrics,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

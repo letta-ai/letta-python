@@ -7,6 +7,7 @@ from .agents.client import AgentsClient, AsyncAgentsClient
 from .archives.client import ArchivesClient, AsyncArchivesClient
 from .batches.client import AsyncBatchesClient, BatchesClient
 from .blocks.client import AsyncBlocksClient, BlocksClient
+from .chat.client import AsyncChatClient, ChatClient
 from .client_side_access_tokens.client import AsyncClientSideAccessTokensClient, ClientSideAccessTokensClient
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import LettaEnvironment
@@ -102,6 +103,7 @@ class LettaBase:
         self.sources = SourcesClient(client_wrapper=self._client_wrapper)
         self.folders = FoldersClient(client_wrapper=self._client_wrapper)
         self.agents = AgentsClient(client_wrapper=self._client_wrapper)
+        self.chat = ChatClient(client_wrapper=self._client_wrapper)
         self.groups = GroupsClient(client_wrapper=self._client_wrapper)
         self.identities = IdentitiesClient(client_wrapper=self._client_wrapper)
         self.models = ModelsClient(client_wrapper=self._client_wrapper)
@@ -194,6 +196,7 @@ class AsyncLettaBase:
         self.sources = AsyncSourcesClient(client_wrapper=self._client_wrapper)
         self.folders = AsyncFoldersClient(client_wrapper=self._client_wrapper)
         self.agents = AsyncAgentsClient(client_wrapper=self._client_wrapper)
+        self.chat = AsyncChatClient(client_wrapper=self._client_wrapper)
         self.groups = AsyncGroupsClient(client_wrapper=self._client_wrapper)
         self.identities = AsyncIdentitiesClient(client_wrapper=self._client_wrapper)
         self.models = AsyncModelsClient(client_wrapper=self._client_wrapper)

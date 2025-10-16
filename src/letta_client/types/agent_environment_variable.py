@@ -49,6 +49,11 @@ class AgentEnvironmentVariable(UncheckedBaseModel):
     An optional description of the environment variable.
     """
 
+    value_enc: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Encrypted value as Secret object
+    """
+
     agent_id: str = pydantic.Field()
     """
     The ID of the agent this environment variable belongs to.

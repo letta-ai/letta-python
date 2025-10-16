@@ -33,6 +33,13 @@ class VoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
+        DEPRECATED: This voice-beta endpoint has been deprecated.
+
+        The voice functionality has been integrated into the main chat completions endpoint.
+        Please use the standard /v1/agents/{agent_id}/messages endpoint instead.
+
+        This endpoint will be removed in a future version.
+
         Parameters
         ----------
         agent_id : str
@@ -89,6 +96,13 @@ class AsyncVoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.Optional[typing.Any]:
         """
+        DEPRECATED: This voice-beta endpoint has been deprecated.
+
+        The voice functionality has been integrated into the main chat completions endpoint.
+        Please use the standard /v1/agents/{agent_id}/messages endpoint instead.
+
+        This endpoint will be removed in a future version.
+
         Parameters
         ----------
         agent_id : str

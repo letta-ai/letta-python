@@ -13,6 +13,7 @@ from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.agent_state import AgentState
 from ...types.block import Block
 from ...types.http_validation_error import HttpValidationError
+from .types.blocks_list_request_order import BlocksListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -205,7 +206,15 @@ class RawBlocksClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BlocksListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Block]]:
         """
         Retrieve the core memory blocks of a specific agent.
@@ -213,6 +222,21 @@ class RawBlocksClient:
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
+
+        after : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of blocks to return
+
+        order : typing.Optional[BlocksListRequestOrder]
+            Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -225,6 +249,13 @@ class RawBlocksClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/core-memory/blocks",
             method="GET",
+            params={
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            },
             request_options=request_options,
         )
         try:
@@ -543,7 +574,15 @@ class AsyncRawBlocksClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BlocksListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Block]]:
         """
         Retrieve the core memory blocks of a specific agent.
@@ -551,6 +590,21 @@ class AsyncRawBlocksClient:
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
+
+        after : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of blocks to return
+
+        order : typing.Optional[BlocksListRequestOrder]
+            Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -563,6 +617,13 @@ class AsyncRawBlocksClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/core-memory/blocks",
             method="GET",
+            params={
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            },
             request_options=request_options,
         )
         try:

@@ -61,6 +61,16 @@ class Provider(UncheckedBaseModel):
     The last update timestamp of the provider.
     """
 
+    api_key_enc: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Encrypted API key as Secret object
+    """
+
+    access_key_enc: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Encrypted access key as Secret object
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

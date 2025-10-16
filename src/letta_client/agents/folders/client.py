@@ -7,6 +7,7 @@ from ...core.request_options import RequestOptions
 from ...types.agent_state import AgentState
 from ...types.source import Source
 from .raw_client import AsyncRawFoldersClient, RawFoldersClient
+from .types.folders_list_request_order import FoldersListRequestOrder
 
 
 class FoldersClient:
@@ -96,13 +97,38 @@ class FoldersClient:
         _response = self._raw_client.detach(agent_id, folder_id, request_options=request_options)
         return _response.data
 
-    def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Source]:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[FoldersListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Source]:
         """
         Get the folders associated with an agent.
 
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Source ID cursor for pagination. Returns sources that come before this source ID in the specified sort order
+
+        after : typing.Optional[str]
+            Source ID cursor for pagination. Returns sources that come after this source ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of sources to return
+
+        order : typing.Optional[FoldersListRequestOrder]
+            Sort order for sources by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -122,9 +148,21 @@ class FoldersClient:
         )
         client.agents.folders.list(
             agent_id="agent_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
-        _response = self._raw_client.list(agent_id, request_options=request_options)
+        _response = self._raw_client.list(
+            agent_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -232,7 +270,15 @@ class AsyncFoldersClient:
         return _response.data
 
     async def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[FoldersListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Source]:
         """
         Get the folders associated with an agent.
@@ -240,6 +286,21 @@ class AsyncFoldersClient:
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Source ID cursor for pagination. Returns sources that come before this source ID in the specified sort order
+
+        after : typing.Optional[str]
+            Source ID cursor for pagination. Returns sources that come after this source ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of sources to return
+
+        order : typing.Optional[FoldersListRequestOrder]
+            Sort order for sources by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -264,10 +325,22 @@ class AsyncFoldersClient:
         async def main() -> None:
             await client.agents.folders.list(
                 agent_id="agent_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(agent_id, request_options=request_options)
+        _response = await self._raw_client.list(
+            agent_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data

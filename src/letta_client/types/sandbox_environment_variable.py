@@ -49,6 +49,11 @@ class SandboxEnvironmentVariable(UncheckedBaseModel):
     An optional description of the environment variable.
     """
 
+    value_enc: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Encrypted value as Secret object
+    """
+
     sandbox_config_id: str = pydantic.Field()
     """
     The ID of the sandbox config this environment variable belongs to.

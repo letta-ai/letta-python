@@ -7,6 +7,7 @@ from ...core.request_options import RequestOptions
 from ...types.agent_state import AgentState
 from ...types.tool import Tool
 from .raw_client import AsyncRawToolsClient, RawToolsClient
+from .types.tools_list_request_order import ToolsListRequestOrder
 
 
 class ToolsClient:
@@ -24,13 +25,38 @@ class ToolsClient:
         """
         return self._raw_client
 
-    def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Tool]:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[ToolsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Tool]:
         """
         Get tools from an existing agent
 
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
+
+        after : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of tools to return
+
+        order : typing.Optional[ToolsListRequestOrder]
+            Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -50,9 +76,21 @@ class ToolsClient:
         )
         client.agents.tools.list(
             agent_id="agent_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
-        _response = self._raw_client.list(agent_id, request_options=request_options)
+        _response = self._raw_client.list(
+            agent_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data
 
     def attach(
@@ -190,7 +228,15 @@ class AsyncToolsClient:
         return self._raw_client
 
     async def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[ToolsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Tool]:
         """
         Get tools from an existing agent
@@ -198,6 +244,21 @@ class AsyncToolsClient:
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
+
+        after : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of tools to return
+
+        order : typing.Optional[ToolsListRequestOrder]
+            Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -222,12 +283,24 @@ class AsyncToolsClient:
         async def main() -> None:
             await client.agents.tools.list(
                 agent_id="agent_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(agent_id, request_options=request_options)
+        _response = await self._raw_client.list(
+            agent_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data
 
     async def attach(

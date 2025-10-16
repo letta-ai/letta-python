@@ -75,6 +75,10 @@ class BlocksClient:
         )
         client.identities.blocks.list(
             identity_id="identity_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
         _response = self._raw_client.list(
@@ -160,6 +164,10 @@ class AsyncBlocksClient:
         async def main() -> None:
             await client.identities.blocks.list(
                 identity_id="identity_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 

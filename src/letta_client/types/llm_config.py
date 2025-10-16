@@ -22,6 +22,11 @@ class LlmConfig(UncheckedBaseModel):
     LLM model name. 
     """
 
+    display_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A human-friendly display name for the model.
+    """
+
     model_endpoint_type: LlmConfigModelEndpointType = pydantic.Field()
     """
     The endpoint type for the model.

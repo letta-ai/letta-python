@@ -160,12 +160,12 @@ class LettaSchemasAgentFileAgentSchema(UncheckedBaseModel):
 
     from_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The template id used to configure the agent
+    Deprecated: please use the 'create agents from a template' endpoint instead.
     """
 
     template: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Whether the agent is a template
+    Deprecated: No longer used
     """
 
     project: typing.Optional[str] = pydantic.Field(default=None)

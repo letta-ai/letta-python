@@ -66,6 +66,9 @@ class PassagesClient:
         )
         client.sources.passages.list(
             source_id="source_id",
+            after="after",
+            before="before",
+            limit=1,
         )
         """
         _response = self._raw_client.list(
@@ -137,6 +140,9 @@ class AsyncPassagesClient:
         async def main() -> None:
             await client.sources.passages.list(
                 source_id="source_id",
+                after="after",
+                before="before",
+                limit=1,
             )
 
 

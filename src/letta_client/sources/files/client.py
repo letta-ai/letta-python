@@ -71,6 +71,8 @@ class FilesClient:
         )
         client.sources.files.upload(
             source_id="source_id",
+            duplicate_handling="skip",
+            name="name",
         )
         """
         _response = self._raw_client.upload(
@@ -125,6 +127,10 @@ class FilesClient:
         )
         client.sources.files.list(
             source_id="source_id",
+            limit=1,
+            after="after",
+            include_content=True,
+            check_status_updates=True,
         )
         """
         _response = self._raw_client.list(
@@ -234,6 +240,8 @@ class AsyncFilesClient:
         async def main() -> None:
             await client.sources.files.upload(
                 source_id="source_id",
+                duplicate_handling="skip",
+                name="name",
             )
 
 
@@ -296,6 +304,10 @@ class AsyncFilesClient:
         async def main() -> None:
             await client.sources.files.list(
                 source_id="source_id",
+                limit=1,
+                after="after",
+                include_content=True,
+                check_status_updates=True,
             )
 
 

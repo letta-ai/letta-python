@@ -80,6 +80,11 @@ class PassagesClient:
         )
         client.agents.passages.list(
             agent_id="agent_id",
+            after="after",
+            before="before",
+            limit=1,
+            search="search",
+            ascending=True,
         )
         """
         _response = self._raw_client.list(
@@ -195,6 +200,8 @@ class PassagesClient:
 
         Examples
         --------
+        import datetime
+
         from letta_client import Letta
 
         client = Letta(
@@ -204,6 +211,14 @@ class PassagesClient:
         client.agents.passages.search(
             agent_id="agent_id",
             query="query",
+            tag_match_mode="any",
+            top_k=1,
+            start_datetime=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
+            end_datetime=datetime.datetime.fromisoformat(
+                "2024-01-15 09:30:00+00:00",
+            ),
         )
         """
         _response = self._raw_client.search(
@@ -357,6 +372,11 @@ class AsyncPassagesClient:
         async def main() -> None:
             await client.agents.passages.list(
                 agent_id="agent_id",
+                after="after",
+                before="before",
+                limit=1,
+                search="search",
+                ascending=True,
             )
 
 
@@ -484,6 +504,7 @@ class AsyncPassagesClient:
         Examples
         --------
         import asyncio
+        import datetime
 
         from letta_client import AsyncLetta
 
@@ -497,6 +518,14 @@ class AsyncPassagesClient:
             await client.agents.passages.search(
                 agent_id="agent_id",
                 query="query",
+                tag_match_mode="any",
+                top_k=1,
+                start_datetime=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
+                end_datetime=datetime.datetime.fromisoformat(
+                    "2024-01-15 09:30:00+00:00",
+                ),
             )
 
 

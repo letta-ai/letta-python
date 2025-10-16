@@ -77,7 +77,14 @@ class TagsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.tags.list()
+        client.tags.list(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            query_text="query_text",
+            name="name",
+        )
         """
         _response = self._raw_client.list(
             before=before,
@@ -166,7 +173,14 @@ class AsyncTagsClient:
 
 
         async def main() -> None:
-            await client.tags.list()
+            await client.tags.list(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                query_text="query_text",
+                name="name",
+            )
 
 
         asyncio.run(main())

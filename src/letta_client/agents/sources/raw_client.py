@@ -13,6 +13,7 @@ from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.agent_state import AgentState
 from ...types.http_validation_error import HttpValidationError
 from ...types.source import Source
+from .types.sources_list_request_order import SourcesListRequestOrder
 
 
 class RawSourcesClient:
@@ -122,7 +123,15 @@ class RawSourcesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[SourcesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Source]]:
         """
         Get the sources associated with an agent.
@@ -130,6 +139,21 @@ class RawSourcesClient:
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Source ID cursor for pagination. Returns sources that come before this source ID in the specified sort order
+
+        after : typing.Optional[str]
+            Source ID cursor for pagination. Returns sources that come after this source ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of sources to return
+
+        order : typing.Optional[SourcesListRequestOrder]
+            Sort order for sources by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -142,6 +166,13 @@ class RawSourcesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/sources",
             method="GET",
+            params={
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            },
             request_options=request_options,
         )
         try:
@@ -278,7 +309,15 @@ class AsyncRawSourcesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[SourcesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Source]]:
         """
         Get the sources associated with an agent.
@@ -286,6 +325,21 @@ class AsyncRawSourcesClient:
         Parameters
         ----------
         agent_id : str
+
+        before : typing.Optional[str]
+            Source ID cursor for pagination. Returns sources that come before this source ID in the specified sort order
+
+        after : typing.Optional[str]
+            Source ID cursor for pagination. Returns sources that come after this source ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of sources to return
+
+        order : typing.Optional[SourcesListRequestOrder]
+            Sort order for sources by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -298,6 +352,13 @@ class AsyncRawSourcesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/sources",
             method="GET",
+            params={
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            },
             request_options=request_options,
         )
         try:

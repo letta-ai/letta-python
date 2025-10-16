@@ -86,7 +86,14 @@ class GroupsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.groups.list()
+        client.groups.list(
+            manager_type="round_robin",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            project_id="project_id",
+        )
         """
         _response = self._raw_client.list(
             manager_type=manager_type,
@@ -397,7 +404,14 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.groups.list()
+            await client.groups.list(
+                manager_type="round_robin",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                project_id="project_id",
+            )
 
 
         asyncio.run(main())

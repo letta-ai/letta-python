@@ -62,7 +62,10 @@ class ModelsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.models.list()
+        client.models.list(
+            provider_name="provider_name",
+            provider_type="anthropic",
+        )
         """
         _response = self._raw_client.list(
             provider_category=provider_category,
@@ -153,7 +156,10 @@ class AsyncModelsClient:
 
 
         async def main() -> None:
-            await client.models.list()
+            await client.models.list(
+                provider_name="provider_name",
+                provider_type="anthropic",
+            )
 
 
         asyncio.run(main())

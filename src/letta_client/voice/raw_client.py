@@ -9,6 +9,7 @@ from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.request_options import RequestOptions
 from ..core.unchecked_base_model import construct_type
+from ..errors.gone_error import GoneError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.http_validation_error import HttpValidationError
 
@@ -28,6 +29,13 @@ class RawVoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.Optional[typing.Any]]:
         """
+        DEPRECATED: This voice-beta endpoint has been deprecated.
+
+        The voice functionality has been integrated into the main chat completions endpoint.
+        Please use the standard /v1/agents/{agent_id}/messages endpoint instead.
+
+        This endpoint will be removed in a future version.
+
         Parameters
         ----------
         agent_id : str
@@ -64,6 +72,17 @@ class RawVoiceClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 410:
+                raise GoneError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -93,6 +112,13 @@ class AsyncRawVoiceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
         """
+        DEPRECATED: This voice-beta endpoint has been deprecated.
+
+        The voice functionality has been integrated into the main chat completions endpoint.
+        Please use the standard /v1/agents/{agent_id}/messages endpoint instead.
+
+        This endpoint will be removed in a future version.
+
         Parameters
         ----------
         agent_id : str
@@ -129,6 +155,17 @@ class AsyncRawVoiceClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 410:
+                raise GoneError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Optional[typing.Any],
+                        construct_type(
+                            type_=typing.Optional[typing.Any],  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),

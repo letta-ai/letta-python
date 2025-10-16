@@ -7,6 +7,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .tool_call_message_tool_call import ToolCallMessageToolCall
+from .tool_call_message_tool_calls import ToolCallMessageToolCalls
 
 
 class ToolCallMessage(UncheckedBaseModel):
@@ -31,6 +32,7 @@ class ToolCallMessage(UncheckedBaseModel):
     seq_id: typing.Optional[int] = None
     run_id: typing.Optional[str] = None
     tool_call: ToolCallMessageToolCall
+    tool_calls: typing.Optional[ToolCallMessageToolCalls] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
