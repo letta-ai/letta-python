@@ -38,6 +38,7 @@ class RawAgentsClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         before : typing.Optional[str]
             Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
@@ -128,6 +129,7 @@ class AsyncRawAgentsClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         before : typing.Optional[str]
             Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order

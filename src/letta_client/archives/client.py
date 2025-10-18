@@ -150,6 +150,7 @@ class ArchivesClient:
         Parameters
         ----------
         archive_id : str
+            The ID of the archive in the format 'archive-<uuid4>'
 
         name : typing.Optional[str]
 
@@ -172,7 +173,7 @@ class ArchivesClient:
             token="YOUR_TOKEN",
         )
         client.archives.modify_archive(
-            archive_id="archive_id",
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify_archive(
@@ -337,6 +338,7 @@ class AsyncArchivesClient:
         Parameters
         ----------
         archive_id : str
+            The ID of the archive in the format 'archive-<uuid4>'
 
         name : typing.Optional[str]
 
@@ -364,7 +366,7 @@ class AsyncArchivesClient:
 
         async def main() -> None:
             await client.archives.modify_archive(
-                archive_id="archive_id",
+                archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

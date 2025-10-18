@@ -34,6 +34,7 @@ class RawBlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -103,6 +104,7 @@ class RawBlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -222,6 +224,7 @@ class RawBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
@@ -293,8 +296,10 @@ class RawBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -344,8 +349,10 @@ class RawBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -402,6 +409,7 @@ class AsyncRawBlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -471,6 +479,7 @@ class AsyncRawBlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -590,6 +599,7 @@ class AsyncRawBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
@@ -661,8 +671,10 @@ class AsyncRawBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -712,8 +724,10 @@ class AsyncRawBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

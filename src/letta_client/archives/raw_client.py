@@ -180,6 +180,7 @@ class RawArchivesClient:
         Parameters
         ----------
         archive_id : str
+            The ID of the archive in the format 'archive-<uuid4>'
 
         name : typing.Optional[str]
 
@@ -395,6 +396,7 @@ class AsyncRawArchivesClient:
         Parameters
         ----------
         archive_id : str
+            The ID of the archive in the format 'archive-<uuid4>'
 
         name : typing.Optional[str]
 

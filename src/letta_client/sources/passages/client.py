@@ -38,6 +38,7 @@ class PassagesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         after : typing.Optional[str]
             Message after which to retrieve the returned messages.
@@ -65,7 +66,7 @@ class PassagesClient:
             token="YOUR_TOKEN",
         )
         client.sources.passages.list(
-            source_id="source_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
             after="after",
             before="before",
             limit=1,
@@ -107,6 +108,7 @@ class AsyncPassagesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         after : typing.Optional[str]
             Message after which to retrieve the returned messages.
@@ -139,7 +141,7 @@ class AsyncPassagesClient:
 
         async def main() -> None:
             await client.sources.passages.list(
-                source_id="source_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
                 after="after",
                 before="before",
                 limit=1,

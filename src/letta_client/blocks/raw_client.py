@@ -330,6 +330,7 @@ class RawBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -377,6 +378,7 @@ class RawBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -443,6 +445,7 @@ class RawBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -858,6 +861,7 @@ class AsyncRawBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -905,6 +909,7 @@ class AsyncRawBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -971,6 +976,7 @@ class AsyncRawBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.

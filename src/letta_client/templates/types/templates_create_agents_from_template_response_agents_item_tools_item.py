@@ -19,6 +19,9 @@ from .templates_create_agents_from_template_response_agents_item_tools_item_defa
 from .templates_create_agents_from_template_response_agents_item_tools_item_description import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDescription,
 )
+from .templates_create_agents_from_template_response_agents_item_tools_item_enable_parallel_execution import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution,
+)
 from .templates_create_agents_from_template_response_agents_item_tools_item_json_schema import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemJsonSchema,
 )
@@ -67,6 +70,9 @@ class TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItem(UncheckedBase
     )
     default_requires_approval: typing.Optional[
         TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApproval
+    ] = None
+    enable_parallel_execution: typing.Optional[
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution
     ] = None
     created_by_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemCreatedById] = None
     last_updated_by_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemLastUpdatedById] = (

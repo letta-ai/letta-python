@@ -222,6 +222,7 @@ class RawAgentsClient:
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         hidden: typing.Optional[bool] = OMIT,
+        parallel_tool_calls: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AgentState]:
         """
@@ -361,6 +362,9 @@ class RawAgentsClient:
         hidden : typing.Optional[bool]
             If set to True, the agent will be hidden.
 
+        parallel_tool_calls : typing.Optional[bool]
+            If set to True, enables parallel tool calling. Defaults to False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -429,6 +433,7 @@ class RawAgentsClient:
                 "max_files_open": max_files_open,
                 "per_file_view_window_char_limit": per_file_view_window_char_limit,
                 "hidden": hidden,
+                "parallel_tool_calls": parallel_tool_calls,
             },
             headers={
                 "content-type": "application/json",
@@ -525,6 +530,7 @@ class RawAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         max_steps : typing.Optional[int]
 
@@ -686,6 +692,7 @@ class RawAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
@@ -741,6 +748,7 @@ class RawAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -817,6 +825,7 @@ class RawAgentsClient:
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         hidden: typing.Optional[bool] = OMIT,
+        parallel_tool_calls: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AgentState]:
         """
@@ -825,6 +834,7 @@ class RawAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         name : typing.Optional[str]
             The name of the agent.
@@ -916,6 +926,9 @@ class RawAgentsClient:
         hidden : typing.Optional[bool]
             If set to True, the agent will be hidden.
 
+        parallel_tool_calls : typing.Optional[bool]
+            If set to True, enables parallel tool calling. Defaults to False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -966,6 +979,7 @@ class RawAgentsClient:
                 "max_files_open": max_files_open,
                 "per_file_view_window_char_limit": per_file_view_window_char_limit,
                 "hidden": hidden,
+                "parallel_tool_calls": parallel_tool_calls,
             },
             headers={
                 "content-type": "application/json",
@@ -1263,6 +1277,7 @@ class AsyncRawAgentsClient:
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         hidden: typing.Optional[bool] = OMIT,
+        parallel_tool_calls: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AgentState]:
         """
@@ -1402,6 +1417,9 @@ class AsyncRawAgentsClient:
         hidden : typing.Optional[bool]
             If set to True, the agent will be hidden.
 
+        parallel_tool_calls : typing.Optional[bool]
+            If set to True, enables parallel tool calling. Defaults to False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1470,6 +1488,7 @@ class AsyncRawAgentsClient:
                 "max_files_open": max_files_open,
                 "per_file_view_window_char_limit": per_file_view_window_char_limit,
                 "hidden": hidden,
+                "parallel_tool_calls": parallel_tool_calls,
             },
             headers={
                 "content-type": "application/json",
@@ -1566,6 +1585,7 @@ class AsyncRawAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         max_steps : typing.Optional[int]
 
@@ -1727,6 +1747,7 @@ class AsyncRawAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
@@ -1782,6 +1803,7 @@ class AsyncRawAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1858,6 +1880,7 @@ class AsyncRawAgentsClient:
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         hidden: typing.Optional[bool] = OMIT,
+        parallel_tool_calls: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AgentState]:
         """
@@ -1866,6 +1889,7 @@ class AsyncRawAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         name : typing.Optional[str]
             The name of the agent.
@@ -1957,6 +1981,9 @@ class AsyncRawAgentsClient:
         hidden : typing.Optional[bool]
             If set to True, the agent will be hidden.
 
+        parallel_tool_calls : typing.Optional[bool]
+            If set to True, enables parallel tool calling. Defaults to False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2007,6 +2034,7 @@ class AsyncRawAgentsClient:
                 "max_files_open": max_files_open,
                 "per_file_view_window_char_limit": per_file_view_window_char_limit,
                 "hidden": hidden,
+                "parallel_tool_calls": parallel_tool_calls,
             },
             headers={
                 "content-type": "application/json",

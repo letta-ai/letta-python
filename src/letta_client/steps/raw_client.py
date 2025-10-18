@@ -148,6 +148,7 @@ class RawStepsClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -323,6 +324,7 @@ class AsyncRawStepsClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -255,6 +255,7 @@ class AgentsClient:
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         hidden: typing.Optional[bool] = OMIT,
+        parallel_tool_calls: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -394,6 +395,9 @@ class AgentsClient:
         hidden : typing.Optional[bool]
             If set to True, the agent will be hidden.
 
+        parallel_tool_calls : typing.Optional[bool]
+            If set to True, enables parallel tool calling. Defaults to False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -457,6 +461,7 @@ class AgentsClient:
             max_files_open=max_files_open,
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
+            parallel_tool_calls=parallel_tool_calls,
             request_options=request_options,
         )
         return _response.data
@@ -506,6 +511,7 @@ class AgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         max_steps : typing.Optional[int]
 
@@ -529,7 +535,7 @@ class AgentsClient:
             token="YOUR_TOKEN",
         )
         client.agents.export_file(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             max_steps=1,
             use_legacy_format=True,
         )
@@ -627,6 +633,7 @@ class AgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
@@ -648,7 +655,7 @@ class AgentsClient:
             token="YOUR_TOKEN",
         )
         client.agents.retrieve(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(
@@ -665,6 +672,7 @@ class AgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -683,7 +691,7 @@ class AgentsClient:
             token="YOUR_TOKEN",
         )
         client.agents.delete(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(agent_id, request_options=request_options)
@@ -723,6 +731,7 @@ class AgentsClient:
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         hidden: typing.Optional[bool] = OMIT,
+        parallel_tool_calls: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -731,6 +740,7 @@ class AgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         name : typing.Optional[str]
             The name of the agent.
@@ -822,6 +832,9 @@ class AgentsClient:
         hidden : typing.Optional[bool]
             If set to True, the agent will be hidden.
 
+        parallel_tool_calls : typing.Optional[bool]
+            If set to True, enables parallel tool calling. Defaults to False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -839,7 +852,7 @@ class AgentsClient:
             token="YOUR_TOKEN",
         )
         client.agents.modify(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -874,6 +887,7 @@ class AgentsClient:
             max_files_open=max_files_open,
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
+            parallel_tool_calls=parallel_tool_calls,
             request_options=request_options,
         )
         return _response.data
@@ -1166,6 +1180,7 @@ class AsyncAgentsClient:
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         hidden: typing.Optional[bool] = OMIT,
+        parallel_tool_calls: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1305,6 +1320,9 @@ class AsyncAgentsClient:
         hidden : typing.Optional[bool]
             If set to True, the agent will be hidden.
 
+        parallel_tool_calls : typing.Optional[bool]
+            If set to True, enables parallel tool calling. Defaults to False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1376,6 +1394,7 @@ class AsyncAgentsClient:
             max_files_open=max_files_open,
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
+            parallel_tool_calls=parallel_tool_calls,
             request_options=request_options,
         )
         return _response.data
@@ -1433,6 +1452,7 @@ class AsyncAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         max_steps : typing.Optional[int]
 
@@ -1461,7 +1481,7 @@ class AsyncAgentsClient:
 
         async def main() -> None:
             await client.agents.export_file(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 max_steps=1,
                 use_legacy_format=True,
             )
@@ -1570,6 +1590,7 @@ class AsyncAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         include_relationships : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include in the response. If not provided, all relationships are loaded by default. Using this can optimize performance by reducing unnecessary joins.
@@ -1596,7 +1617,7 @@ class AsyncAgentsClient:
 
         async def main() -> None:
             await client.agents.retrieve(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1616,6 +1637,7 @@ class AsyncAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1639,7 +1661,7 @@ class AsyncAgentsClient:
 
         async def main() -> None:
             await client.agents.delete(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1682,6 +1704,7 @@ class AsyncAgentsClient:
         max_files_open: typing.Optional[int] = OMIT,
         per_file_view_window_char_limit: typing.Optional[int] = OMIT,
         hidden: typing.Optional[bool] = OMIT,
+        parallel_tool_calls: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AgentState:
         """
@@ -1690,6 +1713,7 @@ class AsyncAgentsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         name : typing.Optional[str]
             The name of the agent.
@@ -1781,6 +1805,9 @@ class AsyncAgentsClient:
         hidden : typing.Optional[bool]
             If set to True, the agent will be hidden.
 
+        parallel_tool_calls : typing.Optional[bool]
+            If set to True, enables parallel tool calling. Defaults to False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1803,7 +1830,7 @@ class AsyncAgentsClient:
 
         async def main() -> None:
             await client.agents.modify(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1841,6 +1868,7 @@ class AsyncAgentsClient:
             max_files_open=max_files_open,
             per_file_view_window_char_limit=per_file_view_window_char_limit,
             hidden=hidden,
+            parallel_tool_calls=parallel_tool_calls,
             request_options=request_options,
         )
         return _response.data

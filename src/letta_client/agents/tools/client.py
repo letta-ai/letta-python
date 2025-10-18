@@ -42,6 +42,7 @@ class ToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
@@ -75,7 +76,7 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.agents.tools.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             before="before",
             after="after",
             limit=1,
@@ -102,8 +103,10 @@ class ToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -122,8 +125,8 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.agents.tools.attach(
-            agent_id="agent_id",
-            tool_id="tool_id",
+            agent_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.attach(agent_id, tool_id, request_options=request_options)
@@ -138,8 +141,10 @@ class ToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -158,8 +163,8 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.agents.tools.detach(
-            agent_id="agent_id",
-            tool_id="tool_id",
+            agent_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.detach(agent_id, tool_id, request_options=request_options)
@@ -179,6 +184,7 @@ class ToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         tool_name : str
 
@@ -201,7 +207,7 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.agents.tools.modify_approval(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             tool_name="tool_name",
             requires_approval=True,
         )
@@ -244,6 +250,7 @@ class AsyncToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
@@ -282,7 +289,7 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.agents.tools.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 before="before",
                 after="after",
                 limit=1,
@@ -312,8 +319,10 @@ class AsyncToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -337,8 +346,8 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.agents.tools.attach(
-                agent_id="agent_id",
-                tool_id="tool_id",
+                agent_id="tool-123e4567-e89b-42d3-8456-426614174000",
+                tool_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -356,8 +365,10 @@ class AsyncToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -381,8 +392,8 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.agents.tools.detach(
-                agent_id="agent_id",
-                tool_id="tool_id",
+                agent_id="tool-123e4567-e89b-42d3-8456-426614174000",
+                tool_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -405,6 +416,7 @@ class AsyncToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         tool_name : str
 
@@ -432,7 +444,7 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.agents.tools.modify_approval(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 tool_name="tool_name",
                 requires_approval=True,
             )

@@ -292,6 +292,7 @@ class IdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -310,7 +311,7 @@ class IdentitiesClient:
             token="YOUR_TOKEN",
         )
         client.identities.retrieve(
-            identity_id="identity_id",
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(identity_id, request_options=request_options)
@@ -325,6 +326,7 @@ class IdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -343,7 +345,7 @@ class IdentitiesClient:
             token="YOUR_TOKEN",
         )
         client.identities.delete(
-            identity_id="identity_id",
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(identity_id, request_options=request_options)
@@ -365,6 +367,7 @@ class IdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         identifier_key : typing.Optional[str]
             External, user-generated identifier key of the identity.
@@ -401,7 +404,7 @@ class IdentitiesClient:
             token="YOUR_TOKEN",
         )
         client.identities.modify(
-            identity_id="identity_id",
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -724,6 +727,7 @@ class AsyncIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -747,7 +751,7 @@ class AsyncIdentitiesClient:
 
         async def main() -> None:
             await client.identities.retrieve(
-                identity_id="identity_id",
+                identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -765,6 +769,7 @@ class AsyncIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -788,7 +793,7 @@ class AsyncIdentitiesClient:
 
         async def main() -> None:
             await client.identities.delete(
-                identity_id="identity_id",
+                identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -813,6 +818,7 @@ class AsyncIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         identifier_key : typing.Optional[str]
             External, user-generated identifier key of the identity.
@@ -854,7 +860,7 @@ class AsyncIdentitiesClient:
 
         async def main() -> None:
             await client.identities.modify(
-                identity_id="identity_id",
+                identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

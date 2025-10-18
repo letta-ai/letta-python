@@ -47,6 +47,7 @@ class ToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -65,7 +66,7 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.tools.retrieve(
-            tool_id="tool_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(tool_id, request_options=request_options)
@@ -80,6 +81,7 @@ class ToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -98,7 +100,7 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.tools.delete(
-            tool_id="tool_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(tool_id, request_options=request_options)
@@ -119,6 +121,7 @@ class ToolsClient:
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -127,6 +130,7 @@ class ToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         description : typing.Optional[str]
             The description of the tool.
@@ -161,6 +165,9 @@ class ToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -178,7 +185,7 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.tools.modify(
-            tool_id="tool_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -194,6 +201,7 @@ class ToolsClient:
             npm_requirements=npm_requirements,
             metadata=metadata,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -389,6 +397,7 @@ class ToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -426,6 +435,9 @@ class ToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -457,6 +469,7 @@ class ToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -474,6 +487,7 @@ class ToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -511,6 +525,9 @@ class ToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -542,6 +559,7 @@ class ToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -965,6 +983,7 @@ class AsyncToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -988,7 +1007,7 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.tools.retrieve(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1006,6 +1025,7 @@ class AsyncToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1029,7 +1049,7 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.tools.delete(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1053,6 +1073,7 @@ class AsyncToolsClient:
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1061,6 +1082,7 @@ class AsyncToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         description : typing.Optional[str]
             The description of the tool.
@@ -1095,6 +1117,9 @@ class AsyncToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1117,7 +1142,7 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.tools.modify(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1136,6 +1161,7 @@ class AsyncToolsClient:
             npm_requirements=npm_requirements,
             metadata=metadata,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -1347,6 +1373,7 @@ class AsyncToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1383,6 +1410,9 @@ class AsyncToolsClient:
 
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
+
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1423,6 +1453,7 @@ class AsyncToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -1440,6 +1471,7 @@ class AsyncToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1476,6 +1508,9 @@ class AsyncToolsClient:
 
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
+
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1516,6 +1551,7 @@ class AsyncToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data

@@ -229,7 +229,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.archives.modify_archive(
-    archive_id="archive_id",
+    archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -246,7 +246,7 @@ client.archives.modify_archive(
 <dl>
 <dd>
 
-**archive_id:** `str` 
+**archive_id:** `str` — The ID of the archive in the format 'archive-<uuid4>'
     
 </dd>
 </dl>
@@ -317,7 +317,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.tools.retrieve(
-    tool_id="tool_id",
+    tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -334,7 +334,7 @@ client.tools.retrieve(
 <dl>
 <dd>
 
-**tool_id:** `str` 
+**tool_id:** `str` — The ID of the tool in the format 'tool-<uuid4>'
     
 </dd>
 </dl>
@@ -388,7 +388,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.tools.delete(
-    tool_id="tool_id",
+    tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -405,7 +405,7 @@ client.tools.delete(
 <dl>
 <dd>
 
-**tool_id:** `str` 
+**tool_id:** `str` — The ID of the tool in the format 'tool-<uuid4>'
     
 </dd>
 </dl>
@@ -459,7 +459,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.tools.modify(
-    tool_id="tool_id",
+    tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -476,7 +476,7 @@ client.tools.modify(
 <dl>
 <dd>
 
-**tool_id:** `str` 
+**tool_id:** `str` — The ID of the tool in the format 'tool-<uuid4>'
     
 </dd>
 </dl>
@@ -565,6 +565,14 @@ client.tools.modify(
 <dd>
 
 **default_requires_approval:** `typing.Optional[bool]` — Whether or not to require approval before executing this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_parallel_execution:** `typing.Optional[bool]` — If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
     
 </dd>
 </dl>
@@ -1010,6 +1018,14 @@ client.tools.create(
 <dl>
 <dd>
 
+**enable_parallel_execution:** `typing.Optional[bool]` — If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -1146,6 +1162,14 @@ client.tools.upsert(
 <dd>
 
 **default_requires_approval:** `typing.Optional[bool]` — Whether or not to require approval before executing this tool.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_parallel_execution:** `typing.Optional[bool]` — If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
     
 </dd>
 </dl>
@@ -2050,7 +2074,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.retrieve(
-    source_id="source_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -2067,7 +2091,7 @@ client.sources.retrieve(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -2121,7 +2145,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.delete(
-    source_id="source_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -2138,7 +2162,7 @@ client.sources.delete(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -2192,7 +2216,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.modify(
-    source_id="source_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -2209,7 +2233,7 @@ client.sources.modify(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -2631,7 +2655,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.get_agents_for_source(
-    source_id="source_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -2648,7 +2672,7 @@ client.sources.get_agents_for_source(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -2702,8 +2726,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.get_file_metadata(
-    source_id="source_id",
-    file_id="file_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
+    file_id="file-123e4567-e89b-42d3-8456-426614174000",
     include_content=True,
 )
 
@@ -2721,7 +2745,7 @@ client.sources.get_file_metadata(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -2729,7 +2753,7 @@ client.sources.get_file_metadata(
 <dl>
 <dd>
 
-**file_id:** `str` 
+**file_id:** `str` — The ID of the file in the format 'file-<uuid4>'
     
 </dd>
 </dl>
@@ -4071,6 +4095,14 @@ client.agents.create()
 <dl>
 <dd>
 
+**parallel_tool_calls:** `typing.Optional[bool]` — If set to True, enables parallel tool calling. Defaults to False.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -4182,7 +4214,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.export_file(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     max_steps=1,
     use_legacy_format=True,
 )
@@ -4201,7 +4233,7 @@ client.agents.export_file(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -4401,7 +4433,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.retrieve(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -4418,7 +4450,7 @@ client.agents.retrieve(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -4480,7 +4512,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.delete(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -4497,7 +4529,7 @@ client.agents.delete(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -4551,7 +4583,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.modify(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -4568,7 +4600,7 @@ client.agents.modify(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -4809,6 +4841,14 @@ client.agents.modify(
 <dd>
 
 **hidden:** `typing.Optional[bool]` — If set to True, the agent will be hidden.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parallel_tool_calls:** `typing.Optional[bool]` — If set to True, enables parallel tool calling. Defaults to False.
     
 </dd>
 </dl>
@@ -5442,7 +5482,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.groups.retrieve(
-    group_id="group_id",
+    group_id="group-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -5459,7 +5499,7 @@ client.groups.retrieve(
 <dl>
 <dd>
 
-**group_id:** `str` 
+**group_id:** `str` — The ID of the group in the format 'group-<uuid4>'
     
 </dd>
 </dl>
@@ -5513,7 +5553,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.groups.delete(
-    group_id="group_id",
+    group_id="group-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -5530,7 +5570,7 @@ client.groups.delete(
 <dl>
 <dd>
 
-**group_id:** `str` 
+**group_id:** `str` — The ID of the group in the format 'group-<uuid4>'
     
 </dd>
 </dl>
@@ -5584,7 +5624,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.groups.modify(
-    group_id="group_id",
+    group_id="group-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -5601,7 +5641,7 @@ client.groups.modify(
 <dl>
 <dd>
 
-**group_id:** `str` 
+**group_id:** `str` — The ID of the group in the format 'group-<uuid4>'
     
 </dd>
 </dl>
@@ -6099,7 +6139,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.identities.retrieve(
-    identity_id="identity_id",
+    identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -6116,7 +6156,7 @@ client.identities.retrieve(
 <dl>
 <dd>
 
-**identity_id:** `str` 
+**identity_id:** `str` — The ID of the identity in the format 'identity-<uuid4>'
     
 </dd>
 </dl>
@@ -6170,7 +6210,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.identities.delete(
-    identity_id="identity_id",
+    identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -6187,7 +6227,7 @@ client.identities.delete(
 <dl>
 <dd>
 
-**identity_id:** `str` 
+**identity_id:** `str` — The ID of the identity in the format 'identity-<uuid4>'
     
 </dd>
 </dl>
@@ -6227,7 +6267,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.identities.modify(
-    identity_id="identity_id",
+    identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -6244,7 +6284,7 @@ client.identities.modify(
 <dl>
 <dd>
 
-**identity_id:** `str` 
+**identity_id:** `str` — The ID of the identity in the format 'identity-<uuid4>'
     
 </dd>
 </dl>
@@ -6892,7 +6932,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.blocks.retrieve(
-    block_id="block_id",
+    block_id="block-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -6909,7 +6949,7 @@ client.blocks.retrieve(
 <dl>
 <dd>
 
-**block_id:** `str` 
+**block_id:** `str` — The ID of the block in the format 'block-<uuid4>'
     
 </dd>
 </dl>
@@ -6949,7 +6989,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.blocks.delete(
-    block_id="block_id",
+    block_id="block-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -6966,7 +7006,7 @@ client.blocks.delete(
 <dl>
 <dd>
 
-**block_id:** `str` 
+**block_id:** `str` — The ID of the block in the format 'block-<uuid4>'
     
 </dd>
 </dl>
@@ -7006,7 +7046,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.blocks.modify(
-    block_id="block_id",
+    block_id="block-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -7023,7 +7063,7 @@ client.blocks.modify(
 <dl>
 <dd>
 
-**block_id:** `str` 
+**block_id:** `str` — The ID of the block in the format 'block-<uuid4>'
     
 </dd>
 </dl>
@@ -7430,7 +7470,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.jobs.retrieve(
-    job_id="job_id",
+    job_id="job-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -7447,7 +7487,7 @@ client.jobs.retrieve(
 <dl>
 <dd>
 
-**job_id:** `str` 
+**job_id:** `str` — The ID of the job in the format 'job-<uuid4>'
     
 </dd>
 </dl>
@@ -7501,7 +7541,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.jobs.delete(
-    job_id="job_id",
+    job_id="job-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -7518,7 +7558,7 @@ client.jobs.delete(
 <dl>
 <dd>
 
-**job_id:** `str` 
+**job_id:** `str` — The ID of the job in the format 'job-<uuid4>'
     
 </dd>
 </dl>
@@ -7575,7 +7615,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.jobs.cancel_job(
-    job_id="job_id",
+    job_id="job-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -7592,7 +7632,7 @@ client.jobs.cancel_job(
 <dl>
 <dd>
 
-**job_id:** `str` 
+**job_id:** `str` — The ID of the job in the format 'job-<uuid4>'
     
 </dd>
 </dl>
@@ -7940,7 +7980,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.providers.retrieve_provider(
-    provider_id="provider_id",
+    provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -7957,7 +7997,7 @@ client.providers.retrieve_provider(
 <dl>
 <dd>
 
-**provider_id:** `str` 
+**provider_id:** `str` — The ID of the provider in the format 'provider-<uuid4>'
     
 </dd>
 </dl>
@@ -8011,7 +8051,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.providers.delete(
-    provider_id="provider_id",
+    provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -8028,7 +8068,7 @@ client.providers.delete(
 <dl>
 <dd>
 
-**provider_id:** `str` 
+**provider_id:** `str` — The ID of the provider in the format 'provider-<uuid4>'
     
 </dd>
 </dl>
@@ -8082,7 +8122,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.providers.modify(
-    provider_id="provider_id",
+    provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
     api_key="api_key",
 )
 
@@ -8100,7 +8140,7 @@ client.providers.modify(
 <dl>
 <dd>
 
-**provider_id:** `str` 
+**provider_id:** `str` — The ID of the provider in the format 'provider-<uuid4>'
     
 </dd>
 </dl>
@@ -8306,7 +8346,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.providers.check_existing_provider(
-    provider_id="provider_id",
+    provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -8323,7 +8363,7 @@ client.providers.check_existing_provider(
 <dl>
 <dd>
 
-**provider_id:** `str` 
+**provider_id:** `str` — The ID of the provider in the format 'provider-<uuid4>'
     
 </dd>
 </dl>
@@ -9115,7 +9155,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.steps.retrieve(
-    step_id="step_id",
+    step_id="step-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -9132,7 +9172,7 @@ client.steps.retrieve(
 <dl>
 <dd>
 
-**step_id:** `str` 
+**step_id:** `str` — The ID of the step in the format 'step-<uuid4>'
     
 </dd>
 </dl>
@@ -11492,7 +11532,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.context.retrieve(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -11509,7 +11549,7 @@ client.agents.context.retrieve(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -11564,7 +11604,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.tools.list(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -11585,7 +11625,7 @@ client.agents.tools.list(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -11679,8 +11719,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.tools.attach(
-    agent_id="agent_id",
-    tool_id="tool_id",
+    agent_id="tool-123e4567-e89b-42d3-8456-426614174000",
+    tool_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -11697,7 +11737,7 @@ client.agents.tools.attach(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the tool in the format 'tool-<uuid4>'
     
 </dd>
 </dl>
@@ -11705,7 +11745,7 @@ client.agents.tools.attach(
 <dl>
 <dd>
 
-**tool_id:** `str` 
+**tool_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -11759,8 +11799,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.tools.detach(
-    agent_id="agent_id",
-    tool_id="tool_id",
+    agent_id="tool-123e4567-e89b-42d3-8456-426614174000",
+    tool_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -11777,7 +11817,7 @@ client.agents.tools.detach(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the tool in the format 'tool-<uuid4>'
     
 </dd>
 </dl>
@@ -11785,7 +11825,7 @@ client.agents.tools.detach(
 <dl>
 <dd>
 
-**tool_id:** `str` 
+**tool_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -11839,7 +11879,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.tools.modify_approval(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     tool_name="tool_name",
     requires_approval=True,
 )
@@ -11858,7 +11898,7 @@ client.agents.tools.modify_approval(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -11929,8 +11969,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.sources.attach(
-    agent_id="agent_id",
-    source_id="source_id",
+    agent_id="source-123e4567-e89b-42d3-8456-426614174000",
+    source_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -11947,7 +11987,7 @@ client.agents.sources.attach(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -11955,7 +11995,7 @@ client.agents.sources.attach(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12009,8 +12049,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.sources.detach(
-    agent_id="agent_id",
-    source_id="source_id",
+    agent_id="source-123e4567-e89b-42d3-8456-426614174000",
+    source_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -12027,7 +12067,7 @@ client.agents.sources.detach(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -12035,7 +12075,7 @@ client.agents.sources.detach(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12089,7 +12129,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.sources.list(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -12110,7 +12150,7 @@ client.agents.sources.list(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12205,8 +12245,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.folders.attach(
-    agent_id="agent_id",
-    folder_id="folder_id",
+    agent_id="source-123e4567-e89b-42d3-8456-426614174000",
+    folder_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -12223,7 +12263,7 @@ client.agents.folders.attach(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -12231,7 +12271,7 @@ client.agents.folders.attach(
 <dl>
 <dd>
 
-**folder_id:** `str` 
+**folder_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12285,8 +12325,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.folders.detach(
-    agent_id="agent_id",
-    folder_id="folder_id",
+    agent_id="source-123e4567-e89b-42d3-8456-426614174000",
+    folder_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -12303,7 +12343,7 @@ client.agents.folders.detach(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -12311,7 +12351,7 @@ client.agents.folders.detach(
 <dl>
 <dd>
 
-**folder_id:** `str` 
+**folder_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12365,7 +12405,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.folders.list(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -12386,7 +12426,7 @@ client.agents.folders.list(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12484,7 +12524,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.files.close_all(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -12501,7 +12541,7 @@ client.agents.files.close_all(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12559,8 +12599,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.files.open(
-    agent_id="agent_id",
-    file_id="file_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+    file_id="file-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -12577,7 +12617,7 @@ client.agents.files.open(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12585,7 +12625,7 @@ client.agents.files.open(
 <dl>
 <dd>
 
-**file_id:** `str` 
+**file_id:** `str` — The ID of the file in the format 'file-<uuid4>'
     
 </dd>
 </dl>
@@ -12642,8 +12682,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.files.close(
-    agent_id="agent_id",
-    file_id="file_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+    file_id="file-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -12660,7 +12700,7 @@ client.agents.files.close(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12668,7 +12708,7 @@ client.agents.files.close(
 <dl>
 <dd>
 
-**file_id:** `str` 
+**file_id:** `str` — The ID of the file in the format 'file-<uuid4>'
     
 </dd>
 </dl>
@@ -12722,7 +12762,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.files.list(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -12745,7 +12785,7 @@ client.agents.files.list(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12857,7 +12897,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.core_memory.retrieve(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -12874,7 +12914,7 @@ client.agents.core_memory.retrieve(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -12930,7 +12970,7 @@ client = Letta(
 )
 client.agents.blocks.retrieve(
     agent_id="agent_id",
-    block_label="block_label",
+    block_label="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -12955,7 +12995,7 @@ client.agents.blocks.retrieve(
 <dl>
 <dd>
 
-**block_label:** `str` 
+**block_label:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13010,7 +13050,7 @@ client = Letta(
 )
 client.agents.blocks.modify(
     agent_id="agent_id",
-    block_label="block_label",
+    block_label="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -13035,7 +13075,7 @@ client.agents.blocks.modify(
 <dl>
 <dd>
 
-**block_label:** `str` 
+**block_label:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13201,7 +13241,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.blocks.list(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -13222,7 +13262,7 @@ client.agents.blocks.list(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13316,8 +13356,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.blocks.attach(
-    agent_id="agent_id",
-    block_id="block_id",
+    agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+    block_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -13334,7 +13374,7 @@ client.agents.blocks.attach(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the block in the format 'block-<uuid4>'
     
 </dd>
 </dl>
@@ -13342,7 +13382,7 @@ client.agents.blocks.attach(
 <dl>
 <dd>
 
-**block_id:** `str` 
+**block_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13396,8 +13436,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.blocks.detach(
-    agent_id="agent_id",
-    block_id="block_id",
+    agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+    block_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -13414,7 +13454,7 @@ client.agents.blocks.detach(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the block in the format 'block-<uuid4>'
     
 </dd>
 </dl>
@@ -13422,7 +13462,7 @@ client.agents.blocks.detach(
 <dl>
 <dd>
 
-**block_id:** `str` 
+**block_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13477,7 +13517,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.passages.list(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     after="after",
     before="before",
     limit=1,
@@ -13499,7 +13539,7 @@ client.agents.passages.list(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13593,7 +13633,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.passages.create(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     text="text",
 )
 
@@ -13611,7 +13651,7 @@ client.agents.passages.create(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13695,7 +13735,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.passages.search(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     query="query",
     tag_match_mode="any",
     top_k=1,
@@ -13721,7 +13761,7 @@ client.agents.passages.search(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13824,7 +13864,7 @@ client = Letta(
 )
 client.agents.passages.delete(
     agent_id="agent_id",
-    memory_id="memory_id",
+    memory_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -13849,7 +13889,7 @@ client.agents.passages.delete(
 <dl>
 <dd>
 
-**memory_id:** `str` 
+**memory_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -13970,7 +14010,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.messages.list(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -13996,7 +14036,7 @@ client.agents.messages.list(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -14131,7 +14171,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.messages.create(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     messages=[
         MessageCreate(
             role="user",
@@ -14158,7 +14198,7 @@ client.agents.messages.create(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -14268,8 +14308,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.messages.modify(
-    agent_id="agent_id",
-    message_id="message_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+    message_id="message-123e4567-e89b-42d3-8456-426614174000",
     request=UpdateSystemMessage(
         content="content",
     ),
@@ -14289,7 +14329,7 @@ client.agents.messages.modify(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -14297,7 +14337,7 @@ client.agents.messages.modify(
 <dl>
 <dd>
 
-**message_id:** `str` 
+**message_id:** `str` — The ID of the message in the format 'message-<uuid4>'
     
 </dd>
 </dl>
@@ -14361,7 +14401,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 response = client.agents.messages.create_stream(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     messages=[
         MessageCreate(
             role="user",
@@ -14390,7 +14430,7 @@ for chunk in response.data:
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -14526,7 +14566,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.messages.cancel(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -14543,7 +14583,7 @@ client.agents.messages.cancel(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -14735,7 +14775,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.messages.create_async(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     messages=[
         MessageCreate(
             role="user",
@@ -14762,7 +14802,7 @@ client.agents.messages.create_async(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -14880,7 +14920,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.messages.reset(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     add_default_initial_messages=True,
 )
 
@@ -14898,7 +14938,7 @@ client.agents.messages.reset(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -14964,7 +15004,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.messages.preview(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     request=LettaRequest(
         messages=[
             MessageCreate(
@@ -14993,7 +15033,7 @@ client.agents.messages.preview(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -15058,7 +15098,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.messages.summarize(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     max_message_length=1,
 )
 
@@ -15076,7 +15116,7 @@ client.agents.messages.summarize(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -15139,7 +15179,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.agents.groups.list(
-    agent_id="agent_id",
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
     manager_type="manager_type",
     before="before",
     after="after",
@@ -15161,7 +15201,7 @@ client.agents.groups.list(
 <dl>
 <dd>
 
-**agent_id:** `str` 
+**agent_id:** `str` — The ID of the agent in the format 'agent-<uuid4>'
     
 </dd>
 </dl>
@@ -15464,7 +15504,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.blocks.agents.list(
-    block_id="block_id",
+    block_id="block-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -15485,7 +15525,7 @@ client.blocks.agents.list(
 <dl>
 <dd>
 
-**block_id:** `str` 
+**block_id:** `str` — The ID of the block in the format 'block-<uuid4>'
     
 </dd>
 </dl>
@@ -16124,7 +16164,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.groups.messages.list(
-    group_id="group_id",
+    group_id="group-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -16148,7 +16188,7 @@ client.groups.messages.list(
 <dl>
 <dd>
 
-**group_id:** `str` 
+**group_id:** `str` — The ID of the group in the format 'group-<uuid4>'
     
 </dd>
 </dl>
@@ -16267,7 +16307,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.groups.messages.create(
-    group_id="group_id",
+    group_id="group-123e4567-e89b-42d3-8456-426614174000",
     messages=[
         MessageCreate(
             role="user",
@@ -16294,7 +16334,7 @@ client.groups.messages.create(
 <dl>
 <dd>
 
-**group_id:** `str` 
+**group_id:** `str` — The ID of the group in the format 'group-<uuid4>'
     
 </dd>
 </dl>
@@ -16406,7 +16446,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 response = client.groups.messages.create_stream(
-    group_id="group_id",
+    group_id="group-123e4567-e89b-42d3-8456-426614174000",
     messages=[
         MessageCreate(
             role="user",
@@ -16435,7 +16475,7 @@ for chunk in response.data:
 <dl>
 <dd>
 
-**group_id:** `str` 
+**group_id:** `str` — The ID of the group in the format 'group-<uuid4>'
     
 </dd>
 </dl>
@@ -16569,8 +16609,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.groups.messages.modify(
-    group_id="group_id",
-    message_id="message_id",
+    group_id="group-123e4567-e89b-42d3-8456-426614174000",
+    message_id="message-123e4567-e89b-42d3-8456-426614174000",
     request=UpdateSystemMessage(
         content="content",
     ),
@@ -16590,7 +16630,7 @@ client.groups.messages.modify(
 <dl>
 <dd>
 
-**group_id:** `str` 
+**group_id:** `str` — The ID of the group in the format 'group-<uuid4>'
     
 </dd>
 </dl>
@@ -16598,7 +16638,7 @@ client.groups.messages.modify(
 <dl>
 <dd>
 
-**message_id:** `str` 
+**message_id:** `str` — The ID of the message in the format 'message-<uuid4>'
     
 </dd>
 </dl>
@@ -16660,7 +16700,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.groups.messages.reset(
-    group_id="group_id",
+    group_id="group-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -16677,7 +16717,7 @@ client.groups.messages.reset(
 <dl>
 <dd>
 
-**group_id:** `str` 
+**group_id:** `str` — The ID of the group in the format 'group-<uuid4>'
     
 </dd>
 </dl>
@@ -16718,7 +16758,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.identities.properties.upsert(
-    identity_id="identity_id",
+    identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
     request=[
         IdentityProperty(
             key="key",
@@ -16742,7 +16782,7 @@ client.identities.properties.upsert(
 <dl>
 <dd>
 
-**identity_id:** `str` 
+**identity_id:** `str` — The ID of the identity in the format 'identity-<uuid4>'
     
 </dd>
 </dl>
@@ -16805,7 +16845,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.identities.agents.list(
-    identity_id="identity_id",
+    identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -16826,7 +16866,7 @@ client.identities.agents.list(
 <dl>
 <dd>
 
-**identity_id:** `str` 
+**identity_id:** `str` — The ID of the identity in the format 'identity-<uuid4>'
     
 </dd>
 </dl>
@@ -16921,7 +16961,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.identities.blocks.list(
-    identity_id="identity_id",
+    identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -16942,7 +16982,7 @@ client.identities.blocks.list(
 <dl>
 <dd>
 
-**identity_id:** `str` 
+**identity_id:** `str` — The ID of the identity in the format 'identity-<uuid4>'
     
 </dd>
 </dl>
@@ -17403,7 +17443,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.files.upload(
-    source_id="source_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
     duplicate_handling="skip",
     name="name",
 )
@@ -17422,7 +17462,7 @@ client.sources.files.upload(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -17502,7 +17542,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.files.list(
-    source_id="source_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
     limit=1,
     after="after",
     include_content=True,
@@ -17523,7 +17563,7 @@ client.sources.files.list(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -17609,8 +17649,8 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.files.delete(
-    source_id="source_id",
-    file_id="file_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
+    file_id="file-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -17627,7 +17667,7 @@ client.sources.files.delete(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -17635,7 +17675,7 @@ client.sources.files.delete(
 <dl>
 <dd>
 
-**file_id:** `str` 
+**file_id:** `str` — The ID of the file in the format 'file-<uuid4>'
     
 </dd>
 </dl>
@@ -17690,7 +17730,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.sources.passages.list(
-    source_id="source_id",
+    source_id="source-123e4567-e89b-42d3-8456-426614174000",
     after="after",
     before="before",
     limit=1,
@@ -17710,7 +17750,7 @@ client.sources.passages.list(
 <dl>
 <dd>
 
-**source_id:** `str` 
+**source_id:** `str` — The ID of the source in the format 'source-<uuid4>'
     
 </dd>
 </dl>
@@ -17789,7 +17829,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.steps.metrics.retrieve(
-    step_id="step_id",
+    step_id="step-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -17806,7 +17846,7 @@ client.steps.metrics.retrieve(
 <dl>
 <dd>
 
-**step_id:** `str` 
+**step_id:** `str` — The ID of the step in the format 'step-<uuid4>'
     
 </dd>
 </dl>
@@ -17847,7 +17887,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.steps.trace.retrieve(
-    step_id="step_id",
+    step_id="step-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -17864,7 +17904,7 @@ client.steps.trace.retrieve(
 <dl>
 <dd>
 
-**step_id:** `str` 
+**step_id:** `str` — The ID of the step in the format 'step-<uuid4>'
     
 </dd>
 </dl>
@@ -17919,7 +17959,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.steps.feedback.create(
-    step_id="step_id",
+    step_id="step-123e4567-e89b-42d3-8456-426614174000",
 )
 
 ```
@@ -17936,7 +17976,7 @@ client.steps.feedback.create(
 <dl>
 <dd>
 
-**step_id:** `str` 
+**step_id:** `str` — The ID of the step in the format 'step-<uuid4>'
     
 </dd>
 </dl>
@@ -18007,7 +18047,7 @@ client = Letta(
     token="YOUR_TOKEN",
 )
 client.steps.messages.list(
-    step_id="step_id",
+    step_id="step-123e4567-e89b-42d3-8456-426614174000",
     before="before",
     after="after",
     limit=1,
@@ -18028,7 +18068,7 @@ client.steps.messages.list(
 <dl>
 <dd>
 
-**step_id:** `str` 
+**step_id:** `str` — The ID of the step in the format 'step-<uuid4>'
     
 </dd>
 </dl>

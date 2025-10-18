@@ -41,6 +41,7 @@ class MessagesClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -74,7 +75,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.steps.messages.list(
-            step_id="step_id",
+            step_id="step-123e4567-e89b-42d3-8456-426614174000",
             before="before",
             after="after",
             limit=1,
@@ -125,6 +126,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -163,7 +165,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.steps.messages.list(
-                step_id="step_id",
+                step_id="step-123e4567-e89b-42d3-8456-426614174000",
                 before="before",
                 after="after",
                 limit=1,

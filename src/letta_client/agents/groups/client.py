@@ -42,6 +42,7 @@ class GroupsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         manager_type : typing.Optional[str]
             Manager type to filter groups by
@@ -78,7 +79,7 @@ class GroupsClient:
             token="YOUR_TOKEN",
         )
         client.agents.groups.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             manager_type="manager_type",
             before="before",
             after="after",
@@ -132,6 +133,7 @@ class AsyncGroupsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         manager_type : typing.Optional[str]
             Manager type to filter groups by
@@ -173,7 +175,7 @@ class AsyncGroupsClient:
 
         async def main() -> None:
             await client.agents.groups.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 manager_type="manager_type",
                 before="before",
                 after="after",

@@ -41,6 +41,7 @@ class BlocksClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         before : typing.Optional[str]
             Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
@@ -74,7 +75,7 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.identities.blocks.list(
-            identity_id="identity_id",
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
             before="before",
             after="after",
             limit=1,
@@ -125,6 +126,7 @@ class AsyncBlocksClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         before : typing.Optional[str]
             Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
@@ -163,7 +165,7 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.identities.blocks.list(
-                identity_id="identity_id",
+                identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
                 before="before",
                 after="after",
                 limit=1,

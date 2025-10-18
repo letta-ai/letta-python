@@ -241,6 +241,11 @@ class InternalTemplateAgentCreate(UncheckedBaseModel):
     If set to True, the agent will be hidden.
     """
 
+    parallel_tool_calls: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, enables parallel tool calling. Defaults to False.
+    """
+
     deployment_id: str = pydantic.Field()
     """
     The id of the deployment.

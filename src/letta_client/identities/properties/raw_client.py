@@ -33,6 +33,7 @@ class RawPropertiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request : typing.Sequence[IdentityProperty]
 
@@ -100,6 +101,7 @@ class AsyncRawPropertiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request : typing.Sequence[IdentityProperty]
 

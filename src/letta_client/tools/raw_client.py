@@ -46,6 +46,7 @@ class RawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -95,6 +96,7 @@ class RawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -152,6 +154,7 @@ class RawToolsClient:
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -160,6 +163,7 @@ class RawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         description : typing.Optional[str]
             The description of the tool.
@@ -194,6 +198,9 @@ class RawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -221,6 +228,7 @@ class RawToolsClient:
                 ),
                 "metadata_": metadata,
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -468,6 +476,7 @@ class RawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -505,6 +514,9 @@ class RawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -531,6 +543,7 @@ class RawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -577,6 +590,7 @@ class RawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -614,6 +628,9 @@ class RawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -640,6 +657,7 @@ class RawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -1287,6 +1305,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1336,6 +1355,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1393,6 +1413,7 @@ class AsyncRawToolsClient:
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1401,6 +1422,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         description : typing.Optional[str]
             The description of the tool.
@@ -1435,6 +1457,9 @@ class AsyncRawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1462,6 +1487,7 @@ class AsyncRawToolsClient:
                 ),
                 "metadata_": metadata,
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -1709,6 +1735,7 @@ class AsyncRawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1746,6 +1773,9 @@ class AsyncRawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1772,6 +1802,7 @@ class AsyncRawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -1818,6 +1849,7 @@ class AsyncRawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1855,6 +1887,9 @@ class AsyncRawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1881,6 +1916,7 @@ class AsyncRawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",

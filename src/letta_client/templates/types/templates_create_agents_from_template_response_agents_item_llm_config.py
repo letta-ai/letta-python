@@ -35,6 +35,9 @@ from .templates_create_agents_from_template_response_agents_item_llm_config_mode
 from .templates_create_agents_from_template_response_agents_item_llm_config_model_wrapper import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelWrapper,
 )
+from .templates_create_agents_from_template_response_agents_item_llm_config_parallel_tool_calls import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls,
+)
 from .templates_create_agents_from_template_response_agents_item_llm_config_provider_category import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderCategory,
 )
@@ -90,6 +93,9 @@ class TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig(UncheckedBase
     ] = None
     verbosity: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigVerbosity] = None
     tier: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigTier] = None
+    parallel_tool_calls: typing.Optional[
+        TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

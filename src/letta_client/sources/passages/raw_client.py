@@ -33,6 +33,7 @@ class RawPassagesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         after : typing.Optional[str]
             Message after which to retrieve the returned messages.
@@ -107,6 +108,7 @@ class AsyncRawPassagesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         after : typing.Optional[str]
             Message after which to retrieve the returned messages.

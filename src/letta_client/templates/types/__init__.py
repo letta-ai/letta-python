@@ -183,6 +183,12 @@ from .templates_create_agents_from_template_response_agents_item_llm_config_mode
 from .templates_create_agents_from_template_response_agents_item_llm_config_model_wrapper_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelWrapperItem,
 )
+from .templates_create_agents_from_template_response_agents_item_llm_config_parallel_tool_calls import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls,
+)
+from .templates_create_agents_from_template_response_agents_item_llm_config_parallel_tool_calls_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCallsItem,
+)
 from .templates_create_agents_from_template_response_agents_item_llm_config_provider_category import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderCategory,
 )
@@ -1200,6 +1206,12 @@ from .templates_create_agents_from_template_response_agents_item_tools_item_desc
 from .templates_create_agents_from_template_response_agents_item_tools_item_description_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDescriptionItem,
 )
+from .templates_create_agents_from_template_response_agents_item_tools_item_enable_parallel_execution import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution,
+)
+from .templates_create_agents_from_template_response_agents_item_tools_item_enable_parallel_execution_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecutionItem,
+)
 from .templates_create_agents_from_template_response_agents_item_tools_item_json_schema import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemJsonSchema,
 )
@@ -1519,6 +1531,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelWrapper",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelWrapperItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCallsItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderCategory",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderCategoryItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderName",
@@ -1858,6 +1872,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApprovalItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDescription",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDescriptionItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecutionItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemJsonSchema",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemJsonSchemaItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemLastUpdatedById",

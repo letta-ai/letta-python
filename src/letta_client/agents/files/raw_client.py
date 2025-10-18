@@ -31,6 +31,7 @@ class RawFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -84,8 +85,10 @@ class RawFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -138,8 +141,10 @@ class RawFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -201,6 +206,7 @@ class RawFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             File ID cursor for pagination. Returns files that come before this file ID in the specified sort order
@@ -288,6 +294,7 @@ class AsyncRawFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -341,8 +348,10 @@ class AsyncRawFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -395,8 +404,10 @@ class AsyncRawFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -458,6 +469,7 @@ class AsyncRawFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             File ID cursor for pagination. Returns files that come before this file ID in the specified sort order

@@ -34,8 +34,10 @@ class FoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         folder_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -54,8 +56,8 @@ class FoldersClient:
             token="YOUR_TOKEN",
         )
         client.agents.folders.attach(
-            agent_id="agent_id",
-            folder_id="folder_id",
+            agent_id="source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.attach(agent_id, folder_id, request_options=request_options)
@@ -70,8 +72,10 @@ class FoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         folder_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -90,8 +94,8 @@ class FoldersClient:
             token="YOUR_TOKEN",
         )
         client.agents.folders.detach(
-            agent_id="agent_id",
-            folder_id="folder_id",
+            agent_id="source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.detach(agent_id, folder_id, request_options=request_options)
@@ -114,6 +118,7 @@ class FoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Source ID cursor for pagination. Returns sources that come before this source ID in the specified sort order
@@ -147,7 +152,7 @@ class FoldersClient:
             token="YOUR_TOKEN",
         )
         client.agents.folders.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             before="before",
             after="after",
             limit=1,
@@ -190,8 +195,10 @@ class AsyncFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         folder_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -215,8 +222,8 @@ class AsyncFoldersClient:
 
         async def main() -> None:
             await client.agents.folders.attach(
-                agent_id="agent_id",
-                folder_id="folder_id",
+                agent_id="source-123e4567-e89b-42d3-8456-426614174000",
+                folder_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -234,8 +241,10 @@ class AsyncFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         folder_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -259,8 +268,8 @@ class AsyncFoldersClient:
 
         async def main() -> None:
             await client.agents.folders.detach(
-                agent_id="agent_id",
-                folder_id="folder_id",
+                agent_id="source-123e4567-e89b-42d3-8456-426614174000",
+                folder_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -286,6 +295,7 @@ class AsyncFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Source ID cursor for pagination. Returns sources that come before this source ID in the specified sort order
@@ -324,7 +334,7 @@ class AsyncFoldersClient:
 
         async def main() -> None:
             await client.agents.folders.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 before="before",
                 after="after",
                 limit=1,

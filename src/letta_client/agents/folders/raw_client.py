@@ -29,8 +29,10 @@ class RawFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         folder_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -80,8 +82,10 @@ class RawFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         folder_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -139,6 +143,7 @@ class RawFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Source ID cursor for pagination. Returns sources that come before this source ID in the specified sort order
@@ -215,8 +220,10 @@ class AsyncRawFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         folder_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -266,8 +273,10 @@ class AsyncRawFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         folder_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -325,6 +334,7 @@ class AsyncRawFoldersClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Source ID cursor for pagination. Returns sources that come before this source ID in the specified sort order

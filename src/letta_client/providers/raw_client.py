@@ -208,6 +208,7 @@ class RawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -257,6 +258,7 @@ class RawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -316,6 +318,7 @@ class RawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         api_key : str
             API key or secret key used for requests to the provider.
@@ -478,6 +481,7 @@ class RawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -710,6 +714,7 @@ class AsyncRawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -759,6 +764,7 @@ class AsyncRawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -818,6 +824,7 @@ class AsyncRawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         api_key : str
             API key or secret key used for requests to the provider.
@@ -980,6 +987,7 @@ class AsyncRawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

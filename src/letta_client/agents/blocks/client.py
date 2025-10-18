@@ -39,6 +39,7 @@ class BlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -58,7 +59,7 @@ class BlocksClient:
         )
         client.agents.blocks.retrieve(
             agent_id="agent_id",
-            block_label="block_label",
+            block_label="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(agent_id, block_label, request_options=request_options)
@@ -93,6 +94,7 @@ class BlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -154,7 +156,7 @@ class BlocksClient:
         )
         client.agents.blocks.modify(
             agent_id="agent_id",
-            block_label="block_label",
+            block_label="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -195,6 +197,7 @@ class BlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
@@ -228,7 +231,7 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.agents.blocks.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             before="before",
             after="after",
             limit=1,
@@ -255,8 +258,10 @@ class BlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -275,8 +280,8 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.agents.blocks.attach(
-            agent_id="agent_id",
-            block_id="block_id",
+            agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+            block_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.attach(agent_id, block_id, request_options=request_options)
@@ -291,8 +296,10 @@ class BlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -311,8 +318,8 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.agents.blocks.detach(
-            agent_id="agent_id",
-            block_id="block_id",
+            agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+            block_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.detach(agent_id, block_id, request_options=request_options)
@@ -345,6 +352,7 @@ class AsyncBlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -369,7 +377,7 @@ class AsyncBlocksClient:
         async def main() -> None:
             await client.agents.blocks.retrieve(
                 agent_id="agent_id",
-                block_label="block_label",
+                block_label="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -407,6 +415,7 @@ class AsyncBlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -473,7 +482,7 @@ class AsyncBlocksClient:
         async def main() -> None:
             await client.agents.blocks.modify(
                 agent_id="agent_id",
-                block_label="block_label",
+                block_label="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -517,6 +526,7 @@ class AsyncBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
@@ -555,7 +565,7 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.agents.blocks.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 before="before",
                 after="after",
                 limit=1,
@@ -585,8 +595,10 @@ class AsyncBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -610,8 +622,8 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.agents.blocks.attach(
-                agent_id="agent_id",
-                block_id="block_id",
+                agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+                block_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -629,8 +641,10 @@ class AsyncBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -654,8 +668,8 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.agents.blocks.detach(
-                agent_id="agent_id",
-                block_id="block_id",
+                agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+                block_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

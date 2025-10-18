@@ -63,6 +63,7 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -165,6 +166,7 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
@@ -255,8 +257,10 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         message_id : str
+            The ID of the message in the format 'message-<uuid4>'
 
         request : MessagesModifyRequest
 
@@ -331,6 +335,7 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
@@ -452,6 +457,7 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         run_ids : typing.Optional[typing.Sequence[str]]
             Optional list of run IDs to cancel
@@ -622,6 +628,7 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaAsyncRequestMessagesItem]
             The messages to be sent to the agent.
@@ -715,6 +722,7 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         add_default_initial_messages : typing.Optional[bool]
             If true, adds the default initial messages after resetting.
@@ -774,6 +782,7 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request : MessagesPreviewRequest
 
@@ -835,6 +844,7 @@ class RawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         max_message_length : int
             Maximum number of messages to retain after summarization.
@@ -900,6 +910,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -1002,6 +1013,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
@@ -1092,8 +1104,10 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         message_id : str
+            The ID of the message in the format 'message-<uuid4>'
 
         request : MessagesModifyRequest
 
@@ -1168,6 +1182,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
@@ -1289,6 +1304,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         run_ids : typing.Optional[typing.Sequence[str]]
             Optional list of run IDs to cancel
@@ -1459,6 +1475,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaAsyncRequestMessagesItem]
             The messages to be sent to the agent.
@@ -1552,6 +1569,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         add_default_initial_messages : typing.Optional[bool]
             If true, adds the default initial messages after resetting.
@@ -1611,6 +1629,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request : MessagesPreviewRequest
 
@@ -1672,6 +1691,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         max_message_length : int
             Maximum number of messages to retain after summarization.

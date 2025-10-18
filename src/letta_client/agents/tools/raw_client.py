@@ -37,6 +37,7 @@ class RawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
@@ -108,8 +109,10 @@ class RawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -159,8 +162,10 @@ class RawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -215,6 +220,7 @@ class RawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         tool_name : str
 
@@ -284,6 +290,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
@@ -355,8 +362,10 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -406,8 +415,10 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -462,6 +473,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         tool_name : str
 

@@ -36,6 +36,7 @@ class RawAgentsClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         before : typing.Optional[str]
             Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
@@ -120,6 +121,7 @@ class AsyncRawAgentsClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         before : typing.Optional[str]
             Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order

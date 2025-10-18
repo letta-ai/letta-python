@@ -112,6 +112,11 @@ class LlmConfig(UncheckedBaseModel):
     The cost tier for the model (cloud only).
     """
 
+    parallel_tool_calls: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, enables parallel tool calling. Defaults to False.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

@@ -46,6 +46,7 @@ class PassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         after : typing.Optional[str]
             Unique ID of the memory to start the query range at.
@@ -79,7 +80,7 @@ class PassagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.passages.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             after="after",
             before="before",
             limit=1,
@@ -113,6 +114,7 @@ class PassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         text : str
             Text to write to archival memory.
@@ -140,7 +142,7 @@ class PassagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.passages.create(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             text="text",
         )
         """
@@ -171,6 +173,7 @@ class PassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         query : str
             String to search for using semantic similarity
@@ -209,7 +212,7 @@ class PassagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.passages.search(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             query="query",
             tag_match_mode="any",
             top_k=1,
@@ -244,6 +247,7 @@ class PassagesClient:
         agent_id : str
 
         memory_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -263,7 +267,7 @@ class PassagesClient:
         )
         client.agents.passages.delete(
             agent_id="agent_id",
-            memory_id="memory_id",
+            memory_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(agent_id, memory_id, request_options=request_options)
@@ -333,6 +337,7 @@ class AsyncPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         after : typing.Optional[str]
             Unique ID of the memory to start the query range at.
@@ -371,7 +376,7 @@ class AsyncPassagesClient:
 
         async def main() -> None:
             await client.agents.passages.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 after="after",
                 before="before",
                 limit=1,
@@ -408,6 +413,7 @@ class AsyncPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         text : str
             Text to write to archival memory.
@@ -440,7 +446,7 @@ class AsyncPassagesClient:
 
         async def main() -> None:
             await client.agents.passages.create(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 text="text",
             )
 
@@ -474,6 +480,7 @@ class AsyncPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         query : str
             String to search for using semantic similarity
@@ -516,7 +523,7 @@ class AsyncPassagesClient:
 
         async def main() -> None:
             await client.agents.passages.search(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 query="query",
                 tag_match_mode="any",
                 top_k=1,
@@ -554,6 +561,7 @@ class AsyncPassagesClient:
         agent_id : str
 
         memory_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -578,7 +586,7 @@ class AsyncPassagesClient:
         async def main() -> None:
             await client.agents.passages.delete(
                 agent_id="agent_id",
-                memory_id="memory_id",
+                memory_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

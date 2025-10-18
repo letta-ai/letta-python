@@ -295,6 +295,7 @@ class BlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -313,7 +314,7 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.blocks.retrieve(
-            block_id="block_id",
+            block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(block_id, request_options=request_options)
@@ -326,6 +327,7 @@ class BlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -344,7 +346,7 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.blocks.delete(
-            block_id="block_id",
+            block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(block_id, request_options=request_options)
@@ -374,6 +376,7 @@ class BlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -434,7 +437,7 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.blocks.modify(
-            block_id="block_id",
+            block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -764,6 +767,7 @@ class AsyncBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -787,7 +791,7 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.blocks.retrieve(
-                block_id="block_id",
+                block_id="block-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -803,6 +807,7 @@ class AsyncBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -826,7 +831,7 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.blocks.delete(
-                block_id="block_id",
+                block_id="block-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -859,6 +864,7 @@ class AsyncBlocksClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -924,7 +930,7 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.blocks.modify(
-                block_id="block_id",
+                block_id="block-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

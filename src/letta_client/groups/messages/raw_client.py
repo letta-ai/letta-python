@@ -53,6 +53,7 @@ class RawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -147,6 +148,7 @@ class RawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
@@ -248,6 +250,7 @@ class RawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
@@ -368,8 +371,10 @@ class RawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         message_id : str
+            The ID of the message in the format 'message-<uuid4>'
 
         request : MessagesModifyRequest
 
@@ -428,6 +433,7 @@ class RawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -495,6 +501,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -589,6 +596,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
@@ -690,6 +698,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
@@ -810,8 +819,10 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         message_id : str
+            The ID of the message in the format 'message-<uuid4>'
 
         request : MessagesModifyRequest
 
@@ -870,6 +881,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

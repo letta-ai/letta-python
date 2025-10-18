@@ -38,6 +38,7 @@ class RawFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file : core.File
             See core.File for more documentation
@@ -113,6 +114,7 @@ class RawFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         limit : typing.Optional[int]
             Number of files to return
@@ -180,8 +182,10 @@ class RawFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -234,6 +238,7 @@ class AsyncRawFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file : core.File
             See core.File for more documentation
@@ -309,6 +314,7 @@ class AsyncRawFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         limit : typing.Optional[int]
             Number of files to return
@@ -376,8 +382,10 @@ class AsyncRawFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

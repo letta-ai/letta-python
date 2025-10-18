@@ -43,6 +43,7 @@ class AgentsClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         before : typing.Optional[str]
             Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
@@ -79,7 +80,7 @@ class AgentsClient:
             token="YOUR_TOKEN",
         )
         client.blocks.agents.list(
-            block_id="block_id",
+            block_id="block-123e4567-e89b-42d3-8456-426614174000",
             before="before",
             after="after",
             limit=1,
@@ -133,6 +134,7 @@ class AsyncAgentsClient:
         Parameters
         ----------
         block_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         before : typing.Optional[str]
             Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
@@ -174,7 +176,7 @@ class AsyncAgentsClient:
 
         async def main() -> None:
             await client.blocks.agents.list(
-                block_id="block_id",
+                block_id="block-123e4567-e89b-42d3-8456-426614174000",
                 before="before",
                 after="after",
                 limit=1,

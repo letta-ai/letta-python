@@ -37,6 +37,7 @@ class RawGroupsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         manager_type : typing.Optional[str]
             Manager type to filter groups by
@@ -126,6 +127,7 @@ class AsyncRawGroupsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         manager_type : typing.Optional[str]
             Manager type to filter groups by

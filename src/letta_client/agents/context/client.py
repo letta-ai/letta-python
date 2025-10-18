@@ -32,6 +32,7 @@ class ContextClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -50,7 +51,7 @@ class ContextClient:
             token="YOUR_TOKEN",
         )
         client.agents.context.retrieve(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(agent_id, request_options=request_options)
@@ -81,6 +82,7 @@ class AsyncContextClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -104,7 +106,7 @@ class AsyncContextClient:
 
         async def main() -> None:
             await client.agents.context.retrieve(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

@@ -34,6 +34,7 @@ class FilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -52,7 +53,7 @@ class FilesClient:
             token="YOUR_TOKEN",
         )
         client.agents.files.close_all(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.close_all(agent_id, request_options=request_options)
@@ -71,8 +72,10 @@ class FilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -91,8 +94,8 @@ class FilesClient:
             token="YOUR_TOKEN",
         )
         client.agents.files.open(
-            agent_id="agent_id",
-            file_id="file_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.open(agent_id, file_id, request_options=request_options)
@@ -110,8 +113,10 @@ class FilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -130,8 +135,8 @@ class FilesClient:
             token="YOUR_TOKEN",
         )
         client.agents.files.close(
-            agent_id="agent_id",
-            file_id="file_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.close(agent_id, file_id, request_options=request_options)
@@ -156,6 +161,7 @@ class FilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             File ID cursor for pagination. Returns files that come before this file ID in the specified sort order
@@ -195,7 +201,7 @@ class FilesClient:
             token="YOUR_TOKEN",
         )
         client.agents.files.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             before="before",
             after="after",
             limit=1,
@@ -245,6 +251,7 @@ class AsyncFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -268,7 +275,7 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.agents.files.close_all(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -290,8 +297,10 @@ class AsyncFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -315,8 +324,8 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.agents.files.open(
-                agent_id="agent_id",
-                file_id="file_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                file_id="file-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -337,8 +346,10 @@ class AsyncFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -362,8 +373,8 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.agents.files.close(
-                agent_id="agent_id",
-                file_id="file_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                file_id="file-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -391,6 +402,7 @@ class AsyncFilesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
             File ID cursor for pagination. Returns files that come before this file ID in the specified sort order
@@ -435,7 +447,7 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.agents.files.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 before="before",
                 after="after",
                 limit=1,

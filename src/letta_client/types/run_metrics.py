@@ -38,6 +38,11 @@ class RunMetrics(UncheckedBaseModel):
     The number of steps in the run.
     """
 
+    tools_used: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    List of tool IDs that were used in this run.
+    """
+
     template_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The template ID that the run belongs to (cloud only).

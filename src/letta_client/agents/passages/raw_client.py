@@ -42,6 +42,7 @@ class RawPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         after : typing.Optional[str]
             Unique ID of the memory to start the query range at.
@@ -119,6 +120,7 @@ class RawPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         text : str
             Text to write to archival memory.
@@ -199,6 +201,7 @@ class RawPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         query : str
             String to search for using semantic similarity
@@ -276,6 +279,7 @@ class RawPassagesClient:
         agent_id : str
 
         memory_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -370,6 +374,7 @@ class AsyncRawPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         after : typing.Optional[str]
             Unique ID of the memory to start the query range at.
@@ -447,6 +452,7 @@ class AsyncRawPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         text : str
             Text to write to archival memory.
@@ -527,6 +533,7 @@ class AsyncRawPassagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         query : str
             String to search for using semantic similarity
@@ -604,6 +611,7 @@ class AsyncRawPassagesClient:
         agent_id : str
 
         memory_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

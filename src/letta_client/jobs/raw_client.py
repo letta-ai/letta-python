@@ -193,6 +193,7 @@ class RawJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -240,6 +241,7 @@ class RawJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -290,6 +292,7 @@ class RawJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -511,6 +514,7 @@ class AsyncRawJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -560,6 +564,7 @@ class AsyncRawJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -612,6 +617,7 @@ class AsyncRawJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -41,6 +41,7 @@ class FeedbackClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         feedback : typing.Optional[FeedbackType]
             Whether this feedback is positive or negative
@@ -65,7 +66,7 @@ class FeedbackClient:
             token="YOUR_TOKEN",
         )
         client.steps.feedback.create(
-            step_id="step_id",
+            step_id="step-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.create(step_id, feedback=feedback, tags=tags, request_options=request_options)
@@ -101,6 +102,7 @@ class AsyncFeedbackClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         feedback : typing.Optional[FeedbackType]
             Whether this feedback is positive or negative
@@ -130,7 +132,7 @@ class AsyncFeedbackClient:
 
         async def main() -> None:
             await client.steps.feedback.create(
-                step_id="step_id",
+                step_id="step-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

@@ -176,6 +176,7 @@ class JobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -194,7 +195,7 @@ class JobsClient:
             token="YOUR_TOKEN",
         )
         client.jobs.retrieve(
-            job_id="job_id",
+            job_id="job-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(job_id, request_options=request_options)
@@ -207,6 +208,7 @@ class JobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -225,7 +227,7 @@ class JobsClient:
             token="YOUR_TOKEN",
         )
         client.jobs.delete(
-            job_id="job_id",
+            job_id="job-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(job_id, request_options=request_options)
@@ -241,6 +243,7 @@ class JobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -259,7 +262,7 @@ class JobsClient:
             token="YOUR_TOKEN",
         )
         client.jobs.cancel_job(
-            job_id="job_id",
+            job_id="job-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.cancel_job(job_id, request_options=request_options)
@@ -449,6 +452,7 @@ class AsyncJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -472,7 +476,7 @@ class AsyncJobsClient:
 
         async def main() -> None:
             await client.jobs.retrieve(
-                job_id="job_id",
+                job_id="job-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -488,6 +492,7 @@ class AsyncJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -511,7 +516,7 @@ class AsyncJobsClient:
 
         async def main() -> None:
             await client.jobs.delete(
-                job_id="job_id",
+                job_id="job-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -530,6 +535,7 @@ class AsyncJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -553,7 +559,7 @@ class AsyncJobsClient:
 
         async def main() -> None:
             await client.jobs.cancel_job(
-                job_id="job_id",
+                job_id="job-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

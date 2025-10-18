@@ -245,6 +245,11 @@ class LettaSchemasAgentFileAgentSchema(UncheckedBaseModel):
     If set to True, the agent will be hidden.
     """
 
+    parallel_tool_calls: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, enables parallel tool calling. Defaults to False.
+    """
+
     id: str = pydantic.Field()
     """
     Human-readable identifier for this agent in the file
