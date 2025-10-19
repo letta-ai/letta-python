@@ -14,9 +14,8 @@ from .annotation_url_citation import AnnotationUrlCitation
 from .approval_create import ApprovalCreate
 from .approval_create_approvals_item import ApprovalCreateApprovalsItem
 from .approval_request_message import ApprovalRequestMessage
-from .approval_request_message_allowed_tool_calls import ApprovalRequestMessageAllowedToolCalls
-from .approval_request_message_requested_tool_calls import ApprovalRequestMessageRequestedToolCalls
 from .approval_request_message_tool_call import ApprovalRequestMessageToolCall
+from .approval_request_message_tool_calls import ApprovalRequestMessageToolCalls
 from .approval_response_message import ApprovalResponseMessage
 from .approval_response_message_approvals_item import ApprovalResponseMessageApprovalsItem
 from .approval_return import ApprovalReturn
@@ -330,9 +329,8 @@ __all__ = [
     "ApprovalCreate",
     "ApprovalCreateApprovalsItem",
     "ApprovalRequestMessage",
-    "ApprovalRequestMessageAllowedToolCalls",
-    "ApprovalRequestMessageRequestedToolCalls",
     "ApprovalRequestMessageToolCall",
+    "ApprovalRequestMessageToolCalls",
     "ApprovalResponseMessage",
     "ApprovalResponseMessageApprovalsItem",
     "ApprovalReturn",

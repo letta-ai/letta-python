@@ -5,4 +5,4 @@ import typing
 from .tool_call import ToolCall
 from .tool_call_delta import ToolCallDelta
 
-ApprovalRequestMessageAllowedToolCalls = typing.Union[typing.List[ToolCall], ToolCallDelta]
+ApprovalRequestMessageToolCalls = typing.Union[typing.List[ToolCall], ToolCallDelta]

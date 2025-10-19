@@ -6,9 +6,8 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .approval_request_message_allowed_tool_calls import ApprovalRequestMessageAllowedToolCalls
-from .approval_request_message_requested_tool_calls import ApprovalRequestMessageRequestedToolCalls
 from .approval_request_message_tool_call import ApprovalRequestMessageToolCall
+from .approval_request_message_tool_calls import ApprovalRequestMessageToolCalls
 
 
 class ApprovalRequestMessage(UncheckedBaseModel):
@@ -37,14 +36,9 @@ class ApprovalRequestMessage(UncheckedBaseModel):
     The tool call that has been requested by the llm to run
     """
 
-    requested_tool_calls: typing.Optional[ApprovalRequestMessageRequestedToolCalls] = pydantic.Field(default=None)
+    tool_calls: typing.Optional[ApprovalRequestMessageToolCalls] = pydantic.Field(default=None)
     """
     The tool calls that have been requested by the llm to run, which are pending approval
-    """
-
-    allowed_tool_calls: typing.Optional[ApprovalRequestMessageAllowedToolCalls] = pydantic.Field(default=None)
-    """
-    Any tool calls returned by the llm during the same turn that do not require approvals, which will execute once this approval request is handled regardless of approval or denial. Only used when parallel_tool_calls is enabled
     """
 
     if IS_PYDANTIC_V2:
