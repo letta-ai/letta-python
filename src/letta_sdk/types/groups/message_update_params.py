@@ -1,0 +1,66 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Union, Iterable
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+from ..agents.letta_user_message_content_union_param import LettaUserMessageContentUnionParam
+from ..agents.letta_assistant_message_content_union_param import LettaAssistantMessageContentUnionParam
+
+__all__ = [
+    "MessageUpdateParams",
+    "UpdateSystemMessage",
+    "UpdateUserMessage",
+    "UpdateReasoningMessage",
+    "UpdateAssistantMessage",
+]
+
+
+class UpdateSystemMessage(TypedDict, total=False):
+    group_id: Required[str]
+
+    content: Required[str]
+    """
+    The message content sent by the system (can be a string or an array of
+    multi-modal content parts)
+    """
+
+    message_type: Literal["system_message"]
+
+
+class UpdateUserMessage(TypedDict, total=False):
+    group_id: Required[str]
+
+    content: Required[Union[Iterable[LettaUserMessageContentUnionParam], str]]
+    """
+    The message content sent by the user (can be a string or an array of multi-modal
+    content parts)
+    """
+
+    message_type: Literal["user_message"]
+
+
+class UpdateReasoningMessage(TypedDict, total=False):
+    group_id: Required[str]
+
+    reasoning: Required[str]
+
+    message_type: Literal["reasoning_message"]
+
+
+class UpdateAssistantMessage(TypedDict, total=False):
+    group_id: Required[str]
+
+    content: Required[Union[Iterable[LettaAssistantMessageContentUnionParam], str]]
+    """
+    The message content sent by the assistant (can be a string or an array of
+    content parts)
+    """
+
+    message_type: Literal["assistant_message"]
+
+
+MessageUpdateParams: TypeAlias = Union[
+    UpdateSystemMessage, UpdateUserMessage, UpdateReasoningMessage, UpdateAssistantMessage
+]

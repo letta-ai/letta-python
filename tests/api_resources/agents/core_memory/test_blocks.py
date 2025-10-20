@@ -1,0 +1,571 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+import os
+from typing import Any, cast
+
+import pytest
+
+from letta_sdk import LettaSDK, AsyncLettaSDK
+from tests.utils import assert_matches_type
+from letta_sdk.types import AgentState
+from letta_sdk.types.agents.core_memory import Block, BlockListResponse
+
+base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
+
+
+class TestBlocks:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_retrieve(self, client: LettaSDK) -> None:
+        block = client.agents.core_memory.blocks.retrieve(
+            block_label="block_label",
+            agent_id="agent_id",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve(self, client: LettaSDK) -> None:
+        response = client.agents.core_memory.blocks.with_raw_response.retrieve(
+            block_label="block_label",
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = response.parse()
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve(self, client: LettaSDK) -> None:
+        with client.agents.core_memory.blocks.with_streaming_response.retrieve(
+            block_label="block_label",
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = response.parse()
+            assert_matches_type(Block, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_retrieve(self, client: LettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.retrieve(
+                block_label="block_label",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_label` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.retrieve(
+                block_label="",
+                agent_id="agent_id",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update(self, client: LettaSDK) -> None:
+        block = client.agents.core_memory.blocks.update(
+            block_label="block_label",
+            agent_id="agent_id",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: LettaSDK) -> None:
+        block = client.agents.core_memory.blocks.update(
+            block_label="block_label",
+            agent_id="agent_id",
+            base_template_id="base_template_id",
+            deployment_id="deployment_id",
+            description="description",
+            entity_id="entity_id",
+            hidden=True,
+            is_template=True,
+            label="label",
+            limit=0,
+            metadata={"foo": "bar"},
+            name="name",
+            preserve_on_migration=True,
+            project_id="project_id",
+            read_only=True,
+            value="value",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: LettaSDK) -> None:
+        response = client.agents.core_memory.blocks.with_raw_response.update(
+            block_label="block_label",
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = response.parse()
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: LettaSDK) -> None:
+        with client.agents.core_memory.blocks.with_streaming_response.update(
+            block_label="block_label",
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = response.parse()
+            assert_matches_type(Block, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: LettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.update(
+                block_label="block_label",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_label` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.update(
+                block_label="",
+                agent_id="agent_id",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_list(self, client: LettaSDK) -> None:
+        block = client.agents.core_memory.blocks.list(
+            "agent_id",
+        )
+        assert_matches_type(BlockListResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: LettaSDK) -> None:
+        response = client.agents.core_memory.blocks.with_raw_response.list(
+            "agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = response.parse()
+        assert_matches_type(BlockListResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: LettaSDK) -> None:
+        with client.agents.core_memory.blocks.with_streaming_response.list(
+            "agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = response.parse()
+            assert_matches_type(BlockListResponse, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_list(self, client: LettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.list(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_attach(self, client: LettaSDK) -> None:
+        block = client.agents.core_memory.blocks.attach(
+            block_id="block_id",
+            agent_id="agent_id",
+        )
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_attach(self, client: LettaSDK) -> None:
+        response = client.agents.core_memory.blocks.with_raw_response.attach(
+            block_id="block_id",
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = response.parse()
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_attach(self, client: LettaSDK) -> None:
+        with client.agents.core_memory.blocks.with_streaming_response.attach(
+            block_id="block_id",
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = response.parse()
+            assert_matches_type(AgentState, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_attach(self, client: LettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.attach(
+                block_id="block_id",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.attach(
+                block_id="",
+                agent_id="agent_id",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_detach(self, client: LettaSDK) -> None:
+        block = client.agents.core_memory.blocks.detach(
+            block_id="block_id",
+            agent_id="agent_id",
+        )
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_detach(self, client: LettaSDK) -> None:
+        response = client.agents.core_memory.blocks.with_raw_response.detach(
+            block_id="block_id",
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = response.parse()
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_detach(self, client: LettaSDK) -> None:
+        with client.agents.core_memory.blocks.with_streaming_response.detach(
+            block_id="block_id",
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = response.parse()
+            assert_matches_type(AgentState, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_detach(self, client: LettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.detach(
+                block_id="block_id",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
+            client.agents.core_memory.blocks.with_raw_response.detach(
+                block_id="",
+                agent_id="agent_id",
+            )
+
+
+class TestAsyncBlocks:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_retrieve(self, async_client: AsyncLettaSDK) -> None:
+        block = await async_client.agents.core_memory.blocks.retrieve(
+            block_label="block_label",
+            agent_id="agent_id",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve(self, async_client: AsyncLettaSDK) -> None:
+        response = await async_client.agents.core_memory.blocks.with_raw_response.retrieve(
+            block_label="block_label",
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = await response.parse()
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve(self, async_client: AsyncLettaSDK) -> None:
+        async with async_client.agents.core_memory.blocks.with_streaming_response.retrieve(
+            block_label="block_label",
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = await response.parse()
+            assert_matches_type(Block, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncLettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.retrieve(
+                block_label="block_label",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_label` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.retrieve(
+                block_label="",
+                agent_id="agent_id",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncLettaSDK) -> None:
+        block = await async_client.agents.core_memory.blocks.update(
+            block_label="block_label",
+            agent_id="agent_id",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncLettaSDK) -> None:
+        block = await async_client.agents.core_memory.blocks.update(
+            block_label="block_label",
+            agent_id="agent_id",
+            base_template_id="base_template_id",
+            deployment_id="deployment_id",
+            description="description",
+            entity_id="entity_id",
+            hidden=True,
+            is_template=True,
+            label="label",
+            limit=0,
+            metadata={"foo": "bar"},
+            name="name",
+            preserve_on_migration=True,
+            project_id="project_id",
+            read_only=True,
+            value="value",
+        )
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncLettaSDK) -> None:
+        response = await async_client.agents.core_memory.blocks.with_raw_response.update(
+            block_label="block_label",
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = await response.parse()
+        assert_matches_type(Block, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncLettaSDK) -> None:
+        async with async_client.agents.core_memory.blocks.with_streaming_response.update(
+            block_label="block_label",
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = await response.parse()
+            assert_matches_type(Block, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncLettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.update(
+                block_label="block_label",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_label` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.update(
+                block_label="",
+                agent_id="agent_id",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_list(self, async_client: AsyncLettaSDK) -> None:
+        block = await async_client.agents.core_memory.blocks.list(
+            "agent_id",
+        )
+        assert_matches_type(BlockListResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncLettaSDK) -> None:
+        response = await async_client.agents.core_memory.blocks.with_raw_response.list(
+            "agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = await response.parse()
+        assert_matches_type(BlockListResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncLettaSDK) -> None:
+        async with async_client.agents.core_memory.blocks.with_streaming_response.list(
+            "agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = await response.parse()
+            assert_matches_type(BlockListResponse, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_list(self, async_client: AsyncLettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.list(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_attach(self, async_client: AsyncLettaSDK) -> None:
+        block = await async_client.agents.core_memory.blocks.attach(
+            block_id="block_id",
+            agent_id="agent_id",
+        )
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_attach(self, async_client: AsyncLettaSDK) -> None:
+        response = await async_client.agents.core_memory.blocks.with_raw_response.attach(
+            block_id="block_id",
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = await response.parse()
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_attach(self, async_client: AsyncLettaSDK) -> None:
+        async with async_client.agents.core_memory.blocks.with_streaming_response.attach(
+            block_id="block_id",
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = await response.parse()
+            assert_matches_type(AgentState, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_attach(self, async_client: AsyncLettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.attach(
+                block_id="block_id",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.attach(
+                block_id="",
+                agent_id="agent_id",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_detach(self, async_client: AsyncLettaSDK) -> None:
+        block = await async_client.agents.core_memory.blocks.detach(
+            block_id="block_id",
+            agent_id="agent_id",
+        )
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_detach(self, async_client: AsyncLettaSDK) -> None:
+        response = await async_client.agents.core_memory.blocks.with_raw_response.detach(
+            block_id="block_id",
+            agent_id="agent_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = await response.parse()
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_detach(self, async_client: AsyncLettaSDK) -> None:
+        async with async_client.agents.core_memory.blocks.with_streaming_response.detach(
+            block_id="block_id",
+            agent_id="agent_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = await response.parse()
+            assert_matches_type(AgentState, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_detach(self, async_client: AsyncLettaSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.detach(
+                block_id="block_id",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
+            await async_client.agents.core_memory.blocks.with_raw_response.detach(
+                block_id="",
+                agent_id="agent_id",
+            )
