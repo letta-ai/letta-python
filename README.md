@@ -1,7 +1,7 @@
 # Letta SDK Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/letta_sdk.svg?label=pypi%20(stable))](https://pypi.org/project/letta_sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/letta-client.svg?label=pypi%20(stable))](https://pypi.org/project/letta-client/)
 
 The Letta SDK Python library provides convenient access to the Letta SDK REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -16,12 +16,9 @@ The full API of this library can be found in [api.md](api.md).
 ## Installation
 
 ```sh
-# install from the production repo
-pip install git+ssh://git@github.com/letta-ai/letta-python#1.0-release.git
+# install from PyPI
+pip install letta-client
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install letta_sdk`
 
 ## Usage
 
@@ -83,8 +80,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from the production repo
-pip install 'letta_sdk[aiohttp] @ git+ssh://git@github.com/letta-ai/letta-python#1.0-release.git'
+# install from PyPI
+pip install letta-client[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
