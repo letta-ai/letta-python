@@ -1,0 +1,37 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Optional
+from typing_extensions import Literal, TypedDict
+
+__all__ = ["FolderListFilesParams"]
+
+
+class FolderListFilesParams(TypedDict, total=False):
+    after: Optional[str]
+    """File ID cursor for pagination.
+
+    Returns files that come after this file ID in the specified sort order
+    """
+
+    before: Optional[str]
+    """File ID cursor for pagination.
+
+    Returns files that come before this file ID in the specified sort order
+    """
+
+    include_content: bool
+    """Whether to include full file content"""
+
+    limit: Optional[int]
+    """Maximum number of files to return"""
+
+    order: Literal["asc", "desc"]
+    """Sort order for files by creation time.
+
+    'asc' for oldest first, 'desc' for newest first
+    """
+
+    order_by: Literal["created_at"]
+    """Field to sort by"""
