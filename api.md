@@ -560,3 +560,11 @@ from letta_client.types.batches import MessageListResponse
 Methods:
 
 - <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/letta_client/resources/batches/messages.py">list</a>(batch_id, \*\*<a href="src/letta_client/types/batches/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/batches/message_list_response.py">MessageListResponse</a></code>
+
+# Templates
+
+## Agents
+
+Methods:
+
+- <code title="post /v1/templates/{project_id}/{template_version}/agents">client.templates.agents.<a href="./src/letta_client/resources/templates/agents.py">create</a>(template_version, \*, project_id, \*\*<a href="src/letta_client/types/templates/agent_create_params.py">params</a>) -> None</code>

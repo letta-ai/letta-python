@@ -47,6 +47,7 @@ from .resources.groups import groups
 from .resources.models import models
 from .resources.batches import batches
 from .resources.folders import folders
+from .resources.templates import templates
 from .resources.identities import identities
 from .types.health_response import HealthResponse
 
@@ -81,6 +82,7 @@ class Letta(SyncAPIClient):
     steps: steps.StepsResource
     tags: tags.TagsResource
     batches: batches.BatchesResource
+    templates: templates.TemplatesResource
     with_raw_response: LettaWithRawResponse
     with_streaming_response: LettaWithStreamedResponse
 
@@ -174,6 +176,7 @@ class Letta(SyncAPIClient):
         self.steps = steps.StepsResource(self)
         self.tags = tags.TagsResource(self)
         self.batches = batches.BatchesResource(self)
+        self.templates = templates.TemplatesResource(self)
         self.with_raw_response = LettaWithRawResponse(self)
         self.with_streaming_response = LettaWithStreamedResponse(self)
 
@@ -316,6 +319,7 @@ class AsyncLetta(AsyncAPIClient):
     steps: steps.AsyncStepsResource
     tags: tags.AsyncTagsResource
     batches: batches.AsyncBatchesResource
+    templates: templates.AsyncTemplatesResource
     with_raw_response: AsyncLettaWithRawResponse
     with_streaming_response: AsyncLettaWithStreamedResponse
 
@@ -409,6 +413,7 @@ class AsyncLetta(AsyncAPIClient):
         self.steps = steps.AsyncStepsResource(self)
         self.tags = tags.AsyncTagsResource(self)
         self.batches = batches.AsyncBatchesResource(self)
+        self.templates = templates.AsyncTemplatesResource(self)
         self.with_raw_response = AsyncLettaWithRawResponse(self)
         self.with_streaming_response = AsyncLettaWithStreamedResponse(self)
 
@@ -552,6 +557,7 @@ class LettaWithRawResponse:
         self.steps = steps.StepsResourceWithRawResponse(client.steps)
         self.tags = tags.TagsResourceWithRawResponse(client.tags)
         self.batches = batches.BatchesResourceWithRawResponse(client.batches)
+        self.templates = templates.TemplatesResourceWithRawResponse(client.templates)
 
         self.health = to_raw_response_wrapper(
             client.health,
@@ -572,6 +578,7 @@ class AsyncLettaWithRawResponse:
         self.steps = steps.AsyncStepsResourceWithRawResponse(client.steps)
         self.tags = tags.AsyncTagsResourceWithRawResponse(client.tags)
         self.batches = batches.AsyncBatchesResourceWithRawResponse(client.batches)
+        self.templates = templates.AsyncTemplatesResourceWithRawResponse(client.templates)
 
         self.health = async_to_raw_response_wrapper(
             client.health,
@@ -592,6 +599,7 @@ class LettaWithStreamedResponse:
         self.steps = steps.StepsResourceWithStreamingResponse(client.steps)
         self.tags = tags.TagsResourceWithStreamingResponse(client.tags)
         self.batches = batches.BatchesResourceWithStreamingResponse(client.batches)
+        self.templates = templates.TemplatesResourceWithStreamingResponse(client.templates)
 
         self.health = to_streamed_response_wrapper(
             client.health,
@@ -612,6 +620,7 @@ class AsyncLettaWithStreamedResponse:
         self.steps = steps.AsyncStepsResourceWithStreamingResponse(client.steps)
         self.tags = tags.AsyncTagsResourceWithStreamingResponse(client.tags)
         self.batches = batches.AsyncBatchesResourceWithStreamingResponse(client.batches)
+        self.templates = templates.AsyncTemplatesResourceWithStreamingResponse(client.templates)
 
         self.health = async_to_streamed_response_wrapper(
             client.health,
