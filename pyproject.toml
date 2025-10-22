@@ -1,6 +1,6 @@
 [project]
 name = "letta-client"
-version = "0.0.1"
+version = "1.0.0-alpha.6"
 description = "The official Python library for the letta-sdk API"
 dynamic = ["readme"]
 license = "Apache-2.0"
