@@ -183,7 +183,18 @@ class TestTools:
         tool = client.agents.tools.update_approval(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            requires_approval=True,
+            body_requires_approval=True,
+        )
+        assert_matches_type(AgentState, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_approval_with_all_params(self, client: Letta) -> None:
+        tool = client.agents.tools.update_approval(
+            tool_name="tool_name",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            body_requires_approval=True,
+            query_requires_approval=True,
         )
         assert_matches_type(AgentState, tool, path=["response"])
 
@@ -193,7 +204,7 @@ class TestTools:
         response = client.agents.tools.with_raw_response.update_approval(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            requires_approval=True,
+            body_requires_approval=True,
         )
 
         assert response.is_closed is True
@@ -207,7 +218,7 @@ class TestTools:
         with client.agents.tools.with_streaming_response.update_approval(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            requires_approval=True,
+            body_requires_approval=True,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -224,14 +235,14 @@ class TestTools:
             client.agents.tools.with_raw_response.update_approval(
                 tool_name="tool_name",
                 agent_id="",
-                requires_approval=True,
+                body_requires_approval=True,
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
             client.agents.tools.with_raw_response.update_approval(
                 tool_name="",
                 agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                requires_approval=True,
+                body_requires_approval=True,
             )
 
 
@@ -405,7 +416,18 @@ class TestAsyncTools:
         tool = await async_client.agents.tools.update_approval(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            requires_approval=True,
+            body_requires_approval=True,
+        )
+        assert_matches_type(AgentState, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_approval_with_all_params(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.agents.tools.update_approval(
+            tool_name="tool_name",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            body_requires_approval=True,
+            query_requires_approval=True,
         )
         assert_matches_type(AgentState, tool, path=["response"])
 
@@ -415,7 +437,7 @@ class TestAsyncTools:
         response = await async_client.agents.tools.with_raw_response.update_approval(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            requires_approval=True,
+            body_requires_approval=True,
         )
 
         assert response.is_closed is True
@@ -429,7 +451,7 @@ class TestAsyncTools:
         async with async_client.agents.tools.with_streaming_response.update_approval(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            requires_approval=True,
+            body_requires_approval=True,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -446,12 +468,12 @@ class TestAsyncTools:
             await async_client.agents.tools.with_raw_response.update_approval(
                 tool_name="tool_name",
                 agent_id="",
-                requires_approval=True,
+                body_requires_approval=True,
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
             await async_client.agents.tools.with_raw_response.update_approval(
                 tool_name="",
                 agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                requires_approval=True,
+                body_requires_approval=True,
             )

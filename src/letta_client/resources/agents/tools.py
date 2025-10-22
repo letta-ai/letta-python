@@ -196,7 +196,8 @@ class ToolsResource(SyncAPIResource):
         tool_name: str,
         *,
         agent_id: str,
-        requires_approval: bool,
+        body_requires_approval: bool,
+        query_requires_approval: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -205,10 +206,17 @@ class ToolsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentState:
         """
-        Attach a tool to an agent.
+        Modify the approval requirement for a tool attached to an agent.
+
+        Accepts requires_approval via request body (preferred) or query parameter
+        (deprecated).
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          body_requires_approval: Whether the tool requires approval before execution
+
+          query_requires_approval: Whether the tool requires approval before execution
 
           extra_headers: Send extra headers
 
@@ -224,13 +232,17 @@ class ToolsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `tool_name` but received {tool_name!r}")
         return self._patch(
             f"/v1/agents/{agent_id}/tools/approval/{tool_name}",
+            body=maybe_transform(
+                {"body_requires_approval": body_requires_approval}, tool_update_approval_params.ToolUpdateApprovalParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"requires_approval": requires_approval}, tool_update_approval_params.ToolUpdateApprovalParams
+                    {"query_requires_approval": query_requires_approval},
+                    tool_update_approval_params.ToolUpdateApprovalParams,
                 ),
             ),
             cast_to=AgentState,
@@ -408,7 +420,8 @@ class AsyncToolsResource(AsyncAPIResource):
         tool_name: str,
         *,
         agent_id: str,
-        requires_approval: bool,
+        body_requires_approval: bool,
+        query_requires_approval: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -417,10 +430,17 @@ class AsyncToolsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentState:
         """
-        Attach a tool to an agent.
+        Modify the approval requirement for a tool attached to an agent.
+
+        Accepts requires_approval via request body (preferred) or query parameter
+        (deprecated).
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          body_requires_approval: Whether the tool requires approval before execution
+
+          query_requires_approval: Whether the tool requires approval before execution
 
           extra_headers: Send extra headers
 
@@ -436,13 +456,17 @@ class AsyncToolsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `tool_name` but received {tool_name!r}")
         return await self._patch(
             f"/v1/agents/{agent_id}/tools/approval/{tool_name}",
+            body=await async_maybe_transform(
+                {"body_requires_approval": body_requires_approval}, tool_update_approval_params.ToolUpdateApprovalParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"requires_approval": requires_approval}, tool_update_approval_params.ToolUpdateApprovalParams
+                    {"query_requires_approval": query_requires_approval},
+                    tool_update_approval_params.ToolUpdateApprovalParams,
                 ),
             ),
             cast_to=AgentState,
