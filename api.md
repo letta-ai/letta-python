@@ -50,7 +50,6 @@ Methods:
 - <code title="get /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">list</a>(\*\*<a href="src/letta_client/types/tool_list_params.py">params</a>) -> <a href="./src/letta_client/types/tool_list_response.py">ToolListResponse</a></code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">delete</a>(tool_id) -> object</code>
 - <code title="get /v1/tools/count">client.tools.<a href="./src/letta_client/resources/tools.py">count</a>(\*\*<a href="src/letta_client/types/tool_count_params.py">params</a>) -> <a href="./src/letta_client/types/tool_count_response.py">ToolCountResponse</a></code>
-- <code title="post /v1/tools/run">client.tools.<a href="./src/letta_client/resources/tools.py">run</a>(\*\*<a href="src/letta_client/types/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/tool_return_message.py">ToolReturnMessage</a></code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">upsert</a>(\*\*<a href="src/letta_client/types/tool_upsert_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/letta_client/resources/tools.py">upsert_base_tools</a>() -> <a href="./src/letta_client/types/tool_upsert_base_tools_response.py">ToolUpsertBaseToolsResponse</a></code>
 

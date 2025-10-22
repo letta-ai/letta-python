@@ -7,14 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
-    tool_run_params,
-    tool_list_params,
-    tool_count_params,
-    tool_create_params,
-    tool_update_params,
-    tool_upsert_params,
-)
+from ..types import tool_list_params, tool_count_params, tool_create_params, tool_update_params, tool_upsert_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -29,7 +22,6 @@ from ..types.tool import Tool
 from .._base_client import make_request_options
 from ..types.tool_list_response import ToolListResponse
 from ..types.tool_count_response import ToolCountResponse
-from ..types.tool_return_message import ToolReturnMessage
 from ..types.npm_requirement_param import NpmRequirementParam
 from ..types.pip_requirement_param import PipRequirementParam
 from ..types.tool_upsert_base_tools_response import ToolUpsertBaseToolsResponse
@@ -453,78 +445,6 @@ class ToolsResource(SyncAPIResource):
                 ),
             ),
             cast_to=int,
-        )
-
-    def run(
-        self,
-        *,
-        args: Dict[str, object],
-        source_code: str,
-        args_json_schema: Optional[Dict[str, object]] | Omit = omit,
-        env_vars: Dict[str, str] | Omit = omit,
-        json_schema: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
-        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
-        source_type: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolReturnMessage:
-        """
-        Attempt to build a tool from source, then run it on the provided arguments
-
-        Args:
-          args: The arguments to pass to the tool.
-
-          source_code: The source code of the function.
-
-          args_json_schema: The args JSON schema of the function.
-
-          env_vars: The environment variables to pass to the tool.
-
-          json_schema: The JSON schema of the function (auto-generated from source_code if not
-              provided)
-
-          name: The name of the tool to run.
-
-          npm_requirements: Optional list of npm packages required by this tool.
-
-          pip_requirements: Optional list of pip packages required by this tool.
-
-          source_type: The type of the source code.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/v1/tools/run",
-            body=maybe_transform(
-                {
-                    "args": args,
-                    "source_code": source_code,
-                    "args_json_schema": args_json_schema,
-                    "env_vars": env_vars,
-                    "json_schema": json_schema,
-                    "name": name,
-                    "npm_requirements": npm_requirements,
-                    "pip_requirements": pip_requirements,
-                    "source_type": source_type,
-                },
-                tool_run_params.ToolRunParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ToolReturnMessage,
         )
 
     def upsert(
@@ -1046,78 +966,6 @@ class AsyncToolsResource(AsyncAPIResource):
             cast_to=int,
         )
 
-    async def run(
-        self,
-        *,
-        args: Dict[str, object],
-        source_code: str,
-        args_json_schema: Optional[Dict[str, object]] | Omit = omit,
-        env_vars: Dict[str, str] | Omit = omit,
-        json_schema: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
-        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
-        source_type: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolReturnMessage:
-        """
-        Attempt to build a tool from source, then run it on the provided arguments
-
-        Args:
-          args: The arguments to pass to the tool.
-
-          source_code: The source code of the function.
-
-          args_json_schema: The args JSON schema of the function.
-
-          env_vars: The environment variables to pass to the tool.
-
-          json_schema: The JSON schema of the function (auto-generated from source_code if not
-              provided)
-
-          name: The name of the tool to run.
-
-          npm_requirements: Optional list of npm packages required by this tool.
-
-          pip_requirements: Optional list of pip packages required by this tool.
-
-          source_type: The type of the source code.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/v1/tools/run",
-            body=await async_maybe_transform(
-                {
-                    "args": args,
-                    "source_code": source_code,
-                    "args_json_schema": args_json_schema,
-                    "env_vars": env_vars,
-                    "json_schema": json_schema,
-                    "name": name,
-                    "npm_requirements": npm_requirements,
-                    "pip_requirements": pip_requirements,
-                    "source_type": source_type,
-                },
-                tool_run_params.ToolRunParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ToolReturnMessage,
-        )
-
     async def upsert(
         self,
         *,
@@ -1241,9 +1089,6 @@ class ToolsResourceWithRawResponse:
         self.count = to_raw_response_wrapper(
             tools.count,
         )
-        self.run = to_raw_response_wrapper(
-            tools.run,
-        )
         self.upsert = to_raw_response_wrapper(
             tools.upsert,
         )
@@ -1273,9 +1118,6 @@ class AsyncToolsResourceWithRawResponse:
         )
         self.count = async_to_raw_response_wrapper(
             tools.count,
-        )
-        self.run = async_to_raw_response_wrapper(
-            tools.run,
         )
         self.upsert = async_to_raw_response_wrapper(
             tools.upsert,
@@ -1307,9 +1149,6 @@ class ToolsResourceWithStreamingResponse:
         self.count = to_streamed_response_wrapper(
             tools.count,
         )
-        self.run = to_streamed_response_wrapper(
-            tools.run,
-        )
         self.upsert = to_streamed_response_wrapper(
             tools.upsert,
         )
@@ -1339,9 +1178,6 @@ class AsyncToolsResourceWithStreamingResponse:
         )
         self.count = async_to_streamed_response_wrapper(
             tools.count,
-        )
-        self.run = async_to_streamed_response_wrapper(
-            tools.run,
         )
         self.upsert = async_to_streamed_response_wrapper(
             tools.upsert,
