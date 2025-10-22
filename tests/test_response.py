@@ -6,8 +6,8 @@ import httpx
 import pytest
 import pydantic
 
-from letta_sdk import LettaSDK, BaseModel, AsyncLettaSDK
-from letta_sdk._response import (
+from letta_client import Letta, BaseModel, AsyncLetta
+from letta_client._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -15,8 +15,8 @@ from letta_sdk._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from letta_sdk._streaming import Stream
-from letta_sdk._base_client import FinalRequestOptions
+from letta_client._streaming import Stream
+from letta_client._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]): ...
@@ -37,7 +37,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'letta_sdk._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'letta_client._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -56,7 +56,7 @@ def test_extract_response_type_binary_response() -> None:
 class PydanticModel(pydantic.BaseModel): ...
 
 
-def test_response_parse_mismatched_basemodel(client: LettaSDK) -> None:
+def test_response_parse_mismatched_basemodel(client: Letta) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -68,13 +68,13 @@ def test_response_parse_mismatched_basemodel(client: LettaSDK) -> None:
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from letta_sdk import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from letta_client import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_mismatched_basemodel(async_client: AsyncLettaSDK) -> None:
+async def test_async_response_parse_mismatched_basemodel(async_client: AsyncLetta) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -86,12 +86,12 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncLett
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from letta_sdk import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from letta_client import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 
 
-def test_response_parse_custom_stream(client: LettaSDK) -> None:
+def test_response_parse_custom_stream(client: Letta) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -106,7 +106,7 @@ def test_response_parse_custom_stream(client: LettaSDK) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_stream(async_client: AsyncLettaSDK) -> None:
+async def test_async_response_parse_custom_stream(async_client: AsyncLetta) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -125,7 +125,7 @@ class CustomModel(BaseModel):
     bar: int
 
 
-def test_response_parse_custom_model(client: LettaSDK) -> None:
+def test_response_parse_custom_model(client: Letta) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -141,7 +141,7 @@ def test_response_parse_custom_model(client: LettaSDK) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_model(async_client: AsyncLettaSDK) -> None:
+async def test_async_response_parse_custom_model(async_client: AsyncLetta) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -156,7 +156,7 @@ async def test_async_response_parse_custom_model(async_client: AsyncLettaSDK) ->
     assert obj.bar == 2
 
 
-def test_response_parse_annotated_type(client: LettaSDK) -> None:
+def test_response_parse_annotated_type(client: Letta) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -173,7 +173,7 @@ def test_response_parse_annotated_type(client: LettaSDK) -> None:
     assert obj.bar == 2
 
 
-async def test_async_response_parse_annotated_type(async_client: AsyncLettaSDK) -> None:
+async def test_async_response_parse_annotated_type(async_client: AsyncLetta) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -201,7 +201,7 @@ async def test_async_response_parse_annotated_type(async_client: AsyncLettaSDK) 
         ("FalSe", False),
     ],
 )
-def test_response_parse_bool(client: LettaSDK, content: str, expected: bool) -> None:
+def test_response_parse_bool(client: Letta, content: str, expected: bool) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -226,7 +226,7 @@ def test_response_parse_bool(client: LettaSDK, content: str, expected: bool) -> 
         ("FalSe", False),
     ],
 )
-async def test_async_response_parse_bool(client: AsyncLettaSDK, content: str, expected: bool) -> None:
+async def test_async_response_parse_bool(client: AsyncLetta, content: str, expected: bool) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -245,7 +245,7 @@ class OtherModel(BaseModel):
 
 
 @pytest.mark.parametrize("client", [False], indirect=True)  # loose validation
-def test_response_parse_expect_model_union_non_json_content(client: LettaSDK) -> None:
+def test_response_parse_expect_model_union_non_json_content(client: Letta) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=client,
@@ -262,7 +262,7 @@ def test_response_parse_expect_model_union_non_json_content(client: LettaSDK) ->
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("async_client", [False], indirect=True)  # loose validation
-async def test_async_response_parse_expect_model_union_non_json_content(async_client: AsyncLettaSDK) -> None:
+async def test_async_response_parse_expect_model_union_non_json_content(async_client: AsyncLetta) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=async_client,

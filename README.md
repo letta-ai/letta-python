@@ -1,9 +1,9 @@
-# Letta SDK Python API library
+# Letta Python API library
 
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/letta-client.svg?label=pypi%20(stable))](https://pypi.org/project/letta-client/)
 
-The Letta SDK Python library provides convenient access to the Letta SDK REST API from any Python 3.8+
+The Letta Python library provides convenient access to the Letta REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -26,15 +26,15 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from letta_sdk import LettaSDK
+from letta_client import Letta
 
-client = LettaSDK(
-    api_key=os.environ.get("LETTA_SDK_API_KEY"),  # This is the default and can be omitted
-    # defaults to "production".
-    environment="environment_1",
+client = Letta(
+    api_key=os.environ.get("LETTA_API_KEY"),  # This is the default and can be omitted
+    # defaults to "cloud".
+    environment="local",
 )
 
-archive = client.archives.update(
+archive = client.archives.create(
     name="name",
 )
 print(archive.id)
@@ -42,27 +42,27 @@ print(archive.id)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `LETTA_SDK_API_KEY="My API Key"` to your `.env` file
+to add `LETTA_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncLettaSDK` instead of `LettaSDK` and use `await` with each API call:
+Simply import `AsyncLetta` instead of `Letta` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from letta_sdk import AsyncLettaSDK
+from letta_client import AsyncLetta
 
-client = AsyncLettaSDK(
-    api_key=os.environ.get("LETTA_SDK_API_KEY"),  # This is the default and can be omitted
-    # defaults to "production".
-    environment="environment_1",
+client = AsyncLetta(
+    api_key=os.environ.get("LETTA_API_KEY"),  # This is the default and can be omitted
+    # defaults to "cloud".
+    environment="local",
 )
 
 
 async def main() -> None:
-    archive = await client.archives.update(
+    archive = await client.archives.create(
         name="name",
     )
     print(archive.id)
@@ -88,16 +88,16 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 
 ```python
 import asyncio
-from letta_sdk import DefaultAioHttpClient
-from letta_sdk import AsyncLettaSDK
+from letta_client import DefaultAioHttpClient
+from letta_client import AsyncLetta
 
 
 async def main() -> None:
-    async with AsyncLettaSDK(
+    async with AsyncLetta(
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        archive = await client.archives.update(
+        archive = await client.archives.create(
             name="name",
         )
         print(archive.id)
@@ -120,19 +120,19 @@ Typed requests and responses provide autocomplete and documentation within your 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from letta_sdk import LettaSDK
+from letta_client import Letta
 
-client = LettaSDK()
+client = Letta()
 
-server = client.tools.mcp.servers.update(
-    mcp_server_name="mcp_server_name",
-    stdio_config={
-        "args": ["string"],
-        "command": "command",
-        "server_name": "server_name",
+folder = client.folders.create(
+    name="name",
+    embedding_config={
+        "embedding_dim": 0,
+        "embedding_endpoint_type": "openai",
+        "embedding_model": "embedding_model",
     },
 )
-print(server.stdio_config)
+print(folder.embedding_config)
 ```
 
 ## File uploads
@@ -141,12 +141,12 @@ Request parameters that correspond to file uploads can be passed as `bytes`, or 
 
 ```python
 from pathlib import Path
-from letta_sdk import LettaSDK
+from letta_client import Letta
 
-client = LettaSDK()
+client = Letta()
 
-client.sources.upload_file(
-    source_id="source_id",
+client.folders.files.upload(
+    folder_id="source-123e4567-e89b-42d3-8456-426614174000",
     file=Path("/path/to/file"),
 )
 ```
@@ -155,29 +155,29 @@ The async client uses the exact same interface. If you pass a [`PathLike`](https
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `letta_sdk.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `letta_client.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `letta_sdk.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `letta_client.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `letta_sdk.APIError`.
+All errors inherit from `letta_client.APIError`.
 
 ```python
-import letta_sdk
-from letta_sdk import LettaSDK
+import letta_client
+from letta_client import Letta
 
-client = LettaSDK()
+client = Letta()
 
 try:
-    client.archives.update(
+    client.archives.create(
         name="name",
     )
-except letta_sdk.APIConnectionError as e:
+except letta_client.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except letta_sdk.RateLimitError as e:
+except letta_client.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except letta_sdk.APIStatusError as e:
+except letta_client.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -205,16 +205,16 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from letta_sdk import LettaSDK
+from letta_client import Letta
 
 # Configure the default for all requests:
-client = LettaSDK(
+client = Letta(
     # default is 2
     max_retries=0,
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).archives.update(
+client.with_options(max_retries=5).archives.create(
     name="name",
 )
 ```
@@ -225,21 +225,21 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from letta_sdk import LettaSDK
+from letta_client import Letta
 
 # Configure the default for all requests:
-client = LettaSDK(
+client = Letta(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = LettaSDK(
+client = Letta(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).archives.update(
+client.with_options(timeout=5.0).archives.create(
     name="name",
 )
 ```
@@ -254,10 +254,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `LETTA_SDK_LOG` to `info`.
+You can enable logging by setting the environment variable `LETTA_LOG` to `info`.
 
 ```shell
-$ export LETTA_SDK_LOG=info
+$ export LETTA_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -279,21 +279,21 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from letta_sdk import LettaSDK
+from letta_client import Letta
 
-client = LettaSDK()
-response = client.archives.with_raw_response.update(
+client = Letta()
+response = client.archives.with_raw_response.create(
     name="name",
 )
 print(response.headers.get('X-My-Header'))
 
-archive = response.parse()  # get the object that `archives.update()` would have returned
+archive = response.parse()  # get the object that `archives.create()` would have returned
 print(archive.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/letta-ai/letta-python/tree/1.0-release/src/letta_sdk/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/letta-ai/letta-python/tree/1.0-release/src/letta_client/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/letta-ai/letta-python/tree/1.0-release/src/letta_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/letta-ai/letta-python/tree/1.0-release/src/letta_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -302,7 +302,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.archives.with_streaming_response.update(
+with client.archives.with_streaming_response.create(
     name="name",
 ) as response:
     print(response.headers.get("X-My-Header"))
@@ -357,10 +357,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from letta_sdk import LettaSDK, DefaultHttpxClient
+from letta_client import Letta, DefaultHttpxClient
 
-client = LettaSDK(
-    # Or use the `LETTA_SDK_BASE_URL` env var
+client = Letta(
+    # Or use the `LETTA_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -380,9 +380,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from letta_sdk import LettaSDK
+from letta_client import Letta
 
-with LettaSDK() as client:
+with Letta() as client:
   # make requests here
   ...
 
@@ -408,8 +408,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import letta_sdk
-print(letta_sdk.__version__)
+import letta_client
+print(letta_client.__version__)
 ```
 
 ## Requirements

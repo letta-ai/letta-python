@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from letta_sdk._utils import PropertyInfo
-from letta_sdk._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
-from letta_sdk._models import BaseModel, construct_type
+from letta_client._utils import PropertyInfo
+from letta_client._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
+from letta_client._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

@@ -8,7 +8,7 @@ from datetime import date, datetime, timezone, timedelta
 
 import pytest
 
-from letta_sdk._utils import parse_date, parse_datetime
+from letta_client._utils import parse_date, parse_datetime
 
 
 def create_tz(minutes: int) -> timezone:
