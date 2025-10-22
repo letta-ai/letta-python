@@ -13,7 +13,6 @@ from letta_client.types import (
     Tool,
     ToolListResponse,
     ToolCountResponse,
-    ToolReturnMessage,
     ToolUpsertBaseToolsResponse,
 )
 
@@ -328,69 +327,6 @@ class TestTools:
 
             tool = response.parse()
             assert_matches_type(ToolCountResponse, tool, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_run(self, client: Letta) -> None:
-        tool = client.tools.run(
-            args={"foo": "bar"},
-            source_code="source_code",
-        )
-        assert_matches_type(ToolReturnMessage, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_run_with_all_params(self, client: Letta) -> None:
-        tool = client.tools.run(
-            args={"foo": "bar"},
-            source_code="source_code",
-            args_json_schema={"foo": "bar"},
-            env_vars={"foo": "string"},
-            json_schema={"foo": "bar"},
-            name="name",
-            npm_requirements=[
-                {
-                    "name": "x",
-                    "version": "version",
-                }
-            ],
-            pip_requirements=[
-                {
-                    "name": "x",
-                    "version": "version",
-                }
-            ],
-            source_type="source_type",
-        )
-        assert_matches_type(ToolReturnMessage, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_run(self, client: Letta) -> None:
-        response = client.tools.with_raw_response.run(
-            args={"foo": "bar"},
-            source_code="source_code",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        tool = response.parse()
-        assert_matches_type(ToolReturnMessage, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_run(self, client: Letta) -> None:
-        with client.tools.with_streaming_response.run(
-            args={"foo": "bar"},
-            source_code="source_code",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            tool = response.parse()
-            assert_matches_type(ToolReturnMessage, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -795,69 +731,6 @@ class TestAsyncTools:
 
             tool = await response.parse()
             assert_matches_type(ToolCountResponse, tool, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_run(self, async_client: AsyncLetta) -> None:
-        tool = await async_client.tools.run(
-            args={"foo": "bar"},
-            source_code="source_code",
-        )
-        assert_matches_type(ToolReturnMessage, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_run_with_all_params(self, async_client: AsyncLetta) -> None:
-        tool = await async_client.tools.run(
-            args={"foo": "bar"},
-            source_code="source_code",
-            args_json_schema={"foo": "bar"},
-            env_vars={"foo": "string"},
-            json_schema={"foo": "bar"},
-            name="name",
-            npm_requirements=[
-                {
-                    "name": "x",
-                    "version": "version",
-                }
-            ],
-            pip_requirements=[
-                {
-                    "name": "x",
-                    "version": "version",
-                }
-            ],
-            source_type="source_type",
-        )
-        assert_matches_type(ToolReturnMessage, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_run(self, async_client: AsyncLetta) -> None:
-        response = await async_client.tools.with_raw_response.run(
-            args={"foo": "bar"},
-            source_code="source_code",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        tool = await response.parse()
-        assert_matches_type(ToolReturnMessage, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_run(self, async_client: AsyncLetta) -> None:
-        async with async_client.tools.with_streaming_response.run(
-            args={"foo": "bar"},
-            source_code="source_code",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            tool = await response.parse()
-            assert_matches_type(ToolReturnMessage, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
