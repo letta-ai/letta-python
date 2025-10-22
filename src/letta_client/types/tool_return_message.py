@@ -5,23 +5,9 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
+from .agents.tool_return import ToolReturn
 
-__all__ = ["ToolReturnMessage", "ToolReturn"]
-
-
-class ToolReturn(BaseModel):
-    status: Literal["success", "error"]
-
-    tool_call_id: str
-
-    tool_return: str
-
-    stderr: Optional[List[str]] = None
-
-    stdout: Optional[List[str]] = None
-
-    type: Optional[Literal["tool"]] = None
-    """The message type to be created."""
+__all__ = ["ToolReturnMessage"]
 
 
 class ToolReturnMessage(BaseModel):

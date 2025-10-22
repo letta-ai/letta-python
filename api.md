@@ -244,6 +244,7 @@ from letta_client.types.agents import (
     ToolCallContent,
     ToolCallDelta,
     ToolCallMessage,
+    ToolReturn,
     ToolReturnContent,
     UpdateAssistantMessage,
     UpdateReasoningMessage,
