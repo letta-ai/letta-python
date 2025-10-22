@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/letta_sdk/_version.py"
+    "src/letta_client/_version.py"
   ]
 }

@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from letta_sdk import LettaSDK, AsyncLettaSDK
 from tests.utils import assert_matches_type
-from letta_sdk.types.agents import LettaResponse
-from letta_sdk.types.groups import (
+from letta_client import Letta, AsyncLetta
+from letta_client.types.agents import LettaResponse
+from letta_client.types.groups import (
     MessageListResponse,
     MessageUpdateResponse,
 )
@@ -23,20 +23,20 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_overload_1(self, client: LettaSDK) -> None:
+    def test_method_update_overload_1(self, client: Letta) -> None:
         message = client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content="content",
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_with_all_params_overload_1(self, client: LettaSDK) -> None:
+    def test_method_update_with_all_params_overload_1(self, client: Letta) -> None:
         message = client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content="content",
             message_type="system_message",
         )
@@ -44,10 +44,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update_overload_1(self, client: LettaSDK) -> None:
+    def test_raw_response_update_overload_1(self, client: Letta) -> None:
         response = client.groups.messages.with_raw_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content="content",
         )
 
@@ -58,10 +58,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update_overload_1(self, client: LettaSDK) -> None:
+    def test_streaming_response_update_overload_1(self, client: Letta) -> None:
         with client.groups.messages.with_streaming_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content="content",
         ) as response:
             assert not response.is_closed
@@ -74,10 +74,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update_overload_1(self, client: LettaSDK) -> None:
+    def test_path_params_update_overload_1(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.groups.messages.with_raw_response.update(
-                message_id="message_id",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 group_id="",
                 content="content",
             )
@@ -85,16 +85,16 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.groups.messages.with_raw_response.update(
                 message_id="",
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 content="content",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_overload_2(self, client: LettaSDK) -> None:
+    def test_method_update_overload_2(self, client: Letta) -> None:
         message = client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
@@ -106,13 +106,14 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_with_all_params_overload_2(self, client: LettaSDK) -> None:
+    def test_method_update_with_all_params_overload_2(self, client: Letta) -> None:
         message = client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
+                    "signature": "signature",
                     "type": "text",
                 }
             ],
@@ -122,10 +123,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update_overload_2(self, client: LettaSDK) -> None:
+    def test_raw_response_update_overload_2(self, client: Letta) -> None:
         response = client.groups.messages.with_raw_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
@@ -141,10 +142,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update_overload_2(self, client: LettaSDK) -> None:
+    def test_streaming_response_update_overload_2(self, client: Letta) -> None:
         with client.groups.messages.with_streaming_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
@@ -162,10 +163,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update_overload_2(self, client: LettaSDK) -> None:
+    def test_path_params_update_overload_2(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.groups.messages.with_raw_response.update(
-                message_id="message_id",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 group_id="",
                 content=[
                     {
@@ -178,7 +179,7 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.groups.messages.with_raw_response.update(
                 message_id="",
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 content=[
                     {
                         "text": "text",
@@ -189,20 +190,20 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_overload_3(self, client: LettaSDK) -> None:
+    def test_method_update_overload_3(self, client: Letta) -> None:
         message = client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             reasoning="reasoning",
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_with_all_params_overload_3(self, client: LettaSDK) -> None:
+    def test_method_update_with_all_params_overload_3(self, client: Letta) -> None:
         message = client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             reasoning="reasoning",
             message_type="reasoning_message",
         )
@@ -210,10 +211,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update_overload_3(self, client: LettaSDK) -> None:
+    def test_raw_response_update_overload_3(self, client: Letta) -> None:
         response = client.groups.messages.with_raw_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             reasoning="reasoning",
         )
 
@@ -224,10 +225,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update_overload_3(self, client: LettaSDK) -> None:
+    def test_streaming_response_update_overload_3(self, client: Letta) -> None:
         with client.groups.messages.with_streaming_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             reasoning="reasoning",
         ) as response:
             assert not response.is_closed
@@ -240,10 +241,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update_overload_3(self, client: LettaSDK) -> None:
+    def test_path_params_update_overload_3(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.groups.messages.with_raw_response.update(
-                message_id="message_id",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 group_id="",
                 reasoning="reasoning",
             )
@@ -251,29 +252,30 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.groups.messages.with_raw_response.update(
                 message_id="",
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 reasoning="reasoning",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_overload_4(self, client: LettaSDK) -> None:
+    def test_method_update_overload_4(self, client: Letta) -> None:
         message = client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[{"text": "text"}],
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_with_all_params_overload_4(self, client: LettaSDK) -> None:
+    def test_method_update_with_all_params_overload_4(self, client: Letta) -> None:
         message = client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
+                    "signature": "signature",
                     "type": "text",
                 }
             ],
@@ -283,10 +285,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update_overload_4(self, client: LettaSDK) -> None:
+    def test_raw_response_update_overload_4(self, client: Letta) -> None:
         response = client.groups.messages.with_raw_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[{"text": "text"}],
         )
 
@@ -297,10 +299,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update_overload_4(self, client: LettaSDK) -> None:
+    def test_streaming_response_update_overload_4(self, client: Letta) -> None:
         with client.groups.messages.with_streaming_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[{"text": "text"}],
         ) as response:
             assert not response.is_closed
@@ -313,10 +315,10 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update_overload_4(self, client: LettaSDK) -> None:
+    def test_path_params_update_overload_4(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.groups.messages.with_raw_response.update(
-                message_id="message_id",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 group_id="",
                 content=[{"text": "text"}],
             )
@@ -324,23 +326,23 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.groups.messages.with_raw_response.update(
                 message_id="",
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 content=[{"text": "text"}],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: LettaSDK) -> None:
+    def test_method_list(self, client: Letta) -> None:
         message = client.groups.messages.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: LettaSDK) -> None:
+    def test_method_list_with_all_params(self, client: Letta) -> None:
         message = client.groups.messages.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             after="after",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
@@ -354,9 +356,9 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: LettaSDK) -> None:
+    def test_raw_response_list(self, client: Letta) -> None:
         response = client.groups.messages.with_raw_response.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -366,9 +368,9 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: LettaSDK) -> None:
+    def test_streaming_response_list(self, client: Letta) -> None:
         with client.groups.messages.with_streaming_response.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -380,7 +382,7 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_list(self, client: LettaSDK) -> None:
+    def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.groups.messages.with_raw_response.list(
                 group_id="",
@@ -388,9 +390,51 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_send(self, client: LettaSDK) -> None:
+    def test_method_reset(self, client: Letta) -> None:
+        message = client.groups.messages.reset(
+            "group-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_reset(self, client: Letta) -> None:
+        response = client.groups.messages.with_raw_response.reset(
+            "group-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = response.parse()
+        assert_matches_type(object, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_reset(self, client: Letta) -> None:
+        with client.groups.messages.with_streaming_response.reset(
+            "group-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = response.parse()
+            assert_matches_type(object, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_reset(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
+            client.groups.messages.with_raw_response.reset(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_send(self, client: Letta) -> None:
         message = client.groups.messages.send(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -407,14 +451,15 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_send_with_all_params(self, client: LettaSDK) -> None:
+    def test_method_send_with_all_params(self, client: Letta) -> None:
         message = client.groups.messages.send(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
                         {
                             "text": "text",
+                            "signature": "signature",
                             "type": "text",
                         }
                     ],
@@ -438,9 +483,9 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_send(self, client: LettaSDK) -> None:
+    def test_raw_response_send(self, client: Letta) -> None:
         response = client.groups.messages.with_raw_response.send(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -461,9 +506,9 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_send(self, client: LettaSDK) -> None:
+    def test_streaming_response_send(self, client: Letta) -> None:
         with client.groups.messages.with_streaming_response.send(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -486,7 +531,7 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_send(self, client: LettaSDK) -> None:
+    def test_path_params_send(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.groups.messages.with_raw_response.send(
                 group_id="",
@@ -505,9 +550,9 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_send_stream(self, client: LettaSDK) -> None:
-        message = client.groups.messages.send_stream(
-            group_id="group_id",
+    def test_method_stream(self, client: Letta) -> None:
+        message = client.groups.messages.stream(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -524,14 +569,15 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_send_stream_with_all_params(self, client: LettaSDK) -> None:
-        message = client.groups.messages.send_stream(
-            group_id="group_id",
+    def test_method_stream_with_all_params(self, client: Letta) -> None:
+        message = client.groups.messages.stream(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
                         {
                             "text": "text",
+                            "signature": "signature",
                             "type": "text",
                         }
                     ],
@@ -558,9 +604,9 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_send_stream(self, client: LettaSDK) -> None:
-        response = client.groups.messages.with_raw_response.send_stream(
-            group_id="group_id",
+    def test_raw_response_stream(self, client: Letta) -> None:
+        response = client.groups.messages.with_raw_response.stream(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -581,9 +627,9 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_send_stream(self, client: LettaSDK) -> None:
-        with client.groups.messages.with_streaming_response.send_stream(
-            group_id="group_id",
+    def test_streaming_response_stream(self, client: Letta) -> None:
+        with client.groups.messages.with_streaming_response.stream(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -606,9 +652,9 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_send_stream(self, client: LettaSDK) -> None:
+    def test_path_params_stream(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
-            client.groups.messages.with_raw_response.send_stream(
+            client.groups.messages.with_raw_response.stream(
                 group_id="",
                 messages=[
                     {
@@ -631,20 +677,20 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_overload_1(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_update_overload_1(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content="content",
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params_overload_1(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_update_with_all_params_overload_1(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content="content",
             message_type="system_message",
         )
@@ -652,10 +698,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update_overload_1(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_update_overload_1(self, async_client: AsyncLetta) -> None:
         response = await async_client.groups.messages.with_raw_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content="content",
         )
 
@@ -666,10 +712,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update_overload_1(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_update_overload_1(self, async_client: AsyncLetta) -> None:
         async with async_client.groups.messages.with_streaming_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content="content",
         ) as response:
             assert not response.is_closed
@@ -682,10 +728,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update_overload_1(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_update_overload_1(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.groups.messages.with_raw_response.update(
-                message_id="message_id",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 group_id="",
                 content="content",
             )
@@ -693,16 +739,16 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.groups.messages.with_raw_response.update(
                 message_id="",
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 content="content",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_overload_2(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_update_overload_2(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
@@ -714,13 +760,14 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params_overload_2(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_update_with_all_params_overload_2(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
+                    "signature": "signature",
                     "type": "text",
                 }
             ],
@@ -730,10 +777,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update_overload_2(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_update_overload_2(self, async_client: AsyncLetta) -> None:
         response = await async_client.groups.messages.with_raw_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
@@ -749,10 +796,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update_overload_2(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_update_overload_2(self, async_client: AsyncLetta) -> None:
         async with async_client.groups.messages.with_streaming_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
@@ -770,10 +817,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update_overload_2(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_update_overload_2(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.groups.messages.with_raw_response.update(
-                message_id="message_id",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 group_id="",
                 content=[
                     {
@@ -786,7 +833,7 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.groups.messages.with_raw_response.update(
                 message_id="",
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 content=[
                     {
                         "text": "text",
@@ -797,20 +844,20 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_overload_3(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_update_overload_3(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             reasoning="reasoning",
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params_overload_3(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_update_with_all_params_overload_3(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             reasoning="reasoning",
             message_type="reasoning_message",
         )
@@ -818,10 +865,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update_overload_3(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_update_overload_3(self, async_client: AsyncLetta) -> None:
         response = await async_client.groups.messages.with_raw_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             reasoning="reasoning",
         )
 
@@ -832,10 +879,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update_overload_3(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_update_overload_3(self, async_client: AsyncLetta) -> None:
         async with async_client.groups.messages.with_streaming_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             reasoning="reasoning",
         ) as response:
             assert not response.is_closed
@@ -848,10 +895,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update_overload_3(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_update_overload_3(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.groups.messages.with_raw_response.update(
-                message_id="message_id",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 group_id="",
                 reasoning="reasoning",
             )
@@ -859,29 +906,30 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.groups.messages.with_raw_response.update(
                 message_id="",
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 reasoning="reasoning",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_overload_4(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_update_overload_4(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[{"text": "text"}],
         )
         assert_matches_type(MessageUpdateResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params_overload_4(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_update_with_all_params_overload_4(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[
                 {
                     "text": "text",
+                    "signature": "signature",
                     "type": "text",
                 }
             ],
@@ -891,10 +939,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update_overload_4(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_update_overload_4(self, async_client: AsyncLetta) -> None:
         response = await async_client.groups.messages.with_raw_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[{"text": "text"}],
         )
 
@@ -905,10 +953,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update_overload_4(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_update_overload_4(self, async_client: AsyncLetta) -> None:
         async with async_client.groups.messages.with_streaming_response.update(
-            message_id="message_id",
-            group_id="group_id",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             content=[{"text": "text"}],
         ) as response:
             assert not response.is_closed
@@ -921,10 +969,10 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update_overload_4(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_update_overload_4(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.groups.messages.with_raw_response.update(
-                message_id="message_id",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 group_id="",
                 content=[{"text": "text"}],
             )
@@ -932,23 +980,23 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.groups.messages.with_raw_response.update(
                 message_id="",
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 content=[{"text": "text"}],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_list(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             after="after",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
@@ -962,9 +1010,9 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.groups.messages.with_raw_response.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -974,9 +1022,9 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.groups.messages.with_streaming_response.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -988,7 +1036,7 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.groups.messages.with_raw_response.list(
                 group_id="",
@@ -996,9 +1044,51 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_send(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_reset(self, async_client: AsyncLetta) -> None:
+        message = await async_client.groups.messages.reset(
+            "group-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_reset(self, async_client: AsyncLetta) -> None:
+        response = await async_client.groups.messages.with_raw_response.reset(
+            "group-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert_matches_type(object, message, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_reset(self, async_client: AsyncLetta) -> None:
+        async with async_client.groups.messages.with_streaming_response.reset(
+            "group-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert_matches_type(object, message, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_reset(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
+            await async_client.groups.messages.with_raw_response.reset(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_send(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.send(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -1015,14 +1105,15 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_send_with_all_params(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_send_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.groups.messages.send(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
                         {
                             "text": "text",
+                            "signature": "signature",
                             "type": "text",
                         }
                     ],
@@ -1046,9 +1137,9 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_send(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_send(self, async_client: AsyncLetta) -> None:
         response = await async_client.groups.messages.with_raw_response.send(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -1069,9 +1160,9 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_send(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_send(self, async_client: AsyncLetta) -> None:
         async with async_client.groups.messages.with_streaming_response.send(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -1094,7 +1185,7 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_send(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_send(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.groups.messages.with_raw_response.send(
                 group_id="",
@@ -1113,9 +1204,9 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_send_stream(self, async_client: AsyncLettaSDK) -> None:
-        message = await async_client.groups.messages.send_stream(
-            group_id="group_id",
+    async def test_method_stream(self, async_client: AsyncLetta) -> None:
+        message = await async_client.groups.messages.stream(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -1132,14 +1223,15 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_send_stream_with_all_params(self, async_client: AsyncLettaSDK) -> None:
-        message = await async_client.groups.messages.send_stream(
-            group_id="group_id",
+    async def test_method_stream_with_all_params(self, async_client: AsyncLetta) -> None:
+        message = await async_client.groups.messages.stream(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
                         {
                             "text": "text",
+                            "signature": "signature",
                             "type": "text",
                         }
                     ],
@@ -1166,9 +1258,9 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_send_stream(self, async_client: AsyncLettaSDK) -> None:
-        response = await async_client.groups.messages.with_raw_response.send_stream(
-            group_id="group_id",
+    async def test_raw_response_stream(self, async_client: AsyncLetta) -> None:
+        response = await async_client.groups.messages.with_raw_response.stream(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -1189,9 +1281,9 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_send_stream(self, async_client: AsyncLettaSDK) -> None:
-        async with async_client.groups.messages.with_streaming_response.send_stream(
-            group_id="group_id",
+    async def test_streaming_response_stream(self, async_client: AsyncLetta) -> None:
+        async with async_client.groups.messages.with_streaming_response.stream(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
                     "content": [
@@ -1214,9 +1306,9 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_send_stream(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_stream(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
-            await async_client.groups.messages.with_raw_response.send_stream(
+            await async_client.groups.messages.with_raw_response.stream(
                 group_id="",
                 messages=[
                     {

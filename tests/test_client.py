@@ -18,12 +18,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from letta_sdk import LettaSDK, AsyncLettaSDK, APIResponseValidationError
-from letta_sdk._types import Omit
-from letta_sdk._utils import asyncify
-from letta_sdk._models import BaseModel, FinalRequestOptions
-from letta_sdk._exceptions import LettaSDKError, APIStatusError, APITimeoutError, APIResponseValidationError
-from letta_sdk._base_client import (
+from letta_client import Letta, AsyncLetta, APIResponseValidationError
+from letta_client._types import Omit
+from letta_client._utils import asyncify
+from letta_client._models import BaseModel, FinalRequestOptions
+from letta_client._exceptions import LettaError, APIStatusError, APITimeoutError, APIResponseValidationError
+from letta_client._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -50,7 +50,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: LettaSDK | AsyncLettaSDK) -> int:
+def _get_open_connections(client: Letta | AsyncLetta) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -58,8 +58,8 @@ def _get_open_connections(client: LettaSDK | AsyncLettaSDK) -> int:
     return len(pool._requests)
 
 
-class TestLettaSDK:
-    client = LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestLetta:
+    client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -106,7 +106,7 @@ class TestLettaSDK:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = LettaSDK(
+        client = Letta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -140,7 +140,7 @@ class TestLettaSDK:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = LettaSDK(
+        client = Letta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -232,10 +232,10 @@ class TestLettaSDK:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "letta_sdk/_legacy_response.py",
-                        "letta_sdk/_response.py",
+                        "letta_client/_legacy_response.py",
+                        "letta_client/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "letta_sdk/_compat.py",
+                        "letta_client/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -266,9 +266,7 @@ class TestLettaSDK:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = LettaSDK(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
-        )
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0))
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -277,7 +275,7 @@ class TestLettaSDK:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = LettaSDK(
+            client = Letta(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -287,7 +285,7 @@ class TestLettaSDK:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = LettaSDK(
+            client = Letta(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -297,7 +295,7 @@ class TestLettaSDK:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = LettaSDK(
+            client = Letta(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -308,7 +306,7 @@ class TestLettaSDK:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                LettaSDK(
+                Letta(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -316,14 +314,14 @@ class TestLettaSDK:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = LettaSDK(
+        client = Letta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = LettaSDK(
+        client2 = Letta(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -337,17 +335,17 @@ class TestLettaSDK:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(LettaSDKError):
-            with update_env(**{"LETTA_SDK_API_KEY": Omit()}):
-                client2 = LettaSDK(base_url=base_url, api_key=None, _strict_response_validation=True)
+        with pytest.raises(LettaError):
+            with update_env(**{"LETTA_API_KEY": Omit()}):
+                client2 = Letta(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
-        client = LettaSDK(
+        client = Letta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -461,7 +459,7 @@ class TestLettaSDK:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: LettaSDK) -> None:
+    def test_multipart_repeating_array(self, client: Letta) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="post",
@@ -548,7 +546,7 @@ class TestLettaSDK:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = LettaSDK(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
+        client = Letta(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -556,25 +554,23 @@ class TestLettaSDK:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(LETTA_SDK_BASE_URL="http://localhost:5000/from/env"):
-            client = LettaSDK(api_key=api_key, _strict_response_validation=True)
+        with update_env(LETTA_BASE_URL="http://localhost:5000/from/env"):
+            client = Letta(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
         # explicit environment arg requires explicitness
-        with update_env(LETTA_SDK_BASE_URL="http://localhost:5000/from/env"):
+        with update_env(LETTA_BASE_URL="http://localhost:5000/from/env"):
             with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                LettaSDK(api_key=api_key, _strict_response_validation=True, environment="production")
+                Letta(api_key=api_key, _strict_response_validation=True, environment="cloud")
 
-            client = LettaSDK(
-                base_url=None, api_key=api_key, _strict_response_validation=True, environment="production"
-            )
+            client = Letta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
             assert str(client.base_url).startswith("https://app.letta.com")
 
     @pytest.mark.parametrize(
         "client",
         [
-            LettaSDK(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            LettaSDK(
+            Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Letta(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -583,7 +579,7 @@ class TestLettaSDK:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: LettaSDK) -> None:
+    def test_base_url_trailing_slash(self, client: Letta) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -596,8 +592,8 @@ class TestLettaSDK:
     @pytest.mark.parametrize(
         "client",
         [
-            LettaSDK(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            LettaSDK(
+            Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Letta(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -606,7 +602,7 @@ class TestLettaSDK:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: LettaSDK) -> None:
+    def test_base_url_no_trailing_slash(self, client: Letta) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -619,8 +615,8 @@ class TestLettaSDK:
     @pytest.mark.parametrize(
         "client",
         [
-            LettaSDK(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            LettaSDK(
+            Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
+            Letta(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -629,7 +625,7 @@ class TestLettaSDK:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: LettaSDK) -> None:
+    def test_absolute_request_url(self, client: Letta) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -640,7 +636,7 @@ class TestLettaSDK:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -651,7 +647,7 @@ class TestLettaSDK:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -672,7 +668,7 @@ class TestLettaSDK:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+            Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -681,12 +677,12 @@ class TestLettaSDK:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -714,39 +710,39 @@ class TestLettaSDK:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: LettaSDK) -> None:
+    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Letta) -> None:
         respx_mock.post("/v1/archives/").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.archives.with_streaming_response.update(name="name").__enter__()
+            client.archives.with_streaming_response.create(name="name").__enter__()
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: LettaSDK) -> None:
+    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Letta) -> None:
         respx_mock.post("/v1/archives/").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.archives.with_streaming_response.update(name="name").__enter__()
+            client.archives.with_streaming_response.create(name="name").__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: LettaSDK,
+        client: Letta,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -766,17 +762,15 @@ class TestLettaSDK:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = client.archives.with_raw_response.update(name="name")
+        response = client.archives.with_raw_response.create(name="name")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_omit_retry_count_header(
-        self, client: LettaSDK, failures_before_success: int, respx_mock: MockRouter
-    ) -> None:
+    def test_omit_retry_count_header(self, client: Letta, failures_before_success: int, respx_mock: MockRouter) -> None:
         client = client.with_options(max_retries=4)
 
         nb_retries = 0
@@ -790,17 +784,17 @@ class TestLettaSDK:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = client.archives.with_raw_response.update(
+        response = client.archives.with_raw_response.create(
             name="name", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: LettaSDK, failures_before_success: int, respx_mock: MockRouter
+        self, client: Letta, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -815,7 +809,7 @@ class TestLettaSDK:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = client.archives.with_raw_response.update(
+        response = client.archives.with_raw_response.create(
             name="name", extra_headers={"x-stainless-retry-count": "42"}
         )
 
@@ -871,8 +865,8 @@ class TestLettaSDK:
         assert exc_info.value.response.headers["Location"] == f"{base_url}/redirected"
 
 
-class TestAsyncLettaSDK:
-    client = AsyncLettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncLetta:
+    client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -921,7 +915,7 @@ class TestAsyncLettaSDK:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncLettaSDK(
+        client = AsyncLetta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -955,7 +949,7 @@ class TestAsyncLettaSDK:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncLettaSDK(
+        client = AsyncLetta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -1047,10 +1041,10 @@ class TestAsyncLettaSDK:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "letta_sdk/_legacy_response.py",
-                        "letta_sdk/_response.py",
+                        "letta_client/_legacy_response.py",
+                        "letta_client/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "letta_sdk/_compat.py",
+                        "letta_client/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1081,7 +1075,7 @@ class TestAsyncLettaSDK:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncLettaSDK(
+        client = AsyncLetta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -1092,7 +1086,7 @@ class TestAsyncLettaSDK:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncLettaSDK(
+            client = AsyncLetta(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1102,7 +1096,7 @@ class TestAsyncLettaSDK:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncLettaSDK(
+            client = AsyncLetta(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1112,7 +1106,7 @@ class TestAsyncLettaSDK:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncLettaSDK(
+            client = AsyncLetta(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1123,7 +1117,7 @@ class TestAsyncLettaSDK:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncLettaSDK(
+                AsyncLetta(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -1131,14 +1125,14 @@ class TestAsyncLettaSDK:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncLettaSDK(
+        client = AsyncLetta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncLettaSDK(
+        client2 = AsyncLetta(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -1152,17 +1146,17 @@ class TestAsyncLettaSDK:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = AsyncLettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(LettaSDKError):
-            with update_env(**{"LETTA_SDK_API_KEY": Omit()}):
-                client2 = AsyncLettaSDK(base_url=base_url, api_key=None, _strict_response_validation=True)
+        with pytest.raises(LettaError):
+            with update_env(**{"LETTA_API_KEY": Omit()}):
+                client2 = AsyncLetta(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
-        client = AsyncLettaSDK(
+        client = AsyncLetta(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1276,7 +1270,7 @@ class TestAsyncLettaSDK:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncLettaSDK) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncLetta) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="post",
@@ -1363,9 +1357,7 @@ class TestAsyncLettaSDK:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncLettaSDK(
-            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
-        )
+        client = AsyncLetta(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -1373,27 +1365,25 @@ class TestAsyncLettaSDK:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(LETTA_SDK_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncLettaSDK(api_key=api_key, _strict_response_validation=True)
+        with update_env(LETTA_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncLetta(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
         # explicit environment arg requires explicitness
-        with update_env(LETTA_SDK_BASE_URL="http://localhost:5000/from/env"):
+        with update_env(LETTA_BASE_URL="http://localhost:5000/from/env"):
             with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                AsyncLettaSDK(api_key=api_key, _strict_response_validation=True, environment="production")
+                AsyncLetta(api_key=api_key, _strict_response_validation=True, environment="cloud")
 
-            client = AsyncLettaSDK(
-                base_url=None, api_key=api_key, _strict_response_validation=True, environment="production"
-            )
+            client = AsyncLetta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
             assert str(client.base_url).startswith("https://app.letta.com")
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncLettaSDK(
+            AsyncLetta(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncLettaSDK(
+            AsyncLetta(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1402,7 +1392,7 @@ class TestAsyncLettaSDK:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncLettaSDK) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncLetta) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1415,10 +1405,10 @@ class TestAsyncLettaSDK:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncLettaSDK(
+            AsyncLetta(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncLettaSDK(
+            AsyncLetta(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1427,7 +1417,7 @@ class TestAsyncLettaSDK:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncLettaSDK) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncLetta) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1440,10 +1430,10 @@ class TestAsyncLettaSDK:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncLettaSDK(
+            AsyncLetta(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncLettaSDK(
+            AsyncLetta(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1452,7 +1442,7 @@ class TestAsyncLettaSDK:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncLettaSDK) -> None:
+    def test_absolute_request_url(self, client: AsyncLetta) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1463,7 +1453,7 @@ class TestAsyncLettaSDK:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncLettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1475,7 +1465,7 @@ class TestAsyncLettaSDK:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncLettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1497,7 +1487,7 @@ class TestAsyncLettaSDK:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncLettaSDK(
+            AsyncLetta(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
             )
 
@@ -1509,12 +1499,12 @@ class TestAsyncLettaSDK:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncLettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncLettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1543,44 +1533,40 @@ class TestAsyncLettaSDK:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncLettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(
-        self, respx_mock: MockRouter, async_client: AsyncLettaSDK
-    ) -> None:
+    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncLetta) -> None:
         respx_mock.post("/v1/archives/").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.archives.with_streaming_response.update(name="name").__aenter__()
+            await async_client.archives.with_streaming_response.create(name="name").__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(
-        self, respx_mock: MockRouter, async_client: AsyncLettaSDK
-    ) -> None:
+    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncLetta) -> None:
         respx_mock.post("/v1/archives/").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.archives.with_streaming_response.update(name="name").__aenter__()
+            await async_client.archives.with_streaming_response.create(name="name").__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncLettaSDK,
+        async_client: AsyncLetta,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1600,17 +1586,17 @@ class TestAsyncLettaSDK:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = await client.archives.with_raw_response.update(name="name")
+        response = await client.archives.with_raw_response.create(name="name")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncLettaSDK, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncLetta, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1625,18 +1611,18 @@ class TestAsyncLettaSDK:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = await client.archives.with_raw_response.update(
+        response = await client.archives.with_raw_response.create(
             name="name", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncLettaSDK, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncLetta, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1651,7 +1637,7 @@ class TestAsyncLettaSDK:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = await client.archives.with_raw_response.update(
+        response = await client.archives.with_raw_response.create(
             name="name", extra_headers={"x-stainless-retry-count": "42"}
         )
 

@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from letta_sdk import LettaSDK, AsyncLettaSDK
 from tests.utils import assert_matches_type
-from letta_sdk.types.agents import FileListResponse, FileOpenResponse, FileCloseAllResponse
+from letta_client import Letta, AsyncLetta
+from letta_client.types.agents import FileListResponse, FileOpenResponse, FileCloseAllResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,28 +19,32 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: LettaSDK) -> None:
+    def test_method_list(self, client: Letta) -> None:
         file = client.agents.files.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: LettaSDK) -> None:
+    def test_method_list_with_all_params(self, client: Letta) -> None:
         file = client.agents.files.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            after="after",
+            before="before",
             cursor="cursor",
             is_open=True,
-            limit=1,
+            limit=0,
+            order="asc",
+            order_by="created_at",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: LettaSDK) -> None:
+    def test_raw_response_list(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -50,9 +54,9 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: LettaSDK) -> None:
+    def test_streaming_response_list(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -64,7 +68,7 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_list(self, client: LettaSDK) -> None:
+    def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.files.with_raw_response.list(
                 agent_id="",
@@ -72,19 +76,19 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_close(self, client: LettaSDK) -> None:
+    def test_method_close(self, client: Letta) -> None:
         file = client.agents.files.close(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(object, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_close(self, client: LettaSDK) -> None:
+    def test_raw_response_close(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.close(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -94,10 +98,10 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_close(self, client: LettaSDK) -> None:
+    def test_streaming_response_close(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.close(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -109,32 +113,32 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_close(self, client: LettaSDK) -> None:
+    def test_path_params_close(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.files.with_raw_response.close(
-                file_id="file_id",
+                file_id="file-123e4567-e89b-42d3-8456-426614174000",
                 agent_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
             client.agents.files.with_raw_response.close(
                 file_id="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_close_all(self, client: LettaSDK) -> None:
+    def test_method_close_all(self, client: Letta) -> None:
         file = client.agents.files.close_all(
-            "agent_id",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(FileCloseAllResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_close_all(self, client: LettaSDK) -> None:
+    def test_raw_response_close_all(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.close_all(
-            "agent_id",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -144,9 +148,9 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_close_all(self, client: LettaSDK) -> None:
+    def test_streaming_response_close_all(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.close_all(
-            "agent_id",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -158,7 +162,7 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_close_all(self, client: LettaSDK) -> None:
+    def test_path_params_close_all(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.files.with_raw_response.close_all(
                 "",
@@ -166,19 +170,19 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_open(self, client: LettaSDK) -> None:
+    def test_method_open(self, client: Letta) -> None:
         file = client.agents.files.open(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(FileOpenResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_open(self, client: LettaSDK) -> None:
+    def test_raw_response_open(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.open(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -188,10 +192,10 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_open(self, client: LettaSDK) -> None:
+    def test_streaming_response_open(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.open(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -203,17 +207,17 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_open(self, client: LettaSDK) -> None:
+    def test_path_params_open(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.files.with_raw_response.open(
-                file_id="file_id",
+                file_id="file-123e4567-e89b-42d3-8456-426614174000",
                 agent_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
             client.agents.files.with_raw_response.open(
                 file_id="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -224,28 +228,32 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_list(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            after="after",
+            before="before",
             cursor="cursor",
             is_open=True,
-            limit=1,
+            limit=0,
+            order="asc",
+            order_by="created_at",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -255,9 +263,9 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -269,7 +277,7 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.files.with_raw_response.list(
                 agent_id="",
@@ -277,19 +285,19 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_close(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_close(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.close(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(object, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_close(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_close(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.close(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -299,10 +307,10 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_close(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_close(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.close(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -314,32 +322,32 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_close(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_close(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.files.with_raw_response.close(
-                file_id="file_id",
+                file_id="file-123e4567-e89b-42d3-8456-426614174000",
                 agent_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
             await async_client.agents.files.with_raw_response.close(
                 file_id="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_close_all(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_close_all(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.close_all(
-            "agent_id",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(FileCloseAllResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_close_all(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_close_all(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.close_all(
-            "agent_id",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -349,9 +357,9 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_close_all(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_close_all(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.close_all(
-            "agent_id",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -363,7 +371,7 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_close_all(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_close_all(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.files.with_raw_response.close_all(
                 "",
@@ -371,19 +379,19 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_open(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_open(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.open(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(FileOpenResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_open(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_open(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.open(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -393,10 +401,10 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_open(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_open(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.open(
-            file_id="file_id",
-            agent_id="agent_id",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -408,15 +416,15 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_open(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_open(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.files.with_raw_response.open(
-                file_id="file_id",
+                file_id="file-123e4567-e89b-42d3-8456-426614174000",
                 agent_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
             await async_client.agents.files.with_raw_response.open(
                 file_id="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )

@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from letta_sdk import LettaSDK, AsyncLettaSDK
 from tests.utils import assert_matches_type
-from letta_sdk.types import AgentState
-from letta_sdk.types.agents import ToolListResponse
+from letta_client import Letta, AsyncLetta
+from letta_client.types import AgentState
+from letta_client.types.agents import ToolListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,17 +20,30 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: LettaSDK) -> None:
+    def test_method_list(self, client: Letta) -> None:
         tool = client.agents.tools.list(
-            "agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(ToolListResponse, tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: LettaSDK) -> None:
+    def test_method_list_with_all_params(self, client: Letta) -> None:
+        tool = client.agents.tools.list(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            after="after",
+            before="before",
+            limit=0,
+            order="asc",
+            order_by="created_at",
+        )
+        assert_matches_type(ToolListResponse, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: Letta) -> None:
         response = client.agents.tools.with_raw_response.list(
-            "agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -40,9 +53,9 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: LettaSDK) -> None:
+    def test_streaming_response_list(self, client: Letta) -> None:
         with client.agents.tools.with_streaming_response.list(
-            "agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -54,27 +67,27 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_list(self, client: LettaSDK) -> None:
+    def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.tools.with_raw_response.list(
-                "",
+                agent_id="",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_attach(self, client: LettaSDK) -> None:
+    def test_method_attach(self, client: Letta) -> None:
         tool = client.agents.tools.attach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(AgentState, tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_attach(self, client: LettaSDK) -> None:
+    def test_raw_response_attach(self, client: Letta) -> None:
         response = client.agents.tools.with_raw_response.attach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -84,10 +97,10 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_attach(self, client: LettaSDK) -> None:
+    def test_streaming_response_attach(self, client: Letta) -> None:
         with client.agents.tools.with_streaming_response.attach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -99,34 +112,34 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_attach(self, client: LettaSDK) -> None:
+    def test_path_params_attach(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.tools.with_raw_response.attach(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
                 agent_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             client.agents.tools.with_raw_response.attach(
                 tool_id="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_detach(self, client: LettaSDK) -> None:
+    def test_method_detach(self, client: Letta) -> None:
         tool = client.agents.tools.detach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(AgentState, tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_detach(self, client: LettaSDK) -> None:
+    def test_raw_response_detach(self, client: Letta) -> None:
         response = client.agents.tools.with_raw_response.detach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -136,10 +149,10 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_detach(self, client: LettaSDK) -> None:
+    def test_streaming_response_detach(self, client: Letta) -> None:
         with client.agents.tools.with_streaming_response.detach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -151,35 +164,35 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_detach(self, client: LettaSDK) -> None:
+    def test_path_params_detach(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.tools.with_raw_response.detach(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
                 agent_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             client.agents.tools.with_raw_response.detach(
                 tool_id="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_modify_approval(self, client: LettaSDK) -> None:
-        tool = client.agents.tools.modify_approval(
+    def test_method_update_approval(self, client: Letta) -> None:
+        tool = client.agents.tools.update_approval(
             tool_name="tool_name",
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             requires_approval=True,
         )
         assert_matches_type(AgentState, tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_modify_approval(self, client: LettaSDK) -> None:
-        response = client.agents.tools.with_raw_response.modify_approval(
+    def test_raw_response_update_approval(self, client: Letta) -> None:
+        response = client.agents.tools.with_raw_response.update_approval(
             tool_name="tool_name",
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             requires_approval=True,
         )
 
@@ -190,10 +203,10 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_modify_approval(self, client: LettaSDK) -> None:
-        with client.agents.tools.with_streaming_response.modify_approval(
+    def test_streaming_response_update_approval(self, client: Letta) -> None:
+        with client.agents.tools.with_streaming_response.update_approval(
             tool_name="tool_name",
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             requires_approval=True,
         ) as response:
             assert not response.is_closed
@@ -206,18 +219,18 @@ class TestTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_modify_approval(self, client: LettaSDK) -> None:
+    def test_path_params_update_approval(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.tools.with_raw_response.modify_approval(
+            client.agents.tools.with_raw_response.update_approval(
                 tool_name="tool_name",
                 agent_id="",
                 requires_approval=True,
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
-            client.agents.tools.with_raw_response.modify_approval(
+            client.agents.tools.with_raw_response.update_approval(
                 tool_name="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 requires_approval=True,
             )
 
@@ -229,17 +242,30 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_list(self, async_client: AsyncLetta) -> None:
         tool = await async_client.agents.tools.list(
-            "agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(ToolListResponse, tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.agents.tools.list(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            after="after",
+            before="before",
+            limit=0,
+            order="asc",
+            order_by="created_at",
+        )
+        assert_matches_type(ToolListResponse, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.tools.with_raw_response.list(
-            "agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -249,9 +275,9 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.tools.with_streaming_response.list(
-            "agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -263,27 +289,27 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_list(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.tools.with_raw_response.list(
-                "",
+                agent_id="",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_attach(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_attach(self, async_client: AsyncLetta) -> None:
         tool = await async_client.agents.tools.attach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(AgentState, tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_attach(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_attach(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.tools.with_raw_response.attach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -293,10 +319,10 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_attach(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_attach(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.tools.with_streaming_response.attach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -308,34 +334,34 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_attach(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_attach(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.tools.with_raw_response.attach(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
                 agent_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             await async_client.agents.tools.with_raw_response.attach(
                 tool_id="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_detach(self, async_client: AsyncLettaSDK) -> None:
+    async def test_method_detach(self, async_client: AsyncLetta) -> None:
         tool = await async_client.agents.tools.detach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(AgentState, tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_detach(self, async_client: AsyncLettaSDK) -> None:
+    async def test_raw_response_detach(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.tools.with_raw_response.detach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -345,10 +371,10 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_detach(self, async_client: AsyncLettaSDK) -> None:
+    async def test_streaming_response_detach(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.tools.with_streaming_response.detach(
-            tool_id="tool_id",
-            agent_id="agent_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -360,35 +386,35 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_detach(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_detach(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.tools.with_raw_response.detach(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
                 agent_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             await async_client.agents.tools.with_raw_response.detach(
                 tool_id="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_modify_approval(self, async_client: AsyncLettaSDK) -> None:
-        tool = await async_client.agents.tools.modify_approval(
+    async def test_method_update_approval(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.agents.tools.update_approval(
             tool_name="tool_name",
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             requires_approval=True,
         )
         assert_matches_type(AgentState, tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_modify_approval(self, async_client: AsyncLettaSDK) -> None:
-        response = await async_client.agents.tools.with_raw_response.modify_approval(
+    async def test_raw_response_update_approval(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.tools.with_raw_response.update_approval(
             tool_name="tool_name",
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             requires_approval=True,
         )
 
@@ -399,10 +425,10 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_modify_approval(self, async_client: AsyncLettaSDK) -> None:
-        async with async_client.agents.tools.with_streaming_response.modify_approval(
+    async def test_streaming_response_update_approval(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.tools.with_streaming_response.update_approval(
             tool_name="tool_name",
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             requires_approval=True,
         ) as response:
             assert not response.is_closed
@@ -415,17 +441,17 @@ class TestAsyncTools:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_modify_approval(self, async_client: AsyncLettaSDK) -> None:
+    async def test_path_params_update_approval(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.tools.with_raw_response.modify_approval(
+            await async_client.agents.tools.with_raw_response.update_approval(
                 tool_name="tool_name",
                 agent_id="",
                 requires_approval=True,
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
-            await async_client.agents.tools.with_raw_response.modify_approval(
+            await async_client.agents.tools.with_raw_response.update_approval(
                 tool_name="",
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 requires_approval=True,
             )

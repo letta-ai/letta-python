@@ -10,15 +10,15 @@ import httpx
 import pytest
 from pytest_asyncio import is_async_test
 
-from letta_sdk import LettaSDK, AsyncLettaSDK, DefaultAioHttpClient
-from letta_sdk._utils import is_dict
+from letta_client import Letta, AsyncLetta, DefaultAioHttpClient
+from letta_client._utils import is_dict
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("letta_sdk").setLevel(logging.DEBUG)
+logging.getLogger("letta_client").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
@@ -49,17 +49,17 @@ api_key = "My API Key"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[LettaSDK]:
+def client(request: FixtureRequest) -> Iterator[Letta]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with LettaSDK(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    with Letta(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLettaSDK]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLetta]:
     param = getattr(request, "param", True)
 
     # defaults
@@ -78,7 +78,7 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLettaSDK]:
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
 
-    async with AsyncLettaSDK(
+    async with AsyncLetta(
         base_url=base_url, api_key=api_key, _strict_response_validation=strict, http_client=http_client
     ) as client:
         yield client
