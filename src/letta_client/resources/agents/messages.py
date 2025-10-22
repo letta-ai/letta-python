@@ -25,7 +25,6 @@ from ...types.agents import (
     message_cancel_params,
     message_stream_params,
     message_update_params,
-    message_summarize_params,
     message_send_async_params,
 )
 from ...types.agents.run import Run
@@ -674,7 +673,6 @@ class MessagesResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        max_message_length: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -683,15 +681,10 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Summarize an agent's conversation history to a target message length.
-
-        This endpoint summarizes the current message history for a given agent,
-        truncating and compressing it down to the specified `max_message_length`.
+        Summarize an agent's conversation history.
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          max_message_length: Maximum number of messages to retain after summarization.
 
           extra_headers: Send extra headers
 
@@ -707,13 +700,7 @@ class MessagesResource(SyncAPIResource):
         return self._post(
             f"/v1/agents/{agent_id}/summarize",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"max_message_length": max_message_length}, message_summarize_params.MessageSummarizeParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
@@ -1352,7 +1339,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        max_message_length: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1361,15 +1347,10 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Summarize an agent's conversation history to a target message length.
-
-        This endpoint summarizes the current message history for a given agent,
-        truncating and compressing it down to the specified `max_message_length`.
+        Summarize an agent's conversation history.
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          max_message_length: Maximum number of messages to retain after summarization.
 
           extra_headers: Send extra headers
 
@@ -1385,13 +1366,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         return await self._post(
             f"/v1/agents/{agent_id}/summarize",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"max_message_length": max_message_length}, message_summarize_params.MessageSummarizeParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
