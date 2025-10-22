@@ -8,6 +8,7 @@ from .message import Message as Message
 from .job_type import JobType as JobType
 from .tool_call import ToolCall as ToolCall
 from .job_status import JobStatus as JobStatus
+from .tool_return import ToolReturn as ToolReturn
 from .message_role import MessageRole as MessageRole
 from .message_type import MessageType as MessageType
 from .text_content import TextContent as TextContent
@@ -25,6 +26,7 @@ from .reasoning_content import ReasoningContent as ReasoningContent
 from .reasoning_message import ReasoningMessage as ReasoningMessage
 from .tool_call_content import ToolCallContent as ToolCallContent
 from .tool_call_message import ToolCallMessage as ToolCallMessage
+from .tool_return_param import ToolReturnParam as ToolReturnParam
 from .file_list_response import FileListResponse as FileListResponse
 from .file_open_response import FileOpenResponse as FileOpenResponse
 from .folder_list_params import FolderListParams as FolderListParams

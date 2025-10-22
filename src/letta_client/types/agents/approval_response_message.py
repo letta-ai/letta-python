@@ -6,13 +6,9 @@ from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
+from .tool_return import ToolReturn
 
-__all__ = [
-    "ApprovalResponseMessage",
-    "Approval",
-    "ApprovalApprovalReturn",
-    "ApprovalLettaSchemasLettaMessageToolReturn",
-]
+__all__ = ["ApprovalResponseMessage", "Approval", "ApprovalApprovalReturn"]
 
 
 class ApprovalApprovalReturn(BaseModel):
@@ -29,24 +25,7 @@ class ApprovalApprovalReturn(BaseModel):
     """The message type to be created."""
 
 
-class ApprovalLettaSchemasLettaMessageToolReturn(BaseModel):
-    status: Literal["success", "error"]
-
-    tool_call_id: str
-
-    tool_return: str
-
-    stderr: Optional[List[str]] = None
-
-    stdout: Optional[List[str]] = None
-
-    type: Optional[Literal["tool"]] = None
-    """The message type to be created."""
-
-
-Approval: TypeAlias = Annotated[
-    Union[ApprovalApprovalReturn, ApprovalLettaSchemasLettaMessageToolReturn], PropertyInfo(discriminator="type")
-]
+Approval: TypeAlias = Annotated[Union[ApprovalApprovalReturn, ToolReturn], PropertyInfo(discriminator="type")]
 
 
 class ApprovalResponseMessage(BaseModel):

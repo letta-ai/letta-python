@@ -5,9 +5,9 @@ from __future__ import annotations
 from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..._types import SequenceNotStr
+from .tool_return_param import ToolReturnParam
 
-__all__ = ["ApprovalCreateParam", "Approval", "ApprovalApprovalReturn", "ApprovalLettaSchemasLettaMessageToolReturn"]
+__all__ = ["ApprovalCreateParam", "Approval", "ApprovalApprovalReturn"]
 
 
 class ApprovalApprovalReturn(TypedDict, total=False):
@@ -24,22 +24,7 @@ class ApprovalApprovalReturn(TypedDict, total=False):
     """The message type to be created."""
 
 
-class ApprovalLettaSchemasLettaMessageToolReturn(TypedDict, total=False):
-    status: Required[Literal["success", "error"]]
-
-    tool_call_id: Required[str]
-
-    tool_return: Required[str]
-
-    stderr: Optional[SequenceNotStr[str]]
-
-    stdout: Optional[SequenceNotStr[str]]
-
-    type: Literal["tool"]
-    """The message type to be created."""
-
-
-Approval: TypeAlias = Union[ApprovalApprovalReturn, ApprovalLettaSchemasLettaMessageToolReturn]
+Approval: TypeAlias = Union[ApprovalApprovalReturn, ToolReturnParam]
 
 
 class ApprovalCreateParam(TypedDict, total=False):
