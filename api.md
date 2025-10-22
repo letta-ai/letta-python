@@ -265,7 +265,7 @@ Methods:
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">send</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_send_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_response.py">LettaResponse</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">send_async</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_send_async_params.py">params</a>) -> <a href="./src/letta_client/types/agents/run.py">Run</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">stream</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_stream_params.py">params</a>) -> object</code>
-- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">summarize</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_summarize_params.py">params</a>) -> None</code>
+- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">summarize</a>(agent_id) -> None</code>
 
 # Groups
 

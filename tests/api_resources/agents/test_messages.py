@@ -857,8 +857,7 @@ class TestMessages:
     @parametrize
     def test_method_summarize(self, client: Letta) -> None:
         message = client.agents.messages.summarize(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            max_message_length=0,
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert message is None
 
@@ -866,8 +865,7 @@ class TestMessages:
     @parametrize
     def test_raw_response_summarize(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.summarize(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            max_message_length=0,
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -879,8 +877,7 @@ class TestMessages:
     @parametrize
     def test_streaming_response_summarize(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.summarize(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            max_message_length=0,
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -895,8 +892,7 @@ class TestMessages:
     def test_path_params_summarize(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.messages.with_raw_response.summarize(
-                agent_id="",
-                max_message_length=0,
+                "",
             )
 
 
@@ -1738,8 +1734,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_summarize(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.summarize(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            max_message_length=0,
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert message is None
 
@@ -1747,8 +1742,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_raw_response_summarize(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.summarize(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            max_message_length=0,
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -1760,8 +1754,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_streaming_response_summarize(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.summarize(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            max_message_length=0,
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1776,6 +1769,5 @@ class TestAsyncMessages:
     async def test_path_params_summarize(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.messages.with_raw_response.summarize(
-                agent_id="",
-                max_message_length=0,
+                "",
             )
