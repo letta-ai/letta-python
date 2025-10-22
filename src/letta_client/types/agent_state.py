@@ -242,6 +242,9 @@ class AgentState(BaseModel):
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
 
+    managed_group: Optional[Group] = None
+    """The multi-agent group that this agent manages"""
+
     max_files_open: Optional[int] = None
     """Maximum number of files that can be open at once for this agent.
 
