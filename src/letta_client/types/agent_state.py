@@ -8,6 +8,7 @@ from .tool import Tool
 from .group import Group
 from .._utils import PropertyInfo
 from .._models import BaseModel
+from .identity import Identity
 from .agent_type import AgentType
 from .llm_config import LlmConfig
 from .agents.block import Block
@@ -225,6 +226,9 @@ class AgentState(BaseModel):
 
     hidden: Optional[bool] = None
     """If set to True, the agent will be hidden."""
+
+    identities: Optional[List[Identity]] = None
+    """The identities associated with this agent."""
 
     identity_ids: Optional[List[str]] = None
     """The ids of the identities associated with this agent."""
