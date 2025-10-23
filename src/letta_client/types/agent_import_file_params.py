@@ -30,6 +30,9 @@ class AgentImportFileParams(TypedDict, total=False):
     externally.
     """
 
+    override_name: Optional[str]
+    """If provided, overrides the agent name with this value."""
+
     project_id: Optional[str]
     """The project ID to associate the uploaded agent with."""
 
