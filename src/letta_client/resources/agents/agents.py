@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Mapping, Iterable, Optional, cast
+from typing import Dict, List, Union, Mapping, Iterable, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -379,6 +379,18 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
+        include: List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
+        ]
+        | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -393,9 +405,13 @@ class AgentsResource(SyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
+          include: Specify which relational fields to include in the response. No relationships are
+              included by default.
+
           include_relationships: Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
               in the response. If not provided, all relationships are loaded by default. Using
-              this can optimize performance by reducing unnecessary joins.
+              this can optimize performance by reducing unnecessary joins.This is a legacy
+              parameter, and no longer supported after 1.0.0 SDK versions.
 
           extra_headers: Send extra headers
 
@@ -415,7 +431,11 @@ class AgentsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"include_relationships": include_relationships}, agent_retrieve_params.AgentRetrieveParams
+                    {
+                        "include": include,
+                        "include_relationships": include_relationships,
+                    },
+                    agent_retrieve_params.AgentRetrieveParams,
                 ),
             ),
             cast_to=AgentState,
@@ -600,6 +620,18 @@ class AgentsResource(SyncAPIResource):
         before: Optional[str] | Omit = omit,
         identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
         identity_id: Optional[str] | Omit = omit,
+        include: List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
+        ]
+        | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         match_all_tags: bool | Omit = omit,
@@ -635,9 +667,13 @@ class AgentsResource(SyncAPIResource):
 
           identity_id: Search agents by identity ID
 
+          include: Specify which relational fields to include in the response. No relationships are
+              included by default.
+
           include_relationships: Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
               in the response. If not provided, all relationships are loaded by default. Using
-              this can optimize performance by reducing unnecessary joins.
+              this can optimize performance by reducing unnecessary joins.This is a legacy
+              parameter, and no longer supported after 1.0.0 SDK versions.
 
           limit: Limit for pagination
 
@@ -684,6 +720,7 @@ class AgentsResource(SyncAPIResource):
                         "before": before,
                         "identifier_keys": identifier_keys,
                         "identity_id": identity_id,
+                        "include": include,
                         "include_relationships": include_relationships,
                         "limit": limit,
                         "match_all_tags": match_all_tags,
@@ -1167,6 +1204,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
+        include: List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
+        ]
+        | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1181,9 +1230,13 @@ class AsyncAgentsResource(AsyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
+          include: Specify which relational fields to include in the response. No relationships are
+              included by default.
+
           include_relationships: Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
               in the response. If not provided, all relationships are loaded by default. Using
-              this can optimize performance by reducing unnecessary joins.
+              this can optimize performance by reducing unnecessary joins.This is a legacy
+              parameter, and no longer supported after 1.0.0 SDK versions.
 
           extra_headers: Send extra headers
 
@@ -1203,7 +1256,11 @@ class AsyncAgentsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"include_relationships": include_relationships}, agent_retrieve_params.AgentRetrieveParams
+                    {
+                        "include": include,
+                        "include_relationships": include_relationships,
+                    },
+                    agent_retrieve_params.AgentRetrieveParams,
                 ),
             ),
             cast_to=AgentState,
@@ -1388,6 +1445,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         before: Optional[str] | Omit = omit,
         identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
         identity_id: Optional[str] | Omit = omit,
+        include: List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
+        ]
+        | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         match_all_tags: bool | Omit = omit,
@@ -1423,9 +1492,13 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           identity_id: Search agents by identity ID
 
+          include: Specify which relational fields to include in the response. No relationships are
+              included by default.
+
           include_relationships: Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
               in the response. If not provided, all relationships are loaded by default. Using
-              this can optimize performance by reducing unnecessary joins.
+              this can optimize performance by reducing unnecessary joins.This is a legacy
+              parameter, and no longer supported after 1.0.0 SDK versions.
 
           limit: Limit for pagination
 
@@ -1472,6 +1545,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                         "before": before,
                         "identifier_keys": identifier_keys,
                         "identity_id": identity_id,
+                        "include": include,
                         "include_relationships": include_relationships,
                         "limit": limit,
                         "match_all_tags": match_all_tags,
