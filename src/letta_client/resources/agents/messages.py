@@ -408,15 +408,11 @@ class MessagesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._patch(
             f"/v1/agents/{agent_id}/reset-messages",
+            body=maybe_transform(
+                {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"add_default_initial_messages": add_default_initial_messages},
-                    message_reset_params.MessageResetParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentState,
         )
@@ -1074,15 +1070,11 @@ class AsyncMessagesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._patch(
             f"/v1/agents/{agent_id}/reset-messages",
+            body=await async_maybe_transform(
+                {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
+            ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"add_default_initial_messages": add_default_initial_messages},
-                    message_reset_params.MessageResetParams,
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentState,
         )
