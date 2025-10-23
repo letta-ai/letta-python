@@ -250,6 +250,7 @@ class TestAgents:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             base_template_id="base_template_id",
             block_ids=["string"],
+            context_window_limit=0,
             description="description",
             embedding="embedding",
             embedding_config={
@@ -292,6 +293,7 @@ class TestAgents:
                 "verbosity": "low",
             },
             max_files_open=0,
+            max_tokens=0,
             message_buffer_autoclear=True,
             message_ids=["string"],
             metadata={"foo": "bar"},
@@ -819,6 +821,7 @@ class TestAsyncAgents:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             base_template_id="base_template_id",
             block_ids=["string"],
+            context_window_limit=0,
             description="description",
             embedding="embedding",
             embedding_config={
@@ -861,6 +864,7 @@ class TestAsyncAgents:
                 "verbosity": "low",
             },
             max_files_open=0,
+            max_tokens=0,
             message_buffer_autoclear=True,
             message_ids=["string"],
             metadata={"foo": "bar"},
