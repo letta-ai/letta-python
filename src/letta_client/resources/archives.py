@@ -84,6 +84,41 @@ class ArchivesResource(SyncAPIResource):
             cast_to=Archive,
         )
 
+    def retrieve(
+        self,
+        archive_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Archive:
+        """
+        Get a single archive by its ID.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return self._get(
+            f"/v1/archives/{archive_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Archive,
+        )
+
     def update(
         self,
         archive_id: str,
@@ -194,6 +229,41 @@ class ArchivesResource(SyncAPIResource):
             cast_to=ArchiveListResponse,
         )
 
+    def delete(
+        self,
+        archive_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Archive:
+        """
+        Delete an archive by its ID.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return self._delete(
+            f"/v1/archives/{archive_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Archive,
+        )
+
 
 class AsyncArchivesResource(AsyncAPIResource):
     @cached_property
@@ -248,6 +318,41 @@ class AsyncArchivesResource(AsyncAPIResource):
                 },
                 archive_create_params.ArchiveCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Archive,
+        )
+
+    async def retrieve(
+        self,
+        archive_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Archive:
+        """
+        Get a single archive by its ID.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return await self._get(
+            f"/v1/archives/{archive_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -364,6 +469,41 @@ class AsyncArchivesResource(AsyncAPIResource):
             cast_to=ArchiveListResponse,
         )
 
+    async def delete(
+        self,
+        archive_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Archive:
+        """
+        Delete an archive by its ID.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return await self._delete(
+            f"/v1/archives/{archive_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Archive,
+        )
+
 
 class ArchivesResourceWithRawResponse:
     def __init__(self, archives: ArchivesResource) -> None:
@@ -372,11 +512,17 @@ class ArchivesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             archives.create,
         )
+        self.retrieve = to_raw_response_wrapper(
+            archives.retrieve,
+        )
         self.update = to_raw_response_wrapper(
             archives.update,
         )
         self.list = to_raw_response_wrapper(
             archives.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            archives.delete,
         )
 
 
@@ -387,11 +533,17 @@ class AsyncArchivesResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             archives.create,
         )
+        self.retrieve = async_to_raw_response_wrapper(
+            archives.retrieve,
+        )
         self.update = async_to_raw_response_wrapper(
             archives.update,
         )
         self.list = async_to_raw_response_wrapper(
             archives.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            archives.delete,
         )
 
 
@@ -402,11 +554,17 @@ class ArchivesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             archives.create,
         )
+        self.retrieve = to_streamed_response_wrapper(
+            archives.retrieve,
+        )
         self.update = to_streamed_response_wrapper(
             archives.update,
         )
         self.list = to_streamed_response_wrapper(
             archives.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            archives.delete,
         )
 
 
@@ -417,9 +575,15 @@ class AsyncArchivesResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             archives.create,
         )
+        self.retrieve = async_to_streamed_response_wrapper(
+            archives.retrieve,
+        )
         self.update = async_to_streamed_response_wrapper(
             archives.update,
         )
         self.list = async_to_streamed_response_wrapper(
             archives.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            archives.delete,
         )
