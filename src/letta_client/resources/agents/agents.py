@@ -814,6 +814,7 @@ class AgentsResource(SyncAPIResource):
         env_vars_json: Optional[str] | Omit = omit,
         override_embedding_handle: Optional[str] | Omit = omit,
         override_existing_tools: bool | Omit = omit,
+        override_name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         strip_messages: bool | Omit = omit,
         x_override_embedding_model: str | Omit = omit,
@@ -840,6 +841,8 @@ class AgentsResource(SyncAPIResource):
               uploaded tool definitions. Note that Letta core tools can never be updated
               externally.
 
+          override_name: If provided, overrides the agent name with this value.
+
           project_id: The project ID to associate the uploaded agent with.
 
           strip_messages: If set to True, strips all messages from the agent before importing.
@@ -863,6 +866,7 @@ class AgentsResource(SyncAPIResource):
                 "env_vars_json": env_vars_json,
                 "override_embedding_handle": override_embedding_handle,
                 "override_existing_tools": override_existing_tools,
+                "override_name": override_name,
                 "project_id": project_id,
                 "strip_messages": strip_messages,
             }
@@ -1598,6 +1602,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         env_vars_json: Optional[str] | Omit = omit,
         override_embedding_handle: Optional[str] | Omit = omit,
         override_existing_tools: bool | Omit = omit,
+        override_name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         strip_messages: bool | Omit = omit,
         x_override_embedding_model: str | Omit = omit,
@@ -1624,6 +1629,8 @@ class AsyncAgentsResource(AsyncAPIResource):
               uploaded tool definitions. Note that Letta core tools can never be updated
               externally.
 
+          override_name: If provided, overrides the agent name with this value.
+
           project_id: The project ID to associate the uploaded agent with.
 
           strip_messages: If set to True, strips all messages from the agent before importing.
@@ -1647,6 +1654,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                 "env_vars_json": env_vars_json,
                 "override_embedding_handle": override_embedding_handle,
                 "override_existing_tools": override_existing_tools,
+                "override_name": override_name,
                 "project_id": project_id,
                 "strip_messages": strip_messages,
             }
