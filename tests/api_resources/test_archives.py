@@ -65,6 +65,48 @@ class TestArchives:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_retrieve(self, client: Letta) -> None:
+        archive = client.archives.retrieve(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve(self, client: Letta) -> None:
+        response = client.archives.with_raw_response.retrieve(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        archive = response.parse()
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve(self, client: Letta) -> None:
+        with client.archives.with_streaming_response.retrieve(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            archive = response.parse()
+            assert_matches_type(Archive, archive, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_retrieve(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
+            client.archives.with_raw_response.retrieve(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_update(self, client: Letta) -> None:
         archive = client.archives.update(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
@@ -156,6 +198,48 @@ class TestArchives:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: Letta) -> None:
+        archive = client.archives.delete(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: Letta) -> None:
+        response = client.archives.with_raw_response.delete(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        archive = response.parse()
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: Letta) -> None:
+        with client.archives.with_streaming_response.delete(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            archive = response.parse()
+            assert_matches_type(Archive, archive, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
+            client.archives.with_raw_response.delete(
+                "",
+            )
+
 
 class TestAsyncArchives:
     parametrize = pytest.mark.parametrize(
@@ -204,6 +288,48 @@ class TestAsyncArchives:
             assert_matches_type(Archive, archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
+        archive = await async_client.archives.retrieve(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
+        response = await async_client.archives.with_raw_response.retrieve(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        archive = await response.parse()
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
+        async with async_client.archives.with_streaming_response.retrieve(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            archive = await response.parse()
+            assert_matches_type(Archive, archive, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
+            await async_client.archives.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -297,3 +423,45 @@ class TestAsyncArchives:
             assert_matches_type(ArchiveListResponse, archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncLetta) -> None:
+        archive = await async_client.archives.delete(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
+        response = await async_client.archives.with_raw_response.delete(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        archive = await response.parse()
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
+        async with async_client.archives.with_streaming_response.delete(
+            "archive-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            archive = await response.parse()
+            assert_matches_type(Archive, archive, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
+            await async_client.archives.with_raw_response.delete(
+                "",
+            )
