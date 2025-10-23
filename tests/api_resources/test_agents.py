@@ -196,6 +196,7 @@ class TestAgents:
     def test_method_retrieve_with_all_params(self, client: Letta) -> None:
         agent = client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            include=["agent.blocks"],
             include_relationships=["string"],
         )
         assert_matches_type(AgentState, agent, path=["response"])
@@ -376,6 +377,7 @@ class TestAgents:
             before="before",
             identifier_keys=["string"],
             identity_id="identity_id",
+            include=["agent.blocks"],
             include_relationships=["string"],
             limit=0,
             match_all_tags=True,
@@ -763,6 +765,7 @@ class TestAsyncAgents:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            include=["agent.blocks"],
             include_relationships=["string"],
         )
         assert_matches_type(AgentState, agent, path=["response"])
@@ -943,6 +946,7 @@ class TestAsyncAgents:
             before="before",
             identifier_keys=["string"],
             identity_id="identity_id",
+            include=["agent.blocks"],
             include_relationships=["string"],
             limit=0,
             match_all_tags=True,

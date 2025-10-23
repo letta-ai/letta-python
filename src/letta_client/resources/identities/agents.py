@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -50,6 +50,18 @@ class AgentsResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        include: List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
+        ]
+        | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
@@ -71,6 +83,9 @@ class AgentsResource(SyncAPIResource):
 
           before: Agent ID cursor for pagination. Returns agents that come before this agent ID in
               the specified sort order
+
+          include: Specify which relational fields to include in the response. No relationships are
+              included by default.
 
           limit: Maximum number of agents to return
 
@@ -100,6 +115,7 @@ class AgentsResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "include": include,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,
@@ -137,6 +153,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        include: List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
+        ]
+        | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
@@ -158,6 +186,9 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           before: Agent ID cursor for pagination. Returns agents that come before this agent ID in
               the specified sort order
+
+          include: Specify which relational fields to include in the response. No relationships are
+              included by default.
 
           limit: Maximum number of agents to return
 
@@ -187,6 +218,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "include": include,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -50,6 +50,18 @@ class AgentsResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        include: List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
+        ]
+        | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
@@ -75,9 +87,13 @@ class AgentsResource(SyncAPIResource):
           before: Agent ID cursor for pagination. Returns agents that come before this agent ID in
               the specified sort order
 
+          include: Specify which relational fields to include in the response. No relationships are
+              included by default.
+
           include_relationships: Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
               in the response. If not provided, all relationships are loaded by default. Using
-              this can optimize performance by reducing unnecessary joins.
+              this can optimize performance by reducing unnecessary joins.This is a legacy
+              parameter, and no longer supported after 1.0.0 SDK versions.
 
           limit: Maximum number of agents to return
 
@@ -107,6 +123,7 @@ class AgentsResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "include": include,
                         "include_relationships": include_relationships,
                         "limit": limit,
                         "order": order,
@@ -145,6 +162,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        include: List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
+        ]
+        | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
@@ -170,9 +199,13 @@ class AsyncAgentsResource(AsyncAPIResource):
           before: Agent ID cursor for pagination. Returns agents that come before this agent ID in
               the specified sort order
 
+          include: Specify which relational fields to include in the response. No relationships are
+              included by default.
+
           include_relationships: Specify which relational fields (e.g., 'tools', 'sources', 'memory') to include
               in the response. If not provided, all relationships are loaded by default. Using
-              this can optimize performance by reducing unnecessary joins.
+              this can optimize performance by reducing unnecessary joins.This is a legacy
+              parameter, and no longer supported after 1.0.0 SDK versions.
 
           limit: Maximum number of agents to return
 
@@ -202,6 +235,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "include": include,
                         "include_relationships": include_relationships,
                         "limit": limit,
                         "order": order,

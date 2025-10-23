@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["AgentListParams"]
@@ -19,6 +19,22 @@ class AgentListParams(TypedDict, total=False):
     """Agent ID cursor for pagination.
 
     Returns agents that come before this agent ID in the specified sort order
+    """
+
+    include: List[
+        Literal[
+            "agent.blocks",
+            "agent.identities",
+            "agent.managed_group",
+            "agent.secrets",
+            "agent.sources",
+            "agent.tags",
+            "agent.tools",
+        ]
+    ]
+    """Specify which relational fields to include in the response.
+
+    No relationships are included by default.
     """
 
     limit: Optional[int]
