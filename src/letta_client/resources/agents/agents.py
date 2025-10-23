@@ -447,6 +447,7 @@ class AgentsResource(SyncAPIResource):
         *,
         base_template_id: Optional[str] | Omit = omit,
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
@@ -457,6 +458,7 @@ class AgentsResource(SyncAPIResource):
         last_run_duration_ms: Optional[int] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
         message_buffer_autoclear: Optional[bool] | Omit = omit,
         message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
@@ -493,6 +495,8 @@ class AgentsResource(SyncAPIResource):
 
           block_ids: The ids of the blocks used by the agent.
 
+          context_window_limit: The context window limit used by the agent.
+
           description: The description of the agent.
 
           embedding: The embedding configuration handle used by the agent, specified in the format
@@ -514,6 +518,9 @@ class AgentsResource(SyncAPIResource):
 
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
+
+          max_tokens: The maximum number of tokens to generate, including reasoning step. If not set,
+              the model will use its default value.
 
           message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
               will still retain state via core memory blocks and archival/recall memory). Not
@@ -573,6 +580,7 @@ class AgentsResource(SyncAPIResource):
                 {
                     "base_template_id": base_template_id,
                     "block_ids": block_ids,
+                    "context_window_limit": context_window_limit,
                     "description": description,
                     "embedding": embedding,
                     "embedding_config": embedding_config,
@@ -583,6 +591,7 @@ class AgentsResource(SyncAPIResource):
                     "last_run_duration_ms": last_run_duration_ms,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
+                    "max_tokens": max_tokens,
                     "message_buffer_autoclear": message_buffer_autoclear,
                     "message_ids": message_ids,
                     "metadata": metadata,
@@ -1272,6 +1281,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         base_template_id: Optional[str] | Omit = omit,
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
@@ -1282,6 +1292,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         last_run_duration_ms: Optional[int] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
         message_buffer_autoclear: Optional[bool] | Omit = omit,
         message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
@@ -1318,6 +1329,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           block_ids: The ids of the blocks used by the agent.
 
+          context_window_limit: The context window limit used by the agent.
+
           description: The description of the agent.
 
           embedding: The embedding configuration handle used by the agent, specified in the format
@@ -1339,6 +1352,9 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
+
+          max_tokens: The maximum number of tokens to generate, including reasoning step. If not set,
+              the model will use its default value.
 
           message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
               will still retain state via core memory blocks and archival/recall memory). Not
@@ -1398,6 +1414,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                 {
                     "base_template_id": base_template_id,
                     "block_ids": block_ids,
+                    "context_window_limit": context_window_limit,
                     "description": description,
                     "embedding": embedding,
                     "embedding_config": embedding_config,
@@ -1408,6 +1425,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "last_run_duration_ms": last_run_duration_ms,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
+                    "max_tokens": max_tokens,
                     "message_buffer_autoclear": message_buffer_autoclear,
                     "message_ids": message_ids,
                     "metadata": metadata,

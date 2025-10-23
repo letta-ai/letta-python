@@ -33,6 +33,9 @@ class AgentUpdateParams(TypedDict, total=False):
     block_ids: Optional[SequenceNotStr[str]]
     """The ids of the blocks used by the agent."""
 
+    context_window_limit: Optional[int]
+    """The context window limit used by the agent."""
+
     description: Optional[str]
     """The description of the agent."""
 
@@ -67,6 +70,12 @@ class AgentUpdateParams(TypedDict, total=False):
     """Maximum number of files that can be open at once for this agent.
 
     Setting this too high may exceed the context window, which will break the agent.
+    """
+
+    max_tokens: Optional[int]
+    """The maximum number of tokens to generate, including reasoning step.
+
+    If not set, the model will use its default value.
     """
 
     message_buffer_autoclear: Optional[bool]
