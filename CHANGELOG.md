@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.0.0-alpha.7 (2025-10-24)
+
+Full Changelog: [v1.0.0-alpha.6...v1.0.0-alpha.7](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.6...v1.0.0-alpha.7)
+
+### Features
+
+* add agent template route to config ([8eeda3f](https://github.com/letta-ai/letta-python/commit/8eeda3f8e946eced4fe1a0dfb7798d748aabb8fc))
+* add new archive routes to sdk ([2b0a253](https://github.com/letta-ai/letta-python/commit/2b0a2536cd5c14d5dcf2770c79aabcab426642c4))
+* add openai-style include param for agents relationship loading ([acb797b](https://github.com/letta-ai/letta-python/commit/acb797bb966dc05ca59fef4fcec3b2b2bed83580))
+* deprecate append copy suffix, add override name [LET-5779] ([1b51b08](https://github.com/letta-ai/letta-python/commit/1b51b082a92e9183789e0fabe3838b4e75312a28))
+* fix patch approvals endpoint incorrectly using queyr params ([d6a4fe6](https://github.com/letta-ai/letta-python/commit/d6a4fe6a48cd93d891cc635f356f85a1ff199a4a))
+* remove run tool for external sdk ([3c1b717](https://github.com/letta-ai/letta-python/commit/3c1b71780b5baecda6e246f8c1d034d62adcecc2))
+* remove unused max length parameter ([85b5f00](https://github.com/letta-ai/letta-python/commit/85b5f00fcbb7d825dfdc7065f867600b718863b7))
+* rename multi agent group to managed group ([733e959](https://github.com/letta-ai/letta-python/commit/733e959a5951d080a5c7318c5a98d724c18d86ef))
+* replace agent.identity_ids with agent.identities ([900384e](https://github.com/letta-ai/letta-python/commit/900384e2d4a73a9a2dae9076182e19902daa77b7))
+* reset message incorrectly using query param ([06229f4](https://github.com/letta-ai/letta-python/commit/06229f43eaaffdf5a2b355e28f550abc7540c65f))
+* Revert "feat: revise mcp tool routes [LET-4321]" ([a77127e](https://github.com/letta-ai/letta-python/commit/a77127eb90b3e79264cf7cd6b12a70859393c9d7))
+* Support embedding config on the archive [LET-5832] ([ccfc935](https://github.com/letta-ai/letta-python/commit/ccfc935d425c24a782bdda272a39defd012b9bfa))
+
+
+### Bug Fixes
+
+* sdk config code gen ([6074e64](https://github.com/letta-ai/letta-python/commit/6074e6480ad03e057639b40f983029ae01d9f7d1))
+
+
+### Chores
+
+* add context_window_limit and max_tokens to UpdateAgent [LET-3743] [LET-3741] ([a841c73](https://github.com/letta-ai/letta-python/commit/a841c7333841aa79a70b805b9373b88429db1922))
+
 ## 1.0.0-alpha.6 (2025-10-22)
 
 Full Changelog: [v0.0.1...v1.0.0-alpha.6](https://github.com/letta-ai/letta-python/compare/v0.0.1...v1.0.0-alpha.6)
