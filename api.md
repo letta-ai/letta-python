@@ -15,7 +15,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import Archive, VectorDBProvider, ArchiveListResponse
+from letta_client.types import Archive, VectorDBProvider
 ```
 
 Methods:
@@ -23,7 +23,7 @@ Methods:
 - <code title="post /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">create</a>(\*\*<a href="src/letta_client/types/archive_create_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 - <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">retrieve</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 - <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">update</a>(archive_id, \*\*<a href="src/letta_client/types/archive_update_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
-- <code title="get /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">list</a>(\*\*<a href="src/letta_client/types/archive_list_params.py">params</a>) -> <a href="./src/letta_client/types/archive_list_response.py">ArchiveListResponse</a></code>
+- <code title="get /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">list</a>(\*\*<a href="src/letta_client/types/archive_list_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">SyncArrayPage[Archive]</a></code>
 - <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">delete</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 
 # Tools
@@ -142,9 +142,9 @@ Methods:
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/tool_list_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">SyncArrayPage[Tool]</a></code>
-- <code title="patch /v1/agents/{agent_id}/tools/attach/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">attach</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
-- <code title="patch /v1/agents/{agent_id}/tools/detach/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">detach</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
-- <code title="patch /v1/agents/{agent_id}/tools/approval/{tool_name}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">update_approval</a>(tool_name, \*, agent_id, \*\*<a href="src/letta_client/types/agents/tool_update_approval_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
+- <code title="patch /v1/agents/{agent_id}/tools/attach/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">attach</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
+- <code title="patch /v1/agents/{agent_id}/tools/detach/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">detach</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
+- <code title="patch /v1/agents/{agent_id}/tools/approval/{tool_name}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">update_approval</a>(tool_name, \*, agent_id, \*\*<a href="src/letta_client/types/agents/tool_update_approval_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
 
 ## Folders
 
@@ -170,7 +170,7 @@ from letta_client.types.agents import FileListResponse, FileCloseAllResponse, Fi
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/files">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/file_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/file_list_response.py">FileListResponse</a></code>
+- <code title="get /v1/agents/{agent_id}/files">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/file_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/file_list_response.py">SyncNextFilesPage[FileListResponse]</a></code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/close">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">close</a>(file_id, \*, agent_id) -> object</code>
 - <code title="patch /v1/agents/{agent_id}/files/close-all">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">close_all</a>(agent_id) -> <a href="./src/letta_client/types/agents/file_close_all_response.py">FileCloseAllResponse</a></code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/open">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">open</a>(file_id, \*, agent_id) -> <a href="./src/letta_client/types/agents/file_open_response.py">FileOpenResponse</a></code>
@@ -501,15 +501,9 @@ Methods:
 
 ## Messages
 
-Types:
-
-```python
-from letta_client.types.batches import MessageListResponse
-```
-
 Methods:
 
-- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/letta_client/resources/batches/messages.py">list</a>(batch_id, \*\*<a href="src/letta_client/types/batches/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/batches/message_list_response.py">MessageListResponse</a></code>
+- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/letta_client/resources/batches/messages.py">list</a>(batch_id, \*\*<a href="src/letta_client/types/batches/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncObjectPage[Message]</a></code>
 
 # Templates
 

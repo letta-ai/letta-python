@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 import pytest
 
@@ -80,7 +80,7 @@ class TestTools:
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -93,7 +93,7 @@ class TestTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -106,7 +106,7 @@ class TestTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(AgentState, tool, path=["response"])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -132,7 +132,7 @@ class TestTools:
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -145,7 +145,7 @@ class TestTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -158,7 +158,7 @@ class TestTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(AgentState, tool, path=["response"])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -185,7 +185,7 @@ class TestTools:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             body_requires_approval=True,
         )
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -196,7 +196,7 @@ class TestTools:
             body_requires_approval=True,
             query_requires_approval=True,
         )
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -210,7 +210,7 @@ class TestTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -224,7 +224,7 @@ class TestTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(AgentState, tool, path=["response"])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -313,7 +313,7 @@ class TestAsyncTools:
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -326,7 +326,7 @@ class TestAsyncTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -339,7 +339,7 @@ class TestAsyncTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(AgentState, tool, path=["response"])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -365,7 +365,7 @@ class TestAsyncTools:
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -378,7 +378,7 @@ class TestAsyncTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -391,7 +391,7 @@ class TestAsyncTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(AgentState, tool, path=["response"])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -418,7 +418,7 @@ class TestAsyncTools:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             body_requires_approval=True,
         )
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -429,7 +429,7 @@ class TestAsyncTools:
             body_requires_approval=True,
             query_requires_approval=True,
         )
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -443,7 +443,7 @@ class TestAsyncTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(AgentState, tool, path=["response"])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -457,7 +457,7 @@ class TestAsyncTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(AgentState, tool, path=["response"])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

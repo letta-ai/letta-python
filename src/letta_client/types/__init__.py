@@ -69,7 +69,6 @@ from .message_create_param import MessageCreateParam as MessageCreateParam
 from .text_response_format import TextResponseFormat as TextResponseFormat
 from .agent_retrieve_params import AgentRetrieveParams as AgentRetrieveParams
 from .archive_create_params import ArchiveCreateParams as ArchiveCreateParams
-from .archive_list_response import ArchiveListResponse as ArchiveListResponse
 from .archive_update_params import ArchiveUpdateParams as ArchiveUpdateParams
 from .child_tool_rule_param import ChildToolRuleParam as ChildToolRuleParam
 from .conditional_tool_rule import ConditionalToolRule as ConditionalToolRule
