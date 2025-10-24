@@ -35,6 +35,11 @@ client = Letta(
 )
 
 archive = client.archives.create(
+    embedding_config={
+        "embedding_dim": 0,
+        "embedding_endpoint_type": "openai",
+        "embedding_model": "embedding_model",
+    },
     name="name",
 )
 print(archive.id)
@@ -63,6 +68,11 @@ client = AsyncLetta(
 
 async def main() -> None:
     archive = await client.archives.create(
+        embedding_config={
+            "embedding_dim": 0,
+            "embedding_endpoint_type": "openai",
+            "embedding_model": "embedding_model",
+        },
         name="name",
     )
     print(archive.id)
@@ -98,6 +108,11 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         archive = await client.archives.create(
+            embedding_config={
+                "embedding_dim": 0,
+                "embedding_endpoint_type": "openai",
+                "embedding_model": "embedding_model",
+            },
             name="name",
         )
         print(archive.id)
@@ -124,15 +139,15 @@ from letta_client import Letta
 
 client = Letta()
 
-folder = client.folders.create(
-    name="name",
+archive = client.archives.create(
     embedding_config={
         "embedding_dim": 0,
         "embedding_endpoint_type": "openai",
         "embedding_model": "embedding_model",
     },
+    name="name",
 )
-print(folder.embedding_config)
+print(archive.embedding_config)
 ```
 
 ## File uploads
@@ -170,6 +185,11 @@ client = Letta()
 
 try:
     client.archives.create(
+        embedding_config={
+            "embedding_dim": 0,
+            "embedding_endpoint_type": "openai",
+            "embedding_model": "embedding_model",
+        },
         name="name",
     )
 except letta_client.APIConnectionError as e:
@@ -215,6 +235,11 @@ client = Letta(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).archives.create(
+    embedding_config={
+        "embedding_dim": 0,
+        "embedding_endpoint_type": "openai",
+        "embedding_model": "embedding_model",
+    },
     name="name",
 )
 ```
@@ -240,6 +265,11 @@ client = Letta(
 
 # Override per-request:
 client.with_options(timeout=5.0).archives.create(
+    embedding_config={
+        "embedding_dim": 0,
+        "embedding_endpoint_type": "openai",
+        "embedding_model": "embedding_model",
+    },
     name="name",
 )
 ```
@@ -283,6 +313,11 @@ from letta_client import Letta
 
 client = Letta()
 response = client.archives.with_raw_response.create(
+    embedding_config={
+        "embedding_dim": 0,
+        "embedding_endpoint_type": "openai",
+        "embedding_model": "embedding_model",
+    },
     name="name",
 )
 print(response.headers.get('X-My-Header'))
@@ -303,6 +338,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.archives.with_streaming_response.create(
+    embedding_config={
+        "embedding_dim": 0,
+        "embedding_endpoint_type": "openai",
+        "embedding_model": "embedding_model",
+    },
     name="name",
 ) as response:
     print(response.headers.get("X-My-Header"))

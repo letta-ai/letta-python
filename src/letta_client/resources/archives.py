@@ -21,6 +21,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.archive import Archive
 from ..types.archive_list_response import ArchiveListResponse
+from ..types.embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["ArchivesResource", "AsyncArchivesResource"]
 
@@ -48,6 +49,7 @@ class ArchivesResource(SyncAPIResource):
     def create(
         self,
         *,
+        embedding_config: EmbeddingConfigParam,
         name: str,
         description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -61,6 +63,8 @@ class ArchivesResource(SyncAPIResource):
         Create a new archive.
 
         Args:
+          embedding_config: Embedding configuration for the archive
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -73,6 +77,7 @@ class ArchivesResource(SyncAPIResource):
             "/v1/archives/",
             body=maybe_transform(
                 {
+                    "embedding_config": embedding_config,
                     "name": name,
                     "description": description,
                 },
@@ -288,6 +293,7 @@ class AsyncArchivesResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        embedding_config: EmbeddingConfigParam,
         name: str,
         description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -301,6 +307,8 @@ class AsyncArchivesResource(AsyncAPIResource):
         Create a new archive.
 
         Args:
+          embedding_config: Embedding configuration for the archive
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -313,6 +321,7 @@ class AsyncArchivesResource(AsyncAPIResource):
             "/v1/archives/",
             body=await async_maybe_transform(
                 {
+                    "embedding_config": embedding_config,
                     "name": name,
                     "description": description,
                 },
