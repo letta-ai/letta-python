@@ -19,12 +19,16 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncArrayPage, AsyncArrayPage
-from ..types.tool import Tool
+from ..types.tool import Tool, BaseTool
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.tool_count_response import ToolCountResponse
 from ..types.npm_requirement_param import NpmRequirementParam
 from ..types.pip_requirement_param import PipRequirementParam
 from ..types.tool_upsert_base_tools_response import ToolUpsertBaseToolsResponse
+import typing
+from pydantic import BaseModel
+from textwrap import dedent
+import inspect
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
 
@@ -548,6 +552,303 @@ class ToolsResource(SyncAPIResource):
             cast_to=ToolUpsertBaseToolsResponse,
         )
 
+    def create_from_function(
+        self,
+        *,
+        func: typing.Callable[..., typing.Any],
+        args_schema: typing.Optional[typing.Type[BaseModel]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        source_type: str | Omit = omit,
+        json_schema: Optional[Dict[str, object]] | Omit = omit,
+        return_char_limit: int | Omit = omit,
+        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
+        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
+        default_requires_approval: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Create a new tool from a callable
+
+        Args:
+          func: The callable to create the tool from.
+
+          args_schema: The arguments schema of the function, as a Pydantic model.
+
+          description: The description of the tool.
+
+          tags: Metadata tags.
+
+          source_type: The source type of the function.
+
+          json_schema: The JSON schema of the function (auto-generated from source_code if not
+              provided)
+
+          return_char_limit: The maximum number of characters in the response.
+
+          pip_requirements: Optional list of pip packages required by this tool.
+
+          npm_requirements: Optional list of npm packages required by this tool.
+
+          default_requires_approval: Whether or not to require approval before executing this tool.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+        Examples:
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        
+        def add_two_numbers(a: int, b: int) -> int:
+            return a + b
+        
+        client.tools.create_from_function(
+            func=add_two_numbers,
+        )
+
+        class InventoryEntryData(BaseModel):
+            data: InventoryEntry
+            quantity_change: int
+
+        def manage_inventory(data: InventoryEntry, quantity_change: int) -> bool:
+            pass
+        
+        client.tools.create_from_function(
+            func=manage_inventory,
+            args_schema=InventoryEntryData,
+        )
+        """
+        source_code = dedent(inspect.getsource(func))
+        args_json_schema: Optional[Dict[str, object]] | Omit = omit
+        if not isinstance(args_schema, Omit) and args_schema is not None:
+            args_json_schema = args_schema.model_json_schema()
+
+        return self.create(
+            source_code=source_code,
+            args_json_schema=args_json_schema,
+            description=description,
+            tags=tags,
+            source_type=source_type,
+            json_schema=json_schema,
+            return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
+
+    def upsert_from_function(
+        self,
+        *,
+        func: typing.Callable[..., typing.Any],
+        args_schema: typing.Optional[typing.Type[BaseModel]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        source_type: str | Omit = omit,
+        json_schema: Optional[Dict[str, object]] | Omit = omit,
+        return_char_limit: int | Omit = omit,
+        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
+        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
+        default_requires_approval: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Create or update a tool from a callable
+
+        Args:
+          func: The callable to create or update the tool from.
+
+          args_schema: The arguments schema of the function, as a Pydantic model.
+
+          description: The description of the tool.
+
+          tags: Metadata tags.
+
+          source_type: The source type of the function.
+
+          json_schema: The JSON schema of the function (auto-generated from source_code if not
+              provided)
+
+          return_char_limit: The maximum number of characters in the response.
+
+          pip_requirements: Optional list of pip packages required by this tool.
+
+          npm_requirements: Optional list of npm packages required by this tool.
+
+          default_requires_approval: Whether or not to require approval before executing this tool.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+        Examples:
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+
+        def add_two_numbers(a: int, b: int) -> int:
+            return a + b
+        
+        client.tools.upsert_from_function(
+            func=add_two_numbers,
+        )
+
+        class InventoryEntryData(BaseModel):
+            data: InventoryEntry
+            quantity_change: int
+
+        def manage_inventory(data: InventoryEntry, quantity_change: int) -> bool:
+            pass
+        
+        client.tools.upsert_from_function(
+            func=manage_inventory,
+            args_schema=InventoryEntryData,
+        )
+        """
+        source_code = dedent(inspect.getsource(func))
+        args_json_schema: Optional[Dict[str, object]] | Omit = omit
+        if not isinstance(args_schema, Omit) and args_schema is not None:
+            args_json_schema = args_schema.model_json_schema()
+
+        return self.upsert(
+            source_code=source_code,
+            args_json_schema=args_json_schema,
+            description=description,
+            tags=tags,
+            source_type=source_type,
+            json_schema=json_schema,
+            return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
+
+    def add(
+        self,
+        *,
+        tool: BaseTool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Add a tool to Letta from a custom Tool class
+
+        Args:
+          tool: The tool object to be added.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+        Examples:
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+
+        class InventoryItem(BaseModel):
+            sku: str  # Unique product identifier
+            name: str  # Product name
+            price: float  # Current price
+            category: str  # Product category (e.g., "Electronics", "Clothing")
+
+        class InventoryEntry(BaseModel):
+            timestamp: int  # Unix timestamp of the transaction
+            item: InventoryItem  # The product being updated
+            transaction_id: str  # Unique identifier for this inventory update
+
+        class InventoryEntryData(BaseModel):
+            data: InventoryEntry
+            quantity_change: int  # Change in quantity (positive for additions, negative for removals)
+
+        class ManageInventoryTool(BaseTool):
+            name: str = "manage_inventory"
+            args_schema: Type[BaseModel] = InventoryEntryData
+            description: str = "Update inventory catalogue with a new data entry"
+            tags: List[str] = ["inventory", "shop"]
+
+            def run(self, data: InventoryEntry, quantity_change: int) -> bool:
+                '''
+                Implementation of the manage_inventory tool
+                '''
+                print(f"Updated inventory for {data.item.name} with a quantity change of {quantity_change}")
+                return True
+                
+        client.tools.add(
+            tool=ManageInventoryTool()
+        )
+        """
+        source_code = tool.get_source_code()
+        args_json_schema = tool.args_schema.model_json_schema() if tool.args_schema else None
+
+        # Convert PipRequirement/NpmRequirement models to Param dicts
+        pip_requirements_param = (
+            [typing.cast(PipRequirementParam, req.model_dump()) for req in tool.pip_requirements]
+            if tool.pip_requirements
+            else omit
+        )
+        npm_requirements_param = (
+            [typing.cast(NpmRequirementParam, req.model_dump()) for req in tool.npm_requirements]
+            if tool.npm_requirements
+            else omit
+        )
+
+        return self.upsert(
+            source_code=source_code,
+            args_json_schema=args_json_schema or omit,
+            description=tool.description or omit,
+            tags=tool.tags or omit,
+            source_type=tool.source_type or omit,
+            json_schema=tool.json_schema or omit,
+            return_char_limit=tool.return_char_limit or omit,
+            pip_requirements=pip_requirements_param,
+            npm_requirements=npm_requirements_param,
+            default_requires_approval=tool.default_requires_approval or omit,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
 
 class AsyncToolsResource(AsyncAPIResource):
     @cached_property
@@ -1066,6 +1367,305 @@ class AsyncToolsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ToolUpsertBaseToolsResponse,
+        )
+
+    async def create_from_function(
+        self,
+        *,
+        func: typing.Callable[..., typing.Any],
+        args_schema: typing.Optional[typing.Type[BaseModel]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        source_type: str | Omit = omit,
+        json_schema: Optional[Dict[str, object]] | Omit = omit,
+        return_char_limit: int | Omit = omit,
+        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
+        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
+        default_requires_approval: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Create a new tool from a callable
+
+        Args:
+          func: The callable to create the tool from.
+
+          args_schema: The arguments schema of the function, as a Pydantic model.
+
+          description: The description of the tool.
+
+          tags: Metadata tags.
+
+          source_type: The source type of the function.
+
+          json_schema: The JSON schema of the function (auto-generated from source_code if not
+              provided)
+
+          return_char_limit: The maximum number of characters in the response.
+
+          pip_requirements: Optional list of pip packages required by this tool.
+
+          npm_requirements: Optional list of npm packages required by this tool.
+
+          default_requires_approval: Whether or not to require approval before executing this tool.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+        Examples:
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        
+        def add_two_numbers(a: int, b: int) -> int:
+            return a + b
+        
+        await client.tools.create_from_function(
+            func=add_two_numbers,
+        )
+
+        class InventoryEntryData(BaseModel):
+            data: InventoryEntry
+            quantity_change: int
+
+        def manage_inventory(data: InventoryEntry, quantity_change: int) -> bool:
+            pass
+        
+        await client.tools.create_from_function(
+            func=manage_inventory,
+            args_schema=InventoryEntryData,
+        )
+        """
+        source_code = dedent(inspect.getsource(func))
+        args_json_schema: Optional[Dict[str, object]] | Omit = omit
+        if not isinstance(args_schema, Omit) and args_schema is not None:
+            args_json_schema = args_schema.model_json_schema()
+
+        return await self.create(
+            source_code=source_code,
+            args_json_schema=args_json_schema,
+            description=description,
+            tags=tags,
+            source_type=source_type,
+            json_schema=json_schema,
+            return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
+
+
+    async def upsert_from_function(
+        self,
+        *,
+        func: typing.Callable[..., typing.Any],
+        args_schema: typing.Optional[typing.Type[BaseModel]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        source_type: str | Omit = omit,
+        json_schema: Optional[Dict[str, object]] | Omit = omit,
+        return_char_limit: int | Omit = omit,
+        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
+        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
+        default_requires_approval: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Create or update a tool from a callable
+
+        Args:
+          func: The callable to create or update the tool from.
+
+          args_schema: The arguments schema of the function, as a Pydantic model.
+
+          description: The description of the tool.
+
+          tags: Metadata tags.
+
+          source_type: The source type of the function.
+
+          json_schema: The JSON schema of the function (auto-generated from source_code if not
+              provided)
+
+          return_char_limit: The maximum number of characters in the response.
+
+          pip_requirements: Optional list of pip packages required by this tool.
+
+          npm_requirements: Optional list of npm packages required by this tool.
+
+          default_requires_approval: Whether or not to require approval before executing this tool.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+        Examples:
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+
+        def add_two_numbers(a: int, b: int) -> int:
+            return a + b
+        
+        await client.tools.upsert_from_function(
+            func=add_two_numbers,
+        )
+
+        class InventoryEntryData(BaseModel):
+            data: InventoryEntry
+            quantity_change: int
+
+        def manage_inventory(data: InventoryEntry, quantity_change: int) -> bool:
+            pass
+        
+        await client.tools.upsert_from_function(
+            func=manage_inventory,
+            args_schema=InventoryEntryData,
+        )
+        """
+        source_code = dedent(inspect.getsource(func))
+        args_json_schema: Optional[Dict[str, object]] | Omit = omit
+        if not isinstance(args_schema, Omit) and args_schema is not None:
+            args_json_schema = args_schema.model_json_schema()
+
+        return await self.upsert(
+            source_code=source_code,
+            args_json_schema=args_json_schema,
+            description=description,
+            tags=tags,
+            source_type=source_type,
+            json_schema=json_schema,
+            return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
+    
+    async def add(
+        self,
+        *,
+        tool: BaseTool,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Add a tool to Letta from a custom Tool class
+
+        Args:
+          tool: The tool object to be added.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+        Examples:
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+
+        class InventoryItem(BaseModel):
+            sku: str  # Unique product identifier
+            name: str  # Product name
+            price: float  # Current price
+            category: str  # Product category (e.g., "Electronics", "Clothing")
+
+        class InventoryEntry(BaseModel):
+            timestamp: int  # Unix timestamp of the transaction
+            item: InventoryItem  # The product being updated
+            transaction_id: str  # Unique identifier for this inventory update
+
+        class InventoryEntryData(BaseModel):
+            data: InventoryEntry
+            quantity_change: int  # Change in quantity (positive for additions, negative for removals)
+
+        class ManageInventoryTool(BaseTool):
+            name: str = "manage_inventory"
+            args_schema: Type[BaseModel] = InventoryEntryData
+            description: str = "Update inventory catalogue with a new data entry"
+            tags: List[str] = ["inventory", "shop"]
+
+            def run(self, data: InventoryEntry, quantity_change: int) -> bool:
+                '''
+                Implementation of the manage_inventory tool
+                '''
+                print(f"Updated inventory for {data.item.name} with a quantity change of {quantity_change}")
+                return True
+                
+        await client.tools.add(
+            tool=ManageInventoryTool()
+        )
+        """
+        source_code = tool.get_source_code()
+        args_json_schema = tool.args_schema.model_json_schema() if tool.args_schema else None
+
+        # Convert PipRequirement/NpmRequirement models to Param dicts
+        pip_requirements_param = (
+            [typing.cast(PipRequirementParam, req.model_dump()) for req in tool.pip_requirements]
+            if tool.pip_requirements
+            else omit
+        )
+        npm_requirements_param = (
+            [typing.cast(NpmRequirementParam, req.model_dump()) for req in tool.npm_requirements]
+            if tool.npm_requirements
+            else omit
+        )
+
+        return await self.upsert(
+            source_code=source_code,
+            args_json_schema=args_json_schema or omit,
+            description=tool.description or omit,
+            tags=tool.tags or omit,
+            source_type=tool.source_type or omit,
+            json_schema=tool.json_schema or omit,
+            return_char_limit=tool.return_char_limit or omit,
+            pip_requirements=pip_requirements_param,
+            npm_requirements=npm_requirements_param,
+            default_requires_approval=tool.default_requires_approval or omit,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
         )
 
 
