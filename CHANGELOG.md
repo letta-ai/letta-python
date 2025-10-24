@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.0-alpha.9 (2025-10-24)
+
+Full Changelog: [v1.0.0-alpha.8...v1.0.0-alpha.9](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.8...v1.0.0-alpha.9)
+
+### Features
+
+* add pagination config for list agent files ([a95c0df](https://github.com/letta-ai/letta-python/commit/a95c0df84af6edc5274a1adf62b528e86bfeda50))
+* add pagination configuration for list batch message endpoint ([d5a8165](https://github.com/letta-ai/letta-python/commit/d5a8165da29148a9579b01bc8ada35eb50160186))
+* make some routes return none for sdk v1 ([2c71c46](https://github.com/letta-ai/letta-python/commit/2c71c468ce408bfe19514dd3d2cb34ca440450b1))
+
+
+### Chores
+
+* add order_by param to list archives [LET-5839] ([bc4b1c8](https://github.com/letta-ai/letta-python/commit/bc4b1c8a6ab51b30f6bdc48995c4cc29921475e6))
+
 ## 1.0.0-alpha.8 (2025-10-24)
 
 Full Changelog: [v1.0.0-alpha.7...v1.0.0-alpha.8](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.7...v1.0.0-alpha.8)
