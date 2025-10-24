@@ -25,6 +25,11 @@ from ..types.tool_count_response import ToolCountResponse
 from ..types.npm_requirement_param import NpmRequirementParam
 from ..types.pip_requirement_param import PipRequirementParam
 from ..types.tool_upsert_base_tools_response import ToolUpsertBaseToolsResponse
+import typing
+from pydantic import BaseModel
+from textwrap import dedent
+import inspect
+from .._types import RequestOptions
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
 
@@ -548,6 +553,106 @@ class ToolsResource(SyncAPIResource):
             cast_to=ToolUpsertBaseToolsResponse,
         )
 
+    def create_from_function(
+        self,
+        *,
+        func: typing.Callable,
+        args_schema: typing.Optional[typing.Type[BaseModel]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        source_type: str | Omit = omit,
+        json_schema: Optional[Dict[str, object]] | Omit = omit,
+        return_char_limit: int | Omit = omit,
+        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
+        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
+        default_requires_approval: Optional[bool] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Create a new tool from a callable
+
+        Args:
+          func: The callable to create the tool from.
+
+          args_schema: The arguments schema of the function, as a Pydantic model.
+
+          description: The description of the tool.
+
+          tags: Metadata tags.
+
+          source_type: The source type of the function.
+
+          json_schema: The JSON schema of the function (auto-generated from source_code if not
+              provided)
+
+          return_char_limit: The maximum number of characters in the response.
+
+          pip_requirements: Optional list of pip packages required by this tool.
+
+          npm_requirements: Optional list of npm packages required by this tool.
+
+          default_requires_approval: Whether or not to require approval before executing this tool.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+        Examples:
+        from letta_client import Letta
+
+        client = Letta(
+            token="YOUR_TOKEN",
+        )
+        
+        def add_two_numbers(a: int, b: int) -> int:
+            return a + b
+        
+        client.tools.create_from_function(
+            func=add_two_numbers,
+        )
+
+        class InventoryEntryData(BaseModel):
+            data: InventoryEntry
+            quantity_change: int
+
+        def manage_inventory(data: InventoryEntry, quantity_change: int) -> bool:
+            pass
+        
+        client.tools.create_from_function(
+            func=manage_inventory,
+            args_schema=InventoryEntryData,
+        )
+        """
+        source_code = dedent(inspect.getsource(func))
+        args_json_schema: Optional[Dict[str, object]] | Omit = omit
+        if not isinstance(args_schema, Omit) and args_schema is not None:
+            args_json_schema = args_schema.model_json_schema()
+
+        return self.create(
+            source_code=source_code,
+            args_json_schema=args_json_schema,
+            description=description,
+            tags=tags,
+            source_type=source_type,
+            json_schema=json_schema,
+            return_char_limit=return_char_limit,
+            pip_requirements=pip_requirements,
+            npm_requirements=npm_requirements,
+            default_requires_approval=default_requires_approval,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
 
 class AsyncToolsResource(AsyncAPIResource):
     @cached_property
