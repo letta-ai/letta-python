@@ -17,11 +17,12 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.groups import message_list_params, message_send_params, message_stream_params, message_update_params
 from ...types.agents.message_type import MessageType
 from ...types.agents.letta_response import LettaResponse
-from ...types.groups.message_list_response import MessageListResponse
+from ...types.agents.letta_message_union import LettaMessageUnion
 from ...types.groups.message_update_response import MessageUpdateResponse
 from ...types.agents.letta_user_message_content_union_param import LettaUserMessageContentUnionParam
 from ...types.agents.letta_assistant_message_content_union_param import LettaAssistantMessageContentUnionParam
@@ -253,7 +254,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageListResponse:
+    ) -> SyncArrayPage[LettaMessageUnion]:
         """
         Retrieve message history for an agent.
 
@@ -289,8 +290,9 @@ class MessagesResource(SyncAPIResource):
         """
         if not group_id:
             raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/v1/groups/{group_id}/messages",
+            page=SyncArrayPage[LettaMessageUnion],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -310,7 +312,7 @@ class MessagesResource(SyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            cast_to=MessageListResponse,
+            model=cast(Any, LettaMessageUnion),  # Union types cannot be passed in as arguments in the type system
         )
 
     def reset(
@@ -722,7 +724,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             ),
         )
 
-    async def list(
+    def list(
         self,
         group_id: str,
         *,
@@ -740,7 +742,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageListResponse:
+    ) -> AsyncPaginator[LettaMessageUnion, AsyncArrayPage[LettaMessageUnion]]:
         """
         Retrieve message history for an agent.
 
@@ -776,14 +778,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not group_id:
             raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/v1/groups/{group_id}/messages",
+            page=AsyncArrayPage[LettaMessageUnion],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -797,7 +800,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            cast_to=MessageListResponse,
+            model=cast(Any, LettaMessageUnion),  # Union types cannot be passed in as arguments in the type system
         )
 
     async def reset(

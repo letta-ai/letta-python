@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -17,9 +17,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.identities import block_list_params
-from ...types.identities.block_list_response import BlockListResponse
+from ...types.agents.block import Block
 
 __all__ = ["BlocksResource", "AsyncBlocksResource"]
 
@@ -59,7 +60,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockListResponse:
+    ) -> SyncArrayPage[Block]:
         """
         Get all blocks associated with the specified identity.
 
@@ -89,8 +90,9 @@ class BlocksResource(SyncAPIResource):
         """
         if not identity_id:
             raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/v1/identities/{identity_id}/blocks",
+            page=SyncArrayPage[Block],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -107,7 +109,7 @@ class BlocksResource(SyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            cast_to=BlockListResponse,
+            model=Block,
         )
 
 
@@ -131,7 +133,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         return AsyncBlocksResourceWithStreamingResponse(self)
 
-    async def list(
+    def list(
         self,
         identity_id: str,
         *,
@@ -146,7 +148,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockListResponse:
+    ) -> AsyncPaginator[Block, AsyncArrayPage[Block]]:
         """
         Get all blocks associated with the specified identity.
 
@@ -176,14 +178,15 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         if not identity_id:
             raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/v1/identities/{identity_id}/blocks",
+            page=AsyncArrayPage[Block],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -194,7 +197,7 @@ class AsyncBlocksResource(AsyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            cast_to=BlockListResponse,
+            model=Block,
         )
 
 

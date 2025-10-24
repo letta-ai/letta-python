@@ -1,17 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from datetime import datetime
-from typing_extensions import TypeAlias
 
 from ..._models import BaseModel
 from ..embedding_config import EmbeddingConfig
 from ..vector_db_provider import VectorDBProvider
 
-__all__ = ["FolderListResponse", "FolderListResponseItem"]
+__all__ = ["FolderListResponse"]
 
 
-class FolderListResponseItem(BaseModel):
+class FolderListResponse(BaseModel):
     embedding_config: EmbeddingConfig
     """The embedding configuration used by the source."""
 
@@ -44,6 +43,3 @@ class FolderListResponseItem(BaseModel):
 
     vector_db_provider: Optional[VectorDBProvider] = None
     """The vector database provider used for this source's passages"""
-
-
-FolderListResponse: TypeAlias = List[FolderListResponseItem]

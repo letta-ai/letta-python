@@ -85,12 +85,12 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agent_type import AgentType
 from ...types.agent_state import AgentState
 from ...types.llm_config_param import LlmConfigParam
 from ...types.create_block_param import CreateBlockParam
-from ...types.agent_list_response import AgentListResponse
 from ...types.agent_count_response import AgentCountResponse
 from ...types.message_create_param import MessageCreateParam
 from ...types.embedding_config_param import EmbeddingConfigParam
@@ -658,7 +658,7 @@ class AgentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListResponse:
+    ) -> SyncArrayPage[AgentState]:
         """
         Get a list of all agents.
 
@@ -714,8 +714,9 @@ class AgentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/agents/",
+            page=SyncArrayPage[AgentState],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -745,7 +746,7 @@ class AgentsResource(SyncAPIResource):
                     agent_list_params.AgentListParams,
                 ),
             ),
-            cast_to=AgentListResponse,
+            model=AgentState,
         )
 
     def delete(
@@ -1454,7 +1455,7 @@ class AsyncAgentsResource(AsyncAPIResource):
             cast_to=AgentState,
         )
 
-    async def list(
+    def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -1492,7 +1493,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListResponse:
+    ) -> AsyncPaginator[AgentState, AsyncArrayPage[AgentState]]:
         """
         Get a list of all agents.
 
@@ -1548,14 +1549,15 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/agents/",
+            page=AsyncArrayPage[AgentState],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "ascending": ascending,
@@ -1579,7 +1581,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     agent_list_params.AgentListParams,
                 ),
             ),
-            cast_to=AgentListResponse,
+            model=AgentState,
         )
 
     async def delete(
