@@ -25,7 +25,7 @@ from .usage import (
 )
 from ...types import StopReasonType, run_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import maybe_transform
 from .messages import (
     MessagesResource,
     AsyncMessagesResource,
@@ -42,10 +42,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agents.run import Run
 from ...types.stop_reason_type import StopReasonType
-from ...types.run_list_response import RunListResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
@@ -136,7 +136,7 @@ class RunsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunListResponse:
+    ) -> SyncArrayPage[Run]:
         """
         List all runs.
 
@@ -178,8 +178,9 @@ class RunsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/runs/",
+            page=SyncArrayPage[Run],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -203,7 +204,7 @@ class RunsResource(SyncAPIResource):
                     run_list_params.RunListParams,
                 ),
             ),
-            cast_to=RunListResponse,
+            model=Run,
         )
 
 
@@ -272,7 +273,7 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=Run,
         )
 
-    async def list(
+    def list(
         self,
         *,
         active: bool | Omit = omit,
@@ -293,7 +294,7 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunListResponse:
+    ) -> AsyncPaginator[Run, AsyncArrayPage[Run]]:
         """
         List all runs.
 
@@ -335,14 +336,15 @@ class AsyncRunsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/runs/",
+            page=AsyncArrayPage[Run],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "active": active,
                         "after": after,
@@ -360,7 +362,7 @@ class AsyncRunsResource(AsyncAPIResource):
                     run_list_params.RunListParams,
                 ),
             ),
-            cast_to=RunListResponse,
+            model=Run,
         )
 
 
