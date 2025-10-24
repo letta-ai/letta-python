@@ -18,9 +18,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncArrayPage, AsyncArrayPage
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.archive import Archive
-from ..types.archive_list_response import ArchiveListResponse
 from ..types.embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["ArchivesResource", "AsyncArchivesResource"]
@@ -177,13 +177,14 @@ class ArchivesResource(SyncAPIResource):
         limit: Optional[int] | Omit = omit,
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ArchiveListResponse:
+    ) -> SyncArrayPage[Archive]:
         """
         Get a list of all archives for the current organization with optional filters
         and pagination.
@@ -204,6 +205,8 @@ class ArchivesResource(SyncAPIResource):
           order: Sort order for archives by creation time. 'asc' for oldest first, 'desc' for
               newest first
 
+          order_by: Field to sort by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -212,8 +215,9 @@ class ArchivesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/archives/",
+            page=SyncArrayPage[Archive],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -227,11 +231,12 @@ class ArchivesResource(SyncAPIResource):
                         "limit": limit,
                         "name": name,
                         "order": order,
+                        "order_by": order_by,
                     },
                     archive_list_params.ArchiveListParams,
                 ),
             ),
-            cast_to=ArchiveListResponse,
+            model=Archive,
         )
 
     def delete(
@@ -412,7 +417,7 @@ class AsyncArchivesResource(AsyncAPIResource):
             cast_to=Archive,
         )
 
-    async def list(
+    def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -421,13 +426,14 @@ class AsyncArchivesResource(AsyncAPIResource):
         limit: Optional[int] | Omit = omit,
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ArchiveListResponse:
+    ) -> AsyncPaginator[Archive, AsyncArrayPage[Archive]]:
         """
         Get a list of all archives for the current organization with optional filters
         and pagination.
@@ -448,6 +454,8 @@ class AsyncArchivesResource(AsyncAPIResource):
           order: Sort order for archives by creation time. 'asc' for oldest first, 'desc' for
               newest first
 
+          order_by: Field to sort by
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -456,14 +464,15 @@ class AsyncArchivesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/archives/",
+            page=AsyncArrayPage[Archive],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "agent_id": agent_id,
@@ -471,11 +480,12 @@ class AsyncArchivesResource(AsyncAPIResource):
                         "limit": limit,
                         "name": name,
                         "order": order,
+                        "order_by": order_by,
                     },
                     archive_list_params.ArchiveListParams,
                 ),
             ),
-            cast_to=ArchiveListResponse,
+            model=Archive,
         )
 
     async def delete(

@@ -35,3 +35,6 @@ class ArchiveListParams(TypedDict, total=False):
 
     'asc' for oldest first, 'desc' for newest first
     """
+
+    order_by: Literal["created_at"]
+    """Field to sort by"""
