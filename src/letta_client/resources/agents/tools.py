@@ -124,7 +124,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
+    ) -> Optional[AgentState]:
         """
         Attach a tool to an agent.
 
@@ -164,7 +164,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
+    ) -> Optional[AgentState]:
         """
         Detach a tool from an agent.
 
@@ -206,7 +206,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
+    ) -> Optional[AgentState]:
         """
         Modify the approval requirement for a tool attached to an agent.
 
@@ -349,7 +349,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
+    ) -> Optional[AgentState]:
         """
         Attach a tool to an agent.
 
@@ -389,7 +389,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
+    ) -> Optional[AgentState]:
         """
         Detach a tool from an agent.
 
@@ -431,7 +431,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
+    ) -> Optional[AgentState]:
         """
         Modify the approval requirement for a tool attached to an agent.
 
