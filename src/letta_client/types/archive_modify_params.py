@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["ArchiveUpdateParams"]
+__all__ = ["ArchiveModifyParams"]
 
 
-class ArchiveUpdateParams(TypedDict, total=False):
+class ArchiveModifyParams(TypedDict, total=False):
     description: Optional[str]
 
     name: Optional[str]

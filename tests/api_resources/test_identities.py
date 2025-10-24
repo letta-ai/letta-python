@@ -126,68 +126,6 @@ class TestIdentities:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update(self, client: Letta) -> None:
-        identity = client.identities.update(
-            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Identity, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params(self, client: Letta) -> None:
-        identity = client.identities.update(
-            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
-            agent_ids=["string"],
-            block_ids=["string"],
-            identifier_key="identifier_key",
-            identity_type="org",
-            name="name",
-            properties=[
-                {
-                    "key": "key",
-                    "type": "string",
-                    "value": "string",
-                }
-            ],
-        )
-        assert_matches_type(Identity, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_update(self, client: Letta) -> None:
-        response = client.identities.with_raw_response.update(
-            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        identity = response.parse()
-        assert_matches_type(Identity, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_update(self, client: Letta) -> None:
-        with client.identities.with_streaming_response.update(
-            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            identity = response.parse()
-            assert_matches_type(Identity, identity, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_update(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `identity_id` but received ''"):
-            client.identities.with_raw_response.update(
-                identity_id="",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     def test_method_list(self, client: Letta) -> None:
         identity = client.identities.list()
         assert_matches_type(SyncArrayPage[Identity], identity, path=["response"])
@@ -299,6 +237,68 @@ class TestIdentities:
             assert_matches_type(IdentityCountResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_modify(self, client: Letta) -> None:
+        identity = client.identities.modify(
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Identity, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_modify_with_all_params(self, client: Letta) -> None:
+        identity = client.identities.modify(
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+            agent_ids=["string"],
+            block_ids=["string"],
+            identifier_key="identifier_key",
+            identity_type="org",
+            name="name",
+            properties=[
+                {
+                    "key": "key",
+                    "type": "string",
+                    "value": "string",
+                }
+            ],
+        )
+        assert_matches_type(Identity, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_modify(self, client: Letta) -> None:
+        response = client.identities.with_raw_response.modify(
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        identity = response.parse()
+        assert_matches_type(Identity, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_modify(self, client: Letta) -> None:
+        with client.identities.with_streaming_response.modify(
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            identity = response.parse()
+            assert_matches_type(Identity, identity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_modify(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `identity_id` but received ''"):
+            client.identities.with_raw_response.modify(
+                identity_id="",
+            )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -472,68 +472,6 @@ class TestAsyncIdentities:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncLetta) -> None:
-        identity = await async_client.identities.update(
-            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Identity, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
-        identity = await async_client.identities.update(
-            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
-            agent_ids=["string"],
-            block_ids=["string"],
-            identifier_key="identifier_key",
-            identity_type="org",
-            name="name",
-            properties=[
-                {
-                    "key": "key",
-                    "type": "string",
-                    "value": "string",
-                }
-            ],
-        )
-        assert_matches_type(Identity, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
-        response = await async_client.identities.with_raw_response.update(
-            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        identity = await response.parse()
-        assert_matches_type(Identity, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
-        async with async_client.identities.with_streaming_response.update(
-            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            identity = await response.parse()
-            assert_matches_type(Identity, identity, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_update(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `identity_id` but received ''"):
-            await async_client.identities.with_raw_response.update(
-                identity_id="",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         identity = await async_client.identities.list()
         assert_matches_type(AsyncArrayPage[Identity], identity, path=["response"])
@@ -645,6 +583,68 @@ class TestAsyncIdentities:
             assert_matches_type(IdentityCountResponse, identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_modify(self, async_client: AsyncLetta) -> None:
+        identity = await async_client.identities.modify(
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Identity, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_modify_with_all_params(self, async_client: AsyncLetta) -> None:
+        identity = await async_client.identities.modify(
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+            agent_ids=["string"],
+            block_ids=["string"],
+            identifier_key="identifier_key",
+            identity_type="org",
+            name="name",
+            properties=[
+                {
+                    "key": "key",
+                    "type": "string",
+                    "value": "string",
+                }
+            ],
+        )
+        assert_matches_type(Identity, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_modify(self, async_client: AsyncLetta) -> None:
+        response = await async_client.identities.with_raw_response.modify(
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        identity = await response.parse()
+        assert_matches_type(Identity, identity, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_modify(self, async_client: AsyncLetta) -> None:
+        async with async_client.identities.with_streaming_response.modify(
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            identity = await response.parse()
+            assert_matches_type(Identity, identity, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_modify(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `identity_id` but received ''"):
+            await async_client.identities.with_raw_response.modify(
+                identity_id="",
+            )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize

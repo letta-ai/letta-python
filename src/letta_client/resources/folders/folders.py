@@ -23,7 +23,7 @@ from .agents import (
     AgentsResourceWithStreamingResponse,
     AsyncAgentsResourceWithStreamingResponse,
 )
-from ...types import folder_list_params, folder_create_params, folder_update_params
+from ...types import folder_list_params, folder_create_params, folder_modify_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -169,66 +169,6 @@ class FoldersResource(SyncAPIResource):
             cast_to=Folder,
         )
 
-    def update(
-        self,
-        folder_id: str,
-        *,
-        description: Optional[str] | Omit = omit,
-        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        instructions: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Folder:
-        """
-        Update the name or documentation of an existing data folder.
-
-        Args:
-          folder_id: The ID of the source in the format 'source-<uuid4>'
-
-          description: The description of the source.
-
-          embedding_config: Configuration for embedding model connection and processing parameters.
-
-          instructions: Instructions for how to use the source.
-
-          metadata: Metadata associated with the source.
-
-          name: The name of the source.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        return self._patch(
-            f"/v1/folders/{folder_id}",
-            body=maybe_transform(
-                {
-                    "description": description,
-                    "embedding_config": embedding_config,
-                    "instructions": instructions,
-                    "metadata": metadata,
-                    "name": name,
-                },
-                folder_update_params.FolderUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Folder,
-        )
-
     def list(
         self,
         *,
@@ -347,6 +287,66 @@ class FoldersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=int,
+        )
+
+    def modify(
+        self,
+        folder_id: str,
+        *,
+        description: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Folder:
+        """
+        Update the name or documentation of an existing data folder.
+
+        Args:
+          folder_id: The ID of the source in the format 'source-<uuid4>'
+
+          description: The description of the source.
+
+          embedding_config: Configuration for embedding model connection and processing parameters.
+
+          instructions: Instructions for how to use the source.
+
+          metadata: Metadata associated with the source.
+
+          name: The name of the source.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not folder_id:
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        return self._patch(
+            f"/v1/folders/{folder_id}",
+            body=maybe_transform(
+                {
+                    "description": description,
+                    "embedding_config": embedding_config,
+                    "instructions": instructions,
+                    "metadata": metadata,
+                    "name": name,
+                },
+                folder_modify_params.FolderModifyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Folder,
         )
 
 
@@ -476,66 +476,6 @@ class AsyncFoldersResource(AsyncAPIResource):
             cast_to=Folder,
         )
 
-    async def update(
-        self,
-        folder_id: str,
-        *,
-        description: Optional[str] | Omit = omit,
-        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        instructions: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Folder:
-        """
-        Update the name or documentation of an existing data folder.
-
-        Args:
-          folder_id: The ID of the source in the format 'source-<uuid4>'
-
-          description: The description of the source.
-
-          embedding_config: Configuration for embedding model connection and processing parameters.
-
-          instructions: Instructions for how to use the source.
-
-          metadata: Metadata associated with the source.
-
-          name: The name of the source.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        return await self._patch(
-            f"/v1/folders/{folder_id}",
-            body=await async_maybe_transform(
-                {
-                    "description": description,
-                    "embedding_config": embedding_config,
-                    "instructions": instructions,
-                    "metadata": metadata,
-                    "name": name,
-                },
-                folder_update_params.FolderUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Folder,
-        )
-
     def list(
         self,
         *,
@@ -656,6 +596,66 @@ class AsyncFoldersResource(AsyncAPIResource):
             cast_to=int,
         )
 
+    async def modify(
+        self,
+        folder_id: str,
+        *,
+        description: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+        instructions: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Folder:
+        """
+        Update the name or documentation of an existing data folder.
+
+        Args:
+          folder_id: The ID of the source in the format 'source-<uuid4>'
+
+          description: The description of the source.
+
+          embedding_config: Configuration for embedding model connection and processing parameters.
+
+          instructions: Instructions for how to use the source.
+
+          metadata: Metadata associated with the source.
+
+          name: The name of the source.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not folder_id:
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        return await self._patch(
+            f"/v1/folders/{folder_id}",
+            body=await async_maybe_transform(
+                {
+                    "description": description,
+                    "embedding_config": embedding_config,
+                    "instructions": instructions,
+                    "metadata": metadata,
+                    "name": name,
+                },
+                folder_modify_params.FolderModifyParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Folder,
+        )
+
 
 class FoldersResourceWithRawResponse:
     def __init__(self, folders: FoldersResource) -> None:
@@ -667,9 +667,6 @@ class FoldersResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             folders.retrieve,
         )
-        self.update = to_raw_response_wrapper(
-            folders.update,
-        )
         self.list = to_raw_response_wrapper(
             folders.list,
         )
@@ -678,6 +675,9 @@ class FoldersResourceWithRawResponse:
         )
         self.count = to_raw_response_wrapper(
             folders.count,
+        )
+        self.modify = to_raw_response_wrapper(
+            folders.modify,
         )
 
     @cached_property
@@ -699,9 +699,6 @@ class AsyncFoldersResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             folders.retrieve,
         )
-        self.update = async_to_raw_response_wrapper(
-            folders.update,
-        )
         self.list = async_to_raw_response_wrapper(
             folders.list,
         )
@@ -710,6 +707,9 @@ class AsyncFoldersResourceWithRawResponse:
         )
         self.count = async_to_raw_response_wrapper(
             folders.count,
+        )
+        self.modify = async_to_raw_response_wrapper(
+            folders.modify,
         )
 
     @cached_property
@@ -731,9 +731,6 @@ class FoldersResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             folders.retrieve,
         )
-        self.update = to_streamed_response_wrapper(
-            folders.update,
-        )
         self.list = to_streamed_response_wrapper(
             folders.list,
         )
@@ -742,6 +739,9 @@ class FoldersResourceWithStreamingResponse:
         )
         self.count = to_streamed_response_wrapper(
             folders.count,
+        )
+        self.modify = to_streamed_response_wrapper(
+            folders.modify,
         )
 
     @cached_property
@@ -763,9 +763,6 @@ class AsyncFoldersResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             folders.retrieve,
         )
-        self.update = async_to_streamed_response_wrapper(
-            folders.update,
-        )
         self.list = async_to_streamed_response_wrapper(
             folders.list,
         )
@@ -774,6 +771,9 @@ class AsyncFoldersResourceWithStreamingResponse:
         )
         self.count = async_to_streamed_response_wrapper(
             folders.count,
+        )
+        self.modify = async_to_streamed_response_wrapper(
+            folders.modify,
         )
 
     @cached_property

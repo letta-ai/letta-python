@@ -7,10 +7,10 @@ from typing_extensions import TypedDict
 
 from .embedding_config_param import EmbeddingConfigParam
 
-__all__ = ["FolderUpdateParams"]
+__all__ = ["FolderModifyParams"]
 
 
-class FolderUpdateParams(TypedDict, total=False):
+class FolderModifyParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the source."""
 
