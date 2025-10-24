@@ -30,7 +30,7 @@ from pydantic import BaseModel
 from textwrap import dedent
 import inspect
 
-__all__ = ["ToolsResource", "AsyncToolsResource", "BaseTool"]
+__all__ = ["ToolsResource", "AsyncToolsResource"]
 
 
 class ToolsResource(SyncAPIResource):
