@@ -9,7 +9,14 @@ from ._utils import is_mapping
 from ._models import BaseModel
 from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
-__all__ = ["SyncArrayPage", "AsyncArrayPage", "SyncObjectPage", "AsyncObjectPage"]
+__all__ = [
+    "SyncArrayPage",
+    "AsyncArrayPage",
+    "SyncObjectPage",
+    "AsyncObjectPage",
+    "SyncNextFilesPage",
+    "AsyncNextFilesPage",
+]
 
 _BaseModelT = TypeVar("_BaseModelT", bound=BaseModel)
 
@@ -24,6 +31,11 @@ class ArrayPageItem(Protocol):
 @runtime_checkable
 class ObjectPageItem(Protocol):
     id: Optional[str]
+
+
+@runtime_checkable
+class NextFilesPageItem(Protocol):
+    next_cursor: Optional[str]
 
 
 class SyncArrayPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
@@ -178,3 +190,91 @@ class AsyncObjectPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
                 return None
 
             return PageInfo(params={"before": item.id})
+
+
+class SyncNextFilesPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+    files: List[_T]
+    next_cursor: Optional[str] = None
+    has_more: Optional[bool] = None
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        files = self.files
+        if not files:
+            return []
+        return files
+
+    @override
+    def has_next_page(self) -> bool:
+        has_more = self.has_more
+        if has_more is not None and has_more is False:
+            return False
+
+        return super().has_next_page()
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        is_forwards = not self._options.params.get("before", False)
+
+        files = self.files
+        if not files:
+            return None
+
+        if is_forwards:
+            item = cast(Any, files[-1])
+            if not isinstance(item, NextFilesPageItem) or item.next_cursor is None:
+                # TODO emit warning log
+                return None
+
+            return PageInfo(params={"after": item.next_cursor})
+        else:
+            item = cast(Any, self.files[0])
+            if not isinstance(item, NextFilesPageItem) or item.next_cursor is None:
+                # TODO emit warning log
+                return None
+
+            return PageInfo(params={"before": item.next_cursor})
+
+
+class AsyncNextFilesPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+    files: List[_T]
+    next_cursor: Optional[str] = None
+    has_more: Optional[bool] = None
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        files = self.files
+        if not files:
+            return []
+        return files
+
+    @override
+    def has_next_page(self) -> bool:
+        has_more = self.has_more
+        if has_more is not None and has_more is False:
+            return False
+
+        return super().has_next_page()
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        is_forwards = not self._options.params.get("before", False)
+
+        files = self.files
+        if not files:
+            return None
+
+        if is_forwards:
+            item = cast(Any, files[-1])
+            if not isinstance(item, NextFilesPageItem) or item.next_cursor is None:
+                # TODO emit warning log
+                return None
+
+            return PageInfo(params={"after": item.next_cursor})
+        else:
+            item = cast(Any, self.files[0])
+            if not isinstance(item, NextFilesPageItem) or item.next_cursor is None:
+                # TODO emit warning log
+                return None
+
+            return PageInfo(params={"before": item.next_cursor})
