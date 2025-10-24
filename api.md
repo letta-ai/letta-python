@@ -501,15 +501,9 @@ Methods:
 
 ## Messages
 
-Types:
-
-```python
-from letta_client.types.batches import MessageListResponse
-```
-
 Methods:
 
-- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/letta_client/resources/batches/messages.py">list</a>(batch_id, \*\*<a href="src/letta_client/types/batches/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/batches/message_list_response.py">MessageListResponse</a></code>
+- <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/letta_client/resources/batches/messages.py">list</a>(batch_id, \*\*<a href="src/letta_client/types/batches/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncObjectPage[Message]</a></code>
 
 # Templates
 
