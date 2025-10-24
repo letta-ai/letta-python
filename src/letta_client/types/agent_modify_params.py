@@ -23,10 +23,10 @@ from .requires_approval_tool_rule_param import RequiresApprovalToolRuleParam
 from .max_count_per_step_tool_rule_param import MaxCountPerStepToolRuleParam
 from .required_before_exit_tool_rule_param import RequiredBeforeExitToolRuleParam
 
-__all__ = ["AgentUpdateParams", "ResponseFormat", "ToolRule"]
+__all__ = ["AgentModifyParams", "ResponseFormat", "ToolRule"]
 
 
-class AgentUpdateParams(TypedDict, total=False):
+class AgentModifyParams(TypedDict, total=False):
     base_template_id: Optional[str]
     """The base template id of the agent."""
 

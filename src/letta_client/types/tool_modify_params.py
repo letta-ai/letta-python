@@ -10,10 +10,10 @@ from .._utils import PropertyInfo
 from .npm_requirement_param import NpmRequirementParam
 from .pip_requirement_param import PipRequirementParam
 
-__all__ = ["ToolUpdateParams"]
+__all__ = ["ToolModifyParams"]
 
 
-class ToolUpdateParams(TypedDict, total=False):
+class ToolModifyParams(TypedDict, total=False):
     args_json_schema: Optional[Dict[str, object]]
     """The args JSON schema of the function."""
 
