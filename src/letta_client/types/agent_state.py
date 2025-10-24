@@ -86,9 +86,6 @@ class MemoryFileBlock(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Metadata of the block."""
 
-    name: Optional[str] = None
-    """The id of the template."""
-
     preserve_on_migration: Optional[bool] = None
     """Preserve the block on template migration."""
 
@@ -97,6 +94,12 @@ class MemoryFileBlock(BaseModel):
 
     read_only: Optional[bool] = None
     """Whether the agent has read-only access to the block."""
+
+    template_id: Optional[str] = None
+    """The id of the template."""
+
+    template_name: Optional[str] = None
+    """Name of the block if it is a template."""
 
 
 class Memory(BaseModel):

@@ -5,11 +5,11 @@ from __future__ import annotations
 from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..agents.letta_user_message_content_union_param import LettaUserMessageContentUnionParam
-from ..agents.letta_assistant_message_content_union_param import LettaAssistantMessageContentUnionParam
+from .letta_user_message_content_union_param import LettaUserMessageContentUnionParam
+from .letta_assistant_message_content_union_param import LettaAssistantMessageContentUnionParam
 
 __all__ = [
-    "MessageUpdateParams",
+    "MessageModifyParams",
     "UpdateSystemMessage",
     "UpdateUserMessage",
     "UpdateReasoningMessage",
@@ -18,8 +18,8 @@ __all__ = [
 
 
 class UpdateSystemMessage(TypedDict, total=False):
-    group_id: Required[str]
-    """The ID of the group in the format 'group-<uuid4>'"""
+    agent_id: Required[str]
+    """The ID of the agent in the format 'agent-<uuid4>'"""
 
     content: Required[str]
     """
@@ -31,8 +31,8 @@ class UpdateSystemMessage(TypedDict, total=False):
 
 
 class UpdateUserMessage(TypedDict, total=False):
-    group_id: Required[str]
-    """The ID of the group in the format 'group-<uuid4>'"""
+    agent_id: Required[str]
+    """The ID of the agent in the format 'agent-<uuid4>'"""
 
     content: Required[Union[Iterable[LettaUserMessageContentUnionParam], str]]
     """
@@ -44,8 +44,8 @@ class UpdateUserMessage(TypedDict, total=False):
 
 
 class UpdateReasoningMessage(TypedDict, total=False):
-    group_id: Required[str]
-    """The ID of the group in the format 'group-<uuid4>'"""
+    agent_id: Required[str]
+    """The ID of the agent in the format 'agent-<uuid4>'"""
 
     reasoning: Required[str]
 
@@ -53,8 +53,8 @@ class UpdateReasoningMessage(TypedDict, total=False):
 
 
 class UpdateAssistantMessage(TypedDict, total=False):
-    group_id: Required[str]
-    """The ID of the group in the format 'group-<uuid4>'"""
+    agent_id: Required[str]
+    """The ID of the agent in the format 'agent-<uuid4>'"""
 
     content: Required[Union[Iterable[LettaAssistantMessageContentUnionParam], str]]
     """
@@ -65,6 +65,6 @@ class UpdateAssistantMessage(TypedDict, total=False):
     message_type: Literal["assistant_message"]
 
 
-MessageUpdateParams: TypeAlias = Union[
+MessageModifyParams: TypeAlias = Union[
     UpdateSystemMessage, UpdateUserMessage, UpdateReasoningMessage, UpdateAssistantMessage
 ]

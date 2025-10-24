@@ -22,9 +22,9 @@ Methods:
 
 - <code title="post /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">create</a>(\*\*<a href="src/letta_client/types/archive_create_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 - <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">retrieve</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
-- <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">update</a>(archive_id, \*\*<a href="src/letta_client/types/archive_update_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 - <code title="get /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">list</a>(\*\*<a href="src/letta_client/types/archive_list_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">SyncArrayPage[Archive]</a></code>
 - <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">delete</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
+- <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">modify</a>(archive_id, \*\*<a href="src/letta_client/types/archive_modify_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 
 # Tools
 
@@ -47,10 +47,10 @@ Methods:
 
 - <code title="post /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">create</a>(\*\*<a href="src/letta_client/types/tool_create_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="get /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">retrieve</a>(tool_id) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
-- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">update</a>(tool_id, \*\*<a href="src/letta_client/types/tool_update_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">list</a>(\*\*<a href="src/letta_client/types/tool_list_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">SyncArrayPage[Tool]</a></code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">delete</a>(tool_id) -> object</code>
 - <code title="get /v1/tools/count">client.tools.<a href="./src/letta_client/resources/tools.py">count</a>(\*\*<a href="src/letta_client/types/tool_count_params.py">params</a>) -> <a href="./src/letta_client/types/tool_count_response.py">ToolCountResponse</a></code>
+- <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">modify</a>(tool_id, \*\*<a href="src/letta_client/types/tool_modify_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">upsert</a>(\*\*<a href="src/letta_client/types/tool_upsert_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/letta_client/resources/tools.py">upsert_base_tools</a>() -> <a href="./src/letta_client/types/tool_upsert_base_tools_response.py">ToolUpsertBaseToolsResponse</a></code>
 
@@ -66,10 +66,10 @@ Methods:
 
 - <code title="post /v1/folders/">client.folders.<a href="./src/letta_client/resources/folders/folders.py">create</a>(\*\*<a href="src/letta_client/types/folder_create_params.py">params</a>) -> <a href="./src/letta_client/types/folder.py">Folder</a></code>
 - <code title="get /v1/folders/{folder_id}">client.folders.<a href="./src/letta_client/resources/folders/folders.py">retrieve</a>(folder_id) -> <a href="./src/letta_client/types/folder.py">Folder</a></code>
-- <code title="patch /v1/folders/{folder_id}">client.folders.<a href="./src/letta_client/resources/folders/folders.py">update</a>(folder_id, \*\*<a href="src/letta_client/types/folder_update_params.py">params</a>) -> <a href="./src/letta_client/types/folder.py">Folder</a></code>
 - <code title="get /v1/folders/">client.folders.<a href="./src/letta_client/resources/folders/folders.py">list</a>(\*\*<a href="src/letta_client/types/folder_list_params.py">params</a>) -> <a href="./src/letta_client/types/folder.py">SyncArrayPage[Folder]</a></code>
 - <code title="delete /v1/folders/{folder_id}">client.folders.<a href="./src/letta_client/resources/folders/folders.py">delete</a>(folder_id) -> object</code>
 - <code title="get /v1/folders/count">client.folders.<a href="./src/letta_client/resources/folders/folders.py">count</a>() -> <a href="./src/letta_client/types/folder_count_response.py">FolderCountResponse</a></code>
+- <code title="patch /v1/folders/{folder_id}">client.folders.<a href="./src/letta_client/resources/folders/folders.py">modify</a>(folder_id, \*\*<a href="src/letta_client/types/folder_modify_params.py">params</a>) -> <a href="./src/letta_client/types/folder.py">Folder</a></code>
 
 ## Files
 
@@ -130,12 +130,12 @@ Methods:
 
 - <code title="post /v1/agents/">client.agents.<a href="./src/letta_client/resources/agents/agents.py">create</a>(\*\*<a href="src/letta_client/types/agent_create_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 - <code title="get /v1/agents/{agent_id}">client.agents.<a href="./src/letta_client/resources/agents/agents.py">retrieve</a>(agent_id, \*\*<a href="src/letta_client/types/agent_retrieve_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
-- <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/letta_client/resources/agents/agents.py">update</a>(agent_id, \*\*<a href="src/letta_client/types/agent_update_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 - <code title="get /v1/agents/">client.agents.<a href="./src/letta_client/resources/agents/agents.py">list</a>(\*\*<a href="src/letta_client/types/agent_list_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">SyncArrayPage[AgentState]</a></code>
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/letta_client/resources/agents/agents.py">delete</a>(agent_id) -> object</code>
 - <code title="get /v1/agents/count">client.agents.<a href="./src/letta_client/resources/agents/agents.py">count</a>() -> <a href="./src/letta_client/types/agent_count_response.py">AgentCountResponse</a></code>
 - <code title="get /v1/agents/{agent_id}/export">client.agents.<a href="./src/letta_client/resources/agents/agents.py">export_file</a>(agent_id, \*\*<a href="src/letta_client/types/agent_export_file_params.py">params</a>) -> str</code>
 - <code title="post /v1/agents/import">client.agents.<a href="./src/letta_client/resources/agents/agents.py">import_file</a>(\*\*<a href="src/letta_client/types/agent_import_file_params.py">params</a>) -> <a href="./src/letta_client/types/agent_import_file_response.py">AgentImportFileResponse</a></code>
+- <code title="patch /v1/agents/{agent_id}">client.agents.<a href="./src/letta_client/resources/agents/agents.py">modify</a>(agent_id, \*\*<a href="src/letta_client/types/agent_modify_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 
 ## Tools
 
@@ -180,16 +180,22 @@ Methods:
 Types:
 
 ```python
-from letta_client.types.agents import Block, BlockUpdate
+from letta_client.types.agents import (
+    Block,
+    BlockModify,
+    BlockRetrieveResponse,
+    BlockListResponse,
+    BlockModifyResponse,
+)
 ```
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/letta_client/resources/agents/blocks.py">retrieve</a>(block_label, \*, agent_id) -> <a href="./src/letta_client/types/agents/block.py">Block</a></code>
-- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/letta_client/resources/agents/blocks.py">update</a>(block_label, \*, agent_id, \*\*<a href="src/letta_client/types/agents/block_update_params.py">params</a>) -> <a href="./src/letta_client/types/agents/block.py">Block</a></code>
-- <code title="get /v1/agents/{agent_id}/core-memory/blocks">client.agents.blocks.<a href="./src/letta_client/resources/agents/blocks.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/block_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/block.py">SyncArrayPage[Block]</a></code>
+- <code title="get /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/letta_client/resources/agents/blocks.py">retrieve</a>(block_label, \*, agent_id) -> <a href="./src/letta_client/types/agents/block_retrieve_response.py">BlockRetrieveResponse</a></code>
+- <code title="get /v1/agents/{agent_id}/core-memory/blocks">client.agents.blocks.<a href="./src/letta_client/resources/agents/blocks.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/block_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/block_list_response.py">SyncArrayPage[BlockListResponse]</a></code>
 - <code title="patch /v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}">client.agents.blocks.<a href="./src/letta_client/resources/agents/blocks.py">attach</a>(block_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 - <code title="patch /v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}">client.agents.blocks.<a href="./src/letta_client/resources/agents/blocks.py">detach</a>(block_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
+- <code title="patch /v1/agents/{agent_id}/core-memory/blocks/{block_label}">client.agents.blocks.<a href="./src/letta_client/resources/agents/blocks.py">modify</a>(block_label, \*, agent_id, \*\*<a href="src/letta_client/types/agents/block_modify_params.py">params</a>) -> <a href="./src/letta_client/types/agents/block_modify_response.py">BlockModifyResponse</a></code>
 
 ## Groups
 
@@ -238,16 +244,16 @@ from letta_client.types.agents import (
     UpdateSystemMessage,
     UpdateUserMessage,
     UserMessage,
-    MessageUpdateResponse,
     MessageCancelResponse,
+    MessageModifyResponse,
 )
 ```
 
 Methods:
 
-- <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">update</a>(message_id, \*, agent_id, \*\*<a href="src/letta_client/types/agents/message_update_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message_update_response.py">MessageUpdateResponse</a></code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_message_union.py">SyncArrayPage[LettaMessageUnion]</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">cancel</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_cancel_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message_cancel_response.py">MessageCancelResponse</a></code>
+- <code title="patch /v1/agents/{agent_id}/messages/{message_id}">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">modify</a>(message_id, \*, agent_id, \*\*<a href="src/letta_client/types/agents/message_modify_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message_modify_response.py">MessageModifyResponse</a></code>
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">reset</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_reset_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">AgentState</a></code>
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">send</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_send_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_response.py">LettaResponse</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">send_async</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_send_async_params.py">params</a>) -> <a href="./src/letta_client/types/agents/run.py">Run</a></code>
@@ -275,23 +281,23 @@ Methods:
 
 - <code title="post /v1/groups/">client.groups.<a href="./src/letta_client/resources/groups/groups.py">create</a>(\*\*<a href="src/letta_client/types/group_create_params.py">params</a>) -> <a href="./src/letta_client/types/group.py">Group</a></code>
 - <code title="get /v1/groups/{group_id}">client.groups.<a href="./src/letta_client/resources/groups/groups.py">retrieve</a>(group_id) -> <a href="./src/letta_client/types/group.py">Group</a></code>
-- <code title="patch /v1/groups/{group_id}">client.groups.<a href="./src/letta_client/resources/groups/groups.py">update</a>(group_id, \*\*<a href="src/letta_client/types/group_update_params.py">params</a>) -> <a href="./src/letta_client/types/group.py">Group</a></code>
 - <code title="get /v1/groups/">client.groups.<a href="./src/letta_client/resources/groups/groups.py">list</a>(\*\*<a href="src/letta_client/types/group_list_params.py">params</a>) -> <a href="./src/letta_client/types/group.py">SyncArrayPage[Group]</a></code>
 - <code title="delete /v1/groups/{group_id}">client.groups.<a href="./src/letta_client/resources/groups/groups.py">delete</a>(group_id) -> object</code>
 - <code title="get /v1/groups/count">client.groups.<a href="./src/letta_client/resources/groups/groups.py">count</a>() -> <a href="./src/letta_client/types/group_count_response.py">GroupCountResponse</a></code>
+- <code title="patch /v1/groups/{group_id}">client.groups.<a href="./src/letta_client/resources/groups/groups.py">modify</a>(group_id, \*\*<a href="src/letta_client/types/group_modify_params.py">params</a>) -> <a href="./src/letta_client/types/group.py">Group</a></code>
 
 ## Messages
 
 Types:
 
 ```python
-from letta_client.types.groups import MessageUpdateResponse
+from letta_client.types.groups import MessageModifyResponse
 ```
 
 Methods:
 
-- <code title="patch /v1/groups/{group_id}/messages/{message_id}">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">update</a>(message_id, \*, group_id, \*\*<a href="src/letta_client/types/groups/message_update_params.py">params</a>) -> <a href="./src/letta_client/types/groups/message_update_response.py">MessageUpdateResponse</a></code>
 - <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">list</a>(group_id, \*\*<a href="src/letta_client/types/groups/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_message_union.py">SyncArrayPage[LettaMessageUnion]</a></code>
+- <code title="patch /v1/groups/{group_id}/messages/{message_id}">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">modify</a>(message_id, \*, group_id, \*\*<a href="src/letta_client/types/groups/message_modify_params.py">params</a>) -> <a href="./src/letta_client/types/groups/message_modify_response.py">MessageModifyResponse</a></code>
 - <code title="patch /v1/groups/{group_id}/reset-messages">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">reset</a>(group_id) -> object</code>
 - <code title="post /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">send</a>(group_id, \*\*<a href="src/letta_client/types/groups/message_send_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_response.py">LettaResponse</a></code>
 - <code title="post /v1/groups/{group_id}/messages/stream">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">stream</a>(group_id, \*\*<a href="src/letta_client/types/groups/message_stream_params.py">params</a>) -> object</code>
@@ -308,10 +314,10 @@ Methods:
 
 - <code title="post /v1/identities/">client.identities.<a href="./src/letta_client/resources/identities/identities.py">create</a>(\*\*<a href="src/letta_client/types/identity_create_params.py">params</a>) -> <a href="./src/letta_client/types/identity.py">Identity</a></code>
 - <code title="get /v1/identities/{identity_id}">client.identities.<a href="./src/letta_client/resources/identities/identities.py">retrieve</a>(identity_id) -> <a href="./src/letta_client/types/identity.py">Identity</a></code>
-- <code title="patch /v1/identities/{identity_id}">client.identities.<a href="./src/letta_client/resources/identities/identities.py">update</a>(identity_id, \*\*<a href="src/letta_client/types/identity_update_params.py">params</a>) -> <a href="./src/letta_client/types/identity.py">Identity</a></code>
 - <code title="get /v1/identities/">client.identities.<a href="./src/letta_client/resources/identities/identities.py">list</a>(\*\*<a href="src/letta_client/types/identity_list_params.py">params</a>) -> <a href="./src/letta_client/types/identity.py">SyncArrayPage[Identity]</a></code>
 - <code title="delete /v1/identities/{identity_id}">client.identities.<a href="./src/letta_client/resources/identities/identities.py">delete</a>(identity_id) -> object</code>
 - <code title="get /v1/identities/count">client.identities.<a href="./src/letta_client/resources/identities/identities.py">count</a>() -> <a href="./src/letta_client/types/identity_count_response.py">IdentityCountResponse</a></code>
+- <code title="patch /v1/identities/{identity_id}">client.identities.<a href="./src/letta_client/resources/identities/identities.py">modify</a>(identity_id, \*\*<a href="src/letta_client/types/identity_modify_params.py">params</a>) -> <a href="./src/letta_client/types/identity.py">Identity</a></code>
 - <code title="put /v1/identities/">client.identities.<a href="./src/letta_client/resources/identities/identities.py">upsert</a>(\*\*<a href="src/letta_client/types/identity_upsert_params.py">params</a>) -> <a href="./src/letta_client/types/identity.py">Identity</a></code>
 
 ## Properties
@@ -328,9 +334,15 @@ Methods:
 
 ## Blocks
 
+Types:
+
+```python
+from letta_client.types.identities import BlockListResponse
+```
+
 Methods:
 
-- <code title="get /v1/identities/{identity_id}/blocks">client.identities.blocks.<a href="./src/letta_client/resources/identities/blocks.py">list</a>(identity_id, \*\*<a href="src/letta_client/types/identities/block_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/block.py">SyncArrayPage[Block]</a></code>
+- <code title="get /v1/identities/{identity_id}/blocks">client.identities.blocks.<a href="./src/letta_client/resources/identities/blocks.py">list</a>(identity_id, \*\*<a href="src/letta_client/types/identities/block_list_params.py">params</a>) -> <a href="./src/letta_client/types/identities/block_list_response.py">SyncArrayPage[BlockListResponse]</a></code>
 
 # Models
 
@@ -367,17 +379,24 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import CreateBlock, BlockCountResponse
+from letta_client.types import (
+    CreateBlock,
+    BlockCreateResponse,
+    BlockRetrieveResponse,
+    BlockListResponse,
+    BlockCountResponse,
+    BlockModifyResponse,
+)
 ```
 
 Methods:
 
-- <code title="post /v1/blocks/">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">create</a>(\*\*<a href="src/letta_client/types/block_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/block.py">Block</a></code>
-- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">retrieve</a>(block_id) -> <a href="./src/letta_client/types/agents/block.py">Block</a></code>
-- <code title="patch /v1/blocks/{block_id}">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">update</a>(block_id, \*\*<a href="src/letta_client/types/block_update_params.py">params</a>) -> <a href="./src/letta_client/types/agents/block.py">Block</a></code>
-- <code title="get /v1/blocks/">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">list</a>(\*\*<a href="src/letta_client/types/block_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/block.py">SyncArrayPage[Block]</a></code>
+- <code title="post /v1/blocks/">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">create</a>(\*\*<a href="src/letta_client/types/block_create_params.py">params</a>) -> <a href="./src/letta_client/types/block_create_response.py">BlockCreateResponse</a></code>
+- <code title="get /v1/blocks/{block_id}">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">retrieve</a>(block_id) -> <a href="./src/letta_client/types/block_retrieve_response.py">BlockRetrieveResponse</a></code>
+- <code title="get /v1/blocks/">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">list</a>(\*\*<a href="src/letta_client/types/block_list_params.py">params</a>) -> <a href="./src/letta_client/types/block_list_response.py">SyncArrayPage[BlockListResponse]</a></code>
 - <code title="delete /v1/blocks/{block_id}">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">delete</a>(block_id) -> object</code>
 - <code title="get /v1/blocks/count">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">count</a>() -> <a href="./src/letta_client/types/block_count_response.py">BlockCountResponse</a></code>
+- <code title="patch /v1/blocks/{block_id}">client.blocks.<a href="./src/letta_client/resources/blocks/blocks.py">modify</a>(block_id, \*\*<a href="src/letta_client/types/block_modify_params.py">params</a>) -> <a href="./src/letta_client/types/block_modify_response.py">BlockModifyResponse</a></code>
 
 ## Agents
 

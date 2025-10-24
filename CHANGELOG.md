@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0-alpha.10 (2025-10-24)
+
+Full Changelog: [v1.0.0-alpha.9...v1.0.0-alpha.10](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.9...v1.0.0-alpha.10)
+
+### Features
+
+* clean up block return object  [LET-5784] ([28e4290](https://github.com/letta-ai/letta-python/commit/28e429013837a18d39645183df6f87bb76df5510))
+
+
+### Chores
+
+* rename update methods to modify in stainless ([6be374c](https://github.com/letta-ai/letta-python/commit/6be374cdeebb3c89497be7e28544b2bb165941b8))
+
 ## 1.0.0-alpha.9 (2025-10-24)
 
 Full Changelog: [v1.0.0-alpha.8...v1.0.0-alpha.9](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.8...v1.0.0-alpha.9)

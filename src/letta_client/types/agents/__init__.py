@@ -31,7 +31,8 @@ from .file_list_response import FileListResponse as FileListResponse
 from .file_open_response import FileOpenResponse as FileOpenResponse
 from .folder_list_params import FolderListParams as FolderListParams
 from .text_content_param import TextContentParam as TextContentParam
-from .block_update_params import BlockUpdateParams as BlockUpdateParams
+from .block_list_response import BlockListResponse as BlockListResponse
+from .block_modify_params import BlockModifyParams as BlockModifyParams
 from .image_content_param import ImageContentParam as ImageContentParam
 from .letta_message_union import LettaMessageUnion as LettaMessageUnion
 from .message_list_params import MessageListParams as MessageListParams
@@ -40,12 +41,14 @@ from .tool_return_content import ToolReturnContent as ToolReturnContent
 from .folder_list_response import FolderListResponse as FolderListResponse
 from .message_reset_params import MessageResetParams as MessageResetParams
 from .approval_create_param import ApprovalCreateParam as ApprovalCreateParam
+from .block_modify_response import BlockModifyResponse as BlockModifyResponse
 from .message_cancel_params import MessageCancelParams as MessageCancelParams
+from .message_modify_params import MessageModifyParams as MessageModifyParams
 from .message_stream_params import MessageStreamParams as MessageStreamParams
-from .message_update_params import MessageUpdateParams as MessageUpdateParams
+from .block_retrieve_response import BlockRetrieveResponse as BlockRetrieveResponse
 from .file_close_all_response import FileCloseAllResponse as FileCloseAllResponse
 from .message_cancel_response import MessageCancelResponse as MessageCancelResponse
-from .message_update_response import MessageUpdateResponse as MessageUpdateResponse
+from .message_modify_response import MessageModifyResponse as MessageModifyResponse
 from .reasoning_content_param import ReasoningContentParam as ReasoningContentParam
 from .tool_call_content_param import ToolCallContentParam as ToolCallContentParam
 from .approval_request_message import ApprovalRequestMessage as ApprovalRequestMessage

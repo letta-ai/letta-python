@@ -9,7 +9,7 @@ from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = [
-    "GroupUpdateParams",
+    "GroupModifyParams",
     "ManagerConfig",
     "ManagerConfigRoundRobinManagerUpdate",
     "ManagerConfigSupervisorManagerUpdate",
@@ -19,7 +19,7 @@ __all__ = [
 ]
 
 
-class GroupUpdateParams(TypedDict, total=False):
+class GroupModifyParams(TypedDict, total=False):
     agent_ids: Optional[SequenceNotStr[str]]
 
     description: Optional[str]

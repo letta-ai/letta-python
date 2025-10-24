@@ -11,7 +11,11 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import AgentState
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
-from letta_client.types.agents import Block
+from letta_client.types.agents import (
+    BlockListResponse,
+    BlockModifyResponse,
+    BlockRetrieveResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -26,7 +30,7 @@ class TestBlocks:
             block_label="block_label",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Block, block, path=["response"])
+        assert_matches_type(BlockRetrieveResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -39,7 +43,7 @@ class TestBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(Block, block, path=["response"])
+        assert_matches_type(BlockRetrieveResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -52,7 +56,7 @@ class TestBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(Block, block, path=["response"])
+            assert_matches_type(BlockRetrieveResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -73,86 +77,11 @@ class TestBlocks:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update(self, client: Letta) -> None:
-        block = client.agents.blocks.update(
-            block_label="block_label",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Block, block, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params(self, client: Letta) -> None:
-        block = client.agents.blocks.update(
-            block_label="block_label",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            base_template_id="base_template_id",
-            deployment_id="deployment_id",
-            description="description",
-            entity_id="entity_id",
-            hidden=True,
-            is_template=True,
-            label="label",
-            limit=0,
-            metadata={"foo": "bar"},
-            name="name",
-            preserve_on_migration=True,
-            project_id="project_id",
-            read_only=True,
-            value="value",
-        )
-        assert_matches_type(Block, block, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_update(self, client: Letta) -> None:
-        response = client.agents.blocks.with_raw_response.update(
-            block_label="block_label",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        block = response.parse()
-        assert_matches_type(Block, block, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_update(self, client: Letta) -> None:
-        with client.agents.blocks.with_streaming_response.update(
-            block_label="block_label",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            block = response.parse()
-            assert_matches_type(Block, block, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_update(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.blocks.with_raw_response.update(
-                block_label="block_label",
-                agent_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_label` but received ''"):
-            client.agents.blocks.with_raw_response.update(
-                block_label="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     def test_method_list(self, client: Letta) -> None:
         block = client.agents.blocks.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(SyncArrayPage[Block], block, path=["response"])
+        assert_matches_type(SyncArrayPage[BlockListResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -165,7 +94,7 @@ class TestBlocks:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(SyncArrayPage[Block], block, path=["response"])
+        assert_matches_type(SyncArrayPage[BlockListResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -177,7 +106,7 @@ class TestBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(SyncArrayPage[Block], block, path=["response"])
+        assert_matches_type(SyncArrayPage[BlockListResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -189,7 +118,7 @@ class TestBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(SyncArrayPage[Block], block, path=["response"])
+            assert_matches_type(SyncArrayPage[BlockListResponse], block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -305,6 +234,82 @@ class TestBlocks:
                 agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_modify(self, client: Letta) -> None:
+        block = client.agents.blocks.modify(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(BlockModifyResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_modify_with_all_params(self, client: Letta) -> None:
+        block = client.agents.blocks.modify(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            base_template_id="base_template_id",
+            deployment_id="deployment_id",
+            description="description",
+            entity_id="entity_id",
+            hidden=True,
+            is_template=True,
+            label="label",
+            limit=0,
+            metadata={"foo": "bar"},
+            preserve_on_migration=True,
+            project_id="project_id",
+            read_only=True,
+            template_id="template_id",
+            template_name="template_name",
+            value="value",
+        )
+        assert_matches_type(BlockModifyResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_modify(self, client: Letta) -> None:
+        response = client.agents.blocks.with_raw_response.modify(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = response.parse()
+        assert_matches_type(BlockModifyResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_modify(self, client: Letta) -> None:
+        with client.agents.blocks.with_streaming_response.modify(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = response.parse()
+            assert_matches_type(BlockModifyResponse, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_modify(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.blocks.with_raw_response.modify(
+                block_label="block_label",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_label` but received ''"):
+            client.agents.blocks.with_raw_response.modify(
+                block_label="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            )
+
 
 class TestAsyncBlocks:
     parametrize = pytest.mark.parametrize(
@@ -318,7 +323,7 @@ class TestAsyncBlocks:
             block_label="block_label",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Block, block, path=["response"])
+        assert_matches_type(BlockRetrieveResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -331,7 +336,7 @@ class TestAsyncBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(Block, block, path=["response"])
+        assert_matches_type(BlockRetrieveResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -344,7 +349,7 @@ class TestAsyncBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(Block, block, path=["response"])
+            assert_matches_type(BlockRetrieveResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -365,86 +370,11 @@ class TestAsyncBlocks:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncLetta) -> None:
-        block = await async_client.agents.blocks.update(
-            block_label="block_label",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Block, block, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
-        block = await async_client.agents.blocks.update(
-            block_label="block_label",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            base_template_id="base_template_id",
-            deployment_id="deployment_id",
-            description="description",
-            entity_id="entity_id",
-            hidden=True,
-            is_template=True,
-            label="label",
-            limit=0,
-            metadata={"foo": "bar"},
-            name="name",
-            preserve_on_migration=True,
-            project_id="project_id",
-            read_only=True,
-            value="value",
-        )
-        assert_matches_type(Block, block, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.blocks.with_raw_response.update(
-            block_label="block_label",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        block = await response.parse()
-        assert_matches_type(Block, block, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.blocks.with_streaming_response.update(
-            block_label="block_label",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            block = await response.parse()
-            assert_matches_type(Block, block, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_update(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.blocks.with_raw_response.update(
-                block_label="block_label",
-                agent_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_label` but received ''"):
-            await async_client.agents.blocks.with_raw_response.update(
-                block_label="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         block = await async_client.agents.blocks.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AsyncArrayPage[Block], block, path=["response"])
+        assert_matches_type(AsyncArrayPage[BlockListResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -457,7 +387,7 @@ class TestAsyncBlocks:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(AsyncArrayPage[Block], block, path=["response"])
+        assert_matches_type(AsyncArrayPage[BlockListResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -469,7 +399,7 @@ class TestAsyncBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(AsyncArrayPage[Block], block, path=["response"])
+        assert_matches_type(AsyncArrayPage[BlockListResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -481,7 +411,7 @@ class TestAsyncBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(AsyncArrayPage[Block], block, path=["response"])
+            assert_matches_type(AsyncArrayPage[BlockListResponse], block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -594,5 +524,81 @@ class TestAsyncBlocks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             await async_client.agents.blocks.with_raw_response.detach(
                 block_id="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_modify(self, async_client: AsyncLetta) -> None:
+        block = await async_client.agents.blocks.modify(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(BlockModifyResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_modify_with_all_params(self, async_client: AsyncLetta) -> None:
+        block = await async_client.agents.blocks.modify(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            base_template_id="base_template_id",
+            deployment_id="deployment_id",
+            description="description",
+            entity_id="entity_id",
+            hidden=True,
+            is_template=True,
+            label="label",
+            limit=0,
+            metadata={"foo": "bar"},
+            preserve_on_migration=True,
+            project_id="project_id",
+            read_only=True,
+            template_id="template_id",
+            template_name="template_name",
+            value="value",
+        )
+        assert_matches_type(BlockModifyResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_modify(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.blocks.with_raw_response.modify(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        block = await response.parse()
+        assert_matches_type(BlockModifyResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_modify(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.blocks.with_streaming_response.modify(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            block = await response.parse()
+            assert_matches_type(BlockModifyResponse, block, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_modify(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.blocks.with_raw_response.modify(
+                block_label="block_label",
+                agent_id="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_label` but received ''"):
+            await async_client.agents.blocks.with_raw_response.modify(
+                block_label="",
                 agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )

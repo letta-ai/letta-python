@@ -116,10 +116,11 @@ class TestAgents:
                     "is_template": True,
                     "limit": 0,
                     "metadata": {"foo": "bar"},
-                    "name": "name",
                     "preserve_on_migration": True,
                     "project_id": "project_id",
                     "read_only": True,
+                    "template_id": "template_id",
+                    "template_name": "template_name",
                 }
             ],
             memory_variables={"foo": "string"},
@@ -232,134 +233,6 @@ class TestAgents:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.with_raw_response.retrieve(
-                agent_id="",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update(self, client: Letta) -> None:
-        agent = client.agents.update(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params(self, client: Letta) -> None:
-        agent = client.agents.update(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            base_template_id="base_template_id",
-            block_ids=["string"],
-            context_window_limit=0,
-            description="description",
-            embedding="embedding",
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-                "azure_deployment": "azure_deployment",
-                "azure_endpoint": "azure_endpoint",
-                "azure_version": "azure_version",
-                "batch_size": 0,
-                "embedding_chunk_size": 0,
-                "embedding_endpoint": "embedding_endpoint",
-                "handle": "handle",
-            },
-            enable_sleeptime=True,
-            hidden=True,
-            identity_ids=["string"],
-            last_run_completion=parse_datetime("2019-12-27T18:11:19.117Z"),
-            last_run_duration_ms=0,
-            llm_config={
-                "context_window": 0,
-                "model": "model",
-                "model_endpoint_type": "openai",
-                "compatibility_type": "gguf",
-                "display_name": "display_name",
-                "enable_reasoner": True,
-                "frequency_penalty": 0,
-                "handle": "handle",
-                "max_reasoning_tokens": 0,
-                "max_tokens": 0,
-                "model_endpoint": "model_endpoint",
-                "model_wrapper": "model_wrapper",
-                "parallel_tool_calls": True,
-                "provider_category": "base",
-                "provider_name": "provider_name",
-                "put_inner_thoughts_in_kwargs": True,
-                "reasoning_effort": "minimal",
-                "temperature": 0,
-                "tier": "tier",
-                "verbosity": "low",
-            },
-            max_files_open=0,
-            max_tokens=0,
-            message_buffer_autoclear=True,
-            message_ids=["string"],
-            metadata={"foo": "bar"},
-            model="model",
-            name="name",
-            parallel_tool_calls=True,
-            per_file_view_window_char_limit=0,
-            project_id="project_id",
-            reasoning=True,
-            response_format={"type": "text"},
-            secrets={"foo": "string"},
-            source_ids=["string"],
-            system="system",
-            tags=["string"],
-            template_id="template_id",
-            timezone="timezone",
-            tool_exec_environment_variables={"foo": "string"},
-            tool_ids=["string"],
-            tool_rules=[
-                {
-                    "children": ["string"],
-                    "tool_name": "tool_name",
-                    "child_arg_nodes": [
-                        {
-                            "name": "name",
-                            "args": {"foo": "bar"},
-                        }
-                    ],
-                    "prompt_template": "prompt_template",
-                    "type": "constrain_child_tools",
-                }
-            ],
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_update(self, client: Letta) -> None:
-        response = client.agents.with_raw_response.update(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_update(self, client: Letta) -> None:
-        with client.agents.with_streaming_response.update(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_update(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.with_raw_response.update(
                 agent_id="",
             )
 
@@ -588,6 +461,134 @@ class TestAgents:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_modify(self, client: Letta) -> None:
+        agent = client.agents.modify(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_modify_with_all_params(self, client: Letta) -> None:
+        agent = client.agents.modify(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            base_template_id="base_template_id",
+            block_ids=["string"],
+            context_window_limit=0,
+            description="description",
+            embedding="embedding",
+            embedding_config={
+                "embedding_dim": 0,
+                "embedding_endpoint_type": "openai",
+                "embedding_model": "embedding_model",
+                "azure_deployment": "azure_deployment",
+                "azure_endpoint": "azure_endpoint",
+                "azure_version": "azure_version",
+                "batch_size": 0,
+                "embedding_chunk_size": 0,
+                "embedding_endpoint": "embedding_endpoint",
+                "handle": "handle",
+            },
+            enable_sleeptime=True,
+            hidden=True,
+            identity_ids=["string"],
+            last_run_completion=parse_datetime("2019-12-27T18:11:19.117Z"),
+            last_run_duration_ms=0,
+            llm_config={
+                "context_window": 0,
+                "model": "model",
+                "model_endpoint_type": "openai",
+                "compatibility_type": "gguf",
+                "display_name": "display_name",
+                "enable_reasoner": True,
+                "frequency_penalty": 0,
+                "handle": "handle",
+                "max_reasoning_tokens": 0,
+                "max_tokens": 0,
+                "model_endpoint": "model_endpoint",
+                "model_wrapper": "model_wrapper",
+                "parallel_tool_calls": True,
+                "provider_category": "base",
+                "provider_name": "provider_name",
+                "put_inner_thoughts_in_kwargs": True,
+                "reasoning_effort": "minimal",
+                "temperature": 0,
+                "tier": "tier",
+                "verbosity": "low",
+            },
+            max_files_open=0,
+            max_tokens=0,
+            message_buffer_autoclear=True,
+            message_ids=["string"],
+            metadata={"foo": "bar"},
+            model="model",
+            name="name",
+            parallel_tool_calls=True,
+            per_file_view_window_char_limit=0,
+            project_id="project_id",
+            reasoning=True,
+            response_format={"type": "text"},
+            secrets={"foo": "string"},
+            source_ids=["string"],
+            system="system",
+            tags=["string"],
+            template_id="template_id",
+            timezone="timezone",
+            tool_exec_environment_variables={"foo": "string"},
+            tool_ids=["string"],
+            tool_rules=[
+                {
+                    "children": ["string"],
+                    "tool_name": "tool_name",
+                    "child_arg_nodes": [
+                        {
+                            "name": "name",
+                            "args": {"foo": "bar"},
+                        }
+                    ],
+                    "prompt_template": "prompt_template",
+                    "type": "constrain_child_tools",
+                }
+            ],
+        )
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_modify(self, client: Letta) -> None:
+        response = client.agents.with_raw_response.modify(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = response.parse()
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_modify(self, client: Letta) -> None:
+        with client.agents.with_streaming_response.modify(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = response.parse()
+            assert_matches_type(AgentState, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_modify(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.with_raw_response.modify(
+                agent_id="",
+            )
+
 
 class TestAsyncAgents:
     parametrize = pytest.mark.parametrize(
@@ -687,10 +688,11 @@ class TestAsyncAgents:
                     "is_template": True,
                     "limit": 0,
                     "metadata": {"foo": "bar"},
-                    "name": "name",
                     "preserve_on_migration": True,
                     "project_id": "project_id",
                     "read_only": True,
+                    "template_id": "template_id",
+                    "template_name": "template_name",
                 }
             ],
             memory_variables={"foo": "string"},
@@ -803,134 +805,6 @@ class TestAsyncAgents:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.with_raw_response.retrieve(
-                agent_id="",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.update(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.update(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            base_template_id="base_template_id",
-            block_ids=["string"],
-            context_window_limit=0,
-            description="description",
-            embedding="embedding",
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-                "azure_deployment": "azure_deployment",
-                "azure_endpoint": "azure_endpoint",
-                "azure_version": "azure_version",
-                "batch_size": 0,
-                "embedding_chunk_size": 0,
-                "embedding_endpoint": "embedding_endpoint",
-                "handle": "handle",
-            },
-            enable_sleeptime=True,
-            hidden=True,
-            identity_ids=["string"],
-            last_run_completion=parse_datetime("2019-12-27T18:11:19.117Z"),
-            last_run_duration_ms=0,
-            llm_config={
-                "context_window": 0,
-                "model": "model",
-                "model_endpoint_type": "openai",
-                "compatibility_type": "gguf",
-                "display_name": "display_name",
-                "enable_reasoner": True,
-                "frequency_penalty": 0,
-                "handle": "handle",
-                "max_reasoning_tokens": 0,
-                "max_tokens": 0,
-                "model_endpoint": "model_endpoint",
-                "model_wrapper": "model_wrapper",
-                "parallel_tool_calls": True,
-                "provider_category": "base",
-                "provider_name": "provider_name",
-                "put_inner_thoughts_in_kwargs": True,
-                "reasoning_effort": "minimal",
-                "temperature": 0,
-                "tier": "tier",
-                "verbosity": "low",
-            },
-            max_files_open=0,
-            max_tokens=0,
-            message_buffer_autoclear=True,
-            message_ids=["string"],
-            metadata={"foo": "bar"},
-            model="model",
-            name="name",
-            parallel_tool_calls=True,
-            per_file_view_window_char_limit=0,
-            project_id="project_id",
-            reasoning=True,
-            response_format={"type": "text"},
-            secrets={"foo": "string"},
-            source_ids=["string"],
-            system="system",
-            tags=["string"],
-            template_id="template_id",
-            timezone="timezone",
-            tool_exec_environment_variables={"foo": "string"},
-            tool_ids=["string"],
-            tool_rules=[
-                {
-                    "children": ["string"],
-                    "tool_name": "tool_name",
-                    "child_arg_nodes": [
-                        {
-                            "name": "name",
-                            "args": {"foo": "bar"},
-                        }
-                    ],
-                    "prompt_template": "prompt_template",
-                    "type": "constrain_child_tools",
-                }
-            ],
-        )
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.with_raw_response.update(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = await response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.with_streaming_response.update(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = await response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_update(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.with_raw_response.update(
                 agent_id="",
             )
 
@@ -1158,3 +1032,131 @@ class TestAsyncAgents:
             assert_matches_type(AgentImportFileResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_modify(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.modify(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_modify_with_all_params(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.modify(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            base_template_id="base_template_id",
+            block_ids=["string"],
+            context_window_limit=0,
+            description="description",
+            embedding="embedding",
+            embedding_config={
+                "embedding_dim": 0,
+                "embedding_endpoint_type": "openai",
+                "embedding_model": "embedding_model",
+                "azure_deployment": "azure_deployment",
+                "azure_endpoint": "azure_endpoint",
+                "azure_version": "azure_version",
+                "batch_size": 0,
+                "embedding_chunk_size": 0,
+                "embedding_endpoint": "embedding_endpoint",
+                "handle": "handle",
+            },
+            enable_sleeptime=True,
+            hidden=True,
+            identity_ids=["string"],
+            last_run_completion=parse_datetime("2019-12-27T18:11:19.117Z"),
+            last_run_duration_ms=0,
+            llm_config={
+                "context_window": 0,
+                "model": "model",
+                "model_endpoint_type": "openai",
+                "compatibility_type": "gguf",
+                "display_name": "display_name",
+                "enable_reasoner": True,
+                "frequency_penalty": 0,
+                "handle": "handle",
+                "max_reasoning_tokens": 0,
+                "max_tokens": 0,
+                "model_endpoint": "model_endpoint",
+                "model_wrapper": "model_wrapper",
+                "parallel_tool_calls": True,
+                "provider_category": "base",
+                "provider_name": "provider_name",
+                "put_inner_thoughts_in_kwargs": True,
+                "reasoning_effort": "minimal",
+                "temperature": 0,
+                "tier": "tier",
+                "verbosity": "low",
+            },
+            max_files_open=0,
+            max_tokens=0,
+            message_buffer_autoclear=True,
+            message_ids=["string"],
+            metadata={"foo": "bar"},
+            model="model",
+            name="name",
+            parallel_tool_calls=True,
+            per_file_view_window_char_limit=0,
+            project_id="project_id",
+            reasoning=True,
+            response_format={"type": "text"},
+            secrets={"foo": "string"},
+            source_ids=["string"],
+            system="system",
+            tags=["string"],
+            template_id="template_id",
+            timezone="timezone",
+            tool_exec_environment_variables={"foo": "string"},
+            tool_ids=["string"],
+            tool_rules=[
+                {
+                    "children": ["string"],
+                    "tool_name": "tool_name",
+                    "child_arg_nodes": [
+                        {
+                            "name": "name",
+                            "args": {"foo": "bar"},
+                        }
+                    ],
+                    "prompt_template": "prompt_template",
+                    "type": "constrain_child_tools",
+                }
+            ],
+        )
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_modify(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.with_raw_response.modify(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = await response.parse()
+        assert_matches_type(AgentState, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_modify(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.with_streaming_response.modify(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = await response.parse()
+            assert_matches_type(AgentState, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_modify(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.with_raw_response.modify(
+                agent_id="",
+            )
