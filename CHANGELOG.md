@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0-alpha.8 (2025-10-24)
+
+Full Changelog: [v1.0.0-alpha.7...v1.0.0-alpha.8](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.7...v1.0.0-alpha.8)
+
+### Features
+
+* add stainless pagination for identities ([65eef2e](https://github.com/letta-ai/letta-python/commit/65eef2eab1c234a8146bcd2bec28e184a4626872))
+
 ## 1.0.0-alpha.7 (2025-10-24)
 
 Full Changelog: [v1.0.0-alpha.6...v1.0.0-alpha.7](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.6...v1.0.0-alpha.7)
