@@ -556,7 +556,7 @@ class ToolsResource(SyncAPIResource):
     def create_from_function(
         self,
         *,
-        func: typing.Callable,
+        func: typing.Callable[..., typing.Any],
         args_schema: typing.Optional[typing.Type[BaseModel]] | Omit = omit,
         description: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
