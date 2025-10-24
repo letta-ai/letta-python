@@ -15,7 +15,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import Archive, VectorDBProvider, ArchiveListResponse
+from letta_client.types import Archive, VectorDBProvider
 ```
 
 Methods:
@@ -23,7 +23,7 @@ Methods:
 - <code title="post /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">create</a>(\*\*<a href="src/letta_client/types/archive_create_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 - <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">retrieve</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 - <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">update</a>(archive_id, \*\*<a href="src/letta_client/types/archive_update_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
-- <code title="get /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">list</a>(\*\*<a href="src/letta_client/types/archive_list_params.py">params</a>) -> <a href="./src/letta_client/types/archive_list_response.py">ArchiveListResponse</a></code>
+- <code title="get /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">list</a>(\*\*<a href="src/letta_client/types/archive_list_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">SyncArrayPage[Archive]</a></code>
 - <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">delete</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
 
 # Tools
