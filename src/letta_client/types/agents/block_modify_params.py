@@ -39,9 +39,6 @@ class BlockModifyParams(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
     """Metadata of the block."""
 
-    name: Optional[str]
-    """The id of the template."""
-
     preserve_on_migration: Optional[bool]
     """Preserve the block on template migration."""
 
@@ -50,6 +47,12 @@ class BlockModifyParams(TypedDict, total=False):
 
     read_only: bool
     """Whether the agent has read-only access to the block."""
+
+    template_id: Optional[str]
+    """The id of the template."""
+
+    template_name: Optional[str]
+    """Name of the block if it is a template."""
 
     value: Optional[str]
     """Value of the block."""

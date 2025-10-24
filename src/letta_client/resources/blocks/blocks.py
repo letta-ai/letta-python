@@ -28,8 +28,11 @@ from ..._response import (
 )
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.agents.block import Block
+from ...types.block_list_response import BlockListResponse
 from ...types.block_count_response import BlockCountResponse
+from ...types.block_create_response import BlockCreateResponse
+from ...types.block_modify_response import BlockModifyResponse
+from ...types.block_retrieve_response import BlockRetrieveResponse
 
 __all__ = ["BlocksResource", "AsyncBlocksResource"]
 
@@ -71,17 +74,18 @@ class BlocksResource(SyncAPIResource):
         is_template: bool | Omit = omit,
         limit: int | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Block:
+    ) -> BlockCreateResponse:
         """
         Create Block
 
@@ -104,13 +108,15 @@ class BlocksResource(SyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: The id of the template.
-
           preserve_on_migration: Preserve the block on template migration.
 
           project_id: The associated project id.
 
           read_only: Whether the agent has read-only access to the block.
+
+          template_id: The id of the template.
+
+          template_name: Name of the block if it is a template.
 
           extra_headers: Send extra headers
 
@@ -134,17 +140,18 @@ class BlocksResource(SyncAPIResource):
                     "is_template": is_template,
                     "limit": limit,
                     "metadata": metadata,
-                    "name": name,
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "template_id": template_id,
+                    "template_name": template_name,
                 },
                 block_create_params.BlockCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Block,
+            cast_to=BlockCreateResponse,
         )
 
     def retrieve(
@@ -157,7 +164,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Block:
+    ) -> BlockRetrieveResponse:
         """
         Retrieve Block
 
@@ -179,7 +186,7 @@ class BlocksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Block,
+            cast_to=BlockRetrieveResponse,
         )
 
     def list(
@@ -208,7 +215,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[Block]:
+    ) -> SyncArrayPage[BlockListResponse]:
         """List Blocks
 
         Args:
@@ -266,7 +273,7 @@ class BlocksResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/blocks/",
-            page=SyncArrayPage[Block],
+            page=SyncArrayPage[BlockListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -295,7 +302,7 @@ class BlocksResource(SyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            model=Block,
+            model=BlockListResponse,
         )
 
     def delete(
@@ -365,10 +372,11 @@ class BlocksResource(SyncAPIResource):
         label: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -376,7 +384,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Block:
+    ) -> BlockModifyResponse:
         """
         Modify Block
 
@@ -401,13 +409,15 @@ class BlocksResource(SyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: The id of the template.
-
           preserve_on_migration: Preserve the block on template migration.
 
           project_id: The associated project id.
 
           read_only: Whether the agent has read-only access to the block.
+
+          template_id: The id of the template.
+
+          template_name: Name of the block if it is a template.
 
           value: Value of the block.
 
@@ -434,10 +444,11 @@ class BlocksResource(SyncAPIResource):
                     "label": label,
                     "limit": limit,
                     "metadata": metadata,
-                    "name": name,
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "template_id": template_id,
+                    "template_name": template_name,
                     "value": value,
                 },
                 block_modify_params.BlockModifyParams,
@@ -445,7 +456,7 @@ class BlocksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Block,
+            cast_to=BlockModifyResponse,
         )
 
 
@@ -486,17 +497,18 @@ class AsyncBlocksResource(AsyncAPIResource):
         is_template: bool | Omit = omit,
         limit: int | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Block:
+    ) -> BlockCreateResponse:
         """
         Create Block
 
@@ -519,13 +531,15 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: The id of the template.
-
           preserve_on_migration: Preserve the block on template migration.
 
           project_id: The associated project id.
 
           read_only: Whether the agent has read-only access to the block.
+
+          template_id: The id of the template.
+
+          template_name: Name of the block if it is a template.
 
           extra_headers: Send extra headers
 
@@ -549,17 +563,18 @@ class AsyncBlocksResource(AsyncAPIResource):
                     "is_template": is_template,
                     "limit": limit,
                     "metadata": metadata,
-                    "name": name,
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "template_id": template_id,
+                    "template_name": template_name,
                 },
                 block_create_params.BlockCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Block,
+            cast_to=BlockCreateResponse,
         )
 
     async def retrieve(
@@ -572,7 +587,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Block:
+    ) -> BlockRetrieveResponse:
         """
         Retrieve Block
 
@@ -594,7 +609,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Block,
+            cast_to=BlockRetrieveResponse,
         )
 
     def list(
@@ -623,7 +638,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Block, AsyncArrayPage[Block]]:
+    ) -> AsyncPaginator[BlockListResponse, AsyncArrayPage[BlockListResponse]]:
         """List Blocks
 
         Args:
@@ -681,7 +696,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/blocks/",
-            page=AsyncArrayPage[Block],
+            page=AsyncArrayPage[BlockListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -710,7 +725,7 @@ class AsyncBlocksResource(AsyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            model=Block,
+            model=BlockListResponse,
         )
 
     async def delete(
@@ -780,10 +795,11 @@ class AsyncBlocksResource(AsyncAPIResource):
         label: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -791,7 +807,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Block:
+    ) -> BlockModifyResponse:
         """
         Modify Block
 
@@ -816,13 +832,15 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           metadata: Metadata of the block.
 
-          name: The id of the template.
-
           preserve_on_migration: Preserve the block on template migration.
 
           project_id: The associated project id.
 
           read_only: Whether the agent has read-only access to the block.
+
+          template_id: The id of the template.
+
+          template_name: Name of the block if it is a template.
 
           value: Value of the block.
 
@@ -849,10 +867,11 @@ class AsyncBlocksResource(AsyncAPIResource):
                     "label": label,
                     "limit": limit,
                     "metadata": metadata,
-                    "name": name,
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "template_id": template_id,
+                    "template_name": template_name,
                     "value": value,
                 },
                 block_modify_params.BlockModifyParams,
@@ -860,7 +879,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Block,
+            cast_to=BlockModifyResponse,
         )
 
 
