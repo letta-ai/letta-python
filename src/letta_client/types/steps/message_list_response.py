@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import Union
 from typing_extensions import Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
@@ -14,9 +14,9 @@ from ..agents.approval_request_message import ApprovalRequestMessage
 from ..agents.hidden_reasoning_message import HiddenReasoningMessage
 from ..agents.approval_response_message import ApprovalResponseMessage
 
-__all__ = ["MessageListResponse", "MessageListResponseItem"]
+__all__ = ["MessageListResponse"]
 
-MessageListResponseItem: TypeAlias = Annotated[
+MessageListResponse: TypeAlias = Annotated[
     Union[
         SystemMessage,
         UserMessage,
@@ -30,5 +30,3 @@ MessageListResponseItem: TypeAlias = Annotated[
     ],
     PropertyInfo(discriminator="message_type"),
 ]
-
-MessageListResponse: TypeAlias = List[MessageListResponseItem]

@@ -26,10 +26,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ...pagination import SyncArrayPage, AsyncArrayPage
 from ...types.group import Group
-from ..._base_client import make_request_options
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.manager_type import ManagerType
-from ...types.group_list_response import GroupListResponse
 from ...types.group_count_response import GroupCountResponse
 
 __all__ = ["GroupsResource", "AsyncGroupsResource"]
@@ -237,7 +237,7 @@ class GroupsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> GroupListResponse:
+    ) -> SyncArrayPage[Group]:
         """
         Fetch all multi-agent groups matching query.
 
@@ -267,8 +267,9 @@ class GroupsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/groups/",
+            page=SyncArrayPage[Group],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -287,7 +288,7 @@ class GroupsResource(SyncAPIResource):
                     group_list_params.GroupListParams,
                 ),
             ),
-            cast_to=GroupListResponse,
+            model=Group,
         )
 
     def delete(
@@ -531,7 +532,7 @@ class AsyncGroupsResource(AsyncAPIResource):
             cast_to=Group,
         )
 
-    async def list(
+    def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -547,7 +548,7 @@ class AsyncGroupsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> GroupListResponse:
+    ) -> AsyncPaginator[Group, AsyncArrayPage[Group]]:
         """
         Fetch all multi-agent groups matching query.
 
@@ -577,14 +578,15 @@ class AsyncGroupsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/groups/",
+            page=AsyncArrayPage[Group],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -597,7 +599,7 @@ class AsyncGroupsResource(AsyncAPIResource):
                     group_list_params.GroupListParams,
                 ),
             ),
-            cast_to=GroupListResponse,
+            model=Group,
         )
 
     async def delete(

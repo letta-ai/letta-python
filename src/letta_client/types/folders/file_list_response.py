@@ -1,15 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["FileListResponse", "FileListResponseItem"]
+__all__ = ["FileListResponse"]
 
 
-class FileListResponseItem(BaseModel):
+class FileListResponse(BaseModel):
     source_id: str
     """The unique identifier of the source associated with the document."""
 
@@ -63,6 +63,3 @@ class FileListResponseItem(BaseModel):
 
     updated_at: Optional[datetime] = None
     """The update date of the file."""
-
-
-FileListResponse: TypeAlias = List[FileListResponseItem]

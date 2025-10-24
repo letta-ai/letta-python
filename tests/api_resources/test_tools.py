@@ -11,10 +11,10 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     Tool,
-    ToolListResponse,
     ToolCountResponse,
     ToolUpsertBaseToolsResponse,
 )
+from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -202,7 +202,7 @@ class TestTools:
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         tool = client.tools.list()
-        assert_matches_type(ToolListResponse, tool, path=["response"])
+        assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -221,7 +221,7 @@ class TestTools:
             tool_ids=["string"],
             tool_types=["string"],
         )
-        assert_matches_type(ToolListResponse, tool, path=["response"])
+        assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -231,7 +231,7 @@ class TestTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(ToolListResponse, tool, path=["response"])
+        assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -241,7 +241,7 @@ class TestTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(ToolListResponse, tool, path=["response"])
+            assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -606,7 +606,7 @@ class TestAsyncTools:
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         tool = await async_client.tools.list()
-        assert_matches_type(ToolListResponse, tool, path=["response"])
+        assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -625,7 +625,7 @@ class TestAsyncTools:
             tool_ids=["string"],
             tool_types=["string"],
         )
-        assert_matches_type(ToolListResponse, tool, path=["response"])
+        assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -635,7 +635,7 @@ class TestAsyncTools:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(ToolListResponse, tool, path=["response"])
+        assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -645,7 +645,7 @@ class TestAsyncTools:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(ToolListResponse, tool, path=["response"])
+            assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

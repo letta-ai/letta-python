@@ -25,7 +25,7 @@ from .metrics import (
     AsyncMetricsResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import maybe_transform, strip_not_given
 from .feedback import (
     FeedbackResource,
     AsyncFeedbackResource,
@@ -50,9 +50,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ...pagination import SyncArrayPage, AsyncArrayPage
 from ...types.step import Step
-from ..._base_client import make_request_options
-from ...types.step_list_response import StepListResponse
+from ..._base_client import AsyncPaginator, make_request_options
 
 __all__ = ["StepsResource", "AsyncStepsResource"]
 
@@ -152,7 +152,7 @@ class StepsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StepListResponse:
+    ) -> SyncArrayPage[Step]:
         """
         List steps with optional pagination and date filters.
 
@@ -197,8 +197,9 @@ class StepsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
-        return self._get(
+        return self._get_api_list(
             "/v1/steps/",
+            page=SyncArrayPage[Step],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -224,7 +225,7 @@ class StepsResource(SyncAPIResource):
                     step_list_params.StepListParams,
                 ),
             ),
-            cast_to=StepListResponse,
+            model=Step,
         )
 
 
@@ -299,7 +300,7 @@ class AsyncStepsResource(AsyncAPIResource):
             cast_to=Step,
         )
 
-    async def list(
+    def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -323,7 +324,7 @@ class AsyncStepsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> StepListResponse:
+    ) -> AsyncPaginator[Step, AsyncArrayPage[Step]]:
         """
         List steps with optional pagination and date filters.
 
@@ -368,14 +369,15 @@ class AsyncStepsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
-        return await self._get(
+        return self._get_api_list(
             "/v1/steps/",
+            page=AsyncArrayPage[Step],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "agent_id": agent_id,
@@ -395,7 +397,7 @@ class AsyncStepsResource(AsyncAPIResource):
                     step_list_params.StepListParams,
                 ),
             ),
-            cast_to=StepListResponse,
+            model=Step,
         )
 
 

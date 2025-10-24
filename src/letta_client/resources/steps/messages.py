@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -17,8 +17,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ...pagination import SyncArrayPage, AsyncArrayPage
 from ...types.steps import message_list_params
-from ..._base_client import make_request_options
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.steps.message_list_response import MessageListResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
@@ -59,7 +60,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageListResponse:
+    ) -> SyncArrayPage[MessageListResponse]:
         """
         List messages for a given step.
 
@@ -89,8 +90,9 @@ class MessagesResource(SyncAPIResource):
         """
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/v1/steps/{step_id}/messages",
+            page=SyncArrayPage[MessageListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -107,7 +109,7 @@ class MessagesResource(SyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            cast_to=MessageListResponse,
+            model=cast(Any, MessageListResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
 
@@ -131,7 +133,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
-    async def list(
+    def list(
         self,
         step_id: str,
         *,
@@ -146,7 +148,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageListResponse:
+    ) -> AsyncPaginator[MessageListResponse, AsyncArrayPage[MessageListResponse]]:
         """
         List messages for a given step.
 
@@ -176,14 +178,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/v1/steps/{step_id}/messages",
+            page=AsyncArrayPage[MessageListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -194,7 +197,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            cast_to=MessageListResponse,
+            model=cast(Any, MessageListResponse),  # Union types cannot be passed in as arguments in the type system
         )
 
 

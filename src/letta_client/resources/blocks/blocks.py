@@ -26,9 +26,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agents.block import Block
-from ...types.block_list_response import BlockListResponse
 from ...types.block_count_response import BlockCountResponse
 
 __all__ = ["BlocksResource", "AsyncBlocksResource"]
@@ -304,7 +304,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockListResponse:
+    ) -> SyncArrayPage[Block]:
         """List Blocks
 
         Args:
@@ -360,8 +360,9 @@ class BlocksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/blocks/",
+            page=SyncArrayPage[Block],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -390,7 +391,7 @@ class BlocksResource(SyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            cast_to=BlockListResponse,
+            model=Block,
         )
 
     def delete(
@@ -692,7 +693,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             cast_to=Block,
         )
 
-    async def list(
+    def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -718,7 +719,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockListResponse:
+    ) -> AsyncPaginator[Block, AsyncArrayPage[Block]]:
         """List Blocks
 
         Args:
@@ -774,14 +775,15 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/blocks/",
+            page=AsyncArrayPage[Block],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -804,7 +806,7 @@ class AsyncBlocksResource(AsyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            cast_to=BlockListResponse,
+            model=Block,
         )
 
     async def delete(
