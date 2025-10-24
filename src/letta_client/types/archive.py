@@ -4,6 +4,7 @@ from typing import Dict, Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .embedding_config import EmbeddingConfig
 from .vector_db_provider import VectorDBProvider
 
 __all__ = ["Archive"]
@@ -12,6 +13,9 @@ __all__ = ["Archive"]
 class Archive(BaseModel):
     created_at: datetime
     """The creation date of the archive"""
+
+    embedding_config: EmbeddingConfig
+    """Embedding configuration for passages in this archive"""
 
     name: str
     """The name of the archive"""
