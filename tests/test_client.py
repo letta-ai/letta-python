@@ -564,7 +564,7 @@ class TestLetta:
                 Letta(api_key=api_key, _strict_response_validation=True, environment="cloud")
 
             client = Letta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
-            assert str(client.base_url).startswith("https://app.letta.com")
+            assert str(client.base_url).startswith("https://api.letta.com")
 
     @pytest.mark.parametrize(
         "client",
@@ -1408,7 +1408,7 @@ class TestAsyncLetta:
                 AsyncLetta(api_key=api_key, _strict_response_validation=True, environment="cloud")
 
             client = AsyncLetta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
-            assert str(client.base_url).startswith("https://app.letta.com")
+            assert str(client.base_url).startswith("https://api.letta.com")
 
     @pytest.mark.parametrize(
         "client",
