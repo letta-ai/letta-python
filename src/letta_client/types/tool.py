@@ -6,7 +6,7 @@ from textwrap import dedent
 import inspect
 import typing
 
-from pydantic import Field as FieldInfo, Field, model_validator
+from pydantic import Field as FieldInfo, Field
 
 from .._models import BaseModel
 from .tool_type import ToolType
@@ -98,30 +98,30 @@ class BaseTool(Tool):
         pass
 
 
-    @model_validator(mode="after")
-    def no_self_in_run_source(self) -> "BaseTool":
-        """
-        Validate that the provided implementation does not reference `self` in the
-        `run` method implementation.
+    # @model_validator(mode="after")
+    # def no_self_in_run_source(self) -> "BaseTool":
+    #     """
+    #     Validate that the provided implementation does not reference `self` in the
+    #     `run` method implementation.
 
-        This check is performed after the model is created, so `self` is guaranteed
-        to be set.
+    #     This check is performed after the model is created, so `self` is guaranteed
+    #     to be set.
 
-        If `self` is found in the source code of the `run` method, a `ValueError` is
-        raised with a message pointing to the line and value of the offending code.
-        """
-        source_code = self.get_source_code()
-        if "self." in source_code:
-            raise_on_line, line_value = None, None
-            for i, line in enumerate(source_code.splitlines()):
-                if "self." in line:
-                    raise_on_line, line_value = i+1, line
-                    break;
-            raise ValueError(
-                f"Detected reference to 'self' in line {raise_on_line} of implementation, " +
-                f"which is not allowed:\n\n{line_value}\n\n" +
-                f"Please pass in the arguments directly to run() instead.")
-        return self
+    #     If `self` is found in the source code of the `run` method, a `ValueError` is
+    #     raised with a message pointing to the line and value of the offending code.
+    #     """
+    #     source_code = self.get_source_code()
+    #     if "self." in source_code:
+    #         raise_on_line, line_value = None, None
+    #         for i, line in enumerate(source_code.splitlines()):
+    #             if "self." in line:
+    #                 raise_on_line, line_value = i+1, line
+    #                 break;
+    #         raise ValueError(
+    #             f"Detected reference to 'self' in line {raise_on_line} of implementation, " +
+    #             f"which is not allowed:\n\n{line_value}\n\n" +
+    #             f"Please pass in the arguments directly to run() instead.")
+    #     return self
 
 
     def get_source_code(self) -> str:
