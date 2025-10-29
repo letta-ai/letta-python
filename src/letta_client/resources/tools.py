@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+import typing
+import inspect
 from typing import Dict, Iterable, Optional
+from textwrap import dedent
 from typing_extensions import Literal
 
 import httpx
+from pydantic import BaseModel
 
 from ..types import tool_list_params, tool_count_params, tool_create_params, tool_modify_params, tool_upsert_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
@@ -25,10 +29,6 @@ from ..types.tool_count_response import ToolCountResponse
 from ..types.npm_requirement_param import NpmRequirementParam
 from ..types.pip_requirement_param import PipRequirementParam
 from ..types.tool_upsert_base_tools_response import ToolUpsertBaseToolsResponse
-import typing
-from pydantic import BaseModel
-from textwrap import dedent
-import inspect
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
 
