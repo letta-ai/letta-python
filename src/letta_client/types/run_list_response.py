@@ -3,6 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-__all__ = ["TagListResponse"]
+from .agents.run import Run
 
-TagListResponse: TypeAlias = List[str]
+__all__ = ["RunListResponse"]
+
+RunListResponse: TypeAlias = List[Run]

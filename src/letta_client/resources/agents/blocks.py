@@ -21,9 +21,7 @@ from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agents import block_list_params, block_modify_params
 from ...types.agent_state import AgentState
-from ...types.agents.block_list_response import BlockListResponse
-from ...types.agents.block_modify_response import BlockModifyResponse
-from ...types.agents.block_retrieve_response import BlockRetrieveResponse
+from ...types.block_response import BlockResponse
 
 __all__ = ["BlocksResource", "AsyncBlocksResource"]
 
@@ -59,7 +57,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockRetrieveResponse:
+    ) -> BlockResponse:
         """
         Retrieve a core memory block from an agent.
 
@@ -83,7 +81,7 @@ class BlocksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockRetrieveResponse,
+            cast_to=BlockResponse,
         )
 
     def list(
@@ -101,7 +99,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[BlockListResponse]:
+    ) -> SyncArrayPage[BlockResponse]:
         """
         Retrieve the core memory blocks of a specific agent.
 
@@ -133,7 +131,7 @@ class BlocksResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
             f"/v1/agents/{agent_id}/core-memory/blocks",
-            page=SyncArrayPage[BlockListResponse],
+            page=SyncArrayPage[BlockResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -150,7 +148,7 @@ class BlocksResource(SyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            model=BlockListResponse,
+            model=BlockResponse,
         )
 
     def attach(
@@ -259,7 +257,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockModifyResponse:
+    ) -> BlockResponse:
         """
         Updates a core memory block of an agent.
 
@@ -333,7 +331,7 @@ class BlocksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockModifyResponse,
+            cast_to=BlockResponse,
         )
 
 
@@ -368,7 +366,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockRetrieveResponse:
+    ) -> BlockResponse:
         """
         Retrieve a core memory block from an agent.
 
@@ -392,7 +390,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockRetrieveResponse,
+            cast_to=BlockResponse,
         )
 
     def list(
@@ -410,7 +408,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[BlockListResponse, AsyncArrayPage[BlockListResponse]]:
+    ) -> AsyncPaginator[BlockResponse, AsyncArrayPage[BlockResponse]]:
         """
         Retrieve the core memory blocks of a specific agent.
 
@@ -442,7 +440,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
             f"/v1/agents/{agent_id}/core-memory/blocks",
-            page=AsyncArrayPage[BlockListResponse],
+            page=AsyncArrayPage[BlockResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -459,7 +457,7 @@ class AsyncBlocksResource(AsyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            model=BlockListResponse,
+            model=BlockResponse,
         )
 
     async def attach(
@@ -568,7 +566,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockModifyResponse:
+    ) -> BlockResponse:
         """
         Updates a core memory block of an agent.
 
@@ -642,7 +640,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockModifyResponse,
+            cast_to=BlockResponse,
         )
 
 

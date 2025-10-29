@@ -18,9 +18,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncArrayPage, AsyncArrayPage
-from .._base_client import AsyncPaginator, make_request_options
+from .._base_client import make_request_options
 from ..types.archive import Archive
+from ..types.archive_list_response import ArchiveListResponse
 from ..types.embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["ArchivesResource", "AsyncArchivesResource"]
@@ -140,7 +140,7 @@ class ArchivesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[Archive]:
+    ) -> ArchiveListResponse:
         """
         Get a list of all archives for the current organization with optional filters
         and pagination.
@@ -171,9 +171,8 @@ class ArchivesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/v1/archives/",
-            page=SyncArrayPage[Archive],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -192,7 +191,7 @@ class ArchivesResource(SyncAPIResource):
                     archive_list_params.ArchiveListParams,
                 ),
             ),
-            model=Archive,
+            cast_to=ArchiveListResponse,
         )
 
     def delete(
@@ -373,7 +372,7 @@ class AsyncArchivesResource(AsyncAPIResource):
             cast_to=Archive,
         )
 
-    def list(
+    async def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -389,7 +388,7 @@ class AsyncArchivesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Archive, AsyncArrayPage[Archive]]:
+    ) -> ArchiveListResponse:
         """
         Get a list of all archives for the current organization with optional filters
         and pagination.
@@ -420,15 +419,14 @@ class AsyncArchivesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/v1/archives/",
-            page=AsyncArrayPage[Archive],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "after": after,
                         "agent_id": agent_id,
@@ -441,7 +439,7 @@ class AsyncArchivesResource(AsyncAPIResource):
                     archive_list_params.ArchiveListParams,
                 ),
             ),
-            model=Archive,
+            cast_to=ArchiveListResponse,
         )
 
     async def delete(
