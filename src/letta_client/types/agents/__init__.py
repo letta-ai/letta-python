@@ -51,6 +51,7 @@ from .reasoning_content_param import ReasoningContentParam as ReasoningContentPa
 from .tool_call_content_param import ToolCallContentParam as ToolCallContentParam
 from .approval_request_message import ApprovalRequestMessage as ApprovalRequestMessage
 from .hidden_reasoning_message import HiddenReasoningMessage as HiddenReasoningMessage
+from .letta_streaming_response import LettaStreamingResponse as LettaStreamingResponse
 from .approval_response_message import ApprovalResponseMessage as ApprovalResponseMessage
 from .message_send_async_params import MessageSendAsyncParams as MessageSendAsyncParams
 from .omitted_reasoning_content import OmittedReasoningContent as OmittedReasoningContent

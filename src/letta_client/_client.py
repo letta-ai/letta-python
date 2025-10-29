@@ -164,6 +164,8 @@ class Letta(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self._default_stream_cls = Stream
+
         self.archives = archives.ArchivesResource(self)
         self.tools = tools.ToolsResource(self)
         self.folders = folders.FoldersResource(self)
@@ -400,6 +402,8 @@ class AsyncLetta(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_stream_cls = AsyncStream
 
         self.archives = archives.AsyncArchivesResource(self)
         self.tools = tools.AsyncToolsResource(self)
