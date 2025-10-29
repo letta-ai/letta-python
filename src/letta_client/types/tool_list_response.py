@@ -3,6 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-__all__ = ["TagListResponse"]
+from .tool import Tool
 
-TagListResponse: TypeAlias = List[str]
+__all__ = ["ToolListResponse"]
+
+ToolListResponse: TypeAlias = List[Tool]

@@ -3,6 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-__all__ = ["TagListResponse"]
+from .batch_job import BatchJob
 
-TagListResponse: TypeAlias = List[str]
+__all__ = ["BatchListResponse"]
+
+BatchListResponse: TypeAlias = List[BatchJob]

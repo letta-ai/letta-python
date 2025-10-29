@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -17,8 +17,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.folders import agent_list_params
 from ...types.folders.agent_list_response import AgentListResponse
 
@@ -60,7 +59,7 @@ class AgentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[AgentListResponse]:
+    ) -> AgentListResponse:
         """
         Get all agent IDs that have the specified folder attached.
 
@@ -90,9 +89,8 @@ class AgentsResource(SyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        return self._get_api_list(
+        return self._get(
             f"/v1/folders/{folder_id}/agents",
-            page=SyncArrayPage[AgentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -109,7 +107,7 @@ class AgentsResource(SyncAPIResource):
                     agent_list_params.AgentListParams,
                 ),
             ),
-            model=str,
+            cast_to=AgentListResponse,
         )
 
 
@@ -133,7 +131,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         return AsyncAgentsResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         folder_id: str,
         *,
@@ -148,7 +146,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[AgentListResponse, AsyncArrayPage[AgentListResponse]]:
+    ) -> AgentListResponse:
         """
         Get all agent IDs that have the specified folder attached.
 
@@ -178,15 +176,14 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        return self._get_api_list(
+        return await self._get(
             f"/v1/folders/{folder_id}/agents",
-            page=AsyncArrayPage[AgentListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -197,7 +194,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     agent_list_params.AgentListParams,
                 ),
             ),
-            model=str,
+            cast_to=AgentListResponse,
         )
 
 

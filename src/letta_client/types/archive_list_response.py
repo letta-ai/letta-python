@@ -3,6 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-__all__ = ["TagListResponse"]
+from .archive import Archive
 
-TagListResponse: TypeAlias = List[str]
+__all__ = ["ArchiveListResponse"]
+
+ArchiveListResponse: TypeAlias = List[Archive]

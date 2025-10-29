@@ -10,11 +10,8 @@ import pytest
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
-    BlockListResponse,
+    BlockResponse,
     BlockCountResponse,
-    BlockCreateResponse,
-    BlockModifyResponse,
-    BlockRetrieveResponse,
 )
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
@@ -31,7 +28,7 @@ class TestBlocks:
             label="label",
             value="value",
         )
-        assert_matches_type(BlockCreateResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -53,7 +50,7 @@ class TestBlocks:
             template_id="template_id",
             template_name="template_name",
         )
-        assert_matches_type(BlockCreateResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -66,7 +63,7 @@ class TestBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(BlockCreateResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -79,7 +76,7 @@ class TestBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(BlockCreateResponse, block, path=["response"])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -89,7 +86,7 @@ class TestBlocks:
         block = client.blocks.retrieve(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(BlockRetrieveResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -101,7 +98,7 @@ class TestBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(BlockRetrieveResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -113,7 +110,7 @@ class TestBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(BlockRetrieveResponse, block, path=["response"])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -129,7 +126,7 @@ class TestBlocks:
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         block = client.blocks.list()
-        assert_matches_type(SyncArrayPage[BlockListResponse], block, path=["response"])
+        assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -153,7 +150,7 @@ class TestBlocks:
             templates_only=True,
             value_search="value_search",
         )
-        assert_matches_type(SyncArrayPage[BlockListResponse], block, path=["response"])
+        assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -163,7 +160,7 @@ class TestBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(SyncArrayPage[BlockListResponse], block, path=["response"])
+        assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -173,7 +170,7 @@ class TestBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(SyncArrayPage[BlockListResponse], block, path=["response"])
+            assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -253,7 +250,7 @@ class TestBlocks:
         block = client.blocks.modify(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(BlockModifyResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -276,7 +273,7 @@ class TestBlocks:
             template_name="template_name",
             value="value",
         )
-        assert_matches_type(BlockModifyResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -288,7 +285,7 @@ class TestBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(BlockModifyResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -300,7 +297,7 @@ class TestBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(BlockModifyResponse, block, path=["response"])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -325,7 +322,7 @@ class TestAsyncBlocks:
             label="label",
             value="value",
         )
-        assert_matches_type(BlockCreateResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -347,7 +344,7 @@ class TestAsyncBlocks:
             template_id="template_id",
             template_name="template_name",
         )
-        assert_matches_type(BlockCreateResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -360,7 +357,7 @@ class TestAsyncBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(BlockCreateResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -373,7 +370,7 @@ class TestAsyncBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(BlockCreateResponse, block, path=["response"])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -383,7 +380,7 @@ class TestAsyncBlocks:
         block = await async_client.blocks.retrieve(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(BlockRetrieveResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -395,7 +392,7 @@ class TestAsyncBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(BlockRetrieveResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -407,7 +404,7 @@ class TestAsyncBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(BlockRetrieveResponse, block, path=["response"])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -423,7 +420,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.list()
-        assert_matches_type(AsyncArrayPage[BlockListResponse], block, path=["response"])
+        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -447,7 +444,7 @@ class TestAsyncBlocks:
             templates_only=True,
             value_search="value_search",
         )
-        assert_matches_type(AsyncArrayPage[BlockListResponse], block, path=["response"])
+        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -457,7 +454,7 @@ class TestAsyncBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(AsyncArrayPage[BlockListResponse], block, path=["response"])
+        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -467,7 +464,7 @@ class TestAsyncBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(AsyncArrayPage[BlockListResponse], block, path=["response"])
+            assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -547,7 +544,7 @@ class TestAsyncBlocks:
         block = await async_client.blocks.modify(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(BlockModifyResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -570,7 +567,7 @@ class TestAsyncBlocks:
             template_name="template_name",
             value="value",
         )
-        assert_matches_type(BlockModifyResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -582,7 +579,7 @@ class TestAsyncBlocks:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(BlockModifyResponse, block, path=["response"])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -594,7 +591,7 @@ class TestAsyncBlocks:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(BlockModifyResponse, block, path=["response"])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

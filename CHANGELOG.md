@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.0-alpha.11 (2025-10-29)
+
+Full Changelog: [v1.0.0-alpha.10...v1.0.0-alpha.11](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.10...v1.0.0-alpha.11)
+
+### Features
+
+* add streaming response type to messages stream for stainless ([1312c59](https://github.com/letta-ai/letta-python/commit/1312c59d19bd36d5bff27a6dc968d77bb1f5d7e8))
+
+
+### Bug Fixes
+
+* toggle off stainless pagination for list endpoints that require id field ([23d68c8](https://github.com/letta-ai/letta-python/commit/23d68c8198c0394f27df77524f4f1810e49a234d))
+* use api base url for cloud ([1c44e39](https://github.com/letta-ai/letta-python/commit/1c44e39a62290d7fb01d1c2f6758952dc374a960))
+* use api base url for cloud ([406ae87](https://github.com/letta-ai/letta-python/commit/406ae8714589f356e16500aa4b7e661bc35c99f7))
+
 ## 1.0.0-alpha.10 (2025-10-24)
 
 Full Changelog: [v1.0.0-alpha.9...v1.0.0-alpha.10](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.9...v1.0.0-alpha.10)

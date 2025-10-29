@@ -22,6 +22,7 @@ from letta_client import Letta, AsyncLetta, APIResponseValidationError
 from letta_client._types import Omit
 from letta_client._utils import asyncify
 from letta_client._models import BaseModel, FinalRequestOptions
+from letta_client._streaming import Stream, AsyncStream
 from letta_client._exceptions import LettaError, APIStatusError, APITimeoutError, APIResponseValidationError
 from letta_client._base_client import (
     DEFAULT_TIMEOUT,
@@ -564,7 +565,7 @@ class TestLetta:
                 Letta(api_key=api_key, _strict_response_validation=True, environment="cloud")
 
             client = Letta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
-            assert str(client.base_url).startswith("https://app.letta.com")
+            assert str(client.base_url).startswith("https://api.letta.com")
 
     @pytest.mark.parametrize(
         "client",
@@ -669,6 +670,17 @@ class TestLetta:
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
             Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+
+    @pytest.mark.respx(base_url=base_url)
+    def test_default_stream_cls(self, respx_mock: MockRouter) -> None:
+        class Model(BaseModel):
+            name: str
+
+        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        stream = self.client.post("/foo", cast_to=Model, stream=True, stream_cls=Stream[Model])
+        assert isinstance(stream, Stream)
+        stream.response.close()
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -1408,7 +1420,7 @@ class TestAsyncLetta:
                 AsyncLetta(api_key=api_key, _strict_response_validation=True, environment="cloud")
 
             client = AsyncLetta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
-            assert str(client.base_url).startswith("https://app.letta.com")
+            assert str(client.base_url).startswith("https://api.letta.com")
 
     @pytest.mark.parametrize(
         "client",
@@ -1523,6 +1535,18 @@ class TestAsyncLetta:
             AsyncLetta(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
             )
+
+    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.asyncio
+    async def test_default_stream_cls(self, respx_mock: MockRouter) -> None:
+        class Model(BaseModel):
+            name: str
+
+        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+
+        stream = await self.client.post("/foo", cast_to=Model, stream=True, stream_cls=AsyncStream[Model])
+        assert isinstance(stream, AsyncStream)
+        await stream.response.aclose()
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio

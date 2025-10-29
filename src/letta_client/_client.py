@@ -64,7 +64,7 @@ __all__ = [
 ]
 
 ENVIRONMENTS: Dict[str, str] = {
-    "cloud": "https://app.letta.com",
+    "cloud": "https://api.letta.com",
     "local": "http://localhost:8283",
 }
 
@@ -163,6 +163,8 @@ class Letta(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_stream_cls = Stream
 
         self.archives = archives.ArchivesResource(self)
         self.tools = tools.ToolsResource(self)
@@ -400,6 +402,8 @@ class AsyncLetta(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_stream_cls = AsyncStream
 
         self.archives = archives.AsyncArchivesResource(self)
         self.tools = tools.AsyncToolsResource(self)

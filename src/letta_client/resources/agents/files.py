@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -17,8 +17,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncNextFilesPage, AsyncNextFilesPage
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.agents import file_list_params
 from ...types.agents.file_list_response import FileListResponse
 from ...types.agents.file_open_response import FileOpenResponse
@@ -64,7 +63,7 @@ class FilesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncNextFilesPage[FileListResponse]:
+    ) -> FileListResponse:
         """
         Get the files attached to an agent with their open/closed status.
 
@@ -98,9 +97,8 @@ class FilesResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return self._get_api_list(
+        return self._get(
             f"/v1/agents/{agent_id}/files",
-            page=SyncNextFilesPage[FileListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -119,7 +117,7 @@ class FilesResource(SyncAPIResource):
                     file_list_params.FileListParams,
                 ),
             ),
-            model=FileListResponse,
+            cast_to=FileListResponse,
         )
 
     def close(
@@ -268,7 +266,7 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         return AsyncFilesResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         agent_id: str,
         *,
@@ -285,7 +283,7 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[FileListResponse, AsyncNextFilesPage[FileListResponse]]:
+    ) -> FileListResponse:
         """
         Get the files attached to an agent with their open/closed status.
 
@@ -319,15 +317,14 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return self._get_api_list(
+        return await self._get(
             f"/v1/agents/{agent_id}/files",
-            page=AsyncNextFilesPage[FileListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -340,7 +337,7 @@ class AsyncFilesResource(AsyncAPIResource):
                     file_list_params.FileListParams,
                 ),
             ),
-            model=FileListResponse,
+            cast_to=FileListResponse,
         )
 
     async def close(

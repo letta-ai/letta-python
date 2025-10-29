@@ -9,7 +9,7 @@ import httpx
 
 from ..types import tag_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -18,8 +18,7 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncArrayPage, AsyncArrayPage
-from .._base_client import AsyncPaginator, make_request_options
+from .._base_client import make_request_options
 from ..types.tag_list_response import TagListResponse
 
 __all__ = ["TagsResource", "AsyncTagsResource"]
@@ -61,7 +60,7 @@ class TagsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[TagListResponse]:
+    ) -> TagListResponse:
         """
         Get the list of all agent tags that have been created.
 
@@ -91,9 +90,8 @@ class TagsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/v1/tags/",
-            page=SyncArrayPage[TagListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -112,7 +110,7 @@ class TagsResource(SyncAPIResource):
                     tag_list_params.TagListParams,
                 ),
             ),
-            model=str,
+            cast_to=TagListResponse,
         )
 
 
@@ -136,7 +134,7 @@ class AsyncTagsResource(AsyncAPIResource):
         """
         return AsyncTagsResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -152,7 +150,7 @@ class AsyncTagsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[TagListResponse, AsyncArrayPage[TagListResponse]]:
+    ) -> TagListResponse:
         """
         Get the list of all agent tags that have been created.
 
@@ -182,15 +180,14 @@ class AsyncTagsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/v1/tags/",
-            page=AsyncArrayPage[TagListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -203,7 +200,7 @@ class AsyncTagsResource(AsyncAPIResource):
                     tag_list_params.TagListParams,
                 ),
             ),
-            model=str,
+            cast_to=TagListResponse,
         )
 
 
