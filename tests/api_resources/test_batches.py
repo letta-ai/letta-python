@@ -9,8 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
-from letta_client.types import BatchJob
-from letta_client.pagination import SyncArrayPage, AsyncArrayPage
+from letta_client.types import BatchJob, BatchListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -180,7 +179,7 @@ class TestBatches:
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         batch = client.batches.list()
-        assert_matches_type(SyncArrayPage[BatchJob], batch, path=["response"])
+        assert_matches_type(BatchListResponse, batch, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -192,7 +191,7 @@ class TestBatches:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(SyncArrayPage[BatchJob], batch, path=["response"])
+        assert_matches_type(BatchListResponse, batch, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -202,7 +201,7 @@ class TestBatches:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         batch = response.parse()
-        assert_matches_type(SyncArrayPage[BatchJob], batch, path=["response"])
+        assert_matches_type(BatchListResponse, batch, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -212,7 +211,7 @@ class TestBatches:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             batch = response.parse()
-            assert_matches_type(SyncArrayPage[BatchJob], batch, path=["response"])
+            assert_matches_type(BatchListResponse, batch, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -426,7 +425,7 @@ class TestAsyncBatches:
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         batch = await async_client.batches.list()
-        assert_matches_type(AsyncArrayPage[BatchJob], batch, path=["response"])
+        assert_matches_type(BatchListResponse, batch, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -438,7 +437,7 @@ class TestAsyncBatches:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(AsyncArrayPage[BatchJob], batch, path=["response"])
+        assert_matches_type(BatchListResponse, batch, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -448,7 +447,7 @@ class TestAsyncBatches:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         batch = await response.parse()
-        assert_matches_type(AsyncArrayPage[BatchJob], batch, path=["response"])
+        assert_matches_type(BatchListResponse, batch, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -458,7 +457,7 @@ class TestAsyncBatches:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             batch = await response.parse()
-            assert_matches_type(AsyncArrayPage[BatchJob], batch, path=["response"])
+            assert_matches_type(BatchListResponse, batch, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

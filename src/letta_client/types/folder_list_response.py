@@ -3,6 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-__all__ = ["TagListResponse"]
+from .folder import Folder
 
-TagListResponse: TypeAlias = List[str]
+__all__ = ["FolderListResponse"]
+
+FolderListResponse: TypeAlias = List[Folder]

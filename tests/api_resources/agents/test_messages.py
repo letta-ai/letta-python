@@ -736,7 +736,7 @@ class TestMessages:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_stream(self, client: Letta) -> None:
-        message = client.agents.messages.stream(
+        message_stream = client.agents.messages.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
@@ -750,12 +750,12 @@ class TestMessages:
                 }
             ],
         )
-        assert_matches_type(object, message, path=["response"])
+        message_stream.response.close()
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_stream_with_all_params(self, client: Letta) -> None:
-        message = client.agents.messages.stream(
+        message_stream = client.agents.messages.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
@@ -785,7 +785,7 @@ class TestMessages:
             stream_tokens=True,
             use_assistant_message=True,
         )
-        assert_matches_type(object, message, path=["response"])
+        message_stream.response.close()
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -805,10 +805,9 @@ class TestMessages:
             ],
         )
 
-        assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = response.parse()
-        assert_matches_type(object, message, path=["response"])
+        stream = response.parse()
+        stream.close()
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -830,8 +829,8 @@ class TestMessages:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            message = response.parse()
-            assert_matches_type(object, message, path=["response"])
+            stream = response.parse()
+            stream.close()
 
         assert cast(Any, response.is_closed) is True
 
@@ -1613,7 +1612,7 @@ class TestAsyncMessages:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_stream(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.stream(
+        message_stream = await async_client.agents.messages.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
@@ -1627,12 +1626,12 @@ class TestAsyncMessages:
                 }
             ],
         )
-        assert_matches_type(object, message, path=["response"])
+        await message_stream.response.aclose()
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_stream_with_all_params(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.stream(
+        message_stream = await async_client.agents.messages.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 {
@@ -1662,7 +1661,7 @@ class TestAsyncMessages:
             stream_tokens=True,
             use_assistant_message=True,
         )
-        assert_matches_type(object, message, path=["response"])
+        await message_stream.response.aclose()
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1682,10 +1681,9 @@ class TestAsyncMessages:
             ],
         )
 
-        assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = await response.parse()
-        assert_matches_type(object, message, path=["response"])
+        stream = await response.parse()
+        await stream.close()
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1707,8 +1705,8 @@ class TestAsyncMessages:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            message = await response.parse()
-            assert_matches_type(object, message, path=["response"])
+            stream = await response.parse()
+            await stream.close()
 
         assert cast(Any, response.is_closed) is True
 
