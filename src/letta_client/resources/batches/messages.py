@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -17,10 +17,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncObjectPage, AsyncObjectPage
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.batches import message_list_params
-from ...types.agents.message import Message
+from ...types.batches.message_list_response import MessageListResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -61,7 +60,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncObjectPage[Message]:
+    ) -> MessageListResponse:
         """
         Get response messages for a specific batch job.
 
@@ -91,9 +90,8 @@ class MessagesResource(SyncAPIResource):
         """
         if not batch_id:
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
-        return self._get_api_list(
+        return self._get(
             f"/v1/messages/batches/{batch_id}/messages",
-            page=SyncObjectPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -111,7 +109,7 @@ class MessagesResource(SyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            model=Message,
+            cast_to=MessageListResponse,
         )
 
 
@@ -135,7 +133,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         batch_id: str,
         *,
@@ -151,7 +149,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Message, AsyncObjectPage[Message]]:
+    ) -> MessageListResponse:
         """
         Get response messages for a specific batch job.
 
@@ -181,15 +179,14 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not batch_id:
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
-        return self._get_api_list(
+        return await self._get(
             f"/v1/messages/batches/{batch_id}/messages",
-            page=AsyncObjectPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "after": after,
                         "agent_id": agent_id,
@@ -201,7 +198,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            model=Message,
+            cast_to=MessageListResponse,
         )
 
 

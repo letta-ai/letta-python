@@ -1,14 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["FileListResponse"]
+__all__ = ["FileListResponse", "File"]
 
 
-class FileListResponse(BaseModel):
+class File(BaseModel):
     id: str
     """Unique identifier of the file-agent relationship"""
 
@@ -38,3 +38,14 @@ class FileListResponse(BaseModel):
 
     visible_content: Optional[str] = None
     """Portion of the file visible to the agent if open"""
+
+
+class FileListResponse(BaseModel):
+    files: List[File]
+    """List of file attachments for the agent"""
+
+    has_more: bool
+    """Whether more results exist after this page"""
+
+    next_cursor: Optional[str] = None
+    """Cursor for fetching the next page (file-agent relationship ID)"""

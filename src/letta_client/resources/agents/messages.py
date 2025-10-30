@@ -17,6 +17,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..._streaming import Stream, AsyncStream
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agents import (
@@ -35,6 +36,7 @@ from ...types.agents.letta_response import LettaResponse
 from ...types.agents.letta_message_union import LettaMessageUnion
 from ...types.agents.message_cancel_response import MessageCancelResponse
 from ...types.agents.message_modify_response import MessageModifyResponse
+from ...types.agents.letta_streaming_response import LettaStreamingResponse
 from ...types.agents.letta_user_message_content_union_param import LettaUserMessageContentUnionParam
 from ...types.agents.letta_assistant_message_content_union_param import LettaAssistantMessageContentUnionParam
 
@@ -597,7 +599,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> Stream[LettaStreamingResponse]:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -664,7 +666,11 @@ class MessagesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=cast(
+                Any, LettaStreamingResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            stream=True,
+            stream_cls=Stream[LettaStreamingResponse],
         )
 
     def summarize(
@@ -1260,7 +1266,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> AsyncStream[LettaStreamingResponse]:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -1327,7 +1333,11 @@ class AsyncMessagesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=cast(
+                Any, LettaStreamingResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            stream=True,
+            stream_cls=AsyncStream[LettaStreamingResponse],
         )
 
     async def summarize(

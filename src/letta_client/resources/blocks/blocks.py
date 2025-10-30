@@ -28,11 +28,8 @@ from ..._response import (
 )
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.block_list_response import BlockListResponse
+from ...types.block_response import BlockResponse
 from ...types.block_count_response import BlockCountResponse
-from ...types.block_create_response import BlockCreateResponse
-from ...types.block_modify_response import BlockModifyResponse
-from ...types.block_retrieve_response import BlockRetrieveResponse
 
 __all__ = ["BlocksResource", "AsyncBlocksResource"]
 
@@ -85,7 +82,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockCreateResponse:
+    ) -> BlockResponse:
         """
         Create Block
 
@@ -151,7 +148,7 @@ class BlocksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockCreateResponse,
+            cast_to=BlockResponse,
         )
 
     def retrieve(
@@ -164,7 +161,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockRetrieveResponse:
+    ) -> BlockResponse:
         """
         Retrieve Block
 
@@ -186,7 +183,7 @@ class BlocksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockRetrieveResponse,
+            cast_to=BlockResponse,
         )
 
     def list(
@@ -215,7 +212,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[BlockListResponse]:
+    ) -> SyncArrayPage[BlockResponse]:
         """List Blocks
 
         Args:
@@ -273,7 +270,7 @@ class BlocksResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/blocks/",
-            page=SyncArrayPage[BlockListResponse],
+            page=SyncArrayPage[BlockResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -302,7 +299,7 @@ class BlocksResource(SyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            model=BlockListResponse,
+            model=BlockResponse,
         )
 
     def delete(
@@ -384,7 +381,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockModifyResponse:
+    ) -> BlockResponse:
         """
         Modify Block
 
@@ -456,7 +453,7 @@ class BlocksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockModifyResponse,
+            cast_to=BlockResponse,
         )
 
 
@@ -508,7 +505,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockCreateResponse:
+    ) -> BlockResponse:
         """
         Create Block
 
@@ -574,7 +571,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockCreateResponse,
+            cast_to=BlockResponse,
         )
 
     async def retrieve(
@@ -587,7 +584,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockRetrieveResponse:
+    ) -> BlockResponse:
         """
         Retrieve Block
 
@@ -609,7 +606,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockRetrieveResponse,
+            cast_to=BlockResponse,
         )
 
     def list(
@@ -638,7 +635,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[BlockListResponse, AsyncArrayPage[BlockListResponse]]:
+    ) -> AsyncPaginator[BlockResponse, AsyncArrayPage[BlockResponse]]:
         """List Blocks
 
         Args:
@@ -696,7 +693,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/blocks/",
-            page=AsyncArrayPage[BlockListResponse],
+            page=AsyncArrayPage[BlockResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -725,7 +722,7 @@ class AsyncBlocksResource(AsyncAPIResource):
                     block_list_params.BlockListParams,
                 ),
             ),
-            model=BlockListResponse,
+            model=BlockResponse,
         )
 
     async def delete(
@@ -807,7 +804,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockModifyResponse:
+    ) -> BlockResponse:
         """
         Modify Block
 
@@ -879,7 +876,7 @@ class AsyncBlocksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=BlockModifyResponse,
+            cast_to=BlockResponse,
         )
 
 

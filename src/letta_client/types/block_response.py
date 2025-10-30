@@ -4,15 +4,15 @@ from typing import Dict, Optional
 
 from .._models import BaseModel
 
-__all__ = ["BlockCreateResponse"]
+__all__ = ["BlockResponse"]
 
 
-class BlockCreateResponse(BaseModel):
+class BlockResponse(BaseModel):
+    id: str
+    """The id of the block."""
+
     value: str
     """Value of the block."""
-
-    id: Optional[str] = None
-    """The human-friendly ID of the Block"""
 
     base_template_id: Optional[str] = None
     """(Deprecated) The base template id of the block."""

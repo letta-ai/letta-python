@@ -26,9 +26,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.batch_job import BatchJob
+from ...types.batch_list_response import BatchListResponse
 
 __all__ = ["BatchesResource", "AsyncBatchesResource"]
 
@@ -155,7 +155,7 @@ class BatchesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[BatchJob]:
+    ) -> BatchListResponse:
         """List all batch runs.
 
         Args:
@@ -182,9 +182,8 @@ class BatchesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return self._get(
             "/v1/messages/batches",
-            page=SyncArrayPage[BatchJob],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -201,7 +200,7 @@ class BatchesResource(SyncAPIResource):
                     batch_list_params.BatchListParams,
                 ),
             ),
-            model=BatchJob,
+            cast_to=BatchListResponse,
         )
 
     def cancel(
@@ -346,7 +345,7 @@ class AsyncBatchesResource(AsyncAPIResource):
             cast_to=BatchJob,
         )
 
-    def list(
+    async def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -360,7 +359,7 @@ class AsyncBatchesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[BatchJob, AsyncArrayPage[BatchJob]]:
+    ) -> BatchListResponse:
         """List all batch runs.
 
         Args:
@@ -387,15 +386,14 @@ class AsyncBatchesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        return await self._get(
             "/v1/messages/batches",
-            page=AsyncArrayPage[BatchJob],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -406,7 +404,7 @@ class AsyncBatchesResource(AsyncAPIResource):
                     batch_list_params.BatchListParams,
                 ),
             ),
-            model=BatchJob,
+            cast_to=BatchListResponse,
         )
 
     async def cancel(

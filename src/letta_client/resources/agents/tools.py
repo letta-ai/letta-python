@@ -17,11 +17,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ...types.tool import Tool
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.agents import tool_list_params, tool_update_approval_params
 from ...types.agent_state import AgentState
+from ...types.agents.tool_list_response import ToolListResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
 
@@ -61,7 +60,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[Tool]:
+    ) -> ToolListResponse:
         """
         Get tools from an existing agent.
 
@@ -91,9 +90,8 @@ class ToolsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return self._get_api_list(
+        return self._get(
             f"/v1/agents/{agent_id}/tools",
-            page=SyncArrayPage[Tool],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -110,7 +108,7 @@ class ToolsResource(SyncAPIResource):
                     tool_list_params.ToolListParams,
                 ),
             ),
-            model=Tool,
+            cast_to=ToolListResponse,
         )
 
     def attach(
@@ -271,7 +269,7 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         return AsyncToolsResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         agent_id: str,
         *,
@@ -286,7 +284,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Tool, AsyncArrayPage[Tool]]:
+    ) -> ToolListResponse:
         """
         Get tools from an existing agent.
 
@@ -316,15 +314,14 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return self._get_api_list(
+        return await self._get(
             f"/v1/agents/{agent_id}/tools",
-            page=AsyncArrayPage[Tool],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -335,7 +332,7 @@ class AsyncToolsResource(AsyncAPIResource):
                     tool_list_params.ToolListParams,
                 ),
             ),
-            model=Tool,
+            cast_to=ToolListResponse,
         )
 
     async def attach(

@@ -17,8 +17,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.folders import file_list_params, file_upload_params
 from ...types.folders.file_list_response import FileListResponse
 from ...types.folders.file_upload_response import FileUploadResponse
@@ -62,7 +61,7 @@ class FilesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[FileListResponse]:
+    ) -> FileListResponse:
         """
         List paginated files associated with a data folder.
 
@@ -94,9 +93,8 @@ class FilesResource(SyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        return self._get_api_list(
+        return self._get(
             f"/v1/folders/{folder_id}/files",
-            page=SyncArrayPage[FileListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -114,7 +112,7 @@ class FilesResource(SyncAPIResource):
                     file_list_params.FileListParams,
                 ),
             ),
-            model=FileListResponse,
+            cast_to=FileListResponse,
         )
 
     def delete(
@@ -239,7 +237,7 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         return AsyncFilesResourceWithStreamingResponse(self)
 
-    def list(
+    async def list(
         self,
         folder_id: str,
         *,
@@ -255,7 +253,7 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[FileListResponse, AsyncArrayPage[FileListResponse]]:
+    ) -> FileListResponse:
         """
         List paginated files associated with a data folder.
 
@@ -287,15 +285,14 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        return self._get_api_list(
+        return await self._get(
             f"/v1/folders/{folder_id}/files",
-            page=AsyncArrayPage[FileListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -307,7 +304,7 @@ class AsyncFilesResource(AsyncAPIResource):
                     file_list_params.FileListParams,
                 ),
             ),
-            model=FileListResponse,
+            cast_to=FileListResponse,
         )
 
     async def delete(
