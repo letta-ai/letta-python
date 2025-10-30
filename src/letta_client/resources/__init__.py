@@ -104,6 +104,14 @@ from .identities import (
     IdentitiesResourceWithStreamingResponse,
     AsyncIdentitiesResourceWithStreamingResponse,
 )
+from .mcp_servers import (
+    McpServersResource,
+    AsyncMcpServersResource,
+    McpServersResourceWithRawResponse,
+    AsyncMcpServersResourceWithRawResponse,
+    McpServersResourceWithStreamingResponse,
+    AsyncMcpServersResourceWithStreamingResponse,
+)
 
 __all__ = [
     "ArchivesResource",
@@ -184,4 +192,10 @@ __all__ = [
     "AsyncTemplatesResourceWithRawResponse",
     "TemplatesResourceWithStreamingResponse",
     "AsyncTemplatesResourceWithStreamingResponse",
+    "McpServersResource",
+    "AsyncMcpServersResource",
+    "McpServersResourceWithRawResponse",
+    "AsyncMcpServersResourceWithRawResponse",
+    "McpServersResourceWithStreamingResponse",
+    "AsyncMcpServersResourceWithStreamingResponse",
 ]

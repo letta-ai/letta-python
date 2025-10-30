@@ -49,6 +49,7 @@ from .resources.batches import batches
 from .resources.folders import folders
 from .resources.templates import templates
 from .resources.identities import identities
+from .resources.mcp_servers import mcp_servers
 from .types.health_response import HealthResponse
 
 __all__ = [
@@ -83,6 +84,7 @@ class Letta(SyncAPIClient):
     tags: tags.TagsResource
     batches: batches.BatchesResource
     templates: templates.TemplatesResource
+    mcp_servers: mcp_servers.McpServersResource
     with_raw_response: LettaWithRawResponse
     with_streaming_response: LettaWithStreamedResponse
 
@@ -179,6 +181,7 @@ class Letta(SyncAPIClient):
         self.tags = tags.TagsResource(self)
         self.batches = batches.BatchesResource(self)
         self.templates = templates.TemplatesResource(self)
+        self.mcp_servers = mcp_servers.McpServersResource(self)
         self.with_raw_response = LettaWithRawResponse(self)
         self.with_streaming_response = LettaWithStreamedResponse(self)
 
@@ -322,6 +325,7 @@ class AsyncLetta(AsyncAPIClient):
     tags: tags.AsyncTagsResource
     batches: batches.AsyncBatchesResource
     templates: templates.AsyncTemplatesResource
+    mcp_servers: mcp_servers.AsyncMcpServersResource
     with_raw_response: AsyncLettaWithRawResponse
     with_streaming_response: AsyncLettaWithStreamedResponse
 
@@ -418,6 +422,7 @@ class AsyncLetta(AsyncAPIClient):
         self.tags = tags.AsyncTagsResource(self)
         self.batches = batches.AsyncBatchesResource(self)
         self.templates = templates.AsyncTemplatesResource(self)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResource(self)
         self.with_raw_response = AsyncLettaWithRawResponse(self)
         self.with_streaming_response = AsyncLettaWithStreamedResponse(self)
 
@@ -562,6 +567,7 @@ class LettaWithRawResponse:
         self.tags = tags.TagsResourceWithRawResponse(client.tags)
         self.batches = batches.BatchesResourceWithRawResponse(client.batches)
         self.templates = templates.TemplatesResourceWithRawResponse(client.templates)
+        self.mcp_servers = mcp_servers.McpServersResourceWithRawResponse(client.mcp_servers)
 
         self.health = to_raw_response_wrapper(
             client.health,
@@ -583,6 +589,7 @@ class AsyncLettaWithRawResponse:
         self.tags = tags.AsyncTagsResourceWithRawResponse(client.tags)
         self.batches = batches.AsyncBatchesResourceWithRawResponse(client.batches)
         self.templates = templates.AsyncTemplatesResourceWithRawResponse(client.templates)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResourceWithRawResponse(client.mcp_servers)
 
         self.health = async_to_raw_response_wrapper(
             client.health,
@@ -604,6 +611,7 @@ class LettaWithStreamedResponse:
         self.tags = tags.TagsResourceWithStreamingResponse(client.tags)
         self.batches = batches.BatchesResourceWithStreamingResponse(client.batches)
         self.templates = templates.TemplatesResourceWithStreamingResponse(client.templates)
+        self.mcp_servers = mcp_servers.McpServersResourceWithStreamingResponse(client.mcp_servers)
 
         self.health = to_streamed_response_wrapper(
             client.health,
@@ -625,6 +633,7 @@ class AsyncLettaWithStreamedResponse:
         self.tags = tags.AsyncTagsResourceWithStreamingResponse(client.tags)
         self.batches = batches.AsyncBatchesResourceWithStreamingResponse(client.batches)
         self.templates = templates.AsyncTemplatesResourceWithStreamingResponse(client.templates)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResourceWithStreamingResponse(client.mcp_servers)
 
         self.health = async_to_streamed_response_wrapper(
             client.health,

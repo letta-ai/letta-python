@@ -532,3 +532,45 @@ Methods:
 Methods:
 
 - <code title="post /v1/templates/{project_id}/{template_version}/agents">client.templates.agents.<a href="./src/letta_client/resources/templates/agents.py">create</a>(template_version, \*, project_id, \*\*<a href="src/letta_client/types/templates/agent_create_params.py">params</a>) -> None</code>
+
+# McpServers
+
+Types:
+
+```python
+from letta_client.types import (
+    McpServerCreateResponse,
+    McpServerRetrieveResponse,
+    McpServerListResponse,
+    McpServerModifyResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/mcp-servers/">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">create</a>(\*\*<a href="src/letta_client/types/mcp_server_create_params.py">params</a>) -> <a href="./src/letta_client/types/mcp_server_create_response.py">McpServerCreateResponse</a></code>
+- <code title="get /v1/mcp-servers/{mcp_server_id}">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">retrieve</a>(mcp_server_id) -> <a href="./src/letta_client/types/mcp_server_retrieve_response.py">McpServerRetrieveResponse</a></code>
+- <code title="get /v1/mcp-servers/">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">list</a>() -> <a href="./src/letta_client/types/mcp_server_list_response.py">McpServerListResponse</a></code>
+- <code title="delete /v1/mcp-servers/{mcp_server_id}">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">delete</a>(mcp_server_id) -> None</code>
+- <code title="get /v1/mcp-servers/connect/{mcp_server_id}">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">connect</a>(mcp_server_id) -> object</code>
+- <code title="patch /v1/mcp-servers/{mcp_server_id}">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">modify</a>(mcp_server_id, \*\*<a href="src/letta_client/types/mcp_server_modify_params.py">params</a>) -> <a href="./src/letta_client/types/mcp_server_modify_response.py">McpServerModifyResponse</a></code>
+
+## Tools
+
+Types:
+
+```python
+from letta_client.types.mcp_servers import ToolListResponse, ToolRunResponse
+```
+
+Methods:
+
+- <code title="get /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">retrieve</a>(tool_id, \*, mcp_server_id) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
+- <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">list</a>(mcp_server_id) -> <a href="./src/letta_client/types/mcp_servers/tool_list_response.py">ToolListResponse</a></code>
+- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">run</a>(tool_id, \*, mcp_server_id, \*\*<a href="src/letta_client/types/mcp_servers/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/mcp_servers/tool_run_response.py">ToolRunResponse</a></code>
+
+## Refresh
+
+Methods:
+
+- <code title="patch /v1/mcp-servers/{mcp_server_id}/refresh">client.mcp_servers.refresh.<a href="./src/letta_client/resources/mcp_servers/refresh.py">trigger</a>(mcp_server_id, \*\*<a href="src/letta_client/types/mcp_servers/refresh_trigger_params.py">params</a>) -> object</code>
