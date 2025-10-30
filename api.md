@@ -539,6 +539,7 @@ Types:
 
 ```python
 from letta_client.types import (
+    McpServerSchema,
     McpServerCreateResponse,
     McpServerRetrieveResponse,
     McpServerListResponse,
