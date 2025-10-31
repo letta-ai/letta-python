@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = [
     "GroupModifyParams",
@@ -30,9 +29,6 @@ class GroupModifyParams(TypedDict, total=False):
     """The associated project id."""
 
     shared_block_ids: Optional[SequenceNotStr[str]]
-
-    x_project: Annotated[str, PropertyInfo(alias="X-Project")]
-    """The project slug to associate with the group (cloud only)."""
 
 
 class ManagerConfigRoundRobinManagerUpdate(TypedDict, total=False):

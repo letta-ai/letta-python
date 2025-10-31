@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Annotated, TypeAlias, TypedDict
+from typing_extensions import TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 from .agent_type import AgentType
 from .llm_config_param import LlmConfigParam
 from .create_block_param import CreateBlockParam
@@ -198,9 +197,6 @@ class AgentCreateParams(TypedDict, total=False):
 
     tools: Optional[SequenceNotStr[str]]
     """The tools used by the agent."""
-
-    x_project: Annotated[str, PropertyInfo(alias="X-Project")]
-    """The project slug to associate with the agent (cloud only)."""
 
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]

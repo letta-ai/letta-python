@@ -9,7 +9,7 @@ import httpx
 
 from ...types import ManagerType, group_list_params, group_create_params, group_modify_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from .messages import (
     MessagesResource,
     AsyncMessagesResource,
@@ -68,7 +68,6 @@ class GroupsResource(SyncAPIResource):
         manager_config: group_create_params.ManagerConfig | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         shared_block_ids: SequenceNotStr[str] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -92,8 +91,6 @@ class GroupsResource(SyncAPIResource):
 
           shared_block_ids
 
-          x_project: The project slug to associate with the group (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -102,7 +99,6 @@ class GroupsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return self._post(
             "/v1/groups/",
             body=maybe_transform(
@@ -290,7 +286,6 @@ class GroupsResource(SyncAPIResource):
         manager_config: Optional[group_modify_params.ManagerConfig] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         shared_block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -314,8 +309,6 @@ class GroupsResource(SyncAPIResource):
 
           shared_block_ids
 
-          x_project: The project slug to associate with the group (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -326,7 +319,6 @@ class GroupsResource(SyncAPIResource):
         """
         if not group_id:
             raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return self._patch(
             f"/v1/groups/{group_id}",
             body=maybe_transform(
@@ -379,7 +371,6 @@ class AsyncGroupsResource(AsyncAPIResource):
         manager_config: group_create_params.ManagerConfig | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         shared_block_ids: SequenceNotStr[str] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -403,8 +394,6 @@ class AsyncGroupsResource(AsyncAPIResource):
 
           shared_block_ids
 
-          x_project: The project slug to associate with the group (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -413,7 +402,6 @@ class AsyncGroupsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return await self._post(
             "/v1/groups/",
             body=await async_maybe_transform(
@@ -601,7 +589,6 @@ class AsyncGroupsResource(AsyncAPIResource):
         manager_config: Optional[group_modify_params.ManagerConfig] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         shared_block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -625,8 +612,6 @@ class AsyncGroupsResource(AsyncAPIResource):
 
           shared_block_ids
 
-          x_project: The project slug to associate with the group (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -637,7 +622,6 @@ class AsyncGroupsResource(AsyncAPIResource):
         """
         if not group_id:
             raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return await self._patch(
             f"/v1/groups/{group_id}",
             body=await async_maybe_transform(

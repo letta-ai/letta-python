@@ -31,7 +31,7 @@ from ...types import (
     identity_upsert_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from .properties import (
     PropertiesResource,
@@ -100,7 +100,6 @@ class IdentitiesResource(SyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         properties: Optional[Iterable[IdentityPropertyParam]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -126,8 +125,6 @@ class IdentitiesResource(SyncAPIResource):
 
           properties: List of properties associated with the identity.
 
-          x_project: The project slug to associate with the identity (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -136,7 +133,6 @@ class IdentitiesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return self._post(
             "/v1/identities/",
             body=maybe_transform(
@@ -391,7 +387,6 @@ class IdentitiesResource(SyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         properties: Optional[Iterable[IdentityPropertyParam]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -417,8 +412,6 @@ class IdentitiesResource(SyncAPIResource):
 
           properties: List of properties associated with the identity.
 
-          x_project: The project slug to associate with the identity (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -427,7 +420,6 @@ class IdentitiesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return self._put(
             "/v1/identities/",
             body=maybe_transform(
@@ -491,7 +483,6 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         properties: Optional[Iterable[IdentityPropertyParam]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -517,8 +508,6 @@ class AsyncIdentitiesResource(AsyncAPIResource):
 
           properties: List of properties associated with the identity.
 
-          x_project: The project slug to associate with the identity (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -527,7 +516,6 @@ class AsyncIdentitiesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return await self._post(
             "/v1/identities/",
             body=await async_maybe_transform(
@@ -782,7 +770,6 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         properties: Optional[Iterable[IdentityPropertyParam]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -808,8 +795,6 @@ class AsyncIdentitiesResource(AsyncAPIResource):
 
           properties: List of properties associated with the identity.
 
-          x_project: The project slug to associate with the identity (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -818,7 +803,6 @@ class AsyncIdentitiesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return await self._put(
             "/v1/identities/",
             body=await async_maybe_transform(
