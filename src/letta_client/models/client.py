@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.embedding_config import EmbeddingConfig
 from ..types.llm_config import LlmConfig
 from ..types.provider_category import ProviderCategory
 from ..types.provider_type import ProviderType
@@ -75,7 +76,7 @@ class ModelsClient:
         )
         return _response.data
 
-    def listembeddingmodels(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def listembeddingmodels(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[EmbeddingConfig]:
         """
         Parameters
         ----------
@@ -84,7 +85,7 @@ class ModelsClient:
 
         Returns
         -------
-        None
+        typing.List[EmbeddingConfig]
 
         Examples
         --------
@@ -172,7 +173,7 @@ class AsyncModelsClient:
         )
         return _response.data
 
-    async def listembeddingmodels(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def listembeddingmodels(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[EmbeddingConfig]:
         """
         Parameters
         ----------
@@ -181,7 +182,7 @@ class AsyncModelsClient:
 
         Returns
         -------
-        None
+        typing.List[EmbeddingConfig]
 
         Examples
         --------
