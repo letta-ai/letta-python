@@ -158,7 +158,6 @@ class TestAgents:
                 }
             ],
             tools=["string"],
-            x_project="X-Project",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -730,7 +729,6 @@ class TestAsyncAgents:
                 }
             ],
             tools=["string"],
-            x_project="X-Project",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 

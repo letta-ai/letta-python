@@ -43,7 +43,6 @@ class TestGroups:
             },
             project_id="project_id",
             shared_block_ids=["string"],
-            x_project="X-Project",
         )
         assert_matches_type(Group, group, path=["response"])
 
@@ -250,7 +249,6 @@ class TestGroups:
             },
             project_id="project_id",
             shared_block_ids=["string"],
-            x_project="X-Project",
         )
         assert_matches_type(Group, group, path=["response"])
 
@@ -316,7 +314,6 @@ class TestAsyncGroups:
             },
             project_id="project_id",
             shared_block_ids=["string"],
-            x_project="X-Project",
         )
         assert_matches_type(Group, group, path=["response"])
 
@@ -523,7 +520,6 @@ class TestAsyncGroups:
             },
             project_id="project_id",
             shared_block_ids=["string"],
-            x_project="X-Project",
         )
         assert_matches_type(Group, group, path=["response"])
 

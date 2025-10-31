@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["StepListParams"]
 
@@ -56,6 +55,3 @@ class StepListParams(TypedDict, total=False):
 
     trace_ids: Optional[SequenceNotStr[str]]
     """Filter by trace ids returned by the server"""
-
-    x_project: Annotated[str, PropertyInfo(alias="X-Project")]
-    """Filter by project slug to associate with the group (cloud only)."""

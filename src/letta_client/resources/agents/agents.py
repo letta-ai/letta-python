@@ -191,7 +191,6 @@ class AgentsResource(SyncAPIResource):
         tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | Omit = omit,
         tools: Optional[SequenceNotStr[str]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -306,8 +305,6 @@ class AgentsResource(SyncAPIResource):
 
           tools: The tools used by the agent.
 
-          x_project: The project slug to associate with the agent (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -316,7 +313,6 @@ class AgentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return self._post(
             "/v1/agents/",
             body=maybe_transform(
@@ -1026,7 +1022,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | Omit = omit,
         tools: Optional[SequenceNotStr[str]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1141,8 +1136,6 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           tools: The tools used by the agent.
 
-          x_project: The project slug to associate with the agent (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1151,7 +1144,6 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return await self._post(
             "/v1/agents/",
             body=await async_maybe_transform(

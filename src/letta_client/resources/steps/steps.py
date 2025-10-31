@@ -25,7 +25,7 @@ from .metrics import (
     AsyncMetricsResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, strip_not_given
+from ..._utils import maybe_transform
 from .feedback import (
     FeedbackResource,
     AsyncFeedbackResource,
@@ -145,7 +145,6 @@ class StepsResource(SyncAPIResource):
         start_date: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         trace_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -186,8 +185,6 @@ class StepsResource(SyncAPIResource):
 
           trace_ids: Filter by trace ids returned by the server
 
-          x_project: Filter by project slug to associate with the group (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -196,7 +193,6 @@ class StepsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return self._get_api_list(
             "/v1/steps/",
             page=SyncArrayPage[Step],
@@ -317,7 +313,6 @@ class AsyncStepsResource(AsyncAPIResource):
         start_date: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         trace_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        x_project: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -358,8 +353,6 @@ class AsyncStepsResource(AsyncAPIResource):
 
           trace_ids: Filter by trace ids returned by the server
 
-          x_project: Filter by project slug to associate with the group (cloud only).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -368,7 +361,6 @@ class AsyncStepsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {**strip_not_given({"X-Project": x_project}), **(extra_headers or {})}
         return self._get_api_list(
             "/v1/steps/",
             page=AsyncArrayPage[Step],
