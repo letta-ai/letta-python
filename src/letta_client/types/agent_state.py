@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypeAlias
+from typing_extensions import Annotated, TypeAlias
 
 from .tool import Tool
 from .group import Group
@@ -28,39 +28,7 @@ from .requires_approval_tool_rule import RequiresApprovalToolRule
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
 
-__all__ = [
-    "AgentState",
-    "Memory",
-    "MemoryFileBlock",
-    "Source",
-    "Embedding",
-    "Model",
-    "ModelOpenAIModel",
-    "ModelOpenAIModelReasoning",
-    "ModelOpenAIModelResponseFormat",
-    "ModelAnthropicModel",
-    "ModelAnthropicModelThinking",
-    "ModelGoogleAIModel",
-    "ModelGoogleAIModelResponseSchema",
-    "ModelGoogleAIModelThinkingConfig",
-    "ModelGoogleVertexModel",
-    "ModelGoogleVertexModelResponseSchema",
-    "ModelGoogleVertexModelThinkingConfig",
-    "ModelAzureModel",
-    "ModelAzureModelResponseFormat",
-    "ModelXaiModel",
-    "ModelXaiModelResponseFormat",
-    "ModelGroqModel",
-    "ModelGroqModelResponseFormat",
-    "ModelDeepseekModel",
-    "ModelDeepseekModelResponseFormat",
-    "ModelTogetherModel",
-    "ModelTogetherModelResponseFormat",
-    "ModelBedrockModel",
-    "ModelBedrockModelResponseFormat",
-    "ResponseFormat",
-    "ToolRule",
-]
+__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "ResponseFormat", "ToolRule"]
 
 
 class MemoryFileBlock(BaseModel):
@@ -183,296 +151,6 @@ class Source(BaseModel):
     """The vector database provider used for this source's passages"""
 
 
-class Embedding(BaseModel):
-    model: str
-    """The name of the model."""
-
-    provider: Literal["openai", "ollama"]
-    """The provider of the model."""
-
-
-class ModelOpenAIModelReasoning(BaseModel):
-    reasoning_effort: Optional[Literal["minimal", "low", "medium", "high"]] = None
-    """The reasoning effort to use when generating text reasoning models"""
-
-
-ModelOpenAIModelResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelOpenAIModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["openai"]] = None
-    """The provider of the model."""
-
-    reasoning: Optional[ModelOpenAIModelReasoning] = None
-    """The reasoning configuration for the model."""
-
-    response_format: Optional[ModelOpenAIModelResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-class ModelAnthropicModelThinking(BaseModel):
-    budget_tokens: Optional[int] = None
-    """The maximum number of tokens the model can use for extended thinking."""
-
-    type: Optional[Literal["enabled", "disabled"]] = None
-    """The type of thinking to use."""
-
-
-class ModelAnthropicModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["anthropic"]] = None
-    """The provider of the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-    thinking: Optional[ModelAnthropicModelThinking] = None
-    """The thinking configuration for the model."""
-
-    verbosity: Optional[Literal["low", "medium", "high"]] = None
-    """Soft control for how verbose model output should be, used for GPT-5 models."""
-
-
-ModelGoogleAIModelResponseSchema: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelGoogleAIModelThinkingConfig(BaseModel):
-    include_thoughts: Optional[bool] = None
-    """Whether to include thoughts in the model's response."""
-
-    thinking_budget: Optional[int] = None
-    """The thinking budget for the model."""
-
-
-class ModelGoogleAIModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["google_ai"]] = None
-    """The provider of the model."""
-
-    response_schema: Optional[ModelGoogleAIModelResponseSchema] = None
-    """The response schema for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-    thinking_config: Optional[ModelGoogleAIModelThinkingConfig] = None
-    """The thinking configuration for the model."""
-
-
-ModelGoogleVertexModelResponseSchema: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelGoogleVertexModelThinkingConfig(BaseModel):
-    include_thoughts: Optional[bool] = None
-    """Whether to include thoughts in the model's response."""
-
-    thinking_budget: Optional[int] = None
-    """The thinking budget for the model."""
-
-
-class ModelGoogleVertexModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["google_vertex"]] = None
-    """The provider of the model."""
-
-    response_schema: Optional[ModelGoogleVertexModelResponseSchema] = None
-    """The response schema for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-    thinking_config: Optional[ModelGoogleVertexModelThinkingConfig] = None
-    """The thinking configuration for the model."""
-
-
-ModelAzureModelResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelAzureModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["azure"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelAzureModelResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelXaiModelResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelXaiModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["xai"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelXaiModelResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelGroqModelResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelGroqModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["groq"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelGroqModelResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelDeepseekModelResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelDeepseekModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["deepseek"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelDeepseekModelResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelTogetherModelResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelTogetherModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["together"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelTogetherModelResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelBedrockModelResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelBedrockModel(BaseModel):
-    model: str
-    """The name of the model."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    provider: Optional[Literal["bedrock"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelBedrockModelResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-Model: TypeAlias = Annotated[
-    Union[
-        ModelOpenAIModel,
-        ModelAnthropicModel,
-        ModelGoogleAIModel,
-        ModelGoogleVertexModel,
-        ModelAzureModel,
-        ModelXaiModel,
-        ModelGroqModel,
-        ModelDeepseekModel,
-        ModelTogetherModel,
-        ModelBedrockModel,
-        None,
-    ],
-    PropertyInfo(discriminator="provider"),
-]
-
 ResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
     PropertyInfo(discriminator="type"),
@@ -505,16 +183,13 @@ class AgentState(BaseModel):
     """The memory blocks used by the agent."""
 
     embedding_config: EmbeddingConfig
-    """Deprecated: Use `embedding` field instead.
-
-    The embedding configuration used by the agent.
-    """
+    """The embedding configuration used by the agent."""
 
     llm_config: LlmConfig
-    """Deprecated: Use `model` field instead. The LLM configuration used by the agent."""
+    """The LLM configuration used by the agent."""
 
     memory: Memory
-    """Deprecated: Use `blocks` field instead. The in-context memory of the agent."""
+    """The in-context memory of the agent."""
 
     name: str
     """The name of the agent."""
@@ -546,9 +221,6 @@ class AgentState(BaseModel):
     description: Optional[str] = None
     """The description of the agent."""
 
-    embedding: Optional[Embedding] = None
-    """The embedding model used by the agent."""
-
     enable_sleeptime: Optional[bool] = None
     """If set to True, memory management will move to a background agent thread."""
 
@@ -562,10 +234,7 @@ class AgentState(BaseModel):
     """The identities associated with this agent."""
 
     identity_ids: Optional[List[str]] = None
-    """Deprecated: Use `identities` field instead.
-
-    The ids of the identities associated with this agent.
-    """
+    """The ids of the identities associated with this agent."""
 
     last_run_completion: Optional[datetime] = None
     """The timestamp when the agent last completed a run."""
@@ -598,14 +267,8 @@ class AgentState(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """The metadata of the agent."""
 
-    model: Optional[Model] = None
-    """The model used by the agent."""
-
     multi_agent_group: Optional[Group] = None
-    """Deprecated: Use `managed_group` field instead.
-
-    The multi-agent group that this agent manages.
-    """
+    """The multi-agent group that this agent manages"""
 
     per_file_view_window_char_limit: Optional[int] = None
     """The per-file view window character limit for this agent.
@@ -617,7 +280,7 @@ class AgentState(BaseModel):
     """The id of the project the agent belongs to."""
 
     response_format: Optional[ResponseFormat] = None
-    """The response format used by the agent"""
+    """The response format used by the agent when returning from `send_message`."""
 
     secrets: Optional[List[AgentEnvironmentVariable]] = None
     """The environment variables for tool execution specific to this agent."""
