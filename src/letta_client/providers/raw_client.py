@@ -208,6 +208,7 @@ class RawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -257,6 +258,7 @@ class RawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -316,6 +318,7 @@ class RawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         api_key : str
             API key or secret key used for requests to the provider.
@@ -440,6 +443,58 @@ class RawProvidersClient:
             },
             request_options=request_options,
             omit=OMIT,
+        )
+        try:
+            if _response is None or not _response.text.strip():
+                return HttpResponse(response=_response, data=None)
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.Optional[typing.Any],
+                    construct_type(
+                        type_=typing.Optional[typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def check_existing_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[typing.Optional[typing.Any]]:
+        """
+        Verify the API key and additional parameters for an existing provider.
+
+        Parameters
+        ----------
+        provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[typing.Optional[typing.Any]]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/providers/{jsonable_encoder(provider_id)}/check",
+            method="POST",
+            request_options=request_options,
         )
         try:
             if _response is None or not _response.text.strip():
@@ -659,6 +714,7 @@ class AsyncRawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -708,6 +764,7 @@ class AsyncRawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -767,6 +824,7 @@ class AsyncRawProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         api_key : str
             API key or secret key used for requests to the provider.
@@ -891,6 +949,58 @@ class AsyncRawProvidersClient:
             },
             request_options=request_options,
             omit=OMIT,
+        )
+        try:
+            if _response is None or not _response.text.strip():
+                return AsyncHttpResponse(response=_response, data=None)
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    typing.Optional[typing.Any],
+                    construct_type(
+                        type_=typing.Optional[typing.Any],  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        HttpValidationError,
+                        construct_type(
+                            type_=HttpValidationError,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def check_existing_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[typing.Optional[typing.Any]]:
+        """
+        Verify the API key and additional parameters for an existing provider.
+
+        Parameters
+        ----------
+        provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[typing.Optional[typing.Any]]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/providers/{jsonable_encoder(provider_id)}/check",
+            method="POST",
+            request_options=request_options,
         )
         try:
             if _response is None or not _response.text.strip():

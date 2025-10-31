@@ -6,6 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.group import Group
 from .raw_client import AsyncRawGroupsClient, RawGroupsClient
+from .types.groups_list_request_order import GroupsListRequestOrder
 
 
 class GroupsClient:
@@ -28,6 +29,11 @@ class GroupsClient:
         agent_id: str,
         *,
         manager_type: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[GroupsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Group]:
         """
@@ -36,9 +42,25 @@ class GroupsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         manager_type : typing.Optional[str]
             Manager type to filter groups by
+
+        before : typing.Optional[str]
+            Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order
+
+        after : typing.Optional[str]
+            Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of groups to return
+
+        order : typing.Optional[GroupsListRequestOrder]
+            Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -57,10 +79,24 @@ class GroupsClient:
             token="YOUR_TOKEN",
         )
         client.agents.groups.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            manager_type="manager_type",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
-        _response = self._raw_client.list(agent_id, manager_type=manager_type, request_options=request_options)
+        _response = self._raw_client.list(
+            agent_id,
+            manager_type=manager_type,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -84,6 +120,11 @@ class AsyncGroupsClient:
         agent_id: str,
         *,
         manager_type: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[GroupsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Group]:
         """
@@ -92,9 +133,25 @@ class AsyncGroupsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         manager_type : typing.Optional[str]
             Manager type to filter groups by
+
+        before : typing.Optional[str]
+            Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order
+
+        after : typing.Optional[str]
+            Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of groups to return
+
+        order : typing.Optional[GroupsListRequestOrder]
+            Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -118,11 +175,25 @@ class AsyncGroupsClient:
 
         async def main() -> None:
             await client.agents.groups.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                manager_type="manager_type",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(agent_id, manager_type=manager_type, request_options=request_options)
+        _response = await self._raw_client.list(
+            agent_id,
+            manager_type=manager_type,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data

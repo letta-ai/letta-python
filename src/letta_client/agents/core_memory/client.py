@@ -31,6 +31,7 @@ class CoreMemoryClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -49,7 +50,7 @@ class CoreMemoryClient:
             token="YOUR_TOKEN",
         )
         client.agents.core_memory.retrieve(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(agent_id, request_options=request_options)
@@ -79,6 +80,7 @@ class AsyncCoreMemoryClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -102,7 +104,7 @@ class AsyncCoreMemoryClient:
 
         async def main() -> None:
             await client.agents.core_memory.retrieve(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

@@ -30,6 +30,7 @@ class MetricsClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -48,7 +49,7 @@ class MetricsClient:
             token="YOUR_TOKEN",
         )
         client.steps.metrics.retrieve(
-            step_id="step_id",
+            step_id="step-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(step_id, request_options=request_options)
@@ -77,6 +78,7 @@ class AsyncMetricsClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -100,7 +102,7 @@ class AsyncMetricsClient:
 
         async def main() -> None:
             await client.steps.metrics.retrieve(
-                step_id="step_id",
+                step_id="step-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

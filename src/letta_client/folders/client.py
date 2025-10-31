@@ -261,7 +261,9 @@ class FoldersClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.folders.retrieve_metadata()
+        client.folders.retrieve_metadata(
+            include_detailed_per_source_metadata=True,
+        )
         """
         _response = self._raw_client.retrieve_metadata(
             include_detailed_per_source_metadata=include_detailed_per_source_metadata, request_options=request_options
@@ -318,7 +320,13 @@ class FoldersClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.folders.list()
+        client.folders.list(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            name="name",
+        )
         """
         _response = self._raw_client.list(
             before=before,
@@ -693,7 +701,9 @@ class AsyncFoldersClient:
 
 
         async def main() -> None:
-            await client.folders.retrieve_metadata()
+            await client.folders.retrieve_metadata(
+                include_detailed_per_source_metadata=True,
+            )
 
 
         asyncio.run(main())
@@ -758,7 +768,13 @@ class AsyncFoldersClient:
 
 
         async def main() -> None:
-            await client.folders.list()
+            await client.folders.list(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                name="name",
+            )
 
 
         asyncio.run(main())

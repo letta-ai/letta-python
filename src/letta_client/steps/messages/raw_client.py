@@ -36,6 +36,7 @@ class RawMessagesClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -120,6 +121,7 @@ class AsyncRawMessagesClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order

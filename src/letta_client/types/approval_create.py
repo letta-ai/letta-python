@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .approval_create_approvals_item import ApprovalCreateApprovalsItem
 
 
 class ApprovalCreate(UncheckedBaseModel):
@@ -17,12 +18,17 @@ class ApprovalCreate(UncheckedBaseModel):
     The message type to be created.
     """
 
-    approve: bool = pydantic.Field()
+    approvals: typing.Optional[typing.List[ApprovalCreateApprovalsItem]] = pydantic.Field(default=None)
+    """
+    The list of approval responses
+    """
+
+    approve: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the tool has been approved
     """
 
-    approval_request_id: str = pydantic.Field()
+    approval_request_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The message ID of the approval request
     """

@@ -37,6 +37,7 @@ class PropertiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request : typing.Sequence[IdentityProperty]
 
@@ -57,7 +58,7 @@ class PropertiesClient:
             token="YOUR_TOKEN",
         )
         client.identities.properties.upsert(
-            identity_id="identity_id",
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
             request=[
                 IdentityProperty(
                     key="key",
@@ -97,6 +98,7 @@ class AsyncPropertiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request : typing.Sequence[IdentityProperty]
 
@@ -122,7 +124,7 @@ class AsyncPropertiesClient:
 
         async def main() -> None:
             await client.identities.properties.upsert(
-                identity_id="identity_id",
+                identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
                 request=[
                     IdentityProperty(
                         key="key",

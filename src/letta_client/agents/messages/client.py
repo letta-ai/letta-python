@@ -18,6 +18,7 @@ from .raw_client import AsyncRawMessagesClient, RawMessagesClient
 from .types.letta_async_request_messages_item import LettaAsyncRequestMessagesItem
 from .types.letta_streaming_response import LettaStreamingResponse
 from .types.message_search_request_search_mode import MessageSearchRequestSearchMode
+from .types.messages_list_request_order import MessagesListRequestOrder
 from .types.messages_modify_request import MessagesModifyRequest
 from .types.messages_modify_response import MessagesModifyResponse
 from .types.messages_preview_request import MessagesPreviewRequest
@@ -45,9 +46,11 @@ class MessagesClient:
         self,
         agent_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         group_id: typing.Optional[str] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
@@ -61,15 +64,22 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
-
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+
+        after : typing.Optional[str]
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of messages to return
+
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         group_id : typing.Optional[str]
             Group ID to filter messages by.
@@ -103,14 +113,25 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.messages.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            group_id="group_id",
+            use_assistant_message=True,
+            assistant_message_tool_name="assistant_message_tool_name",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            include_err=True,
         )
         """
         _response = self._raw_client.list(
             agent_id,
-            after=after,
             before=before,
+            after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             group_id=group_id,
             use_assistant_message=use_assistant_message,
             assistant_message_tool_name=assistant_message_tool_name,
@@ -140,6 +161,7 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
@@ -179,7 +201,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.messages.create(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 MessageCreate(
                     role="user",
@@ -219,8 +241,10 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         message_id : str
+            The ID of the message in the format 'message-<uuid4>'
 
         request : MessagesModifyRequest
 
@@ -241,8 +265,8 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.messages.modify(
-            agent_id="agent_id",
-            message_id="message_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
             request=UpdateSystemMessage(
                 content="content",
             ),
@@ -275,6 +299,7 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
@@ -323,7 +348,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         response = client.agents.messages.create_stream(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 MessageCreate(
                     role="user",
@@ -369,6 +394,7 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         run_ids : typing.Optional[typing.Sequence[str]]
             Optional list of run IDs to cancel
@@ -390,7 +416,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.messages.cancel(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.cancel(agent_id, run_ids=run_ids, request_options=request_options)
@@ -494,6 +520,7 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaAsyncRequestMessagesItem]
             The messages to be sent to the agent.
@@ -536,7 +563,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.messages.create_async(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 MessageCreate(
                     role="user",
@@ -576,6 +603,7 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         add_default_initial_messages : typing.Optional[bool]
             If true, adds the default initial messages after resetting.
@@ -597,7 +625,8 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.messages.reset(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            add_default_initial_messages=True,
         )
         """
         _response = self._raw_client.reset(
@@ -618,6 +647,7 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request : MessagesPreviewRequest
 
@@ -638,7 +668,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.messages.preview(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             request=LettaRequest(
                 messages=[
                     MessageCreate(
@@ -668,6 +698,7 @@ class MessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         max_message_length : int
             Maximum number of messages to retain after summarization.
@@ -688,7 +719,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.agents.messages.summarize(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             max_message_length=1,
         )
         """
@@ -717,9 +748,11 @@ class AsyncMessagesClient:
         self,
         agent_id: str,
         *,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         group_id: typing.Optional[str] = None,
         use_assistant_message: typing.Optional[bool] = None,
         assistant_message_tool_name: typing.Optional[str] = None,
@@ -733,15 +766,22 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
-
-        after : typing.Optional[str]
-            Message after which to retrieve the returned messages.
+            The ID of the agent in the format 'agent-<uuid4>'
 
         before : typing.Optional[str]
-            Message before which to retrieve the returned messages.
+            Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
+
+        after : typing.Optional[str]
+            Message ID cursor for pagination. Returns messages that come after this message ID in the specified sort order
 
         limit : typing.Optional[int]
-            Maximum number of messages to retrieve.
+            Maximum number of messages to return
+
+        order : typing.Optional[MessagesListRequestOrder]
+            Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         group_id : typing.Optional[str]
             Group ID to filter messages by.
@@ -780,7 +820,16 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.agents.messages.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                group_id="group_id",
+                use_assistant_message=True,
+                assistant_message_tool_name="assistant_message_tool_name",
+                assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+                include_err=True,
             )
 
 
@@ -788,9 +837,11 @@ class AsyncMessagesClient:
         """
         _response = await self._raw_client.list(
             agent_id,
-            after=after,
             before=before,
+            after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             group_id=group_id,
             use_assistant_message=use_assistant_message,
             assistant_message_tool_name=assistant_message_tool_name,
@@ -820,6 +871,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
@@ -864,7 +916,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.agents.messages.create(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 messages=[
                     MessageCreate(
                         role="user",
@@ -907,8 +959,10 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         message_id : str
+            The ID of the message in the format 'message-<uuid4>'
 
         request : MessagesModifyRequest
 
@@ -934,8 +988,8 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.agents.messages.modify(
-                agent_id="agent_id",
-                message_id="message_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 request=UpdateSystemMessage(
                     content="content",
                 ),
@@ -973,6 +1027,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
@@ -1026,7 +1081,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             response = await client.agents.messages.create_stream(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 messages=[
                     MessageCreate(
                         role="user",
@@ -1076,6 +1131,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         run_ids : typing.Optional[typing.Sequence[str]]
             Optional list of run IDs to cancel
@@ -1102,7 +1158,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.agents.messages.cancel(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1217,6 +1273,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         messages : typing.Sequence[LettaAsyncRequestMessagesItem]
             The messages to be sent to the agent.
@@ -1264,7 +1321,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.agents.messages.create_async(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 messages=[
                     MessageCreate(
                         role="user",
@@ -1307,6 +1364,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         add_default_initial_messages : typing.Optional[bool]
             If true, adds the default initial messages after resetting.
@@ -1333,7 +1391,8 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.agents.messages.reset(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                add_default_initial_messages=True,
             )
 
 
@@ -1357,6 +1416,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request : MessagesPreviewRequest
 
@@ -1382,7 +1442,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.agents.messages.preview(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 request=LettaRequest(
                     messages=[
                         MessageCreate(
@@ -1415,6 +1475,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         max_message_length : int
             Maximum number of messages to retain after summarization.
@@ -1440,7 +1501,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.agents.messages.summarize(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
                 max_message_length=1,
             )
 

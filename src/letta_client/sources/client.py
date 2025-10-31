@@ -68,6 +68,7 @@ class SourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -86,7 +87,7 @@ class SourcesClient:
             token="YOUR_TOKEN",
         )
         client.sources.retrieve(
-            source_id="source_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(source_id, request_options=request_options)
@@ -101,6 +102,7 @@ class SourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -119,7 +121,7 @@ class SourcesClient:
             token="YOUR_TOKEN",
         )
         client.sources.delete(
-            source_id="source_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(source_id, request_options=request_options)
@@ -142,6 +144,7 @@ class SourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         name : typing.Optional[str]
             The name of the source.
@@ -175,7 +178,7 @@ class SourcesClient:
             token="YOUR_TOKEN",
         )
         client.sources.modify(
-            source_id="source_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -255,7 +258,9 @@ class SourcesClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.sources.get_sources_metadata()
+        client.sources.get_sources_metadata(
+            include_detailed_per_source_metadata=True,
+        )
         """
         _response = self._raw_client.get_sources_metadata(
             include_detailed_per_source_metadata=include_detailed_per_source_metadata, request_options=request_options
@@ -368,6 +373,7 @@ class SourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -386,7 +392,7 @@ class SourcesClient:
             token="YOUR_TOKEN",
         )
         client.sources.get_agents_for_source(
-            source_id="source_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.get_agents_for_source(source_id, request_options=request_options)
@@ -406,8 +412,10 @@ class SourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         include_content : typing.Optional[bool]
             Whether to include full file content
@@ -429,8 +437,9 @@ class SourcesClient:
             token="YOUR_TOKEN",
         )
         client.sources.get_file_metadata(
-            source_id="source_id",
-            file_id="file_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            include_content=True,
         )
         """
         _response = self._raw_client.get_file_metadata(
@@ -499,6 +508,7 @@ class AsyncSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -522,7 +532,7 @@ class AsyncSourcesClient:
 
         async def main() -> None:
             await client.sources.retrieve(
-                source_id="source_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -540,6 +550,7 @@ class AsyncSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -563,7 +574,7 @@ class AsyncSourcesClient:
 
         async def main() -> None:
             await client.sources.delete(
-                source_id="source_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -589,6 +600,7 @@ class AsyncSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         name : typing.Optional[str]
             The name of the source.
@@ -627,7 +639,7 @@ class AsyncSourcesClient:
 
         async def main() -> None:
             await client.sources.modify(
-                source_id="source_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -725,7 +737,9 @@ class AsyncSourcesClient:
 
 
         async def main() -> None:
-            await client.sources.get_sources_metadata()
+            await client.sources.get_sources_metadata(
+                include_detailed_per_source_metadata=True,
+            )
 
 
         asyncio.run(main())
@@ -857,6 +871,7 @@ class AsyncSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -880,7 +895,7 @@ class AsyncSourcesClient:
 
         async def main() -> None:
             await client.sources.get_agents_for_source(
-                source_id="source_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -903,8 +918,10 @@ class AsyncSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         include_content : typing.Optional[bool]
             Whether to include full file content
@@ -931,8 +948,9 @@ class AsyncSourcesClient:
 
         async def main() -> None:
             await client.sources.get_file_metadata(
-                source_id="source_id",
-                file_id="file_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
+                file_id="file-123e4567-e89b-42d3-8456-426614174000",
+                include_content=True,
             )
 
 

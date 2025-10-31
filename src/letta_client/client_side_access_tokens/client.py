@@ -68,7 +68,11 @@ class ClientSideAccessTokensClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.client_side_access_tokens.client_side_access_tokens_list_client_side_access_tokens()
+        client.client_side_access_tokens.client_side_access_tokens_list_client_side_access_tokens(
+            agent_id="agentId",
+            offset=1.1,
+            limit=1.1,
+        )
         """
         _response = self._raw_client.client_side_access_tokens_list_client_side_access_tokens(
             agent_id=agent_id, offset=offset, limit=limit, request_options=request_options
@@ -230,7 +234,11 @@ class AsyncClientSideAccessTokensClient:
 
 
         async def main() -> None:
-            await client.client_side_access_tokens.client_side_access_tokens_list_client_side_access_tokens()
+            await client.client_side_access_tokens.client_side_access_tokens_list_client_side_access_tokens(
+                agent_id="agentId",
+                offset=1.1,
+                limit=1.1,
+            )
 
 
         asyncio.run(main())

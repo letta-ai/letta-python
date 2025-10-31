@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.job import Job
 from .raw_client import AsyncRawJobsClient, RawJobsClient
+from .types.jobs_list_request_order import JobsListRequestOrder
 
 
 class JobsClient:
@@ -30,6 +31,8 @@ class JobsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[JobsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -43,19 +46,25 @@ class JobsClient:
             Only list jobs associated with the source.
 
         before : typing.Optional[str]
-            Cursor for pagination
+            Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination
+            Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
 
         limit : typing.Optional[int]
-            Limit for pagination
+            Maximum number of jobs to return
+
+        order : typing.Optional[JobsListRequestOrder]
+            Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         active : typing.Optional[bool]
             Filter for active jobs.
 
         ascending : typing.Optional[bool]
-            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
+            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -73,13 +82,23 @@ class JobsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.jobs.list()
+        client.jobs.list(
+            source_id="source_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            active=True,
+            ascending=True,
+        )
         """
         _response = self._raw_client.list(
             source_id=source_id,
             before=before,
             after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             active=active,
             ascending=ascending,
             request_options=request_options,
@@ -132,7 +151,13 @@ class JobsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.jobs.list_active()
+        client.jobs.list_active(
+            source_id="source_id",
+            before="before",
+            after="after",
+            limit=1,
+            ascending=True,
+        )
         """
         _response = self._raw_client.list_active(
             source_id=source_id,
@@ -151,6 +176,7 @@ class JobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -169,7 +195,7 @@ class JobsClient:
             token="YOUR_TOKEN",
         )
         client.jobs.retrieve(
-            job_id="job_id",
+            job_id="job-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(job_id, request_options=request_options)
@@ -182,6 +208,7 @@ class JobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -200,7 +227,7 @@ class JobsClient:
             token="YOUR_TOKEN",
         )
         client.jobs.delete(
-            job_id="job_id",
+            job_id="job-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(job_id, request_options=request_options)
@@ -216,6 +243,7 @@ class JobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -234,7 +262,7 @@ class JobsClient:
             token="YOUR_TOKEN",
         )
         client.jobs.cancel_job(
-            job_id="job_id",
+            job_id="job-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.cancel_job(job_id, request_options=request_options)
@@ -263,6 +291,8 @@ class AsyncJobsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[JobsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -276,19 +306,25 @@ class AsyncJobsClient:
             Only list jobs associated with the source.
 
         before : typing.Optional[str]
-            Cursor for pagination
+            Job ID cursor for pagination. Returns jobs that come before this job ID in the specified sort order
 
         after : typing.Optional[str]
-            Cursor for pagination
+            Job ID cursor for pagination. Returns jobs that come after this job ID in the specified sort order
 
         limit : typing.Optional[int]
-            Limit for pagination
+            Maximum number of jobs to return
+
+        order : typing.Optional[JobsListRequestOrder]
+            Sort order for jobs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         active : typing.Optional[bool]
             Filter for active jobs.
 
         ascending : typing.Optional[bool]
-            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False)
+            Whether to sort jobs oldest to newest (True, default) or newest to oldest (False). Deprecated in favor of order field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -311,7 +347,15 @@ class AsyncJobsClient:
 
 
         async def main() -> None:
-            await client.jobs.list()
+            await client.jobs.list(
+                source_id="source_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                active=True,
+                ascending=True,
+            )
 
 
         asyncio.run(main())
@@ -321,6 +365,8 @@ class AsyncJobsClient:
             before=before,
             after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             active=active,
             ascending=ascending,
             request_options=request_options,
@@ -378,7 +424,13 @@ class AsyncJobsClient:
 
 
         async def main() -> None:
-            await client.jobs.list_active()
+            await client.jobs.list_active(
+                source_id="source_id",
+                before="before",
+                after="after",
+                limit=1,
+                ascending=True,
+            )
 
 
         asyncio.run(main())
@@ -400,6 +452,7 @@ class AsyncJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -423,7 +476,7 @@ class AsyncJobsClient:
 
         async def main() -> None:
             await client.jobs.retrieve(
-                job_id="job_id",
+                job_id="job-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -439,6 +492,7 @@ class AsyncJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -462,7 +516,7 @@ class AsyncJobsClient:
 
         async def main() -> None:
             await client.jobs.delete(
-                job_id="job_id",
+                job_id="job-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -481,6 +535,7 @@ class AsyncJobsClient:
         Parameters
         ----------
         job_id : str
+            The ID of the job in the format 'job-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -504,7 +559,7 @@ class AsyncJobsClient:
 
         async def main() -> None:
             await client.jobs.cancel_job(
-                job_id="job_id",
+                job_id="job-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

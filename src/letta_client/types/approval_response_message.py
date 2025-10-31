@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
+from .approval_response_message_approvals_item import ApprovalResponseMessageApprovalsItem
 
 
 class ApprovalResponseMessage(UncheckedBaseModel):
@@ -31,12 +32,17 @@ class ApprovalResponseMessage(UncheckedBaseModel):
     is_err: typing.Optional[bool] = None
     seq_id: typing.Optional[int] = None
     run_id: typing.Optional[str] = None
-    approve: bool = pydantic.Field()
+    approvals: typing.Optional[typing.List[ApprovalResponseMessageApprovalsItem]] = pydantic.Field(default=None)
+    """
+    The list of approval responses
+    """
+
+    approve: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the tool has been approved
     """
 
-    approval_request_id: str = pydantic.Field()
+    approval_request_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The message ID of the approval request
     """

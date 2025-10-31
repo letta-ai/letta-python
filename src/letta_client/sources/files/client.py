@@ -43,6 +43,7 @@ class FilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file : core.File
             See core.File for more documentation
@@ -70,7 +71,9 @@ class FilesClient:
             token="YOUR_TOKEN",
         )
         client.sources.files.upload(
-            source_id="source_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
+            duplicate_handling="skip",
+            name="name",
         )
         """
         _response = self._raw_client.upload(
@@ -94,6 +97,7 @@ class FilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         limit : typing.Optional[int]
             Number of files to return
@@ -124,7 +128,11 @@ class FilesClient:
             token="YOUR_TOKEN",
         )
         client.sources.files.list(
-            source_id="source_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
+            limit=1,
+            after="after",
+            include_content=True,
+            check_status_updates=True,
         )
         """
         _response = self._raw_client.list(
@@ -144,8 +152,10 @@ class FilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -163,8 +173,8 @@ class FilesClient:
             token="YOUR_TOKEN",
         )
         client.sources.files.delete(
-            source_id="source_id",
-            file_id="file_id",
+            source_id="source-123e4567-e89b-42d3-8456-426614174000",
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(source_id, file_id, request_options=request_options)
@@ -201,6 +211,7 @@ class AsyncFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file : core.File
             See core.File for more documentation
@@ -233,7 +244,9 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.sources.files.upload(
-                source_id="source_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
+                duplicate_handling="skip",
+                name="name",
             )
 
 
@@ -260,6 +273,7 @@ class AsyncFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         limit : typing.Optional[int]
             Number of files to return
@@ -295,7 +309,11 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.sources.files.list(
-                source_id="source_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
+                limit=1,
+                after="after",
+                include_content=True,
+                check_status_updates=True,
             )
 
 
@@ -320,8 +338,10 @@ class AsyncFilesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -344,8 +364,8 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.sources.files.delete(
-                source_id="source_id",
-                file_id="file_id",
+                source_id="source-123e4567-e89b-42d3-8456-426614174000",
+                file_id="file-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

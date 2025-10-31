@@ -89,6 +89,11 @@ class Tool(UncheckedBaseModel):
     Default value for whether or not executing this tool requires approval.
     """
 
+    enable_parallel_execution: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+    """
+
     created_by_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The id of the user that made this Tool.

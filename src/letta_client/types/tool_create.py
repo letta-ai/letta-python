@@ -60,6 +60,11 @@ class ToolCreate(UncheckedBaseModel):
     Whether or not to require approval before executing this tool.
     """
 
+    enable_parallel_execution: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

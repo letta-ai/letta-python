@@ -5,11 +5,13 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.run import Run
+from ..types.run_metrics import RunMetrics
 from ..types.stop_reason_type import StopReasonType
 from .messages.client import AsyncMessagesClient, MessagesClient
 from .raw_client import AsyncRawRunsClient, RawRunsClient
 from .steps.client import AsyncStepsClient, StepsClient
 from .types.letta_streaming_response import LettaStreamingResponse
+from .types.runs_list_request_order import RunsListRequestOrder
 from .usage.client import AsyncUsageClient, UsageClient
 
 # this is used as the default value for optional parameters
@@ -41,11 +43,14 @@ class RunsClient:
         *,
         agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        statuses: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
         stop_reason: typing.Optional[StopReasonType] = None,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[RunsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -61,26 +66,35 @@ class RunsClient:
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
+        statuses : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter runs by status. Can specify multiple statuses.
+
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
 
         stop_reason : typing.Optional[StopReasonType]
             Filter runs by stop reason.
 
-        after : typing.Optional[str]
-            Cursor for pagination
-
         before : typing.Optional[str]
-            Cursor for pagination
+            Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order
+
+        after : typing.Optional[str]
+            Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        order : typing.Optional[RunsListRequestOrder]
+            Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         active : typing.Optional[bool]
             Filter for active runs.
 
         ascending : typing.Optional[bool]
-            Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+            Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -98,16 +112,29 @@ class RunsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.runs.list()
+        client.runs.list(
+            agent_id="agent_id",
+            background=True,
+            stop_reason="end_turn",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            active=True,
+            ascending=True,
+        )
         """
         _response = self._raw_client.list(
             agent_id=agent_id,
             agent_ids=agent_ids,
+            statuses=statuses,
             background=background,
             stop_reason=stop_reason,
-            after=after,
             before=before,
+            after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             active=active,
             ascending=ascending,
             request_options=request_options,
@@ -148,7 +175,10 @@ class RunsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.runs.list_active()
+        client.runs.list_active(
+            agent_id="agent_id",
+            background=True,
+        )
         """
         _response = self._raw_client.list_active(
             agent_id=agent_id, background=background, request_options=request_options
@@ -215,6 +245,39 @@ class RunsClient:
         )
         """
         _response = self._raw_client.delete(run_id, request_options=request_options)
+        return _response.data
+
+    def retrieve_metrics_for_run(
+        self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RunMetrics:
+        """
+        Get run metrics by run ID.
+
+        Parameters
+        ----------
+        run_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RunMetrics
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.runs.retrieve_metrics_for_run(
+            run_id="run_id",
+        )
+        """
+        _response = self._raw_client.retrieve_metrics_for_run(run_id, request_options=request_options)
         return _response.data
 
     def stream(
@@ -302,11 +365,14 @@ class AsyncRunsClient:
         *,
         agent_id: typing.Optional[str] = None,
         agent_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        statuses: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         background: typing.Optional[bool] = None,
         stop_reason: typing.Optional[StopReasonType] = None,
-        after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        order: typing.Optional[RunsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         active: typing.Optional[bool] = None,
         ascending: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -322,26 +388,35 @@ class AsyncRunsClient:
         agent_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             The unique identifiers of the agents associated with the run. Deprecated in favor of agent_id field.
 
+        statuses : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter runs by status. Can specify multiple statuses.
+
         background : typing.Optional[bool]
             If True, filters for runs that were created in background mode.
 
         stop_reason : typing.Optional[StopReasonType]
             Filter runs by stop reason.
 
-        after : typing.Optional[str]
-            Cursor for pagination
-
         before : typing.Optional[str]
-            Cursor for pagination
+            Run ID cursor for pagination. Returns runs that come before this run ID in the specified sort order
+
+        after : typing.Optional[str]
+            Run ID cursor for pagination. Returns runs that come after this run ID in the specified sort order
 
         limit : typing.Optional[int]
             Maximum number of runs to return
+
+        order : typing.Optional[RunsListRequestOrder]
+            Sort order for runs by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         active : typing.Optional[bool]
             Filter for active runs.
 
         ascending : typing.Optional[bool]
-            Whether to sort agents oldest to newest (True) or newest to oldest (False, default)
+            Whether to sort agents oldest to newest (True) or newest to oldest (False, default). Deprecated in favor of order field.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -364,7 +439,17 @@ class AsyncRunsClient:
 
 
         async def main() -> None:
-            await client.runs.list()
+            await client.runs.list(
+                agent_id="agent_id",
+                background=True,
+                stop_reason="end_turn",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                active=True,
+                ascending=True,
+            )
 
 
         asyncio.run(main())
@@ -372,11 +457,14 @@ class AsyncRunsClient:
         _response = await self._raw_client.list(
             agent_id=agent_id,
             agent_ids=agent_ids,
+            statuses=statuses,
             background=background,
             stop_reason=stop_reason,
-            after=after,
             before=before,
+            after=after,
             limit=limit,
+            order=order,
+            order_by=order_by,
             active=active,
             ascending=ascending,
             request_options=request_options,
@@ -422,7 +510,10 @@ class AsyncRunsClient:
 
 
         async def main() -> None:
-            await client.runs.list_active()
+            await client.runs.list_active(
+                agent_id="agent_id",
+                background=True,
+            )
 
 
         asyncio.run(main())
@@ -508,6 +599,47 @@ class AsyncRunsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.delete(run_id, request_options=request_options)
+        return _response.data
+
+    async def retrieve_metrics_for_run(
+        self, run_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RunMetrics:
+        """
+        Get run metrics by run ID.
+
+        Parameters
+        ----------
+        run_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RunMetrics
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.runs.retrieve_metrics_for_run(
+                run_id="run_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.retrieve_metrics_for_run(run_id, request_options=request_options)
         return _response.data
 
     async def stream(

@@ -54,6 +54,7 @@ class MessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -96,7 +97,14 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.groups.messages.list(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            use_assistant_message=True,
+            assistant_message_tool_name="assistant_message_tool_name",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
         )
         """
         _response = self._raw_client.list(
@@ -133,6 +141,7 @@ class MessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
@@ -172,7 +181,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.groups.messages.create(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 MessageCreate(
                     role="user",
@@ -222,6 +231,7 @@ class MessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
@@ -270,7 +280,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         response = client.groups.messages.create_stream(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
             messages=[
                 MessageCreate(
                     role="user",
@@ -315,8 +325,10 @@ class MessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         message_id : str
+            The ID of the message in the format 'message-<uuid4>'
 
         request : MessagesModifyRequest
 
@@ -337,8 +349,8 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.groups.messages.modify(
-            group_id="group_id",
-            message_id="message_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
             request=UpdateSystemMessage(
                 content="content",
             ),
@@ -356,6 +368,7 @@ class MessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -374,7 +387,7 @@ class MessagesClient:
             token="YOUR_TOKEN",
         )
         client.groups.messages.reset(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.reset(group_id, request_options=request_options)
@@ -416,6 +429,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         before : typing.Optional[str]
             Message ID cursor for pagination. Returns messages that come before this message ID in the specified sort order
@@ -463,7 +477,14 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.groups.messages.list(
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                use_assistant_message=True,
+                assistant_message_tool_name="assistant_message_tool_name",
+                assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             )
 
 
@@ -503,6 +524,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         messages : typing.Sequence[LettaRequestMessagesItem]
             The messages to be sent to the agent.
@@ -547,7 +569,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.groups.messages.create(
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 messages=[
                     MessageCreate(
                         role="user",
@@ -600,6 +622,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         messages : typing.Sequence[LettaStreamingRequestMessagesItem]
             The messages to be sent to the agent.
@@ -653,7 +676,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             response = await client.groups.messages.create_stream(
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
                 messages=[
                     MessageCreate(
                         role="user",
@@ -702,8 +725,10 @@ class AsyncMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         message_id : str
+            The ID of the message in the format 'message-<uuid4>'
 
         request : MessagesModifyRequest
 
@@ -729,8 +754,8 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.groups.messages.modify(
-                group_id="group_id",
-                message_id="message_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
+                message_id="message-123e4567-e89b-42d3-8456-426614174000",
                 request=UpdateSystemMessage(
                     content="content",
                 ),
@@ -753,6 +778,7 @@ class AsyncMessagesClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -776,7 +802,7 @@ class AsyncMessagesClient:
 
         async def main() -> None:
             await client.groups.messages.reset(
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

@@ -2,8 +2,17 @@
 
 # isort: skip_file
 
-from .types import LettaStreamingResponse
+from .types import LettaStreamingResponse, RunsListRequestOrder
 from . import messages, steps, usage
 from .messages import MessagesListRequestOrder
+from .steps import StepsListRequestOrder
 
-__all__ = ["LettaStreamingResponse", "MessagesListRequestOrder", "messages", "steps", "usage"]
+__all__ = [
+    "LettaStreamingResponse",
+    "MessagesListRequestOrder",
+    "RunsListRequestOrder",
+    "StepsListRequestOrder",
+    "messages",
+    "steps",
+    "usage",
+]

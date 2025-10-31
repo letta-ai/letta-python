@@ -82,7 +82,14 @@ class ProvidersClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.providers.list()
+        client.providers.list(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            name="name",
+            provider_type="anthropic",
+        )
         """
         _response = self._raw_client.list(
             before=before,
@@ -177,6 +184,7 @@ class ProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -195,7 +203,7 @@ class ProvidersClient:
             token="YOUR_TOKEN",
         )
         client.providers.retrieve_provider(
-            provider_id="provider_id",
+            provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve_provider(provider_id, request_options=request_options)
@@ -210,6 +218,7 @@ class ProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -228,7 +237,7 @@ class ProvidersClient:
             token="YOUR_TOKEN",
         )
         client.providers.delete(
-            provider_id="provider_id",
+            provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(provider_id, request_options=request_options)
@@ -251,6 +260,7 @@ class ProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         api_key : str
             API key or secret key used for requests to the provider.
@@ -284,7 +294,7 @@ class ProvidersClient:
             token="YOUR_TOKEN",
         )
         client.providers.modify(
-            provider_id="provider_id",
+            provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
             api_key="api_key",
         )
         """
@@ -365,6 +375,40 @@ class ProvidersClient:
         )
         return _response.data
 
+    def check_existing_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
+        """
+        Verify the API key and additional parameters for an existing provider.
+
+        Parameters
+        ----------
+        provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        from letta_client import Letta
+
+        client = Letta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+        client.providers.check_existing_provider(
+            provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
+        )
+        """
+        _response = self._raw_client.check_existing_provider(provider_id, request_options=request_options)
+        return _response.data
+
 
 class AsyncProvidersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -440,7 +484,14 @@ class AsyncProvidersClient:
 
 
         async def main() -> None:
-            await client.providers.list()
+            await client.providers.list(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                name="name",
+                provider_type="anthropic",
+            )
 
 
         asyncio.run(main())
@@ -546,6 +597,7 @@ class AsyncProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -569,7 +621,7 @@ class AsyncProvidersClient:
 
         async def main() -> None:
             await client.providers.retrieve_provider(
-                provider_id="provider_id",
+                provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -587,6 +639,7 @@ class AsyncProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -610,7 +663,7 @@ class AsyncProvidersClient:
 
         async def main() -> None:
             await client.providers.delete(
-                provider_id="provider_id",
+                provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -636,6 +689,7 @@ class AsyncProvidersClient:
         Parameters
         ----------
         provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
 
         api_key : str
             API key or secret key used for requests to the provider.
@@ -674,7 +728,7 @@ class AsyncProvidersClient:
 
         async def main() -> None:
             await client.providers.modify(
-                provider_id="provider_id",
+                provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
                 api_key="api_key",
             )
 
@@ -764,4 +818,46 @@ class AsyncProvidersClient:
             api_version=api_version,
             request_options=request_options,
         )
+        return _response.data
+
+    async def check_existing_provider(
+        self, provider_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> typing.Optional[typing.Any]:
+        """
+        Verify the API key and additional parameters for an existing provider.
+
+        Parameters
+        ----------
+        provider_id : str
+            The ID of the provider in the format 'provider-<uuid4>'
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        typing.Optional[typing.Any]
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from letta_client import AsyncLetta
+
+        client = AsyncLetta(
+            project="YOUR_PROJECT",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.providers.check_existing_provider(
+                provider_id="provider-123e4567-e89b-42d3-8456-426614174000",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.check_existing_provider(provider_id, request_options=request_options)
         return _response.data

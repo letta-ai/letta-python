@@ -79,6 +79,11 @@ class MessagesClient:
         )
         client.batches.messages.list(
             batch_id="batch_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            agent_id="agent_id",
         )
         """
         _response = self._raw_client.list(
@@ -169,6 +174,11 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.batches.messages.list(
                 batch_id="batch_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                agent_id="agent_id",
             )
 
 

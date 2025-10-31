@@ -14,8 +14,6 @@ from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.action_model import ActionModel
-from ..types.app_model import AppModel
 from ..types.http_validation_error import HttpValidationError
 from ..types.mcp_tool import McpTool
 from ..types.npm_requirement import NpmRequirement
@@ -48,6 +46,7 @@ class RawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -97,6 +96,7 @@ class RawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -154,6 +154,7 @@ class RawToolsClient:
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -162,6 +163,7 @@ class RawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         description : typing.Optional[str]
             The description of the tool.
@@ -196,6 +198,9 @@ class RawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -223,6 +228,7 @@ class RawToolsClient:
                 ),
                 "metadata_": metadata,
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -470,6 +476,7 @@ class RawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -507,6 +514,9 @@ class RawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -533,6 +543,7 @@ class RawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -579,6 +590,7 @@ class RawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Tool]:
         """
@@ -616,6 +628,9 @@ class RawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -642,6 +657,7 @@ class RawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -806,151 +822,6 @@ class RawToolsClient:
                     ToolReturnMessage,
                     construct_type(
                         type_=ToolReturnMessage,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def list_composio_apps(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.List[AppModel]]:
-        """
-        Get a list of all Composio apps
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.List[AppModel]]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v1/tools/composio/apps",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[AppModel],
-                    construct_type(
-                        type_=typing.List[AppModel],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def list_composio_actions_by_app(
-        self, composio_app_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[typing.List[ActionModel]]:
-        """
-        Get a list of all Composio actions for a specific app
-
-        Parameters
-        ----------
-        composio_app_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[typing.List[ActionModel]]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/tools/composio/apps/{jsonable_encoder(composio_app_name)}/actions",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[ActionModel],
-                    construct_type(
-                        type_=typing.List[ActionModel],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def add_composio_tool(
-        self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[Tool]:
-        """
-        Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
-
-        Parameters
-        ----------
-        composio_action_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[Tool]
-            Successful Response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"v1/tools/composio/{jsonable_encoder(composio_action_name)}",
-            method="POST",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    Tool,
-                    construct_type(
-                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1434,6 +1305,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1483,6 +1355,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1540,6 +1413,7 @@ class AsyncRawToolsClient:
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1548,6 +1422,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         description : typing.Optional[str]
             The description of the tool.
@@ -1582,6 +1457,9 @@ class AsyncRawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1609,6 +1487,7 @@ class AsyncRawToolsClient:
                 ),
                 "metadata_": metadata,
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -1856,6 +1735,7 @@ class AsyncRawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -1893,6 +1773,9 @@ class AsyncRawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1919,6 +1802,7 @@ class AsyncRawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -1965,6 +1849,7 @@ class AsyncRawToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Tool]:
         """
@@ -2002,6 +1887,9 @@ class AsyncRawToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2028,6 +1916,7 @@ class AsyncRawToolsClient:
                     object_=npm_requirements, annotation=typing.Sequence[NpmRequirement], direction="write"
                 ),
                 "default_requires_approval": default_requires_approval,
+                "enable_parallel_execution": enable_parallel_execution,
             },
             headers={
                 "content-type": "application/json",
@@ -2192,151 +2081,6 @@ class AsyncRawToolsClient:
                     ToolReturnMessage,
                     construct_type(
                         type_=ToolReturnMessage,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def list_composio_apps(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.List[AppModel]]:
-        """
-        Get a list of all Composio apps
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.List[AppModel]]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/tools/composio/apps",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[AppModel],
-                    construct_type(
-                        type_=typing.List[AppModel],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def list_composio_actions_by_app(
-        self, composio_app_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[typing.List[ActionModel]]:
-        """
-        Get a list of all Composio actions for a specific app
-
-        Parameters
-        ----------
-        composio_app_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[typing.List[ActionModel]]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/tools/composio/apps/{jsonable_encoder(composio_app_name)}/actions",
-            method="GET",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    typing.List[ActionModel],
-                    construct_type(
-                        type_=typing.List[ActionModel],  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        HttpValidationError,
-                        construct_type(
-                            type_=HttpValidationError,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def add_composio_tool(
-        self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[Tool]:
-        """
-        Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
-
-        Parameters
-        ----------
-        composio_action_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[Tool]
-            Successful Response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/tools/composio/{jsonable_encoder(composio_action_name)}",
-            method="POST",
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    Tool,
-                    construct_type(
-                        type_=Tool,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

@@ -12,6 +12,7 @@ from ...core.unchecked_base_model import construct_type
 from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.group import Group
 from ...types.http_validation_error import HttpValidationError
+from .types.groups_list_request_order import GroupsListRequestOrder
 
 
 class RawGroupsClient:
@@ -23,6 +24,11 @@ class RawGroupsClient:
         agent_id: str,
         *,
         manager_type: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[GroupsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Group]]:
         """
@@ -31,9 +37,25 @@ class RawGroupsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         manager_type : typing.Optional[str]
             Manager type to filter groups by
+
+        before : typing.Optional[str]
+            Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order
+
+        after : typing.Optional[str]
+            Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of groups to return
+
+        order : typing.Optional[GroupsListRequestOrder]
+            Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -48,6 +70,11 @@ class RawGroupsClient:
             method="GET",
             params={
                 "manager_type": manager_type,
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
             },
             request_options=request_options,
         )
@@ -87,6 +114,11 @@ class AsyncRawGroupsClient:
         agent_id: str,
         *,
         manager_type: typing.Optional[str] = None,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[GroupsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Group]]:
         """
@@ -95,9 +127,25 @@ class AsyncRawGroupsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         manager_type : typing.Optional[str]
             Manager type to filter groups by
+
+        before : typing.Optional[str]
+            Group ID cursor for pagination. Returns groups that come before this group ID in the specified sort order
+
+        after : typing.Optional[str]
+            Group ID cursor for pagination. Returns groups that come after this group ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of groups to return
+
+        order : typing.Optional[GroupsListRequestOrder]
+            Sort order for groups by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -112,6 +160,11 @@ class AsyncRawGroupsClient:
             method="GET",
             params={
                 "manager_type": manager_type,
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
             },
             request_options=request_options,
         )

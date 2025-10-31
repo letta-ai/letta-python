@@ -36,6 +36,7 @@ class RawFeedbackClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         feedback : typing.Optional[FeedbackType]
             Whether this feedback is positive or negative
@@ -109,6 +110,7 @@ class AsyncRawFeedbackClient:
         Parameters
         ----------
         step_id : str
+            The ID of the step in the format 'step-<uuid4>'
 
         feedback : typing.Optional[FeedbackType]
             Whether this feedback is positive or negative

@@ -26,6 +26,9 @@ from .templates_create_agents_from_template_response_agents_item_secrets_item_or
 from .templates_create_agents_from_template_response_agents_item_secrets_item_updated_at import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemUpdatedAt,
 )
+from .templates_create_agents_from_template_response_agents_item_secrets_item_value_enc import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc,
+)
 
 
 class TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItem(UncheckedBaseModel):
@@ -42,6 +45,7 @@ class TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItem(UncheckedBa
     organization_id: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemOrganizationId] = (
         None
     )
+    value_enc: typing.Optional[TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc] = None
     agent_id: str
 
     if IS_PYDANTIC_V2:

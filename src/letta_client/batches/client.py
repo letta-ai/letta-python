@@ -76,7 +76,12 @@ class BatchesClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.batches.list()
+        client.batches.list(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+        )
         """
         _response = self._raw_client.list(
             before=before, after=after, limit=limit, order=order, order_by=order_by, request_options=request_options
@@ -275,7 +280,12 @@ class AsyncBatchesClient:
 
 
         async def main() -> None:
-            await client.batches.list()
+            await client.batches.list(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+            )
 
 
         asyncio.run(main())

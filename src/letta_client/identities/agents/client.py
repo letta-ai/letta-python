@@ -41,6 +41,7 @@ class AgentsClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         before : typing.Optional[str]
             Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
@@ -74,7 +75,11 @@ class AgentsClient:
             token="YOUR_TOKEN",
         )
         client.identities.agents.list(
-            identity_id="identity_id",
+            identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
         _response = self._raw_client.list(
@@ -121,6 +126,7 @@ class AsyncAgentsClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         before : typing.Optional[str]
             Agent ID cursor for pagination. Returns agents that come before this agent ID in the specified sort order
@@ -159,7 +165,11 @@ class AsyncAgentsClient:
 
         async def main() -> None:
             await client.identities.agents.list(
-                identity_id="identity_id",
+                identity_id="identity-123e4567-e89b-42d3-8456-426614174000",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 

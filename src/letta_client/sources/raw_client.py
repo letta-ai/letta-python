@@ -79,6 +79,7 @@ class RawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,6 +129,7 @@ class RawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -187,6 +189,7 @@ class RawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         name : typing.Optional[str]
             The name of the source.
@@ -511,6 +514,7 @@ class RawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -565,8 +569,10 @@ class RawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         include_content : typing.Optional[bool]
             Whether to include full file content
@@ -672,6 +678,7 @@ class AsyncRawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -721,6 +728,7 @@ class AsyncRawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -780,6 +788,7 @@ class AsyncRawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         name : typing.Optional[str]
             The name of the source.
@@ -1106,6 +1115,7 @@ class AsyncRawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1160,8 +1170,10 @@ class AsyncRawSourcesClient:
         Parameters
         ----------
         source_id : str
+            The ID of the source in the format 'source-<uuid4>'
 
         file_id : str
+            The ID of the file in the format 'file-<uuid4>'
 
         include_content : typing.Optional[bool]
             Whether to include full file content

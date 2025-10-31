@@ -427,7 +427,7 @@ class RawTemplatesClient:
             The project id
 
         template_version : str
-            The template name with :current version (e.g., my-template:current)
+            The template name with :dev version (e.g., my-template:dev)
 
         request : typing.Optional[typing.Any]
 
@@ -1459,7 +1459,7 @@ class AsyncRawTemplatesClient:
             The project id
 
         template_version : str
-            The template name with :current version (e.g., my-template:current)
+            The template name with :dev version (e.g., my-template:dev)
 
         request : typing.Optional[typing.Any]
 

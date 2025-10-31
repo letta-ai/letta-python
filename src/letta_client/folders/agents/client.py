@@ -74,6 +74,10 @@ class AgentsClient:
         )
         client.folders.agents.list(
             folder_id="folder_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
         _response = self._raw_client.list(
@@ -159,6 +163,10 @@ class AsyncAgentsClient:
         async def main() -> None:
             await client.folders.agents.list(
                 folder_id="folder_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 

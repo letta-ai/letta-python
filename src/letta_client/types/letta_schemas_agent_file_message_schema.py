@@ -6,10 +6,11 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .chat_completion_message_function_tool_call import ChatCompletionMessageFunctionToolCall
+from .chat_completion_message_function_tool_call_input import ChatCompletionMessageFunctionToolCallInput
+from .letta_schemas_agent_file_message_schema_approvals_item import LettaSchemasAgentFileMessageSchemaApprovalsItem
 from .letta_schemas_agent_file_message_schema_content import LettaSchemasAgentFileMessageSchemaContent
+from .letta_schemas_message_tool_return import LettaSchemasMessageToolReturn
 from .message_role import MessageRole
-from .tool_return import ToolReturn
 
 
 class LettaSchemasAgentFileMessageSchema(UncheckedBaseModel):
@@ -72,7 +73,7 @@ class LettaSchemasAgentFileMessageSchema(UncheckedBaseModel):
     The unique identifier of the agent
     """
 
-    tool_calls: typing.Optional[typing.List[ChatCompletionMessageFunctionToolCall]] = pydantic.Field(default=None)
+    tool_calls: typing.Optional[typing.List[ChatCompletionMessageFunctionToolCallInput]] = pydantic.Field(default=None)
     """
     The list of tool calls requested. Only applicable for role assistant.
     """
@@ -82,7 +83,7 @@ class LettaSchemasAgentFileMessageSchema(UncheckedBaseModel):
     The ID of the tool call. Only applicable for role tool.
     """
 
-    tool_returns: typing.Optional[typing.List[ToolReturn]] = pydantic.Field(default=None)
+    tool_returns: typing.Optional[typing.List[LettaSchemasMessageToolReturn]] = pydantic.Field(default=None)
     """
     Tool execution return information for prior tool calls
     """
@@ -90,6 +91,28 @@ class LettaSchemasAgentFileMessageSchema(UncheckedBaseModel):
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The timestamp when the object was created.
+    """
+
+    approve: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the tool has been approved
+    """
+
+    approval_request_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The message ID of the approval request
+    """
+
+    denial_reason: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    An optional explanation for the provided approval status
+    """
+
+    approvals: typing.Optional[typing.List[LettaSchemasAgentFileMessageSchemaApprovalsItem]] = pydantic.Field(
+        default=None
+    )
+    """
+    Approval returns for the message
     """
 
     if IS_PYDANTIC_V2:

@@ -77,7 +77,14 @@ class ArchivesClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.archives.list_archives()
+        client.archives.list_archives(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            name="name",
+            agent_id="agent_id",
+        )
         """
         _response = self._raw_client.list_archives(
             before=before,
@@ -143,6 +150,7 @@ class ArchivesClient:
         Parameters
         ----------
         archive_id : str
+            The ID of the archive in the format 'archive-<uuid4>'
 
         name : typing.Optional[str]
 
@@ -165,7 +173,7 @@ class ArchivesClient:
             token="YOUR_TOKEN",
         )
         client.archives.modify_archive(
-            archive_id="archive_id",
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify_archive(
@@ -244,7 +252,14 @@ class AsyncArchivesClient:
 
 
         async def main() -> None:
-            await client.archives.list_archives()
+            await client.archives.list_archives(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                name="name",
+                agent_id="agent_id",
+            )
 
 
         asyncio.run(main())
@@ -323,6 +338,7 @@ class AsyncArchivesClient:
         Parameters
         ----------
         archive_id : str
+            The ID of the archive in the format 'archive-<uuid4>'
 
         name : typing.Optional[str]
 
@@ -350,7 +366,7 @@ class AsyncArchivesClient:
 
         async def main() -> None:
             await client.archives.modify_archive(
-                archive_id="archive_id",
+                archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

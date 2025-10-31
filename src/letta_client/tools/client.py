@@ -4,8 +4,6 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from ..types.action_model import ActionModel
-from ..types.app_model import AppModel
 from ..types.mcp_tool import McpTool
 from ..types.npm_requirement import NpmRequirement
 from ..types.pip_requirement import PipRequirement
@@ -49,6 +47,7 @@ class ToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -67,7 +66,7 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.tools.retrieve(
-            tool_id="tool_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(tool_id, request_options=request_options)
@@ -82,6 +81,7 @@ class ToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -100,7 +100,7 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.tools.delete(
-            tool_id="tool_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(tool_id, request_options=request_options)
@@ -121,6 +121,7 @@ class ToolsClient:
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -129,6 +130,7 @@ class ToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         description : typing.Optional[str]
             The description of the tool.
@@ -163,6 +165,9 @@ class ToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -180,7 +185,7 @@ class ToolsClient:
             token="YOUR_TOKEN",
         )
         client.tools.modify(
-            tool_id="tool_id",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -196,6 +201,7 @@ class ToolsClient:
             npm_requirements=npm_requirements,
             metadata=metadata,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -257,7 +263,12 @@ class ToolsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.tools.count()
+        client.tools.count(
+            name="name",
+            search="search",
+            return_only_letta_tools=True,
+            exclude_letta_tools=True,
+        )
         """
         _response = self._raw_client.count(
             name=name,
@@ -346,7 +357,15 @@ class ToolsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.tools.list()
+        client.tools.list(
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            name="name",
+            search="search",
+            return_only_letta_tools=True,
+        )
         """
         _response = self._raw_client.list(
             before=before,
@@ -378,6 +397,7 @@ class ToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -415,6 +435,9 @@ class ToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -446,6 +469,7 @@ class ToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -463,6 +487,7 @@ class ToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -500,6 +525,9 @@ class ToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -531,6 +559,7 @@ class ToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -641,99 +670,6 @@ class ToolsClient:
             npm_requirements=npm_requirements,
             request_options=request_options,
         )
-        return _response.data
-
-    def list_composio_apps(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[AppModel]:
-        """
-        Get a list of all Composio apps
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[AppModel]
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.tools.list_composio_apps()
-        """
-        _response = self._raw_client.list_composio_apps(request_options=request_options)
-        return _response.data
-
-    def list_composio_actions_by_app(
-        self, composio_app_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[ActionModel]:
-        """
-        Get a list of all Composio actions for a specific app
-
-        Parameters
-        ----------
-        composio_app_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[ActionModel]
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.tools.list_composio_actions_by_app(
-            composio_app_name="composio_app_name",
-        )
-        """
-        _response = self._raw_client.list_composio_actions_by_app(composio_app_name, request_options=request_options)
-        return _response.data
-
-    def add_composio_tool(
-        self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Tool:
-        """
-        Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
-
-        Parameters
-        ----------
-        composio_action_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Tool
-            Successful Response
-
-        Examples
-        --------
-        from letta_client import Letta
-
-        client = Letta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-        client.tools.add_composio_tool(
-            composio_action_name="composio_action_name",
-        )
-        """
-        _response = self._raw_client.add_composio_tool(composio_action_name, request_options=request_options)
         return _response.data
 
     def list_mcp_servers(
@@ -1047,6 +983,7 @@ class AsyncToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1070,7 +1007,7 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.tools.retrieve(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1088,6 +1025,7 @@ class AsyncToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1111,7 +1049,7 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.tools.delete(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1135,6 +1073,7 @@ class AsyncToolsClient:
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1143,6 +1082,7 @@ class AsyncToolsClient:
         Parameters
         ----------
         tool_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         description : typing.Optional[str]
             The description of the tool.
@@ -1177,6 +1117,9 @@ class AsyncToolsClient:
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
 
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1199,7 +1142,7 @@ class AsyncToolsClient:
 
         async def main() -> None:
             await client.tools.modify(
-                tool_id="tool_id",
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -1218,6 +1161,7 @@ class AsyncToolsClient:
             npm_requirements=npm_requirements,
             metadata=metadata,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -1284,7 +1228,12 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.count()
+            await client.tools.count(
+                name="name",
+                search="search",
+                return_only_letta_tools=True,
+                exclude_letta_tools=True,
+            )
 
 
         asyncio.run(main())
@@ -1381,7 +1330,15 @@ class AsyncToolsClient:
 
 
         async def main() -> None:
-            await client.tools.list()
+            await client.tools.list(
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                name="name",
+                search="search",
+                return_only_letta_tools=True,
+            )
 
 
         asyncio.run(main())
@@ -1416,6 +1373,7 @@ class AsyncToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1452,6 +1410,9 @@ class AsyncToolsClient:
 
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
+
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1492,6 +1453,7 @@ class AsyncToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -1509,6 +1471,7 @@ class AsyncToolsClient:
         pip_requirements: typing.Optional[typing.Sequence[PipRequirement]] = OMIT,
         npm_requirements: typing.Optional[typing.Sequence[NpmRequirement]] = OMIT,
         default_requires_approval: typing.Optional[bool] = OMIT,
+        enable_parallel_execution: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Tool:
         """
@@ -1545,6 +1508,9 @@ class AsyncToolsClient:
 
         default_requires_approval : typing.Optional[bool]
             Whether or not to require approval before executing this tool.
+
+        enable_parallel_execution : typing.Optional[bool]
+            If set to True, then this tool will potentially be executed concurrently with other tools. Default False.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1585,6 +1551,7 @@ class AsyncToolsClient:
             pip_requirements=pip_requirements,
             npm_requirements=npm_requirements,
             default_requires_approval=default_requires_approval,
+            enable_parallel_execution=enable_parallel_execution,
             request_options=request_options,
         )
         return _response.data
@@ -1711,127 +1678,6 @@ class AsyncToolsClient:
             npm_requirements=npm_requirements,
             request_options=request_options,
         )
-        return _response.data
-
-    async def list_composio_apps(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[AppModel]:
-        """
-        Get a list of all Composio apps
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[AppModel]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.tools.list_composio_apps()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.list_composio_apps(request_options=request_options)
-        return _response.data
-
-    async def list_composio_actions_by_app(
-        self, composio_app_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[ActionModel]:
-        """
-        Get a list of all Composio actions for a specific app
-
-        Parameters
-        ----------
-        composio_app_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[ActionModel]
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.tools.list_composio_actions_by_app(
-                composio_app_name="composio_app_name",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.list_composio_actions_by_app(
-            composio_app_name, request_options=request_options
-        )
-        return _response.data
-
-    async def add_composio_tool(
-        self, composio_action_name: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Tool:
-        """
-        Add a new Composio tool by action name (Composio refers to each tool as an `Action`)
-
-        Parameters
-        ----------
-        composio_action_name : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        Tool
-            Successful Response
-
-        Examples
-        --------
-        import asyncio
-
-        from letta_client import AsyncLetta
-
-        client = AsyncLetta(
-            project="YOUR_PROJECT",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.tools.add_composio_tool(
-                composio_action_name="composio_action_name",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.add_composio_tool(composio_action_name, request_options=request_options)
         return _response.data
 
     async def list_mcp_servers(

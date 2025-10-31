@@ -253,6 +253,7 @@ class RawGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -302,6 +303,7 @@ class RawGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -361,6 +363,7 @@ class RawGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         agent_ids : typing.Optional[typing.Sequence[str]]
 
@@ -661,6 +664,7 @@ class AsyncRawGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -710,6 +714,7 @@ class AsyncRawGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -769,6 +774,7 @@ class AsyncRawGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         agent_ids : typing.Optional[typing.Sequence[str]]
 

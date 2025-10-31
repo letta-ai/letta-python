@@ -6,6 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.step import Step
 from .raw_client import AsyncRawStepsClient, RawStepsClient
+from .types.steps_list_request_order import StepsListRequestOrder
 
 
 class StepsClient:
@@ -30,21 +31,12 @@ class StepsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        order: typing.Optional[str] = None,
+        order: typing.Optional[StepsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
         """
-        Get messages associated with a run with filtering options.
-
-        Args:
-            run_id: ID of the run
-            before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-            after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-            limit: Maximum number of steps to return
-            order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-
-        Returns:
-            A list of steps associated with the run.
+        Get steps associated with a run with filtering options.
 
         Parameters
         ----------
@@ -59,8 +51,11 @@ class StepsClient:
         limit : typing.Optional[int]
             Maximum number of messages to return
 
-        order : typing.Optional[str]
-            Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+        order : typing.Optional[StepsListRequestOrder]
+            Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -80,10 +75,20 @@ class StepsClient:
         )
         client.runs.steps.list(
             run_id="run_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
         _response = self._raw_client.list(
-            run_id, before=before, after=after, limit=limit, order=order, request_options=request_options
+            run_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
         )
         return _response.data
 
@@ -110,21 +115,12 @@ class AsyncStepsClient:
         before: typing.Optional[str] = None,
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        order: typing.Optional[str] = None,
+        order: typing.Optional[StepsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Step]:
         """
-        Get messages associated with a run with filtering options.
-
-        Args:
-            run_id: ID of the run
-            before: A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.
-            after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.
-            limit: Maximum number of steps to return
-            order: Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
-
-        Returns:
-            A list of steps associated with the run.
+        Get steps associated with a run with filtering options.
 
         Parameters
         ----------
@@ -139,8 +135,11 @@ class AsyncStepsClient:
         limit : typing.Optional[int]
             Maximum number of messages to return
 
-        order : typing.Optional[str]
-            Sort order by the created_at timestamp of the objects. asc for ascending order and desc for descending order.
+        order : typing.Optional[StepsListRequestOrder]
+            Sort order for steps by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -165,12 +164,22 @@ class AsyncStepsClient:
         async def main() -> None:
             await client.runs.steps.list(
                 run_id="run_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            run_id, before=before, after=after, limit=limit, order=order, request_options=request_options
+            run_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
         )
         return _response.data

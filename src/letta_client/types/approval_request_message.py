@@ -7,6 +7,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .approval_request_message_tool_call import ApprovalRequestMessageToolCall
+from .approval_request_message_tool_calls import ApprovalRequestMessageToolCalls
 
 
 class ApprovalRequestMessage(UncheckedBaseModel):
@@ -33,6 +34,11 @@ class ApprovalRequestMessage(UncheckedBaseModel):
     tool_call: ApprovalRequestMessageToolCall = pydantic.Field()
     """
     The tool call that has been requested by the llm to run
+    """
+
+    tool_calls: typing.Optional[ApprovalRequestMessageToolCalls] = pydantic.Field(default=None)
+    """
+    The tool calls that have been requested by the llm to run, which are pending approval
     """
 
     if IS_PYDANTIC_V2:

@@ -22,6 +22,11 @@ class LlmConfig(UncheckedBaseModel):
     LLM model name. 
     """
 
+    display_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A human-friendly display name for the model.
+    """
+
     model_endpoint_type: LlmConfigModelEndpointType = pydantic.Field()
     """
     The endpoint type for the model.
@@ -105,6 +110,11 @@ class LlmConfig(UncheckedBaseModel):
     tier: typing.Optional[str] = pydantic.Field(default=None)
     """
     The cost tier for the model (cloud only).
+    """
+
+    parallel_tool_calls: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, enables parallel tool calling. Defaults to False.
     """
 
     if IS_PYDANTIC_V2:

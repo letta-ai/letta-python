@@ -349,6 +349,7 @@ class RawIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -398,6 +399,7 @@ class RawIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -456,6 +458,7 @@ class RawIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         identifier_key : typing.Optional[str]
             External, user-generated identifier key of the identity.
@@ -857,6 +860,7 @@ class AsyncRawIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -906,6 +910,7 @@ class AsyncRawIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -964,6 +969,7 @@ class AsyncRawIdentitiesClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         identifier_key : typing.Optional[str]
             External, user-generated identifier key of the identity.

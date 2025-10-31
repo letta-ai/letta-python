@@ -7,6 +7,7 @@ from ...core.request_options import RequestOptions
 from ...types.agent_state import AgentState
 from ...types.block import Block
 from .raw_client import AsyncRawBlocksClient, RawBlocksClient
+from .types.blocks_list_request_order import BlocksListRequestOrder
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -38,6 +39,7 @@ class BlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -57,7 +59,7 @@ class BlocksClient:
         )
         client.agents.blocks.retrieve(
             agent_id="agent_id",
-            block_label="block_label",
+            block_label="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(agent_id, block_label, request_options=request_options)
@@ -92,6 +94,7 @@ class BlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -153,7 +156,7 @@ class BlocksClient:
         )
         client.agents.blocks.modify(
             agent_id="agent_id",
-            block_label="block_label",
+            block_label="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -177,13 +180,39 @@ class BlocksClient:
         )
         return _response.data
 
-    def list(self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Block]:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BlocksListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> typing.List[Block]:
         """
         Retrieve the core memory blocks of a specific agent.
 
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
+
+        before : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
+
+        after : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of blocks to return
+
+        order : typing.Optional[BlocksListRequestOrder]
+            Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -202,10 +231,22 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.agents.blocks.list(
-            agent_id="agent_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
-        _response = self._raw_client.list(agent_id, request_options=request_options)
+        _response = self._raw_client.list(
+            agent_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data
 
     def attach(
@@ -217,8 +258,10 @@ class BlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -237,8 +280,8 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.agents.blocks.attach(
-            agent_id="agent_id",
-            block_id="block_id",
+            agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+            block_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.attach(agent_id, block_id, request_options=request_options)
@@ -253,8 +296,10 @@ class BlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -273,8 +318,8 @@ class BlocksClient:
             token="YOUR_TOKEN",
         )
         client.agents.blocks.detach(
-            agent_id="agent_id",
-            block_id="block_id",
+            agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+            block_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.detach(agent_id, block_id, request_options=request_options)
@@ -307,6 +352,7 @@ class AsyncBlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -331,7 +377,7 @@ class AsyncBlocksClient:
         async def main() -> None:
             await client.agents.blocks.retrieve(
                 agent_id="agent_id",
-                block_label="block_label",
+                block_label="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -369,6 +415,7 @@ class AsyncBlocksClient:
         agent_id : str
 
         block_label : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         value : typing.Optional[str]
             Value of the block.
@@ -435,7 +482,7 @@ class AsyncBlocksClient:
         async def main() -> None:
             await client.agents.blocks.modify(
                 agent_id="agent_id",
-                block_label="block_label",
+                block_label="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -463,7 +510,15 @@ class AsyncBlocksClient:
         return _response.data
 
     async def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[BlocksListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[Block]:
         """
         Retrieve the core memory blocks of a specific agent.
@@ -471,6 +526,22 @@ class AsyncBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
+
+        before : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
+
+        after : typing.Optional[str]
+            Block ID cursor for pagination. Returns blocks that come after this block ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of blocks to return
+
+        order : typing.Optional[BlocksListRequestOrder]
+            Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -494,13 +565,25 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.agents.blocks.list(
-                agent_id="agent_id",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(agent_id, request_options=request_options)
+        _response = await self._raw_client.list(
+            agent_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
+        )
         return _response.data
 
     async def attach(
@@ -512,8 +595,10 @@ class AsyncBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -537,8 +622,8 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.agents.blocks.attach(
-                agent_id="agent_id",
-                block_id="block_id",
+                agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+                block_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -556,8 +641,10 @@ class AsyncBlocksClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the block in the format 'block-<uuid4>'
 
         block_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -581,8 +668,8 @@ class AsyncBlocksClient:
 
         async def main() -> None:
             await client.agents.blocks.detach(
-                agent_id="agent_id",
-                block_id="block_id",
+                agent_id="block-123e4567-e89b-42d3-8456-426614174000",
+                block_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

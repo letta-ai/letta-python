@@ -138,6 +138,12 @@ from .templates_create_agents_from_template_response_agents_item_llm_config_comp
 from .templates_create_agents_from_template_response_agents_item_llm_config_compatibility_type_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityTypeItem,
 )
+from .templates_create_agents_from_template_response_agents_item_llm_config_display_name import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName,
+)
+from .templates_create_agents_from_template_response_agents_item_llm_config_display_name_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayNameItem,
+)
 from .templates_create_agents_from_template_response_agents_item_llm_config_enable_reasoner import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigEnableReasoner,
 )
@@ -176,6 +182,12 @@ from .templates_create_agents_from_template_response_agents_item_llm_config_mode
 )
 from .templates_create_agents_from_template_response_agents_item_llm_config_model_wrapper_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelWrapperItem,
+)
+from .templates_create_agents_from_template_response_agents_item_llm_config_parallel_tool_calls import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls,
+)
+from .templates_create_agents_from_template_response_agents_item_llm_config_parallel_tool_calls_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCallsItem,
 )
 from .templates_create_agents_from_template_response_agents_item_llm_config_provider_category import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderCategory,
@@ -699,6 +711,12 @@ from .templates_create_agents_from_template_response_agents_item_secrets_item_up
 from .templates_create_agents_from_template_response_agents_item_secrets_item_updated_at_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemUpdatedAtItem,
 )
+from .templates_create_agents_from_template_response_agents_item_secrets_item_value_enc import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc,
+)
+from .templates_create_agents_from_template_response_agents_item_secrets_item_value_enc_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEncItem,
+)
 from .templates_create_agents_from_template_response_agents_item_sources_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem,
 )
@@ -857,6 +875,12 @@ from .templates_create_agents_from_template_response_agents_item_tool_exec_envir
 )
 from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables_item_updated_at_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemUpdatedAtItem,
+)
+from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables_item_value_enc import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc,
+)
+from .templates_create_agents_from_template_response_agents_item_tool_exec_environment_variables_item_value_enc_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEncItem,
 )
 from .templates_create_agents_from_template_response_agents_item_tool_rules import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRules,
@@ -1182,6 +1206,12 @@ from .templates_create_agents_from_template_response_agents_item_tools_item_desc
 from .templates_create_agents_from_template_response_agents_item_tools_item_description_item import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDescriptionItem,
 )
+from .templates_create_agents_from_template_response_agents_item_tools_item_enable_parallel_execution import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution,
+)
+from .templates_create_agents_from_template_response_agents_item_tools_item_enable_parallel_execution_item import (
+    TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecutionItem,
+)
 from .templates_create_agents_from_template_response_agents_item_tools_item_json_schema import (
     TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemJsonSchema,
 )
@@ -1486,6 +1516,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfig",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigCompatibilityTypeItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayName",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigDisplayNameItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigEnableReasoner",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigFrequencyPenalty",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigFrequencyPenaltyItem",
@@ -1499,6 +1531,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelEndpointType",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelWrapper",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigModelWrapperItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCalls",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigParallelToolCallsItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderCategory",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderCategoryItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemLlmConfigProviderName",
@@ -1673,6 +1707,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemOrganizationIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemUpdatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemUpdatedAtItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEnc",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemSecretsItemValueEncItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemCreatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemSourcesItemCreatedAtItem",
@@ -1726,6 +1762,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemOrganizationIdItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemUpdatedAt",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemUpdatedAtItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEnc",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolExecEnvironmentVariablesItemValueEncItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRules",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolRulesItemArgs",
@@ -1834,6 +1872,8 @@ __all__ = [
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDefaultRequiresApprovalItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDescription",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemDescriptionItem",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecution",
+    "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemEnableParallelExecutionItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemJsonSchema",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemJsonSchemaItem",
     "TemplatesCreateAgentsFromTemplateResponseAgentsItemToolsItemLastUpdatedById",

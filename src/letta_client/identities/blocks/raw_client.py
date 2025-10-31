@@ -36,6 +36,7 @@ class RawBlocksClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         before : typing.Optional[str]
             Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order
@@ -120,6 +121,7 @@ class AsyncRawBlocksClient:
         Parameters
         ----------
         identity_id : str
+            The ID of the identity in the format 'identity-<uuid4>'
 
         before : typing.Optional[str]
             Block ID cursor for pagination. Returns blocks that come before this block ID in the specified sort order

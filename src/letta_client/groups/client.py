@@ -86,7 +86,14 @@ class GroupsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.groups.list()
+        client.groups.list(
+            manager_type="round_robin",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
+            project_id="project_id",
+        )
         """
         _response = self._raw_client.list(
             manager_type=manager_type,
@@ -200,6 +207,7 @@ class GroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -218,7 +226,7 @@ class GroupsClient:
             token="YOUR_TOKEN",
         )
         client.groups.retrieve(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.retrieve(group_id, request_options=request_options)
@@ -233,6 +241,7 @@ class GroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -251,7 +260,7 @@ class GroupsClient:
             token="YOUR_TOKEN",
         )
         client.groups.delete(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.delete(group_id, request_options=request_options)
@@ -274,6 +283,7 @@ class GroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         agent_ids : typing.Optional[typing.Sequence[str]]
 
@@ -307,7 +317,7 @@ class GroupsClient:
             token="YOUR_TOKEN",
         )
         client.groups.modify(
-            group_id="group_id",
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
         """
         _response = self._raw_client.modify(
@@ -397,7 +407,14 @@ class AsyncGroupsClient:
 
 
         async def main() -> None:
-            await client.groups.list()
+            await client.groups.list(
+                manager_type="round_robin",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
+                project_id="project_id",
+            )
 
 
         asyncio.run(main())
@@ -530,6 +547,7 @@ class AsyncGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -553,7 +571,7 @@ class AsyncGroupsClient:
 
         async def main() -> None:
             await client.groups.retrieve(
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -571,6 +589,7 @@ class AsyncGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -594,7 +613,7 @@ class AsyncGroupsClient:
 
         async def main() -> None:
             await client.groups.delete(
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
             )
 
 
@@ -620,6 +639,7 @@ class AsyncGroupsClient:
         Parameters
         ----------
         group_id : str
+            The ID of the group in the format 'group-<uuid4>'
 
         agent_ids : typing.Optional[typing.Sequence[str]]
 
@@ -658,7 +678,7 @@ class AsyncGroupsClient:
 
         async def main() -> None:
             await client.groups.modify(
-                group_id="group_id",
+                group_id="group-123e4567-e89b-42d3-8456-426614174000",
             )
 
 

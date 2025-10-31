@@ -13,6 +13,7 @@ from ...errors.unprocessable_entity_error import UnprocessableEntityError
 from ...types.agent_state import AgentState
 from ...types.http_validation_error import HttpValidationError
 from ...types.tool import Tool
+from .types.tools_list_request_order import ToolsListRequestOrder
 
 
 class RawToolsClient:
@@ -20,7 +21,15 @@ class RawToolsClient:
         self._client_wrapper = client_wrapper
 
     def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[ToolsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[typing.List[Tool]]:
         """
         Get tools from an existing agent
@@ -28,6 +37,22 @@ class RawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
+
+        before : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
+
+        after : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of tools to return
+
+        order : typing.Optional[ToolsListRequestOrder]
+            Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -40,6 +65,13 @@ class RawToolsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/tools",
             method="GET",
+            params={
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            },
             request_options=request_options,
         )
         try:
@@ -77,8 +109,10 @@ class RawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,8 +162,10 @@ class RawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -184,6 +220,7 @@ class RawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         tool_name : str
 
@@ -237,7 +274,15 @@ class AsyncRawToolsClient:
         self._client_wrapper = client_wrapper
 
     async def list(
-        self, agent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        agent_id: str,
+        *,
+        before: typing.Optional[str] = None,
+        after: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
+        order: typing.Optional[ToolsListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[typing.List[Tool]]:
         """
         Get tools from an existing agent
@@ -245,6 +290,22 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
+
+        before : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come before this tool ID in the specified sort order
+
+        after : typing.Optional[str]
+            Tool ID cursor for pagination. Returns tools that come after this tool ID in the specified sort order
+
+        limit : typing.Optional[int]
+            Maximum number of tools to return
+
+        order : typing.Optional[ToolsListRequestOrder]
+            Sort order for tools by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -257,6 +318,13 @@ class AsyncRawToolsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/agents/{jsonable_encoder(agent_id)}/tools",
             method="GET",
+            params={
+                "before": before,
+                "after": after,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            },
             request_options=request_options,
         )
         try:
@@ -294,8 +362,10 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -345,8 +415,10 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the tool in the format 'tool-<uuid4>'
 
         tool_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -401,6 +473,7 @@ class AsyncRawToolsClient:
         Parameters
         ----------
         agent_id : str
+            The ID of the agent in the format 'agent-<uuid4>'
 
         tool_name : str
 

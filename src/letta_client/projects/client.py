@@ -58,7 +58,11 @@ class ProjectsClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.projects.list()
+        client.projects.list(
+            name="name",
+            offset="offset",
+            limit="limit",
+        )
         """
         _response = self._raw_client.list(name=name, offset=offset, limit=limit, request_options=request_options)
         return _response.data
@@ -119,7 +123,11 @@ class AsyncProjectsClient:
 
 
         async def main() -> None:
-            await client.projects.list()
+            await client.projects.list(
+                name="name",
+                offset="offset",
+                limit="limit",
+            )
 
 
         asyncio.run(main())

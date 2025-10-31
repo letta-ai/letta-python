@@ -32,6 +32,7 @@ class MessagesClient:
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LettaMessageUnion]:
         """
@@ -53,6 +54,9 @@ class MessagesClient:
         order : typing.Optional[MessagesListRequestOrder]
             Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
 
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -71,10 +75,20 @@ class MessagesClient:
         )
         client.runs.messages.list(
             run_id="run_id",
+            before="before",
+            after="after",
+            limit=1,
+            order="asc",
         )
         """
         _response = self._raw_client.list(
-            run_id, before=before, after=after, limit=limit, order=order, request_options=request_options
+            run_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
         )
         return _response.data
 
@@ -102,6 +116,7 @@ class AsyncMessagesClient:
         after: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         order: typing.Optional[MessagesListRequestOrder] = None,
+        order_by: typing.Optional[typing.Literal["created_at"]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> typing.List[LettaMessageUnion]:
         """
@@ -122,6 +137,9 @@ class AsyncMessagesClient:
 
         order : typing.Optional[MessagesListRequestOrder]
             Sort order for messages by creation time. 'asc' for oldest first, 'desc' for newest first
+
+        order_by : typing.Optional[typing.Literal["created_at"]]
+            Field to sort by
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -146,12 +164,22 @@ class AsyncMessagesClient:
         async def main() -> None:
             await client.runs.messages.list(
                 run_id="run_id",
+                before="before",
+                after="after",
+                limit=1,
+                order="asc",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            run_id, before=before, after=after, limit=limit, order=order, request_options=request_options
+            run_id,
+            before=before,
+            after=after,
+            limit=limit,
+            order=order,
+            order_by=order_by,
+            request_options=request_options,
         )
         return _response.data

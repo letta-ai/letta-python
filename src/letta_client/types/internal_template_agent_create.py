@@ -156,12 +156,12 @@ class InternalTemplateAgentCreate(UncheckedBaseModel):
 
     from_template: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The template id used to configure the agent
+    Deprecated: please use the 'create agents from a template' endpoint instead.
     """
 
     template: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Whether the agent is a template
+    Deprecated: No longer used
     """
 
     project: typing.Optional[str] = pydantic.Field(default=None)
@@ -239,6 +239,11 @@ class InternalTemplateAgentCreate(UncheckedBaseModel):
     hidden: typing.Optional[bool] = pydantic.Field(default=None)
     """
     If set to True, the agent will be hidden.
+    """
+
+    parallel_tool_calls: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    If set to True, enables parallel tool calling. Defaults to False.
     """
 
     deployment_id: str = pydantic.Field()

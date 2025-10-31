@@ -183,7 +183,18 @@ class TemplatesClient:
             project="YOUR_PROJECT",
             token="YOUR_TOKEN",
         )
-        client.templates.list()
+        client.templates.list(
+            offset="offset",
+            exact="exact",
+            limit="limit",
+            version="version",
+            template_id="template_id",
+            name="name",
+            search="search",
+            project_slug="project_slug",
+            project_id="project_id",
+            sort_by="updated_at",
+        )
         """
         _response = self._raw_client.list(
             offset=offset,
@@ -359,7 +370,7 @@ class TemplatesClient:
             The project id
 
         template_version : str
-            The template name with :current version (e.g., my-template:current)
+            The template name with :dev version (e.g., my-template:dev)
 
         request : typing.Optional[typing.Any]
 
@@ -622,6 +633,8 @@ class TemplatesClient:
         client.templates.listtemplateversions(
             project_id="project_id",
             name="name",
+            offset="offset",
+            limit="limit",
         )
         """
         _response = self._raw_client.listtemplateversions(
@@ -930,7 +943,18 @@ class AsyncTemplatesClient:
 
 
         async def main() -> None:
-            await client.templates.list()
+            await client.templates.list(
+                offset="offset",
+                exact="exact",
+                limit="limit",
+                version="version",
+                template_id="template_id",
+                name="name",
+                search="search",
+                project_slug="project_slug",
+                project_id="project_id",
+                sort_by="updated_at",
+            )
 
 
         asyncio.run(main())
@@ -1135,7 +1159,7 @@ class AsyncTemplatesClient:
             The project id
 
         template_version : str
-            The template name with :current version (e.g., my-template:current)
+            The template name with :dev version (e.g., my-template:dev)
 
         request : typing.Optional[typing.Any]
 
@@ -1443,6 +1467,8 @@ class AsyncTemplatesClient:
             await client.templates.listtemplateversions(
                 project_id="project_id",
                 name="name",
+                offset="offset",
+                limit="limit",
             )
 
 

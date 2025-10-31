@@ -3,5 +3,6 @@
 # isort: skip_file
 
 from .letta_streaming_response import LettaStreamingResponse
+from .runs_list_request_order import RunsListRequestOrder
 
-__all__ = ["LettaStreamingResponse"]
+__all__ = ["LettaStreamingResponse", "RunsListRequestOrder"]
