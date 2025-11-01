@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.0.0-alpha.12 (2025-11-01)
+
+Full Changelog: [v1.0.0-alpha.11...v1.0.0-alpha.12](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.11...v1.0.0-alpha.12)
+
+### Features
+
+* add error handle to stainless stream response ([318c45c](https://github.com/letta-ai/letta-python/commit/318c45c319d0cf5a044384e0d78cf40fbc253ae0))
+* add project and project_id fields to stainless client ([ecdf72d](https://github.com/letta-ai/letta-python/commit/ecdf72d35a160657cb8905b784c0de7ccf45f875))
+* provider-specific model configuration ([3ed0b5e](https://github.com/letta-ai/letta-python/commit/3ed0b5eda4029333f0c4698414418c5ebac369c2))
+* Revert "feat: provider-specific model configuration " ([60a6788](https://github.com/letta-ai/letta-python/commit/60a6788de725c8dcbbb8fe19f26787dc2e063351))
+
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([c5cf389](https://github.com/letta-ai/letta-python/commit/c5cf3892a1268bee165cf1be12f58785457cf368))
+* stainless merge build dependency on changed files ([8d58345](https://github.com/letta-ai/letta-python/commit/8d583458fa477095b933d53d5159d35cf533575d))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([52b9651](https://github.com/letta-ai/letta-python/commit/52b9651366c3362b2a02f3303ff363bc6492cbce))
+* verify stainless merge build ([c0ec157](https://github.com/letta-ai/letta-python/commit/c0ec157b0ffb3bea919f6e32f895f7f34e1d195d))
+
 ## 1.0.0-alpha.11 (2025-10-29)
 
 Full Changelog: [v1.0.0-alpha.10...v1.0.0-alpha.11](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.10...v1.0.0-alpha.11)
