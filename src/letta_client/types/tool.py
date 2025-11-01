@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from abc import abstractmethod
-from textwrap import dedent
-import inspect
 import typing
+import inspect
+from abc import abstractmethod
+from typing import Dict, List, Optional
+from textwrap import dedent
 
-from pydantic import Field as FieldInfo, Field
+from pydantic import Field, Field as FieldInfo
 
 from .._models import BaseModel
 from .tool_type import ToolType

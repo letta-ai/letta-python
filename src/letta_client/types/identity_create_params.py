@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 from .identity_type import IdentityType
 from .identity_property_param import IdentityPropertyParam
 
@@ -34,6 +33,3 @@ class IdentityCreateParams(TypedDict, total=False):
 
     properties: Optional[Iterable[IdentityPropertyParam]]
     """List of properties associated with the identity."""
-
-    x_project: Annotated[str, PropertyInfo(alias="X-Project")]
-    """The project slug to associate with the identity (cloud only)."""

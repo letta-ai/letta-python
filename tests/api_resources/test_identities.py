@@ -48,7 +48,6 @@ class TestIdentities:
                     "value": "string",
                 }
             ],
-            x_project="X-Project",
         )
         assert_matches_type(Identity, identity, path=["response"])
 
@@ -327,7 +326,6 @@ class TestIdentities:
                     "value": "string",
                 }
             ],
-            x_project="X-Project",
         )
         assert_matches_type(Identity, identity, path=["response"])
 
@@ -394,7 +392,6 @@ class TestAsyncIdentities:
                     "value": "string",
                 }
             ],
-            x_project="X-Project",
         )
         assert_matches_type(Identity, identity, path=["response"])
 
@@ -673,7 +670,6 @@ class TestAsyncIdentities:
                     "value": "string",
                 }
             ],
-            x_project="X-Project",
         )
         assert_matches_type(Identity, identity, path=["response"])
 

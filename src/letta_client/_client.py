@@ -49,6 +49,7 @@ from .resources.batches import batches
 from .resources.folders import folders
 from .resources.templates import templates
 from .resources.identities import identities
+from .resources.mcp_servers import mcp_servers
 from .types.health_response import HealthResponse
 
 __all__ = [
@@ -83,11 +84,13 @@ class Letta(SyncAPIClient):
     tags: tags.TagsResource
     batches: batches.BatchesResource
     templates: templates.TemplatesResource
+    mcp_servers: mcp_servers.McpServersResource
     with_raw_response: LettaWithRawResponse
     with_streaming_response: LettaWithStreamedResponse
 
     # client options
     api_key: str
+    project_id: str | None
 
     _environment: Literal["cloud", "local"] | NotGiven
 
@@ -95,6 +98,7 @@ class Letta(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        project_id: str | None = None,
         environment: Literal["cloud", "local"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -126,6 +130,8 @@ class Letta(SyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the LETTA_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        self.project_id = project_id
 
         self._environment = environment
 
@@ -179,6 +185,7 @@ class Letta(SyncAPIClient):
         self.tags = tags.TagsResource(self)
         self.batches = batches.BatchesResource(self)
         self.templates = templates.TemplatesResource(self)
+        self.mcp_servers = mcp_servers.McpServersResource(self)
         self.with_raw_response = LettaWithRawResponse(self)
         self.with_streaming_response = LettaWithStreamedResponse(self)
 
@@ -199,6 +206,7 @@ class Letta(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "X-Project": self.project_id if self.project_id is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -206,6 +214,7 @@ class Letta(SyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        project_id: str | None = None,
         environment: Literal["cloud", "local"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -241,6 +250,7 @@ class Letta(SyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            project_id=project_id or self.project_id,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -322,11 +332,13 @@ class AsyncLetta(AsyncAPIClient):
     tags: tags.AsyncTagsResource
     batches: batches.AsyncBatchesResource
     templates: templates.AsyncTemplatesResource
+    mcp_servers: mcp_servers.AsyncMcpServersResource
     with_raw_response: AsyncLettaWithRawResponse
     with_streaming_response: AsyncLettaWithStreamedResponse
 
     # client options
     api_key: str
+    project_id: str | None
 
     _environment: Literal["cloud", "local"] | NotGiven
 
@@ -334,6 +346,7 @@ class AsyncLetta(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        project_id: str | None = None,
         environment: Literal["cloud", "local"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -365,6 +378,8 @@ class AsyncLetta(AsyncAPIClient):
                 "The api_key client option must be set either by passing api_key to the client or by setting the LETTA_API_KEY environment variable"
             )
         self.api_key = api_key
+
+        self.project_id = project_id
 
         self._environment = environment
 
@@ -418,6 +433,7 @@ class AsyncLetta(AsyncAPIClient):
         self.tags = tags.AsyncTagsResource(self)
         self.batches = batches.AsyncBatchesResource(self)
         self.templates = templates.AsyncTemplatesResource(self)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResource(self)
         self.with_raw_response = AsyncLettaWithRawResponse(self)
         self.with_streaming_response = AsyncLettaWithStreamedResponse(self)
 
@@ -438,6 +454,7 @@ class AsyncLetta(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "X-Project": self.project_id if self.project_id is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -445,6 +462,7 @@ class AsyncLetta(AsyncAPIClient):
         self,
         *,
         api_key: str | None = None,
+        project_id: str | None = None,
         environment: Literal["cloud", "local"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -480,6 +498,7 @@ class AsyncLetta(AsyncAPIClient):
         http_client = http_client or self._client
         return self.__class__(
             api_key=api_key or self.api_key,
+            project_id=project_id or self.project_id,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -562,6 +581,7 @@ class LettaWithRawResponse:
         self.tags = tags.TagsResourceWithRawResponse(client.tags)
         self.batches = batches.BatchesResourceWithRawResponse(client.batches)
         self.templates = templates.TemplatesResourceWithRawResponse(client.templates)
+        self.mcp_servers = mcp_servers.McpServersResourceWithRawResponse(client.mcp_servers)
 
         self.health = to_raw_response_wrapper(
             client.health,
@@ -583,6 +603,7 @@ class AsyncLettaWithRawResponse:
         self.tags = tags.AsyncTagsResourceWithRawResponse(client.tags)
         self.batches = batches.AsyncBatchesResourceWithRawResponse(client.batches)
         self.templates = templates.AsyncTemplatesResourceWithRawResponse(client.templates)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResourceWithRawResponse(client.mcp_servers)
 
         self.health = async_to_raw_response_wrapper(
             client.health,
@@ -604,6 +625,7 @@ class LettaWithStreamedResponse:
         self.tags = tags.TagsResourceWithStreamingResponse(client.tags)
         self.batches = batches.BatchesResourceWithStreamingResponse(client.batches)
         self.templates = templates.TemplatesResourceWithStreamingResponse(client.templates)
+        self.mcp_servers = mcp_servers.McpServersResourceWithStreamingResponse(client.mcp_servers)
 
         self.health = to_streamed_response_wrapper(
             client.health,
@@ -625,6 +647,7 @@ class AsyncLettaWithStreamedResponse:
         self.tags = tags.AsyncTagsResourceWithStreamingResponse(client.tags)
         self.batches = batches.AsyncBatchesResourceWithStreamingResponse(client.batches)
         self.templates = templates.AsyncTemplatesResourceWithStreamingResponse(client.templates)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResourceWithStreamingResponse(client.mcp_servers)
 
         self.health = async_to_streamed_response_wrapper(
             client.health,
