@@ -11,8 +11,6 @@ __all__ = ["AgentCreateParams", "InitialMessageSequence"]
 
 
 class AgentCreateParams(TypedDict, total=False):
-    project_id: Required[str]
-
     agent_name: str
     """The name of the agent, optional otherwise a random one will be assigned"""
 

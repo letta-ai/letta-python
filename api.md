@@ -531,7 +531,7 @@ Methods:
 
 Methods:
 
-- <code title="post /v1/templates/{project_id}/{template_version}/agents">client.templates.agents.<a href="./src/letta_client/resources/templates/agents.py">create</a>(template_version, \*, project_id, \*\*<a href="src/letta_client/types/templates/agent_create_params.py">params</a>) -> None</code>
+- <code title="post /v1/templates/{template_version}/agents">client.templates.agents.<a href="./src/letta_client/resources/templates/agents.py">create</a>(template_version, \*\*<a href="src/letta_client/types/templates/agent_create_params.py">params</a>) -> None</code>
 
 # McpServers
 
