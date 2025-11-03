@@ -17,10 +17,12 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..._streaming import Stream, AsyncStream
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ...types.runs import message_list_params, message_stream_params
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agents.letta_message_union import LettaMessageUnion
+from ...types.agents.letta_streaming_response import LettaStreamingResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -124,7 +126,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> Stream[LettaStreamingResponse]:
         """
         Retrieve Stream
 
@@ -164,6 +166,8 @@ class MessagesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
+            stream=True,
+            stream_cls=Stream[LettaStreamingResponse],
         )
 
 
@@ -266,7 +270,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> AsyncStream[LettaStreamingResponse]:
         """
         Retrieve Stream
 
@@ -306,6 +310,8 @@ class AsyncMessagesResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
+            stream=True,
+            stream_cls=AsyncStream[LettaStreamingResponse],
         )
 
 
