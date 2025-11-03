@@ -17,6 +17,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..._streaming import Stream, AsyncStream
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.groups import message_list_params, message_send_params, message_modify_params, message_stream_params
@@ -24,6 +25,7 @@ from ...types.agents.message_type import MessageType
 from ...types.agents.letta_response import LettaResponse
 from ...types.agents.letta_message_union import LettaMessageUnion
 from ...types.groups.message_modify_response import MessageModifyResponse
+from ...types.agents.letta_streaming_response import LettaStreamingResponse
 from ...types.agents.letta_user_message_content_union_param import LettaUserMessageContentUnionParam
 from ...types.agents.letta_assistant_message_content_union_param import LettaAssistantMessageContentUnionParam
 
@@ -446,7 +448,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> Stream[LettaStreamingResponse]:
         """Process a user message and return the group's responses.
 
         This endpoint accepts a
@@ -515,6 +517,8 @@ class MessagesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
+            stream=True,
+            stream_cls=Stream[LettaStreamingResponse],
         )
 
 
@@ -934,7 +938,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> AsyncStream[LettaStreamingResponse]:
         """Process a user message and return the group's responses.
 
         This endpoint accepts a
@@ -1003,6 +1007,8 @@ class AsyncMessagesResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
+            stream=True,
+            stream_cls=AsyncStream[LettaStreamingResponse],
         )
 
 
