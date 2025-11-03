@@ -91,6 +91,7 @@ class Letta(SyncAPIClient):
     # client options
     api_key: str
     project_id: str | None
+    project: str | None
 
     _environment: Literal["cloud", "local"] | NotGiven
 
@@ -99,6 +100,7 @@ class Letta(SyncAPIClient):
         *,
         api_key: str | None = None,
         project_id: str | None = None,
+        project: str | None = None,
         environment: Literal["cloud", "local"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -132,6 +134,8 @@ class Letta(SyncAPIClient):
         self.api_key = api_key
 
         self.project_id = project_id
+
+        self.project = project
 
         self._environment = environment
 
@@ -206,7 +210,8 @@ class Letta(SyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
-            "X-Project": self.project_id if self.project_id is not None else Omit(),
+            "X-Project-Id": self.project_id if self.project_id is not None else Omit(),
+            "X-Project": self.project if self.project is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -215,6 +220,7 @@ class Letta(SyncAPIClient):
         *,
         api_key: str | None = None,
         project_id: str | None = None,
+        project: str | None = None,
         environment: Literal["cloud", "local"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -251,6 +257,7 @@ class Letta(SyncAPIClient):
         return self.__class__(
             api_key=api_key or self.api_key,
             project_id=project_id or self.project_id,
+            project=project or self.project,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
@@ -339,6 +346,7 @@ class AsyncLetta(AsyncAPIClient):
     # client options
     api_key: str
     project_id: str | None
+    project: str | None
 
     _environment: Literal["cloud", "local"] | NotGiven
 
@@ -347,6 +355,7 @@ class AsyncLetta(AsyncAPIClient):
         *,
         api_key: str | None = None,
         project_id: str | None = None,
+        project: str | None = None,
         environment: Literal["cloud", "local"] | NotGiven = not_given,
         base_url: str | httpx.URL | None | NotGiven = not_given,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -380,6 +389,8 @@ class AsyncLetta(AsyncAPIClient):
         self.api_key = api_key
 
         self.project_id = project_id
+
+        self.project = project
 
         self._environment = environment
 
@@ -454,7 +465,8 @@ class AsyncLetta(AsyncAPIClient):
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
-            "X-Project": self.project_id if self.project_id is not None else Omit(),
+            "X-Project-Id": self.project_id if self.project_id is not None else Omit(),
+            "X-Project": self.project if self.project is not None else Omit(),
             **self._custom_headers,
         }
 
@@ -463,6 +475,7 @@ class AsyncLetta(AsyncAPIClient):
         *,
         api_key: str | None = None,
         project_id: str | None = None,
+        project: str | None = None,
         environment: Literal["cloud", "local"] | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
@@ -499,6 +512,7 @@ class AsyncLetta(AsyncAPIClient):
         return self.__class__(
             api_key=api_key or self.api_key,
             project_id=project_id or self.project_id,
+            project=project or self.project,
             base_url=base_url or self.base_url,
             environment=environment or self._environment,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
