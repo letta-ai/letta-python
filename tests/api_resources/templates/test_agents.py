@@ -20,7 +20,6 @@ class TestAgents:
     def test_method_create(self, client: Letta) -> None:
         agent = client.templates.agents.create(
             template_version="template_version",
-            project_id="project_id",
         )
         assert agent is None
 
@@ -29,7 +28,6 @@ class TestAgents:
     def test_method_create_with_all_params(self, client: Letta) -> None:
         agent = client.templates.agents.create(
             template_version="template_version",
-            project_id="project_id",
             agent_name="agent_name",
             identity_ids=["string"],
             initial_message_sequence=[
@@ -54,7 +52,6 @@ class TestAgents:
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.templates.agents.with_raw_response.create(
             template_version="template_version",
-            project_id="project_id",
         )
 
         assert response.is_closed is True
@@ -67,7 +64,6 @@ class TestAgents:
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.templates.agents.with_streaming_response.create(
             template_version="template_version",
-            project_id="project_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -80,16 +76,9 @@ class TestAgents:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_create(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
-            client.templates.agents.with_raw_response.create(
-                template_version="template_version",
-                project_id="",
-            )
-
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_version` but received ''"):
             client.templates.agents.with_raw_response.create(
                 template_version="",
-                project_id="project_id",
             )
 
 
@@ -103,7 +92,6 @@ class TestAsyncAgents:
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         agent = await async_client.templates.agents.create(
             template_version="template_version",
-            project_id="project_id",
         )
         assert agent is None
 
@@ -112,7 +100,6 @@ class TestAsyncAgents:
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.templates.agents.create(
             template_version="template_version",
-            project_id="project_id",
             agent_name="agent_name",
             identity_ids=["string"],
             initial_message_sequence=[
@@ -137,7 +124,6 @@ class TestAsyncAgents:
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.templates.agents.with_raw_response.create(
             template_version="template_version",
-            project_id="project_id",
         )
 
         assert response.is_closed is True
@@ -150,7 +136,6 @@ class TestAsyncAgents:
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.templates.agents.with_streaming_response.create(
             template_version="template_version",
-            project_id="project_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -163,14 +148,7 @@ class TestAsyncAgents:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_create(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
-            await async_client.templates.agents.with_raw_response.create(
-                template_version="template_version",
-                project_id="",
-            )
-
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_version` but received ''"):
             await async_client.templates.agents.with_raw_response.create(
                 template_version="",
-                project_id="project_id",
             )
