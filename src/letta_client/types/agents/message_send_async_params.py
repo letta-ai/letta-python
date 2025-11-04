@@ -3,19 +3,29 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .message_type import MessageType
+from .text_content_param import TextContentParam
+from .image_content_param import ImageContentParam
 from ..message_create_param import MessageCreateParam
 from .approval_create_param import ApprovalCreateParam
+from .reasoning_content_param import ReasoningContentParam
+from .tool_call_content_param import ToolCallContentParam
+from .tool_return_content_param import ToolReturnContentParam
+from .omitted_reasoning_content_param import OmittedReasoningContentParam
+from .redacted_reasoning_content_param import RedactedReasoningContentParam
 
-__all__ = ["MessageSendAsyncParams", "Message"]
+__all__ = [
+    "MessageSendAsyncParams",
+    "InputUnionMember1",
+    "InputUnionMember1SummarizedReasoningContent",
+    "InputUnionMember1SummarizedReasoningContentSummary",
+    "Message",
+]
 
 
 class MessageSendAsyncParams(TypedDict, total=False):
-    messages: Required[Iterable[Message]]
-    """The messages to be sent to the agent."""
-
     assistant_message_tool_kwarg: str
     """The name of the message argument in the designated message tool.
 
@@ -44,8 +54,17 @@ class MessageSendAsyncParams(TypedDict, total=False):
     If `None` (default) returns all messages.
     """
 
+    input: Union[str, Iterable[InputUnionMember1], None]
+    """Syntactic sugar for a single user message.
+
+    Equivalent to messages=[{'role': 'user', 'content': input}].
+    """
+
     max_steps: int
     """Maximum number of steps the agent should take to process the request."""
+
+    messages: Optional[Iterable[Message]]
+    """The messages to be sent to the agent."""
 
     use_assistant_message: bool
     """
@@ -54,5 +73,38 @@ class MessageSendAsyncParams(TypedDict, total=False):
     types, but deprecated for letta_v1_agent onward.
     """
 
+
+class InputUnionMember1SummarizedReasoningContentSummary(TypedDict, total=False):
+    index: Required[int]
+    """The index of the summary part."""
+
+    text: Required[str]
+    """The text of the summary part."""
+
+
+class InputUnionMember1SummarizedReasoningContent(TypedDict, total=False):
+    id: Required[str]
+    """The unique identifier for this reasoning step."""
+
+    summary: Required[Iterable[InputUnionMember1SummarizedReasoningContentSummary]]
+    """Summaries of the reasoning content."""
+
+    encrypted_content: str
+    """The encrypted reasoning content."""
+
+    type: Literal["summarized_reasoning"]
+    """Indicates this is a summarized reasoning step."""
+
+
+InputUnionMember1: TypeAlias = Union[
+    TextContentParam,
+    ImageContentParam,
+    ToolCallContentParam,
+    ToolReturnContentParam,
+    ReasoningContentParam,
+    RedactedReasoningContentParam,
+    OmittedReasoningContentParam,
+    InputUnionMember1SummarizedReasoningContent,
+]
 
 Message: TypeAlias = Union[MessageCreateParam, ApprovalCreateParam]
