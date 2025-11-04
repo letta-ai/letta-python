@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.0-alpha.15 (2025-11-04)
+
+Full Changelog: [v1.0.0-alpha.14...v1.0.0-alpha.15](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.14...v1.0.0-alpha.15)
+
+### Features
+
+* add `EventMessage` and `SummaryMessage` ([543571c](https://github.com/letta-ai/letta-python/commit/543571ccdfd7f416c7ed4aca44007155019ed424))
+* add input option to send message route [LET-4540] ([566914d](https://github.com/letta-ai/letta-python/commit/566914db30baedd9354813fccc48dd17483a98e8))
+* make sure tool return chars within max int range ([4c90f6d](https://github.com/letta-ai/letta-python/commit/4c90f6dacfe214aede582881c264fbad5f5bc99c))
+
 ## 1.0.0-alpha.14 (2025-11-04)
 
 Full Changelog: [v1.0.0-alpha.13...v1.0.0-alpha.14](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.13...v1.0.0-alpha.14)
