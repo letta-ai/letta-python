@@ -6,7 +6,9 @@ from typing_extensions import Annotated, TypeAlias
 from ..._utils import PropertyInfo
 from ..agents.user_message import UserMessage
 from ..tool_return_message import ToolReturnMessage
+from ..agents.event_message import EventMessage
 from ..agents.system_message import SystemMessage
+from ..agents.summary_message import SummaryMessage
 from ..agents.assistant_message import AssistantMessage
 from ..agents.reasoning_message import ReasoningMessage
 from ..agents.tool_call_message import ToolCallMessage
@@ -27,6 +29,8 @@ MessageListResponse: TypeAlias = Annotated[
         AssistantMessage,
         ApprovalRequestMessage,
         ApprovalResponseMessage,
+        SummaryMessage,
+        EventMessage,
     ],
     PropertyInfo(discriminator="message_type"),
 ]
