@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.0.0-alpha.14 (2025-11-04)
+
+Full Changelog: [v1.0.0-alpha.13...v1.0.0-alpha.14](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.13...v1.0.0-alpha.14)
+
+### Features
+
+* add new project id header to stainless client ([144fd56](https://github.com/letta-ai/letta-python/commit/144fd562594a87620b4e17ad85cade425ae2391d))
+
+
+### Bug Fixes
+
+* enable stainless pagination ([f4f5744](https://github.com/letta-ai/letta-python/commit/f4f574416331aeb6b48e929b5d589417d14a3c7b))
+
+
+### Chores
+
+* **internal:** grammar fix (it's -&gt; its) ([d8f60b1](https://github.com/letta-ai/letta-python/commit/d8f60b16cd7fc47cbaddcb8de057a25ff7731fae))
+* update stainless templates route to not pass in project id ([a0ba998](https://github.com/letta-ai/letta-python/commit/a0ba9981d73b13a7e5c2995691679696daeae9b6))
+
 ## 1.0.0-alpha.13 (2025-11-03)
 
 Full Changelog: [v1.0.0-alpha.12...v1.0.0-alpha.13](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.12...v1.0.0-alpha.13)
