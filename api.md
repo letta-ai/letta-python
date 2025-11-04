@@ -177,7 +177,7 @@ from letta_client.types.agents import FileListResponse, FileCloseAllResponse, Fi
 
 Methods:
 
-- <code title="get /v1/agents/{agent_id}/files">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/file_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/file_list_response.py">FileListResponse</a></code>
+- <code title="get /v1/agents/{agent_id}/files">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/file_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/file_list_response.py">SyncNextFilesPage[FileListResponse]</a></code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/close">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">close</a>(file_id, \*, agent_id) -> object</code>
 - <code title="patch /v1/agents/{agent_id}/files/close-all">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">close_all</a>(agent_id) -> <a href="./src/letta_client/types/agents/file_close_all_response.py">FileCloseAllResponse</a></code>
 - <code title="patch /v1/agents/{agent_id}/files/{file_id}/open">client.agents.files.<a href="./src/letta_client/resources/agents/files.py">open</a>(file_id, \*, agent_id) -> <a href="./src/letta_client/types/agents/file_open_response.py">FileOpenResponse</a></code>
@@ -531,7 +531,7 @@ Methods:
 
 Methods:
 
-- <code title="post /v1/templates/{project_id}/{template_version}/agents">client.templates.agents.<a href="./src/letta_client/resources/templates/agents.py">create</a>(template_version, \*, project_id, \*\*<a href="src/letta_client/types/templates/agent_create_params.py">params</a>) -> None</code>
+- <code title="post /v1/templates/{template_version}/agents">client.templates.agents.<a href="./src/letta_client/resources/templates/agents.py">create</a>(template_version, \*\*<a href="src/letta_client/types/templates/agent_create_params.py">params</a>) -> None</code>
 
 # McpServers
 

@@ -46,7 +46,6 @@ class AgentsResource(SyncAPIResource):
         self,
         template_version: str,
         *,
-        project_id: str,
         agent_name: str | Omit = omit,
         identity_ids: SequenceNotStr[str] | Omit = omit,
         initial_message_sequence: Iterable[agent_create_params.InitialMessageSequence] | Omit = omit,
@@ -86,13 +85,11 @@ class AgentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not project_id:
-            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         if not template_version:
             raise ValueError(f"Expected a non-empty value for `template_version` but received {template_version!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
-            f"/v1/templates/{project_id}/{template_version}/agents",
+            f"/v1/templates/{template_version}/agents",
             body=maybe_transform(
                 {
                     "agent_name": agent_name,
@@ -135,7 +132,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         template_version: str,
         *,
-        project_id: str,
         agent_name: str | Omit = omit,
         identity_ids: SequenceNotStr[str] | Omit = omit,
         initial_message_sequence: Iterable[agent_create_params.InitialMessageSequence] | Omit = omit,
@@ -175,13 +171,11 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not project_id:
-            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         if not template_version:
             raise ValueError(f"Expected a non-empty value for `template_version` but received {template_version!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
-            f"/v1/templates/{project_id}/{template_version}/agents",
+            f"/v1/templates/{template_version}/agents",
             body=await async_maybe_transform(
                 {
                     "agent_name": agent_name,

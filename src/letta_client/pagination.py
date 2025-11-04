@@ -35,7 +35,7 @@ class ObjectPageItem(Protocol):
 
 @runtime_checkable
 class NextFilesPageItem(Protocol):
-    next_cursor: Optional[str]
+    id: Optional[str]
 
 
 class SyncArrayPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
@@ -222,18 +222,18 @@ class SyncNextFilesPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
 
         if is_forwards:
             item = cast(Any, files[-1])
-            if not isinstance(item, NextFilesPageItem) or item.next_cursor is None:
+            if not isinstance(item, NextFilesPageItem) or item.id is None:
                 # TODO emit warning log
                 return None
 
-            return PageInfo(params={"after": item.next_cursor})
+            return PageInfo(params={"after": item.id})
         else:
             item = cast(Any, self.files[0])
-            if not isinstance(item, NextFilesPageItem) or item.next_cursor is None:
+            if not isinstance(item, NextFilesPageItem) or item.id is None:
                 # TODO emit warning log
                 return None
 
-            return PageInfo(params={"before": item.next_cursor})
+            return PageInfo(params={"before": item.id})
 
 
 class AsyncNextFilesPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
@@ -266,15 +266,15 @@ class AsyncNextFilesPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
 
         if is_forwards:
             item = cast(Any, files[-1])
-            if not isinstance(item, NextFilesPageItem) or item.next_cursor is None:
+            if not isinstance(item, NextFilesPageItem) or item.id is None:
                 # TODO emit warning log
                 return None
 
-            return PageInfo(params={"after": item.next_cursor})
+            return PageInfo(params={"after": item.id})
         else:
             item = cast(Any, self.files[0])
-            if not isinstance(item, NextFilesPageItem) or item.next_cursor is None:
+            if not isinstance(item, NextFilesPageItem) or item.id is None:
                 # TODO emit warning log
                 return None
 
-            return PageInfo(params={"before": item.next_cursor})
+            return PageInfo(params={"before": item.id})
