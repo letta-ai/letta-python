@@ -13,9 +13,11 @@ from .message_role import MessageRole as MessageRole
 from .message_type import MessageType as MessageType
 from .text_content import TextContent as TextContent
 from .user_message import UserMessage as UserMessage
+from .event_message import EventMessage as EventMessage
 from .image_content import ImageContent as ImageContent
 from .letta_response import LettaResponse as LettaResponse
 from .system_message import SystemMessage as SystemMessage
+from .summary_message import SummaryMessage as SummaryMessage
 from .tool_call_delta import ToolCallDelta as ToolCallDelta
 from .file_list_params import FileListParams as FileListParams
 from .tool_list_params import ToolListParams as ToolListParams

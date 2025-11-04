@@ -5,7 +5,9 @@ from typing_extensions import Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
 from .user_message import UserMessage
+from .event_message import EventMessage
 from .system_message import SystemMessage
+from .summary_message import SummaryMessage
 from .assistant_message import AssistantMessage
 from .reasoning_message import ReasoningMessage
 from .tool_call_message import ToolCallMessage
@@ -27,6 +29,8 @@ LettaMessageUnion: TypeAlias = Annotated[
         AssistantMessage,
         ApprovalRequestMessage,
         ApprovalResponseMessage,
+        SummaryMessage,
+        EventMessage,
     ],
     PropertyInfo(discriminator="message_type"),
 ]
