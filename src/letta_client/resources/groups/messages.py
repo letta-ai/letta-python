@@ -356,12 +356,13 @@ class MessagesResource(SyncAPIResource):
         self,
         group_id: str,
         *,
-        messages: Iterable[message_send_params.Message],
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -379,8 +380,6 @@ class MessagesResource(SyncAPIResource):
         Args:
           group_id: The ID of the group in the format 'group-<uuid4>'
 
-          messages: The messages to be sent to the agent.
-
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
 
@@ -392,7 +391,13 @@ class MessagesResource(SyncAPIResource):
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
 
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
           max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -412,12 +417,13 @@ class MessagesResource(SyncAPIResource):
             f"/v1/groups/{group_id}/messages",
             body=maybe_transform(
                 {
-                    "messages": messages,
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "enable_thinking": enable_thinking,
                     "include_return_message_types": include_return_message_types,
+                    "input": input,
                     "max_steps": max_steps,
+                    "messages": messages,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_send_params.MessageSendParams,
@@ -432,14 +438,15 @@ class MessagesResource(SyncAPIResource):
         self,
         group_id: str,
         *,
-        messages: Iterable[message_stream_params.Message],
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_stream_params.Message]] | Omit = omit,
         stream_tokens: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -459,8 +466,6 @@ class MessagesResource(SyncAPIResource):
         Args:
           group_id: The ID of the group in the format 'group-<uuid4>'
 
-          messages: The messages to be sent to the agent.
-
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
 
@@ -477,7 +482,13 @@ class MessagesResource(SyncAPIResource):
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
 
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
           max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
 
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
               per step.
@@ -500,14 +511,15 @@ class MessagesResource(SyncAPIResource):
             f"/v1/groups/{group_id}/messages/stream",
             body=maybe_transform(
                 {
-                    "messages": messages,
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
                     "enable_thinking": enable_thinking,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
+                    "input": input,
                     "max_steps": max_steps,
+                    "messages": messages,
                     "stream_tokens": stream_tokens,
                     "use_assistant_message": use_assistant_message,
                 },
@@ -846,12 +858,13 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         group_id: str,
         *,
-        messages: Iterable[message_send_params.Message],
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -869,8 +882,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         Args:
           group_id: The ID of the group in the format 'group-<uuid4>'
 
-          messages: The messages to be sent to the agent.
-
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
 
@@ -882,7 +893,13 @@ class AsyncMessagesResource(AsyncAPIResource):
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
 
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
           max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -902,12 +919,13 @@ class AsyncMessagesResource(AsyncAPIResource):
             f"/v1/groups/{group_id}/messages",
             body=await async_maybe_transform(
                 {
-                    "messages": messages,
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "enable_thinking": enable_thinking,
                     "include_return_message_types": include_return_message_types,
+                    "input": input,
                     "max_steps": max_steps,
+                    "messages": messages,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_send_params.MessageSendParams,
@@ -922,14 +940,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         group_id: str,
         *,
-        messages: Iterable[message_stream_params.Message],
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_stream_params.Message]] | Omit = omit,
         stream_tokens: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -949,8 +968,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         Args:
           group_id: The ID of the group in the format 'group-<uuid4>'
 
-          messages: The messages to be sent to the agent.
-
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
 
@@ -967,7 +984,13 @@ class AsyncMessagesResource(AsyncAPIResource):
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
 
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
           max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
 
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
               per step.
@@ -990,14 +1013,15 @@ class AsyncMessagesResource(AsyncAPIResource):
             f"/v1/groups/{group_id}/messages/stream",
             body=await async_maybe_transform(
                 {
-                    "messages": messages,
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
                     "enable_thinking": enable_thinking,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
+                    "input": input,
                     "max_steps": max_steps,
+                    "messages": messages,
                     "stream_tokens": stream_tokens,
                     "use_assistant_message": use_assistant_message,
                 },

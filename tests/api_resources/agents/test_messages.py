@@ -501,17 +501,6 @@ class TestMessages:
     def test_method_send(self, client: Letta) -> None:
         message = client.agents.messages.send(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
         assert_matches_type(LettaResponse, message, path=["response"])
 
@@ -520,6 +509,12 @@ class TestMessages:
     def test_method_send_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.send(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
+            enable_thinking="enable_thinking",
+            include_return_message_types=["system_message"],
+            input="string",
+            max_steps=0,
             messages=[
                 {
                     "content": [
@@ -538,11 +533,6 @@ class TestMessages:
                     "type": "message",
                 }
             ],
-            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
-            assistant_message_tool_name="assistant_message_tool_name",
-            enable_thinking="enable_thinking",
-            include_return_message_types=["system_message"],
-            max_steps=0,
             use_assistant_message=True,
         )
         assert_matches_type(LettaResponse, message, path=["response"])
@@ -552,17 +542,6 @@ class TestMessages:
     def test_raw_response_send(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.send(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
 
         assert response.is_closed is True
@@ -575,17 +554,6 @@ class TestMessages:
     def test_streaming_response_send(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.send(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -601,17 +569,6 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.messages.with_raw_response.send(
                 agent_id="",
-                messages=[
-                    {
-                        "content": [
-                            {
-                                "text": "text",
-                                "type": "text",
-                            }
-                        ],
-                        "role": "user",
-                    }
-                ],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -619,17 +576,6 @@ class TestMessages:
     def test_method_send_async(self, client: Letta) -> None:
         message = client.agents.messages.send_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
         assert_matches_type(Run, message, path=["response"])
 
@@ -638,6 +584,13 @@ class TestMessages:
     def test_method_send_async_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.send_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
+            callback_url="callback_url",
+            enable_thinking="enable_thinking",
+            include_return_message_types=["system_message"],
+            input="string",
+            max_steps=0,
             messages=[
                 {
                     "content": [
@@ -656,12 +609,6 @@ class TestMessages:
                     "type": "message",
                 }
             ],
-            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
-            assistant_message_tool_name="assistant_message_tool_name",
-            callback_url="callback_url",
-            enable_thinking="enable_thinking",
-            include_return_message_types=["system_message"],
-            max_steps=0,
             use_assistant_message=True,
         )
         assert_matches_type(Run, message, path=["response"])
@@ -671,17 +618,6 @@ class TestMessages:
     def test_raw_response_send_async(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.send_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
 
         assert response.is_closed is True
@@ -694,17 +630,6 @@ class TestMessages:
     def test_streaming_response_send_async(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.send_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -720,17 +645,6 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.messages.with_raw_response.send_async(
                 agent_id="",
-                messages=[
-                    {
-                        "content": [
-                            {
-                                "text": "text",
-                                "type": "text",
-                            }
-                        ],
-                        "role": "user",
-                    }
-                ],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -738,17 +652,6 @@ class TestMessages:
     def test_method_stream(self, client: Letta) -> None:
         message_stream = client.agents.messages.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
         message_stream.response.close()
 
@@ -757,6 +660,14 @@ class TestMessages:
     def test_method_stream_with_all_params(self, client: Letta) -> None:
         message_stream = client.agents.messages.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
+            background=True,
+            enable_thinking="enable_thinking",
+            include_pings=True,
+            include_return_message_types=["system_message"],
+            input="string",
+            max_steps=0,
             messages=[
                 {
                     "content": [
@@ -775,13 +686,6 @@ class TestMessages:
                     "type": "message",
                 }
             ],
-            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
-            assistant_message_tool_name="assistant_message_tool_name",
-            background=True,
-            enable_thinking="enable_thinking",
-            include_pings=True,
-            include_return_message_types=["system_message"],
-            max_steps=0,
             stream_tokens=True,
             use_assistant_message=True,
         )
@@ -792,17 +696,6 @@ class TestMessages:
     def test_raw_response_stream(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -814,17 +707,6 @@ class TestMessages:
     def test_streaming_response_stream(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -840,17 +722,6 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.messages.with_raw_response.stream(
                 agent_id="",
-                messages=[
-                    {
-                        "content": [
-                            {
-                                "text": "text",
-                                "type": "text",
-                            }
-                        ],
-                        "role": "user",
-                    }
-                ],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -1377,17 +1248,6 @@ class TestAsyncMessages:
     async def test_method_send(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.send(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
         assert_matches_type(LettaResponse, message, path=["response"])
 
@@ -1396,6 +1256,12 @@ class TestAsyncMessages:
     async def test_method_send_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.send(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
+            enable_thinking="enable_thinking",
+            include_return_message_types=["system_message"],
+            input="string",
+            max_steps=0,
             messages=[
                 {
                     "content": [
@@ -1414,11 +1280,6 @@ class TestAsyncMessages:
                     "type": "message",
                 }
             ],
-            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
-            assistant_message_tool_name="assistant_message_tool_name",
-            enable_thinking="enable_thinking",
-            include_return_message_types=["system_message"],
-            max_steps=0,
             use_assistant_message=True,
         )
         assert_matches_type(LettaResponse, message, path=["response"])
@@ -1428,17 +1289,6 @@ class TestAsyncMessages:
     async def test_raw_response_send(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.send(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
 
         assert response.is_closed is True
@@ -1451,17 +1301,6 @@ class TestAsyncMessages:
     async def test_streaming_response_send(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.send(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1477,17 +1316,6 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.messages.with_raw_response.send(
                 agent_id="",
-                messages=[
-                    {
-                        "content": [
-                            {
-                                "text": "text",
-                                "type": "text",
-                            }
-                        ],
-                        "role": "user",
-                    }
-                ],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -1495,17 +1323,6 @@ class TestAsyncMessages:
     async def test_method_send_async(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.send_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
         assert_matches_type(Run, message, path=["response"])
 
@@ -1514,6 +1331,13 @@ class TestAsyncMessages:
     async def test_method_send_async_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.send_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
+            callback_url="callback_url",
+            enable_thinking="enable_thinking",
+            include_return_message_types=["system_message"],
+            input="string",
+            max_steps=0,
             messages=[
                 {
                     "content": [
@@ -1532,12 +1356,6 @@ class TestAsyncMessages:
                     "type": "message",
                 }
             ],
-            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
-            assistant_message_tool_name="assistant_message_tool_name",
-            callback_url="callback_url",
-            enable_thinking="enable_thinking",
-            include_return_message_types=["system_message"],
-            max_steps=0,
             use_assistant_message=True,
         )
         assert_matches_type(Run, message, path=["response"])
@@ -1547,17 +1365,6 @@ class TestAsyncMessages:
     async def test_raw_response_send_async(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.send_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
 
         assert response.is_closed is True
@@ -1570,17 +1377,6 @@ class TestAsyncMessages:
     async def test_streaming_response_send_async(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.send_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1596,17 +1392,6 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.messages.with_raw_response.send_async(
                 agent_id="",
-                messages=[
-                    {
-                        "content": [
-                            {
-                                "text": "text",
-                                "type": "text",
-                            }
-                        ],
-                        "role": "user",
-                    }
-                ],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -1614,17 +1399,6 @@ class TestAsyncMessages:
     async def test_method_stream(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.agents.messages.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
         await message_stream.response.aclose()
 
@@ -1633,6 +1407,14 @@ class TestAsyncMessages:
     async def test_method_stream_with_all_params(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.agents.messages.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
+            assistant_message_tool_name="assistant_message_tool_name",
+            background=True,
+            enable_thinking="enable_thinking",
+            include_pings=True,
+            include_return_message_types=["system_message"],
+            input="string",
+            max_steps=0,
             messages=[
                 {
                     "content": [
@@ -1651,13 +1433,6 @@ class TestAsyncMessages:
                     "type": "message",
                 }
             ],
-            assistant_message_tool_kwarg="assistant_message_tool_kwarg",
-            assistant_message_tool_name="assistant_message_tool_name",
-            background=True,
-            enable_thinking="enable_thinking",
-            include_pings=True,
-            include_return_message_types=["system_message"],
-            max_steps=0,
             stream_tokens=True,
             use_assistant_message=True,
         )
@@ -1668,17 +1443,6 @@ class TestAsyncMessages:
     async def test_raw_response_stream(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1690,17 +1454,6 @@ class TestAsyncMessages:
     async def test_streaming_response_stream(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.stream(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            messages=[
-                {
-                    "content": [
-                        {
-                            "text": "text",
-                            "type": "text",
-                        }
-                    ],
-                    "role": "user",
-                }
-            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1716,17 +1469,6 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.messages.with_raw_response.stream(
                 agent_id="",
-                messages=[
-                    {
-                        "content": [
-                            {
-                                "text": "text",
-                                "type": "text",
-                            }
-                        ],
-                        "role": "user",
-                    }
-                ],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")

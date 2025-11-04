@@ -21,22 +21,7 @@ class TestBatches:
     @parametrize
     def test_method_create(self, client: Letta) -> None:
         batch = client.batches.create(
-            requests=[
-                {
-                    "agent_id": "agent_id",
-                    "messages": [
-                        {
-                            "content": [
-                                {
-                                    "text": "text",
-                                    "type": "text",
-                                }
-                            ],
-                            "role": "user",
-                        }
-                    ],
-                }
-            ],
+            requests=[{"agent_id": "agent_id"}],
         )
         assert_matches_type(BatchJob, batch, path=["response"])
 
@@ -47,6 +32,12 @@ class TestBatches:
             requests=[
                 {
                     "agent_id": "agent_id",
+                    "assistant_message_tool_kwarg": "assistant_message_tool_kwarg",
+                    "assistant_message_tool_name": "assistant_message_tool_name",
+                    "enable_thinking": "enable_thinking",
+                    "include_return_message_types": ["system_message"],
+                    "input": "string",
+                    "max_steps": 0,
                     "messages": [
                         {
                             "content": [
@@ -65,11 +56,6 @@ class TestBatches:
                             "type": "message",
                         }
                     ],
-                    "assistant_message_tool_kwarg": "assistant_message_tool_kwarg",
-                    "assistant_message_tool_name": "assistant_message_tool_name",
-                    "enable_thinking": "enable_thinking",
-                    "include_return_message_types": ["system_message"],
-                    "max_steps": 0,
                     "use_assistant_message": True,
                 }
             ],
@@ -81,22 +67,7 @@ class TestBatches:
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.batches.with_raw_response.create(
-            requests=[
-                {
-                    "agent_id": "agent_id",
-                    "messages": [
-                        {
-                            "content": [
-                                {
-                                    "text": "text",
-                                    "type": "text",
-                                }
-                            ],
-                            "role": "user",
-                        }
-                    ],
-                }
-            ],
+            requests=[{"agent_id": "agent_id"}],
         )
 
         assert response.is_closed is True
@@ -108,22 +79,7 @@ class TestBatches:
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.batches.with_streaming_response.create(
-            requests=[
-                {
-                    "agent_id": "agent_id",
-                    "messages": [
-                        {
-                            "content": [
-                                {
-                                    "text": "text",
-                                    "type": "text",
-                                }
-                            ],
-                            "role": "user",
-                        }
-                    ],
-                }
-            ],
+            requests=[{"agent_id": "agent_id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -267,22 +223,7 @@ class TestAsyncBatches:
     @parametrize
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         batch = await async_client.batches.create(
-            requests=[
-                {
-                    "agent_id": "agent_id",
-                    "messages": [
-                        {
-                            "content": [
-                                {
-                                    "text": "text",
-                                    "type": "text",
-                                }
-                            ],
-                            "role": "user",
-                        }
-                    ],
-                }
-            ],
+            requests=[{"agent_id": "agent_id"}],
         )
         assert_matches_type(BatchJob, batch, path=["response"])
 
@@ -293,6 +234,12 @@ class TestAsyncBatches:
             requests=[
                 {
                     "agent_id": "agent_id",
+                    "assistant_message_tool_kwarg": "assistant_message_tool_kwarg",
+                    "assistant_message_tool_name": "assistant_message_tool_name",
+                    "enable_thinking": "enable_thinking",
+                    "include_return_message_types": ["system_message"],
+                    "input": "string",
+                    "max_steps": 0,
                     "messages": [
                         {
                             "content": [
@@ -311,11 +258,6 @@ class TestAsyncBatches:
                             "type": "message",
                         }
                     ],
-                    "assistant_message_tool_kwarg": "assistant_message_tool_kwarg",
-                    "assistant_message_tool_name": "assistant_message_tool_name",
-                    "enable_thinking": "enable_thinking",
-                    "include_return_message_types": ["system_message"],
-                    "max_steps": 0,
                     "use_assistant_message": True,
                 }
             ],
@@ -327,22 +269,7 @@ class TestAsyncBatches:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.batches.with_raw_response.create(
-            requests=[
-                {
-                    "agent_id": "agent_id",
-                    "messages": [
-                        {
-                            "content": [
-                                {
-                                    "text": "text",
-                                    "type": "text",
-                                }
-                            ],
-                            "role": "user",
-                        }
-                    ],
-                }
-            ],
+            requests=[{"agent_id": "agent_id"}],
         )
 
         assert response.is_closed is True
@@ -354,22 +281,7 @@ class TestAsyncBatches:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.batches.with_streaming_response.create(
-            requests=[
-                {
-                    "agent_id": "agent_id",
-                    "messages": [
-                        {
-                            "content": [
-                                {
-                                    "text": "text",
-                                    "type": "text",
-                                }
-                            ],
-                            "role": "user",
-                        }
-                    ],
-                }
-            ],
+            requests=[{"agent_id": "agent_id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
