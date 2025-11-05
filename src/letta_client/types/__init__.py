@@ -19,6 +19,7 @@ from .provider_type import ProviderType as ProviderType
 from .block_response import BlockResponse as BlockResponse
 from .init_tool_rule import InitToolRule as InitToolRule
 from .provider_trace import ProviderTrace as ProviderTrace
+from .sse_mcp_server import SseMcpServer as SseMcpServer
 from .child_tool_rule import ChildToolRule as ChildToolRule
 from .health_response import HealthResponse as HealthResponse
 from .npm_requirement import NpmRequirement as NpmRequirement
@@ -28,6 +29,7 @@ from .tag_list_params import TagListParams as TagListParams
 from .embedding_config import EmbeddingConfig as EmbeddingConfig
 from .llm_config_param import LlmConfigParam as LlmConfigParam
 from .parent_tool_rule import ParentToolRule as ParentToolRule
+from .stdio_mcp_server import StdioMcpServer as StdioMcpServer
 from .step_list_params import StepListParams as StepListParams
 from .stop_reason_type import StopReasonType as StopReasonType
 from .tool_list_params import ToolListParams as ToolListParams
@@ -77,6 +79,7 @@ from .dynamic_manager_param import DynamicManagerParam as DynamicManagerParam
 from .folder_count_response import FolderCountResponse as FolderCountResponse
 from .npm_requirement_param import NpmRequirementParam as NpmRequirementParam
 from .pip_requirement_param import PipRequirementParam as PipRequirementParam
+from .tool_execution_result import ToolExecutionResult as ToolExecutionResult
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .identity_create_params import IdentityCreateParams as IdentityCreateParams
 from .identity_modify_params import IdentityModifyParams as IdentityModifyParams
@@ -99,13 +102,18 @@ from .agent_export_file_response import AgentExportFileResponse as AgentExportFi
 from .agent_import_file_response import AgentImportFileResponse as AgentImportFileResponse
 from .mcp_server_create_response import McpServerCreateResponse as McpServerCreateResponse
 from .mcp_server_modify_response import McpServerModifyResponse as McpServerModifyResponse
+from .streamable_http_mcp_server import StreamableHTTPMcpServer as StreamableHTTPMcpServer
 from .text_response_format_param import TextResponseFormatParam as TextResponseFormatParam
 from .conditional_tool_rule_param import ConditionalToolRuleParam as ConditionalToolRuleParam
+from .create_sse_mcp_server_param import CreateSseMcpServerParam as CreateSseMcpServerParam
 from .json_object_response_format import JsonObjectResponseFormat as JsonObjectResponseFormat
 from .json_schema_response_format import JsonSchemaResponseFormat as JsonSchemaResponseFormat
 from .requires_approval_tool_rule import RequiresApprovalToolRule as RequiresApprovalToolRule
+from .update_sse_mcp_server_param import UpdateSseMcpServerParam as UpdateSseMcpServerParam
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule as MaxCountPerStepToolRule
 from .mcp_server_retrieve_response import McpServerRetrieveResponse as McpServerRetrieveResponse
+from .create_stdio_mcp_server_param import CreateStdioMcpServerParam as CreateStdioMcpServerParam
+from .update_stdio_mcp_server_param import UpdateStdioMcpServerParam as UpdateStdioMcpServerParam
 from .voice_sleeptime_manager_param import VoiceSleeptimeManagerParam as VoiceSleeptimeManagerParam
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule as RequiredBeforeExitToolRule
 from .tool_upsert_base_tools_response import ToolUpsertBaseToolsResponse as ToolUpsertBaseToolsResponse
@@ -115,3 +123,9 @@ from .letta_message_content_union_param import LettaMessageContentUnionParam as 
 from .requires_approval_tool_rule_param import RequiresApprovalToolRuleParam as RequiresApprovalToolRuleParam
 from .max_count_per_step_tool_rule_param import MaxCountPerStepToolRuleParam as MaxCountPerStepToolRuleParam
 from .required_before_exit_tool_rule_param import RequiredBeforeExitToolRuleParam as RequiredBeforeExitToolRuleParam
+from .create_streamable_http_mcp_server_param import (
+    CreateStreamableHTTPMcpServerParam as CreateStreamableHTTPMcpServerParam,
+)
+from .update_streamable_http_mcp_server_param import (
+    UpdateStreamableHTTPMcpServerParam as UpdateStreamableHTTPMcpServerParam,
+)

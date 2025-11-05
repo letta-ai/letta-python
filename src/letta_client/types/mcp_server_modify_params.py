@@ -7,15 +7,10 @@ from typing_extensions import TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = [
-    "McpServerModifyParams",
-    "LettaSchemasMcpServerUpdateStdioMcpServer",
-    "LettaSchemasMcpServerUpdateSsemcpServer",
-    "LettaSchemasMcpServerUpdateStreamableHttpmcpServer",
-]
+__all__ = ["McpServerModifyParams", "UpdateStdioMcpServer", "UpdateSseMcpServer", "UpdateStreamableHTTPMcpServer"]
 
 
-class LettaSchemasMcpServerUpdateStdioMcpServer(TypedDict, total=False):
+class UpdateStdioMcpServer(TypedDict, total=False):
     args: Optional[SequenceNotStr[str]]
     """The arguments to pass to the command"""
 
@@ -29,7 +24,7 @@ class LettaSchemasMcpServerUpdateStdioMcpServer(TypedDict, total=False):
     """The name of the MCP server"""
 
 
-class LettaSchemasMcpServerUpdateSsemcpServer(TypedDict, total=False):
+class UpdateSseMcpServer(TypedDict, total=False):
     token: Optional[str]
     """The authentication token (internal)"""
 
@@ -49,7 +44,7 @@ class LettaSchemasMcpServerUpdateSsemcpServer(TypedDict, total=False):
     """The URL of the SSE MCP server"""
 
 
-class LettaSchemasMcpServerUpdateStreamableHttpmcpServer(TypedDict, total=False):
+class UpdateStreamableHTTPMcpServer(TypedDict, total=False):
     token: Optional[str]
     """The authentication token (internal)"""
 
@@ -69,8 +64,4 @@ class LettaSchemasMcpServerUpdateStreamableHttpmcpServer(TypedDict, total=False)
     """The URL of the Streamable HTTP MCP server"""
 
 
-McpServerModifyParams: TypeAlias = Union[
-    LettaSchemasMcpServerUpdateStdioMcpServer,
-    LettaSchemasMcpServerUpdateSsemcpServer,
-    LettaSchemasMcpServerUpdateStreamableHttpmcpServer,
-]
+McpServerModifyParams: TypeAlias = Union[UpdateStdioMcpServer, UpdateSseMcpServer, UpdateStreamableHTTPMcpServer]
