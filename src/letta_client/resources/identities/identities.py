@@ -48,10 +48,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.identity import Identity
 from ...types.identity_type import IdentityType
-from ...types.identity_list_response import IdentityListResponse
 from ...types.identity_count_response import IdentityCountResponse
 from ...types.identity_property_param import IdentityPropertyParam
 
@@ -206,7 +206,7 @@ class IdentitiesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> IdentityListResponse:
+    ) -> SyncArrayPage[Identity]:
         """
         Get a list of all identities in the database
 
@@ -234,8 +234,9 @@ class IdentitiesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/identities/",
+            page=SyncArrayPage[Identity],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -256,7 +257,7 @@ class IdentitiesResource(SyncAPIResource):
                     identity_list_params.IdentityListParams,
                 ),
             ),
-            cast_to=IdentityListResponse,
+            model=Identity,
         )
 
     def delete(
@@ -571,7 +572,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             cast_to=Identity,
         )
 
-    async def list(
+    def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -589,7 +590,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> IdentityListResponse:
+    ) -> AsyncPaginator[Identity, AsyncArrayPage[Identity]]:
         """
         Get a list of all identities in the database
 
@@ -617,14 +618,15 @@ class AsyncIdentitiesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/identities/",
+            page=AsyncArrayPage[Identity],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -639,7 +641,7 @@ class AsyncIdentitiesResource(AsyncAPIResource):
                     identity_list_params.IdentityListParams,
                 ),
             ),
-            cast_to=IdentityListResponse,
+            model=Identity,
         )
 
     async def delete(

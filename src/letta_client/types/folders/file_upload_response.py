@@ -10,11 +10,11 @@ __all__ = ["FileUploadResponse"]
 
 
 class FileUploadResponse(BaseModel):
+    id: str
+    """The human-friendly ID of the File"""
+
     source_id: str
     """The unique identifier of the source associated with the document."""
-
-    id: Optional[str] = None
-    """The human-friendly ID of the File"""
 
     chunks_embedded: Optional[int] = None
     """Number of chunks that have been embedded."""

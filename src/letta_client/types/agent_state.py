@@ -118,14 +118,14 @@ class Memory(BaseModel):
 
 
 class Source(BaseModel):
+    id: str
+    """The human-friendly ID of the Source"""
+
     embedding_config: EmbeddingConfig
     """The embedding configuration used by the source."""
 
     name: str
     """The name of the source."""
-
-    id: Optional[str] = None
-    """The human-friendly ID of the Source"""
 
     created_at: Optional[datetime] = None
     """The timestamp when the source was created."""
