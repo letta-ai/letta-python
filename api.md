@@ -522,7 +522,17 @@ Types:
 
 ```python
 from letta_client.types import (
-    McpServerSchema,
+    CreateSseMcpServer,
+    CreateStdioMcpServer,
+    CreateStreamableHTTPMcpServer,
+    McpToolExecuteRequest,
+    SseMcpServer,
+    StdioMcpServer,
+    StreamableHTTPMcpServer,
+    ToolExecutionResult,
+    UpdateSseMcpServer,
+    UpdateStdioMcpServer,
+    UpdateStreamableHTTPMcpServer,
     McpServerCreateResponse,
     McpServerRetrieveResponse,
     McpServerListResponse,
@@ -544,14 +554,14 @@ Methods:
 Types:
 
 ```python
-from letta_client.types.mcp_servers import ToolListResponse, ToolRunResponse
+from letta_client.types.mcp_servers import ToolListResponse
 ```
 
 Methods:
 
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">retrieve</a>(tool_id, \*, mcp_server_id) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">list</a>(mcp_server_id) -> <a href="./src/letta_client/types/mcp_servers/tool_list_response.py">ToolListResponse</a></code>
-- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">run</a>(tool_id, \*, mcp_server_id, \*\*<a href="src/letta_client/types/mcp_servers/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/mcp_servers/tool_run_response.py">ToolRunResponse</a></code>
+- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">run</a>(tool_id, \*, mcp_server_id, \*\*<a href="src/letta_client/types/mcp_servers/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/tool_execution_result.py">ToolExecutionResult</a></code>
 
 ## Refresh
 
