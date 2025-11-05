@@ -9,6 +9,7 @@ from typing_extensions import Annotated, TypeAlias, TypedDict
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 from .llm_config_param import LlmConfigParam
+from .stop_reason_type import StopReasonType
 from .init_tool_rule_param import InitToolRuleParam
 from .child_tool_rule_param import ChildToolRuleParam
 from .embedding_config_param import EmbeddingConfigParam
@@ -62,6 +63,9 @@ class AgentModifyParams(TypedDict, total=False):
 
     last_run_duration_ms: Optional[int]
     """The duration in milliseconds of the agent's last run."""
+
+    last_stop_reason: Optional[StopReasonType]
+    """The stop reason from the agent's last run."""
 
     llm_config: Optional[LlmConfigParam]
     """Configuration for Language Model (LLM) connection and generation parameters."""

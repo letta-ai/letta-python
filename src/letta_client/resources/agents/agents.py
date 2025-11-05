@@ -42,6 +42,7 @@ from .groups import (
 )
 from ...types import (
     AgentType,
+    StopReasonType,
     agent_list_params,
     agent_create_params,
     agent_modify_params,
@@ -90,6 +91,7 @@ from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agent_type import AgentType
 from ...types.agent_state import AgentState
 from ...types.llm_config_param import LlmConfigParam
+from ...types.stop_reason_type import StopReasonType
 from ...types.create_block_param import CreateBlockParam
 from ...types.agent_count_response import AgentCountResponse
 from ...types.message_create_param import MessageCreateParam
@@ -765,6 +767,7 @@ class AgentsResource(SyncAPIResource):
         identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         last_run_completion: Union[str, datetime, None] | Omit = omit,
         last_run_duration_ms: Optional[int] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
         max_tokens: Optional[int] | Omit = omit,
@@ -822,6 +825,8 @@ class AgentsResource(SyncAPIResource):
           last_run_completion: The timestamp when the agent last completed a run.
 
           last_run_duration_ms: The duration in milliseconds of the agent's last run.
+
+          last_stop_reason: The stop reason from the agent's last run.
 
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
 
@@ -898,6 +903,7 @@ class AgentsResource(SyncAPIResource):
                     "identity_ids": identity_ids,
                     "last_run_completion": last_run_completion,
                     "last_run_duration_ms": last_run_duration_ms,
+                    "last_stop_reason": last_stop_reason,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
                     "max_tokens": max_tokens,
@@ -1596,6 +1602,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         last_run_completion: Union[str, datetime, None] | Omit = omit,
         last_run_duration_ms: Optional[int] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
         max_tokens: Optional[int] | Omit = omit,
@@ -1653,6 +1660,8 @@ class AsyncAgentsResource(AsyncAPIResource):
           last_run_completion: The timestamp when the agent last completed a run.
 
           last_run_duration_ms: The duration in milliseconds of the agent's last run.
+
+          last_stop_reason: The stop reason from the agent's last run.
 
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
 
@@ -1729,6 +1738,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "identity_ids": identity_ids,
                     "last_run_completion": last_run_completion,
                     "last_run_duration_ms": last_run_duration_ms,
+                    "last_stop_reason": last_stop_reason,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
                     "max_tokens": max_tokens,

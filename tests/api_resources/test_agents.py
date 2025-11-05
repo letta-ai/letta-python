@@ -495,6 +495,7 @@ class TestAgents:
             identity_ids=["string"],
             last_run_completion=parse_datetime("2019-12-27T18:11:19.117Z"),
             last_run_duration_ms=0,
+            last_stop_reason="end_turn",
             llm_config={
                 "context_window": 0,
                 "model": "model",
@@ -1066,6 +1067,7 @@ class TestAsyncAgents:
             identity_ids=["string"],
             last_run_completion=parse_datetime("2019-12-27T18:11:19.117Z"),
             last_run_duration_ms=0,
+            last_stop_reason="end_turn",
             llm_config={
                 "context_window": 0,
                 "model": "model",

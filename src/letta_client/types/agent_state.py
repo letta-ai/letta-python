@@ -16,6 +16,7 @@ from .init_tool_rule import InitToolRule
 from .child_tool_rule import ChildToolRule
 from .embedding_config import EmbeddingConfig
 from .parent_tool_rule import ParentToolRule
+from .stop_reason_type import StopReasonType
 from .continue_tool_rule import ContinueToolRule
 from .terminal_tool_rule import TerminalToolRule
 from .vector_db_provider import VectorDBProvider
@@ -241,6 +242,9 @@ class AgentState(BaseModel):
 
     last_run_duration_ms: Optional[int] = None
     """The duration in milliseconds of the agent's last run."""
+
+    last_stop_reason: Optional[StopReasonType] = None
+    """The stop reason from the agent's last run."""
 
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
