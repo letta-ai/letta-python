@@ -11,8 +11,8 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     Archive,
-    ArchiveListResponse,
 )
+from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -136,7 +136,7 @@ class TestArchives:
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         archive = client.archives.list()
-        assert_matches_type(ArchiveListResponse, archive, path=["response"])
+        assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -150,7 +150,7 @@ class TestArchives:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(ArchiveListResponse, archive, path=["response"])
+        assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -160,7 +160,7 @@ class TestArchives:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = response.parse()
-        assert_matches_type(ArchiveListResponse, archive, path=["response"])
+        assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -170,7 +170,7 @@ class TestArchives:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = response.parse()
-            assert_matches_type(ArchiveListResponse, archive, path=["response"])
+            assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -390,7 +390,7 @@ class TestAsyncArchives:
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.list()
-        assert_matches_type(ArchiveListResponse, archive, path=["response"])
+        assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -404,7 +404,7 @@ class TestAsyncArchives:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(ArchiveListResponse, archive, path=["response"])
+        assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -414,7 +414,7 @@ class TestAsyncArchives:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = await response.parse()
-        assert_matches_type(ArchiveListResponse, archive, path=["response"])
+        assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -424,7 +424,7 @@ class TestAsyncArchives:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = await response.parse()
-            assert_matches_type(ArchiveListResponse, archive, path=["response"])
+            assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

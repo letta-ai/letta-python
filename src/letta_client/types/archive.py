@@ -11,6 +11,9 @@ __all__ = ["Archive"]
 
 
 class Archive(BaseModel):
+    id: str
+    """The human-friendly ID of the Archive"""
+
     created_at: datetime
     """The creation date of the archive"""
 
@@ -19,9 +22,6 @@ class Archive(BaseModel):
 
     name: str
     """The name of the archive"""
-
-    id: Optional[str] = None
-    """The human-friendly ID of the Archive"""
 
     created_by_id: Optional[str] = None
     """The id of the user that made this object."""

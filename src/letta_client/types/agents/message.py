@@ -158,11 +158,11 @@ class ToolReturn(BaseModel):
 
 
 class Message(BaseModel):
+    id: str
+    """The human-friendly ID of the Message"""
+
     role: MessageRole
     """The role of the participant."""
-
-    id: Optional[str] = None
-    """The human-friendly ID of the Message"""
 
     agent_id: Optional[str] = None
     """The unique identifier of the agent."""

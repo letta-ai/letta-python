@@ -11,9 +11,9 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     Identity,
-    IdentityListResponse,
     IdentityCountResponse,
 )
+from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -127,7 +127,7 @@ class TestIdentities:
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         identity = client.identities.list()
-        assert_matches_type(IdentityListResponse, identity, path=["response"])
+        assert_matches_type(SyncArrayPage[Identity], identity, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -143,7 +143,7 @@ class TestIdentities:
             order_by="created_at",
             project_id="project_id",
         )
-        assert_matches_type(IdentityListResponse, identity, path=["response"])
+        assert_matches_type(SyncArrayPage[Identity], identity, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -153,7 +153,7 @@ class TestIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = response.parse()
-        assert_matches_type(IdentityListResponse, identity, path=["response"])
+        assert_matches_type(SyncArrayPage[Identity], identity, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -163,7 +163,7 @@ class TestIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = response.parse()
-            assert_matches_type(IdentityListResponse, identity, path=["response"])
+            assert_matches_type(SyncArrayPage[Identity], identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -471,7 +471,7 @@ class TestAsyncIdentities:
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         identity = await async_client.identities.list()
-        assert_matches_type(IdentityListResponse, identity, path=["response"])
+        assert_matches_type(AsyncArrayPage[Identity], identity, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -487,7 +487,7 @@ class TestAsyncIdentities:
             order_by="created_at",
             project_id="project_id",
         )
-        assert_matches_type(IdentityListResponse, identity, path=["response"])
+        assert_matches_type(AsyncArrayPage[Identity], identity, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -497,7 +497,7 @@ class TestAsyncIdentities:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         identity = await response.parse()
-        assert_matches_type(IdentityListResponse, identity, path=["response"])
+        assert_matches_type(AsyncArrayPage[Identity], identity, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -507,7 +507,7 @@ class TestAsyncIdentities:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             identity = await response.parse()
-            assert_matches_type(IdentityListResponse, identity, path=["response"])
+            assert_matches_type(AsyncArrayPage[Identity], identity, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -32,11 +32,11 @@ class RequestConfig(BaseModel):
 
 
 class Run(BaseModel):
+    id: str
+    """The human-friendly ID of the Run"""
+
     agent_id: str
     """The unique identifier of the agent associated with the run."""
-
-    id: Optional[str] = None
-    """The human-friendly ID of the Run"""
 
     background: Optional[bool] = None
     """Whether the run was created in background mode."""

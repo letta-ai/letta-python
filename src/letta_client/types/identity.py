@@ -10,6 +10,9 @@ __all__ = ["Identity"]
 
 
 class Identity(BaseModel):
+    id: str
+    """The human-friendly ID of the Identity"""
+
     agent_ids: List[str]
     """The IDs of the agents associated with the identity."""
 
@@ -24,9 +27,6 @@ class Identity(BaseModel):
 
     name: str
     """The name of the identity."""
-
-    id: Optional[str] = None
-    """The human-friendly ID of the Identity"""
 
     project_id: Optional[str] = None
     """The project id of the identity, if applicable."""
