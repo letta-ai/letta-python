@@ -52,7 +52,7 @@ class TestTools:
                     "version": "version",
                 }
             ],
-            return_char_limit=0,
+            return_char_limit=1,
             source_type="source_type",
             tags=["string"],
         )
@@ -289,7 +289,7 @@ class TestTools:
                     "version": "version",
                 }
             ],
-            return_char_limit=0,
+            return_char_limit=1,
             source_code="source_code",
             source_type="source_type",
             tags=["string"],
@@ -360,7 +360,7 @@ class TestTools:
                     "version": "version",
                 }
             ],
-            return_char_limit=0,
+            return_char_limit=1,
             source_type="source_type",
             tags=["string"],
         )
@@ -456,7 +456,7 @@ class TestAsyncTools:
                     "version": "version",
                 }
             ],
-            return_char_limit=0,
+            return_char_limit=1,
             source_type="source_type",
             tags=["string"],
         )
@@ -693,7 +693,7 @@ class TestAsyncTools:
                     "version": "version",
                 }
             ],
-            return_char_limit=0,
+            return_char_limit=1,
             source_code="source_code",
             source_type="source_type",
             tags=["string"],
@@ -764,7 +764,7 @@ class TestAsyncTools:
                     "version": "version",
                 }
             ],
-            return_char_limit=0,
+            return_char_limit=1,
             source_type="source_type",
             tags=["string"],
         )
