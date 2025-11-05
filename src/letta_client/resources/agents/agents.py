@@ -461,6 +461,7 @@ class AgentsResource(SyncAPIResource):
         ]
         | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         match_all_tags: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -502,6 +503,8 @@ class AgentsResource(SyncAPIResource):
               in the response. If not provided, all relationships are loaded by default. Using
               this can optimize performance by reducing unnecessary joins.This is a legacy
               parameter, and no longer supported after 1.0.0 SDK versions.
+
+          last_stop_reason: Filter agents by their last stop reason.
 
           limit: Limit for pagination
 
@@ -551,6 +554,7 @@ class AgentsResource(SyncAPIResource):
                         "identity_id": identity_id,
                         "include": include,
                         "include_relationships": include_relationships,
+                        "last_stop_reason": last_stop_reason,
                         "limit": limit,
                         "match_all_tags": match_all_tags,
                         "name": name,
@@ -1296,6 +1300,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         match_all_tags: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -1337,6 +1342,8 @@ class AsyncAgentsResource(AsyncAPIResource):
               in the response. If not provided, all relationships are loaded by default. Using
               this can optimize performance by reducing unnecessary joins.This is a legacy
               parameter, and no longer supported after 1.0.0 SDK versions.
+
+          last_stop_reason: Filter agents by their last stop reason.
 
           limit: Limit for pagination
 
@@ -1386,6 +1393,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                         "identity_id": identity_id,
                         "include": include,
                         "include_relationships": include_relationships,
+                        "last_stop_reason": last_stop_reason,
                         "limit": limit,
                         "match_all_tags": match_all_tags,
                         "name": name,
