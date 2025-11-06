@@ -97,6 +97,7 @@ from .mcp_server_list_response import McpServerListResponse as McpServerListResp
 from .mcp_server_modify_params import McpServerModifyParams as McpServerModifyParams
 from .supervisor_manager_param import SupervisorManagerParam as SupervisorManagerParam
 from .terminal_tool_rule_param import TerminalToolRuleParam as TerminalToolRuleParam
+from .mcp_server_refresh_params import McpServerRefreshParams as McpServerRefreshParams
 from .round_robin_manager_param import RoundRobinManagerParam as RoundRobinManagerParam
 from .agent_environment_variable import AgentEnvironmentVariable as AgentEnvironmentVariable
 from .agent_export_file_response import AgentExportFileResponse as AgentExportFileResponse
