@@ -44,6 +44,7 @@ from ...types import (
     AgentType,
     StopReasonType,
     agent_list_params,
+    agent_count_params,
     agent_create_params,
     agent_modify_params,
     agent_retrieve_params,
@@ -615,6 +616,16 @@ class AgentsResource(SyncAPIResource):
     def count(
         self,
         *,
+        base_template_id: Optional[str] | Omit = omit,
+        identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
+        identity_id: Optional[str] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
+        match_all_tags: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        query_text: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -622,11 +633,63 @@ class AgentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentCountResponse:
-        """Get the total number of agents."""
+        """Get the total number of agents with optional filtering.
+
+        Supports the same
+        filters as list_agents for consistent querying.
+
+        Args:
+          base_template_id: Search agents by base template ID
+
+          identifier_keys: Search agents by identifier keys
+
+          identity_id: Search agents by identity ID
+
+          last_stop_reason: Filter agents by their last stop reason.
+
+          match_all_tags: If True, only counts agents that match ALL given tags. Otherwise, counts agents
+              that have ANY of the passed-in tags.
+
+          name: Name of the agent
+
+          project_id: Search agents by project ID - this will default to your default project on cloud
+
+          query_text: Search agents by name
+
+          tags: List of tags to filter agents by
+
+          template_id: Search agents by template ID
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return self._get(
             "/v1/agents/count",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "base_template_id": base_template_id,
+                        "identifier_keys": identifier_keys,
+                        "identity_id": identity_id,
+                        "last_stop_reason": last_stop_reason,
+                        "match_all_tags": match_all_tags,
+                        "name": name,
+                        "project_id": project_id,
+                        "query_text": query_text,
+                        "tags": tags,
+                        "template_id": template_id,
+                    },
+                    agent_count_params.AgentCountParams,
+                ),
             ),
             cast_to=int,
         )
@@ -1462,6 +1525,16 @@ class AsyncAgentsResource(AsyncAPIResource):
     async def count(
         self,
         *,
+        base_template_id: Optional[str] | Omit = omit,
+        identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
+        identity_id: Optional[str] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
+        match_all_tags: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        query_text: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1469,11 +1542,63 @@ class AsyncAgentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentCountResponse:
-        """Get the total number of agents."""
+        """Get the total number of agents with optional filtering.
+
+        Supports the same
+        filters as list_agents for consistent querying.
+
+        Args:
+          base_template_id: Search agents by base template ID
+
+          identifier_keys: Search agents by identifier keys
+
+          identity_id: Search agents by identity ID
+
+          last_stop_reason: Filter agents by their last stop reason.
+
+          match_all_tags: If True, only counts agents that match ALL given tags. Otherwise, counts agents
+              that have ANY of the passed-in tags.
+
+          name: Name of the agent
+
+          project_id: Search agents by project ID - this will default to your default project on cloud
+
+          query_text: Search agents by name
+
+          tags: List of tags to filter agents by
+
+          template_id: Search agents by template ID
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
         return await self._get(
             "/v1/agents/count",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "base_template_id": base_template_id,
+                        "identifier_keys": identifier_keys,
+                        "identity_id": identity_id,
+                        "last_stop_reason": last_stop_reason,
+                        "match_all_tags": match_all_tags,
+                        "name": name,
+                        "project_id": project_id,
+                        "query_text": query_text,
+                        "tags": tags,
+                        "template_id": template_id,
+                    },
+                    agent_count_params.AgentCountParams,
+                ),
             ),
             cast_to=int,
         )

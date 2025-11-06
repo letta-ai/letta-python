@@ -339,6 +339,23 @@ class TestAgents:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_count_with_all_params(self, client: Letta) -> None:
+        agent = client.agents.count(
+            base_template_id="base_template_id",
+            identifier_keys=["string"],
+            identity_id="identity_id",
+            last_stop_reason="end_turn",
+            match_all_tags=True,
+            name="name",
+            project_id="project_id",
+            query_text="query_text",
+            tags=["string"],
+            template_id="template_id",
+        )
+        assert_matches_type(AgentCountResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_raw_response_count(self, client: Letta) -> None:
         response = client.agents.with_raw_response.count()
 
@@ -908,6 +925,23 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_count(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.count()
+        assert_matches_type(AgentCountResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_count_with_all_params(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.count(
+            base_template_id="base_template_id",
+            identifier_keys=["string"],
+            identity_id="identity_id",
+            last_stop_reason="end_turn",
+            match_all_tags=True,
+            name="name",
+            project_id="project_id",
+            query_text="query_text",
+            tags=["string"],
+            template_id="template_id",
+        )
         assert_matches_type(AgentCountResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
