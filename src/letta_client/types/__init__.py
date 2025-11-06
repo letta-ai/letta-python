@@ -42,6 +42,7 @@ from .model_list_params import ModelListParams as ModelListParams
 from .provider_category import ProviderCategory as ProviderCategory
 from .tag_list_response import TagListResponse as TagListResponse
 from .tool_count_params import ToolCountParams as ToolCountParams
+from .agent_count_params import AgentCountParams as AgentCountParams
 from .continue_tool_rule import ContinueToolRule as ContinueToolRule
 from .create_block_param import CreateBlockParam as CreateBlockParam
 from .folder_list_params import FolderListParams as FolderListParams
