@@ -37,6 +37,9 @@ class ApprovalCreateParam(TypedDict, total=False):
     approve: Optional[bool]
     """Whether the tool has been approved"""
 
+    group_id: Optional[str]
+    """The multi-agent group that the message was sent in"""
+
     reason: Optional[str]
     """An optional explanation for the provided approval status"""
 
