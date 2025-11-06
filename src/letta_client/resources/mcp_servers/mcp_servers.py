@@ -15,15 +15,7 @@ from .tools import (
     ToolsResourceWithStreamingResponse,
     AsyncToolsResourceWithStreamingResponse,
 )
-from ...types import mcp_server_create_params, mcp_server_modify_params
-from .refresh import (
-    RefreshResource,
-    AsyncRefreshResource,
-    RefreshResourceWithRawResponse,
-    AsyncRefreshResourceWithRawResponse,
-    RefreshResourceWithStreamingResponse,
-    AsyncRefreshResourceWithStreamingResponse,
-)
+from ...types import mcp_server_create_params, mcp_server_modify_params, mcp_server_refresh_params
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -47,10 +39,6 @@ class McpServersResource(SyncAPIResource):
     @cached_property
     def tools(self) -> ToolsResource:
         return ToolsResource(self._client)
-
-    @cached_property
-    def refresh(self) -> RefreshResource:
-        return RefreshResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> McpServersResourceWithRawResponse:
@@ -539,15 +527,57 @@ class McpServersResource(SyncAPIResource):
             ),
         )
 
+    def refresh(
+        self,
+        mcp_server_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """Refresh tools for an MCP server by:
+
+        1.
+
+        Fetching current tools from the MCP server
+        2. Deleting tools that no longer exist on the server
+        3. Updating schemas for existing tools
+        4. Adding new tools from the server
+
+        Returns a summary of changes made.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not mcp_server_id:
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+        return self._patch(
+            f"/v1/mcp-servers/{mcp_server_id}/refresh",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"agent_id": agent_id}, mcp_server_refresh_params.McpServerRefreshParams),
+            ),
+            cast_to=object,
+        )
+
 
 class AsyncMcpServersResource(AsyncAPIResource):
     @cached_property
     def tools(self) -> AsyncToolsResource:
         return AsyncToolsResource(self._client)
-
-    @cached_property
-    def refresh(self) -> AsyncRefreshResource:
-        return AsyncRefreshResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncMcpServersResourceWithRawResponse:
@@ -1036,6 +1066,54 @@ class AsyncMcpServersResource(AsyncAPIResource):
             ),
         )
 
+    async def refresh(
+        self,
+        mcp_server_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """Refresh tools for an MCP server by:
+
+        1.
+
+        Fetching current tools from the MCP server
+        2. Deleting tools that no longer exist on the server
+        3. Updating schemas for existing tools
+        4. Adding new tools from the server
+
+        Returns a summary of changes made.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not mcp_server_id:
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+        return await self._patch(
+            f"/v1/mcp-servers/{mcp_server_id}/refresh",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"agent_id": agent_id}, mcp_server_refresh_params.McpServerRefreshParams
+                ),
+            ),
+            cast_to=object,
+        )
+
 
 class McpServersResourceWithRawResponse:
     def __init__(self, mcp_servers: McpServersResource) -> None:
@@ -1059,14 +1137,13 @@ class McpServersResourceWithRawResponse:
         self.modify = to_raw_response_wrapper(
             mcp_servers.modify,
         )
+        self.refresh = to_raw_response_wrapper(
+            mcp_servers.refresh,
+        )
 
     @cached_property
     def tools(self) -> ToolsResourceWithRawResponse:
         return ToolsResourceWithRawResponse(self._mcp_servers.tools)
-
-    @cached_property
-    def refresh(self) -> RefreshResourceWithRawResponse:
-        return RefreshResourceWithRawResponse(self._mcp_servers.refresh)
 
 
 class AsyncMcpServersResourceWithRawResponse:
@@ -1091,14 +1168,13 @@ class AsyncMcpServersResourceWithRawResponse:
         self.modify = async_to_raw_response_wrapper(
             mcp_servers.modify,
         )
+        self.refresh = async_to_raw_response_wrapper(
+            mcp_servers.refresh,
+        )
 
     @cached_property
     def tools(self) -> AsyncToolsResourceWithRawResponse:
         return AsyncToolsResourceWithRawResponse(self._mcp_servers.tools)
-
-    @cached_property
-    def refresh(self) -> AsyncRefreshResourceWithRawResponse:
-        return AsyncRefreshResourceWithRawResponse(self._mcp_servers.refresh)
 
 
 class McpServersResourceWithStreamingResponse:
@@ -1123,14 +1199,13 @@ class McpServersResourceWithStreamingResponse:
         self.modify = to_streamed_response_wrapper(
             mcp_servers.modify,
         )
+        self.refresh = to_streamed_response_wrapper(
+            mcp_servers.refresh,
+        )
 
     @cached_property
     def tools(self) -> ToolsResourceWithStreamingResponse:
         return ToolsResourceWithStreamingResponse(self._mcp_servers.tools)
-
-    @cached_property
-    def refresh(self) -> RefreshResourceWithStreamingResponse:
-        return RefreshResourceWithStreamingResponse(self._mcp_servers.refresh)
 
 
 class AsyncMcpServersResourceWithStreamingResponse:
@@ -1155,11 +1230,10 @@ class AsyncMcpServersResourceWithStreamingResponse:
         self.modify = async_to_streamed_response_wrapper(
             mcp_servers.modify,
         )
+        self.refresh = async_to_streamed_response_wrapper(
+            mcp_servers.refresh,
+        )
 
     @cached_property
     def tools(self) -> AsyncToolsResourceWithStreamingResponse:
         return AsyncToolsResourceWithStreamingResponse(self._mcp_servers.tools)
-
-    @cached_property
-    def refresh(self) -> AsyncRefreshResourceWithStreamingResponse:
-        return AsyncRefreshResourceWithStreamingResponse(self._mcp_servers.refresh)

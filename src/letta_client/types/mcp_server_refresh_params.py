@@ -5,8 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["RefreshTriggerParams"]
+__all__ = ["McpServerRefreshParams"]
 
 
-class RefreshTriggerParams(TypedDict, total=False):
+class McpServerRefreshParams(TypedDict, total=False):
     agent_id: Optional[str]

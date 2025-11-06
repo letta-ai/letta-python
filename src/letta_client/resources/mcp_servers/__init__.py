@@ -8,14 +8,6 @@ from .tools import (
     ToolsResourceWithStreamingResponse,
     AsyncToolsResourceWithStreamingResponse,
 )
-from .refresh import (
-    RefreshResource,
-    AsyncRefreshResource,
-    RefreshResourceWithRawResponse,
-    AsyncRefreshResourceWithRawResponse,
-    RefreshResourceWithStreamingResponse,
-    AsyncRefreshResourceWithStreamingResponse,
-)
 from .mcp_servers import (
     McpServersResource,
     AsyncMcpServersResource,
@@ -32,12 +24,6 @@ __all__ = [
     "AsyncToolsResourceWithRawResponse",
     "ToolsResourceWithStreamingResponse",
     "AsyncToolsResourceWithStreamingResponse",
-    "RefreshResource",
-    "AsyncRefreshResource",
-    "RefreshResourceWithRawResponse",
-    "AsyncRefreshResourceWithRawResponse",
-    "RefreshResourceWithStreamingResponse",
-    "AsyncRefreshResourceWithStreamingResponse",
     "McpServersResource",
     "AsyncMcpServersResource",
     "McpServersResourceWithRawResponse",
