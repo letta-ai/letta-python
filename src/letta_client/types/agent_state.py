@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
 from .tool import Tool
 from .group import Group
@@ -29,7 +29,7 @@ from .requires_approval_tool_rule import RequiresApprovalToolRule
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
 
-__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "ResponseFormat", "ToolRule"]
+__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "Embedding", "Model", "ResponseFormat", "ToolRule"]
 
 
 class MemoryFileBlock(BaseModel):
@@ -152,6 +152,22 @@ class Source(BaseModel):
     """The vector database provider used for this source's passages"""
 
 
+class Embedding(BaseModel):
+    model: str
+    """The name of the model."""
+
+    provider: Literal["openai", "ollama"]
+    """The provider of the model."""
+
+
+class Model(BaseModel):
+    model: str
+    """The name of the model."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+
 ResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
     PropertyInfo(discriminator="type"),
@@ -184,13 +200,16 @@ class AgentState(BaseModel):
     """The memory blocks used by the agent."""
 
     embedding_config: EmbeddingConfig
-    """The embedding configuration used by the agent."""
+    """Deprecated: Use `embedding` field instead.
+
+    The embedding configuration used by the agent.
+    """
 
     llm_config: LlmConfig
-    """The LLM configuration used by the agent."""
+    """Deprecated: Use `model` field instead. The LLM configuration used by the agent."""
 
     memory: Memory
-    """The in-context memory of the agent."""
+    """Deprecated: Use `blocks` field instead. The in-context memory of the agent."""
 
     name: str
     """The name of the agent."""
@@ -222,6 +241,9 @@ class AgentState(BaseModel):
     description: Optional[str] = None
     """The description of the agent."""
 
+    embedding: Optional[Embedding] = None
+    """The embedding model used by the agent."""
+
     enable_sleeptime: Optional[bool] = None
     """If set to True, memory management will move to a background agent thread."""
 
@@ -235,7 +257,10 @@ class AgentState(BaseModel):
     """The identities associated with this agent."""
 
     identity_ids: Optional[List[str]] = None
-    """The ids of the identities associated with this agent."""
+    """Deprecated: Use `identities` field instead.
+
+    The ids of the identities associated with this agent.
+    """
 
     last_run_completion: Optional[datetime] = None
     """The timestamp when the agent last completed a run."""
@@ -271,8 +296,14 @@ class AgentState(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """The metadata of the agent."""
 
+    model: Optional[Model] = None
+    """Schema for defining settings for a model"""
+
     multi_agent_group: Optional[Group] = None
-    """The multi-agent group that this agent manages"""
+    """Deprecated: Use `managed_group` field instead.
+
+    The multi-agent group that this agent manages.
+    """
 
     per_file_view_window_char_limit: Optional[int] = None
     """The per-file view window character limit for this agent.
@@ -284,7 +315,7 @@ class AgentState(BaseModel):
     """The id of the project the agent belongs to."""
 
     response_format: Optional[ResponseFormat] = None
-    """The response format used by the agent when returning from `send_message`."""
+    """The response format used by the agent"""
 
     secrets: Optional[List[AgentEnvironmentVariable]] = None
     """The environment variables for tool execution specific to this agent."""
