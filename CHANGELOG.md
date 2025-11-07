@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.0.0-alpha.16 (2025-11-07)
+
+Full Changelog: [v1.0.0-alpha.15...v1.0.0-alpha.16](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.15...v1.0.0-alpha.16)
+
+### Features
+
+* add filters to count_agents endpoint [LET-5380] [LET-5497] ([1c2e09f](https://github.com/letta-ai/letta-python/commit/1c2e09f64d6858de3caf9cce921ce12527fdf988))
+* add last_stop_reason to AgentState [LET-5911] ([68b054a](https://github.com/letta-ai/letta-python/commit/68b054a8aa29491948d22e2ffd5498396833b0d1))
+* enable streaming flag on send message ([4984f2d](https://github.com/letta-ai/letta-python/commit/4984f2d183b5353ca6f47ca7d5cdd83b971dcc13))
+* filter list agents by stop reason [LET-5928] ([d2316ce](https://github.com/letta-ai/letta-python/commit/d2316cecbca3d31f3a46217f8eb3b8d47fb6664d))
+* return new Model and EmbeddingModel objects for list model/embedding endpoints [LET-6090] ([bd729a3](https://github.com/letta-ai/letta-python/commit/bd729a341841559887ace72b516d1d4ef82a5ab4))
+* Revert "Revert "feat: provider-specific model configuration " ([#5873](https://github.com/letta-ai/letta-python/issues/5873))" ([83f4534](https://github.com/letta-ai/letta-python/commit/83f4534bc86a7e6018ff874fd137592ad0a94549))
+
+
+### Bug Fixes
+
+* add mcp server routes typing to stainless.yml ([a4f5fd0](https://github.com/letta-ai/letta-python/commit/a4f5fd016322f1c84790a7d1e080456b42763350))
+* **core:** patch bug w/ sleeptime agents and client-side tool executions [LET-6081] ([ee84c56](https://github.com/letta-ai/letta-python/commit/ee84c565d23c5b8eea385bc89a3af74a987982e8))
+* fix refresh sdk name stainless ([83f446d](https://github.com/letta-ai/letta-python/commit/83f446debf5dba3150e5f8c56db73d3490677259))
+* stainless pagination ([a99ce51](https://github.com/letta-ai/letta-python/commit/a99ce5137600be328f040e42ef3a1c8e32827e63))
+
+
+### Chores
+
+* remove count methods from stainless sdk ([3bfe0c7](https://github.com/letta-ai/letta-python/commit/3bfe0c72c26dfc7f648e75b585566604e25315cd))
+
 ## 1.0.0-alpha.15 (2025-11-04)
 
 Full Changelog: [v1.0.0-alpha.14...v1.0.0-alpha.15](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.14...v1.0.0-alpha.15)

@@ -12,7 +12,7 @@ __all__ = ["BatchJob"]
 
 
 class BatchJob(BaseModel):
-    id: Optional[str] = None
+    id: str
     """The human-friendly ID of the Job"""
 
     agent_id: Optional[str] = None

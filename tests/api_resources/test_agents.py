@@ -11,7 +11,6 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     AgentState,
-    AgentCountResponse,
     AgentImportFileResponse,
 )
 from letta_client._utils import parse_datetime
@@ -38,7 +37,7 @@ class TestAgents:
             block_ids=["string"],
             context_window_limit=0,
             description="description",
-            embedding="embedding",
+            embedding="string",
             embedding_chunk_size=0,
             embedding_config={
                 "embedding_dim": 0,
@@ -126,7 +125,7 @@ class TestAgents:
             memory_variables={"foo": "string"},
             message_buffer_autoclear=True,
             metadata={"foo": "bar"},
-            model="model",
+            model="string",
             name="name",
             parallel_tool_calls=True,
             per_file_view_window_char_limit=0,
@@ -253,6 +252,7 @@ class TestAgents:
             identity_id="identity_id",
             include=["agent.blocks"],
             include_relationships=["string"],
+            last_stop_reason="end_turn",
             limit=0,
             match_all_tags=True,
             name="name",
@@ -329,34 +329,6 @@ class TestAgents:
             client.agents.with_raw_response.delete(
                 "",
             )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_count(self, client: Letta) -> None:
-        agent = client.agents.count()
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_count(self, client: Letta) -> None:
-        response = client.agents.with_raw_response.count()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = response.parse()
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_count(self, client: Letta) -> None:
-        with client.agents.with_streaming_response.count() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = response.parse()
-            assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -477,7 +449,7 @@ class TestAgents:
             block_ids=["string"],
             context_window_limit=0,
             description="description",
-            embedding="embedding",
+            embedding="string",
             embedding_config={
                 "embedding_dim": 0,
                 "embedding_endpoint_type": "openai",
@@ -495,6 +467,7 @@ class TestAgents:
             identity_ids=["string"],
             last_run_completion=parse_datetime("2019-12-27T18:11:19.117Z"),
             last_run_duration_ms=0,
+            last_stop_reason="end_turn",
             llm_config={
                 "context_window": 0,
                 "model": "model",
@@ -522,7 +495,7 @@ class TestAgents:
             message_buffer_autoclear=True,
             message_ids=["string"],
             metadata={"foo": "bar"},
-            model="model",
+            model="string",
             name="name",
             parallel_tool_calls=True,
             per_file_view_window_char_limit=0,
@@ -609,7 +582,7 @@ class TestAsyncAgents:
             block_ids=["string"],
             context_window_limit=0,
             description="description",
-            embedding="embedding",
+            embedding="string",
             embedding_chunk_size=0,
             embedding_config={
                 "embedding_dim": 0,
@@ -697,7 +670,7 @@ class TestAsyncAgents:
             memory_variables={"foo": "string"},
             message_buffer_autoclear=True,
             metadata={"foo": "bar"},
-            model="model",
+            model="string",
             name="name",
             parallel_tool_calls=True,
             per_file_view_window_char_limit=0,
@@ -824,6 +797,7 @@ class TestAsyncAgents:
             identity_id="identity_id",
             include=["agent.blocks"],
             include_relationships=["string"],
+            last_stop_reason="end_turn",
             limit=0,
             match_all_tags=True,
             name="name",
@@ -900,34 +874,6 @@ class TestAsyncAgents:
             await async_client.agents.with_raw_response.delete(
                 "",
             )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_count(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.count()
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_count(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.with_raw_response.count()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = await response.parse()
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_count(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.with_streaming_response.count() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = await response.parse()
-            assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1048,7 +994,7 @@ class TestAsyncAgents:
             block_ids=["string"],
             context_window_limit=0,
             description="description",
-            embedding="embedding",
+            embedding="string",
             embedding_config={
                 "embedding_dim": 0,
                 "embedding_endpoint_type": "openai",
@@ -1066,6 +1012,7 @@ class TestAsyncAgents:
             identity_ids=["string"],
             last_run_completion=parse_datetime("2019-12-27T18:11:19.117Z"),
             last_run_duration_ms=0,
+            last_stop_reason="end_turn",
             llm_config={
                 "context_window": 0,
                 "model": "model",
@@ -1093,7 +1040,7 @@ class TestAsyncAgents:
             message_buffer_autoclear=True,
             message_ids=["string"],
             metadata={"foo": "bar"},
-            model="model",
+            model="string",
             name="name",
             parallel_tool_calls=True,
             per_file_view_window_char_limit=0,

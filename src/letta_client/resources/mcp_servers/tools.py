@@ -19,7 +19,7 @@ from ..._response import (
 from ...types.tool import Tool
 from ..._base_client import make_request_options
 from ...types.mcp_servers import tool_run_params
-from ...types.mcp_servers.tool_run_response import ToolRunResponse
+from ...types.tool_execution_result import ToolExecutionResult
 from ...types.mcp_servers.tool_list_response import ToolListResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
@@ -126,7 +126,7 @@ class ToolsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolRunResponse:
+    ) -> ToolExecutionResult:
         """
         Execute a specific MCP tool
 
@@ -154,7 +154,7 @@ class ToolsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ToolRunResponse,
+            cast_to=ToolExecutionResult,
         )
 
 
@@ -259,7 +259,7 @@ class AsyncToolsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolRunResponse:
+    ) -> ToolExecutionResult:
         """
         Execute a specific MCP tool
 
@@ -287,7 +287,7 @@ class AsyncToolsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ToolRunResponse,
+            cast_to=ToolExecutionResult,
         )
 
 

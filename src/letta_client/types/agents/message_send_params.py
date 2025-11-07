@@ -17,15 +17,17 @@ from .omitted_reasoning_content_param import OmittedReasoningContentParam
 from .redacted_reasoning_content_param import RedactedReasoningContentParam
 
 __all__ = [
-    "MessageSendParams",
+    "MessageSendParamsBase",
     "InputUnionMember1",
     "InputUnionMember1SummarizedReasoningContent",
     "InputUnionMember1SummarizedReasoningContentSummary",
     "Message",
+    "MessageSendParamsNonStreaming",
+    "MessageSendParamsStreaming",
 ]
 
 
-class MessageSendParams(TypedDict, total=False):
+class MessageSendParamsBase(TypedDict, total=False):
     assistant_message_tool_kwarg: str
     """The name of the message argument in the designated message tool.
 
@@ -40,9 +42,21 @@ class MessageSendParams(TypedDict, total=False):
     onward.
     """
 
+    background: bool
+    """
+    Whether to process the request in the background (only used when
+    streaming=true).
+    """
+
     enable_thinking: str
     """
     If set to True, enables reasoning before responses or tool calls from the agent.
+    """
+
+    include_pings: bool
+    """
+    Whether to include periodic keepalive ping messages in the stream to prevent
+    connection timeouts (only used when streaming=true).
     """
 
     include_return_message_types: Optional[List[MessageType]]
@@ -62,6 +76,12 @@ class MessageSendParams(TypedDict, total=False):
 
     messages: Optional[Iterable[Message]]
     """The messages to be sent to the agent."""
+
+    stream_tokens: bool
+    """
+    Flag to determine if individual tokens should be streamed, rather than streaming
+    per step (only used when streaming=true).
+    """
 
     use_assistant_message: bool
     """
@@ -105,3 +125,22 @@ InputUnionMember1: TypeAlias = Union[
 ]
 
 Message: TypeAlias = Union[MessageCreateParam, ApprovalCreateParam]
+
+
+class MessageSendParamsNonStreaming(MessageSendParamsBase, total=False):
+    streaming: Literal[False]
+    """If True, returns a streaming response (Server-Sent Events).
+
+    If False (default), returns a complete response.
+    """
+
+
+class MessageSendParamsStreaming(MessageSendParamsBase):
+    streaming: Required[Literal[True]]
+    """If True, returns a streaming response (Server-Sent Events).
+
+    If False (default), returns a complete response.
+    """
+
+
+MessageSendParams = Union[MessageSendParamsNonStreaming, MessageSendParamsStreaming]

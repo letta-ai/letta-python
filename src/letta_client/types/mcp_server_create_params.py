@@ -7,7 +7,7 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = ["McpServerCreateParams", "CreateStdioMcpServer", "CreateSsemcpServer", "CreateStreamableHttpmcpServer"]
+__all__ = ["McpServerCreateParams", "CreateStdioMcpServer", "CreateSseMcpServer", "CreateStreamableHTTPMcpServer"]
 
 
 class CreateStdioMcpServer(TypedDict, total=False):
@@ -26,7 +26,7 @@ class CreateStdioMcpServer(TypedDict, total=False):
     type: Literal["sse", "stdio", "streamable_http"]
 
 
-class CreateSsemcpServer(TypedDict, total=False):
+class CreateSseMcpServer(TypedDict, total=False):
     server_name: Required[str]
     """The name of the server"""
 
@@ -45,7 +45,7 @@ class CreateSsemcpServer(TypedDict, total=False):
     type: Literal["sse", "stdio", "streamable_http"]
 
 
-class CreateStreamableHttpmcpServer(TypedDict, total=False):
+class CreateStreamableHTTPMcpServer(TypedDict, total=False):
     server_name: Required[str]
     """The name of the server"""
 
@@ -64,4 +64,4 @@ class CreateStreamableHttpmcpServer(TypedDict, total=False):
     type: Literal["sse", "stdio", "streamable_http"]
 
 
-McpServerCreateParams: TypeAlias = Union[CreateStdioMcpServer, CreateSsemcpServer, CreateStreamableHttpmcpServer]
+McpServerCreateParams: TypeAlias = Union[CreateStdioMcpServer, CreateSseMcpServer, CreateStreamableHTTPMcpServer]

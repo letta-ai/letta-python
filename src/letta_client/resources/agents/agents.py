@@ -42,6 +42,7 @@ from .groups import (
 )
 from ...types import (
     AgentType,
+    StopReasonType,
     agent_list_params,
     agent_create_params,
     agent_modify_params,
@@ -90,8 +91,8 @@ from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agent_type import AgentType
 from ...types.agent_state import AgentState
 from ...types.llm_config_param import LlmConfigParam
+from ...types.stop_reason_type import StopReasonType
 from ...types.create_block_param import CreateBlockParam
-from ...types.agent_count_response import AgentCountResponse
 from ...types.message_create_param import MessageCreateParam
 from ...types.embedding_config_param import EmbeddingConfigParam
 from ...types.agent_import_file_response import AgentImportFileResponse
@@ -151,7 +152,7 @@ class AgentsResource(SyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        embedding: Optional[str] | Omit = omit,
+        embedding: Optional[agent_create_params.Embedding] | Omit = omit,
         embedding_chunk_size: Optional[int] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_reasoner: Optional[bool] | Omit = omit,
@@ -172,7 +173,7 @@ class AgentsResource(SyncAPIResource):
         memory_variables: Optional[Dict[str, str]] | Omit = omit,
         message_buffer_autoclear: bool | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[str] | Omit = omit,
+        model: Optional[agent_create_params.Model] | Omit = omit,
         name: str | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         per_file_view_window_char_limit: Optional[int] | Omit = omit,
@@ -204,7 +205,7 @@ class AgentsResource(SyncAPIResource):
         Args:
           agent_type: The type of agent.
 
-          base_template_id: The base template id of the agent.
+          base_template_id: Deprecated: No longer used. The base template id of the agent.
 
           block_ids: The ids of the blocks used by the agent.
 
@@ -215,17 +216,18 @@ class AgentsResource(SyncAPIResource):
           embedding: The embedding configuration handle used by the agent, specified in the format
               provider/model-name.
 
-          embedding_chunk_size: The embedding chunk size used by the agent.
+          embedding_chunk_size: Deprecated: No longer used. The embedding chunk size used by the agent.
 
           embedding_config: Configuration for embedding model connection and processing parameters.
 
-          enable_reasoner: Whether to enable internal extended thinking step for a reasoner model.
+          enable_reasoner: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
+              internal extended thinking step for a reasoner model.
 
           enable_sleeptime: If set to True, memory management will move to a background agent thread.
 
           from_template: Deprecated: please use the 'create agents from a template' endpoint instead.
 
-          hidden: If set to True, the agent will be hidden.
+          hidden: Deprecated: No longer used. If set to True, the agent will be hidden.
 
           identity_ids: The ids of the identities associated with this agent.
 
@@ -247,15 +249,16 @@ class AgentsResource(SyncAPIResource):
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
 
-          max_reasoning_tokens: The maximum number of tokens to generate for reasoning step. If not set, the
-              model will use its default value.
+          max_reasoning_tokens: Deprecated: Use `model` field to configure reasoning tokens instead. The maximum
+              number of tokens to generate for reasoning step.
 
-          max_tokens: The maximum number of tokens to generate, including reasoning step. If not set,
-              the model will use its default value.
+          max_tokens: Deprecated: Use `model` field to configure max output tokens instead. The
+              maximum number of tokens to generate, including reasoning step.
 
           memory_blocks: The blocks to create in the agent's in-context memory.
 
-          memory_variables: The variables that should be set for the agent.
+          memory_variables: Deprecated: Only relevant for creating agents from a template. Use the 'create
+              agents from a template' endpoint instead.
 
           message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
               will still retain state via core memory blocks and archival/recall memory). Not
@@ -263,23 +266,25 @@ class AgentsResource(SyncAPIResource):
 
           metadata: The metadata of the agent.
 
-          model: The LLM configuration handle used by the agent, specified in the format
-              provider/model-name, as an alternative to specifying llm_config.
+          model: The model handle or model settings for the agent to use, specified either by a
+              handle or an object. See the model schema for more information.
 
           name: The name of the agent.
 
-          parallel_tool_calls: If set to True, enables parallel tool calling. Defaults to False.
+          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
+              to True, enables parallel tool calling.
 
           per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
               may exceed the context window, which will break the agent.
 
           project: Deprecated: Project should now be passed via the X-Project header instead of in
-              the request body. If using the sdk, this can be done via the new x_project field
-              below.
+              the request body. If using the SDK, this can be done via the x_project
+              parameter.
 
-          project_id: The id of the project the agent belongs to.
+          project_id: Deprecated: No longer used. The id of the project the agent belongs to.
 
-          reasoning: Whether to enable reasoning for this agent.
+          reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
+              reasoning for this agent.
 
           response_format: The response format for the agent.
 
@@ -291,13 +296,14 @@ class AgentsResource(SyncAPIResource):
 
           tags: The tags associated with the agent.
 
-          template: Deprecated: No longer used
+          template: Deprecated: No longer used.
 
-          template_id: The id of the template the agent belongs to.
+          template_id: Deprecated: No longer used. The id of the template the agent belongs to.
 
           timezone: The timezone of the agent (IANA format).
 
-          tool_exec_environment_variables: Deprecated: use `secrets` field instead.
+          tool_exec_environment_variables: Deprecated: Use `secrets` field instead. Environment variables for tool
+              execution.
 
           tool_ids: The ids of the tools used by the agent.
 
@@ -459,6 +465,7 @@ class AgentsResource(SyncAPIResource):
         ]
         | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         match_all_tags: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -500,6 +507,8 @@ class AgentsResource(SyncAPIResource):
               in the response. If not provided, all relationships are loaded by default. Using
               this can optimize performance by reducing unnecessary joins.This is a legacy
               parameter, and no longer supported after 1.0.0 SDK versions.
+
+          last_stop_reason: Filter agents by their last stop reason.
 
           limit: Limit for pagination
 
@@ -549,6 +558,7 @@ class AgentsResource(SyncAPIResource):
                         "identity_id": identity_id,
                         "include": include,
                         "include_relationships": include_relationships,
+                        "last_stop_reason": last_stop_reason,
                         "limit": limit,
                         "match_all_tags": match_all_tags,
                         "name": name,
@@ -599,25 +609,6 @@ class AgentsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentCountResponse:
-        """Get the total number of agents."""
-        return self._get(
-            "/v1/agents/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     def export_file(
@@ -758,20 +749,21 @@ class AgentsResource(SyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        embedding: Optional[str] | Omit = omit,
+        embedding: Optional[agent_modify_params.Embedding] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
         hidden: Optional[bool] | Omit = omit,
         identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         last_run_completion: Union[str, datetime, None] | Omit = omit,
         last_run_duration_ms: Optional[int] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
         max_tokens: Optional[int] | Omit = omit,
         message_buffer_autoclear: Optional[bool] | Omit = omit,
         message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[str] | Omit = omit,
+        model: Optional[agent_modify_params.Model] | Omit = omit,
         name: Optional[str] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         per_file_view_window_char_limit: Optional[int] | Omit = omit,
@@ -823,13 +815,15 @@ class AgentsResource(SyncAPIResource):
 
           last_run_duration_ms: The duration in milliseconds of the agent's last run.
 
+          last_stop_reason: The stop reason from the agent's last run.
+
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
 
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
 
-          max_tokens: The maximum number of tokens to generate, including reasoning step. If not set,
-              the model will use its default value.
+          max_tokens: Deprecated: Use `model` field to configure max output tokens instead. The
+              maximum number of tokens to generate, including reasoning step.
 
           message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
               will still retain state via core memory blocks and archival/recall memory). Not
@@ -839,21 +833,24 @@ class AgentsResource(SyncAPIResource):
 
           metadata: The metadata of the agent.
 
-          model: The LLM configuration handle used by the agent, specified in the format
-              provider/model-name, as an alternative to specifying llm_config.
+          model: The model used by the agent, specified either by a handle or an object. See the
+              model schema for more information.
 
           name: The name of the agent.
 
-          parallel_tool_calls: If set to True, enables parallel tool calling. Defaults to False.
+          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
+              to True, enables parallel tool calling.
 
           per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
               may exceed the context window, which will break the agent.
 
           project_id: The id of the project the agent belongs to.
 
-          reasoning: Whether to enable reasoning for this agent.
+          reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
+              reasoning for this agent.
 
-          response_format: The response format for the agent.
+          response_format: Deprecated: Use `model` field to configure response format instead. The response
+              format for the agent.
 
           secrets: The environment variables for tool execution specific to this agent.
 
@@ -898,6 +895,7 @@ class AgentsResource(SyncAPIResource):
                     "identity_ids": identity_ids,
                     "last_run_completion": last_run_completion,
                     "last_run_duration_ms": last_run_duration_ms,
+                    "last_stop_reason": last_stop_reason,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
                     "max_tokens": max_tokens,
@@ -982,7 +980,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        embedding: Optional[str] | Omit = omit,
+        embedding: Optional[agent_create_params.Embedding] | Omit = omit,
         embedding_chunk_size: Optional[int] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_reasoner: Optional[bool] | Omit = omit,
@@ -1003,7 +1001,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         memory_variables: Optional[Dict[str, str]] | Omit = omit,
         message_buffer_autoclear: bool | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[str] | Omit = omit,
+        model: Optional[agent_create_params.Model] | Omit = omit,
         name: str | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         per_file_view_window_char_limit: Optional[int] | Omit = omit,
@@ -1035,7 +1033,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         Args:
           agent_type: The type of agent.
 
-          base_template_id: The base template id of the agent.
+          base_template_id: Deprecated: No longer used. The base template id of the agent.
 
           block_ids: The ids of the blocks used by the agent.
 
@@ -1046,17 +1044,18 @@ class AsyncAgentsResource(AsyncAPIResource):
           embedding: The embedding configuration handle used by the agent, specified in the format
               provider/model-name.
 
-          embedding_chunk_size: The embedding chunk size used by the agent.
+          embedding_chunk_size: Deprecated: No longer used. The embedding chunk size used by the agent.
 
           embedding_config: Configuration for embedding model connection and processing parameters.
 
-          enable_reasoner: Whether to enable internal extended thinking step for a reasoner model.
+          enable_reasoner: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
+              internal extended thinking step for a reasoner model.
 
           enable_sleeptime: If set to True, memory management will move to a background agent thread.
 
           from_template: Deprecated: please use the 'create agents from a template' endpoint instead.
 
-          hidden: If set to True, the agent will be hidden.
+          hidden: Deprecated: No longer used. If set to True, the agent will be hidden.
 
           identity_ids: The ids of the identities associated with this agent.
 
@@ -1078,15 +1077,16 @@ class AsyncAgentsResource(AsyncAPIResource):
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
 
-          max_reasoning_tokens: The maximum number of tokens to generate for reasoning step. If not set, the
-              model will use its default value.
+          max_reasoning_tokens: Deprecated: Use `model` field to configure reasoning tokens instead. The maximum
+              number of tokens to generate for reasoning step.
 
-          max_tokens: The maximum number of tokens to generate, including reasoning step. If not set,
-              the model will use its default value.
+          max_tokens: Deprecated: Use `model` field to configure max output tokens instead. The
+              maximum number of tokens to generate, including reasoning step.
 
           memory_blocks: The blocks to create in the agent's in-context memory.
 
-          memory_variables: The variables that should be set for the agent.
+          memory_variables: Deprecated: Only relevant for creating agents from a template. Use the 'create
+              agents from a template' endpoint instead.
 
           message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
               will still retain state via core memory blocks and archival/recall memory). Not
@@ -1094,23 +1094,25 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           metadata: The metadata of the agent.
 
-          model: The LLM configuration handle used by the agent, specified in the format
-              provider/model-name, as an alternative to specifying llm_config.
+          model: The model handle or model settings for the agent to use, specified either by a
+              handle or an object. See the model schema for more information.
 
           name: The name of the agent.
 
-          parallel_tool_calls: If set to True, enables parallel tool calling. Defaults to False.
+          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
+              to True, enables parallel tool calling.
 
           per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
               may exceed the context window, which will break the agent.
 
           project: Deprecated: Project should now be passed via the X-Project header instead of in
-              the request body. If using the sdk, this can be done via the new x_project field
-              below.
+              the request body. If using the SDK, this can be done via the x_project
+              parameter.
 
-          project_id: The id of the project the agent belongs to.
+          project_id: Deprecated: No longer used. The id of the project the agent belongs to.
 
-          reasoning: Whether to enable reasoning for this agent.
+          reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
+              reasoning for this agent.
 
           response_format: The response format for the agent.
 
@@ -1122,13 +1124,14 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           tags: The tags associated with the agent.
 
-          template: Deprecated: No longer used
+          template: Deprecated: No longer used.
 
-          template_id: The id of the template the agent belongs to.
+          template_id: Deprecated: No longer used. The id of the template the agent belongs to.
 
           timezone: The timezone of the agent (IANA format).
 
-          tool_exec_environment_variables: Deprecated: use `secrets` field instead.
+          tool_exec_environment_variables: Deprecated: Use `secrets` field instead. Environment variables for tool
+              execution.
 
           tool_ids: The ids of the tools used by the agent.
 
@@ -1290,6 +1293,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         match_all_tags: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -1331,6 +1335,8 @@ class AsyncAgentsResource(AsyncAPIResource):
               in the response. If not provided, all relationships are loaded by default. Using
               this can optimize performance by reducing unnecessary joins.This is a legacy
               parameter, and no longer supported after 1.0.0 SDK versions.
+
+          last_stop_reason: Filter agents by their last stop reason.
 
           limit: Limit for pagination
 
@@ -1380,6 +1386,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                         "identity_id": identity_id,
                         "include": include,
                         "include_relationships": include_relationships,
+                        "last_stop_reason": last_stop_reason,
                         "limit": limit,
                         "match_all_tags": match_all_tags,
                         "name": name,
@@ -1430,25 +1437,6 @@ class AsyncAgentsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    async def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentCountResponse:
-        """Get the total number of agents."""
-        return await self._get(
-            "/v1/agents/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     async def export_file(
@@ -1589,20 +1577,21 @@ class AsyncAgentsResource(AsyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        embedding: Optional[str] | Omit = omit,
+        embedding: Optional[agent_modify_params.Embedding] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
         hidden: Optional[bool] | Omit = omit,
         identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         last_run_completion: Union[str, datetime, None] | Omit = omit,
         last_run_duration_ms: Optional[int] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
         max_tokens: Optional[int] | Omit = omit,
         message_buffer_autoclear: Optional[bool] | Omit = omit,
         message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[str] | Omit = omit,
+        model: Optional[agent_modify_params.Model] | Omit = omit,
         name: Optional[str] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         per_file_view_window_char_limit: Optional[int] | Omit = omit,
@@ -1654,13 +1643,15 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           last_run_duration_ms: The duration in milliseconds of the agent's last run.
 
+          last_stop_reason: The stop reason from the agent's last run.
+
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
 
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
 
-          max_tokens: The maximum number of tokens to generate, including reasoning step. If not set,
-              the model will use its default value.
+          max_tokens: Deprecated: Use `model` field to configure max output tokens instead. The
+              maximum number of tokens to generate, including reasoning step.
 
           message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
               will still retain state via core memory blocks and archival/recall memory). Not
@@ -1670,21 +1661,24 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           metadata: The metadata of the agent.
 
-          model: The LLM configuration handle used by the agent, specified in the format
-              provider/model-name, as an alternative to specifying llm_config.
+          model: The model used by the agent, specified either by a handle or an object. See the
+              model schema for more information.
 
           name: The name of the agent.
 
-          parallel_tool_calls: If set to True, enables parallel tool calling. Defaults to False.
+          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
+              to True, enables parallel tool calling.
 
           per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
               may exceed the context window, which will break the agent.
 
           project_id: The id of the project the agent belongs to.
 
-          reasoning: Whether to enable reasoning for this agent.
+          reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
+              reasoning for this agent.
 
-          response_format: The response format for the agent.
+          response_format: Deprecated: Use `model` field to configure response format instead. The response
+              format for the agent.
 
           secrets: The environment variables for tool execution specific to this agent.
 
@@ -1729,6 +1723,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "identity_ids": identity_ids,
                     "last_run_completion": last_run_completion,
                     "last_run_duration_ms": last_run_duration_ms,
+                    "last_stop_reason": last_stop_reason,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
                     "max_tokens": max_tokens,
@@ -1776,9 +1771,6 @@ class AgentsResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             agents.delete,
-        )
-        self.count = to_raw_response_wrapper(
-            agents.count,
         )
         self.export_file = to_raw_response_wrapper(
             agents.export_file,
@@ -1831,9 +1823,6 @@ class AsyncAgentsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             agents.delete,
         )
-        self.count = async_to_raw_response_wrapper(
-            agents.count,
-        )
         self.export_file = async_to_raw_response_wrapper(
             agents.export_file,
         )
@@ -1885,9 +1874,6 @@ class AgentsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             agents.delete,
         )
-        self.count = to_streamed_response_wrapper(
-            agents.count,
-        )
         self.export_file = to_streamed_response_wrapper(
             agents.export_file,
         )
@@ -1938,9 +1924,6 @@ class AsyncAgentsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             agents.delete,
-        )
-        self.count = async_to_streamed_response_wrapper(
-            agents.count,
         )
         self.export_file = async_to_streamed_response_wrapper(
             agents.export_file,

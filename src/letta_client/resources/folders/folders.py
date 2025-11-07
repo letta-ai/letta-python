@@ -34,10 +34,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.folder import Folder
-from ...types.folder_list_response import FolderListResponse
-from ...types.folder_count_response import FolderCountResponse
 from ...types.embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["FoldersResource", "AsyncFoldersResource"]
@@ -184,7 +183,7 @@ class FoldersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FolderListResponse:
+    ) -> SyncArrayPage[Folder]:
         """
         List all data folders created by a user.
 
@@ -212,8 +211,9 @@ class FoldersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/folders/",
+            page=SyncArrayPage[Folder],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -231,7 +231,7 @@ class FoldersResource(SyncAPIResource):
                     folder_list_params.FolderListParams,
                 ),
             ),
-            cast_to=FolderListResponse,
+            model=Folder,
         )
 
     def delete(
@@ -267,25 +267,6 @@ class FoldersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FolderCountResponse:
-        """Count all data folders created by a user."""
-        return self._get(
-            "/v1/folders/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     def modify(
@@ -475,7 +456,7 @@ class AsyncFoldersResource(AsyncAPIResource):
             cast_to=Folder,
         )
 
-    async def list(
+    def list(
         self,
         *,
         after: Optional[str] | Omit = omit,
@@ -490,7 +471,7 @@ class AsyncFoldersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FolderListResponse:
+    ) -> AsyncPaginator[Folder, AsyncArrayPage[Folder]]:
         """
         List all data folders created by a user.
 
@@ -518,14 +499,15 @@ class AsyncFoldersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/folders/",
+            page=AsyncArrayPage[Folder],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "before": before,
@@ -537,7 +519,7 @@ class AsyncFoldersResource(AsyncAPIResource):
                     folder_list_params.FolderListParams,
                 ),
             ),
-            cast_to=FolderListResponse,
+            model=Folder,
         )
 
     async def delete(
@@ -573,25 +555,6 @@ class AsyncFoldersResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    async def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FolderCountResponse:
-        """Count all data folders created by a user."""
-        return await self._get(
-            "/v1/folders/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     async def modify(
@@ -671,9 +634,6 @@ class FoldersResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             folders.delete,
         )
-        self.count = to_raw_response_wrapper(
-            folders.count,
-        )
         self.modify = to_raw_response_wrapper(
             folders.modify,
         )
@@ -702,9 +662,6 @@ class AsyncFoldersResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             folders.delete,
-        )
-        self.count = async_to_raw_response_wrapper(
-            folders.count,
         )
         self.modify = async_to_raw_response_wrapper(
             folders.modify,
@@ -735,9 +692,6 @@ class FoldersResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             folders.delete,
         )
-        self.count = to_streamed_response_wrapper(
-            folders.count,
-        )
         self.modify = to_streamed_response_wrapper(
             folders.modify,
         )
@@ -766,9 +720,6 @@ class AsyncFoldersResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             folders.delete,
-        )
-        self.count = async_to_streamed_response_wrapper(
-            folders.count,
         )
         self.modify = async_to_streamed_response_wrapper(
             folders.modify,

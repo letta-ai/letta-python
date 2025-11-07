@@ -6,6 +6,7 @@ from typing import List, Optional
 from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
+from .stop_reason_type import StopReasonType
 
 __all__ = ["AgentListParams"]
 
@@ -55,6 +56,9 @@ class AgentListParams(TypedDict, total=False):
     this can optimize performance by reducing unnecessary joins.This is a legacy
     parameter, and no longer supported after 1.0.0 SDK versions.
     """
+
+    last_stop_reason: Optional[StopReasonType]
+    """Filter agents by their last stop reason."""
 
     limit: Optional[int]
     """Limit for pagination"""

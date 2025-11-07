@@ -29,7 +29,6 @@ from ..._response import (
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.block_response import BlockResponse
-from ...types.block_count_response import BlockCountResponse
 
 __all__ = ["BlocksResource", "AsyncBlocksResource"]
 
@@ -335,25 +334,6 @@ class BlocksResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockCountResponse:
-        """Count all blocks created by a user."""
-        return self._get(
-            "/v1/blocks/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     def modify(
@@ -760,25 +740,6 @@ class AsyncBlocksResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BlockCountResponse:
-        """Count all blocks created by a user."""
-        return await self._get(
-            "/v1/blocks/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
-        )
-
     async def modify(
         self,
         block_id: str,
@@ -896,9 +857,6 @@ class BlocksResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             blocks.delete,
         )
-        self.count = to_raw_response_wrapper(
-            blocks.count,
-        )
         self.modify = to_raw_response_wrapper(
             blocks.modify,
         )
@@ -923,9 +881,6 @@ class AsyncBlocksResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             blocks.delete,
-        )
-        self.count = async_to_raw_response_wrapper(
-            blocks.count,
         )
         self.modify = async_to_raw_response_wrapper(
             blocks.modify,
@@ -952,9 +907,6 @@ class BlocksResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             blocks.delete,
         )
-        self.count = to_streamed_response_wrapper(
-            blocks.count,
-        )
         self.modify = to_streamed_response_wrapper(
             blocks.modify,
         )
@@ -979,9 +931,6 @@ class AsyncBlocksResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             blocks.delete,
-        )
-        self.count = async_to_streamed_response_wrapper(
-            blocks.count,
         )
         self.modify = async_to_streamed_response_wrapper(
             blocks.modify,

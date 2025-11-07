@@ -17,7 +17,7 @@ __all__ = ["Tool", "BaseTool"]
 
 
 class Tool(BaseModel):
-    id: Optional[str] = None
+    id: str
     """The human-friendly ID of the Tool"""
 
     args_json_schema: Optional[Dict[str, object]] = None

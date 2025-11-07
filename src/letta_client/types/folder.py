@@ -10,14 +10,14 @@ __all__ = ["Folder"]
 
 
 class Folder(BaseModel):
+    id: str
+    """The human-friendly ID of the Source"""
+
     embedding_config: EmbeddingConfig
     """The embedding configuration used by the folder."""
 
     name: str
     """The name of the folder."""
-
-    id: Optional[str] = None
-    """The human-friendly ID of the Source"""
 
     created_at: Optional[datetime] = None
     """The timestamp when the folder was created."""
