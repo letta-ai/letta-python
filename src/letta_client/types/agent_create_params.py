@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .agent_type import AgentType
@@ -24,15 +24,7 @@ from .requires_approval_tool_rule_param import RequiresApprovalToolRuleParam
 from .max_count_per_step_tool_rule_param import MaxCountPerStepToolRuleParam
 from .required_before_exit_tool_rule_param import RequiredBeforeExitToolRuleParam
 
-__all__ = [
-    "AgentCreateParams",
-    "Embedding",
-    "EmbeddingEmbeddingModelSettings",
-    "Model",
-    "ModelModelSettings",
-    "ResponseFormat",
-    "ToolRule",
-]
+__all__ = ["AgentCreateParams", "ModelSettings", "ResponseFormat", "ToolRule"]
 
 
 class AgentCreateParams(TypedDict, total=False):
@@ -51,11 +43,8 @@ class AgentCreateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the agent."""
 
-    embedding: Optional[Embedding]
-    """
-    The embedding configuration handle used by the agent, specified in the format
-    provider/model-name.
-    """
+    embedding: Optional[str]
+    """The embedding model handle used by the agent (format: provider/model-name)."""
 
     embedding_chunk_size: Optional[int]
     """Deprecated: No longer used. The embedding chunk size used by the agent."""
@@ -145,11 +134,11 @@ class AgentCreateParams(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
     """The metadata of the agent."""
 
-    model: Optional[Model]
-    """
-    The model handle or model settings for the agent to use, specified either by a
-    handle or an object. See the model schema for more information.
-    """
+    model: Optional[str]
+    """The model handle for the agent to use (format: provider/model-name)."""
+
+    model_settings: Optional[ModelSettings]
+    """Schema for defining settings for a model"""
 
     name: str
     """The name of the agent."""
@@ -222,26 +211,10 @@ class AgentCreateParams(TypedDict, total=False):
     """The tools used by the agent."""
 
 
-class EmbeddingEmbeddingModelSettings(TypedDict, total=False):
-    model: Required[str]
-    """The name of the model."""
-
-    provider: Required[Literal["openai", "ollama"]]
-    """The provider of the model."""
-
-
-Embedding: TypeAlias = Union[str, EmbeddingEmbeddingModelSettings]
-
-
-class ModelModelSettings(TypedDict, total=False):
-    model: Required[str]
-    """The name of the model."""
-
+class ModelSettings(TypedDict, total=False):
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
-
-Model: TypeAlias = Union[str, ModelModelSettings]
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 

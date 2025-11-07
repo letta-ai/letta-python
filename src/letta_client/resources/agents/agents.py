@@ -152,7 +152,7 @@ class AgentsResource(SyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        embedding: Optional[agent_create_params.Embedding] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
         embedding_chunk_size: Optional[int] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_reasoner: Optional[bool] | Omit = omit,
@@ -173,7 +173,8 @@ class AgentsResource(SyncAPIResource):
         memory_variables: Optional[Dict[str, str]] | Omit = omit,
         message_buffer_autoclear: bool | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[agent_create_params.Model] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_create_params.ModelSettings] | Omit = omit,
         name: str | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         per_file_view_window_char_limit: Optional[int] | Omit = omit,
@@ -213,8 +214,7 @@ class AgentsResource(SyncAPIResource):
 
           description: The description of the agent.
 
-          embedding: The embedding configuration handle used by the agent, specified in the format
-              provider/model-name.
+          embedding: The embedding model handle used by the agent (format: provider/model-name).
 
           embedding_chunk_size: Deprecated: No longer used. The embedding chunk size used by the agent.
 
@@ -266,8 +266,9 @@ class AgentsResource(SyncAPIResource):
 
           metadata: The metadata of the agent.
 
-          model: The model handle or model settings for the agent to use, specified either by a
-              handle or an object. See the model schema for more information.
+          model: The model handle for the agent to use (format: provider/model-name).
+
+          model_settings: Schema for defining settings for a model
 
           name: The name of the agent.
 
@@ -350,6 +351,7 @@ class AgentsResource(SyncAPIResource):
                     "message_buffer_autoclear": message_buffer_autoclear,
                     "metadata": metadata,
                     "model": model,
+                    "model_settings": model_settings,
                     "name": name,
                     "parallel_tool_calls": parallel_tool_calls,
                     "per_file_view_window_char_limit": per_file_view_window_char_limit,
@@ -749,7 +751,7 @@ class AgentsResource(SyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        embedding: Optional[agent_modify_params.Embedding] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
         hidden: Optional[bool] | Omit = omit,
@@ -763,7 +765,8 @@ class AgentsResource(SyncAPIResource):
         message_buffer_autoclear: Optional[bool] | Omit = omit,
         message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[agent_modify_params.Model] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_modify_params.ModelSettings] | Omit = omit,
         name: Optional[str] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         per_file_view_window_char_limit: Optional[int] | Omit = omit,
@@ -800,8 +803,7 @@ class AgentsResource(SyncAPIResource):
 
           description: The description of the agent.
 
-          embedding: The embedding configuration handle used by the agent, specified in the format
-              provider/model-name.
+          embedding: The embedding model handle used by the agent (format: provider/model-name).
 
           embedding_config: Configuration for embedding model connection and processing parameters.
 
@@ -833,8 +835,9 @@ class AgentsResource(SyncAPIResource):
 
           metadata: The metadata of the agent.
 
-          model: The model used by the agent, specified either by a handle or an object. See the
-              model schema for more information.
+          model: The model handle used by the agent (format: provider/model-name).
+
+          model_settings: Schema for defining settings for a model
 
           name: The name of the agent.
 
@@ -903,6 +906,7 @@ class AgentsResource(SyncAPIResource):
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "model": model,
+                    "model_settings": model_settings,
                     "name": name,
                     "parallel_tool_calls": parallel_tool_calls,
                     "per_file_view_window_char_limit": per_file_view_window_char_limit,
@@ -980,7 +984,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        embedding: Optional[agent_create_params.Embedding] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
         embedding_chunk_size: Optional[int] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_reasoner: Optional[bool] | Omit = omit,
@@ -1001,7 +1005,8 @@ class AsyncAgentsResource(AsyncAPIResource):
         memory_variables: Optional[Dict[str, str]] | Omit = omit,
         message_buffer_autoclear: bool | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[agent_create_params.Model] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_create_params.ModelSettings] | Omit = omit,
         name: str | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         per_file_view_window_char_limit: Optional[int] | Omit = omit,
@@ -1041,8 +1046,7 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           description: The description of the agent.
 
-          embedding: The embedding configuration handle used by the agent, specified in the format
-              provider/model-name.
+          embedding: The embedding model handle used by the agent (format: provider/model-name).
 
           embedding_chunk_size: Deprecated: No longer used. The embedding chunk size used by the agent.
 
@@ -1094,8 +1098,9 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           metadata: The metadata of the agent.
 
-          model: The model handle or model settings for the agent to use, specified either by a
-              handle or an object. See the model schema for more information.
+          model: The model handle for the agent to use (format: provider/model-name).
+
+          model_settings: Schema for defining settings for a model
 
           name: The name of the agent.
 
@@ -1178,6 +1183,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "message_buffer_autoclear": message_buffer_autoclear,
                     "metadata": metadata,
                     "model": model,
+                    "model_settings": model_settings,
                     "name": name,
                     "parallel_tool_calls": parallel_tool_calls,
                     "per_file_view_window_char_limit": per_file_view_window_char_limit,
@@ -1577,7 +1583,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        embedding: Optional[agent_modify_params.Embedding] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
         hidden: Optional[bool] | Omit = omit,
@@ -1591,7 +1597,8 @@ class AsyncAgentsResource(AsyncAPIResource):
         message_buffer_autoclear: Optional[bool] | Omit = omit,
         message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[agent_modify_params.Model] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_modify_params.ModelSettings] | Omit = omit,
         name: Optional[str] | Omit = omit,
         parallel_tool_calls: Optional[bool] | Omit = omit,
         per_file_view_window_char_limit: Optional[int] | Omit = omit,
@@ -1628,8 +1635,7 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           description: The description of the agent.
 
-          embedding: The embedding configuration handle used by the agent, specified in the format
-              provider/model-name.
+          embedding: The embedding model handle used by the agent (format: provider/model-name).
 
           embedding_config: Configuration for embedding model connection and processing parameters.
 
@@ -1661,8 +1667,9 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           metadata: The metadata of the agent.
 
-          model: The model used by the agent, specified either by a handle or an object. See the
-              model schema for more information.
+          model: The model handle used by the agent (format: provider/model-name).
+
+          model_settings: Schema for defining settings for a model
 
           name: The name of the agent.
 
@@ -1731,6 +1738,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "message_ids": message_ids,
                     "metadata": metadata,
                     "model": model,
+                    "model_settings": model_settings,
                     "name": name,
                     "parallel_tool_calls": parallel_tool_calls,
                     "per_file_view_window_char_limit": per_file_view_window_char_limit,
