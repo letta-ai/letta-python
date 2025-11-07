@@ -11,7 +11,6 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     Identity,
-    IdentityCountResponse,
 )
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
@@ -208,34 +207,6 @@ class TestIdentities:
             client.identities.with_raw_response.delete(
                 "",
             )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_count(self, client: Letta) -> None:
-        identity = client.identities.count()
-        assert_matches_type(IdentityCountResponse, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_count(self, client: Letta) -> None:
-        response = client.identities.with_raw_response.count()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        identity = response.parse()
-        assert_matches_type(IdentityCountResponse, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_count(self, client: Letta) -> None:
-        with client.identities.with_streaming_response.count() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            identity = response.parse()
-            assert_matches_type(IdentityCountResponse, identity, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -552,34 +523,6 @@ class TestAsyncIdentities:
             await async_client.identities.with_raw_response.delete(
                 "",
             )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_count(self, async_client: AsyncLetta) -> None:
-        identity = await async_client.identities.count()
-        assert_matches_type(IdentityCountResponse, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_count(self, async_client: AsyncLetta) -> None:
-        response = await async_client.identities.with_raw_response.count()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        identity = await response.parse()
-        assert_matches_type(IdentityCountResponse, identity, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_count(self, async_client: AsyncLetta) -> None:
-        async with async_client.identities.with_streaming_response.count() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            identity = await response.parse()
-            assert_matches_type(IdentityCountResponse, identity, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize

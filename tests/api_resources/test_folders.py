@@ -9,10 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
-from letta_client.types import (
-    Folder,
-    FolderCountResponse,
-)
+from letta_client.types import Folder
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -204,34 +201,6 @@ class TestFolders:
             client.folders.with_raw_response.delete(
                 "",
             )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_count(self, client: Letta) -> None:
-        folder = client.folders.count()
-        assert_matches_type(FolderCountResponse, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_count(self, client: Letta) -> None:
-        response = client.folders.with_raw_response.count()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        folder = response.parse()
-        assert_matches_type(FolderCountResponse, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_count(self, client: Letta) -> None:
-        with client.folders.with_streaming_response.count() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            folder = response.parse()
-            assert_matches_type(FolderCountResponse, folder, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -488,34 +457,6 @@ class TestAsyncFolders:
             await async_client.folders.with_raw_response.delete(
                 "",
             )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_count(self, async_client: AsyncLetta) -> None:
-        folder = await async_client.folders.count()
-        assert_matches_type(FolderCountResponse, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_count(self, async_client: AsyncLetta) -> None:
-        response = await async_client.folders.with_raw_response.count()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        folder = await response.parse()
-        assert_matches_type(FolderCountResponse, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_count(self, async_client: AsyncLetta) -> None:
-        async with async_client.folders.with_streaming_response.count() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            folder = await response.parse()
-            assert_matches_type(FolderCountResponse, folder, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize

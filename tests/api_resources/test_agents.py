@@ -11,7 +11,6 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     AgentState,
-    AgentCountResponse,
     AgentImportFileResponse,
 )
 from letta_client._utils import parse_datetime
@@ -330,51 +329,6 @@ class TestAgents:
             client.agents.with_raw_response.delete(
                 "",
             )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_count(self, client: Letta) -> None:
-        agent = client.agents.count()
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_count_with_all_params(self, client: Letta) -> None:
-        agent = client.agents.count(
-            base_template_id="base_template_id",
-            identifier_keys=["string"],
-            identity_id="identity_id",
-            last_stop_reason="end_turn",
-            match_all_tags=True,
-            name="name",
-            project_id="project_id",
-            query_text="query_text",
-            tags=["string"],
-            template_id="template_id",
-        )
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_count(self, client: Letta) -> None:
-        response = client.agents.with_raw_response.count()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = response.parse()
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_count(self, client: Letta) -> None:
-        with client.agents.with_streaming_response.count() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = response.parse()
-            assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -920,51 +874,6 @@ class TestAsyncAgents:
             await async_client.agents.with_raw_response.delete(
                 "",
             )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_count(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.count()
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_count_with_all_params(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.count(
-            base_template_id="base_template_id",
-            identifier_keys=["string"],
-            identity_id="identity_id",
-            last_stop_reason="end_turn",
-            match_all_tags=True,
-            name="name",
-            project_id="project_id",
-            query_text="query_text",
-            tags=["string"],
-            template_id="template_id",
-        )
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_count(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.with_raw_response.count()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = await response.parse()
-        assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_count(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.with_streaming_response.count() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = await response.parse()
-            assert_matches_type(AgentCountResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize

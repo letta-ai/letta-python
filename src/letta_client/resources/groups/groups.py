@@ -30,7 +30,6 @@ from ...pagination import SyncArrayPage, AsyncArrayPage
 from ...types.group import Group
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.manager_type import ManagerType
-from ...types.group_count_response import GroupCountResponse
 
 __all__ = ["GroupsResource", "AsyncGroupsResource"]
 
@@ -256,25 +255,6 @@ class GroupsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> GroupCountResponse:
-        """Get the count of all groups associated with a given user."""
-        return self._get(
-            "/v1/groups/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     def modify(
@@ -561,25 +541,6 @@ class AsyncGroupsResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> GroupCountResponse:
-        """Get the count of all groups associated with a given user."""
-        return await self._get(
-            "/v1/groups/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
-        )
-
     async def modify(
         self,
         group_id: str,
@@ -657,9 +618,6 @@ class GroupsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             groups.delete,
         )
-        self.count = to_raw_response_wrapper(
-            groups.count,
-        )
         self.modify = to_raw_response_wrapper(
             groups.modify,
         )
@@ -684,9 +642,6 @@ class AsyncGroupsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             groups.delete,
-        )
-        self.count = async_to_raw_response_wrapper(
-            groups.count,
         )
         self.modify = async_to_raw_response_wrapper(
             groups.modify,
@@ -713,9 +668,6 @@ class GroupsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             groups.delete,
         )
-        self.count = to_streamed_response_wrapper(
-            groups.count,
-        )
         self.modify = to_streamed_response_wrapper(
             groups.modify,
         )
@@ -740,9 +692,6 @@ class AsyncGroupsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             groups.delete,
-        )
-        self.count = async_to_streamed_response_wrapper(
-            groups.count,
         )
         self.modify = async_to_streamed_response_wrapper(
             groups.modify,
