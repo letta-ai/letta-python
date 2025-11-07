@@ -41,7 +41,10 @@ class MessageStreamParams(TypedDict, total=False):
     """
 
     background: bool
-    """Whether to process the request in the background."""
+    """
+    Whether to process the request in the background (only used when
+    streaming=true).
+    """
 
     enable_thinking: str
     """
@@ -51,7 +54,7 @@ class MessageStreamParams(TypedDict, total=False):
     include_pings: bool
     """
     Whether to include periodic keepalive ping messages in the stream to prevent
-    connection timeouts.
+    connection timeouts (only used when streaming=true).
     """
 
     include_return_message_types: Optional[List[MessageType]]
@@ -75,7 +78,13 @@ class MessageStreamParams(TypedDict, total=False):
     stream_tokens: bool
     """
     Flag to determine if individual tokens should be streamed, rather than streaming
-    per step.
+    per step (only used when streaming=true).
+    """
+
+    streaming: bool
+    """If True, returns a streaming response (Server-Sent Events).
+
+    If False (default), returns a complete response.
     """
 
     use_assistant_message: bool

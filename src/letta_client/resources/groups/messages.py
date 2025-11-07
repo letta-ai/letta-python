@@ -448,6 +448,7 @@ class MessagesResource(SyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_stream_params.Message]] | Omit = omit,
         stream_tokens: bool | Omit = omit,
+        streaming: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -472,12 +473,13 @@ class MessagesResource(SyncAPIResource):
           assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
               but deprecated for letta_v1_agent onward.
 
-          background: Whether to process the request in the background.
+          background: Whether to process the request in the background (only used when
+              streaming=true).
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts.
+              connection timeouts (only used when streaming=true).
 
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
@@ -491,7 +493,10 @@ class MessagesResource(SyncAPIResource):
           messages: The messages to be sent to the agent.
 
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step.
+              per step (only used when streaming=true).
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -521,6 +526,7 @@ class MessagesResource(SyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "stream_tokens": stream_tokens,
+                    "streaming": streaming,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_stream_params.MessageStreamParams,
@@ -950,6 +956,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_stream_params.Message]] | Omit = omit,
         stream_tokens: bool | Omit = omit,
+        streaming: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -974,12 +981,13 @@ class AsyncMessagesResource(AsyncAPIResource):
           assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
               but deprecated for letta_v1_agent onward.
 
-          background: Whether to process the request in the background.
+          background: Whether to process the request in the background (only used when
+              streaming=true).
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts.
+              connection timeouts (only used when streaming=true).
 
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
@@ -993,7 +1001,10 @@ class AsyncMessagesResource(AsyncAPIResource):
           messages: The messages to be sent to the agent.
 
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step.
+              per step (only used when streaming=true).
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -1023,6 +1034,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "stream_tokens": stream_tokens,
+                    "streaming": streaming,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_stream_params.MessageStreamParams,
