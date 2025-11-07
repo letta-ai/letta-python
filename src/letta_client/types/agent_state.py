@@ -2,7 +2,9 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypeAlias
+from typing_extensions import Annotated, TypeAlias
+
+from pydantic import Field as FieldInfo
 
 from .tool import Tool
 from .group import Group
@@ -29,7 +31,7 @@ from .requires_approval_tool_rule import RequiresApprovalToolRule
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
 
-__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "Embedding", "Model", "ResponseFormat", "ToolRule"]
+__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "ModelSettings", "ResponseFormat", "ToolRule"]
 
 
 class MemoryFileBlock(BaseModel):
@@ -152,18 +154,7 @@ class Source(BaseModel):
     """The vector database provider used for this source's passages"""
 
 
-class Embedding(BaseModel):
-    model: str
-    """The name of the model."""
-
-    provider: Literal["openai", "ollama"]
-    """The provider of the model."""
-
-
-class Model(BaseModel):
-    model: str
-    """The name of the model."""
-
+class ModelSettings(BaseModel):
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -241,8 +232,8 @@ class AgentState(BaseModel):
     description: Optional[str] = None
     """The description of the agent."""
 
-    embedding: Optional[Embedding] = None
-    """The embedding model used by the agent."""
+    embedding: Optional[str] = None
+    """The embedding model handle used by the agent (format: provider/model-name)."""
 
     enable_sleeptime: Optional[bool] = None
     """If set to True, memory management will move to a background agent thread."""
@@ -296,7 +287,10 @@ class AgentState(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """The metadata of the agent."""
 
-    model: Optional[Model] = None
+    model: Optional[str] = None
+    """The model handle used by the agent (format: provider/model-name)."""
+
+    api_model_settings: Optional[ModelSettings] = FieldInfo(alias="model_settings", default=None)
     """Schema for defining settings for a model"""
 
     multi_agent_group: Optional[Group] = None

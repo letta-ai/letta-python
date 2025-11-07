@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -24,15 +24,7 @@ from .requires_approval_tool_rule_param import RequiresApprovalToolRuleParam
 from .max_count_per_step_tool_rule_param import MaxCountPerStepToolRuleParam
 from .required_before_exit_tool_rule_param import RequiredBeforeExitToolRuleParam
 
-__all__ = [
-    "AgentModifyParams",
-    "Embedding",
-    "EmbeddingEmbeddingModelSettings",
-    "Model",
-    "ModelModelSettings",
-    "ResponseFormat",
-    "ToolRule",
-]
+__all__ = ["AgentModifyParams", "ModelSettings", "ResponseFormat", "ToolRule"]
 
 
 class AgentModifyParams(TypedDict, total=False):
@@ -48,11 +40,8 @@ class AgentModifyParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the agent."""
 
-    embedding: Optional[Embedding]
-    """
-    The embedding configuration handle used by the agent, specified in the format
-    provider/model-name.
-    """
+    embedding: Optional[str]
+    """The embedding model handle used by the agent (format: provider/model-name)."""
 
     embedding_config: Optional[EmbeddingConfigParam]
     """Configuration for embedding model connection and processing parameters."""
@@ -103,11 +92,11 @@ class AgentModifyParams(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
     """The metadata of the agent."""
 
-    model: Optional[Model]
-    """The model used by the agent, specified either by a handle or an object.
+    model: Optional[str]
+    """The model handle used by the agent (format: provider/model-name)."""
 
-    See the model schema for more information.
-    """
+    model_settings: Optional[ModelSettings]
+    """Schema for defining settings for a model"""
 
     name: Optional[str]
     """The name of the agent."""
@@ -167,26 +156,10 @@ class AgentModifyParams(TypedDict, total=False):
     """The tool rules governing the agent."""
 
 
-class EmbeddingEmbeddingModelSettings(TypedDict, total=False):
-    model: Required[str]
-    """The name of the model."""
-
-    provider: Required[Literal["openai", "ollama"]]
-    """The provider of the model."""
-
-
-Embedding: TypeAlias = Union[str, EmbeddingEmbeddingModelSettings]
-
-
-class ModelModelSettings(TypedDict, total=False):
-    model: Required[str]
-    """The name of the model."""
-
+class ModelSettings(TypedDict, total=False):
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
-
-Model: TypeAlias = Union[str, ModelModelSettings]
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
