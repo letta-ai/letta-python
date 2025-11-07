@@ -72,7 +72,11 @@ class ModelsResource(SyncAPIResource):
     ) -> ModelListResponse:
         """
         List available LLM models using the asynchronous implementation for improved
-        performance
+        performance.
+
+        Returns Model format which extends LLMConfig with additional metadata fields.
+        Legacy LLMConfig fields are marked as deprecated but still available for
+        backward compatibility.
 
         Args:
           extra_headers: Send extra headers
@@ -142,7 +146,11 @@ class AsyncModelsResource(AsyncAPIResource):
     ) -> ModelListResponse:
         """
         List available LLM models using the asynchronous implementation for improved
-        performance
+        performance.
+
+        Returns Model format which extends LLMConfig with additional metadata fields.
+        Legacy LLMConfig fields are marked as deprecated but still available for
+        backward compatibility.
 
         Args:
           extra_headers: Send extra headers

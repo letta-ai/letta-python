@@ -51,7 +51,11 @@ class EmbeddingsResource(SyncAPIResource):
     ) -> EmbeddingListResponse:
         """
         List available embedding models using the asynchronous implementation for
-        improved performance
+        improved performance.
+
+        Returns EmbeddingModel format which extends EmbeddingConfig with additional
+        metadata fields. Legacy EmbeddingConfig fields are marked as deprecated but
+        still available for backward compatibility.
         """
         return self._get(
             "/v1/models/embedding",
@@ -94,7 +98,11 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
     ) -> EmbeddingListResponse:
         """
         List available embedding models using the asynchronous implementation for
-        improved performance
+        improved performance.
+
+        Returns EmbeddingModel format which extends EmbeddingConfig with additional
+        metadata fields. Legacy EmbeddingConfig fields are marked as deprecated but
+        still available for backward compatibility.
         """
         return await self._get(
             "/v1/models/embedding",
