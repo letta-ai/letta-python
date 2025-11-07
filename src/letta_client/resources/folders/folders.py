@@ -37,7 +37,6 @@ from ..._response import (
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.folder import Folder
-from ...types.folder_count_response import FolderCountResponse
 from ...types.embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["FoldersResource", "AsyncFoldersResource"]
@@ -268,25 +267,6 @@ class FoldersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FolderCountResponse:
-        """Count all data folders created by a user."""
-        return self._get(
-            "/v1/folders/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     def modify(
@@ -577,25 +557,6 @@ class AsyncFoldersResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FolderCountResponse:
-        """Count all data folders created by a user."""
-        return await self._get(
-            "/v1/folders/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
-        )
-
     async def modify(
         self,
         folder_id: str,
@@ -673,9 +634,6 @@ class FoldersResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             folders.delete,
         )
-        self.count = to_raw_response_wrapper(
-            folders.count,
-        )
         self.modify = to_raw_response_wrapper(
             folders.modify,
         )
@@ -704,9 +662,6 @@ class AsyncFoldersResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             folders.delete,
-        )
-        self.count = async_to_raw_response_wrapper(
-            folders.count,
         )
         self.modify = async_to_raw_response_wrapper(
             folders.modify,
@@ -737,9 +692,6 @@ class FoldersResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             folders.delete,
         )
-        self.count = to_streamed_response_wrapper(
-            folders.count,
-        )
         self.modify = to_streamed_response_wrapper(
             folders.modify,
         )
@@ -768,9 +720,6 @@ class AsyncFoldersResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             folders.delete,
-        )
-        self.count = async_to_streamed_response_wrapper(
-            folders.count,
         )
         self.modify = async_to_streamed_response_wrapper(
             folders.modify,

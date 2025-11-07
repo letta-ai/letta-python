@@ -52,7 +52,6 @@ from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.identity import Identity
 from ...types.identity_type import IdentityType
-from ...types.identity_count_response import IdentityCountResponse
 from ...types.identity_property_param import IdentityPropertyParam
 
 __all__ = ["IdentitiesResource", "AsyncIdentitiesResource"]
@@ -293,25 +292,6 @@ class IdentitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> IdentityCountResponse:
-        """Get count of all identities for a user"""
-        return self._get(
-            "/v1/identities/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
         )
 
     def modify(
@@ -679,25 +659,6 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def count(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> IdentityCountResponse:
-        """Get count of all identities for a user"""
-        return await self._get(
-            "/v1/identities/count",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=int,
-        )
-
     async def modify(
         self,
         identity_id: str,
@@ -842,9 +803,6 @@ class IdentitiesResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             identities.delete,
         )
-        self.count = to_raw_response_wrapper(
-            identities.count,
-        )
         self.modify = to_raw_response_wrapper(
             identities.modify,
         )
@@ -880,9 +838,6 @@ class AsyncIdentitiesResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             identities.delete,
-        )
-        self.count = async_to_raw_response_wrapper(
-            identities.count,
         )
         self.modify = async_to_raw_response_wrapper(
             identities.modify,
@@ -920,9 +875,6 @@ class IdentitiesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             identities.delete,
         )
-        self.count = to_streamed_response_wrapper(
-            identities.count,
-        )
         self.modify = to_streamed_response_wrapper(
             identities.modify,
         )
@@ -958,9 +910,6 @@ class AsyncIdentitiesResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             identities.delete,
-        )
-        self.count = async_to_streamed_response_wrapper(
-            identities.count,
         )
         self.modify = async_to_streamed_response_wrapper(
             identities.modify,

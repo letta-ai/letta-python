@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import tool_list_params, tool_count_params, tool_create_params, tool_modify_params, tool_upsert_params
+from ..types import tool_list_params, tool_create_params, tool_modify_params, tool_upsert_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,7 +21,6 @@ from .._response import (
 from ..pagination import SyncArrayPage, AsyncArrayPage
 from ..types.tool import Tool
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.tool_count_response import ToolCountResponse
 from ..types.npm_requirement_param import NpmRequirementParam
 from ..types.pip_requirement_param import PipRequirementParam
 from ..types.tool_upsert_base_tools_response import ToolUpsertBaseToolsResponse
@@ -288,74 +287,6 @@ class ToolsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def count(
-        self,
-        *,
-        exclude_letta_tools: Optional[bool] | Omit = omit,
-        exclude_tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        names: Optional[SequenceNotStr[str]] | Omit = omit,
-        return_only_letta_tools: Optional[bool] | Omit = omit,
-        search: Optional[str] | Omit = omit,
-        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolCountResponse:
-        """
-        Get a count of all tools available to agents belonging to the org of the user.
-
-        Args:
-          exclude_letta_tools: Exclude built-in Letta tools from the count
-
-          exclude_tool_types: Tool type(s) to exclude - accepts repeated params or comma-separated values
-
-          names: Filter by specific tool names
-
-          return_only_letta_tools: Count only tools with tool*type starting with 'letta*'
-
-          search: Search tool names (case-insensitive partial match)
-
-          tool_ids: Filter by specific tool IDs - accepts repeated params or comma-separated values
-
-          tool_types: Filter by tool type(s) - accepts repeated params or comma-separated values
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/v1/tools/count",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "exclude_letta_tools": exclude_letta_tools,
-                        "exclude_tool_types": exclude_tool_types,
-                        "name": name,
-                        "names": names,
-                        "return_only_letta_tools": return_only_letta_tools,
-                        "search": search,
-                        "tool_ids": tool_ids,
-                        "tool_types": tool_types,
-                    },
-                    tool_count_params.ToolCountParams,
-                ),
-            ),
-            cast_to=int,
         )
 
     def modify(
@@ -810,74 +741,6 @@ class AsyncToolsResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def count(
-        self,
-        *,
-        exclude_letta_tools: Optional[bool] | Omit = omit,
-        exclude_tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        names: Optional[SequenceNotStr[str]] | Omit = omit,
-        return_only_letta_tools: Optional[bool] | Omit = omit,
-        search: Optional[str] | Omit = omit,
-        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolCountResponse:
-        """
-        Get a count of all tools available to agents belonging to the org of the user.
-
-        Args:
-          exclude_letta_tools: Exclude built-in Letta tools from the count
-
-          exclude_tool_types: Tool type(s) to exclude - accepts repeated params or comma-separated values
-
-          names: Filter by specific tool names
-
-          return_only_letta_tools: Count only tools with tool*type starting with 'letta*'
-
-          search: Search tool names (case-insensitive partial match)
-
-          tool_ids: Filter by specific tool IDs - accepts repeated params or comma-separated values
-
-          tool_types: Filter by tool type(s) - accepts repeated params or comma-separated values
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/v1/tools/count",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "exclude_letta_tools": exclude_letta_tools,
-                        "exclude_tool_types": exclude_tool_types,
-                        "name": name,
-                        "names": names,
-                        "return_only_letta_tools": return_only_letta_tools,
-                        "search": search,
-                        "tool_ids": tool_ids,
-                        "tool_types": tool_types,
-                    },
-                    tool_count_params.ToolCountParams,
-                ),
-            ),
-            cast_to=int,
-        )
-
     async def modify(
         self,
         tool_id: str,
@@ -1085,9 +948,6 @@ class ToolsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             tools.delete,
         )
-        self.count = to_raw_response_wrapper(
-            tools.count,
-        )
         self.modify = to_raw_response_wrapper(
             tools.modify,
         )
@@ -1114,9 +974,6 @@ class AsyncToolsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             tools.delete,
-        )
-        self.count = async_to_raw_response_wrapper(
-            tools.count,
         )
         self.modify = async_to_raw_response_wrapper(
             tools.modify,
@@ -1145,9 +1002,6 @@ class ToolsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             tools.delete,
         )
-        self.count = to_streamed_response_wrapper(
-            tools.count,
-        )
         self.modify = to_streamed_response_wrapper(
             tools.modify,
         )
@@ -1174,9 +1028,6 @@ class AsyncToolsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             tools.delete,
-        )
-        self.count = async_to_streamed_response_wrapper(
-            tools.count,
         )
         self.modify = async_to_streamed_response_wrapper(
             tools.modify,
