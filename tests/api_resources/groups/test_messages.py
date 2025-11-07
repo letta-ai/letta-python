@@ -545,6 +545,7 @@ class TestMessages:
                 }
             ],
             stream_tokens=True,
+            streaming=True,
             use_assistant_message=True,
         )
         message_stream.response.close()
@@ -1112,6 +1113,7 @@ class TestAsyncMessages:
                 }
             ],
             stream_tokens=True,
+            streaming=True,
             use_assistant_message=True,
         )
         await message_stream.response.aclose()
