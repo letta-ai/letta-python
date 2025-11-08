@@ -334,7 +334,9 @@ Types:
 ```python
 from letta_client.types import (
     EmbeddingConfig,
+    EmbeddingModel,
     LlmConfig,
+    Model,
     ProviderCategory,
     ProviderType,
     ModelListResponse,

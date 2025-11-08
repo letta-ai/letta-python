@@ -5,6 +5,7 @@ from __future__ import annotations
 from .step import Step as Step
 from .tool import Tool as Tool
 from .group import Group as Group
+from .model import Model as Model
 from .folder import Folder as Folder
 from .archive import Archive as Archive
 from .identity import Identity as Identity
@@ -21,6 +22,7 @@ from .init_tool_rule import InitToolRule as InitToolRule
 from .provider_trace import ProviderTrace as ProviderTrace
 from .sse_mcp_server import SseMcpServer as SseMcpServer
 from .child_tool_rule import ChildToolRule as ChildToolRule
+from .embedding_model import EmbeddingModel as EmbeddingModel
 from .health_response import HealthResponse as HealthResponse
 from .npm_requirement import NpmRequirement as NpmRequirement
 from .pip_requirement import PipRequirement as PipRequirement
