@@ -158,6 +158,9 @@ class ModelSettings(BaseModel):
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
 
 ResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],

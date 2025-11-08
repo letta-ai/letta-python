@@ -160,6 +160,9 @@ class ModelSettings(TypedDict, total=False):
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
