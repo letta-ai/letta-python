@@ -268,7 +268,7 @@ class AgentsResource(SyncAPIResource):
 
           model: The model handle for the agent to use (format: provider/model-name).
 
-          model_settings: Schema for defining settings for a model
+          model_settings: The model settings for the agent.
 
           name: The name of the agent.
 
@@ -837,7 +837,7 @@ class AgentsResource(SyncAPIResource):
 
           model: The model handle used by the agent (format: provider/model-name).
 
-          model_settings: Schema for defining settings for a model
+          model_settings: The model settings for the agent.
 
           name: The name of the agent.
 
@@ -1100,7 +1100,7 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           model: The model handle for the agent to use (format: provider/model-name).
 
-          model_settings: Schema for defining settings for a model
+          model_settings: The model settings for the agent.
 
           name: The name of the agent.
 
@@ -1669,7 +1669,7 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           model: The model handle used by the agent (format: provider/model-name).
 
-          model_settings: Schema for defining settings for a model
+          model_settings: The model settings for the agent.
 
           name: The name of the agent.
 
