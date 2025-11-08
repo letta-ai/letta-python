@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.0-alpha.17 (2025-11-08)
+
+Full Changelog: [v1.0.0-alpha.16...v1.0.0-alpha.17](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.16...v1.0.0-alpha.17)
+
+### Features
+
+* add model settings schema to stainless [LET-5976] ([69bfb1c](https://github.com/letta-ai/letta-python/commit/69bfb1c79aa585199c916ee3fce16fa061455f6a))
+* chore; regen ([72d9f8f](https://github.com/letta-ai/letta-python/commit/72d9f8fe99bced01c266c3d7273db2b5918fa912))
+* split up handle and `model_settings` ([c5ada9d](https://github.com/letta-ai/letta-python/commit/c5ada9de94ff2c33171c6db4e0676548f1b6186f))
+
+
+### Chores
+
+* add model and embedding models ([5f488eb](https://github.com/letta-ai/letta-python/commit/5f488eb7206121076b08dd78725d8834f1aab5ad))
+
 ## 1.0.0-alpha.16 (2025-11-07)
 
 Full Changelog: [v1.0.0-alpha.15...v1.0.0-alpha.16](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.15...v1.0.0-alpha.16)
