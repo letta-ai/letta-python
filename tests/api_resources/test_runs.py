@@ -73,14 +73,14 @@ class TestRuns:
             active=True,
             after="after",
             agent_id="agent_id",
-            agent_ids=["string"],
+            agent_ids=["string", "string"],
             ascending=True,
             background=True,
             before="before",
             limit=1000,
             order="asc",
             order_by="created_at",
-            statuses=["string"],
+            statuses=["string", "string"],
             stop_reason="end_turn",
         )
         assert_matches_type(SyncArrayPage[Run], run, path=["response"])
@@ -168,14 +168,14 @@ class TestAsyncRuns:
             active=True,
             after="after",
             agent_id="agent_id",
-            agent_ids=["string"],
+            agent_ids=["string", "string"],
             ascending=True,
             background=True,
             before="before",
             limit=1000,
             order="asc",
             order_by="created_at",
-            statuses=["string"],
+            statuses=["string", "string"],
             stop_reason="end_turn",
         )
         assert_matches_type(AsyncArrayPage[Run], run, path=["response"])

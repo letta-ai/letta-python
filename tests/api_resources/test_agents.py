@@ -204,7 +204,7 @@ class TestAgents:
         agent = client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             include=["agent.blocks"],
-            include_relationships=["string"],
+            include_relationships=["string", "string"],
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -256,10 +256,10 @@ class TestAgents:
             ascending=True,
             base_template_id="base_template_id",
             before="before",
-            identifier_keys=["string"],
+            identifier_keys=["string", "string"],
             identity_id="identity_id",
             include=["agent.blocks"],
-            include_relationships=["string"],
+            include_relationships=["string", "string"],
             last_stop_reason="end_turn",
             limit=0,
             match_all_tags=True,
@@ -269,7 +269,7 @@ class TestAgents:
             project_id="project_id",
             query_text="query_text",
             sort_by="sort_by",
-            tags=["string"],
+            tags=["string", "string"],
             template_id="template_id",
         )
         assert_matches_type(SyncArrayPage[AgentState], agent, path=["response"])
@@ -765,7 +765,7 @@ class TestAsyncAgents:
         agent = await async_client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             include=["agent.blocks"],
-            include_relationships=["string"],
+            include_relationships=["string", "string"],
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -817,10 +817,10 @@ class TestAsyncAgents:
             ascending=True,
             base_template_id="base_template_id",
             before="before",
-            identifier_keys=["string"],
+            identifier_keys=["string", "string"],
             identity_id="identity_id",
             include=["agent.blocks"],
-            include_relationships=["string"],
+            include_relationships=["string", "string"],
             last_stop_reason="end_turn",
             limit=0,
             match_all_tags=True,
@@ -830,7 +830,7 @@ class TestAsyncAgents:
             project_id="project_id",
             query_text="query_text",
             sort_by="sort_by",
-            tags=["string"],
+            tags=["string", "string"],
             template_id="template_id",
         )
         assert_matches_type(AsyncArrayPage[AgentState], agent, path=["response"])
