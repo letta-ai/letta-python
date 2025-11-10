@@ -82,8 +82,8 @@ class TestSteps:
             order_by="created_at",
             project_id="project_id",
             start_date="start_date",
-            tags=["string"],
-            trace_ids=["string"],
+            tags=["string", "string"],
+            trace_ids=["string", "string"],
         )
         assert_matches_type(SyncArrayPage[Step], step, path=["response"])
 
@@ -179,8 +179,8 @@ class TestAsyncSteps:
             order_by="created_at",
             project_id="project_id",
             start_date="start_date",
-            tags=["string"],
-            trace_ids=["string"],
+            tags=["string", "string"],
+            trace_ids=["string", "string"],
         )
         assert_matches_type(AsyncArrayPage[Step], step, path=["response"])
 

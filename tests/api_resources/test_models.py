@@ -27,7 +27,7 @@ class TestModels:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         model = client.models.list(
-            provider_category=["base"],
+            provider_category=["base", "byok"],
             provider_name="provider_name",
             provider_type="anthropic",
         )
@@ -71,7 +71,7 @@ class TestAsyncModels:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         model = await async_client.models.list(
-            provider_category=["base"],
+            provider_category=["base", "byok"],
             provider_name="provider_name",
             provider_type="anthropic",
         )

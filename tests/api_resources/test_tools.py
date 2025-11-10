@@ -137,16 +137,16 @@ class TestTools:
         tool = client.tools.list(
             after="after",
             before="before",
-            exclude_tool_types=["string"],
+            exclude_tool_types=["string", "string"],
             limit=0,
             name="name",
-            names=["string"],
+            names=["string", "string"],
             order="asc",
             order_by="created_at",
             return_only_letta_tools=True,
             search="search",
-            tool_ids=["string"],
-            tool_types=["string"],
+            tool_ids=["string", "string"],
+            tool_types=["string", "string"],
         )
         assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
@@ -498,16 +498,16 @@ class TestAsyncTools:
         tool = await async_client.tools.list(
             after="after",
             before="before",
-            exclude_tool_types=["string"],
+            exclude_tool_types=["string", "string"],
             limit=0,
             name="name",
-            names=["string"],
+            names=["string", "string"],
             order="asc",
             order_by="created_at",
             return_only_letta_tools=True,
             search="search",
-            tool_ids=["string"],
-            tool_types=["string"],
+            tool_ids=["string", "string"],
+            tool_types=["string", "string"],
         )
         assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
