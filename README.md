@@ -160,8 +160,7 @@ from letta_client import Letta
 
 client = Letta()
 
-client.folders.files.upload(
-    folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+client.agents.import_file(
     file=Path("/path/to/file"),
 )
 ```
