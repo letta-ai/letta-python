@@ -23,7 +23,7 @@ from letta_client._types import Omit
 from letta_client._utils import asyncify
 from letta_client._models import BaseModel, FinalRequestOptions
 from letta_client._streaming import Stream, AsyncStream
-from letta_client._exceptions import LettaError, APIStatusError, APITimeoutError, APIResponseValidationError
+from letta_client._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from letta_client._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -350,10 +350,19 @@ class TestLetta:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(LettaError):
-            with update_env(**{"LETTA_API_KEY": Omit()}):
-                client2 = Letta(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
+        with update_env(**{"LETTA_API_KEY": Omit()}):
+            client2 = Letta(base_url=base_url, api_key=None, _strict_response_validation=True)
+
+        with pytest.raises(
+            TypeError,
+            match="Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted",
+        ):
+            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+
+        request2 = client2._build_request(
+            FinalRequestOptions(method="get", url="/foo", headers={"Authorization": Omit()})
+        )
+        assert request2.headers.get("Authorization") is None
 
     def test_default_query_option(self) -> None:
         client = Letta(
@@ -1225,10 +1234,19 @@ class TestAsyncLetta:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(LettaError):
-            with update_env(**{"LETTA_API_KEY": Omit()}):
-                client2 = AsyncLetta(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
+        with update_env(**{"LETTA_API_KEY": Omit()}):
+            client2 = AsyncLetta(base_url=base_url, api_key=None, _strict_response_validation=True)
+
+        with pytest.raises(
+            TypeError,
+            match="Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted",
+        ):
+            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+
+        request2 = client2._build_request(
+            FinalRequestOptions(method="get", url="/foo", headers={"Authorization": Omit()})
+        )
+        assert request2.headers.get("Authorization") is None
 
     async def test_default_query_option(self) -> None:
         client = AsyncLetta(

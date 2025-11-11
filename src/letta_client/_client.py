@@ -32,7 +32,7 @@ from ._response import (
 )
 from .resources import tags, tools
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import LettaError, APIStatusError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -90,7 +90,7 @@ class Letta(SyncAPIClient):
     with_streaming_response: LettaWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
     project_id: str | None
     project: str | None
 
@@ -128,10 +128,6 @@ class Letta(SyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("LETTA_API_KEY")
-        if api_key is None:
-            raise LettaError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the LETTA_API_KEY environment variable"
-            )
         self.api_key = api_key
 
         self.project_id = project_id
@@ -203,6 +199,8 @@ class Letta(SyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -215,6 +213,17 @@ class Letta(SyncAPIClient):
             "X-Project": self.project if self.project is not None else Omit(),
             **self._custom_headers,
         }
+
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+        )
 
     def copy(
         self,
@@ -345,7 +354,7 @@ class AsyncLetta(AsyncAPIClient):
     with_streaming_response: AsyncLettaWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
     project_id: str | None
     project: str | None
 
@@ -383,10 +392,6 @@ class AsyncLetta(AsyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("LETTA_API_KEY")
-        if api_key is None:
-            raise LettaError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the LETTA_API_KEY environment variable"
-            )
         self.api_key = api_key
 
         self.project_id = project_id
@@ -458,6 +463,8 @@ class AsyncLetta(AsyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -470,6 +477,17 @@ class AsyncLetta(AsyncAPIClient):
             "X-Project": self.project if self.project is not None else Omit(),
             **self._custom_headers,
         }
+
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+        )
 
     def copy(
         self,
