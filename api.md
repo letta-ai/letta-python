@@ -248,8 +248,15 @@ Methods:
 
 ## Passages
 
+Types:
+
+```python
+from letta_client.types.archives import PassageCreateResponse
+```
+
 Methods:
 
+- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">create</a>(archive_id, \*\*<a href="src/letta_client/types/archives/passage_create_params.py">params</a>) -> <a href="./src/letta_client/types/archives/passage_create_response.py">PassageCreateResponse</a></code>
 - <code title="delete /v1/archives/{archive_id}/passages/{passage_id}">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">delete</a>(passage_id, \*, archive_id) -> None</code>
 
 # Folders

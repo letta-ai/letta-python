@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Dict, Optional
+
 import httpx
 
-from ..._types import Body, Query, Headers, NoneType, NotGiven, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -14,6 +17,8 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
+from ...types.archives import passage_create_params
+from ...types.archives.passage_create_response import PassageCreateResponse
 
 __all__ = ["PassagesResource", "AsyncPassagesResource"]
 
@@ -37,6 +42,60 @@ class PassagesResource(SyncAPIResource):
         For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return PassagesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        archive_id: str,
+        *,
+        text: str,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageCreateResponse:
+        """
+        Create a new passage in an archive.
+
+        This adds a passage to the archive and creates embeddings for vector storage.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          text: The text content of the passage
+
+          metadata: Optional metadata for the passage
+
+          tags: Optional tags for categorizing the passage
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return self._post(
+            f"/v1/archives/{archive_id}/passages",
+            body=maybe_transform(
+                {
+                    "text": text,
+                    "metadata": metadata,
+                    "tags": tags,
+                },
+                passage_create_params.PassageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PassageCreateResponse,
+        )
 
     def delete(
         self,
@@ -103,6 +162,60 @@ class AsyncPassagesResource(AsyncAPIResource):
         """
         return AsyncPassagesResourceWithStreamingResponse(self)
 
+    async def create(
+        self,
+        archive_id: str,
+        *,
+        text: str,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageCreateResponse:
+        """
+        Create a new passage in an archive.
+
+        This adds a passage to the archive and creates embeddings for vector storage.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          text: The text content of the passage
+
+          metadata: Optional metadata for the passage
+
+          tags: Optional tags for categorizing the passage
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return await self._post(
+            f"/v1/archives/{archive_id}/passages",
+            body=await async_maybe_transform(
+                {
+                    "text": text,
+                    "metadata": metadata,
+                    "tags": tags,
+                },
+                passage_create_params.PassageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PassageCreateResponse,
+        )
+
     async def delete(
         self,
         passage_id: str,
@@ -152,6 +265,9 @@ class PassagesResourceWithRawResponse:
     def __init__(self, passages: PassagesResource) -> None:
         self._passages = passages
 
+        self.create = to_raw_response_wrapper(
+            passages.create,
+        )
         self.delete = to_raw_response_wrapper(
             passages.delete,
         )
@@ -161,6 +277,9 @@ class AsyncPassagesResourceWithRawResponse:
     def __init__(self, passages: AsyncPassagesResource) -> None:
         self._passages = passages
 
+        self.create = async_to_raw_response_wrapper(
+            passages.create,
+        )
         self.delete = async_to_raw_response_wrapper(
             passages.delete,
         )
@@ -170,6 +289,9 @@ class PassagesResourceWithStreamingResponse:
     def __init__(self, passages: PassagesResource) -> None:
         self._passages = passages
 
+        self.create = to_streamed_response_wrapper(
+            passages.create,
+        )
         self.delete = to_streamed_response_wrapper(
             passages.delete,
         )
@@ -179,6 +301,9 @@ class AsyncPassagesResourceWithStreamingResponse:
     def __init__(self, passages: AsyncPassagesResource) -> None:
         self._passages = passages
 
+        self.create = async_to_streamed_response_wrapper(
+            passages.create,
+        )
         self.delete = async_to_streamed_response_wrapper(
             passages.delete,
         )
