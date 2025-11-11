@@ -48,6 +48,14 @@ from .folders import (
     FoldersResourceWithStreamingResponse,
     AsyncFoldersResourceWithStreamingResponse,
 )
+from .archives import (
+    ArchivesResource,
+    AsyncArchivesResource,
+    ArchivesResourceWithRawResponse,
+    AsyncArchivesResourceWithRawResponse,
+    ArchivesResourceWithStreamingResponse,
+    AsyncArchivesResourceWithStreamingResponse,
+)
 from .messages import (
     MessagesResource,
     AsyncMessagesResource,
@@ -55,6 +63,14 @@ from .messages import (
     AsyncMessagesResourceWithRawResponse,
     MessagesResourceWithStreamingResponse,
     AsyncMessagesResourceWithStreamingResponse,
+)
+from .identities import (
+    IdentitiesResource,
+    AsyncIdentitiesResource,
+    IdentitiesResourceWithRawResponse,
+    AsyncIdentitiesResourceWithRawResponse,
+    IdentitiesResourceWithStreamingResponse,
+    AsyncIdentitiesResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -94,6 +110,18 @@ __all__ = [
     "AsyncGroupsResourceWithRawResponse",
     "GroupsResourceWithStreamingResponse",
     "AsyncGroupsResourceWithStreamingResponse",
+    "ArchivesResource",
+    "AsyncArchivesResource",
+    "ArchivesResourceWithRawResponse",
+    "AsyncArchivesResourceWithRawResponse",
+    "ArchivesResourceWithStreamingResponse",
+    "AsyncArchivesResourceWithStreamingResponse",
+    "IdentitiesResource",
+    "AsyncIdentitiesResource",
+    "IdentitiesResourceWithRawResponse",
+    "AsyncIdentitiesResourceWithRawResponse",
+    "IdentitiesResourceWithStreamingResponse",
+    "AsyncIdentitiesResourceWithStreamingResponse",
     "AgentsResource",
     "AsyncAgentsResource",
     "AgentsResourceWithRawResponse",
