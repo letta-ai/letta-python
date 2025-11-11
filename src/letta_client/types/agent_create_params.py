@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .agent_type import AgentType
@@ -26,30 +26,32 @@ from .required_before_exit_tool_rule_param import RequiredBeforeExitToolRulePara
 
 __all__ = [
     "AgentCreateParams",
-    "ModelSettings",
-    "ModelSettingsOpenAIModelSettings",
-    "ModelSettingsOpenAIModelSettingsReasoning",
-    "ModelSettingsOpenAIModelSettingsResponseFormat",
-    "ModelSettingsAnthropicModelSettings",
-    "ModelSettingsAnthropicModelSettingsThinking",
-    "ModelSettingsGoogleAIModelSettings",
-    "ModelSettingsGoogleAIModelSettingsResponseSchema",
-    "ModelSettingsGoogleAIModelSettingsThinkingConfig",
-    "ModelSettingsGoogleVertexModelSettings",
-    "ModelSettingsGoogleVertexModelSettingsResponseSchema",
-    "ModelSettingsGoogleVertexModelSettingsThinkingConfig",
-    "ModelSettingsAzureModelSettings",
-    "ModelSettingsAzureModelSettingsResponseFormat",
-    "ModelSettingsXaiModelSettings",
-    "ModelSettingsXaiModelSettingsResponseFormat",
-    "ModelSettingsGroqModelSettings",
-    "ModelSettingsGroqModelSettingsResponseFormat",
-    "ModelSettingsDeepseekModelSettings",
-    "ModelSettingsDeepseekModelSettingsResponseFormat",
-    "ModelSettingsTogetherModelSettings",
-    "ModelSettingsTogetherModelSettingsResponseFormat",
-    "ModelSettingsBedrockModelSettings",
-    "ModelSettingsBedrockModelSettingsResponseFormat",
+    "Embedding",
+    "EmbeddingEmbeddingModelSettings",
+    "Model",
+    "ModelOpenAIModelSettings",
+    "ModelOpenAIModelSettingsReasoning",
+    "ModelOpenAIModelSettingsResponseFormat",
+    "ModelAnthropicModelSettings",
+    "ModelAnthropicModelSettingsThinking",
+    "ModelGoogleAIModelSettings",
+    "ModelGoogleAIModelSettingsResponseSchema",
+    "ModelGoogleAIModelSettingsThinkingConfig",
+    "ModelGoogleVertexModelSettings",
+    "ModelGoogleVertexModelSettingsResponseSchema",
+    "ModelGoogleVertexModelSettingsThinkingConfig",
+    "ModelAzureModelSettings",
+    "ModelAzureModelSettingsResponseFormat",
+    "ModelXaiModelSettings",
+    "ModelXaiModelSettingsResponseFormat",
+    "ModelGroqModelSettings",
+    "ModelGroqModelSettingsResponseFormat",
+    "ModelDeepseekModelSettings",
+    "ModelDeepseekModelSettingsResponseFormat",
+    "ModelTogetherModelSettings",
+    "ModelTogetherModelSettingsResponseFormat",
+    "ModelBedrockModelSettings",
+    "ModelBedrockModelSettingsResponseFormat",
     "ResponseFormat",
     "ToolRule",
 ]
@@ -71,8 +73,11 @@ class AgentCreateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the agent."""
 
-    embedding: Optional[str]
-    """The embedding model handle used by the agent (format: provider/model-name)."""
+    embedding: Optional[Embedding]
+    """
+    The embedding configuration handle used by the agent, specified in the format
+    provider/model-name.
+    """
 
     embedding_chunk_size: Optional[int]
     """Deprecated: No longer used. The embedding chunk size used by the agent."""
@@ -162,11 +167,11 @@ class AgentCreateParams(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
     """The metadata of the agent."""
 
-    model: Optional[str]
-    """The model handle for the agent to use (format: provider/model-name)."""
-
-    model_settings: Optional[ModelSettings]
-    """The model settings for the agent."""
+    model: Optional[Model]
+    """
+    The model handle or model settings for the agent to use, specified either by a
+    handle or an object. See the model schema for more information.
+    """
 
     name: str
     """The name of the agent."""
@@ -239,17 +244,31 @@ class AgentCreateParams(TypedDict, total=False):
     """The tools used by the agent."""
 
 
-class ModelSettingsOpenAIModelSettingsReasoning(TypedDict, total=False):
+class EmbeddingEmbeddingModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
+    provider: Required[Literal["openai", "ollama"]]
+    """The provider of the model."""
+
+
+Embedding: TypeAlias = Union[str, EmbeddingEmbeddingModelSettings]
+
+
+class ModelOpenAIModelSettingsReasoning(TypedDict, total=False):
     reasoning_effort: Literal["minimal", "low", "medium", "high"]
     """The reasoning effort to use when generating text reasoning models"""
 
 
-ModelSettingsOpenAIModelSettingsResponseFormat: TypeAlias = Union[
+ModelOpenAIModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsOpenAIModelSettings(TypedDict, total=False):
+class ModelOpenAIModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -259,17 +278,17 @@ class ModelSettingsOpenAIModelSettings(TypedDict, total=False):
     provider: Literal["openai"]
     """The provider of the model."""
 
-    reasoning: ModelSettingsOpenAIModelSettingsReasoning
+    reasoning: ModelOpenAIModelSettingsReasoning
     """The reasoning configuration for the model."""
 
-    response_format: Optional[ModelSettingsOpenAIModelSettingsResponseFormat]
+    response_format: Optional[ModelOpenAIModelSettingsResponseFormat]
     """The response format for the model."""
 
     temperature: float
     """The temperature of the model."""
 
 
-class ModelSettingsAnthropicModelSettingsThinking(TypedDict, total=False):
+class ModelAnthropicModelSettingsThinking(TypedDict, total=False):
     budget_tokens: int
     """The maximum number of tokens the model can use for extended thinking."""
 
@@ -277,7 +296,10 @@ class ModelSettingsAnthropicModelSettingsThinking(TypedDict, total=False):
     """The type of thinking to use."""
 
 
-class ModelSettingsAnthropicModelSettings(TypedDict, total=False):
+class ModelAnthropicModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -290,19 +312,19 @@ class ModelSettingsAnthropicModelSettings(TypedDict, total=False):
     temperature: float
     """The temperature of the model."""
 
-    thinking: ModelSettingsAnthropicModelSettingsThinking
+    thinking: ModelAnthropicModelSettingsThinking
     """The thinking configuration for the model."""
 
     verbosity: Optional[Literal["low", "medium", "high"]]
     """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
-ModelSettingsGoogleAIModelSettingsResponseSchema: TypeAlias = Union[
+ModelGoogleAIModelSettingsResponseSchema: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsGoogleAIModelSettingsThinkingConfig(TypedDict, total=False):
+class ModelGoogleAIModelSettingsThinkingConfig(TypedDict, total=False):
     include_thoughts: bool
     """Whether to include thoughts in the model's response."""
 
@@ -310,7 +332,10 @@ class ModelSettingsGoogleAIModelSettingsThinkingConfig(TypedDict, total=False):
     """The thinking budget for the model."""
 
 
-class ModelSettingsGoogleAIModelSettings(TypedDict, total=False):
+class ModelGoogleAIModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -320,22 +345,22 @@ class ModelSettingsGoogleAIModelSettings(TypedDict, total=False):
     provider: Literal["google_ai"]
     """The provider of the model."""
 
-    response_schema: Optional[ModelSettingsGoogleAIModelSettingsResponseSchema]
+    response_schema: Optional[ModelGoogleAIModelSettingsResponseSchema]
     """The response schema for the model."""
 
     temperature: float
     """The temperature of the model."""
 
-    thinking_config: ModelSettingsGoogleAIModelSettingsThinkingConfig
+    thinking_config: ModelGoogleAIModelSettingsThinkingConfig
     """The thinking configuration for the model."""
 
 
-ModelSettingsGoogleVertexModelSettingsResponseSchema: TypeAlias = Union[
+ModelGoogleVertexModelSettingsResponseSchema: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsGoogleVertexModelSettingsThinkingConfig(TypedDict, total=False):
+class ModelGoogleVertexModelSettingsThinkingConfig(TypedDict, total=False):
     include_thoughts: bool
     """Whether to include thoughts in the model's response."""
 
@@ -343,7 +368,10 @@ class ModelSettingsGoogleVertexModelSettingsThinkingConfig(TypedDict, total=Fals
     """The thinking budget for the model."""
 
 
-class ModelSettingsGoogleVertexModelSettings(TypedDict, total=False):
+class ModelGoogleVertexModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -353,22 +381,25 @@ class ModelSettingsGoogleVertexModelSettings(TypedDict, total=False):
     provider: Literal["google_vertex"]
     """The provider of the model."""
 
-    response_schema: Optional[ModelSettingsGoogleVertexModelSettingsResponseSchema]
+    response_schema: Optional[ModelGoogleVertexModelSettingsResponseSchema]
     """The response schema for the model."""
 
     temperature: float
     """The temperature of the model."""
 
-    thinking_config: ModelSettingsGoogleVertexModelSettingsThinkingConfig
+    thinking_config: ModelGoogleVertexModelSettingsThinkingConfig
     """The thinking configuration for the model."""
 
 
-ModelSettingsAzureModelSettingsResponseFormat: TypeAlias = Union[
+ModelAzureModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsAzureModelSettings(TypedDict, total=False):
+class ModelAzureModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -378,19 +409,22 @@ class ModelSettingsAzureModelSettings(TypedDict, total=False):
     provider: Literal["azure"]
     """The provider of the model."""
 
-    response_format: Optional[ModelSettingsAzureModelSettingsResponseFormat]
+    response_format: Optional[ModelAzureModelSettingsResponseFormat]
     """The response format for the model."""
 
     temperature: float
     """The temperature of the model."""
 
 
-ModelSettingsXaiModelSettingsResponseFormat: TypeAlias = Union[
+ModelXaiModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsXaiModelSettings(TypedDict, total=False):
+class ModelXaiModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -400,19 +434,22 @@ class ModelSettingsXaiModelSettings(TypedDict, total=False):
     provider: Literal["xai"]
     """The provider of the model."""
 
-    response_format: Optional[ModelSettingsXaiModelSettingsResponseFormat]
+    response_format: Optional[ModelXaiModelSettingsResponseFormat]
     """The response format for the model."""
 
     temperature: float
     """The temperature of the model."""
 
 
-ModelSettingsGroqModelSettingsResponseFormat: TypeAlias = Union[
+ModelGroqModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsGroqModelSettings(TypedDict, total=False):
+class ModelGroqModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -422,19 +459,22 @@ class ModelSettingsGroqModelSettings(TypedDict, total=False):
     provider: Literal["groq"]
     """The provider of the model."""
 
-    response_format: Optional[ModelSettingsGroqModelSettingsResponseFormat]
+    response_format: Optional[ModelGroqModelSettingsResponseFormat]
     """The response format for the model."""
 
     temperature: float
     """The temperature of the model."""
 
 
-ModelSettingsDeepseekModelSettingsResponseFormat: TypeAlias = Union[
+ModelDeepseekModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsDeepseekModelSettings(TypedDict, total=False):
+class ModelDeepseekModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -444,19 +484,22 @@ class ModelSettingsDeepseekModelSettings(TypedDict, total=False):
     provider: Literal["deepseek"]
     """The provider of the model."""
 
-    response_format: Optional[ModelSettingsDeepseekModelSettingsResponseFormat]
+    response_format: Optional[ModelDeepseekModelSettingsResponseFormat]
     """The response format for the model."""
 
     temperature: float
     """The temperature of the model."""
 
 
-ModelSettingsTogetherModelSettingsResponseFormat: TypeAlias = Union[
+ModelTogetherModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsTogetherModelSettings(TypedDict, total=False):
+class ModelTogetherModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -466,19 +509,22 @@ class ModelSettingsTogetherModelSettings(TypedDict, total=False):
     provider: Literal["together"]
     """The provider of the model."""
 
-    response_format: Optional[ModelSettingsTogetherModelSettingsResponseFormat]
+    response_format: Optional[ModelTogetherModelSettingsResponseFormat]
     """The response format for the model."""
 
     temperature: float
     """The temperature of the model."""
 
 
-ModelSettingsBedrockModelSettingsResponseFormat: TypeAlias = Union[
+ModelBedrockModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
 
 
-class ModelSettingsBedrockModelSettings(TypedDict, total=False):
+class ModelBedrockModelSettings(TypedDict, total=False):
+    model: Required[str]
+    """The name of the model."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -488,24 +534,25 @@ class ModelSettingsBedrockModelSettings(TypedDict, total=False):
     provider: Literal["bedrock"]
     """The provider of the model."""
 
-    response_format: Optional[ModelSettingsBedrockModelSettingsResponseFormat]
+    response_format: Optional[ModelBedrockModelSettingsResponseFormat]
     """The response format for the model."""
 
     temperature: float
     """The temperature of the model."""
 
 
-ModelSettings: TypeAlias = Union[
-    ModelSettingsOpenAIModelSettings,
-    ModelSettingsAnthropicModelSettings,
-    ModelSettingsGoogleAIModelSettings,
-    ModelSettingsGoogleVertexModelSettings,
-    ModelSettingsAzureModelSettings,
-    ModelSettingsXaiModelSettings,
-    ModelSettingsGroqModelSettings,
-    ModelSettingsDeepseekModelSettings,
-    ModelSettingsTogetherModelSettings,
-    ModelSettingsBedrockModelSettings,
+Model: TypeAlias = Union[
+    str,
+    ModelOpenAIModelSettings,
+    ModelAnthropicModelSettings,
+    ModelGoogleAIModelSettings,
+    ModelGoogleVertexModelSettings,
+    ModelAzureModelSettings,
+    ModelXaiModelSettings,
+    ModelGroqModelSettings,
+    ModelDeepseekModelSettings,
+    ModelTogetherModelSettings,
+    ModelBedrockModelSettings,
 ]
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
