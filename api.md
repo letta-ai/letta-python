@@ -168,6 +168,20 @@ Methods:
 
 - <code title="get /v1/agents/{agent_id}/groups">client.agents.groups.<a href="./src/letta_client/resources/agents/groups.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/group_list_params.py">params</a>) -> <a href="./src/letta_client/types/group.py">SyncArrayPage[Group]</a></code>
 
+## Archives
+
+Methods:
+
+- <code title="patch /v1/agents/{agent_id}/archives/attach/{archive_id}">client.agents.archives.<a href="./src/letta_client/resources/agents/archives.py">attach</a>(archive_id, \*, agent_id) -> object</code>
+- <code title="patch /v1/agents/{agent_id}/archives/detach/{archive_id}">client.agents.archives.<a href="./src/letta_client/resources/agents/archives.py">detach</a>(archive_id, \*, agent_id) -> object</code>
+
+## Identities
+
+Methods:
+
+- <code title="patch /v1/agents/{agent_id}/identities/attach/{identity_id}">client.agents.identities.<a href="./src/letta_client/resources/agents/identities.py">attach</a>(identity_id, \*, agent_id) -> object</code>
+- <code title="patch /v1/agents/{agent_id}/identities/detach/{identity_id}">client.agents.identities.<a href="./src/letta_client/resources/agents/identities.py">detach</a>(identity_id, \*, agent_id) -> object</code>
+
 # Tools
 
 Types:
