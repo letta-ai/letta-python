@@ -240,11 +240,17 @@ from letta_client.types import Archive, VectorDBProvider
 
 Methods:
 
-- <code title="post /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">create</a>(\*\*<a href="src/letta_client/types/archive_create_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
-- <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">retrieve</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
-- <code title="get /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives.py">list</a>(\*\*<a href="src/letta_client/types/archive_list_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">SyncArrayPage[Archive]</a></code>
-- <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">delete</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
-- <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives.py">modify</a>(archive_id, \*\*<a href="src/letta_client/types/archive_modify_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
+- <code title="post /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives/archives.py">create</a>(\*\*<a href="src/letta_client/types/archive_create_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
+- <code title="get /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives/archives.py">retrieve</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
+- <code title="get /v1/archives/">client.archives.<a href="./src/letta_client/resources/archives/archives.py">list</a>(\*\*<a href="src/letta_client/types/archive_list_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">SyncArrayPage[Archive]</a></code>
+- <code title="delete /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives/archives.py">delete</a>(archive_id) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
+- <code title="patch /v1/archives/{archive_id}">client.archives.<a href="./src/letta_client/resources/archives/archives.py">modify</a>(archive_id, \*\*<a href="src/letta_client/types/archive_modify_params.py">params</a>) -> <a href="./src/letta_client/types/archive.py">Archive</a></code>
+
+## Passages
+
+Methods:
+
+- <code title="delete /v1/archives/{archive_id}/passages/{passage_id}">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">delete</a>(passage_id, \*, archive_id) -> None</code>
 
 # Folders
 

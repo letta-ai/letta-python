@@ -30,7 +30,7 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .resources import tags, tools, archives
+from .resources import tags, tools
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import LettaError, APIStatusError
 from ._base_client import (
@@ -47,6 +47,7 @@ from .resources.groups import groups
 from .resources.models import models
 from .resources.batches import batches
 from .resources.folders import folders
+from .resources.archives import archives
 from .resources.templates import templates
 from .resources.identities import identities
 from .resources.mcp_servers import mcp_servers
