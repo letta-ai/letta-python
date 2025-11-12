@@ -45,7 +45,7 @@ from ...types import (
     StopReasonType,
     agent_list_params,
     agent_create_params,
-    agent_modify_params,
+    agent_update_params,
     agent_retrieve_params,
     agent_export_file_params,
     agent_import_file_params,
@@ -270,6 +270,11 @@ class AgentsResource(SyncAPIResource):
 
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
 
+              .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+              return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+              OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+              or Model.\\__from_llm_config() method.
+
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
 
@@ -465,6 +470,199 @@ class AgentsResource(SyncAPIResource):
                     },
                     agent_retrieve_params.AgentRetrieveParams,
                 ),
+            ),
+            cast_to=AgentState,
+        )
+
+    def update(
+        self,
+        agent_id: str,
+        *,
+        base_template_id: Optional[str] | Omit = omit,
+        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+        enable_sleeptime: Optional[bool] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_run_completion: Union[str, datetime, None] | Omit = omit,
+        last_run_duration_ms: Optional[int] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
+        llm_config: Optional[LlmConfigParam] | Omit = omit,
+        max_files_open: Optional[int] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        message_buffer_autoclear: Optional[bool] | Omit = omit,
+        message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_update_params.ModelSettings] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        parallel_tool_calls: Optional[bool] | Omit = omit,
+        per_file_view_window_char_limit: Optional[int] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        reasoning: Optional[bool] | Omit = omit,
+        response_format: Optional[agent_update_params.ResponseFormat] | Omit = omit,
+        secrets: Optional[Dict[str, str]] | Omit = omit,
+        source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        system: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        timezone: Optional[str] | Omit = omit,
+        tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
+        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
+        """
+        Update an existing agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          base_template_id: The base template id of the agent.
+
+          block_ids: The ids of the blocks used by the agent.
+
+          context_window_limit: The context window limit used by the agent.
+
+          description: The description of the agent.
+
+          embedding: The embedding model handle used by the agent (format: provider/model-name).
+
+          embedding_config: Configuration for embedding model connection and processing parameters.
+
+          enable_sleeptime: If set to True, memory management will move to a background agent thread.
+
+          hidden: If set to True, the agent will be hidden.
+
+          identity_ids: The ids of the identities associated with this agent.
+
+          last_run_completion: The timestamp when the agent last completed a run.
+
+          last_run_duration_ms: The duration in milliseconds of the agent's last run.
+
+          last_stop_reason: The stop reason from the agent's last run.
+
+          llm_config: Configuration for Language Model (LLM) connection and generation parameters.
+
+              .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+              return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+              OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+              or Model.\\__from_llm_config() method.
+
+          max_files_open: Maximum number of files that can be open at once for this agent. Setting this
+              too high may exceed the context window, which will break the agent.
+
+          max_tokens: Deprecated: Use `model` field to configure max output tokens instead. The
+              maximum number of tokens to generate, including reasoning step.
+
+          message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
+              will still retain state via core memory blocks and archival/recall memory). Not
+              recommended unless you have an advanced use case.
+
+          message_ids: The ids of the messages in the agent's in-context memory.
+
+          metadata: The metadata of the agent.
+
+          model: The model handle used by the agent (format: provider/model-name).
+
+          model_settings: The model settings for the agent.
+
+          name: The name of the agent.
+
+          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
+              to True, enables parallel tool calling.
+
+          per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
+              may exceed the context window, which will break the agent.
+
+          project_id: The id of the project the agent belongs to.
+
+          reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
+              reasoning for this agent.
+
+          response_format: Deprecated: Use `model` field to configure response format instead. The response
+              format for the agent.
+
+          secrets: The environment variables for tool execution specific to this agent.
+
+          source_ids: The ids of the sources used by the agent.
+
+          system: The system prompt used by the agent.
+
+          tags: The tags associated with the agent.
+
+          template_id: The id of the template the agent belongs to.
+
+          timezone: The timezone of the agent (IANA format).
+
+          tool_exec_environment_variables: Deprecated: use `secrets` field instead
+
+          tool_ids: The ids of the tools used by the agent.
+
+          tool_rules: The tool rules governing the agent.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return self._patch(
+            f"/v1/agents/{agent_id}",
+            body=maybe_transform(
+                {
+                    "base_template_id": base_template_id,
+                    "block_ids": block_ids,
+                    "context_window_limit": context_window_limit,
+                    "description": description,
+                    "embedding": embedding,
+                    "embedding_config": embedding_config,
+                    "enable_sleeptime": enable_sleeptime,
+                    "hidden": hidden,
+                    "identity_ids": identity_ids,
+                    "last_run_completion": last_run_completion,
+                    "last_run_duration_ms": last_run_duration_ms,
+                    "last_stop_reason": last_stop_reason,
+                    "llm_config": llm_config,
+                    "max_files_open": max_files_open,
+                    "max_tokens": max_tokens,
+                    "message_buffer_autoclear": message_buffer_autoclear,
+                    "message_ids": message_ids,
+                    "metadata": metadata,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "name": name,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                    "project_id": project_id,
+                    "reasoning": reasoning,
+                    "response_format": response_format,
+                    "secrets": secrets,
+                    "source_ids": source_ids,
+                    "system": system,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "timezone": timezone,
+                    "tool_exec_environment_variables": tool_exec_environment_variables,
+                    "tool_ids": tool_ids,
+                    "tool_rules": tool_rules,
+                },
+                agent_update_params.AgentUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentState,
         )
@@ -767,194 +965,6 @@ class AgentsResource(SyncAPIResource):
             cast_to=AgentImportFileResponse,
         )
 
-    def modify(
-        self,
-        agent_id: str,
-        *,
-        base_template_id: Optional[str] | Omit = omit,
-        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        context_window_limit: Optional[int] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        embedding: Optional[str] | Omit = omit,
-        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        enable_sleeptime: Optional[bool] | Omit = omit,
-        hidden: Optional[bool] | Omit = omit,
-        identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        last_run_completion: Union[str, datetime, None] | Omit = omit,
-        last_run_duration_ms: Optional[int] | Omit = omit,
-        last_stop_reason: Optional[StopReasonType] | Omit = omit,
-        llm_config: Optional[LlmConfigParam] | Omit = omit,
-        max_files_open: Optional[int] | Omit = omit,
-        max_tokens: Optional[int] | Omit = omit,
-        message_buffer_autoclear: Optional[bool] | Omit = omit,
-        message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[str] | Omit = omit,
-        model_settings: Optional[agent_modify_params.ModelSettings] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        parallel_tool_calls: Optional[bool] | Omit = omit,
-        per_file_view_window_char_limit: Optional[int] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        reasoning: Optional[bool] | Omit = omit,
-        response_format: Optional[agent_modify_params.ResponseFormat] | Omit = omit,
-        secrets: Optional[Dict[str, str]] | Omit = omit,
-        source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        system: Optional[str] | Omit = omit,
-        tags: Optional[SequenceNotStr[str]] | Omit = omit,
-        template_id: Optional[str] | Omit = omit,
-        timezone: Optional[str] | Omit = omit,
-        tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
-        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        tool_rules: Optional[Iterable[agent_modify_params.ToolRule]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
-        """
-        Update an existing agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          base_template_id: The base template id of the agent.
-
-          block_ids: The ids of the blocks used by the agent.
-
-          context_window_limit: The context window limit used by the agent.
-
-          description: The description of the agent.
-
-          embedding: The embedding model handle used by the agent (format: provider/model-name).
-
-          embedding_config: Configuration for embedding model connection and processing parameters.
-
-          enable_sleeptime: If set to True, memory management will move to a background agent thread.
-
-          hidden: If set to True, the agent will be hidden.
-
-          identity_ids: The ids of the identities associated with this agent.
-
-          last_run_completion: The timestamp when the agent last completed a run.
-
-          last_run_duration_ms: The duration in milliseconds of the agent's last run.
-
-          last_stop_reason: The stop reason from the agent's last run.
-
-          llm_config: Configuration for Language Model (LLM) connection and generation parameters.
-
-          max_files_open: Maximum number of files that can be open at once for this agent. Setting this
-              too high may exceed the context window, which will break the agent.
-
-          max_tokens: Deprecated: Use `model` field to configure max output tokens instead. The
-              maximum number of tokens to generate, including reasoning step.
-
-          message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
-              will still retain state via core memory blocks and archival/recall memory). Not
-              recommended unless you have an advanced use case.
-
-          message_ids: The ids of the messages in the agent's in-context memory.
-
-          metadata: The metadata of the agent.
-
-          model: The model handle used by the agent (format: provider/model-name).
-
-          model_settings: The model settings for the agent.
-
-          name: The name of the agent.
-
-          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
-              to True, enables parallel tool calling.
-
-          per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
-              may exceed the context window, which will break the agent.
-
-          project_id: The id of the project the agent belongs to.
-
-          reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
-              reasoning for this agent.
-
-          response_format: Deprecated: Use `model` field to configure response format instead. The response
-              format for the agent.
-
-          secrets: The environment variables for tool execution specific to this agent.
-
-          source_ids: The ids of the sources used by the agent.
-
-          system: The system prompt used by the agent.
-
-          tags: The tags associated with the agent.
-
-          template_id: The id of the template the agent belongs to.
-
-          timezone: The timezone of the agent (IANA format).
-
-          tool_exec_environment_variables: Deprecated: use `secrets` field instead
-
-          tool_ids: The ids of the tools used by the agent.
-
-          tool_rules: The tool rules governing the agent.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return self._patch(
-            f"/v1/agents/{agent_id}",
-            body=maybe_transform(
-                {
-                    "base_template_id": base_template_id,
-                    "block_ids": block_ids,
-                    "context_window_limit": context_window_limit,
-                    "description": description,
-                    "embedding": embedding,
-                    "embedding_config": embedding_config,
-                    "enable_sleeptime": enable_sleeptime,
-                    "hidden": hidden,
-                    "identity_ids": identity_ids,
-                    "last_run_completion": last_run_completion,
-                    "last_run_duration_ms": last_run_duration_ms,
-                    "last_stop_reason": last_stop_reason,
-                    "llm_config": llm_config,
-                    "max_files_open": max_files_open,
-                    "max_tokens": max_tokens,
-                    "message_buffer_autoclear": message_buffer_autoclear,
-                    "message_ids": message_ids,
-                    "metadata": metadata,
-                    "model": model,
-                    "model_settings": model_settings,
-                    "name": name,
-                    "parallel_tool_calls": parallel_tool_calls,
-                    "per_file_view_window_char_limit": per_file_view_window_char_limit,
-                    "project_id": project_id,
-                    "reasoning": reasoning,
-                    "response_format": response_format,
-                    "secrets": secrets,
-                    "source_ids": source_ids,
-                    "system": system,
-                    "tags": tags,
-                    "template_id": template_id,
-                    "timezone": timezone,
-                    "tool_exec_environment_variables": tool_exec_environment_variables,
-                    "tool_ids": tool_ids,
-                    "tool_rules": tool_rules,
-                },
-                agent_modify_params.AgentModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AgentState,
-        )
-
 
 class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
@@ -1109,6 +1119,11 @@ class AsyncAgentsResource(AsyncAPIResource):
           initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
 
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
+
+              .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+              return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+              OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+              or Model.\\__from_llm_config() method.
 
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
@@ -1305,6 +1320,199 @@ class AsyncAgentsResource(AsyncAPIResource):
                     },
                     agent_retrieve_params.AgentRetrieveParams,
                 ),
+            ),
+            cast_to=AgentState,
+        )
+
+    async def update(
+        self,
+        agent_id: str,
+        *,
+        base_template_id: Optional[str] | Omit = omit,
+        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+        enable_sleeptime: Optional[bool] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_run_completion: Union[str, datetime, None] | Omit = omit,
+        last_run_duration_ms: Optional[int] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
+        llm_config: Optional[LlmConfigParam] | Omit = omit,
+        max_files_open: Optional[int] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        message_buffer_autoclear: Optional[bool] | Omit = omit,
+        message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_update_params.ModelSettings] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        parallel_tool_calls: Optional[bool] | Omit = omit,
+        per_file_view_window_char_limit: Optional[int] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        reasoning: Optional[bool] | Omit = omit,
+        response_format: Optional[agent_update_params.ResponseFormat] | Omit = omit,
+        secrets: Optional[Dict[str, str]] | Omit = omit,
+        source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        system: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        timezone: Optional[str] | Omit = omit,
+        tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
+        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
+        """
+        Update an existing agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          base_template_id: The base template id of the agent.
+
+          block_ids: The ids of the blocks used by the agent.
+
+          context_window_limit: The context window limit used by the agent.
+
+          description: The description of the agent.
+
+          embedding: The embedding model handle used by the agent (format: provider/model-name).
+
+          embedding_config: Configuration for embedding model connection and processing parameters.
+
+          enable_sleeptime: If set to True, memory management will move to a background agent thread.
+
+          hidden: If set to True, the agent will be hidden.
+
+          identity_ids: The ids of the identities associated with this agent.
+
+          last_run_completion: The timestamp when the agent last completed a run.
+
+          last_run_duration_ms: The duration in milliseconds of the agent's last run.
+
+          last_stop_reason: The stop reason from the agent's last run.
+
+          llm_config: Configuration for Language Model (LLM) connection and generation parameters.
+
+              .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+              return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+              OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+              or Model.\\__from_llm_config() method.
+
+          max_files_open: Maximum number of files that can be open at once for this agent. Setting this
+              too high may exceed the context window, which will break the agent.
+
+          max_tokens: Deprecated: Use `model` field to configure max output tokens instead. The
+              maximum number of tokens to generate, including reasoning step.
+
+          message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
+              will still retain state via core memory blocks and archival/recall memory). Not
+              recommended unless you have an advanced use case.
+
+          message_ids: The ids of the messages in the agent's in-context memory.
+
+          metadata: The metadata of the agent.
+
+          model: The model handle used by the agent (format: provider/model-name).
+
+          model_settings: The model settings for the agent.
+
+          name: The name of the agent.
+
+          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
+              to True, enables parallel tool calling.
+
+          per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
+              may exceed the context window, which will break the agent.
+
+          project_id: The id of the project the agent belongs to.
+
+          reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
+              reasoning for this agent.
+
+          response_format: Deprecated: Use `model` field to configure response format instead. The response
+              format for the agent.
+
+          secrets: The environment variables for tool execution specific to this agent.
+
+          source_ids: The ids of the sources used by the agent.
+
+          system: The system prompt used by the agent.
+
+          tags: The tags associated with the agent.
+
+          template_id: The id of the template the agent belongs to.
+
+          timezone: The timezone of the agent (IANA format).
+
+          tool_exec_environment_variables: Deprecated: use `secrets` field instead
+
+          tool_ids: The ids of the tools used by the agent.
+
+          tool_rules: The tool rules governing the agent.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return await self._patch(
+            f"/v1/agents/{agent_id}",
+            body=await async_maybe_transform(
+                {
+                    "base_template_id": base_template_id,
+                    "block_ids": block_ids,
+                    "context_window_limit": context_window_limit,
+                    "description": description,
+                    "embedding": embedding,
+                    "embedding_config": embedding_config,
+                    "enable_sleeptime": enable_sleeptime,
+                    "hidden": hidden,
+                    "identity_ids": identity_ids,
+                    "last_run_completion": last_run_completion,
+                    "last_run_duration_ms": last_run_duration_ms,
+                    "last_stop_reason": last_stop_reason,
+                    "llm_config": llm_config,
+                    "max_files_open": max_files_open,
+                    "max_tokens": max_tokens,
+                    "message_buffer_autoclear": message_buffer_autoclear,
+                    "message_ids": message_ids,
+                    "metadata": metadata,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "name": name,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                    "project_id": project_id,
+                    "reasoning": reasoning,
+                    "response_format": response_format,
+                    "secrets": secrets,
+                    "source_ids": source_ids,
+                    "system": system,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "timezone": timezone,
+                    "tool_exec_environment_variables": tool_exec_environment_variables,
+                    "tool_ids": tool_ids,
+                    "tool_rules": tool_rules,
+                },
+                agent_update_params.AgentUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentState,
         )
@@ -1607,194 +1815,6 @@ class AsyncAgentsResource(AsyncAPIResource):
             cast_to=AgentImportFileResponse,
         )
 
-    async def modify(
-        self,
-        agent_id: str,
-        *,
-        base_template_id: Optional[str] | Omit = omit,
-        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        context_window_limit: Optional[int] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        embedding: Optional[str] | Omit = omit,
-        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        enable_sleeptime: Optional[bool] | Omit = omit,
-        hidden: Optional[bool] | Omit = omit,
-        identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        last_run_completion: Union[str, datetime, None] | Omit = omit,
-        last_run_duration_ms: Optional[int] | Omit = omit,
-        last_stop_reason: Optional[StopReasonType] | Omit = omit,
-        llm_config: Optional[LlmConfigParam] | Omit = omit,
-        max_files_open: Optional[int] | Omit = omit,
-        max_tokens: Optional[int] | Omit = omit,
-        message_buffer_autoclear: Optional[bool] | Omit = omit,
-        message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        model: Optional[str] | Omit = omit,
-        model_settings: Optional[agent_modify_params.ModelSettings] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        parallel_tool_calls: Optional[bool] | Omit = omit,
-        per_file_view_window_char_limit: Optional[int] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        reasoning: Optional[bool] | Omit = omit,
-        response_format: Optional[agent_modify_params.ResponseFormat] | Omit = omit,
-        secrets: Optional[Dict[str, str]] | Omit = omit,
-        source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        system: Optional[str] | Omit = omit,
-        tags: Optional[SequenceNotStr[str]] | Omit = omit,
-        template_id: Optional[str] | Omit = omit,
-        timezone: Optional[str] | Omit = omit,
-        tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
-        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        tool_rules: Optional[Iterable[agent_modify_params.ToolRule]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
-        """
-        Update an existing agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          base_template_id: The base template id of the agent.
-
-          block_ids: The ids of the blocks used by the agent.
-
-          context_window_limit: The context window limit used by the agent.
-
-          description: The description of the agent.
-
-          embedding: The embedding model handle used by the agent (format: provider/model-name).
-
-          embedding_config: Configuration for embedding model connection and processing parameters.
-
-          enable_sleeptime: If set to True, memory management will move to a background agent thread.
-
-          hidden: If set to True, the agent will be hidden.
-
-          identity_ids: The ids of the identities associated with this agent.
-
-          last_run_completion: The timestamp when the agent last completed a run.
-
-          last_run_duration_ms: The duration in milliseconds of the agent's last run.
-
-          last_stop_reason: The stop reason from the agent's last run.
-
-          llm_config: Configuration for Language Model (LLM) connection and generation parameters.
-
-          max_files_open: Maximum number of files that can be open at once for this agent. Setting this
-              too high may exceed the context window, which will break the agent.
-
-          max_tokens: Deprecated: Use `model` field to configure max output tokens instead. The
-              maximum number of tokens to generate, including reasoning step.
-
-          message_buffer_autoclear: If set to True, the agent will not remember previous messages (though the agent
-              will still retain state via core memory blocks and archival/recall memory). Not
-              recommended unless you have an advanced use case.
-
-          message_ids: The ids of the messages in the agent's in-context memory.
-
-          metadata: The metadata of the agent.
-
-          model: The model handle used by the agent (format: provider/model-name).
-
-          model_settings: The model settings for the agent.
-
-          name: The name of the agent.
-
-          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
-              to True, enables parallel tool calling.
-
-          per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
-              may exceed the context window, which will break the agent.
-
-          project_id: The id of the project the agent belongs to.
-
-          reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
-              reasoning for this agent.
-
-          response_format: Deprecated: Use `model` field to configure response format instead. The response
-              format for the agent.
-
-          secrets: The environment variables for tool execution specific to this agent.
-
-          source_ids: The ids of the sources used by the agent.
-
-          system: The system prompt used by the agent.
-
-          tags: The tags associated with the agent.
-
-          template_id: The id of the template the agent belongs to.
-
-          timezone: The timezone of the agent (IANA format).
-
-          tool_exec_environment_variables: Deprecated: use `secrets` field instead
-
-          tool_ids: The ids of the tools used by the agent.
-
-          tool_rules: The tool rules governing the agent.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return await self._patch(
-            f"/v1/agents/{agent_id}",
-            body=await async_maybe_transform(
-                {
-                    "base_template_id": base_template_id,
-                    "block_ids": block_ids,
-                    "context_window_limit": context_window_limit,
-                    "description": description,
-                    "embedding": embedding,
-                    "embedding_config": embedding_config,
-                    "enable_sleeptime": enable_sleeptime,
-                    "hidden": hidden,
-                    "identity_ids": identity_ids,
-                    "last_run_completion": last_run_completion,
-                    "last_run_duration_ms": last_run_duration_ms,
-                    "last_stop_reason": last_stop_reason,
-                    "llm_config": llm_config,
-                    "max_files_open": max_files_open,
-                    "max_tokens": max_tokens,
-                    "message_buffer_autoclear": message_buffer_autoclear,
-                    "message_ids": message_ids,
-                    "metadata": metadata,
-                    "model": model,
-                    "model_settings": model_settings,
-                    "name": name,
-                    "parallel_tool_calls": parallel_tool_calls,
-                    "per_file_view_window_char_limit": per_file_view_window_char_limit,
-                    "project_id": project_id,
-                    "reasoning": reasoning,
-                    "response_format": response_format,
-                    "secrets": secrets,
-                    "source_ids": source_ids,
-                    "system": system,
-                    "tags": tags,
-                    "template_id": template_id,
-                    "timezone": timezone,
-                    "tool_exec_environment_variables": tool_exec_environment_variables,
-                    "tool_ids": tool_ids,
-                    "tool_rules": tool_rules,
-                },
-                agent_modify_params.AgentModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AgentState,
-        )
-
 
 class AgentsResourceWithRawResponse:
     def __init__(self, agents: AgentsResource) -> None:
@@ -1805,6 +1825,9 @@ class AgentsResourceWithRawResponse:
         )
         self.retrieve = to_raw_response_wrapper(
             agents.retrieve,
+        )
+        self.update = to_raw_response_wrapper(
+            agents.update,
         )
         self.list = to_raw_response_wrapper(
             agents.list,
@@ -1817,9 +1840,6 @@ class AgentsResourceWithRawResponse:
         )
         self.import_file = to_raw_response_wrapper(
             agents.import_file,
-        )
-        self.modify = to_raw_response_wrapper(
-            agents.modify,
         )
 
     @cached_property
@@ -1865,6 +1885,9 @@ class AsyncAgentsResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             agents.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            agents.update,
+        )
         self.list = async_to_raw_response_wrapper(
             agents.list,
         )
@@ -1876,9 +1899,6 @@ class AsyncAgentsResourceWithRawResponse:
         )
         self.import_file = async_to_raw_response_wrapper(
             agents.import_file,
-        )
-        self.modify = async_to_raw_response_wrapper(
-            agents.modify,
         )
 
     @cached_property
@@ -1924,6 +1944,9 @@ class AgentsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             agents.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            agents.update,
+        )
         self.list = to_streamed_response_wrapper(
             agents.list,
         )
@@ -1935,9 +1958,6 @@ class AgentsResourceWithStreamingResponse:
         )
         self.import_file = to_streamed_response_wrapper(
             agents.import_file,
-        )
-        self.modify = to_streamed_response_wrapper(
-            agents.modify,
         )
 
     @cached_property
@@ -1983,6 +2003,9 @@ class AsyncAgentsResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             agents.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            agents.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             agents.list,
         )
@@ -1994,9 +2017,6 @@ class AsyncAgentsResourceWithStreamingResponse:
         )
         self.import_file = async_to_streamed_response_wrapper(
             agents.import_file,
-        )
-        self.modify = async_to_streamed_response_wrapper(
-            agents.modify,
         )
 
     @cached_property

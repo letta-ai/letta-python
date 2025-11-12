@@ -17,17 +17,17 @@ from .omitted_reasoning_content_param import OmittedReasoningContentParam
 from .redacted_reasoning_content_param import RedactedReasoningContentParam
 
 __all__ = [
-    "MessageSendParamsBase",
+    "MessageCreateParamsBase",
     "InputUnionMember1",
     "InputUnionMember1SummarizedReasoningContent",
     "InputUnionMember1SummarizedReasoningContentSummary",
     "Message",
-    "MessageSendParamsNonStreaming",
-    "MessageSendParamsStreaming",
+    "MessageCreateParamsNonStreaming",
+    "MessageCreateParamsStreaming",
 ]
 
 
-class MessageSendParamsBase(TypedDict, total=False):
+class MessageCreateParamsBase(TypedDict, total=False):
     assistant_message_tool_kwarg: str
     """The name of the message argument in the designated message tool.
 
@@ -127,7 +127,7 @@ InputUnionMember1: TypeAlias = Union[
 Message: TypeAlias = Union[MessageCreateParam, ApprovalCreateParam]
 
 
-class MessageSendParamsNonStreaming(MessageSendParamsBase, total=False):
+class MessageCreateParamsNonStreaming(MessageCreateParamsBase, total=False):
     streaming: Literal[False]
     """If True, returns a streaming response (Server-Sent Events).
 
@@ -135,7 +135,7 @@ class MessageSendParamsNonStreaming(MessageSendParamsBase, total=False):
     """
 
 
-class MessageSendParamsStreaming(MessageSendParamsBase):
+class MessageCreateParamsStreaming(MessageCreateParamsBase):
     streaming: Required[Literal[True]]
     """If True, returns a streaming response (Server-Sent Events).
 
@@ -143,4 +143,4 @@ class MessageSendParamsStreaming(MessageSendParamsBase):
     """
 
 
-MessageSendParams = Union[MessageSendParamsNonStreaming, MessageSendParamsStreaming]
+MessageCreateParams = Union[MessageCreateParamsNonStreaming, MessageCreateParamsStreaming]

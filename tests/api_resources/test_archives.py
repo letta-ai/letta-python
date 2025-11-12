@@ -24,11 +24,6 @@ class TestArchives:
     @parametrize
     def test_method_create(self, client: Letta) -> None:
         archive = client.archives.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         )
         assert_matches_type(Archive, archive, path=["response"])
@@ -37,6 +32,9 @@ class TestArchives:
     @parametrize
     def test_method_create_with_all_params(self, client: Letta) -> None:
         archive = client.archives.create(
+            name="name",
+            description="description",
+            embedding="embedding",
             embedding_config={
                 "embedding_dim": 0,
                 "embedding_endpoint_type": "openai",
@@ -49,8 +47,6 @@ class TestArchives:
                 "embedding_endpoint": "embedding_endpoint",
                 "handle": "handle",
             },
-            name="name",
-            description="description",
         )
         assert_matches_type(Archive, archive, path=["response"])
 
@@ -58,11 +54,6 @@ class TestArchives:
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.archives.with_raw_response.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         )
 
@@ -75,11 +66,6 @@ class TestArchives:
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.archives.with_streaming_response.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         ) as response:
             assert not response.is_closed
@@ -130,6 +116,58 @@ class TestArchives:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
             client.archives.with_raw_response.retrieve(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update(self, client: Letta) -> None:
+        archive = client.archives.update(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Letta) -> None:
+        archive = client.archives.update(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            description="description",
+            name="name",
+        )
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Letta) -> None:
+        response = client.archives.with_raw_response.update(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        archive = response.parse()
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Letta) -> None:
+        with client.archives.with_streaming_response.update(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            archive = response.parse()
+            assert_matches_type(Archive, archive, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
+            client.archives.with_raw_response.update(
+                archive_id="",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -216,58 +254,6 @@ class TestArchives:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_modify(self, client: Letta) -> None:
-        archive = client.archives.modify(
-            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Archive, archive, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_modify_with_all_params(self, client: Letta) -> None:
-        archive = client.archives.modify(
-            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-            description="description",
-            name="name",
-        )
-        assert_matches_type(Archive, archive, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_modify(self, client: Letta) -> None:
-        response = client.archives.with_raw_response.modify(
-            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        archive = response.parse()
-        assert_matches_type(Archive, archive, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_modify(self, client: Letta) -> None:
-        with client.archives.with_streaming_response.modify(
-            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            archive = response.parse()
-            assert_matches_type(Archive, archive, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_modify(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-            client.archives.with_raw_response.modify(
-                archive_id="",
-            )
-
 
 class TestAsyncArchives:
     parametrize = pytest.mark.parametrize(
@@ -278,11 +264,6 @@ class TestAsyncArchives:
     @parametrize
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         )
         assert_matches_type(Archive, archive, path=["response"])
@@ -291,6 +272,9 @@ class TestAsyncArchives:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.create(
+            name="name",
+            description="description",
+            embedding="embedding",
             embedding_config={
                 "embedding_dim": 0,
                 "embedding_endpoint_type": "openai",
@@ -303,8 +287,6 @@ class TestAsyncArchives:
                 "embedding_endpoint": "embedding_endpoint",
                 "handle": "handle",
             },
-            name="name",
-            description="description",
         )
         assert_matches_type(Archive, archive, path=["response"])
 
@@ -312,11 +294,6 @@ class TestAsyncArchives:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.archives.with_raw_response.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         )
 
@@ -329,11 +306,6 @@ class TestAsyncArchives:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         ) as response:
             assert not response.is_closed
@@ -384,6 +356,58 @@ class TestAsyncArchives:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
             await async_client.archives.with_raw_response.retrieve(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncLetta) -> None:
+        archive = await async_client.archives.update(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
+        archive = await async_client.archives.update(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            description="description",
+            name="name",
+        )
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
+        response = await async_client.archives.with_raw_response.update(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        archive = await response.parse()
+        assert_matches_type(Archive, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
+        async with async_client.archives.with_streaming_response.update(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            archive = await response.parse()
+            assert_matches_type(Archive, archive, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
+            await async_client.archives.with_raw_response.update(
+                archive_id="",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -468,56 +492,4 @@ class TestAsyncArchives:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
             await async_client.archives.with_raw_response.delete(
                 "",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_modify(self, async_client: AsyncLetta) -> None:
-        archive = await async_client.archives.modify(
-            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Archive, archive, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_modify_with_all_params(self, async_client: AsyncLetta) -> None:
-        archive = await async_client.archives.modify(
-            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-            description="description",
-            name="name",
-        )
-        assert_matches_type(Archive, archive, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_modify(self, async_client: AsyncLetta) -> None:
-        response = await async_client.archives.with_raw_response.modify(
-            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        archive = await response.parse()
-        assert_matches_type(Archive, archive, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_modify(self, async_client: AsyncLetta) -> None:
-        async with async_client.archives.with_streaming_response.modify(
-            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            archive = await response.parse()
-            assert_matches_type(Archive, archive, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_modify(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-            await async_client.archives.with_raw_response.modify(
-                archive_id="",
             )

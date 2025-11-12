@@ -121,6 +121,72 @@ class TestFolders:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_update(self, client: Letta) -> None:
+        folder = client.folders.update(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Folder, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Letta) -> None:
+        folder = client.folders.update(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            description="description",
+            embedding_config={
+                "embedding_dim": 0,
+                "embedding_endpoint_type": "openai",
+                "embedding_model": "embedding_model",
+                "azure_deployment": "azure_deployment",
+                "azure_endpoint": "azure_endpoint",
+                "azure_version": "azure_version",
+                "batch_size": 0,
+                "embedding_chunk_size": 0,
+                "embedding_endpoint": "embedding_endpoint",
+                "handle": "handle",
+            },
+            instructions="instructions",
+            metadata={"foo": "bar"},
+            name="name",
+        )
+        assert_matches_type(Folder, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Letta) -> None:
+        response = client.folders.with_raw_response.update(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        folder = response.parse()
+        assert_matches_type(Folder, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Letta) -> None:
+        with client.folders.with_streaming_response.update(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            folder = response.parse()
+            assert_matches_type(Folder, folder, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
+            client.folders.with_raw_response.update(
+                folder_id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_list(self, client: Letta) -> None:
         folder = client.folders.list()
         assert_matches_type(SyncArrayPage[Folder], folder, path=["response"])
@@ -200,72 +266,6 @@ class TestFolders:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
             client.folders.with_raw_response.delete(
                 "",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_modify(self, client: Letta) -> None:
-        folder = client.folders.modify(
-            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Folder, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_modify_with_all_params(self, client: Letta) -> None:
-        folder = client.folders.modify(
-            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            description="description",
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-                "azure_deployment": "azure_deployment",
-                "azure_endpoint": "azure_endpoint",
-                "azure_version": "azure_version",
-                "batch_size": 0,
-                "embedding_chunk_size": 0,
-                "embedding_endpoint": "embedding_endpoint",
-                "handle": "handle",
-            },
-            instructions="instructions",
-            metadata={"foo": "bar"},
-            name="name",
-        )
-        assert_matches_type(Folder, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_modify(self, client: Letta) -> None:
-        response = client.folders.with_raw_response.modify(
-            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        folder = response.parse()
-        assert_matches_type(Folder, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_modify(self, client: Letta) -> None:
-        with client.folders.with_streaming_response.modify(
-            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            folder = response.parse()
-            assert_matches_type(Folder, folder, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_modify(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
-            client.folders.with_raw_response.modify(
-                folder_id="",
             )
 
 
@@ -377,6 +377,72 @@ class TestAsyncFolders:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_update(self, async_client: AsyncLetta) -> None:
+        folder = await async_client.folders.update(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Folder, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
+        folder = await async_client.folders.update(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            description="description",
+            embedding_config={
+                "embedding_dim": 0,
+                "embedding_endpoint_type": "openai",
+                "embedding_model": "embedding_model",
+                "azure_deployment": "azure_deployment",
+                "azure_endpoint": "azure_endpoint",
+                "azure_version": "azure_version",
+                "batch_size": 0,
+                "embedding_chunk_size": 0,
+                "embedding_endpoint": "embedding_endpoint",
+                "handle": "handle",
+            },
+            instructions="instructions",
+            metadata={"foo": "bar"},
+            name="name",
+        )
+        assert_matches_type(Folder, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
+        response = await async_client.folders.with_raw_response.update(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        folder = await response.parse()
+        assert_matches_type(Folder, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
+        async with async_client.folders.with_streaming_response.update(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            folder = await response.parse()
+            assert_matches_type(Folder, folder, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
+            await async_client.folders.with_raw_response.update(
+                folder_id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         folder = await async_client.folders.list()
         assert_matches_type(AsyncArrayPage[Folder], folder, path=["response"])
@@ -456,70 +522,4 @@ class TestAsyncFolders:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
             await async_client.folders.with_raw_response.delete(
                 "",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_modify(self, async_client: AsyncLetta) -> None:
-        folder = await async_client.folders.modify(
-            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Folder, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_modify_with_all_params(self, async_client: AsyncLetta) -> None:
-        folder = await async_client.folders.modify(
-            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            description="description",
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-                "azure_deployment": "azure_deployment",
-                "azure_endpoint": "azure_endpoint",
-                "azure_version": "azure_version",
-                "batch_size": 0,
-                "embedding_chunk_size": 0,
-                "embedding_endpoint": "embedding_endpoint",
-                "handle": "handle",
-            },
-            instructions="instructions",
-            metadata={"foo": "bar"},
-            name="name",
-        )
-        assert_matches_type(Folder, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_modify(self, async_client: AsyncLetta) -> None:
-        response = await async_client.folders.with_raw_response.modify(
-            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        folder = await response.parse()
-        assert_matches_type(Folder, folder, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_modify(self, async_client: AsyncLetta) -> None:
-        async with async_client.folders.with_streaming_response.modify(
-            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            folder = await response.parse()
-            assert_matches_type(Folder, folder, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_modify(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
-            await async_client.folders.with_raw_response.modify(
-                folder_id="",
             )

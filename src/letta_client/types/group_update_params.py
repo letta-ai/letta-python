@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 from .._types import SequenceNotStr
 
 __all__ = [
-    "GroupModifyParams",
+    "GroupUpdateParams",
     "ManagerConfig",
     "ManagerConfigRoundRobinManagerUpdate",
     "ManagerConfigSupervisorManagerUpdate",
@@ -18,7 +18,7 @@ __all__ = [
 ]
 
 
-class GroupModifyParams(TypedDict, total=False):
+class GroupUpdateParams(TypedDict, total=False):
     agent_ids: Optional[SequenceNotStr[str]]
 
     description: Optional[str]

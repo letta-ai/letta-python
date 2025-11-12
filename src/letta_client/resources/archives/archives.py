@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import archive_list_params, archive_create_params, archive_modify_params
+from ...types import archive_list_params, archive_create_params, archive_update_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from .passages import (
@@ -61,9 +61,10 @@ class ArchivesResource(SyncAPIResource):
     def create(
         self,
         *,
-        embedding_config: EmbeddingConfigParam,
         name: str,
         description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,7 +76,9 @@ class ArchivesResource(SyncAPIResource):
         Create a new archive.
 
         Args:
-          embedding_config: Embedding configuration for the archive
+          embedding: Embedding model handle for the archive
+
+          embedding_config: Configuration for embedding model connection and processing parameters.
 
           extra_headers: Send extra headers
 
@@ -89,9 +92,10 @@ class ArchivesResource(SyncAPIResource):
             "/v1/archives/",
             body=maybe_transform(
                 {
-                    "embedding_config": embedding_config,
                     "name": name,
                     "description": description,
+                    "embedding": embedding,
+                    "embedding_config": embedding_config,
                 },
                 archive_create_params.ArchiveCreateParams,
             ),
@@ -130,6 +134,50 @@ class ArchivesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return self._get(
             f"/v1/archives/{archive_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Archive,
+        )
+
+    def update(
+        self,
+        archive_id: str,
+        *,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Archive:
+        """
+        Update an existing archive's name and/or description.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return self._patch(
+            f"/v1/archives/{archive_id}",
+            body=maybe_transform(
+                {
+                    "description": description,
+                    "name": name,
+                },
+                archive_update_params.ArchiveUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -242,50 +290,6 @@ class ArchivesResource(SyncAPIResource):
             cast_to=Archive,
         )
 
-    def modify(
-        self,
-        archive_id: str,
-        *,
-        description: Optional[str] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Archive:
-        """
-        Update an existing archive's name and/or description.
-
-        Args:
-          archive_id: The ID of the archive in the format 'archive-<uuid4>'
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not archive_id:
-            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
-        return self._patch(
-            f"/v1/archives/{archive_id}",
-            body=maybe_transform(
-                {
-                    "description": description,
-                    "name": name,
-                },
-                archive_modify_params.ArchiveModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Archive,
-        )
-
 
 class AsyncArchivesResource(AsyncAPIResource):
     @cached_property
@@ -314,9 +318,10 @@ class AsyncArchivesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        embedding_config: EmbeddingConfigParam,
         name: str,
         description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -328,7 +333,9 @@ class AsyncArchivesResource(AsyncAPIResource):
         Create a new archive.
 
         Args:
-          embedding_config: Embedding configuration for the archive
+          embedding: Embedding model handle for the archive
+
+          embedding_config: Configuration for embedding model connection and processing parameters.
 
           extra_headers: Send extra headers
 
@@ -342,9 +349,10 @@ class AsyncArchivesResource(AsyncAPIResource):
             "/v1/archives/",
             body=await async_maybe_transform(
                 {
-                    "embedding_config": embedding_config,
                     "name": name,
                     "description": description,
+                    "embedding": embedding,
+                    "embedding_config": embedding_config,
                 },
                 archive_create_params.ArchiveCreateParams,
             ),
@@ -383,6 +391,50 @@ class AsyncArchivesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return await self._get(
             f"/v1/archives/{archive_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Archive,
+        )
+
+    async def update(
+        self,
+        archive_id: str,
+        *,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Archive:
+        """
+        Update an existing archive's name and/or description.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return await self._patch(
+            f"/v1/archives/{archive_id}",
+            body=await async_maybe_transform(
+                {
+                    "description": description,
+                    "name": name,
+                },
+                archive_update_params.ArchiveUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -495,50 +547,6 @@ class AsyncArchivesResource(AsyncAPIResource):
             cast_to=Archive,
         )
 
-    async def modify(
-        self,
-        archive_id: str,
-        *,
-        description: Optional[str] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Archive:
-        """
-        Update an existing archive's name and/or description.
-
-        Args:
-          archive_id: The ID of the archive in the format 'archive-<uuid4>'
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not archive_id:
-            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
-        return await self._patch(
-            f"/v1/archives/{archive_id}",
-            body=await async_maybe_transform(
-                {
-                    "description": description,
-                    "name": name,
-                },
-                archive_modify_params.ArchiveModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Archive,
-        )
-
 
 class ArchivesResourceWithRawResponse:
     def __init__(self, archives: ArchivesResource) -> None:
@@ -550,14 +558,14 @@ class ArchivesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             archives.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            archives.update,
+        )
         self.list = to_raw_response_wrapper(
             archives.list,
         )
         self.delete = to_raw_response_wrapper(
             archives.delete,
-        )
-        self.modify = to_raw_response_wrapper(
-            archives.modify,
         )
 
     @cached_property
@@ -575,14 +583,14 @@ class AsyncArchivesResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             archives.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            archives.update,
+        )
         self.list = async_to_raw_response_wrapper(
             archives.list,
         )
         self.delete = async_to_raw_response_wrapper(
             archives.delete,
-        )
-        self.modify = async_to_raw_response_wrapper(
-            archives.modify,
         )
 
     @cached_property
@@ -600,14 +608,14 @@ class ArchivesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             archives.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            archives.update,
+        )
         self.list = to_streamed_response_wrapper(
             archives.list,
         )
         self.delete = to_streamed_response_wrapper(
             archives.delete,
-        )
-        self.modify = to_streamed_response_wrapper(
-            archives.modify,
         )
 
     @cached_property
@@ -625,14 +633,14 @@ class AsyncArchivesResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             archives.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            archives.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             archives.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             archives.delete,
-        )
-        self.modify = async_to_streamed_response_wrapper(
-            archives.modify,
         )
 
     @cached_property

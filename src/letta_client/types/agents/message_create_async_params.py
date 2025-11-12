@@ -5,19 +5,19 @@ from __future__ import annotations
 from typing import List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..agents.message_type import MessageType
+from .message_type import MessageType
+from .text_content_param import TextContentParam
+from .image_content_param import ImageContentParam
 from ..message_create_param import MessageCreateParam
-from ..agents.text_content_param import TextContentParam
-from ..agents.image_content_param import ImageContentParam
-from ..agents.approval_create_param import ApprovalCreateParam
-from ..agents.reasoning_content_param import ReasoningContentParam
-from ..agents.tool_call_content_param import ToolCallContentParam
-from ..agents.tool_return_content_param import ToolReturnContentParam
-from ..agents.omitted_reasoning_content_param import OmittedReasoningContentParam
-from ..agents.redacted_reasoning_content_param import RedactedReasoningContentParam
+from .approval_create_param import ApprovalCreateParam
+from .reasoning_content_param import ReasoningContentParam
+from .tool_call_content_param import ToolCallContentParam
+from .tool_return_content_param import ToolReturnContentParam
+from .omitted_reasoning_content_param import OmittedReasoningContentParam
+from .redacted_reasoning_content_param import RedactedReasoningContentParam
 
 __all__ = [
-    "MessageSendParams",
+    "MessageCreateAsyncParams",
     "InputUnionMember1",
     "InputUnionMember1SummarizedReasoningContent",
     "InputUnionMember1SummarizedReasoningContentSummary",
@@ -25,7 +25,7 @@ __all__ = [
 ]
 
 
-class MessageSendParams(TypedDict, total=False):
+class MessageCreateAsyncParams(TypedDict, total=False):
     assistant_message_tool_kwarg: str
     """The name of the message argument in the designated message tool.
 
@@ -39,6 +39,9 @@ class MessageSendParams(TypedDict, total=False):
     Still supported for legacy agent types, but deprecated for letta_v1_agent
     onward.
     """
+
+    callback_url: Optional[str]
+    """Optional callback URL to POST to when the job completes"""
 
     enable_thinking: str
     """

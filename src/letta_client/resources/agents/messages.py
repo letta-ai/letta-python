@@ -22,12 +22,12 @@ from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agents import (
     message_list_params,
-    message_send_params,
     message_reset_params,
     message_cancel_params,
-    message_modify_params,
+    message_create_params,
     message_stream_params,
-    message_send_async_params,
+    message_update_params,
+    message_create_async_params,
 )
 from ...types.agents.run import Run
 from ...types.agent_state import AgentState
@@ -35,7 +35,7 @@ from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
 from ...types.agents.letta_response import LettaResponse
 from ...types.agents.message_cancel_response import MessageCancelResponse
-from ...types.agents.message_modify_response import MessageModifyResponse
+from ...types.agents.message_update_response import MessageUpdateResponse
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
 from ...types.agents.letta_user_message_content_union_param import LettaUserMessageContentUnionParam
 from ...types.agents.letta_assistant_message_content_union_param import LettaAssistantMessageContentUnionParam
@@ -62,6 +62,513 @@ class MessagesResource(SyncAPIResource):
         For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return MessagesResourceWithStreamingResponse(self)
+
+    @overload
+    def create(
+        self,
+        agent_id: str,
+        *,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        streaming: Literal[False] | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LettaResponse:
+        """Process a user message and return the agent's response.
+
+        This endpoint accepts a
+        message from a user and processes it through the agent.
+
+        The response format is controlled by the `streaming` field in the request body:
+
+        - If `streaming=false` (default): Returns a complete LettaResponse with all
+          messages
+        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
+
+        Additional streaming options (only used when streaming=true):
+
+        - `stream_tokens`: Stream individual tokens instead of complete steps
+        - `include_pings`: Include keepalive pings to prevent connection timeouts
+        - `background`: Process the request in the background
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          background: Whether to process the request in the background (only used when
+              streaming=true).
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts (only used when streaming=true).
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when streaming=true).
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def create(
+        self,
+        agent_id: str,
+        *,
+        streaming: Literal[True],
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Stream[LettaStreamingResponse]:
+        """Process a user message and return the agent's response.
+
+        This endpoint accepts a
+        message from a user and processes it through the agent.
+
+        The response format is controlled by the `streaming` field in the request body:
+
+        - If `streaming=false` (default): Returns a complete LettaResponse with all
+          messages
+        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
+
+        Additional streaming options (only used when streaming=true):
+
+        - `stream_tokens`: Stream individual tokens instead of complete steps
+        - `include_pings`: Include keepalive pings to prevent connection timeouts
+        - `background`: Process the request in the background
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          background: Whether to process the request in the background (only used when
+              streaming=true).
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts (only used when streaming=true).
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when streaming=true).
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def create(
+        self,
+        agent_id: str,
+        *,
+        streaming: bool,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LettaResponse | Stream[LettaStreamingResponse]:
+        """Process a user message and return the agent's response.
+
+        This endpoint accepts a
+        message from a user and processes it through the agent.
+
+        The response format is controlled by the `streaming` field in the request body:
+
+        - If `streaming=false` (default): Returns a complete LettaResponse with all
+          messages
+        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
+
+        Additional streaming options (only used when streaming=true):
+
+        - `stream_tokens`: Stream individual tokens instead of complete steps
+        - `include_pings`: Include keepalive pings to prevent connection timeouts
+        - `background`: Process the request in the background
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          background: Whether to process the request in the background (only used when
+              streaming=true).
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts (only used when streaming=true).
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when streaming=true).
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    def create(
+        self,
+        agent_id: str,
+        *,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        streaming: Literal[False] | Literal[True] | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LettaResponse | Stream[LettaStreamingResponse]:
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return self._post(
+            f"/v1/agents/{agent_id}/messages",
+            body=maybe_transform(
+                {
+                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                    "assistant_message_tool_name": assistant_message_tool_name,
+                    "background": background,
+                    "enable_thinking": enable_thinking,
+                    "include_pings": include_pings,
+                    "include_return_message_types": include_return_message_types,
+                    "input": input,
+                    "max_steps": max_steps,
+                    "messages": messages,
+                    "stream_tokens": stream_tokens,
+                    "streaming": streaming,
+                    "use_assistant_message": use_assistant_message,
+                },
+                message_create_params.MessageCreateParamsStreaming
+                if streaming
+                else message_create_params.MessageCreateParamsNonStreaming,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LettaResponse,
+            stream=streaming or False,
+            stream_cls=Stream[LettaStreamingResponse],
+        )
+
+    @overload
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: str,
+        message_type: Literal["system_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the system (can be a string or an array of
+              multi-modal content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: Union[Iterable[LettaUserMessageContentUnionParam], str],
+        message_type: Literal["user_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the user (can be a string or an array of multi-modal
+              content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        reasoning: str,
+        message_type: Literal["reasoning_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: Union[Iterable[LettaAssistantMessageContentUnionParam], str],
+        message_type: Literal["assistant_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the assistant (can be a string or an array of
+              content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["agent_id", "content"], ["agent_id", "reasoning"])
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: str | Union[Iterable[LettaUserMessageContentUnionParam], str] | Omit = omit,
+        message_type: Literal["system_message"]
+        | Literal["user_message"]
+        | Literal["reasoning_message"]
+        | Literal["assistant_message"]
+        | Omit = omit,
+        reasoning: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return cast(
+            MessageUpdateResponse,
+            self._patch(
+                f"/v1/agents/{agent_id}/messages/{message_id}",
+                body=maybe_transform(
+                    {
+                        "content": content,
+                        "message_type": message_type,
+                        "reasoning": reasoning,
+                    },
+                    message_update_params.MessageUpdateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, MessageUpdateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
 
     def list(
         self,
@@ -194,555 +701,7 @@ class MessagesResource(SyncAPIResource):
             cast_to=MessageCancelResponse,
         )
 
-    @overload
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: str,
-        message_type: Literal["system_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the system (can be a string or an array of
-              multi-modal content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: Union[Iterable[LettaUserMessageContentUnionParam], str],
-        message_type: Literal["user_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the user (can be a string or an array of multi-modal
-              content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        reasoning: str,
-        message_type: Literal["reasoning_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: Union[Iterable[LettaAssistantMessageContentUnionParam], str],
-        message_type: Literal["assistant_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the assistant (can be a string or an array of
-              content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["agent_id", "content"], ["agent_id", "reasoning"])
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: str | Union[Iterable[LettaUserMessageContentUnionParam], str] | Omit = omit,
-        message_type: Literal["system_message"]
-        | Literal["user_message"]
-        | Literal["reasoning_message"]
-        | Literal["assistant_message"]
-        | Omit = omit,
-        reasoning: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        if not message_id:
-            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
-        return cast(
-            MessageModifyResponse,
-            self._patch(
-                f"/v1/agents/{agent_id}/messages/{message_id}",
-                body=maybe_transform(
-                    {
-                        "content": content,
-                        "message_type": message_type,
-                        "reasoning": reasoning,
-                    },
-                    message_modify_params.MessageModifyParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(
-                    Any, MessageModifyResponse
-                ),  # Union types cannot be passed in as arguments in the type system
-            ),
-        )
-
-    def reset(
-        self,
-        agent_id: str,
-        *,
-        add_default_initial_messages: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
-        """
-        Resets the messages for an agent
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          add_default_initial_messages: If true, adds the default initial messages after resetting.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return self._patch(
-            f"/v1/agents/{agent_id}/reset-messages",
-            body=maybe_transform(
-                {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AgentState,
-        )
-
-    @overload
-    def send(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: Literal[False] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse:
-        """Process a user message and return the agent's response.
-
-        This endpoint accepts a
-        message from a user and processes it through the agent.
-
-        The response format is controlled by the `streaming` field in the request body:
-
-        - If `streaming=false` (default): Returns a complete LettaResponse with all
-          messages
-        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
-
-        Additional streaming options (only used when streaming=true):
-
-        - `stream_tokens`: Stream individual tokens instead of complete steps
-        - `include_pings`: Include keepalive pings to prevent connection timeouts
-        - `background`: Process the request in the background
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
-              for legacy agent types, but deprecated for letta_v1_agent onward.
-
-          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
-              but deprecated for letta_v1_agent onward.
-
-          background: Whether to process the request in the background (only used when
-              streaming=true).
-
-          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
-
-          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when streaming=true).
-
-          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
-              all messages.
-
-          input:
-              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-              'user', 'content': input}].
-
-          max_steps: Maximum number of steps the agent should take to process the request.
-
-          messages: The messages to be sent to the agent.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when streaming=true).
-
-          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
-              returns a complete response.
-
-          use_assistant_message: Whether the server should parse specific tool call arguments (default
-              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
-              types, but deprecated for letta_v1_agent onward.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def send(
-        self,
-        agent_id: str,
-        *,
-        streaming: Literal[True],
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Stream[LettaStreamingResponse]:
-        """Process a user message and return the agent's response.
-
-        This endpoint accepts a
-        message from a user and processes it through the agent.
-
-        The response format is controlled by the `streaming` field in the request body:
-
-        - If `streaming=false` (default): Returns a complete LettaResponse with all
-          messages
-        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
-
-        Additional streaming options (only used when streaming=true):
-
-        - `stream_tokens`: Stream individual tokens instead of complete steps
-        - `include_pings`: Include keepalive pings to prevent connection timeouts
-        - `background`: Process the request in the background
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
-              returns a complete response.
-
-          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
-              for legacy agent types, but deprecated for letta_v1_agent onward.
-
-          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
-              but deprecated for letta_v1_agent onward.
-
-          background: Whether to process the request in the background (only used when
-              streaming=true).
-
-          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
-
-          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when streaming=true).
-
-          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
-              all messages.
-
-          input:
-              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-              'user', 'content': input}].
-
-          max_steps: Maximum number of steps the agent should take to process the request.
-
-          messages: The messages to be sent to the agent.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when streaming=true).
-
-          use_assistant_message: Whether the server should parse specific tool call arguments (default
-              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
-              types, but deprecated for letta_v1_agent onward.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def send(
-        self,
-        agent_id: str,
-        *,
-        streaming: bool,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse | Stream[LettaStreamingResponse]:
-        """Process a user message and return the agent's response.
-
-        This endpoint accepts a
-        message from a user and processes it through the agent.
-
-        The response format is controlled by the `streaming` field in the request body:
-
-        - If `streaming=false` (default): Returns a complete LettaResponse with all
-          messages
-        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
-
-        Additional streaming options (only used when streaming=true):
-
-        - `stream_tokens`: Stream individual tokens instead of complete steps
-        - `include_pings`: Include keepalive pings to prevent connection timeouts
-        - `background`: Process the request in the background
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
-              returns a complete response.
-
-          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
-              for legacy agent types, but deprecated for letta_v1_agent onward.
-
-          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
-              but deprecated for letta_v1_agent onward.
-
-          background: Whether to process the request in the background (only used when
-              streaming=true).
-
-          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
-
-          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when streaming=true).
-
-          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
-              all messages.
-
-          input:
-              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-              'user', 'content': input}].
-
-          max_steps: Maximum number of steps the agent should take to process the request.
-
-          messages: The messages to be sent to the agent.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when streaming=true).
-
-          use_assistant_message: Whether the server should parse specific tool call arguments (default
-              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
-              types, but deprecated for letta_v1_agent onward.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    def send(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: Literal[False] | Literal[True] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse | Stream[LettaStreamingResponse]:
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return self._post(
-            f"/v1/agents/{agent_id}/messages",
-            body=maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "background": background,
-                    "enable_thinking": enable_thinking,
-                    "include_pings": include_pings,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "stream_tokens": stream_tokens,
-                    "streaming": streaming,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_send_params.MessageSendParamsStreaming
-                if streaming
-                else message_send_params.MessageSendParamsNonStreaming,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=LettaResponse,
-            stream=streaming or False,
-            stream_cls=Stream[LettaStreamingResponse],
-        )
-
-    def send_async(
+    def create_async(
         self,
         agent_id: str,
         *,
@@ -751,9 +710,9 @@ class MessagesResource(SyncAPIResource):
         callback_url: Optional[str] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_async_params.InputUnionMember1], None] | Omit = omit,
+        input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_async_params.Message]] | Omit = omit,
+        messages: Optional[Iterable[message_create_async_params.Message]] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -823,12 +782,53 @@ class MessagesResource(SyncAPIResource):
                     "messages": messages,
                     "use_assistant_message": use_assistant_message,
                 },
-                message_send_async_params.MessageSendAsyncParams,
+                message_create_async_params.MessageCreateAsyncParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Run,
+        )
+
+    def reset(
+        self,
+        agent_id: str,
+        *,
+        add_default_initial_messages: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
+        """
+        Resets the messages for an agent
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          add_default_initial_messages: If true, adds the default initial messages after resetting.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return self._patch(
+            f"/v1/agents/{agent_id}/reset-messages",
+            body=maybe_transform(
+                {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentState,
         )
 
     def stream(
@@ -994,6 +994,513 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
+    @overload
+    async def create(
+        self,
+        agent_id: str,
+        *,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        streaming: Literal[False] | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LettaResponse:
+        """Process a user message and return the agent's response.
+
+        This endpoint accepts a
+        message from a user and processes it through the agent.
+
+        The response format is controlled by the `streaming` field in the request body:
+
+        - If `streaming=false` (default): Returns a complete LettaResponse with all
+          messages
+        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
+
+        Additional streaming options (only used when streaming=true):
+
+        - `stream_tokens`: Stream individual tokens instead of complete steps
+        - `include_pings`: Include keepalive pings to prevent connection timeouts
+        - `background`: Process the request in the background
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          background: Whether to process the request in the background (only used when
+              streaming=true).
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts (only used when streaming=true).
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when streaming=true).
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def create(
+        self,
+        agent_id: str,
+        *,
+        streaming: Literal[True],
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncStream[LettaStreamingResponse]:
+        """Process a user message and return the agent's response.
+
+        This endpoint accepts a
+        message from a user and processes it through the agent.
+
+        The response format is controlled by the `streaming` field in the request body:
+
+        - If `streaming=false` (default): Returns a complete LettaResponse with all
+          messages
+        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
+
+        Additional streaming options (only used when streaming=true):
+
+        - `stream_tokens`: Stream individual tokens instead of complete steps
+        - `include_pings`: Include keepalive pings to prevent connection timeouts
+        - `background`: Process the request in the background
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          background: Whether to process the request in the background (only used when
+              streaming=true).
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts (only used when streaming=true).
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when streaming=true).
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def create(
+        self,
+        agent_id: str,
+        *,
+        streaming: bool,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LettaResponse | AsyncStream[LettaStreamingResponse]:
+        """Process a user message and return the agent's response.
+
+        This endpoint accepts a
+        message from a user and processes it through the agent.
+
+        The response format is controlled by the `streaming` field in the request body:
+
+        - If `streaming=false` (default): Returns a complete LettaResponse with all
+          messages
+        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
+
+        Additional streaming options (only used when streaming=true):
+
+        - `stream_tokens`: Stream individual tokens instead of complete steps
+        - `include_pings`: Include keepalive pings to prevent connection timeouts
+        - `background`: Process the request in the background
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          background: Whether to process the request in the background (only used when
+              streaming=true).
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts (only used when streaming=true).
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when streaming=true).
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    async def create(
+        self,
+        agent_id: str,
+        *,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        streaming: Literal[False] | Literal[True] | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LettaResponse | AsyncStream[LettaStreamingResponse]:
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return await self._post(
+            f"/v1/agents/{agent_id}/messages",
+            body=await async_maybe_transform(
+                {
+                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                    "assistant_message_tool_name": assistant_message_tool_name,
+                    "background": background,
+                    "enable_thinking": enable_thinking,
+                    "include_pings": include_pings,
+                    "include_return_message_types": include_return_message_types,
+                    "input": input,
+                    "max_steps": max_steps,
+                    "messages": messages,
+                    "stream_tokens": stream_tokens,
+                    "streaming": streaming,
+                    "use_assistant_message": use_assistant_message,
+                },
+                message_create_params.MessageCreateParamsStreaming
+                if streaming
+                else message_create_params.MessageCreateParamsNonStreaming,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LettaResponse,
+            stream=streaming or False,
+            stream_cls=AsyncStream[LettaStreamingResponse],
+        )
+
+    @overload
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: str,
+        message_type: Literal["system_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the system (can be a string or an array of
+              multi-modal content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: Union[Iterable[LettaUserMessageContentUnionParam], str],
+        message_type: Literal["user_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the user (can be a string or an array of multi-modal
+              content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        reasoning: str,
+        message_type: Literal["reasoning_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: Union[Iterable[LettaAssistantMessageContentUnionParam], str],
+        message_type: Literal["assistant_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the assistant (can be a string or an array of
+              content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["agent_id", "content"], ["agent_id", "reasoning"])
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: str | Union[Iterable[LettaUserMessageContentUnionParam], str] | Omit = omit,
+        message_type: Literal["system_message"]
+        | Literal["user_message"]
+        | Literal["reasoning_message"]
+        | Literal["assistant_message"]
+        | Omit = omit,
+        reasoning: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return cast(
+            MessageUpdateResponse,
+            await self._patch(
+                f"/v1/agents/{agent_id}/messages/{message_id}",
+                body=await async_maybe_transform(
+                    {
+                        "content": content,
+                        "message_type": message_type,
+                        "reasoning": reasoning,
+                    },
+                    message_update_params.MessageUpdateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, MessageUpdateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
+
     def list(
         self,
         agent_id: str,
@@ -1125,555 +1632,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             cast_to=MessageCancelResponse,
         )
 
-    @overload
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: str,
-        message_type: Literal["system_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the system (can be a string or an array of
-              multi-modal content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: Union[Iterable[LettaUserMessageContentUnionParam], str],
-        message_type: Literal["user_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the user (can be a string or an array of multi-modal
-              content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        reasoning: str,
-        message_type: Literal["reasoning_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: Union[Iterable[LettaAssistantMessageContentUnionParam], str],
-        message_type: Literal["assistant_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the assistant (can be a string or an array of
-              content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["agent_id", "content"], ["agent_id", "reasoning"])
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: str | Union[Iterable[LettaUserMessageContentUnionParam], str] | Omit = omit,
-        message_type: Literal["system_message"]
-        | Literal["user_message"]
-        | Literal["reasoning_message"]
-        | Literal["assistant_message"]
-        | Omit = omit,
-        reasoning: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        if not message_id:
-            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
-        return cast(
-            MessageModifyResponse,
-            await self._patch(
-                f"/v1/agents/{agent_id}/messages/{message_id}",
-                body=await async_maybe_transform(
-                    {
-                        "content": content,
-                        "message_type": message_type,
-                        "reasoning": reasoning,
-                    },
-                    message_modify_params.MessageModifyParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(
-                    Any, MessageModifyResponse
-                ),  # Union types cannot be passed in as arguments in the type system
-            ),
-        )
-
-    async def reset(
-        self,
-        agent_id: str,
-        *,
-        add_default_initial_messages: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
-        """
-        Resets the messages for an agent
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          add_default_initial_messages: If true, adds the default initial messages after resetting.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return await self._patch(
-            f"/v1/agents/{agent_id}/reset-messages",
-            body=await async_maybe_transform(
-                {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AgentState,
-        )
-
-    @overload
-    async def send(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: Literal[False] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse:
-        """Process a user message and return the agent's response.
-
-        This endpoint accepts a
-        message from a user and processes it through the agent.
-
-        The response format is controlled by the `streaming` field in the request body:
-
-        - If `streaming=false` (default): Returns a complete LettaResponse with all
-          messages
-        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
-
-        Additional streaming options (only used when streaming=true):
-
-        - `stream_tokens`: Stream individual tokens instead of complete steps
-        - `include_pings`: Include keepalive pings to prevent connection timeouts
-        - `background`: Process the request in the background
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
-              for legacy agent types, but deprecated for letta_v1_agent onward.
-
-          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
-              but deprecated for letta_v1_agent onward.
-
-          background: Whether to process the request in the background (only used when
-              streaming=true).
-
-          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
-
-          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when streaming=true).
-
-          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
-              all messages.
-
-          input:
-              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-              'user', 'content': input}].
-
-          max_steps: Maximum number of steps the agent should take to process the request.
-
-          messages: The messages to be sent to the agent.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when streaming=true).
-
-          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
-              returns a complete response.
-
-          use_assistant_message: Whether the server should parse specific tool call arguments (default
-              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
-              types, but deprecated for letta_v1_agent onward.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def send(
-        self,
-        agent_id: str,
-        *,
-        streaming: Literal[True],
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncStream[LettaStreamingResponse]:
-        """Process a user message and return the agent's response.
-
-        This endpoint accepts a
-        message from a user and processes it through the agent.
-
-        The response format is controlled by the `streaming` field in the request body:
-
-        - If `streaming=false` (default): Returns a complete LettaResponse with all
-          messages
-        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
-
-        Additional streaming options (only used when streaming=true):
-
-        - `stream_tokens`: Stream individual tokens instead of complete steps
-        - `include_pings`: Include keepalive pings to prevent connection timeouts
-        - `background`: Process the request in the background
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
-              returns a complete response.
-
-          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
-              for legacy agent types, but deprecated for letta_v1_agent onward.
-
-          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
-              but deprecated for letta_v1_agent onward.
-
-          background: Whether to process the request in the background (only used when
-              streaming=true).
-
-          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
-
-          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when streaming=true).
-
-          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
-              all messages.
-
-          input:
-              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-              'user', 'content': input}].
-
-          max_steps: Maximum number of steps the agent should take to process the request.
-
-          messages: The messages to be sent to the agent.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when streaming=true).
-
-          use_assistant_message: Whether the server should parse specific tool call arguments (default
-              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
-              types, but deprecated for letta_v1_agent onward.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def send(
-        self,
-        agent_id: str,
-        *,
-        streaming: bool,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse | AsyncStream[LettaStreamingResponse]:
-        """Process a user message and return the agent's response.
-
-        This endpoint accepts a
-        message from a user and processes it through the agent.
-
-        The response format is controlled by the `streaming` field in the request body:
-
-        - If `streaming=false` (default): Returns a complete LettaResponse with all
-          messages
-        - If `streaming=true`: Returns a Server-Sent Events (SSE) stream
-
-        Additional streaming options (only used when streaming=true):
-
-        - `stream_tokens`: Stream individual tokens instead of complete steps
-        - `include_pings`: Include keepalive pings to prevent connection timeouts
-        - `background`: Process the request in the background
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
-              returns a complete response.
-
-          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
-              for legacy agent types, but deprecated for letta_v1_agent onward.
-
-          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
-              but deprecated for letta_v1_agent onward.
-
-          background: Whether to process the request in the background (only used when
-              streaming=true).
-
-          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
-
-          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when streaming=true).
-
-          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
-              all messages.
-
-          input:
-              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-              'user', 'content': input}].
-
-          max_steps: Maximum number of steps the agent should take to process the request.
-
-          messages: The messages to be sent to the agent.
-
-          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when streaming=true).
-
-          use_assistant_message: Whether the server should parse specific tool call arguments (default
-              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
-              types, but deprecated for letta_v1_agent onward.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    async def send(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: Literal[False] | Literal[True] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse | AsyncStream[LettaStreamingResponse]:
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        return await self._post(
-            f"/v1/agents/{agent_id}/messages",
-            body=await async_maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "background": background,
-                    "enable_thinking": enable_thinking,
-                    "include_pings": include_pings,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "stream_tokens": stream_tokens,
-                    "streaming": streaming,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_send_params.MessageSendParamsStreaming
-                if streaming
-                else message_send_params.MessageSendParamsNonStreaming,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=LettaResponse,
-            stream=streaming or False,
-            stream_cls=AsyncStream[LettaStreamingResponse],
-        )
-
-    async def send_async(
+    async def create_async(
         self,
         agent_id: str,
         *,
@@ -1682,9 +1641,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         callback_url: Optional[str] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_async_params.InputUnionMember1], None] | Omit = omit,
+        input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_async_params.Message]] | Omit = omit,
+        messages: Optional[Iterable[message_create_async_params.Message]] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1754,12 +1713,53 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "messages": messages,
                     "use_assistant_message": use_assistant_message,
                 },
-                message_send_async_params.MessageSendAsyncParams,
+                message_create_async_params.MessageCreateAsyncParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Run,
+        )
+
+    async def reset(
+        self,
+        agent_id: str,
+        *,
+        add_default_initial_messages: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
+        """
+        Resets the messages for an agent
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          add_default_initial_messages: If true, adds the default initial messages after resetting.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return await self._patch(
+            f"/v1/agents/{agent_id}/reset-messages",
+            body=await async_maybe_transform(
+                {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentState,
         )
 
     async def stream(
@@ -1909,23 +1909,23 @@ class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
 
+        self.create = to_raw_response_wrapper(
+            messages.create,
+        )
+        self.update = to_raw_response_wrapper(
+            messages.update,
+        )
         self.list = to_raw_response_wrapper(
             messages.list,
         )
         self.cancel = to_raw_response_wrapper(
             messages.cancel,
         )
-        self.modify = to_raw_response_wrapper(
-            messages.modify,
+        self.create_async = to_raw_response_wrapper(
+            messages.create_async,
         )
         self.reset = to_raw_response_wrapper(
             messages.reset,
-        )
-        self.send = to_raw_response_wrapper(
-            messages.send,
-        )
-        self.send_async = to_raw_response_wrapper(
-            messages.send_async,
         )
         self.stream = to_raw_response_wrapper(
             messages.stream,
@@ -1939,23 +1939,23 @@ class AsyncMessagesResourceWithRawResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
 
+        self.create = async_to_raw_response_wrapper(
+            messages.create,
+        )
+        self.update = async_to_raw_response_wrapper(
+            messages.update,
+        )
         self.list = async_to_raw_response_wrapper(
             messages.list,
         )
         self.cancel = async_to_raw_response_wrapper(
             messages.cancel,
         )
-        self.modify = async_to_raw_response_wrapper(
-            messages.modify,
+        self.create_async = async_to_raw_response_wrapper(
+            messages.create_async,
         )
         self.reset = async_to_raw_response_wrapper(
             messages.reset,
-        )
-        self.send = async_to_raw_response_wrapper(
-            messages.send,
-        )
-        self.send_async = async_to_raw_response_wrapper(
-            messages.send_async,
         )
         self.stream = async_to_raw_response_wrapper(
             messages.stream,
@@ -1969,23 +1969,23 @@ class MessagesResourceWithStreamingResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
 
+        self.create = to_streamed_response_wrapper(
+            messages.create,
+        )
+        self.update = to_streamed_response_wrapper(
+            messages.update,
+        )
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
         self.cancel = to_streamed_response_wrapper(
             messages.cancel,
         )
-        self.modify = to_streamed_response_wrapper(
-            messages.modify,
+        self.create_async = to_streamed_response_wrapper(
+            messages.create_async,
         )
         self.reset = to_streamed_response_wrapper(
             messages.reset,
-        )
-        self.send = to_streamed_response_wrapper(
-            messages.send,
-        )
-        self.send_async = to_streamed_response_wrapper(
-            messages.send_async,
         )
         self.stream = to_streamed_response_wrapper(
             messages.stream,
@@ -1999,23 +1999,23 @@ class AsyncMessagesResourceWithStreamingResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
 
+        self.create = async_to_streamed_response_wrapper(
+            messages.create,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            messages.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
         )
         self.cancel = async_to_streamed_response_wrapper(
             messages.cancel,
         )
-        self.modify = async_to_streamed_response_wrapper(
-            messages.modify,
+        self.create_async = async_to_streamed_response_wrapper(
+            messages.create_async,
         )
         self.reset = async_to_streamed_response_wrapper(
             messages.reset,
-        )
-        self.send = async_to_streamed_response_wrapper(
-            messages.send,
-        )
-        self.send_async = async_to_streamed_response_wrapper(
-            messages.send_async,
         )
         self.stream = async_to_streamed_response_wrapper(
             messages.stream,

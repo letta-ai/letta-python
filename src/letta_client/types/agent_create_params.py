@@ -105,7 +105,13 @@ class AgentCreateParams(TypedDict, total=False):
     """The initial set of messages to put in the agent's in-context memory."""
 
     llm_config: Optional[LlmConfigParam]
-    """Configuration for Language Model (LLM) connection and generation parameters."""
+    """Configuration for Language Model (LLM) connection and generation parameters.
+
+    .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+    return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+    OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+    or Model.\\__from_llm_config() method.
+    """
 
     max_files_open: Optional[int]
     """Maximum number of files that can be open at once for this agent.
