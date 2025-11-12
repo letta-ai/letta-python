@@ -7,7 +7,7 @@ from typing_extensions import TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 
-__all__ = ["McpServerModifyParams", "UpdateStdioMcpServer", "UpdateSseMcpServer", "UpdateStreamableHTTPMcpServer"]
+__all__ = ["McpServerUpdateParams", "UpdateStdioMcpServer", "UpdateSseMcpServer", "UpdateStreamableHTTPMcpServer"]
 
 
 class UpdateStdioMcpServer(TypedDict, total=False):
@@ -64,4 +64,4 @@ class UpdateStreamableHTTPMcpServer(TypedDict, total=False):
     """The URL of the Streamable HTTP MCP server"""
 
 
-McpServerModifyParams: TypeAlias = Union[UpdateStdioMcpServer, UpdateSseMcpServer, UpdateStreamableHTTPMcpServer]
+McpServerUpdateParams: TypeAlias = Union[UpdateStdioMcpServer, UpdateSseMcpServer, UpdateStreamableHTTPMcpServer]

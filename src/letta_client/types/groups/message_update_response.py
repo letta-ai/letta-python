@@ -16,9 +16,9 @@ from ..agents.approval_request_message import ApprovalRequestMessage
 from ..agents.hidden_reasoning_message import HiddenReasoningMessage
 from ..agents.approval_response_message import ApprovalResponseMessage
 
-__all__ = ["MessageModifyResponse"]
+__all__ = ["MessageUpdateResponse"]
 
-MessageModifyResponse: TypeAlias = Annotated[
+MessageUpdateResponse: TypeAlias = Annotated[
     Union[
         SystemMessage,
         UserMessage,

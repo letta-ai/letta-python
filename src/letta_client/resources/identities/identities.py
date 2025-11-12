@@ -27,7 +27,7 @@ from ...types import (
     IdentityType,
     identity_list_params,
     identity_create_params,
-    identity_modify_params,
+    identity_update_params,
     identity_upsert_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
@@ -187,6 +187,70 @@ class IdentitiesResource(SyncAPIResource):
             cast_to=Identity,
         )
 
+    def update(
+        self,
+        identity_id: str,
+        *,
+        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        identifier_key: Optional[str] | Omit = omit,
+        identity_type: Optional[IdentityType] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        properties: Optional[Iterable[IdentityPropertyParam]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Identity:
+        """
+        Update Identity
+
+        Args:
+          identity_id: The ID of the identity in the format 'identity-<uuid4>'
+
+          agent_ids: The agent ids that are associated with the identity.
+
+          block_ids: The IDs of the blocks associated with the identity.
+
+          identifier_key: External, user-generated identifier key of the identity.
+
+          identity_type: Enum to represent the type of the identity.
+
+          name: The name of the identity.
+
+          properties: List of properties associated with the identity.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return self._patch(
+            f"/v1/identities/{identity_id}",
+            body=maybe_transform(
+                {
+                    "agent_ids": agent_ids,
+                    "block_ids": block_ids,
+                    "identifier_key": identifier_key,
+                    "identity_type": identity_type,
+                    "name": name,
+                    "properties": properties,
+                },
+                identity_update_params.IdentityUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Identity,
+        )
+
     def list(
         self,
         *,
@@ -292,70 +356,6 @@ class IdentitiesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def modify(
-        self,
-        identity_id: str,
-        *,
-        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        identifier_key: Optional[str] | Omit = omit,
-        identity_type: Optional[IdentityType] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        properties: Optional[Iterable[IdentityPropertyParam]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Identity:
-        """
-        Modify Identity
-
-        Args:
-          identity_id: The ID of the identity in the format 'identity-<uuid4>'
-
-          agent_ids: The agent ids that are associated with the identity.
-
-          block_ids: The IDs of the blocks associated with the identity.
-
-          identifier_key: External, user-generated identifier key of the identity.
-
-          identity_type: Enum to represent the type of the identity.
-
-          name: The name of the identity.
-
-          properties: List of properties associated with the identity.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not identity_id:
-            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
-        return self._patch(
-            f"/v1/identities/{identity_id}",
-            body=maybe_transform(
-                {
-                    "agent_ids": agent_ids,
-                    "block_ids": block_ids,
-                    "identifier_key": identifier_key,
-                    "identity_type": identity_type,
-                    "name": name,
-                    "properties": properties,
-                },
-                identity_modify_params.IdentityModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Identity,
         )
 
     def upsert(
@@ -552,6 +552,70 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             cast_to=Identity,
         )
 
+    async def update(
+        self,
+        identity_id: str,
+        *,
+        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        identifier_key: Optional[str] | Omit = omit,
+        identity_type: Optional[IdentityType] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        properties: Optional[Iterable[IdentityPropertyParam]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Identity:
+        """
+        Update Identity
+
+        Args:
+          identity_id: The ID of the identity in the format 'identity-<uuid4>'
+
+          agent_ids: The agent ids that are associated with the identity.
+
+          block_ids: The IDs of the blocks associated with the identity.
+
+          identifier_key: External, user-generated identifier key of the identity.
+
+          identity_type: Enum to represent the type of the identity.
+
+          name: The name of the identity.
+
+          properties: List of properties associated with the identity.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not identity_id:
+            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        return await self._patch(
+            f"/v1/identities/{identity_id}",
+            body=await async_maybe_transform(
+                {
+                    "agent_ids": agent_ids,
+                    "block_ids": block_ids,
+                    "identifier_key": identifier_key,
+                    "identity_type": identity_type,
+                    "name": name,
+                    "properties": properties,
+                },
+                identity_update_params.IdentityUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Identity,
+        )
+
     def list(
         self,
         *,
@@ -659,70 +723,6 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def modify(
-        self,
-        identity_id: str,
-        *,
-        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        identifier_key: Optional[str] | Omit = omit,
-        identity_type: Optional[IdentityType] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        properties: Optional[Iterable[IdentityPropertyParam]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Identity:
-        """
-        Modify Identity
-
-        Args:
-          identity_id: The ID of the identity in the format 'identity-<uuid4>'
-
-          agent_ids: The agent ids that are associated with the identity.
-
-          block_ids: The IDs of the blocks associated with the identity.
-
-          identifier_key: External, user-generated identifier key of the identity.
-
-          identity_type: Enum to represent the type of the identity.
-
-          name: The name of the identity.
-
-          properties: List of properties associated with the identity.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not identity_id:
-            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
-        return await self._patch(
-            f"/v1/identities/{identity_id}",
-            body=await async_maybe_transform(
-                {
-                    "agent_ids": agent_ids,
-                    "block_ids": block_ids,
-                    "identifier_key": identifier_key,
-                    "identity_type": identity_type,
-                    "name": name,
-                    "properties": properties,
-                },
-                identity_modify_params.IdentityModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Identity,
-        )
-
     async def upsert(
         self,
         *,
@@ -797,14 +797,14 @@ class IdentitiesResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             identities.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            identities.update,
+        )
         self.list = to_raw_response_wrapper(
             identities.list,
         )
         self.delete = to_raw_response_wrapper(
             identities.delete,
-        )
-        self.modify = to_raw_response_wrapper(
-            identities.modify,
         )
         self.upsert = to_raw_response_wrapper(
             identities.upsert,
@@ -833,14 +833,14 @@ class AsyncIdentitiesResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             identities.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            identities.update,
+        )
         self.list = async_to_raw_response_wrapper(
             identities.list,
         )
         self.delete = async_to_raw_response_wrapper(
             identities.delete,
-        )
-        self.modify = async_to_raw_response_wrapper(
-            identities.modify,
         )
         self.upsert = async_to_raw_response_wrapper(
             identities.upsert,
@@ -869,14 +869,14 @@ class IdentitiesResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             identities.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            identities.update,
+        )
         self.list = to_streamed_response_wrapper(
             identities.list,
         )
         self.delete = to_streamed_response_wrapper(
             identities.delete,
-        )
-        self.modify = to_streamed_response_wrapper(
-            identities.modify,
         )
         self.upsert = to_streamed_response_wrapper(
             identities.upsert,
@@ -905,14 +905,14 @@ class AsyncIdentitiesResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             identities.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            identities.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             identities.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             identities.delete,
-        )
-        self.modify = async_to_streamed_response_wrapper(
-            identities.modify,
         )
         self.upsert = async_to_streamed_response_wrapper(
             identities.upsert,

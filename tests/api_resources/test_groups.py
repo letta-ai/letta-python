@@ -115,6 +115,64 @@ class TestGroups:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_update(self, client: Letta) -> None:
+        group = client.groups.update(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Group, group, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Letta) -> None:
+        group = client.groups.update(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+            agent_ids=["string"],
+            description="description",
+            manager_config={
+                "manager_type": "round_robin",
+                "max_turns": 0,
+            },
+            project_id="project_id",
+            shared_block_ids=["string"],
+        )
+        assert_matches_type(Group, group, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Letta) -> None:
+        response = client.groups.with_raw_response.update(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        group = response.parse()
+        assert_matches_type(Group, group, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Letta) -> None:
+        with client.groups.with_streaming_response.update(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            group = response.parse()
+            assert_matches_type(Group, group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
+            client.groups.with_raw_response.update(
+                group_id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_list(self, client: Letta) -> None:
         group = client.groups.list()
         assert_matches_type(SyncArrayPage[Group], group, path=["response"])
@@ -195,64 +253,6 @@ class TestGroups:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.groups.with_raw_response.delete(
                 "",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_modify(self, client: Letta) -> None:
-        group = client.groups.modify(
-            group_id="group-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Group, group, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_modify_with_all_params(self, client: Letta) -> None:
-        group = client.groups.modify(
-            group_id="group-123e4567-e89b-42d3-8456-426614174000",
-            agent_ids=["string"],
-            description="description",
-            manager_config={
-                "manager_type": "round_robin",
-                "max_turns": 0,
-            },
-            project_id="project_id",
-            shared_block_ids=["string"],
-        )
-        assert_matches_type(Group, group, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_modify(self, client: Letta) -> None:
-        response = client.groups.with_raw_response.modify(
-            group_id="group-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        group = response.parse()
-        assert_matches_type(Group, group, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_modify(self, client: Letta) -> None:
-        with client.groups.with_streaming_response.modify(
-            group_id="group-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            group = response.parse()
-            assert_matches_type(Group, group, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_modify(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
-            client.groups.with_raw_response.modify(
-                group_id="",
             )
 
 
@@ -358,6 +358,64 @@ class TestAsyncGroups:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_update(self, async_client: AsyncLetta) -> None:
+        group = await async_client.groups.update(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Group, group, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
+        group = await async_client.groups.update(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+            agent_ids=["string"],
+            description="description",
+            manager_config={
+                "manager_type": "round_robin",
+                "max_turns": 0,
+            },
+            project_id="project_id",
+            shared_block_ids=["string"],
+        )
+        assert_matches_type(Group, group, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
+        response = await async_client.groups.with_raw_response.update(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        group = await response.parse()
+        assert_matches_type(Group, group, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
+        async with async_client.groups.with_streaming_response.update(
+            group_id="group-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            group = await response.parse()
+            assert_matches_type(Group, group, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
+            await async_client.groups.with_raw_response.update(
+                group_id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         group = await async_client.groups.list()
         assert_matches_type(AsyncArrayPage[Group], group, path=["response"])
@@ -438,62 +496,4 @@ class TestAsyncGroups:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.groups.with_raw_response.delete(
                 "",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_modify(self, async_client: AsyncLetta) -> None:
-        group = await async_client.groups.modify(
-            group_id="group-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Group, group, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_modify_with_all_params(self, async_client: AsyncLetta) -> None:
-        group = await async_client.groups.modify(
-            group_id="group-123e4567-e89b-42d3-8456-426614174000",
-            agent_ids=["string"],
-            description="description",
-            manager_config={
-                "manager_type": "round_robin",
-                "max_turns": 0,
-            },
-            project_id="project_id",
-            shared_block_ids=["string"],
-        )
-        assert_matches_type(Group, group, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_modify(self, async_client: AsyncLetta) -> None:
-        response = await async_client.groups.with_raw_response.modify(
-            group_id="group-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        group = await response.parse()
-        assert_matches_type(Group, group, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_modify(self, async_client: AsyncLetta) -> None:
-        async with async_client.groups.with_streaming_response.modify(
-            group_id="group-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            group = await response.parse()
-            assert_matches_type(Group, group, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_modify(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
-            await async_client.groups.with_raw_response.modify(
-                group_id="",
             )

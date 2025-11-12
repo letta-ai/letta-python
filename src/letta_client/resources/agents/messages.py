@@ -25,8 +25,8 @@ from ...types.agents import (
     message_reset_params,
     message_cancel_params,
     message_create_params,
-    message_modify_params,
     message_stream_params,
+    message_update_params,
     message_create_async_params,
 )
 from ...types.agents.run import Run
@@ -35,7 +35,7 @@ from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
 from ...types.agents.letta_response import LettaResponse
 from ...types.agents.message_cancel_response import MessageCancelResponse
-from ...types.agents.message_modify_response import MessageModifyResponse
+from ...types.agents.message_update_response import MessageUpdateResponse
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
 from ...types.agents.letta_user_message_content_union_param import LettaUserMessageContentUnionParam
 from ...types.agents.letta_assistant_message_content_union_param import LettaAssistantMessageContentUnionParam
@@ -384,6 +384,192 @@ class MessagesResource(SyncAPIResource):
             stream_cls=Stream[LettaStreamingResponse],
         )
 
+    @overload
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: str,
+        message_type: Literal["system_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the system (can be a string or an array of
+              multi-modal content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: Union[Iterable[LettaUserMessageContentUnionParam], str],
+        message_type: Literal["user_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the user (can be a string or an array of multi-modal
+              content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        reasoning: str,
+        message_type: Literal["reasoning_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: Union[Iterable[LettaAssistantMessageContentUnionParam], str],
+        message_type: Literal["assistant_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the assistant (can be a string or an array of
+              content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["agent_id", "content"], ["agent_id", "reasoning"])
+    def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: str | Union[Iterable[LettaUserMessageContentUnionParam], str] | Omit = omit,
+        message_type: Literal["system_message"]
+        | Literal["user_message"]
+        | Literal["reasoning_message"]
+        | Literal["assistant_message"]
+        | Omit = omit,
+        reasoning: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return cast(
+            MessageUpdateResponse,
+            self._patch(
+                f"/v1/agents/{agent_id}/messages/{message_id}",
+                body=maybe_transform(
+                    {
+                        "content": content,
+                        "message_type": message_type,
+                        "reasoning": reasoning,
+                    },
+                    message_update_params.MessageUpdateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, MessageUpdateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
+
     def list(
         self,
         agent_id: str,
@@ -602,192 +788,6 @@ class MessagesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Run,
-        )
-
-    @overload
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: str,
-        message_type: Literal["system_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the system (can be a string or an array of
-              multi-modal content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: Union[Iterable[LettaUserMessageContentUnionParam], str],
-        message_type: Literal["user_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the user (can be a string or an array of multi-modal
-              content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        reasoning: str,
-        message_type: Literal["reasoning_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: Union[Iterable[LettaAssistantMessageContentUnionParam], str],
-        message_type: Literal["assistant_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the assistant (can be a string or an array of
-              content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["agent_id", "content"], ["agent_id", "reasoning"])
-    def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: str | Union[Iterable[LettaUserMessageContentUnionParam], str] | Omit = omit,
-        message_type: Literal["system_message"]
-        | Literal["user_message"]
-        | Literal["reasoning_message"]
-        | Literal["assistant_message"]
-        | Omit = omit,
-        reasoning: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        if not message_id:
-            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
-        return cast(
-            MessageModifyResponse,
-            self._patch(
-                f"/v1/agents/{agent_id}/messages/{message_id}",
-                body=maybe_transform(
-                    {
-                        "content": content,
-                        "message_type": message_type,
-                        "reasoning": reasoning,
-                    },
-                    message_modify_params.MessageModifyParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(
-                    Any, MessageModifyResponse
-                ),  # Union types cannot be passed in as arguments in the type system
-            ),
         )
 
     def reset(
@@ -1315,6 +1315,192 @@ class AsyncMessagesResource(AsyncAPIResource):
             stream_cls=AsyncStream[LettaStreamingResponse],
         )
 
+    @overload
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: str,
+        message_type: Literal["system_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the system (can be a string or an array of
+              multi-modal content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: Union[Iterable[LettaUserMessageContentUnionParam], str],
+        message_type: Literal["user_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the user (can be a string or an array of multi-modal
+              content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        reasoning: str,
+        message_type: Literal["reasoning_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: Union[Iterable[LettaAssistantMessageContentUnionParam], str],
+        message_type: Literal["assistant_message"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        """
+        Update the details of a message associated with an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          content: The message content sent by the assistant (can be a string or an array of
+              content parts)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["agent_id", "content"], ["agent_id", "reasoning"])
+    async def update(
+        self,
+        message_id: str,
+        *,
+        agent_id: str,
+        content: str | Union[Iterable[LettaUserMessageContentUnionParam], str] | Omit = omit,
+        message_type: Literal["system_message"]
+        | Literal["user_message"]
+        | Literal["reasoning_message"]
+        | Literal["assistant_message"]
+        | Omit = omit,
+        reasoning: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageUpdateResponse:
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return cast(
+            MessageUpdateResponse,
+            await self._patch(
+                f"/v1/agents/{agent_id}/messages/{message_id}",
+                body=await async_maybe_transform(
+                    {
+                        "content": content,
+                        "message_type": message_type,
+                        "reasoning": reasoning,
+                    },
+                    message_update_params.MessageUpdateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, MessageUpdateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
+
     def list(
         self,
         agent_id: str,
@@ -1535,192 +1721,6 @@ class AsyncMessagesResource(AsyncAPIResource):
             cast_to=Run,
         )
 
-    @overload
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: str,
-        message_type: Literal["system_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the system (can be a string or an array of
-              multi-modal content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: Union[Iterable[LettaUserMessageContentUnionParam], str],
-        message_type: Literal["user_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the user (can be a string or an array of multi-modal
-              content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        reasoning: str,
-        message_type: Literal["reasoning_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: Union[Iterable[LettaAssistantMessageContentUnionParam], str],
-        message_type: Literal["assistant_message"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        """
-        Update the details of a message associated with an agent.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          message_id: The ID of the message in the format 'message-<uuid4>'
-
-          content: The message content sent by the assistant (can be a string or an array of
-              content parts)
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["agent_id", "content"], ["agent_id", "reasoning"])
-    async def modify(
-        self,
-        message_id: str,
-        *,
-        agent_id: str,
-        content: str | Union[Iterable[LettaUserMessageContentUnionParam], str] | Omit = omit,
-        message_type: Literal["system_message"]
-        | Literal["user_message"]
-        | Literal["reasoning_message"]
-        | Literal["assistant_message"]
-        | Omit = omit,
-        reasoning: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageModifyResponse:
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        if not message_id:
-            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
-        return cast(
-            MessageModifyResponse,
-            await self._patch(
-                f"/v1/agents/{agent_id}/messages/{message_id}",
-                body=await async_maybe_transform(
-                    {
-                        "content": content,
-                        "message_type": message_type,
-                        "reasoning": reasoning,
-                    },
-                    message_modify_params.MessageModifyParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(
-                    Any, MessageModifyResponse
-                ),  # Union types cannot be passed in as arguments in the type system
-            ),
-        )
-
     async def reset(
         self,
         agent_id: str,
@@ -1912,6 +1912,9 @@ class MessagesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             messages.create,
         )
+        self.update = to_raw_response_wrapper(
+            messages.update,
+        )
         self.list = to_raw_response_wrapper(
             messages.list,
         )
@@ -1920,9 +1923,6 @@ class MessagesResourceWithRawResponse:
         )
         self.create_async = to_raw_response_wrapper(
             messages.create_async,
-        )
-        self.modify = to_raw_response_wrapper(
-            messages.modify,
         )
         self.reset = to_raw_response_wrapper(
             messages.reset,
@@ -1942,6 +1942,9 @@ class AsyncMessagesResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             messages.create,
         )
+        self.update = async_to_raw_response_wrapper(
+            messages.update,
+        )
         self.list = async_to_raw_response_wrapper(
             messages.list,
         )
@@ -1950,9 +1953,6 @@ class AsyncMessagesResourceWithRawResponse:
         )
         self.create_async = async_to_raw_response_wrapper(
             messages.create_async,
-        )
-        self.modify = async_to_raw_response_wrapper(
-            messages.modify,
         )
         self.reset = async_to_raw_response_wrapper(
             messages.reset,
@@ -1972,6 +1972,9 @@ class MessagesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             messages.create,
         )
+        self.update = to_streamed_response_wrapper(
+            messages.update,
+        )
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
@@ -1980,9 +1983,6 @@ class MessagesResourceWithStreamingResponse:
         )
         self.create_async = to_streamed_response_wrapper(
             messages.create_async,
-        )
-        self.modify = to_streamed_response_wrapper(
-            messages.modify,
         )
         self.reset = to_streamed_response_wrapper(
             messages.reset,
@@ -2002,6 +2002,9 @@ class AsyncMessagesResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             messages.create,
         )
+        self.update = async_to_streamed_response_wrapper(
+            messages.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
         )
@@ -2010,9 +2013,6 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.create_async = async_to_streamed_response_wrapper(
             messages.create_async,
-        )
-        self.modify = async_to_streamed_response_wrapper(
-            messages.modify,
         )
         self.reset = async_to_streamed_response_wrapper(
             messages.reset,
