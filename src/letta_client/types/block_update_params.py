@@ -3,15 +3,12 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
-__all__ = ["BlockModifyParams"]
+__all__ = ["BlockUpdateParams"]
 
 
-class BlockModifyParams(TypedDict, total=False):
-    agent_id: Required[str]
-    """The ID of the agent in the format 'agent-<uuid4>'"""
-
+class BlockUpdateParams(TypedDict, total=False):
     base_template_id: Optional[str]
     """The base template id of the block."""
 

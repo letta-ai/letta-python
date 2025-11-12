@@ -9,10 +9,10 @@ from .._types import SequenceNotStr
 from .identity_type import IdentityType
 from .identity_property_param import IdentityPropertyParam
 
-__all__ = ["IdentityModifyParams"]
+__all__ = ["IdentityUpdateParams"]
 
 
-class IdentityModifyParams(TypedDict, total=False):
+class IdentityUpdateParams(TypedDict, total=False):
     agent_ids: Optional[SequenceNotStr[str]]
     """The agent ids that are associated with the identity."""
 

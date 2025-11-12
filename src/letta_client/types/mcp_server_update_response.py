@@ -7,6 +7,6 @@ from .sse_mcp_server import SseMcpServer
 from .stdio_mcp_server import StdioMcpServer
 from .streamable_http_mcp_server import StreamableHTTPMcpServer
 
-__all__ = ["McpServerModifyResponse"]
+__all__ = ["McpServerUpdateResponse"]
 
-McpServerModifyResponse: TypeAlias = Union[StdioMcpServer, SseMcpServer, StreamableHTTPMcpServer]
+McpServerUpdateResponse: TypeAlias = Union[StdioMcpServer, SseMcpServer, StreamableHTTPMcpServer]

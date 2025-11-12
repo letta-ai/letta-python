@@ -34,10 +34,10 @@ from .google_vertex_model_settings_param import GoogleVertexModelSettingsParam
 from .max_count_per_step_tool_rule_param import MaxCountPerStepToolRuleParam
 from .required_before_exit_tool_rule_param import RequiredBeforeExitToolRuleParam
 
-__all__ = ["AgentModifyParams", "ModelSettings", "ResponseFormat", "ToolRule"]
+__all__ = ["AgentUpdateParams", "ModelSettings", "ResponseFormat", "ToolRule"]
 
 
-class AgentModifyParams(TypedDict, total=False):
+class AgentUpdateParams(TypedDict, total=False):
     base_template_id: Optional[str]
     """The base template id of the agent."""
 

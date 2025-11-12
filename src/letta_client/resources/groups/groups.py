@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import ManagerType, group_list_params, group_create_params, group_modify_params
+from ...types import ManagerType, group_list_params, group_create_params, group_update_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from .messages import (
@@ -152,6 +152,66 @@ class GroupsResource(SyncAPIResource):
             cast_to=Group,
         )
 
+    def update(
+        self,
+        group_id: str,
+        *,
+        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        manager_config: Optional[group_update_params.ManagerConfig] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        shared_block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Group:
+        """
+        Create a new multi-agent group with the specified configuration.
+
+        Args:
+          group_id: The ID of the group in the format 'group-<uuid4>'
+
+          agent_ids
+
+          description
+
+          manager_config
+
+          project_id: The associated project id.
+
+          shared_block_ids
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not group_id:
+            raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
+        return self._patch(
+            f"/v1/groups/{group_id}",
+            body=maybe_transform(
+                {
+                    "agent_ids": agent_ids,
+                    "description": description,
+                    "manager_config": manager_config,
+                    "project_id": project_id,
+                    "shared_block_ids": shared_block_ids,
+                },
+                group_update_params.GroupUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Group,
+        )
+
     def list(
         self,
         *,
@@ -255,66 +315,6 @@ class GroupsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def modify(
-        self,
-        group_id: str,
-        *,
-        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        manager_config: Optional[group_modify_params.ManagerConfig] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        shared_block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Group:
-        """
-        Create a new multi-agent group with the specified configuration.
-
-        Args:
-          group_id: The ID of the group in the format 'group-<uuid4>'
-
-          agent_ids
-
-          description
-
-          manager_config
-
-          project_id: The associated project id.
-
-          shared_block_ids
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not group_id:
-            raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
-        return self._patch(
-            f"/v1/groups/{group_id}",
-            body=maybe_transform(
-                {
-                    "agent_ids": agent_ids,
-                    "description": description,
-                    "manager_config": manager_config,
-                    "project_id": project_id,
-                    "shared_block_ids": shared_block_ids,
-                },
-                group_modify_params.GroupModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Group,
         )
 
 
@@ -436,6 +436,66 @@ class AsyncGroupsResource(AsyncAPIResource):
             cast_to=Group,
         )
 
+    async def update(
+        self,
+        group_id: str,
+        *,
+        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        manager_config: Optional[group_update_params.ManagerConfig] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        shared_block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Group:
+        """
+        Create a new multi-agent group with the specified configuration.
+
+        Args:
+          group_id: The ID of the group in the format 'group-<uuid4>'
+
+          agent_ids
+
+          description
+
+          manager_config
+
+          project_id: The associated project id.
+
+          shared_block_ids
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not group_id:
+            raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
+        return await self._patch(
+            f"/v1/groups/{group_id}",
+            body=await async_maybe_transform(
+                {
+                    "agent_ids": agent_ids,
+                    "description": description,
+                    "manager_config": manager_config,
+                    "project_id": project_id,
+                    "shared_block_ids": shared_block_ids,
+                },
+                group_update_params.GroupUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Group,
+        )
+
     def list(
         self,
         *,
@@ -541,66 +601,6 @@ class AsyncGroupsResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def modify(
-        self,
-        group_id: str,
-        *,
-        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        manager_config: Optional[group_modify_params.ManagerConfig] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        shared_block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Group:
-        """
-        Create a new multi-agent group with the specified configuration.
-
-        Args:
-          group_id: The ID of the group in the format 'group-<uuid4>'
-
-          agent_ids
-
-          description
-
-          manager_config
-
-          project_id: The associated project id.
-
-          shared_block_ids
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not group_id:
-            raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
-        return await self._patch(
-            f"/v1/groups/{group_id}",
-            body=await async_maybe_transform(
-                {
-                    "agent_ids": agent_ids,
-                    "description": description,
-                    "manager_config": manager_config,
-                    "project_id": project_id,
-                    "shared_block_ids": shared_block_ids,
-                },
-                group_modify_params.GroupModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Group,
-        )
-
 
 class GroupsResourceWithRawResponse:
     def __init__(self, groups: GroupsResource) -> None:
@@ -612,14 +612,14 @@ class GroupsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             groups.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            groups.update,
+        )
         self.list = to_raw_response_wrapper(
             groups.list,
         )
         self.delete = to_raw_response_wrapper(
             groups.delete,
-        )
-        self.modify = to_raw_response_wrapper(
-            groups.modify,
         )
 
     @cached_property
@@ -637,14 +637,14 @@ class AsyncGroupsResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             groups.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            groups.update,
+        )
         self.list = async_to_raw_response_wrapper(
             groups.list,
         )
         self.delete = async_to_raw_response_wrapper(
             groups.delete,
-        )
-        self.modify = async_to_raw_response_wrapper(
-            groups.modify,
         )
 
     @cached_property
@@ -662,14 +662,14 @@ class GroupsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             groups.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            groups.update,
+        )
         self.list = to_streamed_response_wrapper(
             groups.list,
         )
         self.delete = to_streamed_response_wrapper(
             groups.delete,
-        )
-        self.modify = to_streamed_response_wrapper(
-            groups.modify,
         )
 
     @cached_property
@@ -687,14 +687,14 @@ class AsyncGroupsResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             groups.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            groups.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             groups.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             groups.delete,
-        )
-        self.modify = async_to_streamed_response_wrapper(
-            groups.modify,
         )
 
     @cached_property

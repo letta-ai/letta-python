@@ -11,7 +11,7 @@ from typing_extensions import Literal
 import httpx
 from pydantic import BaseModel
 
-from ..types import tool_list_params, tool_create_params, tool_modify_params, tool_upsert_params
+from ..types import tool_list_params, tool_create_params, tool_update_params, tool_upsert_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -168,6 +168,96 @@ class ToolsResource(SyncAPIResource):
             cast_to=Tool,
         )
 
+    def update(
+        self,
+        tool_id: str,
+        *,
+        args_json_schema: Optional[Dict[str, object]] | Omit = omit,
+        default_requires_approval: Optional[bool] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        enable_parallel_execution: Optional[bool] | Omit = omit,
+        json_schema: Optional[Dict[str, object]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
+        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
+        return_char_limit: Optional[int] | Omit = omit,
+        source_code: Optional[str] | Omit = omit,
+        source_type: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Update an existing tool
+
+        Args:
+          tool_id: The ID of the tool in the format 'tool-<uuid4>'
+
+          args_json_schema: The args JSON schema of the function.
+
+          default_requires_approval: Whether or not to require approval before executing this tool.
+
+          description: The description of the tool.
+
+          enable_parallel_execution: If set to True, then this tool will potentially be executed concurrently with
+              other tools. Default False.
+
+          json_schema: The JSON schema of the function (auto-generated from source_code if not
+              provided)
+
+          metadata: A dictionary of additional metadata for the tool.
+
+          npm_requirements: Optional list of npm packages required by this tool.
+
+          pip_requirements: Optional list of pip packages required by this tool.
+
+          return_char_limit: The maximum number of characters in the response.
+
+          source_code: The source code of the function.
+
+          source_type: The type of the source code.
+
+          tags: Metadata tags.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not tool_id:
+            raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        return self._patch(
+            f"/v1/tools/{tool_id}",
+            body=maybe_transform(
+                {
+                    "args_json_schema": args_json_schema,
+                    "default_requires_approval": default_requires_approval,
+                    "description": description,
+                    "enable_parallel_execution": enable_parallel_execution,
+                    "json_schema": json_schema,
+                    "metadata": metadata,
+                    "npm_requirements": npm_requirements,
+                    "pip_requirements": pip_requirements,
+                    "return_char_limit": return_char_limit,
+                    "source_code": source_code,
+                    "source_type": source_type,
+                    "tags": tags,
+                },
+                tool_update_params.ToolUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Tool,
+        )
+
     def list(
         self,
         *,
@@ -291,96 +381,6 @@ class ToolsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    def modify(
-        self,
-        tool_id: str,
-        *,
-        args_json_schema: Optional[Dict[str, object]] | Omit = omit,
-        default_requires_approval: Optional[bool] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        enable_parallel_execution: Optional[bool] | Omit = omit,
-        json_schema: Optional[Dict[str, object]] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
-        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
-        return_char_limit: Optional[int] | Omit = omit,
-        source_code: Optional[str] | Omit = omit,
-        source_type: Optional[str] | Omit = omit,
-        tags: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Tool:
-        """
-        Update an existing tool
-
-        Args:
-          tool_id: The ID of the tool in the format 'tool-<uuid4>'
-
-          args_json_schema: The args JSON schema of the function.
-
-          default_requires_approval: Whether or not to require approval before executing this tool.
-
-          description: The description of the tool.
-
-          enable_parallel_execution: If set to True, then this tool will potentially be executed concurrently with
-              other tools. Default False.
-
-          json_schema: The JSON schema of the function (auto-generated from source_code if not
-              provided)
-
-          metadata: A dictionary of additional metadata for the tool.
-
-          npm_requirements: Optional list of npm packages required by this tool.
-
-          pip_requirements: Optional list of pip packages required by this tool.
-
-          return_char_limit: The maximum number of characters in the response.
-
-          source_code: The source code of the function.
-
-          source_type: The type of the source code.
-
-          tags: Metadata tags.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not tool_id:
-            raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        return self._patch(
-            f"/v1/tools/{tool_id}",
-            body=maybe_transform(
-                {
-                    "args_json_schema": args_json_schema,
-                    "default_requires_approval": default_requires_approval,
-                    "description": description,
-                    "enable_parallel_execution": enable_parallel_execution,
-                    "json_schema": json_schema,
-                    "metadata": metadata,
-                    "npm_requirements": npm_requirements,
-                    "pip_requirements": pip_requirements,
-                    "return_char_limit": return_char_limit,
-                    "source_code": source_code,
-                    "source_type": source_type,
-                    "tags": tags,
-                },
-                tool_modify_params.ToolModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Tool,
         )
 
     def upsert(
@@ -917,6 +917,96 @@ class AsyncToolsResource(AsyncAPIResource):
             cast_to=Tool,
         )
 
+    async def update(
+        self,
+        tool_id: str,
+        *,
+        args_json_schema: Optional[Dict[str, object]] | Omit = omit,
+        default_requires_approval: Optional[bool] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        enable_parallel_execution: Optional[bool] | Omit = omit,
+        json_schema: Optional[Dict[str, object]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
+        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
+        return_char_limit: Optional[int] | Omit = omit,
+        source_code: Optional[str] | Omit = omit,
+        source_type: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Tool:
+        """
+        Update an existing tool
+
+        Args:
+          tool_id: The ID of the tool in the format 'tool-<uuid4>'
+
+          args_json_schema: The args JSON schema of the function.
+
+          default_requires_approval: Whether or not to require approval before executing this tool.
+
+          description: The description of the tool.
+
+          enable_parallel_execution: If set to True, then this tool will potentially be executed concurrently with
+              other tools. Default False.
+
+          json_schema: The JSON schema of the function (auto-generated from source_code if not
+              provided)
+
+          metadata: A dictionary of additional metadata for the tool.
+
+          npm_requirements: Optional list of npm packages required by this tool.
+
+          pip_requirements: Optional list of pip packages required by this tool.
+
+          return_char_limit: The maximum number of characters in the response.
+
+          source_code: The source code of the function.
+
+          source_type: The type of the source code.
+
+          tags: Metadata tags.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not tool_id:
+            raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        return await self._patch(
+            f"/v1/tools/{tool_id}",
+            body=await async_maybe_transform(
+                {
+                    "args_json_schema": args_json_schema,
+                    "default_requires_approval": default_requires_approval,
+                    "description": description,
+                    "enable_parallel_execution": enable_parallel_execution,
+                    "json_schema": json_schema,
+                    "metadata": metadata,
+                    "npm_requirements": npm_requirements,
+                    "pip_requirements": pip_requirements,
+                    "return_char_limit": return_char_limit,
+                    "source_code": source_code,
+                    "source_type": source_type,
+                    "tags": tags,
+                },
+                tool_update_params.ToolUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Tool,
+        )
+
     def list(
         self,
         *,
@@ -1040,96 +1130,6 @@ class AsyncToolsResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
-        )
-
-    async def modify(
-        self,
-        tool_id: str,
-        *,
-        args_json_schema: Optional[Dict[str, object]] | Omit = omit,
-        default_requires_approval: Optional[bool] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        enable_parallel_execution: Optional[bool] | Omit = omit,
-        json_schema: Optional[Dict[str, object]] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        npm_requirements: Optional[Iterable[NpmRequirementParam]] | Omit = omit,
-        pip_requirements: Optional[Iterable[PipRequirementParam]] | Omit = omit,
-        return_char_limit: Optional[int] | Omit = omit,
-        source_code: Optional[str] | Omit = omit,
-        source_type: Optional[str] | Omit = omit,
-        tags: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Tool:
-        """
-        Update an existing tool
-
-        Args:
-          tool_id: The ID of the tool in the format 'tool-<uuid4>'
-
-          args_json_schema: The args JSON schema of the function.
-
-          default_requires_approval: Whether or not to require approval before executing this tool.
-
-          description: The description of the tool.
-
-          enable_parallel_execution: If set to True, then this tool will potentially be executed concurrently with
-              other tools. Default False.
-
-          json_schema: The JSON schema of the function (auto-generated from source_code if not
-              provided)
-
-          metadata: A dictionary of additional metadata for the tool.
-
-          npm_requirements: Optional list of npm packages required by this tool.
-
-          pip_requirements: Optional list of pip packages required by this tool.
-
-          return_char_limit: The maximum number of characters in the response.
-
-          source_code: The source code of the function.
-
-          source_type: The type of the source code.
-
-          tags: Metadata tags.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not tool_id:
-            raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
-        return await self._patch(
-            f"/v1/tools/{tool_id}",
-            body=await async_maybe_transform(
-                {
-                    "args_json_schema": args_json_schema,
-                    "default_requires_approval": default_requires_approval,
-                    "description": description,
-                    "enable_parallel_execution": enable_parallel_execution,
-                    "json_schema": json_schema,
-                    "metadata": metadata,
-                    "npm_requirements": npm_requirements,
-                    "pip_requirements": pip_requirements,
-                    "return_char_limit": return_char_limit,
-                    "source_code": source_code,
-                    "source_type": source_type,
-                    "tags": tags,
-                },
-                tool_modify_params.ToolModifyParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Tool,
         )
 
     async def upsert(
@@ -1542,14 +1542,14 @@ class ToolsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             tools.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            tools.update,
+        )
         self.list = to_raw_response_wrapper(
             tools.list,
         )
         self.delete = to_raw_response_wrapper(
             tools.delete,
-        )
-        self.modify = to_raw_response_wrapper(
-            tools.modify,
         )
         self.upsert = to_raw_response_wrapper(
             tools.upsert,
@@ -1569,14 +1569,14 @@ class AsyncToolsResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             tools.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            tools.update,
+        )
         self.list = async_to_raw_response_wrapper(
             tools.list,
         )
         self.delete = async_to_raw_response_wrapper(
             tools.delete,
-        )
-        self.modify = async_to_raw_response_wrapper(
-            tools.modify,
         )
         self.upsert = async_to_raw_response_wrapper(
             tools.upsert,
@@ -1596,14 +1596,14 @@ class ToolsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             tools.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            tools.update,
+        )
         self.list = to_streamed_response_wrapper(
             tools.list,
         )
         self.delete = to_streamed_response_wrapper(
             tools.delete,
-        )
-        self.modify = to_streamed_response_wrapper(
-            tools.modify,
         )
         self.upsert = to_streamed_response_wrapper(
             tools.upsert,
@@ -1623,14 +1623,14 @@ class AsyncToolsResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             tools.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            tools.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             tools.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             tools.delete,
-        )
-        self.modify = async_to_streamed_response_wrapper(
-            tools.modify,
         )
         self.upsert = async_to_streamed_response_wrapper(
             tools.upsert,
