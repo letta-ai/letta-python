@@ -11,9 +11,12 @@ __all__ = ["ArchiveCreateParams"]
 
 
 class ArchiveCreateParams(TypedDict, total=False):
-    embedding_config: Required[EmbeddingConfigParam]
-    """Embedding configuration for the archive"""
-
     name: Required[str]
 
     description: Optional[str]
+
+    embedding: Optional[str]
+    """Embedding model handle for the archive"""
+
+    embedding_config: Optional[EmbeddingConfigParam]
+    """Configuration for embedding model connection and processing parameters."""

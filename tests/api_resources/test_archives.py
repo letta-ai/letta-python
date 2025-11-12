@@ -24,11 +24,6 @@ class TestArchives:
     @parametrize
     def test_method_create(self, client: Letta) -> None:
         archive = client.archives.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         )
         assert_matches_type(Archive, archive, path=["response"])
@@ -37,6 +32,9 @@ class TestArchives:
     @parametrize
     def test_method_create_with_all_params(self, client: Letta) -> None:
         archive = client.archives.create(
+            name="name",
+            description="description",
+            embedding="embedding",
             embedding_config={
                 "embedding_dim": 0,
                 "embedding_endpoint_type": "openai",
@@ -49,8 +47,6 @@ class TestArchives:
                 "embedding_endpoint": "embedding_endpoint",
                 "handle": "handle",
             },
-            name="name",
-            description="description",
         )
         assert_matches_type(Archive, archive, path=["response"])
 
@@ -58,11 +54,6 @@ class TestArchives:
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.archives.with_raw_response.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         )
 
@@ -75,11 +66,6 @@ class TestArchives:
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.archives.with_streaming_response.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         ) as response:
             assert not response.is_closed
@@ -278,11 +264,6 @@ class TestAsyncArchives:
     @parametrize
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         )
         assert_matches_type(Archive, archive, path=["response"])
@@ -291,6 +272,9 @@ class TestAsyncArchives:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.create(
+            name="name",
+            description="description",
+            embedding="embedding",
             embedding_config={
                 "embedding_dim": 0,
                 "embedding_endpoint_type": "openai",
@@ -303,8 +287,6 @@ class TestAsyncArchives:
                 "embedding_endpoint": "embedding_endpoint",
                 "handle": "handle",
             },
-            name="name",
-            description="description",
         )
         assert_matches_type(Archive, archive, path=["response"])
 
@@ -312,11 +294,6 @@ class TestAsyncArchives:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.archives.with_raw_response.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         )
 
@@ -329,11 +306,6 @@ class TestAsyncArchives:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.create(
-            embedding_config={
-                "embedding_dim": 0,
-                "embedding_endpoint_type": "openai",
-                "embedding_model": "embedding_model",
-            },
             name="name",
         ) as response:
             assert not response.is_closed

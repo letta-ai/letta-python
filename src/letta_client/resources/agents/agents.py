@@ -270,6 +270,11 @@ class AgentsResource(SyncAPIResource):
 
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
 
+              .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+              return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+              OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+              or Model.\\__from_llm_config() method.
+
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
 
@@ -845,6 +850,11 @@ class AgentsResource(SyncAPIResource):
 
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
 
+              .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+              return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+              OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+              or Model.\\__from_llm_config() method.
+
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
 
@@ -1109,6 +1119,11 @@ class AsyncAgentsResource(AsyncAPIResource):
           initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
 
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
+
+              .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+              return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+              OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+              or Model.\\__from_llm_config() method.
 
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
@@ -1684,6 +1699,11 @@ class AsyncAgentsResource(AsyncAPIResource):
           last_stop_reason: The stop reason from the agent's last run.
 
           llm_config: Configuration for Language Model (LLM) connection and generation parameters.
+
+              .. deprecated:: LLMConfig is deprecated and should not be used as an input or
+              return type in API calls. Use the schemas in letta.schemas.model (ModelSettings,
+              OpenAIModelSettings, etc.) instead. For conversion, use the \\__to_model() method
+              or Model.\\__from_llm_config() method.
 
           max_files_open: Maximum number of files that can be open at once for this agent. Setting this
               too high may exceed the context window, which will break the agent.
