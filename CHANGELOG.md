@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.0.0-alpha.20 (2025-11-12)
+
+Full Changelog: [v1.0.0-alpha.19...v1.0.0-alpha.20](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.19...v1.0.0-alpha.20)
+
+### Features
+
+* deprecate `EmbeddingConfig` from archives ([d6cbbc3](https://github.com/letta-ai/letta-python/commit/d6cbbc39933572367b06194c87affcf35d2c38f6))
+
+
+### Bug Fixes
+
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([4724b32](https://github.com/letta-ai/letta-python/commit/4724b328a03756d769f38f5939604131a67ac83d))
+
+
+### Chores
+
+* rename send to create and modify to update ([c8e0661](https://github.com/letta-ai/letta-python/commit/c8e0661e694c3511239e806bffba3ef7cda69d25))
+* update stainless send to create ([7f55f59](https://github.com/letta-ai/letta-python/commit/7f55f59807e6a2483ce7ae38bff92f16eb40b5b4))
+
 ## 1.0.0-alpha.19 (2025-11-12)
 
 Full Changelog: [v1.0.0-alpha.18...v1.0.0-alpha.19](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.18...v1.0.0-alpha.19)
