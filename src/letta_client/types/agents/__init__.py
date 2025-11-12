@@ -38,13 +38,13 @@ from .text_content_param import TextContentParam as TextContentParam
 from .block_modify_params import BlockModifyParams as BlockModifyParams
 from .image_content_param import ImageContentParam as ImageContentParam
 from .message_list_params import MessageListParams as MessageListParams
-from .message_send_params import MessageSendParams as MessageSendParams
 from .tool_return_content import ToolReturnContent as ToolReturnContent
 from .folder_list_response import FolderListResponse as FolderListResponse
 from .message_reset_params import MessageResetParams as MessageResetParams
 from .approval_create_param import ApprovalCreateParam as ApprovalCreateParam
 from .approval_return_param import ApprovalReturnParam as ApprovalReturnParam
 from .message_cancel_params import MessageCancelParams as MessageCancelParams
+from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_modify_params import MessageModifyParams as MessageModifyParams
 from .message_stream_params import MessageStreamParams as MessageStreamParams
 from .file_close_all_response import FileCloseAllResponse as FileCloseAllResponse
@@ -56,11 +56,11 @@ from .approval_request_message import ApprovalRequestMessage as ApprovalRequestM
 from .hidden_reasoning_message import HiddenReasoningMessage as HiddenReasoningMessage
 from .letta_streaming_response import LettaStreamingResponse as LettaStreamingResponse
 from .approval_response_message import ApprovalResponseMessage as ApprovalResponseMessage
-from .message_send_async_params import MessageSendAsyncParams as MessageSendAsyncParams
 from .omitted_reasoning_content import OmittedReasoningContent as OmittedReasoningContent
 from .tool_return_content_param import ToolReturnContentParam as ToolReturnContentParam
 from .update_user_message_param import UpdateUserMessageParam as UpdateUserMessageParam
 from .redacted_reasoning_content import RedactedReasoningContent as RedactedReasoningContent
+from .message_create_async_params import MessageCreateAsyncParams as MessageCreateAsyncParams
 from .tool_update_approval_params import ToolUpdateApprovalParams as ToolUpdateApprovalParams
 from .update_system_message_param import UpdateSystemMessageParam as UpdateSystemMessageParam
 from .update_assistant_message_param import UpdateAssistantMessageParam as UpdateAssistantMessageParam

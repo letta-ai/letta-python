@@ -20,7 +20,7 @@ from ..._response import (
 from ..._streaming import Stream, AsyncStream
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.groups import message_list_params, message_send_params, message_modify_params, message_stream_params
+from ...types.groups import message_list_params, message_create_params, message_modify_params, message_stream_params
 from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
 from ...types.agents.letta_response import LettaResponse
@@ -51,6 +51,88 @@ class MessagesResource(SyncAPIResource):
         For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return MessagesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        group_id: str,
+        *,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LettaResponse:
+        """Process a user message and return the group's response.
+
+        This endpoint accepts a
+        message from a user and processes it through through agents in the group based
+        on the specified pattern
+
+        Args:
+          group_id: The ID of the group in the format 'group-<uuid4>'
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not group_id:
+            raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
+        return self._post(
+            f"/v1/groups/{group_id}/messages",
+            body=maybe_transform(
+                {
+                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                    "assistant_message_tool_name": assistant_message_tool_name,
+                    "enable_thinking": enable_thinking,
+                    "include_return_message_types": include_return_message_types,
+                    "input": input,
+                    "max_steps": max_steps,
+                    "messages": messages,
+                    "use_assistant_message": use_assistant_message,
+                },
+                message_create_params.MessageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LettaResponse,
+        )
 
     def list(
         self,
@@ -352,88 +434,6 @@ class MessagesResource(SyncAPIResource):
             cast_to=object,
         )
 
-    def send(
-        self,
-        group_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse:
-        """Process a user message and return the group's response.
-
-        This endpoint accepts a
-        message from a user and processes it through through agents in the group based
-        on the specified pattern
-
-        Args:
-          group_id: The ID of the group in the format 'group-<uuid4>'
-
-          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
-              for legacy agent types, but deprecated for letta_v1_agent onward.
-
-          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
-              but deprecated for letta_v1_agent onward.
-
-          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
-
-          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
-              all messages.
-
-          input:
-              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-              'user', 'content': input}].
-
-          max_steps: Maximum number of steps the agent should take to process the request.
-
-          messages: The messages to be sent to the agent.
-
-          use_assistant_message: Whether the server should parse specific tool call arguments (default
-              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
-              types, but deprecated for letta_v1_agent onward.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not group_id:
-            raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
-        return self._post(
-            f"/v1/groups/{group_id}/messages",
-            body=maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "enable_thinking": enable_thinking,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_send_params.MessageSendParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=LettaResponse,
-        )
-
     def stream(
         self,
         group_id: str,
@@ -559,6 +559,88 @@ class AsyncMessagesResource(AsyncAPIResource):
         For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        group_id: str,
+        *,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> LettaResponse:
+        """Process a user message and return the group's response.
+
+        This endpoint accepts a
+        message from a user and processes it through through agents in the group based
+        on the specified pattern
+
+        Args:
+          group_id: The ID of the group in the format 'group-<uuid4>'
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not group_id:
+            raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
+        return await self._post(
+            f"/v1/groups/{group_id}/messages",
+            body=await async_maybe_transform(
+                {
+                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                    "assistant_message_tool_name": assistant_message_tool_name,
+                    "enable_thinking": enable_thinking,
+                    "include_return_message_types": include_return_message_types,
+                    "input": input,
+                    "max_steps": max_steps,
+                    "messages": messages,
+                    "use_assistant_message": use_assistant_message,
+                },
+                message_create_params.MessageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=LettaResponse,
+        )
 
     def list(
         self,
@@ -860,88 +942,6 @@ class AsyncMessagesResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def send(
-        self,
-        group_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_send_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_send_params.Message]] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse:
-        """Process a user message and return the group's response.
-
-        This endpoint accepts a
-        message from a user and processes it through through agents in the group based
-        on the specified pattern
-
-        Args:
-          group_id: The ID of the group in the format 'group-<uuid4>'
-
-          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
-              for legacy agent types, but deprecated for letta_v1_agent onward.
-
-          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
-              but deprecated for letta_v1_agent onward.
-
-          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
-
-          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
-              all messages.
-
-          input:
-              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
-              'user', 'content': input}].
-
-          max_steps: Maximum number of steps the agent should take to process the request.
-
-          messages: The messages to be sent to the agent.
-
-          use_assistant_message: Whether the server should parse specific tool call arguments (default
-              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
-              types, but deprecated for letta_v1_agent onward.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not group_id:
-            raise ValueError(f"Expected a non-empty value for `group_id` but received {group_id!r}")
-        return await self._post(
-            f"/v1/groups/{group_id}/messages",
-            body=await async_maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "enable_thinking": enable_thinking,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_send_params.MessageSendParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=LettaResponse,
-        )
-
     async def stream(
         self,
         group_id: str,
@@ -1052,6 +1052,9 @@ class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
 
+        self.create = to_raw_response_wrapper(
+            messages.create,
+        )
         self.list = to_raw_response_wrapper(
             messages.list,
         )
@@ -1060,9 +1063,6 @@ class MessagesResourceWithRawResponse:
         )
         self.reset = to_raw_response_wrapper(
             messages.reset,
-        )
-        self.send = to_raw_response_wrapper(
-            messages.send,
         )
         self.stream = to_raw_response_wrapper(
             messages.stream,
@@ -1073,6 +1073,9 @@ class AsyncMessagesResourceWithRawResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
 
+        self.create = async_to_raw_response_wrapper(
+            messages.create,
+        )
         self.list = async_to_raw_response_wrapper(
             messages.list,
         )
@@ -1081,9 +1084,6 @@ class AsyncMessagesResourceWithRawResponse:
         )
         self.reset = async_to_raw_response_wrapper(
             messages.reset,
-        )
-        self.send = async_to_raw_response_wrapper(
-            messages.send,
         )
         self.stream = async_to_raw_response_wrapper(
             messages.stream,
@@ -1094,6 +1094,9 @@ class MessagesResourceWithStreamingResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
 
+        self.create = to_streamed_response_wrapper(
+            messages.create,
+        )
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
@@ -1102,9 +1105,6 @@ class MessagesResourceWithStreamingResponse:
         )
         self.reset = to_streamed_response_wrapper(
             messages.reset,
-        )
-        self.send = to_streamed_response_wrapper(
-            messages.send,
         )
         self.stream = to_streamed_response_wrapper(
             messages.stream,
@@ -1115,6 +1115,9 @@ class AsyncMessagesResourceWithStreamingResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
 
+        self.create = async_to_streamed_response_wrapper(
+            messages.create,
+        )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
         )
@@ -1123,9 +1126,6 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.reset = async_to_streamed_response_wrapper(
             messages.reset,
-        )
-        self.send = async_to_streamed_response_wrapper(
-            messages.send,
         )
         self.stream = async_to_streamed_response_wrapper(
             messages.stream,
