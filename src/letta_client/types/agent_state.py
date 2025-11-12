@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypeAlias
+from typing_extensions import Annotated, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -22,47 +22,26 @@ from .stop_reason_type import StopReasonType
 from .continue_tool_rule import ContinueToolRule
 from .terminal_tool_rule import TerminalToolRule
 from .vector_db_provider import VectorDBProvider
+from .xai_model_settings import XaiModelSettings
+from .groq_model_settings import GroqModelSettings
+from .azure_model_settings import AzureModelSettings
 from .text_response_format import TextResponseFormat
 from .conditional_tool_rule import ConditionalToolRule
+from .openai_model_settings import OpenAIModelSettings
+from .bedrock_model_settings import BedrockModelSettings
+from .deepseek_model_settings import DeepseekModelSettings
+from .together_model_settings import TogetherModelSettings
+from .anthropic_model_settings import AnthropicModelSettings
+from .google_ai_model_settings import GoogleAIModelSettings
 from .agent_environment_variable import AgentEnvironmentVariable
 from .json_object_response_format import JsonObjectResponseFormat
 from .json_schema_response_format import JsonSchemaResponseFormat
 from .requires_approval_tool_rule import RequiresApprovalToolRule
+from .google_vertex_model_settings import GoogleVertexModelSettings
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
 
-__all__ = [
-    "AgentState",
-    "Memory",
-    "MemoryFileBlock",
-    "Source",
-    "ModelSettings",
-    "ModelSettingsOpenAIModelSettings",
-    "ModelSettingsOpenAIModelSettingsReasoning",
-    "ModelSettingsOpenAIModelSettingsResponseFormat",
-    "ModelSettingsAnthropicModelSettings",
-    "ModelSettingsAnthropicModelSettingsThinking",
-    "ModelSettingsGoogleAIModelSettings",
-    "ModelSettingsGoogleAIModelSettingsResponseSchema",
-    "ModelSettingsGoogleAIModelSettingsThinkingConfig",
-    "ModelSettingsGoogleVertexModelSettings",
-    "ModelSettingsGoogleVertexModelSettingsResponseSchema",
-    "ModelSettingsGoogleVertexModelSettingsThinkingConfig",
-    "ModelSettingsAzureModelSettings",
-    "ModelSettingsAzureModelSettingsResponseFormat",
-    "ModelSettingsXaiModelSettings",
-    "ModelSettingsXaiModelSettingsResponseFormat",
-    "ModelSettingsGroqModelSettings",
-    "ModelSettingsGroqModelSettingsResponseFormat",
-    "ModelSettingsDeepseekModelSettings",
-    "ModelSettingsDeepseekModelSettingsResponseFormat",
-    "ModelSettingsTogetherModelSettings",
-    "ModelSettingsTogetherModelSettingsResponseFormat",
-    "ModelSettingsBedrockModelSettings",
-    "ModelSettingsBedrockModelSettingsResponseFormat",
-    "ResponseFormat",
-    "ToolRule",
-]
+__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "ModelSettings", "ResponseFormat", "ToolRule"]
 
 
 class MemoryFileBlock(BaseModel):
@@ -185,286 +164,21 @@ class Source(BaseModel):
     """The vector database provider used for this source's passages"""
 
 
-class ModelSettingsOpenAIModelSettingsReasoning(BaseModel):
-    reasoning_effort: Optional[Literal["minimal", "low", "medium", "high"]] = None
-    """The reasoning effort to use when generating text reasoning models"""
-
-
-ModelSettingsOpenAIModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsOpenAIModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["openai"]] = None
-    """The provider of the model."""
-
-    reasoning: Optional[ModelSettingsOpenAIModelSettingsReasoning] = None
-    """The reasoning configuration for the model."""
-
-    response_format: Optional[ModelSettingsOpenAIModelSettingsResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-class ModelSettingsAnthropicModelSettingsThinking(BaseModel):
-    budget_tokens: Optional[int] = None
-    """The maximum number of tokens the model can use for extended thinking."""
-
-    type: Optional[Literal["enabled", "disabled"]] = None
-    """The type of thinking to use."""
-
-
-class ModelSettingsAnthropicModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["anthropic"]] = None
-    """The provider of the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-    thinking: Optional[ModelSettingsAnthropicModelSettingsThinking] = None
-    """The thinking configuration for the model."""
-
-    verbosity: Optional[Literal["low", "medium", "high"]] = None
-    """Soft control for how verbose model output should be, used for GPT-5 models."""
-
-
-ModelSettingsGoogleAIModelSettingsResponseSchema: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsGoogleAIModelSettingsThinkingConfig(BaseModel):
-    include_thoughts: Optional[bool] = None
-    """Whether to include thoughts in the model's response."""
-
-    thinking_budget: Optional[int] = None
-    """The thinking budget for the model."""
-
-
-class ModelSettingsGoogleAIModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["google_ai"]] = None
-    """The provider of the model."""
-
-    response_schema: Optional[ModelSettingsGoogleAIModelSettingsResponseSchema] = None
-    """The response schema for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-    thinking_config: Optional[ModelSettingsGoogleAIModelSettingsThinkingConfig] = None
-    """The thinking configuration for the model."""
-
-
-ModelSettingsGoogleVertexModelSettingsResponseSchema: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsGoogleVertexModelSettingsThinkingConfig(BaseModel):
-    include_thoughts: Optional[bool] = None
-    """Whether to include thoughts in the model's response."""
-
-    thinking_budget: Optional[int] = None
-    """The thinking budget for the model."""
-
-
-class ModelSettingsGoogleVertexModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["google_vertex"]] = None
-    """The provider of the model."""
-
-    response_schema: Optional[ModelSettingsGoogleVertexModelSettingsResponseSchema] = None
-    """The response schema for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-    thinking_config: Optional[ModelSettingsGoogleVertexModelSettingsThinkingConfig] = None
-    """The thinking configuration for the model."""
-
-
-ModelSettingsAzureModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsAzureModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["azure"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelSettingsAzureModelSettingsResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelSettingsXaiModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsXaiModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["xai"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelSettingsXaiModelSettingsResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelSettingsGroqModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsGroqModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["groq"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelSettingsGroqModelSettingsResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelSettingsDeepseekModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsDeepseekModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["deepseek"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelSettingsDeepseekModelSettingsResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelSettingsTogetherModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsTogetherModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["together"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelSettingsTogetherModelSettingsResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
-ModelSettingsBedrockModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class ModelSettingsBedrockModelSettings(BaseModel):
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
-
-    provider: Optional[Literal["bedrock"]] = None
-    """The provider of the model."""
-
-    response_format: Optional[ModelSettingsBedrockModelSettingsResponseFormat] = None
-    """The response format for the model."""
-
-    temperature: Optional[float] = None
-    """The temperature of the model."""
-
-
 ModelSettings: TypeAlias = Annotated[
     Union[
-        ModelSettingsOpenAIModelSettings,
-        ModelSettingsAnthropicModelSettings,
-        ModelSettingsGoogleAIModelSettings,
-        ModelSettingsGoogleVertexModelSettings,
-        ModelSettingsAzureModelSettings,
-        ModelSettingsXaiModelSettings,
-        ModelSettingsGroqModelSettings,
-        ModelSettingsDeepseekModelSettings,
-        ModelSettingsTogetherModelSettings,
-        ModelSettingsBedrockModelSettings,
+        OpenAIModelSettings,
+        AnthropicModelSettings,
+        GoogleAIModelSettings,
+        GoogleVertexModelSettings,
+        AzureModelSettings,
+        XaiModelSettings,
+        GroqModelSettings,
+        DeepseekModelSettings,
+        TogetherModelSettings,
+        BedrockModelSettings,
         None,
     ],
-    PropertyInfo(discriminator="provider"),
+    PropertyInfo(discriminator="provider_type"),
 ]
 
 ResponseFormat: TypeAlias = Annotated[

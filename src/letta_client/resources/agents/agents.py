@@ -70,6 +70,14 @@ from ..._types import (
     not_given,
 )
 from ..._utils import extract_files, maybe_transform, strip_not_given, deepcopy_minimal, async_maybe_transform
+from .archives import (
+    ArchivesResource,
+    AsyncArchivesResource,
+    ArchivesResourceWithRawResponse,
+    AsyncArchivesResourceWithRawResponse,
+    ArchivesResourceWithStreamingResponse,
+    AsyncArchivesResourceWithStreamingResponse,
+)
 from .messages import (
     MessagesResource,
     AsyncMessagesResource,
@@ -79,6 +87,14 @@ from .messages import (
     AsyncMessagesResourceWithStreamingResponse,
 )
 from ..._compat import cached_property
+from .identities import (
+    IdentitiesResource,
+    AsyncIdentitiesResource,
+    IdentitiesResourceWithRawResponse,
+    AsyncIdentitiesResourceWithRawResponse,
+    IdentitiesResourceWithStreamingResponse,
+    AsyncIdentitiesResourceWithStreamingResponse,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -102,6 +118,14 @@ __all__ = ["AgentsResource", "AsyncAgentsResource"]
 
 class AgentsResource(SyncAPIResource):
     @cached_property
+    def messages(self) -> MessagesResource:
+        return MessagesResource(self._client)
+
+    @cached_property
+    def blocks(self) -> BlocksResource:
+        return BlocksResource(self._client)
+
+    @cached_property
     def tools(self) -> ToolsResource:
         return ToolsResource(self._client)
 
@@ -114,16 +138,16 @@ class AgentsResource(SyncAPIResource):
         return FilesResource(self._client)
 
     @cached_property
-    def blocks(self) -> BlocksResource:
-        return BlocksResource(self._client)
-
-    @cached_property
     def groups(self) -> GroupsResource:
         return GroupsResource(self._client)
 
     @cached_property
-    def messages(self) -> MessagesResource:
-        return MessagesResource(self._client)
+    def archives(self) -> ArchivesResource:
+        return ArchivesResource(self._client)
+
+    @cached_property
+    def identities(self) -> IdentitiesResource:
+        return IdentitiesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AgentsResourceWithRawResponse:
@@ -934,6 +958,14 @@ class AgentsResource(SyncAPIResource):
 
 class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
+    def messages(self) -> AsyncMessagesResource:
+        return AsyncMessagesResource(self._client)
+
+    @cached_property
+    def blocks(self) -> AsyncBlocksResource:
+        return AsyncBlocksResource(self._client)
+
+    @cached_property
     def tools(self) -> AsyncToolsResource:
         return AsyncToolsResource(self._client)
 
@@ -946,16 +978,16 @@ class AsyncAgentsResource(AsyncAPIResource):
         return AsyncFilesResource(self._client)
 
     @cached_property
-    def blocks(self) -> AsyncBlocksResource:
-        return AsyncBlocksResource(self._client)
-
-    @cached_property
     def groups(self) -> AsyncGroupsResource:
         return AsyncGroupsResource(self._client)
 
     @cached_property
-    def messages(self) -> AsyncMessagesResource:
-        return AsyncMessagesResource(self._client)
+    def archives(self) -> AsyncArchivesResource:
+        return AsyncArchivesResource(self._client)
+
+    @cached_property
+    def identities(self) -> AsyncIdentitiesResource:
+        return AsyncIdentitiesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAgentsResourceWithRawResponse:
@@ -1791,6 +1823,14 @@ class AgentsResourceWithRawResponse:
         )
 
     @cached_property
+    def messages(self) -> MessagesResourceWithRawResponse:
+        return MessagesResourceWithRawResponse(self._agents.messages)
+
+    @cached_property
+    def blocks(self) -> BlocksResourceWithRawResponse:
+        return BlocksResourceWithRawResponse(self._agents.blocks)
+
+    @cached_property
     def tools(self) -> ToolsResourceWithRawResponse:
         return ToolsResourceWithRawResponse(self._agents.tools)
 
@@ -1803,16 +1843,16 @@ class AgentsResourceWithRawResponse:
         return FilesResourceWithRawResponse(self._agents.files)
 
     @cached_property
-    def blocks(self) -> BlocksResourceWithRawResponse:
-        return BlocksResourceWithRawResponse(self._agents.blocks)
-
-    @cached_property
     def groups(self) -> GroupsResourceWithRawResponse:
         return GroupsResourceWithRawResponse(self._agents.groups)
 
     @cached_property
-    def messages(self) -> MessagesResourceWithRawResponse:
-        return MessagesResourceWithRawResponse(self._agents.messages)
+    def archives(self) -> ArchivesResourceWithRawResponse:
+        return ArchivesResourceWithRawResponse(self._agents.archives)
+
+    @cached_property
+    def identities(self) -> IdentitiesResourceWithRawResponse:
+        return IdentitiesResourceWithRawResponse(self._agents.identities)
 
 
 class AsyncAgentsResourceWithRawResponse:
@@ -1842,6 +1882,14 @@ class AsyncAgentsResourceWithRawResponse:
         )
 
     @cached_property
+    def messages(self) -> AsyncMessagesResourceWithRawResponse:
+        return AsyncMessagesResourceWithRawResponse(self._agents.messages)
+
+    @cached_property
+    def blocks(self) -> AsyncBlocksResourceWithRawResponse:
+        return AsyncBlocksResourceWithRawResponse(self._agents.blocks)
+
+    @cached_property
     def tools(self) -> AsyncToolsResourceWithRawResponse:
         return AsyncToolsResourceWithRawResponse(self._agents.tools)
 
@@ -1854,16 +1902,16 @@ class AsyncAgentsResourceWithRawResponse:
         return AsyncFilesResourceWithRawResponse(self._agents.files)
 
     @cached_property
-    def blocks(self) -> AsyncBlocksResourceWithRawResponse:
-        return AsyncBlocksResourceWithRawResponse(self._agents.blocks)
-
-    @cached_property
     def groups(self) -> AsyncGroupsResourceWithRawResponse:
         return AsyncGroupsResourceWithRawResponse(self._agents.groups)
 
     @cached_property
-    def messages(self) -> AsyncMessagesResourceWithRawResponse:
-        return AsyncMessagesResourceWithRawResponse(self._agents.messages)
+    def archives(self) -> AsyncArchivesResourceWithRawResponse:
+        return AsyncArchivesResourceWithRawResponse(self._agents.archives)
+
+    @cached_property
+    def identities(self) -> AsyncIdentitiesResourceWithRawResponse:
+        return AsyncIdentitiesResourceWithRawResponse(self._agents.identities)
 
 
 class AgentsResourceWithStreamingResponse:
@@ -1893,6 +1941,14 @@ class AgentsResourceWithStreamingResponse:
         )
 
     @cached_property
+    def messages(self) -> MessagesResourceWithStreamingResponse:
+        return MessagesResourceWithStreamingResponse(self._agents.messages)
+
+    @cached_property
+    def blocks(self) -> BlocksResourceWithStreamingResponse:
+        return BlocksResourceWithStreamingResponse(self._agents.blocks)
+
+    @cached_property
     def tools(self) -> ToolsResourceWithStreamingResponse:
         return ToolsResourceWithStreamingResponse(self._agents.tools)
 
@@ -1905,16 +1961,16 @@ class AgentsResourceWithStreamingResponse:
         return FilesResourceWithStreamingResponse(self._agents.files)
 
     @cached_property
-    def blocks(self) -> BlocksResourceWithStreamingResponse:
-        return BlocksResourceWithStreamingResponse(self._agents.blocks)
-
-    @cached_property
     def groups(self) -> GroupsResourceWithStreamingResponse:
         return GroupsResourceWithStreamingResponse(self._agents.groups)
 
     @cached_property
-    def messages(self) -> MessagesResourceWithStreamingResponse:
-        return MessagesResourceWithStreamingResponse(self._agents.messages)
+    def archives(self) -> ArchivesResourceWithStreamingResponse:
+        return ArchivesResourceWithStreamingResponse(self._agents.archives)
+
+    @cached_property
+    def identities(self) -> IdentitiesResourceWithStreamingResponse:
+        return IdentitiesResourceWithStreamingResponse(self._agents.identities)
 
 
 class AsyncAgentsResourceWithStreamingResponse:
@@ -1944,6 +2000,14 @@ class AsyncAgentsResourceWithStreamingResponse:
         )
 
     @cached_property
+    def messages(self) -> AsyncMessagesResourceWithStreamingResponse:
+        return AsyncMessagesResourceWithStreamingResponse(self._agents.messages)
+
+    @cached_property
+    def blocks(self) -> AsyncBlocksResourceWithStreamingResponse:
+        return AsyncBlocksResourceWithStreamingResponse(self._agents.blocks)
+
+    @cached_property
     def tools(self) -> AsyncToolsResourceWithStreamingResponse:
         return AsyncToolsResourceWithStreamingResponse(self._agents.tools)
 
@@ -1956,13 +2020,13 @@ class AsyncAgentsResourceWithStreamingResponse:
         return AsyncFilesResourceWithStreamingResponse(self._agents.files)
 
     @cached_property
-    def blocks(self) -> AsyncBlocksResourceWithStreamingResponse:
-        return AsyncBlocksResourceWithStreamingResponse(self._agents.blocks)
-
-    @cached_property
     def groups(self) -> AsyncGroupsResourceWithStreamingResponse:
         return AsyncGroupsResourceWithStreamingResponse(self._agents.groups)
 
     @cached_property
-    def messages(self) -> AsyncMessagesResourceWithStreamingResponse:
-        return AsyncMessagesResourceWithStreamingResponse(self._agents.messages)
+    def archives(self) -> AsyncArchivesResourceWithStreamingResponse:
+        return AsyncArchivesResourceWithStreamingResponse(self._agents.archives)
+
+    @cached_property
+    def identities(self) -> AsyncIdentitiesResourceWithStreamingResponse:
+        return AsyncIdentitiesResourceWithStreamingResponse(self._agents.identities)

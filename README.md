@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/letta-client.svg?label=pypi%20(stable))](https://pypi.org/project/letta-client/)
 
-The Letta Python library provides convenient access to the Letta REST API from any Python 3.8+
+The Letta Python library provides convenient access to the Letta REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -160,8 +160,7 @@ from letta_client import Letta
 
 client = Letta()
 
-client.folders.files.upload(
-    folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+client.agents.import_file(
     file=Path("/path/to/file"),
 )
 ```
@@ -454,7 +453,7 @@ print(letta_client.__version__)
 
 ## Requirements
 
-Python 3.8 or higher.
+Python 3.9 or higher.
 
 ## Contributing
 

@@ -10,7 +10,7 @@ import pytest
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
-from letta_client.types.agents import LettaResponse, LettaMessageUnion
+from letta_client.types.agents import Message, LettaResponse
 from letta_client.types.groups import (
     MessageModifyResponse,
 )
@@ -27,7 +27,7 @@ class TestMessages:
         message = client.groups.messages.list(
             group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(SyncArrayPage[LettaMessageUnion], message, path=["response"])
+        assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -43,7 +43,7 @@ class TestMessages:
             order_by="created_at",
             use_assistant_message=True,
         )
-        assert_matches_type(SyncArrayPage[LettaMessageUnion], message, path=["response"])
+        assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -55,7 +55,7 @@ class TestMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(SyncArrayPage[LettaMessageUnion], message, path=["response"])
+        assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -67,7 +67,7 @@ class TestMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(SyncArrayPage[LettaMessageUnion], message, path=["response"])
+            assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -595,7 +595,7 @@ class TestAsyncMessages:
         message = await async_client.groups.messages.list(
             group_id="group-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AsyncArrayPage[LettaMessageUnion], message, path=["response"])
+        assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -611,7 +611,7 @@ class TestAsyncMessages:
             order_by="created_at",
             use_assistant_message=True,
         )
-        assert_matches_type(AsyncArrayPage[LettaMessageUnion], message, path=["response"])
+        assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -623,7 +623,7 @@ class TestAsyncMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(AsyncArrayPage[LettaMessageUnion], message, path=["response"])
+        assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -635,7 +635,7 @@ class TestAsyncMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(AsyncArrayPage[LettaMessageUnion], message, path=["response"])
+            assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

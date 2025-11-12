@@ -129,7 +129,7 @@ class TestAgents:
             model_settings={
                 "max_output_tokens": 0,
                 "parallel_tool_calls": True,
-                "provider": "openai",
+                "provider_type": "openai",
                 "reasoning": {"reasoning_effort": "minimal"},
                 "response_format": {"type": "text"},
                 "temperature": 0,
@@ -507,7 +507,7 @@ class TestAgents:
             model_settings={
                 "max_output_tokens": 0,
                 "parallel_tool_calls": True,
-                "provider": "openai",
+                "provider_type": "openai",
                 "reasoning": {"reasoning_effort": "minimal"},
                 "response_format": {"type": "text"},
                 "temperature": 0,
@@ -690,7 +690,7 @@ class TestAsyncAgents:
             model_settings={
                 "max_output_tokens": 0,
                 "parallel_tool_calls": True,
-                "provider": "openai",
+                "provider_type": "openai",
                 "reasoning": {"reasoning_effort": "minimal"},
                 "response_format": {"type": "text"},
                 "temperature": 0,
@@ -1068,7 +1068,7 @@ class TestAsyncAgents:
             model_settings={
                 "max_output_tokens": 0,
                 "parallel_tool_calls": True,
-                "provider": "openai",
+                "provider_type": "openai",
                 "reasoning": {"reasoning_effort": "minimal"},
                 "response_format": {"type": "text"},
                 "temperature": 0,

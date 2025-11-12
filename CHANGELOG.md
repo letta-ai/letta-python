@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.0.0-alpha.19 (2025-11-12)
+
+Full Changelog: [v1.0.0-alpha.18...v1.0.0-alpha.19](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.18...v1.0.0-alpha.19)
+
+### Features
+
+* add approval return param to stainless ([5753672](https://github.com/letta-ai/letta-python/commit/5753672ae96a9885bbcc5838f76de3364c28a743))
+* add attach detach methods for archives and identities to sdk ([a8d22bc](https://github.com/letta-ai/letta-python/commit/a8d22bc5b5925c10c769d126f4498a7656690115))
+* add create memory for archive ([07cefb6](https://github.com/letta-ai/letta-python/commit/07cefb6cb6a446d7df976d5111490957e1b52f73))
+* add model setting params to stainless config ([ee056aa](https://github.com/letta-ai/letta-python/commit/ee056aaf33270f163cb0dd44f8834c7f61e6f9a5))
+* add passage deletion route to sdk ([b932046](https://github.com/letta-ai/letta-python/commit/b932046e52020ccdc831a6a79d6b428854039fc3))
+* bring back model_settings and remove validation again ([9189431](https://github.com/letta-ai/letta-python/commit/9189431a6611060358f14d559dc6b951fa6487bd))
+* make api key optional in sdk ([0e12938](https://github.com/letta-ai/letta-python/commit/0e129388fc55a00f1ec4dbd341f673337b4fef8d))
+* rename message union and internal message ([c4d750b](https://github.com/letta-ai/letta-python/commit/c4d750bf05d140ed432f6234b3888a6b74fce346))
+* revert model_settings ([5402070](https://github.com/letta-ai/letta-python/commit/5402070ee145fc75464419de54bdef6067d822f6))
+
+
+### Bug Fixes
+
+* compat with Python 3.14 ([9ea3e28](https://github.com/letta-ai/letta-python/commit/9ea3e28969236c7cea352e01f5b12b3112217b12))
+
+
+### Chores
+
+* api sync ([ce3a822](https://github.com/letta-ai/letta-python/commit/ce3a82265ef1ed1c3b322c045801aa185b4b8d6a))
+* **package:** drop Python 3.8 support ([6d5b749](https://github.com/letta-ai/letta-python/commit/6d5b749e8e162be7d642ecd438843474c77f1908))
+* reorder stainless SDK ([9b09499](https://github.com/letta-ai/letta-python/commit/9b09499a5106c58739f3c60ef7b63956ba8f0fe2))
+
 ## 1.0.0-alpha.18 (2025-11-10)
 
 Full Changelog: [v1.0.0-alpha.17...v1.0.0-alpha.18](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.17...v1.0.0-alpha.18)

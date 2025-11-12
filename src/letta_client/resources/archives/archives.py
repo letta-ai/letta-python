@@ -7,26 +7,38 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import archive_list_params, archive_create_params, archive_modify_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ...types import archive_list_params, archive_create_params, archive_modify_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from .passages import (
+    PassagesResource,
+    AsyncPassagesResource,
+    PassagesResourceWithRawResponse,
+    AsyncPassagesResourceWithRawResponse,
+    PassagesResourceWithStreamingResponse,
+    AsyncPassagesResourceWithStreamingResponse,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncArrayPage, AsyncArrayPage
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.archive import Archive
-from ..types.embedding_config_param import EmbeddingConfigParam
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.archive import Archive
+from ...types.embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["ArchivesResource", "AsyncArchivesResource"]
 
 
 class ArchivesResource(SyncAPIResource):
+    @cached_property
+    def passages(self) -> PassagesResource:
+        return PassagesResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> ArchivesResourceWithRawResponse:
         """
@@ -276,6 +288,10 @@ class ArchivesResource(SyncAPIResource):
 
 
 class AsyncArchivesResource(AsyncAPIResource):
+    @cached_property
+    def passages(self) -> AsyncPassagesResource:
+        return AsyncPassagesResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncArchivesResourceWithRawResponse:
         """
@@ -544,6 +560,10 @@ class ArchivesResourceWithRawResponse:
             archives.modify,
         )
 
+    @cached_property
+    def passages(self) -> PassagesResourceWithRawResponse:
+        return PassagesResourceWithRawResponse(self._archives.passages)
+
 
 class AsyncArchivesResourceWithRawResponse:
     def __init__(self, archives: AsyncArchivesResource) -> None:
@@ -564,6 +584,10 @@ class AsyncArchivesResourceWithRawResponse:
         self.modify = async_to_raw_response_wrapper(
             archives.modify,
         )
+
+    @cached_property
+    def passages(self) -> AsyncPassagesResourceWithRawResponse:
+        return AsyncPassagesResourceWithRawResponse(self._archives.passages)
 
 
 class ArchivesResourceWithStreamingResponse:
@@ -586,6 +610,10 @@ class ArchivesResourceWithStreamingResponse:
             archives.modify,
         )
 
+    @cached_property
+    def passages(self) -> PassagesResourceWithStreamingResponse:
+        return PassagesResourceWithStreamingResponse(self._archives.passages)
+
 
 class AsyncArchivesResourceWithStreamingResponse:
     def __init__(self, archives: AsyncArchivesResource) -> None:
@@ -606,3 +634,7 @@ class AsyncArchivesResourceWithStreamingResponse:
         self.modify = async_to_streamed_response_wrapper(
             archives.modify,
         )
+
+    @cached_property
+    def passages(self) -> AsyncPassagesResourceWithStreamingResponse:
+        return AsyncPassagesResourceWithStreamingResponse(self._archives.passages)

@@ -17,9 +17,11 @@ from .event_message import EventMessage as EventMessage
 from .image_content import ImageContent as ImageContent
 from .letta_response import LettaResponse as LettaResponse
 from .system_message import SystemMessage as SystemMessage
+from .approval_return import ApprovalReturn as ApprovalReturn
 from .summary_message import SummaryMessage as SummaryMessage
 from .tool_call_delta import ToolCallDelta as ToolCallDelta
 from .file_list_params import FileListParams as FileListParams
+from .internal_message import InternalMessage as InternalMessage
 from .tool_list_params import ToolListParams as ToolListParams
 from .assistant_message import AssistantMessage as AssistantMessage
 from .block_list_params import BlockListParams as BlockListParams
@@ -35,13 +37,13 @@ from .folder_list_params import FolderListParams as FolderListParams
 from .text_content_param import TextContentParam as TextContentParam
 from .block_modify_params import BlockModifyParams as BlockModifyParams
 from .image_content_param import ImageContentParam as ImageContentParam
-from .letta_message_union import LettaMessageUnion as LettaMessageUnion
 from .message_list_params import MessageListParams as MessageListParams
 from .message_send_params import MessageSendParams as MessageSendParams
 from .tool_return_content import ToolReturnContent as ToolReturnContent
 from .folder_list_response import FolderListResponse as FolderListResponse
 from .message_reset_params import MessageResetParams as MessageResetParams
 from .approval_create_param import ApprovalCreateParam as ApprovalCreateParam
+from .approval_return_param import ApprovalReturnParam as ApprovalReturnParam
 from .message_cancel_params import MessageCancelParams as MessageCancelParams
 from .message_modify_params import MessageModifyParams as MessageModifyParams
 from .message_stream_params import MessageStreamParams as MessageStreamParams

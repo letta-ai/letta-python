@@ -20,7 +20,7 @@ from ..._response import (
 from ...pagination import SyncObjectPage, AsyncObjectPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.batches import message_list_params
-from ...types.agents.message import Message
+from ...types.agents.internal_message import InternalMessage
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -61,7 +61,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncObjectPage[Message]:
+    ) -> SyncObjectPage[InternalMessage]:
         """
         Get response messages for a specific batch job.
 
@@ -93,7 +93,7 @@ class MessagesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
         return self._get_api_list(
             f"/v1/messages/batches/{batch_id}/messages",
-            page=SyncObjectPage[Message],
+            page=SyncObjectPage[InternalMessage],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -111,7 +111,7 @@ class MessagesResource(SyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            model=Message,
+            model=InternalMessage,
         )
 
 
@@ -151,7 +151,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Message, AsyncObjectPage[Message]]:
+    ) -> AsyncPaginator[InternalMessage, AsyncObjectPage[InternalMessage]]:
         """
         Get response messages for a specific batch job.
 
@@ -183,7 +183,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
         return self._get_api_list(
             f"/v1/messages/batches/{batch_id}/messages",
-            page=AsyncObjectPage[Message],
+            page=AsyncObjectPage[InternalMessage],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -201,7 +201,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            model=Message,
+            model=InternalMessage,
         )
 
 

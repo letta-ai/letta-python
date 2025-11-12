@@ -30,9 +30,9 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .resources import tags, tools, archives
+from .resources import tags, tools
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import LettaError, APIStatusError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -47,6 +47,7 @@ from .resources.groups import groups
 from .resources.models import models
 from .resources.batches import batches
 from .resources.folders import folders
+from .resources.archives import archives
 from .resources.templates import templates
 from .resources.identities import identities
 from .resources.mcp_servers import mcp_servers
@@ -71,25 +72,25 @@ ENVIRONMENTS: Dict[str, str] = {
 
 
 class Letta(SyncAPIClient):
-    archives: archives.ArchivesResource
-    tools: tools.ToolsResource
-    folders: folders.FoldersResource
     agents: agents.AgentsResource
-    groups: groups.GroupsResource
-    identities: identities.IdentitiesResource
-    models: models.ModelsResource
+    tools: tools.ToolsResource
     blocks: blocks.BlocksResource
+    archives: archives.ArchivesResource
+    folders: folders.FoldersResource
+    models: models.ModelsResource
+    mcp_servers: mcp_servers.McpServersResource
     runs: runs.RunsResource
     steps: steps.StepsResource
-    tags: tags.TagsResource
-    batches: batches.BatchesResource
     templates: templates.TemplatesResource
-    mcp_servers: mcp_servers.McpServersResource
+    tags: tags.TagsResource
+    identities: identities.IdentitiesResource
+    groups: groups.GroupsResource
+    batches: batches.BatchesResource
     with_raw_response: LettaWithRawResponse
     with_streaming_response: LettaWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
     project_id: str | None
     project: str | None
 
@@ -127,10 +128,6 @@ class Letta(SyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("LETTA_API_KEY")
-        if api_key is None:
-            raise LettaError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the LETTA_API_KEY environment variable"
-            )
         self.api_key = api_key
 
         self.project_id = project_id
@@ -176,20 +173,20 @@ class Letta(SyncAPIClient):
 
         self._default_stream_cls = Stream
 
-        self.archives = archives.ArchivesResource(self)
-        self.tools = tools.ToolsResource(self)
-        self.folders = folders.FoldersResource(self)
         self.agents = agents.AgentsResource(self)
-        self.groups = groups.GroupsResource(self)
-        self.identities = identities.IdentitiesResource(self)
-        self.models = models.ModelsResource(self)
+        self.tools = tools.ToolsResource(self)
         self.blocks = blocks.BlocksResource(self)
+        self.archives = archives.ArchivesResource(self)
+        self.folders = folders.FoldersResource(self)
+        self.models = models.ModelsResource(self)
+        self.mcp_servers = mcp_servers.McpServersResource(self)
         self.runs = runs.RunsResource(self)
         self.steps = steps.StepsResource(self)
-        self.tags = tags.TagsResource(self)
-        self.batches = batches.BatchesResource(self)
         self.templates = templates.TemplatesResource(self)
-        self.mcp_servers = mcp_servers.McpServersResource(self)
+        self.tags = tags.TagsResource(self)
+        self.identities = identities.IdentitiesResource(self)
+        self.groups = groups.GroupsResource(self)
+        self.batches = batches.BatchesResource(self)
         self.with_raw_response = LettaWithRawResponse(self)
         self.with_streaming_response = LettaWithStreamedResponse(self)
 
@@ -202,6 +199,8 @@ class Letta(SyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -214,6 +213,17 @@ class Letta(SyncAPIClient):
             "X-Project": self.project if self.project is not None else Omit(),
             **self._custom_headers,
         }
+
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+        )
 
     def copy(
         self,
@@ -282,7 +292,7 @@ class Letta(SyncAPIClient):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HealthResponse:
-        """Check Health"""
+        """Async health check endpoint."""
         return self.get(
             "/v1/health/",
             options=make_request_options(
@@ -326,25 +336,25 @@ class Letta(SyncAPIClient):
 
 
 class AsyncLetta(AsyncAPIClient):
-    archives: archives.AsyncArchivesResource
-    tools: tools.AsyncToolsResource
-    folders: folders.AsyncFoldersResource
     agents: agents.AsyncAgentsResource
-    groups: groups.AsyncGroupsResource
-    identities: identities.AsyncIdentitiesResource
-    models: models.AsyncModelsResource
+    tools: tools.AsyncToolsResource
     blocks: blocks.AsyncBlocksResource
+    archives: archives.AsyncArchivesResource
+    folders: folders.AsyncFoldersResource
+    models: models.AsyncModelsResource
+    mcp_servers: mcp_servers.AsyncMcpServersResource
     runs: runs.AsyncRunsResource
     steps: steps.AsyncStepsResource
-    tags: tags.AsyncTagsResource
-    batches: batches.AsyncBatchesResource
     templates: templates.AsyncTemplatesResource
-    mcp_servers: mcp_servers.AsyncMcpServersResource
+    tags: tags.AsyncTagsResource
+    identities: identities.AsyncIdentitiesResource
+    groups: groups.AsyncGroupsResource
+    batches: batches.AsyncBatchesResource
     with_raw_response: AsyncLettaWithRawResponse
     with_streaming_response: AsyncLettaWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
     project_id: str | None
     project: str | None
 
@@ -382,10 +392,6 @@ class AsyncLetta(AsyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("LETTA_API_KEY")
-        if api_key is None:
-            raise LettaError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the LETTA_API_KEY environment variable"
-            )
         self.api_key = api_key
 
         self.project_id = project_id
@@ -431,20 +437,20 @@ class AsyncLetta(AsyncAPIClient):
 
         self._default_stream_cls = AsyncStream
 
-        self.archives = archives.AsyncArchivesResource(self)
-        self.tools = tools.AsyncToolsResource(self)
-        self.folders = folders.AsyncFoldersResource(self)
         self.agents = agents.AsyncAgentsResource(self)
-        self.groups = groups.AsyncGroupsResource(self)
-        self.identities = identities.AsyncIdentitiesResource(self)
-        self.models = models.AsyncModelsResource(self)
+        self.tools = tools.AsyncToolsResource(self)
         self.blocks = blocks.AsyncBlocksResource(self)
+        self.archives = archives.AsyncArchivesResource(self)
+        self.folders = folders.AsyncFoldersResource(self)
+        self.models = models.AsyncModelsResource(self)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResource(self)
         self.runs = runs.AsyncRunsResource(self)
         self.steps = steps.AsyncStepsResource(self)
-        self.tags = tags.AsyncTagsResource(self)
-        self.batches = batches.AsyncBatchesResource(self)
         self.templates = templates.AsyncTemplatesResource(self)
-        self.mcp_servers = mcp_servers.AsyncMcpServersResource(self)
+        self.tags = tags.AsyncTagsResource(self)
+        self.identities = identities.AsyncIdentitiesResource(self)
+        self.groups = groups.AsyncGroupsResource(self)
+        self.batches = batches.AsyncBatchesResource(self)
         self.with_raw_response = AsyncLettaWithRawResponse(self)
         self.with_streaming_response = AsyncLettaWithStreamedResponse(self)
 
@@ -457,6 +463,8 @@ class AsyncLetta(AsyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -469,6 +477,17 @@ class AsyncLetta(AsyncAPIClient):
             "X-Project": self.project if self.project is not None else Omit(),
             **self._custom_headers,
         }
+
+    @override
+    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
+        if self.api_key and headers.get("Authorization"):
+            return
+        if isinstance(custom_headers.get("Authorization"), Omit):
+            return
+
+        raise TypeError(
+            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
+        )
 
     def copy(
         self,
@@ -537,7 +556,7 @@ class AsyncLetta(AsyncAPIClient):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HealthResponse:
-        """Check Health"""
+        """Async health check endpoint."""
         return await self.get(
             "/v1/health/",
             options=make_request_options(
@@ -582,20 +601,20 @@ class AsyncLetta(AsyncAPIClient):
 
 class LettaWithRawResponse:
     def __init__(self, client: Letta) -> None:
-        self.archives = archives.ArchivesResourceWithRawResponse(client.archives)
-        self.tools = tools.ToolsResourceWithRawResponse(client.tools)
-        self.folders = folders.FoldersResourceWithRawResponse(client.folders)
         self.agents = agents.AgentsResourceWithRawResponse(client.agents)
-        self.groups = groups.GroupsResourceWithRawResponse(client.groups)
-        self.identities = identities.IdentitiesResourceWithRawResponse(client.identities)
-        self.models = models.ModelsResourceWithRawResponse(client.models)
+        self.tools = tools.ToolsResourceWithRawResponse(client.tools)
         self.blocks = blocks.BlocksResourceWithRawResponse(client.blocks)
+        self.archives = archives.ArchivesResourceWithRawResponse(client.archives)
+        self.folders = folders.FoldersResourceWithRawResponse(client.folders)
+        self.models = models.ModelsResourceWithRawResponse(client.models)
+        self.mcp_servers = mcp_servers.McpServersResourceWithRawResponse(client.mcp_servers)
         self.runs = runs.RunsResourceWithRawResponse(client.runs)
         self.steps = steps.StepsResourceWithRawResponse(client.steps)
-        self.tags = tags.TagsResourceWithRawResponse(client.tags)
-        self.batches = batches.BatchesResourceWithRawResponse(client.batches)
         self.templates = templates.TemplatesResourceWithRawResponse(client.templates)
-        self.mcp_servers = mcp_servers.McpServersResourceWithRawResponse(client.mcp_servers)
+        self.tags = tags.TagsResourceWithRawResponse(client.tags)
+        self.identities = identities.IdentitiesResourceWithRawResponse(client.identities)
+        self.groups = groups.GroupsResourceWithRawResponse(client.groups)
+        self.batches = batches.BatchesResourceWithRawResponse(client.batches)
 
         self.health = to_raw_response_wrapper(
             client.health,
@@ -604,20 +623,20 @@ class LettaWithRawResponse:
 
 class AsyncLettaWithRawResponse:
     def __init__(self, client: AsyncLetta) -> None:
-        self.archives = archives.AsyncArchivesResourceWithRawResponse(client.archives)
-        self.tools = tools.AsyncToolsResourceWithRawResponse(client.tools)
-        self.folders = folders.AsyncFoldersResourceWithRawResponse(client.folders)
         self.agents = agents.AsyncAgentsResourceWithRawResponse(client.agents)
-        self.groups = groups.AsyncGroupsResourceWithRawResponse(client.groups)
-        self.identities = identities.AsyncIdentitiesResourceWithRawResponse(client.identities)
-        self.models = models.AsyncModelsResourceWithRawResponse(client.models)
+        self.tools = tools.AsyncToolsResourceWithRawResponse(client.tools)
         self.blocks = blocks.AsyncBlocksResourceWithRawResponse(client.blocks)
+        self.archives = archives.AsyncArchivesResourceWithRawResponse(client.archives)
+        self.folders = folders.AsyncFoldersResourceWithRawResponse(client.folders)
+        self.models = models.AsyncModelsResourceWithRawResponse(client.models)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResourceWithRawResponse(client.mcp_servers)
         self.runs = runs.AsyncRunsResourceWithRawResponse(client.runs)
         self.steps = steps.AsyncStepsResourceWithRawResponse(client.steps)
-        self.tags = tags.AsyncTagsResourceWithRawResponse(client.tags)
-        self.batches = batches.AsyncBatchesResourceWithRawResponse(client.batches)
         self.templates = templates.AsyncTemplatesResourceWithRawResponse(client.templates)
-        self.mcp_servers = mcp_servers.AsyncMcpServersResourceWithRawResponse(client.mcp_servers)
+        self.tags = tags.AsyncTagsResourceWithRawResponse(client.tags)
+        self.identities = identities.AsyncIdentitiesResourceWithRawResponse(client.identities)
+        self.groups = groups.AsyncGroupsResourceWithRawResponse(client.groups)
+        self.batches = batches.AsyncBatchesResourceWithRawResponse(client.batches)
 
         self.health = async_to_raw_response_wrapper(
             client.health,
@@ -626,20 +645,20 @@ class AsyncLettaWithRawResponse:
 
 class LettaWithStreamedResponse:
     def __init__(self, client: Letta) -> None:
-        self.archives = archives.ArchivesResourceWithStreamingResponse(client.archives)
-        self.tools = tools.ToolsResourceWithStreamingResponse(client.tools)
-        self.folders = folders.FoldersResourceWithStreamingResponse(client.folders)
         self.agents = agents.AgentsResourceWithStreamingResponse(client.agents)
-        self.groups = groups.GroupsResourceWithStreamingResponse(client.groups)
-        self.identities = identities.IdentitiesResourceWithStreamingResponse(client.identities)
-        self.models = models.ModelsResourceWithStreamingResponse(client.models)
+        self.tools = tools.ToolsResourceWithStreamingResponse(client.tools)
         self.blocks = blocks.BlocksResourceWithStreamingResponse(client.blocks)
+        self.archives = archives.ArchivesResourceWithStreamingResponse(client.archives)
+        self.folders = folders.FoldersResourceWithStreamingResponse(client.folders)
+        self.models = models.ModelsResourceWithStreamingResponse(client.models)
+        self.mcp_servers = mcp_servers.McpServersResourceWithStreamingResponse(client.mcp_servers)
         self.runs = runs.RunsResourceWithStreamingResponse(client.runs)
         self.steps = steps.StepsResourceWithStreamingResponse(client.steps)
-        self.tags = tags.TagsResourceWithStreamingResponse(client.tags)
-        self.batches = batches.BatchesResourceWithStreamingResponse(client.batches)
         self.templates = templates.TemplatesResourceWithStreamingResponse(client.templates)
-        self.mcp_servers = mcp_servers.McpServersResourceWithStreamingResponse(client.mcp_servers)
+        self.tags = tags.TagsResourceWithStreamingResponse(client.tags)
+        self.identities = identities.IdentitiesResourceWithStreamingResponse(client.identities)
+        self.groups = groups.GroupsResourceWithStreamingResponse(client.groups)
+        self.batches = batches.BatchesResourceWithStreamingResponse(client.batches)
 
         self.health = to_streamed_response_wrapper(
             client.health,
@@ -648,20 +667,20 @@ class LettaWithStreamedResponse:
 
 class AsyncLettaWithStreamedResponse:
     def __init__(self, client: AsyncLetta) -> None:
-        self.archives = archives.AsyncArchivesResourceWithStreamingResponse(client.archives)
-        self.tools = tools.AsyncToolsResourceWithStreamingResponse(client.tools)
-        self.folders = folders.AsyncFoldersResourceWithStreamingResponse(client.folders)
         self.agents = agents.AsyncAgentsResourceWithStreamingResponse(client.agents)
-        self.groups = groups.AsyncGroupsResourceWithStreamingResponse(client.groups)
-        self.identities = identities.AsyncIdentitiesResourceWithStreamingResponse(client.identities)
-        self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
+        self.tools = tools.AsyncToolsResourceWithStreamingResponse(client.tools)
         self.blocks = blocks.AsyncBlocksResourceWithStreamingResponse(client.blocks)
+        self.archives = archives.AsyncArchivesResourceWithStreamingResponse(client.archives)
+        self.folders = folders.AsyncFoldersResourceWithStreamingResponse(client.folders)
+        self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
+        self.mcp_servers = mcp_servers.AsyncMcpServersResourceWithStreamingResponse(client.mcp_servers)
         self.runs = runs.AsyncRunsResourceWithStreamingResponse(client.runs)
         self.steps = steps.AsyncStepsResourceWithStreamingResponse(client.steps)
-        self.tags = tags.AsyncTagsResourceWithStreamingResponse(client.tags)
-        self.batches = batches.AsyncBatchesResourceWithStreamingResponse(client.batches)
         self.templates = templates.AsyncTemplatesResourceWithStreamingResponse(client.templates)
-        self.mcp_servers = mcp_servers.AsyncMcpServersResourceWithStreamingResponse(client.mcp_servers)
+        self.tags = tags.AsyncTagsResourceWithStreamingResponse(client.tags)
+        self.identities = identities.AsyncIdentitiesResourceWithStreamingResponse(client.identities)
+        self.groups = groups.AsyncGroupsResourceWithStreamingResponse(client.groups)
+        self.batches = batches.AsyncBatchesResourceWithStreamingResponse(client.batches)
 
         self.health = async_to_streamed_response_wrapper(
             client.health,

@@ -7,25 +7,11 @@ from typing_extensions import Literal, Annotated, TypeAlias
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
 from .tool_return import ToolReturn
+from .approval_return import ApprovalReturn
 
-__all__ = ["ApprovalResponseMessage", "Approval", "ApprovalApprovalReturn"]
+__all__ = ["ApprovalResponseMessage", "Approval"]
 
-
-class ApprovalApprovalReturn(BaseModel):
-    approve: bool
-    """Whether the tool has been approved"""
-
-    tool_call_id: str
-    """The ID of the tool call that corresponds to this approval"""
-
-    reason: Optional[str] = None
-    """An optional explanation for the provided approval status"""
-
-    type: Optional[Literal["approval"]] = None
-    """The message type to be created."""
-
-
-Approval: TypeAlias = Annotated[Union[ApprovalApprovalReturn, ToolReturn], PropertyInfo(discriminator="type")]
+Approval: TypeAlias = Annotated[Union[ApprovalReturn, ToolReturn], PropertyInfo(discriminator="type")]
 
 
 class ApprovalResponseMessage(BaseModel):
