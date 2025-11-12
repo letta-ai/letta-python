@@ -6,8 +6,8 @@ from typing_extensions import Literal
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
-from .agents.message import Message
 from .stop_reason_type import StopReasonType
+from .agents.internal_message import InternalMessage
 
 __all__ = ["Step"]
 
@@ -37,7 +37,7 @@ class Step(BaseModel):
     feedback: Optional[Literal["positive", "negative"]] = None
     """The feedback for this step. Must be either 'positive' or 'negative'."""
 
-    messages: Optional[List[Message]] = None
+    messages: Optional[List[InternalMessage]] = None
     """The messages generated during this step.
 
     Deprecated: use `GET /v1/steps/{step_id}/messages` endpoint instead
