@@ -17,6 +17,7 @@ from .event_message import EventMessage as EventMessage
 from .image_content import ImageContent as ImageContent
 from .letta_response import LettaResponse as LettaResponse
 from .system_message import SystemMessage as SystemMessage
+from .approval_return import ApprovalReturn as ApprovalReturn
 from .summary_message import SummaryMessage as SummaryMessage
 from .tool_call_delta import ToolCallDelta as ToolCallDelta
 from .file_list_params import FileListParams as FileListParams
@@ -42,6 +43,7 @@ from .tool_return_content import ToolReturnContent as ToolReturnContent
 from .folder_list_response import FolderListResponse as FolderListResponse
 from .message_reset_params import MessageResetParams as MessageResetParams
 from .approval_create_param import ApprovalCreateParam as ApprovalCreateParam
+from .approval_return_param import ApprovalReturnParam as ApprovalReturnParam
 from .message_cancel_params import MessageCancelParams as MessageCancelParams
 from .message_modify_params import MessageModifyParams as MessageModifyParams
 from .message_stream_params import MessageStreamParams as MessageStreamParams

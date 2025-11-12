@@ -11,6 +11,7 @@ from ..._models import BaseModel
 from .message_role import MessageRole
 from .text_content import TextContent
 from .image_content import ImageContent
+from .approval_return import ApprovalReturn
 from .reasoning_content import ReasoningContent
 from .tool_call_content import ToolCallContent
 from .tool_return_content import ToolReturnContent
@@ -20,7 +21,6 @@ from .redacted_reasoning_content import RedactedReasoningContent
 __all__ = [
     "Message",
     "Approval",
-    "ApprovalApprovalReturn",
     "ApprovalLettaSchemasMessageToolReturn",
     "Content",
     "ContentSummarizedReasoningContent",
@@ -29,20 +29,6 @@ __all__ = [
     "ToolCallFunction",
     "ToolReturn",
 ]
-
-
-class ApprovalApprovalReturn(BaseModel):
-    approve: bool
-    """Whether the tool has been approved"""
-
-    tool_call_id: str
-    """The ID of the tool call that corresponds to this approval"""
-
-    reason: Optional[str] = None
-    """An optional explanation for the provided approval status"""
-
-    type: Optional[Literal["approval"]] = None
-    """The message type to be created."""
 
 
 class ApprovalLettaSchemasMessageToolReturn(BaseModel):
@@ -62,7 +48,7 @@ class ApprovalLettaSchemasMessageToolReturn(BaseModel):
     """The ID for the tool call"""
 
 
-Approval: TypeAlias = Union[ApprovalApprovalReturn, ApprovalLettaSchemasMessageToolReturn]
+Approval: TypeAlias = Union[ApprovalReturn, ApprovalLettaSchemasMessageToolReturn]
 
 
 class ContentSummarizedReasoningContentSummary(BaseModel):
