@@ -61,9 +61,10 @@ class ArchivesResource(SyncAPIResource):
     def create(
         self,
         *,
-        embedding_config: EmbeddingConfigParam,
         name: str,
         description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,7 +76,9 @@ class ArchivesResource(SyncAPIResource):
         Create a new archive.
 
         Args:
-          embedding_config: Embedding configuration for the archive
+          embedding: Embedding model handle for the archive
+
+          embedding_config: Configuration for embedding model connection and processing parameters.
 
           extra_headers: Send extra headers
 
@@ -89,9 +92,10 @@ class ArchivesResource(SyncAPIResource):
             "/v1/archives/",
             body=maybe_transform(
                 {
-                    "embedding_config": embedding_config,
                     "name": name,
                     "description": description,
+                    "embedding": embedding,
+                    "embedding_config": embedding_config,
                 },
                 archive_create_params.ArchiveCreateParams,
             ),
@@ -314,9 +318,10 @@ class AsyncArchivesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        embedding_config: EmbeddingConfigParam,
         name: str,
         description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -328,7 +333,9 @@ class AsyncArchivesResource(AsyncAPIResource):
         Create a new archive.
 
         Args:
-          embedding_config: Embedding configuration for the archive
+          embedding: Embedding model handle for the archive
+
+          embedding_config: Configuration for embedding model connection and processing parameters.
 
           extra_headers: Send extra headers
 
@@ -342,9 +349,10 @@ class AsyncArchivesResource(AsyncAPIResource):
             "/v1/archives/",
             body=await async_maybe_transform(
                 {
-                    "embedding_config": embedding_config,
                     "name": name,
                     "description": description,
+                    "embedding": embedding,
+                    "embedding_config": embedding_config,
                 },
                 archive_create_params.ArchiveCreateParams,
             ),
