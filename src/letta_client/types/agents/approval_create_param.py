@@ -3,28 +3,14 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .tool_return_param import ToolReturnParam
+from .approval_return_param import ApprovalReturnParam
 
-__all__ = ["ApprovalCreateParam", "Approval", "ApprovalApprovalReturn"]
+__all__ = ["ApprovalCreateParam", "Approval"]
 
-
-class ApprovalApprovalReturn(TypedDict, total=False):
-    approve: Required[bool]
-    """Whether the tool has been approved"""
-
-    tool_call_id: Required[str]
-    """The ID of the tool call that corresponds to this approval"""
-
-    reason: Optional[str]
-    """An optional explanation for the provided approval status"""
-
-    type: Literal["approval"]
-    """The message type to be created."""
-
-
-Approval: TypeAlias = Union[ApprovalApprovalReturn, ToolReturnParam]
+Approval: TypeAlias = Union[ApprovalReturnParam, ToolReturnParam]
 
 
 class ApprovalCreateParam(TypedDict, total=False):

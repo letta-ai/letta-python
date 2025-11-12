@@ -67,6 +67,7 @@ from letta_client.types.agents import (
     ApprovalCreate,
     ApprovalRequestMessage,
     ApprovalResponseMessage,
+    ApprovalReturn,
     AssistantMessage,
     EventMessage,
     HiddenReasoningMessage,
