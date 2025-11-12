@@ -3,9 +3,9 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
+from .message import Message
 from ..._models import BaseModel
 from ..stop_reason_type import StopReasonType
-from .letta_message_union import LettaMessageUnion
 
 __all__ = ["LettaResponse", "StopReason", "Usage"]
 
@@ -38,7 +38,7 @@ class Usage(BaseModel):
 
 
 class LettaResponse(BaseModel):
-    messages: List[LettaMessageUnion]
+    messages: List[Message]
     """The messages returned by the agent."""
 
     stop_reason: StopReason

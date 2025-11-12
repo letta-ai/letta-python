@@ -21,7 +21,7 @@ from ..._streaming import Stream, AsyncStream
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ...types.runs import message_list_params, message_stream_params
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.agents.letta_message_union import LettaMessageUnion
+from ...types.agents.message import Message
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
@@ -62,7 +62,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[LettaMessageUnion]:
+    ) -> SyncArrayPage[Message]:
         """
         Get response messages associated with a run.
 
@@ -92,7 +92,7 @@ class MessagesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get_api_list(
             f"/v1/runs/{run_id}/messages",
-            page=SyncArrayPage[LettaMessageUnion],
+            page=SyncArrayPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -109,7 +109,7 @@ class MessagesResource(SyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            model=cast(Any, LettaMessageUnion),  # Union types cannot be passed in as arguments in the type system
+            model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
     def stream(
@@ -206,7 +206,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[LettaMessageUnion, AsyncArrayPage[LettaMessageUnion]]:
+    ) -> AsyncPaginator[Message, AsyncArrayPage[Message]]:
         """
         Get response messages associated with a run.
 
@@ -236,7 +236,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get_api_list(
             f"/v1/runs/{run_id}/messages",
-            page=AsyncArrayPage[LettaMessageUnion],
+            page=AsyncArrayPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -253,7 +253,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     message_list_params.MessageListParams,
                 ),
             ),
-            model=cast(Any, LettaMessageUnion),  # Union types cannot be passed in as arguments in the type system
+            model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
     async def stream(
