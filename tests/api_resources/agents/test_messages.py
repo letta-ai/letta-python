@@ -608,6 +608,48 @@ class TestMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    def test_method_compact(self, client: Letta) -> None:
+        message = client.agents.messages.compact(
+            "agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert message is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_compact(self, client: Letta) -> None:
+        response = client.agents.messages.with_raw_response.compact(
+            "agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = response.parse()
+        assert message is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_compact(self, client: Letta) -> None:
+        with client.agents.messages.with_streaming_response.compact(
+            "agent-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = response.parse()
+            assert message is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_compact(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.messages.with_raw_response.compact(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     def test_method_create_async(self, client: Letta) -> None:
         message = client.agents.messages.create_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
@@ -809,48 +851,6 @@ class TestMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.messages.with_raw_response.stream(
                 agent_id="",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_summarize(self, client: Letta) -> None:
-        message = client.agents.messages.summarize(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert message is None
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_summarize(self, client: Letta) -> None:
-        response = client.agents.messages.with_raw_response.summarize(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = response.parse()
-        assert message is None
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_summarize(self, client: Letta) -> None:
-        with client.agents.messages.with_streaming_response.summarize(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = response.parse()
-            assert message is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_summarize(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.messages.with_raw_response.summarize(
-                "",
             )
 
 
@@ -1442,6 +1442,48 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
+    async def test_method_compact(self, async_client: AsyncLetta) -> None:
+        message = await async_client.agents.messages.compact(
+            "agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert message is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_compact(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.messages.with_raw_response.compact(
+            "agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        message = await response.parse()
+        assert message is None
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_compact(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.messages.with_streaming_response.compact(
+            "agent-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            message = await response.parse()
+            assert message is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_compact(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.messages.with_raw_response.compact(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
     async def test_method_create_async(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.create_async(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
@@ -1643,46 +1685,4 @@ class TestAsyncMessages:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.messages.with_raw_response.stream(
                 agent_id="",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_summarize(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.summarize(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert message is None
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_summarize(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.messages.with_raw_response.summarize(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = await response.parse()
-        assert message is None
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_summarize(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.messages.with_streaming_response.summarize(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = await response.parse()
-            assert message is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_summarize(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.summarize(
-                "",
             )
