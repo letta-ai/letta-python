@@ -701,6 +701,42 @@ class MessagesResource(SyncAPIResource):
             cast_to=MessageCancelResponse,
         )
 
+    def compact(
+        self,
+        agent_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Summarize an agent's conversation history.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._post(
+            f"/v1/agents/{agent_id}/summarize",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     def create_async(
         self,
         agent_id: str,
@@ -935,42 +971,6 @@ class MessagesResource(SyncAPIResource):
             ),  # Union types cannot be passed in as arguments in the type system
             stream=True,
             stream_cls=Stream[LettaStreamingResponse],
-        )
-
-    def summarize(
-        self,
-        agent_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        Summarize an agent's conversation history.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._post(
-            f"/v1/agents/{agent_id}/summarize",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
         )
 
 
@@ -1632,6 +1632,42 @@ class AsyncMessagesResource(AsyncAPIResource):
             cast_to=MessageCancelResponse,
         )
 
+    async def compact(
+        self,
+        agent_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Summarize an agent's conversation history.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._post(
+            f"/v1/agents/{agent_id}/summarize",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=NoneType,
+        )
+
     async def create_async(
         self,
         agent_id: str,
@@ -1868,42 +1904,6 @@ class AsyncMessagesResource(AsyncAPIResource):
             stream_cls=AsyncStream[LettaStreamingResponse],
         )
 
-    async def summarize(
-        self,
-        agent_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
-        """
-        Summarize an agent's conversation history.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._post(
-            f"/v1/agents/{agent_id}/summarize",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
 
 class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
@@ -1921,6 +1921,9 @@ class MessagesResourceWithRawResponse:
         self.cancel = to_raw_response_wrapper(
             messages.cancel,
         )
+        self.compact = to_raw_response_wrapper(
+            messages.compact,
+        )
         self.create_async = to_raw_response_wrapper(
             messages.create_async,
         )
@@ -1929,9 +1932,6 @@ class MessagesResourceWithRawResponse:
         )
         self.stream = to_raw_response_wrapper(
             messages.stream,
-        )
-        self.summarize = to_raw_response_wrapper(
-            messages.summarize,
         )
 
 
@@ -1951,6 +1951,9 @@ class AsyncMessagesResourceWithRawResponse:
         self.cancel = async_to_raw_response_wrapper(
             messages.cancel,
         )
+        self.compact = async_to_raw_response_wrapper(
+            messages.compact,
+        )
         self.create_async = async_to_raw_response_wrapper(
             messages.create_async,
         )
@@ -1959,9 +1962,6 @@ class AsyncMessagesResourceWithRawResponse:
         )
         self.stream = async_to_raw_response_wrapper(
             messages.stream,
-        )
-        self.summarize = async_to_raw_response_wrapper(
-            messages.summarize,
         )
 
 
@@ -1981,6 +1981,9 @@ class MessagesResourceWithStreamingResponse:
         self.cancel = to_streamed_response_wrapper(
             messages.cancel,
         )
+        self.compact = to_streamed_response_wrapper(
+            messages.compact,
+        )
         self.create_async = to_streamed_response_wrapper(
             messages.create_async,
         )
@@ -1989,9 +1992,6 @@ class MessagesResourceWithStreamingResponse:
         )
         self.stream = to_streamed_response_wrapper(
             messages.stream,
-        )
-        self.summarize = to_streamed_response_wrapper(
-            messages.summarize,
         )
 
 
@@ -2011,6 +2011,9 @@ class AsyncMessagesResourceWithStreamingResponse:
         self.cancel = async_to_streamed_response_wrapper(
             messages.cancel,
         )
+        self.compact = async_to_streamed_response_wrapper(
+            messages.compact,
+        )
         self.create_async = async_to_streamed_response_wrapper(
             messages.create_async,
         )
@@ -2019,7 +2022,4 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.stream = async_to_streamed_response_wrapper(
             messages.stream,
-        )
-        self.summarize = async_to_streamed_response_wrapper(
-            messages.summarize,
         )
