@@ -375,7 +375,6 @@ Methods:
 - <code title="patch /v1/mcp-servers/{mcp_server_id}">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">update</a>(mcp_server_id, \*\*<a href="src/letta_client/types/mcp_server_update_params.py">params</a>) -> <a href="./src/letta_client/types/mcp_server_update_response.py">McpServerUpdateResponse</a></code>
 - <code title="get /v1/mcp-servers/">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">list</a>() -> <a href="./src/letta_client/types/mcp_server_list_response.py">McpServerListResponse</a></code>
 - <code title="delete /v1/mcp-servers/{mcp_server_id}">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">delete</a>(mcp_server_id) -> None</code>
-- <code title="get /v1/mcp-servers/connect/{mcp_server_id}">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">connect</a>(mcp_server_id) -> object</code>
 - <code title="patch /v1/mcp-servers/{mcp_server_id}/refresh">client.mcp_servers.<a href="./src/letta_client/resources/mcp_servers/mcp_servers.py">refresh</a>(mcp_server_id, \*\*<a href="src/letta_client/types/mcp_server_refresh_params.py">params</a>) -> object</code>
 
 ## Tools
