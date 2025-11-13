@@ -492,41 +492,6 @@ class McpServersResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def connect(
-        self,
-        mcp_server_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
-        """Connect to an MCP server with support for OAuth via SSE.
-
-        Returns a stream of
-        events handling authorization state and exchange if OAuth is required.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not mcp_server_id:
-            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
-        return self._get(
-            f"/v1/mcp-servers/connect/{mcp_server_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
     def refresh(
         self,
         mcp_server_id: str,
@@ -1031,41 +996,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def connect(
-        self,
-        mcp_server_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
-        """Connect to an MCP server with support for OAuth via SSE.
-
-        Returns a stream of
-        events handling authorization state and exchange if OAuth is required.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not mcp_server_id:
-            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
-        return await self._get(
-            f"/v1/mcp-servers/connect/{mcp_server_id}",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
     async def refresh(
         self,
         mcp_server_id: str,
@@ -1134,9 +1064,6 @@ class McpServersResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             mcp_servers.delete,
         )
-        self.connect = to_raw_response_wrapper(
-            mcp_servers.connect,
-        )
         self.refresh = to_raw_response_wrapper(
             mcp_servers.refresh,
         )
@@ -1164,9 +1091,6 @@ class AsyncMcpServersResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             mcp_servers.delete,
-        )
-        self.connect = async_to_raw_response_wrapper(
-            mcp_servers.connect,
         )
         self.refresh = async_to_raw_response_wrapper(
             mcp_servers.refresh,
@@ -1196,9 +1120,6 @@ class McpServersResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             mcp_servers.delete,
         )
-        self.connect = to_streamed_response_wrapper(
-            mcp_servers.connect,
-        )
         self.refresh = to_streamed_response_wrapper(
             mcp_servers.refresh,
         )
@@ -1226,9 +1147,6 @@ class AsyncMcpServersResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             mcp_servers.delete,
-        )
-        self.connect = async_to_streamed_response_wrapper(
-            mcp_servers.connect,
         )
         self.refresh = async_to_streamed_response_wrapper(
             mcp_servers.refresh,
