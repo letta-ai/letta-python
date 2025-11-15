@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 import pytest
 
@@ -81,7 +81,7 @@ class TestFolders:
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, folder, path=["response"])
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -94,7 +94,7 @@ class TestFolders:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         folder = response.parse()
-        assert_matches_type(AgentState, folder, path=["response"])
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -107,7 +107,7 @@ class TestFolders:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             folder = response.parse()
-            assert_matches_type(AgentState, folder, path=["response"])
+            assert_matches_type(Optional[AgentState], folder, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -133,7 +133,7 @@ class TestFolders:
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, folder, path=["response"])
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -146,7 +146,7 @@ class TestFolders:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         folder = response.parse()
-        assert_matches_type(AgentState, folder, path=["response"])
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -159,7 +159,7 @@ class TestFolders:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             folder = response.parse()
-            assert_matches_type(AgentState, folder, path=["response"])
+            assert_matches_type(Optional[AgentState], folder, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -246,7 +246,7 @@ class TestAsyncFolders:
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, folder, path=["response"])
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -259,7 +259,7 @@ class TestAsyncFolders:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         folder = await response.parse()
-        assert_matches_type(AgentState, folder, path=["response"])
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -272,7 +272,7 @@ class TestAsyncFolders:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             folder = await response.parse()
-            assert_matches_type(AgentState, folder, path=["response"])
+            assert_matches_type(Optional[AgentState], folder, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -298,7 +298,7 @@ class TestAsyncFolders:
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, folder, path=["response"])
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -311,7 +311,7 @@ class TestAsyncFolders:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         folder = await response.parse()
-        assert_matches_type(AgentState, folder, path=["response"])
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -324,7 +324,7 @@ class TestAsyncFolders:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             folder = await response.parse()
-            assert_matches_type(AgentState, folder, path=["response"])
+            assert_matches_type(Optional[AgentState], folder, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
