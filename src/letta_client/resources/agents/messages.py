@@ -837,7 +837,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    ) -> AgentState:
         """
         Resets the messages for an agent
 
@@ -1768,7 +1768,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    ) -> AgentState:
         """
         Resets the messages for an agent
 

@@ -265,7 +265,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    ) -> AgentState:
         """
         Attach a core memory block to an agent.
 
@@ -305,7 +305,7 @@ class BlocksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    ) -> AgentState:
         """
         Detach a core memory block from an agent.
 
@@ -574,7 +574,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    ) -> AgentState:
         """
         Attach a core memory block to an agent.
 
@@ -614,7 +614,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    ) -> AgentState:
         """
         Detach a core memory block from an agent.
 
