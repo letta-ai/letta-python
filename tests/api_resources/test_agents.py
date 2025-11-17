@@ -543,11 +543,14 @@ class TestAgents:
         agent = client.agents.import_file(
             file=b"raw file contents",
             append_copy_suffix=True,
+            embedding="embedding",
             env_vars_json="env_vars_json",
+            name="name",
             override_embedding_handle="override_embedding_handle",
             override_existing_tools=True,
             override_name="override_name",
             project_id="project_id",
+            secrets="secrets",
             strip_messages=True,
             x_override_embedding_model="x-override-embedding-model",
         )
@@ -1106,11 +1109,14 @@ class TestAsyncAgents:
         agent = await async_client.agents.import_file(
             file=b"raw file contents",
             append_copy_suffix=True,
+            embedding="embedding",
             env_vars_json="env_vars_json",
+            name="name",
             override_embedding_handle="override_embedding_handle",
             override_existing_tools=True,
             override_name="override_name",
             project_id="project_id",
+            secrets="secrets",
             strip_messages=True,
             x_override_embedding_model="x-override-embedding-model",
         )
