@@ -181,6 +181,7 @@ class AgentsResource(SyncAPIResource):
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_reasoner: Optional[bool] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
+        folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         from_template: Optional[str] | Omit = omit,
         hidden: Optional[bool] | Omit = omit,
         identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -248,6 +249,8 @@ class AgentsResource(SyncAPIResource):
               internal extended thinking step for a reasoner model.
 
           enable_sleeptime: If set to True, memory management will move to a background agent thread.
+
+          folder_ids: The ids of the folders used by the agent.
 
           from_template: Deprecated: please use the 'create agents from a template' endpoint instead.
 
@@ -320,7 +323,8 @@ class AgentsResource(SyncAPIResource):
 
           secrets: The environment variables for tool execution specific to this agent.
 
-          source_ids: The ids of the sources used by the agent.
+          source_ids: Deprecated: Use `folder_ids` field instead. The ids of the sources used by the
+              agent.
 
           system: The system prompt used by the agent.
 
@@ -363,6 +367,7 @@ class AgentsResource(SyncAPIResource):
                     "embedding_config": embedding_config,
                     "enable_reasoner": enable_reasoner,
                     "enable_sleeptime": enable_sleeptime,
+                    "folder_ids": folder_ids,
                     "from_template": from_template,
                     "hidden": hidden,
                     "identity_ids": identity_ids,
@@ -485,6 +490,7 @@ class AgentsResource(SyncAPIResource):
         embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
+        folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         hidden: Optional[bool] | Omit = omit,
         identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         last_run_completion: Union[str, datetime, None] | Omit = omit,
@@ -540,6 +546,8 @@ class AgentsResource(SyncAPIResource):
 
           enable_sleeptime: If set to True, memory management will move to a background agent thread.
 
+          folder_ids: The ids of the folders used by the agent.
+
           hidden: If set to True, the agent will be hidden.
 
           identity_ids: The ids of the identities associated with this agent.
@@ -593,7 +601,8 @@ class AgentsResource(SyncAPIResource):
 
           secrets: The environment variables for tool execution specific to this agent.
 
-          source_ids: The ids of the sources used by the agent.
+          source_ids: Deprecated: Use `folder_ids` field instead. The ids of the sources used by the
+              agent.
 
           system: The system prompt used by the agent.
 
@@ -630,6 +639,7 @@ class AgentsResource(SyncAPIResource):
                     "embedding": embedding,
                     "embedding_config": embedding_config,
                     "enable_sleeptime": enable_sleeptime,
+                    "folder_ids": folder_ids,
                     "hidden": hidden,
                     "identity_ids": identity_ids,
                     "last_run_completion": last_run_completion,
@@ -890,11 +900,14 @@ class AgentsResource(SyncAPIResource):
         *,
         file: FileTypes,
         append_copy_suffix: bool | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
         env_vars_json: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         override_embedding_handle: Optional[str] | Omit = omit,
         override_existing_tools: bool | Omit = omit,
         override_name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        secrets: Optional[str] | Omit = omit,
         strip_messages: bool | Omit = omit,
         x_override_embedding_model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -912,17 +925,25 @@ class AgentsResource(SyncAPIResource):
         Args:
           append_copy_suffix: If set to True, appends "\\__copy" to the end of the agent name.
 
-          env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
+          embedding: Embedding handle to override with.
 
-          override_embedding_handle: Override import with specific embedding handle.
+          env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
+              Use 'secrets' instead.
+
+          name: If provided, overrides the agent name with this value.
+
+          override_embedding_handle: Override import with specific embedding handle. Use 'embedding' instead.
 
           override_existing_tools: If set to True, existing tools can get their source code overwritten by the
               uploaded tool definitions. Note that Letta core tools can never be updated
               externally.
 
-          override_name: If provided, overrides the agent name with this value.
+          override_name: If provided, overrides the agent name with this value. Use 'name' instead.
 
-          project_id: The project ID to associate the uploaded agent with.
+          project_id: The project ID to associate the uploaded agent with. This is now passed via
+              headers.
+
+          secrets: Secrets as a JSON string to pass to the agent for tool execution.
 
           strip_messages: If set to True, strips all messages from the agent before importing.
 
@@ -942,11 +963,14 @@ class AgentsResource(SyncAPIResource):
             {
                 "file": file,
                 "append_copy_suffix": append_copy_suffix,
+                "embedding": embedding,
                 "env_vars_json": env_vars_json,
+                "name": name,
                 "override_embedding_handle": override_embedding_handle,
                 "override_existing_tools": override_existing_tools,
                 "override_name": override_name,
                 "project_id": project_id,
+                "secrets": secrets,
                 "strip_messages": strip_messages,
             }
         )
@@ -1031,6 +1055,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_reasoner: Optional[bool] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
+        folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         from_template: Optional[str] | Omit = omit,
         hidden: Optional[bool] | Omit = omit,
         identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -1098,6 +1123,8 @@ class AsyncAgentsResource(AsyncAPIResource):
               internal extended thinking step for a reasoner model.
 
           enable_sleeptime: If set to True, memory management will move to a background agent thread.
+
+          folder_ids: The ids of the folders used by the agent.
 
           from_template: Deprecated: please use the 'create agents from a template' endpoint instead.
 
@@ -1170,7 +1197,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           secrets: The environment variables for tool execution specific to this agent.
 
-          source_ids: The ids of the sources used by the agent.
+          source_ids: Deprecated: Use `folder_ids` field instead. The ids of the sources used by the
+              agent.
 
           system: The system prompt used by the agent.
 
@@ -1213,6 +1241,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "embedding_config": embedding_config,
                     "enable_reasoner": enable_reasoner,
                     "enable_sleeptime": enable_sleeptime,
+                    "folder_ids": folder_ids,
                     "from_template": from_template,
                     "hidden": hidden,
                     "identity_ids": identity_ids,
@@ -1335,6 +1364,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
+        folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         hidden: Optional[bool] | Omit = omit,
         identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         last_run_completion: Union[str, datetime, None] | Omit = omit,
@@ -1390,6 +1420,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           enable_sleeptime: If set to True, memory management will move to a background agent thread.
 
+          folder_ids: The ids of the folders used by the agent.
+
           hidden: If set to True, the agent will be hidden.
 
           identity_ids: The ids of the identities associated with this agent.
@@ -1443,7 +1475,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           secrets: The environment variables for tool execution specific to this agent.
 
-          source_ids: The ids of the sources used by the agent.
+          source_ids: Deprecated: Use `folder_ids` field instead. The ids of the sources used by the
+              agent.
 
           system: The system prompt used by the agent.
 
@@ -1480,6 +1513,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "embedding": embedding,
                     "embedding_config": embedding_config,
                     "enable_sleeptime": enable_sleeptime,
+                    "folder_ids": folder_ids,
                     "hidden": hidden,
                     "identity_ids": identity_ids,
                     "last_run_completion": last_run_completion,
@@ -1740,11 +1774,14 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         file: FileTypes,
         append_copy_suffix: bool | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
         env_vars_json: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         override_embedding_handle: Optional[str] | Omit = omit,
         override_existing_tools: bool | Omit = omit,
         override_name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        secrets: Optional[str] | Omit = omit,
         strip_messages: bool | Omit = omit,
         x_override_embedding_model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1762,17 +1799,25 @@ class AsyncAgentsResource(AsyncAPIResource):
         Args:
           append_copy_suffix: If set to True, appends "\\__copy" to the end of the agent name.
 
-          env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
+          embedding: Embedding handle to override with.
 
-          override_embedding_handle: Override import with specific embedding handle.
+          env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
+              Use 'secrets' instead.
+
+          name: If provided, overrides the agent name with this value.
+
+          override_embedding_handle: Override import with specific embedding handle. Use 'embedding' instead.
 
           override_existing_tools: If set to True, existing tools can get their source code overwritten by the
               uploaded tool definitions. Note that Letta core tools can never be updated
               externally.
 
-          override_name: If provided, overrides the agent name with this value.
+          override_name: If provided, overrides the agent name with this value. Use 'name' instead.
 
-          project_id: The project ID to associate the uploaded agent with.
+          project_id: The project ID to associate the uploaded agent with. This is now passed via
+              headers.
+
+          secrets: Secrets as a JSON string to pass to the agent for tool execution.
 
           strip_messages: If set to True, strips all messages from the agent before importing.
 
@@ -1792,11 +1837,14 @@ class AsyncAgentsResource(AsyncAPIResource):
             {
                 "file": file,
                 "append_copy_suffix": append_copy_suffix,
+                "embedding": embedding,
                 "env_vars_json": env_vars_json,
+                "name": name,
                 "override_embedding_handle": override_embedding_handle,
                 "override_existing_tools": override_existing_tools,
                 "override_name": override_name,
                 "project_id": project_id,
+                "secrets": secrets,
                 "strip_messages": strip_messages,
             }
         )

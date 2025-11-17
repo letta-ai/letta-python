@@ -52,7 +52,7 @@ class MemoryFileBlock(BaseModel):
     """True if the agent currently has the file open."""
 
     source_id: str
-    """Unique identifier of the source."""
+    """Deprecated: Use `folder_id` field instead. Unique identifier of the source."""
 
     value: str
     """Value of the block."""
@@ -228,7 +228,7 @@ class AgentState(BaseModel):
     """The name of the agent."""
 
     sources: List[Source]
-    """The sources used by the agent."""
+    """Deprecated: Use `folders` field instead. The sources used by the agent."""
 
     system: str
     """The system prompt used by the agent."""

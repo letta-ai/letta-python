@@ -17,11 +17,20 @@ class AgentImportFileParams(TypedDict, total=False):
     append_copy_suffix: bool
     """If set to True, appends "\\__copy" to the end of the agent name."""
 
+    embedding: Optional[str]
+    """Embedding handle to override with."""
+
     env_vars_json: Optional[str]
-    """Environment variables as a JSON string to pass to the agent for tool execution."""
+    """Environment variables as a JSON string to pass to the agent for tool execution.
+
+    Use 'secrets' instead.
+    """
+
+    name: Optional[str]
+    """If provided, overrides the agent name with this value."""
 
     override_embedding_handle: Optional[str]
-    """Override import with specific embedding handle."""
+    """Override import with specific embedding handle. Use 'embedding' instead."""
 
     override_existing_tools: bool
     """
@@ -31,10 +40,16 @@ class AgentImportFileParams(TypedDict, total=False):
     """
 
     override_name: Optional[str]
-    """If provided, overrides the agent name with this value."""
+    """If provided, overrides the agent name with this value. Use 'name' instead."""
 
     project_id: Optional[str]
-    """The project ID to associate the uploaded agent with."""
+    """The project ID to associate the uploaded agent with.
+
+    This is now passed via headers.
+    """
+
+    secrets: Optional[str]
+    """Secrets as a JSON string to pass to the agent for tool execution."""
 
     strip_messages: bool
     """If set to True, strips all messages from the agent before importing."""

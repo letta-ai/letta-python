@@ -454,48 +454,6 @@ class TestMcpServers:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_connect(self, client: Letta) -> None:
-        mcp_server = client.mcp_servers.connect(
-            "mcp_server_id",
-        )
-        assert_matches_type(object, mcp_server, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_connect(self, client: Letta) -> None:
-        response = client.mcp_servers.with_raw_response.connect(
-            "mcp_server_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        mcp_server = response.parse()
-        assert_matches_type(object, mcp_server, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_connect(self, client: Letta) -> None:
-        with client.mcp_servers.with_streaming_response.connect(
-            "mcp_server_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            mcp_server = response.parse()
-            assert_matches_type(object, mcp_server, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_connect(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `mcp_server_id` but received ''"):
-            client.mcp_servers.with_raw_response.connect(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     def test_method_refresh(self, client: Letta) -> None:
         mcp_server = client.mcp_servers.refresh(
             mcp_server_id="mcp_server_id",
@@ -978,48 +936,6 @@ class TestAsyncMcpServers:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `mcp_server_id` but received ''"):
             await async_client.mcp_servers.with_raw_response.delete(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_connect(self, async_client: AsyncLetta) -> None:
-        mcp_server = await async_client.mcp_servers.connect(
-            "mcp_server_id",
-        )
-        assert_matches_type(object, mcp_server, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_connect(self, async_client: AsyncLetta) -> None:
-        response = await async_client.mcp_servers.with_raw_response.connect(
-            "mcp_server_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        mcp_server = await response.parse()
-        assert_matches_type(object, mcp_server, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_connect(self, async_client: AsyncLetta) -> None:
-        async with async_client.mcp_servers.with_streaming_response.connect(
-            "mcp_server_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            mcp_server = await response.parse()
-            assert_matches_type(object, mcp_server, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_connect(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `mcp_server_id` but received ''"):
-            await async_client.mcp_servers.with_raw_response.connect(
                 "",
             )
 

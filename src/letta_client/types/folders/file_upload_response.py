@@ -14,7 +14,10 @@ class FileUploadResponse(BaseModel):
     """The human-friendly ID of the File"""
 
     source_id: str
-    """The unique identifier of the source associated with the document."""
+    """Deprecated: Use `folder_id` field instead.
+
+    The unique identifier of the source associated with the document.
+    """
 
     chunks_embedded: Optional[int] = None
     """Number of chunks that have been embedded."""
