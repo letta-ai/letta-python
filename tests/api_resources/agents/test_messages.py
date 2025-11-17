@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 import pytest
 
@@ -730,7 +730,7 @@ class TestMessages:
         message = client.agents.messages.reset(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -739,7 +739,7 @@ class TestMessages:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             add_default_initial_messages=True,
         )
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -751,7 +751,7 @@ class TestMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -763,7 +763,7 @@ class TestMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(AgentState, message, path=["response"])
+            assert_matches_type(Optional[AgentState], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1564,7 +1564,7 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.reset(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1573,7 +1573,7 @@ class TestAsyncMessages:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             add_default_initial_messages=True,
         )
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1585,7 +1585,7 @@ class TestAsyncMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1597,7 +1597,7 @@ class TestAsyncMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(AgentState, message, path=["response"])
+            assert_matches_type(Optional[AgentState], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
