@@ -47,7 +47,7 @@ class PassageCreateResponse(BaseModel):
     """The metadata of the passage."""
 
     source_id: Optional[str] = None
-    """The data source of the passage."""
+    """Deprecated: Use `folder_id` field instead. The data source of the passage."""
 
     tags: Optional[List[str]] = None
     """Tags associated with this passage."""

@@ -71,6 +71,9 @@ class AgentCreateParams(TypedDict, total=False):
     enable_sleeptime: Optional[bool]
     """If set to True, memory management will move to a background agent thread."""
 
+    folder_ids: Optional[SequenceNotStr[str]]
+    """The ids of the folders used by the agent."""
+
     from_template: Optional[str]
     """Deprecated: please use the 'create agents from a template' endpoint instead."""
 
@@ -194,7 +197,10 @@ class AgentCreateParams(TypedDict, total=False):
     """The environment variables for tool execution specific to this agent."""
 
     source_ids: Optional[SequenceNotStr[str]]
-    """The ids of the sources used by the agent."""
+    """Deprecated: Use `folder_ids` field instead.
+
+    The ids of the sources used by the agent.
+    """
 
     system: Optional[str]
     """The system prompt used by the agent."""
