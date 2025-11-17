@@ -900,11 +900,14 @@ class AgentsResource(SyncAPIResource):
         *,
         file: FileTypes,
         append_copy_suffix: bool | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
         env_vars_json: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         override_embedding_handle: Optional[str] | Omit = omit,
         override_existing_tools: bool | Omit = omit,
         override_name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        secrets: Optional[str] | Omit = omit,
         strip_messages: bool | Omit = omit,
         x_override_embedding_model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -922,17 +925,25 @@ class AgentsResource(SyncAPIResource):
         Args:
           append_copy_suffix: If set to True, appends "\\__copy" to the end of the agent name.
 
-          env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
+          embedding: Embedding handle to override with.
 
-          override_embedding_handle: Override import with specific embedding handle.
+          env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
+              Use 'secrets' instead.
+
+          name: If provided, overrides the agent name with this value.
+
+          override_embedding_handle: Override import with specific embedding handle. Use 'embedding' instead.
 
           override_existing_tools: If set to True, existing tools can get their source code overwritten by the
               uploaded tool definitions. Note that Letta core tools can never be updated
               externally.
 
-          override_name: If provided, overrides the agent name with this value.
+          override_name: If provided, overrides the agent name with this value. Use 'name' instead.
 
-          project_id: The project ID to associate the uploaded agent with.
+          project_id: The project ID to associate the uploaded agent with. This is now passed via
+              headers.
+
+          secrets: Secrets as a JSON string to pass to the agent for tool execution.
 
           strip_messages: If set to True, strips all messages from the agent before importing.
 
@@ -952,11 +963,14 @@ class AgentsResource(SyncAPIResource):
             {
                 "file": file,
                 "append_copy_suffix": append_copy_suffix,
+                "embedding": embedding,
                 "env_vars_json": env_vars_json,
+                "name": name,
                 "override_embedding_handle": override_embedding_handle,
                 "override_existing_tools": override_existing_tools,
                 "override_name": override_name,
                 "project_id": project_id,
+                "secrets": secrets,
                 "strip_messages": strip_messages,
             }
         )
@@ -1760,11 +1774,14 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         file: FileTypes,
         append_copy_suffix: bool | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
         env_vars_json: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         override_embedding_handle: Optional[str] | Omit = omit,
         override_existing_tools: bool | Omit = omit,
         override_name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        secrets: Optional[str] | Omit = omit,
         strip_messages: bool | Omit = omit,
         x_override_embedding_model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1782,17 +1799,25 @@ class AsyncAgentsResource(AsyncAPIResource):
         Args:
           append_copy_suffix: If set to True, appends "\\__copy" to the end of the agent name.
 
-          env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
+          embedding: Embedding handle to override with.
 
-          override_embedding_handle: Override import with specific embedding handle.
+          env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
+              Use 'secrets' instead.
+
+          name: If provided, overrides the agent name with this value.
+
+          override_embedding_handle: Override import with specific embedding handle. Use 'embedding' instead.
 
           override_existing_tools: If set to True, existing tools can get their source code overwritten by the
               uploaded tool definitions. Note that Letta core tools can never be updated
               externally.
 
-          override_name: If provided, overrides the agent name with this value.
+          override_name: If provided, overrides the agent name with this value. Use 'name' instead.
 
-          project_id: The project ID to associate the uploaded agent with.
+          project_id: The project ID to associate the uploaded agent with. This is now passed via
+              headers.
+
+          secrets: Secrets as a JSON string to pass to the agent for tool execution.
 
           strip_messages: If set to True, strips all messages from the agent before importing.
 
@@ -1812,11 +1837,14 @@ class AsyncAgentsResource(AsyncAPIResource):
             {
                 "file": file,
                 "append_copy_suffix": append_copy_suffix,
+                "embedding": embedding,
                 "env_vars_json": env_vars_json,
+                "name": name,
                 "override_embedding_handle": override_embedding_handle,
                 "override_existing_tools": override_existing_tools,
                 "override_name": override_name,
                 "project_id": project_id,
+                "secrets": secrets,
                 "strip_messages": strip_messages,
             }
         )
