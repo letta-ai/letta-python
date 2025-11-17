@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.0.0-alpha.21 (2025-11-17)
+
+Full Changelog: [v1.0.0-alpha.20...v1.0.0-alpha.21](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.20...v1.0.0-alpha.21)
+
+### Features
+
+* make attach/detach routes return None if version is 1.0 [LET-5844] ([799aa31](https://github.com/letta-ai/letta-python/commit/799aa31b7124a3d9841d3153aff09457d47bded6))
+* move sources to folders ([4b86f41](https://github.com/letta-ai/letta-python/commit/4b86f41014ad19c7751039ad718f7ed3542c8d1a))
+* rename .af parameters [LET-6154] ([90c47e6](https://github.com/letta-ai/letta-python/commit/90c47e6d4bb58e9054c8c63f1707bff086165d06))
+* Revert "feat: make attach/detach routes return None if version is 1.0 [LET-5844]" ([417acb3](https://github.com/letta-ai/letta-python/commit/417acb3c34d6da398a9feb0a2c247f6062703277))
+* support anthropic structured outputs [LET-6190] ([626a22c](https://github.com/letta-ai/letta-python/commit/626a22c4ebc3030072155b84e4c8cb4062a9dae3))
+
+
+### Chores
+
+* remove mcp-servers connect for stainless [LET-6166] ([9f1072b](https://github.com/letta-ai/letta-python/commit/9f1072b5998452ac8fd376bf36729c50981e98ba))
+* rename summarize to compact in sdk ([48a3217](https://github.com/letta-ai/letta-python/commit/48a32175cf56f655b02cc25fc62b2861ed2def8d))
+
 ## 1.0.0-alpha.20 (2025-11-12)
 
 Full Changelog: [v1.0.0-alpha.19...v1.0.0-alpha.20](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.19...v1.0.0-alpha.20)
