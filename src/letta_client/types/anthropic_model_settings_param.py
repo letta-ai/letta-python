@@ -2,16 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing import Optional
+from typing_extensions import Literal, TypedDict
 
-from .text_response_format_param import TextResponseFormatParam
-from .json_object_response_format_param import JsonObjectResponseFormatParam
-from .json_schema_response_format_param import JsonSchemaResponseFormatParam
-
-__all__ = ["AnthropicModelSettingsParam", "OutputFormat", "Thinking"]
-
-OutputFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
+__all__ = ["AnthropicModelSettingsParam", "Thinking"]
 
 
 class Thinking(TypedDict, total=False):
@@ -25,9 +19,6 @@ class Thinking(TypedDict, total=False):
 class AnthropicModelSettingsParam(TypedDict, total=False):
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
-
-    output_format: Optional[OutputFormat]
-    """The structured output format for the model."""
 
     parallel_tool_calls: bool
     """Whether to enable parallel tool calling."""
