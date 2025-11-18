@@ -9,9 +9,6 @@ __all__ = ["CreateSseMcpServerParam"]
 
 
 class CreateSseMcpServerParam(TypedDict, total=False):
-    server_name: Required[str]
-    """The name of the server"""
-
     server_url: Required[str]
     """The URL of the server"""
 
@@ -24,4 +21,4 @@ class CreateSseMcpServerParam(TypedDict, total=False):
     custom_headers: Optional[Dict[str, str]]
     """Custom HTTP headers to include with requests"""
 
-    type: Literal["sse", "stdio", "streamable_http"]
+    mcp_server_type: Literal["sse"]

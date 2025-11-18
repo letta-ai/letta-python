@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["UpdateStreamableHTTPMcpServerParam"]
 
 
 class UpdateStreamableHTTPMcpServerParam(TypedDict, total=False):
-    token: Optional[str]
-    """The authentication token (internal)"""
+    server_url: Required[Optional[str]]
+    """The URL of the server"""
 
     auth_header: Optional[str]
     """The name of the authentication header (e.g., 'Authorization')"""
@@ -19,10 +19,6 @@ class UpdateStreamableHTTPMcpServerParam(TypedDict, total=False):
     """The authentication token or API key value"""
 
     custom_headers: Optional[Dict[str, str]]
-    """Custom headers to send with requests"""
+    """Custom HTTP headers to include with requests"""
 
-    server_name: Optional[str]
-    """The name of the MCP server"""
-
-    server_url: Optional[str]
-    """The URL of the Streamable HTTP MCP server"""
+    mcp_server_type: Literal["streamable_http"]

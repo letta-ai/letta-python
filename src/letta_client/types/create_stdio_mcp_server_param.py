@@ -17,10 +17,7 @@ class CreateStdioMcpServerParam(TypedDict, total=False):
     command: Required[str]
     """The command to run (MCP 'local' client will run this command)"""
 
-    server_name: Required[str]
-    """The name of the server"""
-
     env: Optional[Dict[str, str]]
     """Environment variables to set"""
 
-    type: Literal["sse", "stdio", "streamable_http"]
+    mcp_server_type: Literal["stdio"]

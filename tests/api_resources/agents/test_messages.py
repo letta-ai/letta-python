@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 import pytest
 
@@ -16,7 +16,6 @@ from letta_client.types.agents import (
     Message,
     LettaResponse,
     MessageCancelResponse,
-    MessageUpdateResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -184,315 +183,6 @@ class TestMessages:
             client.agents.messages.with_raw_response.create(
                 agent_id="",
                 streaming=True,
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_overload_1(self, client: Letta) -> None:
-        message = client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content="content",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params_overload_1(self, client: Letta) -> None:
-        message = client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content="content",
-            message_type="system_message",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_update_overload_1(self, client: Letta) -> None:
-        response = client.agents.messages.with_raw_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content="content",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_update_overload_1(self, client: Letta) -> None:
-        with client.agents.messages.with_streaming_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content="content",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_update_overload_1(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.messages.with_raw_response.update(
-                message_id="message-123e4567-e89b-42d3-8456-426614174000",
-                agent_id="",
-                content="content",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
-            client.agents.messages.with_raw_response.update(
-                message_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                content="content",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_overload_2(self, client: Letta) -> None:
-        message = client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params_overload_2(self, client: Letta) -> None:
-        message = client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "signature": "signature",
-                    "type": "text",
-                }
-            ],
-            message_type="user_message",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_update_overload_2(self, client: Letta) -> None:
-        response = client.agents.messages.with_raw_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_update_overload_2(self, client: Letta) -> None:
-        with client.agents.messages.with_streaming_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_update_overload_2(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.messages.with_raw_response.update(
-                message_id="message-123e4567-e89b-42d3-8456-426614174000",
-                agent_id="",
-                content=[
-                    {
-                        "text": "text",
-                        "type": "text",
-                    }
-                ],
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
-            client.agents.messages.with_raw_response.update(
-                message_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                content=[
-                    {
-                        "text": "text",
-                        "type": "text",
-                    }
-                ],
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_overload_3(self, client: Letta) -> None:
-        message = client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            reasoning="reasoning",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params_overload_3(self, client: Letta) -> None:
-        message = client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            reasoning="reasoning",
-            message_type="reasoning_message",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_update_overload_3(self, client: Letta) -> None:
-        response = client.agents.messages.with_raw_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            reasoning="reasoning",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_update_overload_3(self, client: Letta) -> None:
-        with client.agents.messages.with_streaming_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            reasoning="reasoning",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_update_overload_3(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.messages.with_raw_response.update(
-                message_id="message-123e4567-e89b-42d3-8456-426614174000",
-                agent_id="",
-                reasoning="reasoning",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
-            client.agents.messages.with_raw_response.update(
-                message_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                reasoning="reasoning",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_overload_4(self, client: Letta) -> None:
-        message = client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[{"text": "text"}],
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_update_with_all_params_overload_4(self, client: Letta) -> None:
-        message = client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "signature": "signature",
-                    "type": "text",
-                }
-            ],
-            message_type="assistant_message",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_update_overload_4(self, client: Letta) -> None:
-        response = client.agents.messages.with_raw_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[{"text": "text"}],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_update_overload_4(self, client: Letta) -> None:
-        with client.agents.messages.with_streaming_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[{"text": "text"}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_update_overload_4(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.messages.with_raw_response.update(
-                message_id="message-123e4567-e89b-42d3-8456-426614174000",
-                agent_id="",
-                content=[{"text": "text"}],
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
-            client.agents.messages.with_raw_response.update(
-                message_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                content=[{"text": "text"}],
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -730,7 +420,7 @@ class TestMessages:
         message = client.agents.messages.reset(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -739,7 +429,7 @@ class TestMessages:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             add_default_initial_messages=True,
         )
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -751,7 +441,7 @@ class TestMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -763,7 +453,7 @@ class TestMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(AgentState, message, path=["response"])
+            assert_matches_type(Optional[AgentState], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1022,315 +712,6 @@ class TestAsyncMessages:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_overload_1(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content="content",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params_overload_1(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content="content",
-            message_type="system_message",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_update_overload_1(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.messages.with_raw_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content="content",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = await response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_update_overload_1(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.messages.with_streaming_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content="content",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = await response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_update_overload_1(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.update(
-                message_id="message-123e4567-e89b-42d3-8456-426614174000",
-                agent_id="",
-                content="content",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.update(
-                message_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                content="content",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_overload_2(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params_overload_2(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "signature": "signature",
-                    "type": "text",
-                }
-            ],
-            message_type="user_message",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_update_overload_2(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.messages.with_raw_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = await response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_update_overload_2(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.messages.with_streaming_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "type": "text",
-                }
-            ],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = await response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_update_overload_2(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.update(
-                message_id="message-123e4567-e89b-42d3-8456-426614174000",
-                agent_id="",
-                content=[
-                    {
-                        "text": "text",
-                        "type": "text",
-                    }
-                ],
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.update(
-                message_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                content=[
-                    {
-                        "text": "text",
-                        "type": "text",
-                    }
-                ],
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_overload_3(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            reasoning="reasoning",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params_overload_3(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            reasoning="reasoning",
-            message_type="reasoning_message",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_update_overload_3(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.messages.with_raw_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            reasoning="reasoning",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = await response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_update_overload_3(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.messages.with_streaming_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            reasoning="reasoning",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = await response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_update_overload_3(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.update(
-                message_id="message-123e4567-e89b-42d3-8456-426614174000",
-                agent_id="",
-                reasoning="reasoning",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.update(
-                message_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                reasoning="reasoning",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_overload_4(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[{"text": "text"}],
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_update_with_all_params_overload_4(self, async_client: AsyncLetta) -> None:
-        message = await async_client.agents.messages.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[
-                {
-                    "text": "text",
-                    "signature": "signature",
-                    "type": "text",
-                }
-            ],
-            message_type="assistant_message",
-        )
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_update_overload_4(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.messages.with_raw_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[{"text": "text"}],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        message = await response.parse()
-        assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_update_overload_4(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.messages.with_streaming_response.update(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            content=[{"text": "text"}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            message = await response.parse()
-            assert_matches_type(MessageUpdateResponse, message, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_update_overload_4(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.update(
-                message_id="message-123e4567-e89b-42d3-8456-426614174000",
-                agent_id="",
-                content=[{"text": "text"}],
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
-            await async_client.agents.messages.with_raw_response.update(
-                message_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-                content=[{"text": "text"}],
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
@@ -1564,7 +945,7 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.reset(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1573,7 +954,7 @@ class TestAsyncMessages:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             add_default_initial_messages=True,
         )
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1585,7 +966,7 @@ class TestAsyncMessages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(AgentState, message, path=["response"])
+        assert_matches_type(Optional[AgentState], message, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -1597,7 +978,7 @@ class TestAsyncMessages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(AgentState, message, path=["response"])
+            assert_matches_type(Optional[AgentState], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0-alpha.22 (2025-11-18)
+
+Full Changelog: [v1.0.0-alpha.21...v1.0.0-alpha.22](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.21...v1.0.0-alpha.22)
+
+### Features
+
+* make config for mcp_servers and messages.modify nested ([8d9ec52](https://github.com/letta-ai/letta-python/commit/8d9ec52526ede5a82bc950bce56937dba1c2ac1a))
+
+
+### Bug Fixes
+
+* make attach/detach routes return None if sdk verion 1.0 ([c8496f1](https://github.com/letta-ai/letta-python/commit/c8496f1fb953b75bc08ea4bbcf61884d5a50c747))
+
 ## 1.0.0-alpha.21 (2025-11-17)
 
 Full Changelog: [v1.0.0-alpha.20...v1.0.0-alpha.21](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.20...v1.0.0-alpha.21)
