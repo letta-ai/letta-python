@@ -2,66 +2,22 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
-from typing_extensions import TypeAlias, TypedDict
+from typing import Union, Optional
+from typing_extensions import Required, TypeAlias, TypedDict
 
-from .._types import SequenceNotStr
+from .update_sse_mcp_server_param import UpdateSseMcpServerParam
+from .update_stdio_mcp_server_param import UpdateStdioMcpServerParam
+from .update_streamable_http_mcp_server_param import UpdateStreamableHTTPMcpServerParam
 
-__all__ = ["McpServerUpdateParams", "UpdateStdioMcpServer", "UpdateSseMcpServer", "UpdateStreamableHTTPMcpServer"]
+__all__ = ["McpServerUpdateParams", "Config"]
 
 
-class UpdateStdioMcpServer(TypedDict, total=False):
-    args: Optional[SequenceNotStr[str]]
-    """The arguments to pass to the command"""
-
-    command: Optional[str]
-    """The command to run the MCP server"""
-
-    env: Optional[Dict[str, str]]
-    """Environment variables to set"""
+class McpServerUpdateParams(TypedDict, total=False):
+    config: Required[Config]
+    """The MCP server configuration updates (Stdio, SSE, or Streamable HTTP)"""
 
     server_name: Optional[str]
     """The name of the MCP server"""
 
 
-class UpdateSseMcpServer(TypedDict, total=False):
-    token: Optional[str]
-    """The authentication token (internal)"""
-
-    auth_header: Optional[str]
-    """The name of the authentication header (e.g., 'Authorization')"""
-
-    auth_token: Optional[str]
-    """The authentication token or API key value"""
-
-    custom_headers: Optional[Dict[str, str]]
-    """Custom headers to send with requests"""
-
-    server_name: Optional[str]
-    """The name of the MCP server"""
-
-    server_url: Optional[str]
-    """The URL of the SSE MCP server"""
-
-
-class UpdateStreamableHTTPMcpServer(TypedDict, total=False):
-    token: Optional[str]
-    """The authentication token (internal)"""
-
-    auth_header: Optional[str]
-    """The name of the authentication header (e.g., 'Authorization')"""
-
-    auth_token: Optional[str]
-    """The authentication token or API key value"""
-
-    custom_headers: Optional[Dict[str, str]]
-    """Custom headers to send with requests"""
-
-    server_name: Optional[str]
-    """The name of the MCP server"""
-
-    server_url: Optional[str]
-    """The URL of the Streamable HTTP MCP server"""
-
-
-McpServerUpdateParams: TypeAlias = Union[UpdateStdioMcpServer, UpdateSseMcpServer, UpdateStreamableHTTPMcpServer]
+Config: TypeAlias = Union[UpdateStdioMcpServerParam, UpdateSseMcpServerParam, UpdateStreamableHTTPMcpServerParam]

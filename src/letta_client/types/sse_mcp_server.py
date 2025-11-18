@@ -10,7 +10,7 @@ __all__ = ["SseMcpServer"]
 
 class SseMcpServer(BaseModel):
     server_name: str
-    """The name of the server"""
+    """The name of the MCP server"""
 
     server_url: str
     """The URL of the server"""
@@ -27,4 +27,4 @@ class SseMcpServer(BaseModel):
     custom_headers: Optional[Dict[str, str]] = None
     """Custom HTTP headers to include with requests"""
 
-    type: Optional[Literal["sse", "stdio", "streamable_http"]] = None
+    mcp_server_type: Optional[Literal["sse"]] = None

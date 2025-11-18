@@ -46,10 +46,8 @@ from .approval_return_param import ApprovalReturnParam as ApprovalReturnParam
 from .message_cancel_params import MessageCancelParams as MessageCancelParams
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_stream_params import MessageStreamParams as MessageStreamParams
-from .message_update_params import MessageUpdateParams as MessageUpdateParams
 from .file_close_all_response import FileCloseAllResponse as FileCloseAllResponse
 from .message_cancel_response import MessageCancelResponse as MessageCancelResponse
-from .message_update_response import MessageUpdateResponse as MessageUpdateResponse
 from .reasoning_content_param import ReasoningContentParam as ReasoningContentParam
 from .tool_call_content_param import ToolCallContentParam as ToolCallContentParam
 from .approval_request_message import ApprovalRequestMessage as ApprovalRequestMessage
