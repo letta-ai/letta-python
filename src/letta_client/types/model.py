@@ -104,7 +104,7 @@ class Model(BaseModel):
     put_inner_thoughts_in_kwargs: Optional[bool] = None
     """Deprecated: Puts 'inner_thoughts' as a kwarg in the function call."""
 
-    reasoning_effort: Optional[Literal["minimal", "low", "medium", "high"]] = None
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high"]] = None
     """Deprecated: The reasoning effort to use when generating text reasoning models."""
 
     temperature: Optional[float] = None

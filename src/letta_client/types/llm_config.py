@@ -100,7 +100,7 @@ class LlmConfig(BaseModel):
     thoughts.
     """
 
-    reasoning_effort: Optional[Literal["minimal", "low", "medium", "high"]] = None
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high"]] = None
     """The reasoning effort to use when generating text reasoning models"""
 
     temperature: Optional[float] = None
