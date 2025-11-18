@@ -16,7 +16,7 @@ class StdioMcpServer(BaseModel):
     """The command to run (MCP 'local' client will run this command)"""
 
     server_name: str
-    """The name of the server"""
+    """The name of the MCP server"""
 
     id: Optional[str] = None
     """The human-friendly ID of the Mcp_server"""
@@ -24,4 +24,4 @@ class StdioMcpServer(BaseModel):
     env: Optional[Dict[str, str]] = None
     """Environment variables to set"""
 
-    type: Optional[Literal["sse", "stdio", "streamable_http"]] = None
+    mcp_server_type: Optional[Literal["stdio"]] = None

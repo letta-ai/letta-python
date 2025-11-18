@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal, overload
+from typing import Any, Optional, cast
 
 import httpx
 
@@ -16,8 +15,8 @@ from .tools import (
     AsyncToolsResourceWithStreamingResponse,
 )
 from ...types import mcp_server_create_params, mcp_server_update_params, mcp_server_refresh_params
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import required_args, maybe_transform, async_maybe_transform
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -59,15 +58,11 @@ class McpServersResource(SyncAPIResource):
         """
         return McpServersResourceWithStreamingResponse(self)
 
-    @overload
     def create(
         self,
         *,
-        args: SequenceNotStr[str],
-        command: str,
+        config: mcp_server_create_params.Config,
         server_name: str,
-        env: Optional[Dict[str, str]] | Omit = omit,
-        type: Literal["sse", "stdio", "streamable_http"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -79,13 +74,9 @@ class McpServersResource(SyncAPIResource):
         Add a new MCP server to the Letta MCP server config
 
         Args:
-          args: The arguments to pass to the command
+          config: The MCP server configuration (Stdio, SSE, or Streamable HTTP)
 
-          command: The command to run (MCP 'local' client will run this command)
-
-          server_name: The name of the server
-
-          env: Environment variables to set
+          server_name: The name of the MCP server
 
           extra_headers: Send extra headers
 
@@ -95,125 +86,14 @@ class McpServersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        server_name: str,
-        server_url: str,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        type: Literal["sse", "stdio", "streamable_http"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerCreateResponse:
-        """
-        Add a new MCP server to the Letta MCP server config
-
-        Args:
-          server_name: The name of the server
-
-          server_url: The URL of the server
-
-          auth_header: The name of the authentication header (e.g., 'Authorization')
-
-          auth_token: The authentication token or API key value
-
-          custom_headers: Custom HTTP headers to include with requests
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        server_name: str,
-        server_url: str,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        type: Literal["sse", "stdio", "streamable_http"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerCreateResponse:
-        """
-        Add a new MCP server to the Letta MCP server config
-
-        Args:
-          server_name: The name of the server
-
-          server_url: The URL of the server
-
-          auth_header: The name of the authentication header (e.g., 'Authorization')
-
-          auth_token: The authentication token or API key value
-
-          custom_headers: Custom HTTP headers to include with requests
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["args", "command", "server_name"], ["server_name", "server_url"])
-    def create(
-        self,
-        *,
-        args: SequenceNotStr[str] | Omit = omit,
-        command: str | Omit = omit,
-        server_name: str,
-        env: Optional[Dict[str, str]] | Omit = omit,
-        type: Literal["sse", "stdio", "streamable_http"] | Omit = omit,
-        server_url: str | Omit = omit,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerCreateResponse:
         return cast(
             McpServerCreateResponse,
             self._post(
                 "/v1/mcp-servers/",
                 body=maybe_transform(
                     {
-                        "args": args,
-                        "command": command,
+                        "config": config,
                         "server_name": server_name,
-                        "env": env,
-                        "type": type,
-                        "server_url": server_url,
-                        "auth_header": auth_header,
-                        "auth_token": auth_token,
-                        "custom_headers": custom_headers,
                     },
                     mcp_server_create_params.McpServerCreateParams,
                 ),
@@ -264,14 +144,11 @@ class McpServersResource(SyncAPIResource):
             ),
         )
 
-    @overload
     def update(
         self,
         mcp_server_id: str,
         *,
-        args: Optional[SequenceNotStr[str]] | Omit = omit,
-        command: Optional[str] | Omit = omit,
-        env: Optional[Dict[str, str]] | Omit = omit,
+        config: mcp_server_update_params.Config,
         server_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -284,11 +161,7 @@ class McpServersResource(SyncAPIResource):
         Update an existing MCP server configuration
 
         Args:
-          args: The arguments to pass to the command
-
-          command: The command to run the MCP server
-
-          env: Environment variables to set
+          config: The MCP server configuration updates (Stdio, SSE, or Streamable HTTP)
 
           server_name: The name of the MCP server
 
@@ -300,116 +173,6 @@ class McpServersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    def update(
-        self,
-        mcp_server_id: str,
-        *,
-        token: Optional[str] | Omit = omit,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        server_name: Optional[str] | Omit = omit,
-        server_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerUpdateResponse:
-        """
-        Update an existing MCP server configuration
-
-        Args:
-          token: The authentication token (internal)
-
-          auth_header: The name of the authentication header (e.g., 'Authorization')
-
-          auth_token: The authentication token or API key value
-
-          custom_headers: Custom headers to send with requests
-
-          server_name: The name of the MCP server
-
-          server_url: The URL of the SSE MCP server
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def update(
-        self,
-        mcp_server_id: str,
-        *,
-        token: Optional[str] | Omit = omit,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        server_name: Optional[str] | Omit = omit,
-        server_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerUpdateResponse:
-        """
-        Update an existing MCP server configuration
-
-        Args:
-          token: The authentication token (internal)
-
-          auth_header: The name of the authentication header (e.g., 'Authorization')
-
-          auth_token: The authentication token or API key value
-
-          custom_headers: Custom headers to send with requests
-
-          server_name: The name of the MCP server
-
-          server_url: The URL of the Streamable HTTP MCP server
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    def update(
-        self,
-        mcp_server_id: str,
-        *,
-        args: Optional[SequenceNotStr[str]] | Omit = omit,
-        command: Optional[str] | Omit = omit,
-        env: Optional[Dict[str, str]] | Omit = omit,
-        server_name: Optional[str] | Omit = omit,
-        token: Optional[str] | Omit = omit,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        server_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerUpdateResponse:
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
         return cast(
@@ -418,15 +181,8 @@ class McpServersResource(SyncAPIResource):
                 f"/v1/mcp-servers/{mcp_server_id}",
                 body=maybe_transform(
                     {
-                        "args": args,
-                        "command": command,
-                        "env": env,
+                        "config": config,
                         "server_name": server_name,
-                        "token": token,
-                        "auth_header": auth_header,
-                        "auth_token": auth_token,
-                        "custom_headers": custom_headers,
-                        "server_url": server_url,
                     },
                     mcp_server_update_params.McpServerUpdateParams,
                 ),
@@ -563,15 +319,11 @@ class AsyncMcpServersResource(AsyncAPIResource):
         """
         return AsyncMcpServersResourceWithStreamingResponse(self)
 
-    @overload
     async def create(
         self,
         *,
-        args: SequenceNotStr[str],
-        command: str,
+        config: mcp_server_create_params.Config,
         server_name: str,
-        env: Optional[Dict[str, str]] | Omit = omit,
-        type: Literal["sse", "stdio", "streamable_http"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -583,13 +335,9 @@ class AsyncMcpServersResource(AsyncAPIResource):
         Add a new MCP server to the Letta MCP server config
 
         Args:
-          args: The arguments to pass to the command
+          config: The MCP server configuration (Stdio, SSE, or Streamable HTTP)
 
-          command: The command to run (MCP 'local' client will run this command)
-
-          server_name: The name of the server
-
-          env: Environment variables to set
+          server_name: The name of the MCP server
 
           extra_headers: Send extra headers
 
@@ -599,125 +347,14 @@ class AsyncMcpServersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        server_name: str,
-        server_url: str,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        type: Literal["sse", "stdio", "streamable_http"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerCreateResponse:
-        """
-        Add a new MCP server to the Letta MCP server config
-
-        Args:
-          server_name: The name of the server
-
-          server_url: The URL of the server
-
-          auth_header: The name of the authentication header (e.g., 'Authorization')
-
-          auth_token: The authentication token or API key value
-
-          custom_headers: Custom HTTP headers to include with requests
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        server_name: str,
-        server_url: str,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        type: Literal["sse", "stdio", "streamable_http"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerCreateResponse:
-        """
-        Add a new MCP server to the Letta MCP server config
-
-        Args:
-          server_name: The name of the server
-
-          server_url: The URL of the server
-
-          auth_header: The name of the authentication header (e.g., 'Authorization')
-
-          auth_token: The authentication token or API key value
-
-          custom_headers: Custom HTTP headers to include with requests
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["args", "command", "server_name"], ["server_name", "server_url"])
-    async def create(
-        self,
-        *,
-        args: SequenceNotStr[str] | Omit = omit,
-        command: str | Omit = omit,
-        server_name: str,
-        env: Optional[Dict[str, str]] | Omit = omit,
-        type: Literal["sse", "stdio", "streamable_http"] | Omit = omit,
-        server_url: str | Omit = omit,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerCreateResponse:
         return cast(
             McpServerCreateResponse,
             await self._post(
                 "/v1/mcp-servers/",
                 body=await async_maybe_transform(
                     {
-                        "args": args,
-                        "command": command,
+                        "config": config,
                         "server_name": server_name,
-                        "env": env,
-                        "type": type,
-                        "server_url": server_url,
-                        "auth_header": auth_header,
-                        "auth_token": auth_token,
-                        "custom_headers": custom_headers,
                     },
                     mcp_server_create_params.McpServerCreateParams,
                 ),
@@ -768,14 +405,11 @@ class AsyncMcpServersResource(AsyncAPIResource):
             ),
         )
 
-    @overload
     async def update(
         self,
         mcp_server_id: str,
         *,
-        args: Optional[SequenceNotStr[str]] | Omit = omit,
-        command: Optional[str] | Omit = omit,
-        env: Optional[Dict[str, str]] | Omit = omit,
+        config: mcp_server_update_params.Config,
         server_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -788,11 +422,7 @@ class AsyncMcpServersResource(AsyncAPIResource):
         Update an existing MCP server configuration
 
         Args:
-          args: The arguments to pass to the command
-
-          command: The command to run the MCP server
-
-          env: Environment variables to set
+          config: The MCP server configuration updates (Stdio, SSE, or Streamable HTTP)
 
           server_name: The name of the MCP server
 
@@ -804,116 +434,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    async def update(
-        self,
-        mcp_server_id: str,
-        *,
-        token: Optional[str] | Omit = omit,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        server_name: Optional[str] | Omit = omit,
-        server_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerUpdateResponse:
-        """
-        Update an existing MCP server configuration
-
-        Args:
-          token: The authentication token (internal)
-
-          auth_header: The name of the authentication header (e.g., 'Authorization')
-
-          auth_token: The authentication token or API key value
-
-          custom_headers: Custom headers to send with requests
-
-          server_name: The name of the MCP server
-
-          server_url: The URL of the SSE MCP server
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def update(
-        self,
-        mcp_server_id: str,
-        *,
-        token: Optional[str] | Omit = omit,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        server_name: Optional[str] | Omit = omit,
-        server_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerUpdateResponse:
-        """
-        Update an existing MCP server configuration
-
-        Args:
-          token: The authentication token (internal)
-
-          auth_header: The name of the authentication header (e.g., 'Authorization')
-
-          auth_token: The authentication token or API key value
-
-          custom_headers: Custom headers to send with requests
-
-          server_name: The name of the MCP server
-
-          server_url: The URL of the Streamable HTTP MCP server
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    async def update(
-        self,
-        mcp_server_id: str,
-        *,
-        args: Optional[SequenceNotStr[str]] | Omit = omit,
-        command: Optional[str] | Omit = omit,
-        env: Optional[Dict[str, str]] | Omit = omit,
-        server_name: Optional[str] | Omit = omit,
-        token: Optional[str] | Omit = omit,
-        auth_header: Optional[str] | Omit = omit,
-        auth_token: Optional[str] | Omit = omit,
-        custom_headers: Optional[Dict[str, str]] | Omit = omit,
-        server_url: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpServerUpdateResponse:
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
         return cast(
@@ -922,15 +442,8 @@ class AsyncMcpServersResource(AsyncAPIResource):
                 f"/v1/mcp-servers/{mcp_server_id}",
                 body=await async_maybe_transform(
                     {
-                        "args": args,
-                        "command": command,
-                        "env": env,
+                        "config": config,
                         "server_name": server_name,
-                        "token": token,
-                        "auth_header": auth_header,
-                        "auth_token": auth_token,
-                        "custom_headers": custom_headers,
-                        "server_url": server_url,
                     },
                     mcp_server_update_params.McpServerUpdateParams,
                 ),
