@@ -13,7 +13,7 @@ __all__ = ["OpenAIModelSettingsParam", "Reasoning", "ResponseFormat"]
 
 
 class Reasoning(TypedDict, total=False):
-    reasoning_effort: Literal["minimal", "low", "medium", "high"]
+    reasoning_effort: Literal["none", "minimal", "low", "medium", "high"]
     """The reasoning effort to use when generating text reasoning models"""
 
 

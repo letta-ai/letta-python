@@ -591,3 +591,17 @@ Methods:
 Methods:
 
 - <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/letta_client/resources/batches/messages.py">list</a>(batch_id, \*\*<a href="src/letta_client/types/batches/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/internal_message.py">SyncObjectPage[InternalMessage]</a></code>
+
+# AccessTokens
+
+Types:
+
+```python
+from letta_client.types import AccessTokenCreateResponse, AccessTokenListResponse
+```
+
+Methods:
+
+- <code title="post /v1/client-side-access-tokens">client.access_tokens.<a href="./src/letta_client/resources/access_tokens.py">create</a>(\*\*<a href="src/letta_client/types/access_token_create_params.py">params</a>) -> <a href="./src/letta_client/types/access_token_create_response.py">AccessTokenCreateResponse</a></code>
+- <code title="get /v1/client-side-access-tokens">client.access_tokens.<a href="./src/letta_client/resources/access_tokens.py">list</a>(\*\*<a href="src/letta_client/types/access_token_list_params.py">params</a>) -> <a href="./src/letta_client/types/access_token_list_response.py">AccessTokenListResponse</a></code>
+- <code title="delete /v1/client-side-access-tokens/{token}">client.access_tokens.<a href="./src/letta_client/resources/access_tokens.py">delete</a>(token, \*\*<a href="src/letta_client/types/access_token_delete_params.py">params</a>) -> object</code>

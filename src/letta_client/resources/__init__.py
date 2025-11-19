@@ -112,6 +112,14 @@ from .mcp_servers import (
     McpServersResourceWithStreamingResponse,
     AsyncMcpServersResourceWithStreamingResponse,
 )
+from .access_tokens import (
+    AccessTokensResource,
+    AsyncAccessTokensResource,
+    AccessTokensResourceWithRawResponse,
+    AsyncAccessTokensResourceWithRawResponse,
+    AccessTokensResourceWithStreamingResponse,
+    AsyncAccessTokensResourceWithStreamingResponse,
+)
 
 __all__ = [
     "AgentsResource",
@@ -198,4 +206,10 @@ __all__ = [
     "AsyncBatchesResourceWithRawResponse",
     "BatchesResourceWithStreamingResponse",
     "AsyncBatchesResourceWithStreamingResponse",
+    "AccessTokensResource",
+    "AsyncAccessTokensResource",
+    "AccessTokensResourceWithRawResponse",
+    "AsyncAccessTokensResourceWithRawResponse",
+    "AccessTokensResourceWithStreamingResponse",
+    "AsyncAccessTokensResourceWithStreamingResponse",
 ]
