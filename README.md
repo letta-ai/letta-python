@@ -205,14 +205,11 @@ agent = client.agents.create(
 Give agents access to files:
 
 ```python
-# Get an available embedding config
-embedding_configs = client.models.embeddings.list()
-
 # Create folder and upload file
 folder = client.folders.create(
     name="my_folder",
-    embedding_config=embedding_configs[0]
 )
+
 with open("file.txt", "rb") as f:
     client.folders.files.upload(file=f, folder_id=folder.id)
 
@@ -225,7 +222,7 @@ client.agents.folders.attach(agent_id=agent.id, folder_id=folder.id)
 Background execution with resumable streaming:
 
 ```python
-stream = client.agents.messages.stream(
+stream = client.agents.messages.create(
     agent_id=agent.id,
     messages=[{"role": "user", "content": "Analyze this dataset"}],
     background=True
