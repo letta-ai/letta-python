@@ -1,420 +1,394 @@
-# Letta Python API library
+# Letta Python SDK
 
-<!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/letta-client.svg?label=pypi%20(stable))](https://pypi.org/project/letta-client/)
+[![pypi](https://img.shields.io/pypi/v/letta-client)](https://pypi.python.org/pypi/letta-client)
 
-The Letta Python library provides convenient access to the Letta REST API from any Python 3.9+
-application. The library includes type definitions for all request params and response fields,
-and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+Letta is the platform for building stateful agents: open AI with advanced memory that can learn and self-improve over time.
 
-It is generated with [Stainless](https://www.stainless.com/).
+### Quicklinks:
+* [**Developer Documentation**](https://docs.letta.com): Learn how to create agents using Python or TypeScript
+* [**Python API Reference**](./reference.md): Complete Python SDK documentation
+* [**Agent Development Environment (ADE)**](https://docs.letta.com/guides/ade/overview): A no-code UI for building stateful agents
+* [**Letta Cloud**](https://app.letta.com/): The fastest way to try Letta
 
-## Documentation
+## Get started
 
-The full API of this library can be found in [api.md](api.md).
+Install the Letta Python SDK:
 
-## Installation
-
-```sh
-# install from PyPI
+```bash
 pip install letta-client
 ```
 
-## Usage
+## Simple Hello World example
 
-The full API of this library can be found in [api.md](api.md).
+In the example below, we'll create a stateful agent with two memory blocks. We'll initialize the `human` memory block with incorrect information, and correct the agent in our first message - which will trigger the agent to update its own memory with a tool call.
+
+*To run the examples, you'll need to get a `LETTA_API_KEY` from [Letta Cloud](https://app.letta.com/api-keys), or run your own self-hosted server (see [our guide](https://docs.letta.com/guides/selfhosting))*
 
 ```python
-import os
 from letta_client import Letta
 
-client = Letta(
-    api_key=os.environ.get("LETTA_API_KEY"),  # This is the default and can be omitted
-    # defaults to "cloud".
-    environment="local",
+client = Letta(token="LETTA_API_KEY")
+# client = Letta(base_url="http://localhost:8283")  # if self-hosting
+
+agent_state = client.agents.create(
+    model="openai/gpt-4o-mini",
+    embedding="openai/text-embedding-3-small",
+    memory_blocks=[
+        {
+            "label": "human",
+            "value": "The human's name is Chad. They like vibe coding."
+        },
+        {
+            "label": "persona",
+            "value": "My name is Sam, a helpful assistant."
+        }
+    ],
+    tools=["web_search", "run_code"]
 )
 
-archive = client.archives.create(
-    name="name",
+print(agent_state.id)
+# agent-d9be...0846
+
+response = client.agents.messages.create(
+    agent_id=agent_state.id,
+    messages=[
+        {
+            "role": "user",
+            "content": "Hey, nice to meet you, my name is Brad."
+        }
+    ]
 )
-print(archive.id)
+
+# the agent will think, then edit its memory using a tool
+for message in response.messages:
+    print(message)
+
+# The content of this memory block will be something like
+# "The human's name is Brad. They like vibe coding."
+# Fetch this block's content with:
+human_block = client.agents.blocks.retrieve(agent_id=agent_state.id, block_label="human")
+print(human_block.value)
 ```
 
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `LETTA_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
+## Core concepts in Letta:
 
-## Async usage
+Letta is built on the [MemGPT](https://arxiv.org/abs/2310.08560) research paper, which introduced the concept of the "LLM Operating System" for memory management:
 
-Simply import `AsyncLetta` instead of `Letta` and use `await` with each API call:
+1. [**Memory Hierarchy**](https://docs.letta.com/guides/agents/memory): Agents have self-editing memory split between in-context and out-of-context memory
+2. [**Memory Blocks**](https://docs.letta.com/guides/agents/memory-blocks): In-context memory is composed of persistent editable blocks
+3. [**Agentic Context Engineering**](https://docs.letta.com/guides/agents/context-engineering): Agents control their context window using tools to edit, delete, or search memory
+4. [**Perpetual Self-Improving Agents**](https://docs.letta.com/guides/agents/overview): Every agent has a perpetual (infinite) message history
+
+## Local Development
+
+Connect to a local Letta server instead of the cloud:
 
 ```python
-import os
-import asyncio
+from letta_client import Letta
+
+client = Letta(base_url="http://localhost:8283")
+```
+
+Run Letta locally with Docker:
+
+```bash
+docker run \
+  -v ~/.letta/.persist/pgdata:/var/lib/postgresql/data \
+  -p 8283:8283 \
+  -e OPENAI_API_KEY="your_key" \
+  letta/letta:latest
+```
+
+See the [self-hosting guide](https://docs.letta.com/guides/selfhosting) for more options.
+
+## Key Features
+
+### Memory Management ([full guide](https://docs.letta.com/guides/agents/memory-blocks))
+
+Memory blocks are persistent, editable sections of an agent's context window:
+
+```python
+# Create agent with memory blocks
+agent = client.agents.create(
+    memory_blocks=[
+        {"label": "persona", "value": "I'm a helpful assistant."},
+        {"label": "human", "value": "User preferences and info."}
+    ]
+)
+
+# Modify blocks manually
+client.agents.blocks.modify(
+    agent_id=agent.id,
+    block_label="human",
+    value="Updated user information"
+)
+
+# Retrieve a block
+block = client.agents.blocks.retrieve(agent_id=agent.id, block_label="human")
+```
+
+### Multi-agent Shared Memory ([full guide](https://docs.letta.com/guides/agents/multi-agent-shared-memory))
+
+Memory blocks can be attached to multiple agents. All agents will have an up-to-date view on the contents of the memory block -- if one agent modifies it, the other will see it immediately.
+
+Here is how to attach a single memory block to multiple agents:
+
+```python
+# Create shared block
+shared_block = client.blocks.create(
+    label="organization",
+    value="Shared team context"
+)
+
+# Attach to multiple agents
+agent1 = client.agents.create(
+    memory_blocks=[{"label": "persona", "value": "I am a supervisor"}],
+    block_ids=[shared_block.id]
+)
+
+agent2 = client.agents.create(
+    memory_blocks=[{"label": "persona", "value": "I am a worker"}],
+    block_ids=[shared_block.id]
+)
+```
+
+### Sleep-time Agents ([full guide](https://docs.letta.com/guides/agents/architectures/sleeptime))
+
+Background agents that share memory with your primary agent:
+
+```python
+agent = client.agents.create(
+    model="openai/gpt-4o-mini",
+    enable_sleeptime=True  # creates a sleep-time agent
+)
+```
+
+### Agent File Import/Export ([full guide](https://docs.letta.com/guides/agents/agent-file))
+
+Save and share agents with the `.af` file format:
+
+```python
+# Import agent
+with open('/path/to/agent.af', 'rb') as f:
+    agent = client.agents.import_agent_serialized(file=f)
+
+# Export agent
+schema = client.agents.export_agent_serialized(agent_id=agent.id)
+```
+
+### MCP Tools ([full guide](https://docs.letta.com/guides/mcp/overview))
+
+Connect to Model Context Protocol servers:
+
+```python
+# Add tool from MCP server
+tool = client.tools.add_mcp_tool(
+    server_name="weather-server",
+    tool_name="get_weather"
+)
+
+# Create agent with MCP tool
+agent = client.agents.create(
+    model="openai/gpt-4o-mini",
+    tool_ids=[tool.id]
+)
+```
+
+### Filesystem ([full guide](https://docs.letta.com/guides/agents/filesystem))
+
+Give agents access to files:
+
+```python
+# Get an available embedding config
+embedding_configs = client.models.list_embedding_models()
+
+# Create folder and upload file
+folder = client.folders.create(
+    name="my_folder",
+    embedding_config=embedding_configs[0]
+)
+with open("file.txt", "rb") as f:
+    client.folders.files.upload(file=f, folder_id=folder.id)
+
+# Attach to agent
+client.agents.folders.attach(agent_id=agent.id, folder_id=folder.id)
+```
+
+### Long-running Agents ([full guide](https://docs.letta.com/guides/agents/long-running))
+
+Background execution with resumable streaming:
+
+```python
+stream = client.agents.messages.create_stream(
+    agent_id=agent.id,
+    messages=[{"role": "user", "content": "Analyze this dataset"}],
+    background=True
+)
+
+run_id = None
+last_seq_id = None
+for chunk in stream:
+    run_id = chunk.run_id
+    last_seq_id = chunk.seq_id
+
+# Resume if disconnected
+for chunk in client.runs.stream(run_id=run_id, starting_after=last_seq_id):
+    print(chunk)
+```
+
+### Streaming ([full guide](https://docs.letta.com/guides/agents/streaming))
+
+Stream responses in real-time:
+
+```python
+stream = client.agents.messages.create_stream(
+    agent_id=agent.id,
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+
+for chunk in stream:
+    print(chunk)
+```
+
+### Message Types ([full guide](https://docs.letta.com/guides/agents/message-types))
+
+Agent responses contain different message types. Handle them with the `message_type` discriminator:
+
+```python
+messages = client.agents.messages.list(agent_id=agent.id)
+
+for message in messages:
+    if message.message_type == "user_message":
+        print(f"User: {message.content}")
+    elif message.message_type == "assistant_message":
+        print(f"Agent: {message.content}")
+    elif message.message_type == "reasoning_message":
+        print(f"Reasoning: {message.reasoning}")
+    elif message.message_type == "tool_call_message":
+        print(f"Tool: {message.tool_call.name}")
+    elif message.message_type == "tool_return_message":
+        print(f"Result: {message.tool_return}")
+```
+
+## Python Support
+
+Full type hints and async support:
+
+```python
+from letta_client import Letta
+from letta_client.types import CreateAgentRequest
+
+# Sync client
+client = Letta(token="LETTA_API_KEY")
+
+# Async client
 from letta_client import AsyncLetta
 
-client = AsyncLetta(
-    api_key=os.environ.get("LETTA_API_KEY"),  # This is the default and can be omitted
-    # defaults to "cloud".
-    environment="local",
-)
-
-
-async def main() -> None:
-    archive = await client.archives.create(
-        name="name",
-    )
-    print(archive.id)
-
-
-asyncio.run(main())
-```
-
-Functionality between the synchronous and asynchronous clients is otherwise identical.
-
-### With aiohttp
-
-By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
-
-You can enable this by installing `aiohttp`:
-
-```sh
-# install from PyPI
-pip install letta-client[aiohttp]
-```
-
-Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
-
-```python
-import asyncio
-from letta_client import DefaultAioHttpClient
-from letta_client import AsyncLetta
-
-
-async def main() -> None:
-    async with AsyncLetta(
-        api_key="My API Key",
-        http_client=DefaultAioHttpClient(),
-    ) as client:
-        archive = await client.archives.create(
-            name="name",
-        )
-        print(archive.id)
-
-
-asyncio.run(main())
-```
-
-## Using types
-
-Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
-
-- Serializing back into JSON, `model.to_json()`
-- Converting to a dictionary, `model.to_dict()`
-
-Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
-
-## Nested params
-
-Nested parameters are dictionaries, typed using `TypedDict`, for example:
-
-```python
-from letta_client import Letta
-
-client = Letta()
-
-archive = client.archives.create(
-    name="name",
-    embedding_config={
-        "embedding_dim": 0,
-        "embedding_endpoint_type": "openai",
-        "embedding_model": "embedding_model",
-    },
-)
-print(archive.embedding_config)
-```
-
-## File uploads
-
-Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
-
-```python
-from pathlib import Path
-from letta_client import Letta
-
-client = Letta()
-
-client.agents.import_file(
-    file=Path("/path/to/file"),
+async_client = AsyncLetta(token="LETTA_API_KEY")
+agent = await async_client.agents.create(
+    model="openai/gpt-4o-mini",
+    memory_blocks=[...]
 )
 ```
 
-The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
-
-## Handling errors
-
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `letta_client.APIConnectionError` is raised.
-
-When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `letta_client.APIStatusError` is raised, containing `status_code` and `response` properties.
-
-All errors inherit from `letta_client.APIError`.
+## Error Handling
 
 ```python
-import letta_client
-from letta_client import Letta
-
-client = Letta()
+from letta_client.core.api_error import ApiError
 
 try:
-    client.archives.create(
-        name="name",
-    )
-except letta_client.APIConnectionError as e:
-    print("The server could not be reached")
-    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except letta_client.RateLimitError as e:
-    print("A 429 status code was received; we should back off a bit.")
-except letta_client.APIStatusError as e:
-    print("Another non-200-range status code was received")
+    client.agents.messages.create(agent_id=agent_id, messages=[...])
+except ApiError as e:
     print(e.status_code)
-    print(e.response)
+    print(e.message)
+    print(e.body)
 ```
 
-Error codes are as follows:
-
-| Status Code | Error Type                 |
-| ----------- | -------------------------- |
-| 400         | `BadRequestError`          |
-| 401         | `AuthenticationError`      |
-| 403         | `PermissionDeniedError`    |
-| 404         | `NotFoundError`            |
-| 422         | `UnprocessableEntityError` |
-| 429         | `RateLimitError`           |
-| >=500       | `InternalServerError`      |
-| N/A         | `APIConnectionError`       |
+## Advanced Configuration
 
 ### Retries
 
-Certain errors are automatically retried 2 times by default, with a short exponential backoff.
-Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
-429 Rate Limit, and >=500 Internal errors are all retried by default.
-
-You can use the `max_retries` option to configure or disable retry settings:
-
 ```python
-from letta_client import Letta
-
-# Configure the default for all requests:
-client = Letta(
-    # default is 2
-    max_retries=0,
-)
-
-# Or, configure per-request:
-client.with_options(max_retries=5).archives.create(
-    name="name",
+response = client.agents.create(
+    {...},
+    request_options={"max_retries": 3}  # Default: 2
 )
 ```
 
 ### Timeouts
 
-By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
+```python
+response = client.agents.create(
+    {...},
+    request_options={"timeout_in_seconds": 30}  # Default: 60
+)
+```
+
+### Custom Headers
 
 ```python
-from letta_client import Letta
-
-# Configure the default for all requests:
-client = Letta(
-    # 20 seconds (default is 1 minute)
-    timeout=20.0,
-)
-
-# More granular control:
-client = Letta(
-    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
-)
-
-# Override per-request:
-client.with_options(timeout=5.0).archives.create(
-    name="name",
+response = client.agents.create(
+    {...},
+    request_options={
+        "additional_headers": {
+            "X-Custom-Header": "value"
+        }
+    }
 )
 ```
 
-On timeout, an `APITimeoutError` is thrown.
-
-Note that requests that time out are [retried twice by default](#retries).
-
-## Advanced
-
-### Logging
-
-We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
-
-You can enable logging by setting the environment variable `LETTA_LOG` to `info`.
-
-```shell
-$ export LETTA_LOG=info
-```
-
-Or to `debug` for more verbose logging.
-
-### How to tell whether `None` means `null` or missing
-
-In an API response, a field may be explicitly `null`, or missing entirely; in either case, its value is `None` in this library. You can differentiate the two cases with `.model_fields_set`:
-
-```py
-if response.my_field is None:
-  if 'my_field' not in response.model_fields_set:
-    print('Got json like {}, without a "my_field" key present at all.')
-  else:
-    print('Got json like {"my_field": null}.')
-```
-
-### Accessing raw response data (e.g. headers)
-
-The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
-
-```py
-from letta_client import Letta
-
-client = Letta()
-response = client.archives.with_raw_response.create(
-    name="name",
-)
-print(response.headers.get('X-My-Header'))
-
-archive = response.parse()  # get the object that `archives.create()` would have returned
-print(archive.id)
-```
-
-These methods return an [`APIResponse`](https://github.com/letta-ai/letta-python/tree/1.0-release/src/letta_client/_response.py) object.
-
-The async client returns an [`AsyncAPIResponse`](https://github.com/letta-ai/letta-python/tree/1.0-release/src/letta_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
-
-#### `.with_streaming_response`
-
-The above interface eagerly reads the full response body when you make the request, which may not always be what you want.
-
-To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
+### Raw Response Access
 
 ```python
-with client.archives.with_streaming_response.create(
-    name="name",
-) as response:
-    print(response.headers.get("X-My-Header"))
+response = client.agents.with_raw_response.create({...})
 
-    for line in response.iter_lines():
-        print(line)
+print(response.headers["X-My-Header"])
+print(response.data)  # access the underlying object
 ```
 
-The context manager is required so that the response will reliably be closed.
-
-### Making custom/undocumented requests
-
-This library is typed for convenient access to the documented API.
-
-If you need to access undocumented endpoints, params, or response properties, the library can still be used.
-
-#### Undocumented endpoints
-
-To make requests to undocumented endpoints, you can make requests using `client.get`, `client.post`, and other
-http verbs. Options on the client will be respected (such as retries) when making this request.
-
-```py
-import httpx
-
-response = client.post(
-    "/foo",
-    cast_to=httpx.Response,
-    body={"my_param": True},
-)
-
-print(response.headers.get("x-foo"))
-```
-
-#### Undocumented request params
-
-If you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` request
-options.
-
-#### Undocumented response properties
-
-To access undocumented response properties, you can access the extra fields like `response.unknown_prop`. You
-can also get all the extra fields on the Pydantic model as a dict with
-[`response.model_extra`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.model_extra).
-
-### Configuring the HTTP client
-
-You can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including:
-
-- Support for [proxies](https://www.python-httpx.org/advanced/proxies/)
-- Custom [transports](https://www.python-httpx.org/advanced/transports/)
-- Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
+### Custom HTTP Client
 
 ```python
 import httpx
-from letta_client import Letta, DefaultHttpxClient
+from letta_client import Letta
 
 client = Letta(
-    # Or use the `LETTA_BASE_URL` env var
-    base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(
-        proxy="http://my.test.proxy.example.com",
+    httpx_client=httpx.Client(
+        proxies="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
-    ),
+    )
 )
 ```
 
-You can also customize the client on a per-request basis by using `with_options()`:
+## Runtime Compatibility
 
-```python
-client.with_options(http_client=DefaultHttpxClient(...))
-```
-
-### Managing HTTP resources
-
-By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
-
-```py
-from letta_client import Letta
-
-with Letta() as client:
-  # make requests here
-  ...
-
-# HTTP client is now closed
-```
-
-## Versioning
-
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
-
-1. Changes that only affect static types, without breaking runtime behavior.
-2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
-3. Changes that we do not expect to impact the vast majority of users in practice.
-
-We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
-
-We are keen for your feedback; please open an [issue](https://www.github.com/letta-ai/letta-python/issues) with questions, bugs, or suggestions.
-
-### Determining the installed version
-
-If you've upgraded to the latest version but aren't seeing any new features you were expecting then your python environment is likely still using an older version.
-
-You can determine the version that is being used at runtime with:
-
-```py
-import letta_client
-print(letta_client.__version__)
-```
-
-## Requirements
-
-Python 3.9 or higher.
+Works with:
+- Python 3.8+
+- Supports async/await
+- Compatible with type checkers (mypy, pyright)
 
 ## Contributing
 
-See [the contributing documentation](./CONTRIBUTING.md).
+Letta is an open source project built by over a hundred contributors. There are many ways to get involved in the Letta OSS project!
+
+* [**Join the Discord**](https://discord.gg/letta): Chat with the Letta devs and other AI developers.
+* [**Chat on our forum**](https://forum.letta.com/): If you're not into Discord, check out our developer forum.
+* **Follow our socials**: [Twitter/X](https://twitter.com/Letta_AI), [LinkedIn](https://www.linkedin.com/company/letta-ai/), [YouTube](https://www.youtube.com/@letta-ai)
+
+This SDK is generated programmatically. For SDK changes, please [open an issue](https://github.com/letta-ai/letta-python/issues).
+
+README contributions are always welcome!
+
+## Resources
+
+- [Documentation](https://docs.letta.com)
+- [Python API Reference](./reference.md)
+- [Example Applications](https://github.com/letta-ai/letta-chatbot-example)
+
+## License
+
+MIT
+
+---
+
+***Legal notices**: By using Letta and related Letta services (such as the Letta endpoint or hosted service), you are agreeing to our [privacy policy](https://www.letta.com/privacy-policy) and [terms of service](https://www.letta.com/terms-of-service).*
