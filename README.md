@@ -27,7 +27,7 @@ In the example below, we'll create a stateful agent with two memory blocks. We'l
 ```python
 from letta_client import Letta
 
-client = Letta(token="LETTA_API_KEY")
+client = Letta(api_key="LETTA_API_KEY")
 # client = Letta(base_url="http://localhost:8283")  # if self-hosting
 
 agent_state = client.agents.create(
@@ -116,8 +116,8 @@ agent = client.agents.create(
     ]
 )
 
-# Modify blocks manually
-client.agents.blocks.modify(
+# Update blocks manually
+client.agents.blocks.update(
     agent_id=agent.id,
     block_label="human",
     value="Updated user information"
@@ -170,10 +170,10 @@ Save and share agents with the `.af` file format:
 ```python
 # Import agent
 with open('/path/to/agent.af', 'rb') as f:
-    agent = client.agents.import_agent_serialized(file=f)
+    agent = client.agents.import_file(file=f)
 
 # Export agent
-schema = client.agents.export_agent_serialized(agent_id=agent.id)
+schema = client.agents.export_file(agent_id=agent.id)
 ```
 
 ### MCP Tools ([full guide](https://docs.letta.com/guides/mcp/overview))
@@ -181,11 +181,17 @@ schema = client.agents.export_agent_serialized(agent_id=agent.id)
 Connect to Model Context Protocol servers:
 
 ```python
-# Add tool from MCP server
-tool = client.tools.add_mcp_tool(
+# First, create an MCP server (example: weather server)
+weather_server = client.mcp_servers.create(
     server_name="weather-server",
-    tool_name="get_weather"
+    config={
+        "mcp_server_type": "streamable_http",
+        "server_url": "https://weather-mcp.example.com/mcp",
+    }
 )
+
+# List tools available from the MCP server
+tools = client.mcp_servers.tools.list(weather_server.id)
 
 # Create agent with MCP tool
 agent = client.agents.create(
@@ -200,7 +206,7 @@ Give agents access to files:
 
 ```python
 # Get an available embedding config
-embedding_configs = client.models.list_embedding_models()
+embedding_configs = client.models.embeddings.list()
 
 # Create folder and upload file
 folder = client.folders.create(
@@ -219,7 +225,7 @@ client.agents.folders.attach(agent_id=agent.id, folder_id=folder.id)
 Background execution with resumable streaming:
 
 ```python
-stream = client.agents.messages.create_stream(
+stream = client.agents.messages.stream(
     agent_id=agent.id,
     messages=[{"role": "user", "content": "Analyze this dataset"}],
     background=True
@@ -241,7 +247,7 @@ for chunk in client.runs.stream(run_id=run_id, starting_after=last_seq_id):
 Stream responses in real-time:
 
 ```python
-stream = client.agents.messages.create_stream(
+stream = client.agents.messages.stream(
     agent_id=agent.id,
     messages=[{"role": "user", "content": "Hello!"}]
 )
