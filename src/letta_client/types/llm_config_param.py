@@ -86,7 +86,10 @@ class LlmConfigParam(TypedDict, total=False):
     """The wrapper for the model."""
 
     parallel_tool_calls: Optional[bool]
-    """If set to True, enables parallel tool calling. Defaults to False."""
+    """Deprecated: Use model_settings to configure parallel tool calls instead.
+
+    If set to True, enables parallel tool calling. Defaults to False.
+    """
 
     provider_category: Optional[ProviderCategory]
     """The provider category for the model."""

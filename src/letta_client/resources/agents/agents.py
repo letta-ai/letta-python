@@ -304,8 +304,8 @@ class AgentsResource(SyncAPIResource):
 
           name: The name of the agent.
 
-          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
-              to True, enables parallel tool calling.
+          parallel_tool_calls: Deprecated: Use `model_settings` to configure parallel tool calls instead. If
+              set to True, enables parallel tool calling.
 
           per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
               may exceed the context window, which will break the agent.
@@ -585,8 +585,8 @@ class AgentsResource(SyncAPIResource):
 
           name: The name of the agent.
 
-          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
-              to True, enables parallel tool calling.
+          parallel_tool_calls: Deprecated: Use `model_settings` to configure parallel tool calls instead. If
+              set to True, enables parallel tool calling.
 
           per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
               may exceed the context window, which will break the agent.
@@ -1178,8 +1178,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           name: The name of the agent.
 
-          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
-              to True, enables parallel tool calling.
+          parallel_tool_calls: Deprecated: Use `model_settings` to configure parallel tool calls instead. If
+              set to True, enables parallel tool calling.
 
           per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
               may exceed the context window, which will break the agent.
@@ -1459,8 +1459,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           name: The name of the agent.
 
-          parallel_tool_calls: Deprecated: Use `model` field to configure parallel tool calls instead. If set
-              to True, enables parallel tool calling.
+          parallel_tool_calls: Deprecated: Use `model_settings` to configure parallel tool calls instead. If
+              set to True, enables parallel tool calling.
 
           per_file_view_window_char_limit: The per-file view window character limit for this agent. Setting this too high
               may exceed the context window, which will break the agent.
