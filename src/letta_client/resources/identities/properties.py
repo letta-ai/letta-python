@@ -55,7 +55,7 @@ class PropertiesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Upsert Identity Properties
+        Upsert Properties For Identity
 
         Args:
           identity_id: The ID of the identity in the format 'identity-<uuid4>'
@@ -113,7 +113,7 @@ class AsyncPropertiesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Upsert Identity Properties
+        Upsert Properties For Identity
 
         Args:
           identity_id: The ID of the identity in the format 'identity-<uuid4>'

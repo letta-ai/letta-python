@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0 (2025-11-20)
+
+Full Changelog: [v1.0.0...v1.1.0](https://github.com/letta-ai/letta-python/compare/v1.0.0...v1.1.0)
+
+### Features
+
+* add new letta error message stream response type ([dfa5f65](https://github.com/letta-ai/letta-python/commit/dfa5f6577d26e9b0ad684ebb9123cbbd1637f06d))
+* rename upsert properties endpoint ([7764513](https://github.com/letta-ai/letta-python/commit/7764513a9cf431e4ee97e2e63e11804de480f06f))
+
 ## 1.0.0 (2025-11-19)
 
 Full Changelog: [v1.0.0-alpha.22...v1.0.0](https://github.com/letta-ai/letta-python/compare/v1.0.0-alpha.22...v1.0.0)

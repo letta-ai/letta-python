@@ -16,12 +16,29 @@ from .approval_request_message import ApprovalRequestMessage
 from .hidden_reasoning_message import HiddenReasoningMessage
 from .approval_response_message import ApprovalResponseMessage
 
-__all__ = ["LettaStreamingResponse", "LettaPing", "LettaStopReason", "LettaUsageStatistics"]
+__all__ = ["LettaStreamingResponse", "LettaPing", "LettaErrorMessage", "LettaStopReason", "LettaUsageStatistics"]
 
 
 class LettaPing(BaseModel):
     message_type: Literal["ping"]
     """The type of the message."""
+
+
+class LettaErrorMessage(BaseModel):
+    error_type: str
+    """The type of error."""
+
+    message: str
+    """The error message."""
+
+    message_type: Literal["error_message"]
+    """The type of the message."""
+
+    run_id: str
+    """The ID of the run."""
+
+    detail: Optional[str] = None
+    """An optional error detail."""
 
 
 class LettaStopReason(BaseModel):
@@ -63,6 +80,7 @@ LettaStreamingResponse: TypeAlias = Annotated[
         ApprovalRequestMessage,
         ApprovalResponseMessage,
         LettaPing,
+        LettaErrorMessage,
         LettaStopReason,
         LettaUsageStatistics,
     ],
