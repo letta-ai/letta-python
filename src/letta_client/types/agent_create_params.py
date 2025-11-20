@@ -163,7 +163,7 @@ class AgentCreateParams(TypedDict, total=False):
     """The name of the agent."""
 
     parallel_tool_calls: Optional[bool]
-    """Deprecated: Use `model` field to configure parallel tool calls instead.
+    """Deprecated: Use `model_settings` to configure parallel tool calls instead.
 
     If set to True, enables parallel tool calling.
     """
