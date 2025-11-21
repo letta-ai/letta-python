@@ -6,7 +6,7 @@ from typing import Dict, Iterable
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -18,6 +18,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.templates import agent_create_params
+from ...types.templates.agent_create_response import AgentCreateResponse
 
 __all__ = ["AgentsResource", "AsyncAgentsResource"]
 
@@ -58,7 +59,7 @@ class AgentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> AgentCreateResponse:
         """
         Creates an Agent or multiple Agents from a template
 
@@ -87,7 +88,6 @@ class AgentsResource(SyncAPIResource):
         """
         if not template_version:
             raise ValueError(f"Expected a non-empty value for `template_version` but received {template_version!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/v1/templates/{template_version}/agents",
             body=maybe_transform(
@@ -104,7 +104,7 @@ class AgentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=AgentCreateResponse,
         )
 
 
@@ -144,7 +144,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> AgentCreateResponse:
         """
         Creates an Agent or multiple Agents from a template
 
@@ -173,7 +173,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not template_version:
             raise ValueError(f"Expected a non-empty value for `template_version` but received {template_version!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/v1/templates/{template_version}/agents",
             body=await async_maybe_transform(
@@ -190,7 +189,7 @@ class AsyncAgentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=AgentCreateResponse,
         )
 
 
