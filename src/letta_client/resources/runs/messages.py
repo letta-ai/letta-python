@@ -128,7 +128,7 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[LettaStreamingResponse]:
         """
-        Retrieve Stream
+        Retrieve Stream For Run
 
         Args:
           batch_size: Number of entries to read per batch.
@@ -272,7 +272,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[LettaStreamingResponse]:
         """
-        Retrieve Stream
+        Retrieve Stream For Run
 
         Args:
           batch_size: Number of entries to read per batch.
