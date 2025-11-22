@@ -218,7 +218,7 @@ class TestArchives:
         archive = client.archives.delete(
             "archive-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Archive, archive, path=["response"])
+        assert archive is None
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -230,7 +230,7 @@ class TestArchives:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = response.parse()
-        assert_matches_type(Archive, archive, path=["response"])
+        assert archive is None
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -242,7 +242,7 @@ class TestArchives:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = response.parse()
-            assert_matches_type(Archive, archive, path=["response"])
+            assert archive is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -458,7 +458,7 @@ class TestAsyncArchives:
         archive = await async_client.archives.delete(
             "archive-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Archive, archive, path=["response"])
+        assert archive is None
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -470,7 +470,7 @@ class TestAsyncArchives:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = await response.parse()
-        assert_matches_type(Archive, archive, path=["response"])
+        assert archive is None
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -482,7 +482,7 @@ class TestAsyncArchives:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = await response.parse()
-            assert_matches_type(Archive, archive, path=["response"])
+            assert archive is None
 
         assert cast(Any, response.is_closed) is True
 

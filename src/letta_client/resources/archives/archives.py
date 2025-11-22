@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...types import archive_list_params, archive_create_params, archive_update_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from .passages import (
     PassagesResource,
@@ -265,7 +265,7 @@ class ArchivesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Archive:
+    ) -> None:
         """
         Delete an archive by its ID.
 
@@ -282,12 +282,13 @@ class ArchivesResource(SyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             f"/v1/archives/{archive_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Archive,
+            cast_to=NoneType,
         )
 
 
@@ -522,7 +523,7 @@ class AsyncArchivesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Archive:
+    ) -> None:
         """
         Delete an archive by its ID.
 
@@ -539,12 +540,13 @@ class AsyncArchivesResource(AsyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             f"/v1/archives/{archive_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Archive,
+            cast_to=NoneType,
         )
 
 
