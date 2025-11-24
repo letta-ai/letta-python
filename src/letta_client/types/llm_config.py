@@ -49,6 +49,12 @@ class LlmConfig(BaseModel):
     display_name: Optional[str] = None
     """A human-friendly display name for the model."""
 
+    effort: Optional[Literal["low", "medium", "high"]] = None
+    """The effort level for Anthropic Opus 4.5 model (controls token spending).
+
+    Not setting this gives similar performance to 'high'.
+    """
+
     enable_reasoner: Optional[bool] = None
     """
     Whether or not the model should use extended thinking if it is a 'reasoning'

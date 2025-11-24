@@ -17,6 +17,12 @@ class Thinking(BaseModel):
 
 
 class AnthropicModelSettings(BaseModel):
+    effort: Optional[Literal["low", "medium", "high"]] = None
+    """Effort level for Opus 4.5 model (controls token conservation).
+
+    Not setting this gives similar performance to 'high'.
+    """
+
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
