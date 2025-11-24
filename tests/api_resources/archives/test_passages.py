@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
-from letta_client.types import Passage
+from letta_client.types.archives import PassageCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -24,7 +24,7 @@ class TestPassages:
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
         )
-        assert_matches_type(Passage, passage, path=["response"])
+        assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -35,7 +35,7 @@ class TestPassages:
             metadata={"foo": "bar"},
             tags=["string"],
         )
-        assert_matches_type(Passage, passage, path=["response"])
+        assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -48,7 +48,7 @@ class TestPassages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         passage = response.parse()
-        assert_matches_type(Passage, passage, path=["response"])
+        assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -61,7 +61,7 @@ class TestPassages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             passage = response.parse()
-            assert_matches_type(Passage, passage, path=["response"])
+            assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -139,7 +139,7 @@ class TestAsyncPassages:
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
         )
-        assert_matches_type(Passage, passage, path=["response"])
+        assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -150,7 +150,7 @@ class TestAsyncPassages:
             metadata={"foo": "bar"},
             tags=["string"],
         )
-        assert_matches_type(Passage, passage, path=["response"])
+        assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -163,7 +163,7 @@ class TestAsyncPassages:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         passage = await response.parse()
-        assert_matches_type(Passage, passage, path=["response"])
+        assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -176,7 +176,7 @@ class TestAsyncPassages:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             passage = await response.parse()
-            assert_matches_type(Passage, passage, path=["response"])
+            assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
