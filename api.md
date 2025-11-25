@@ -257,15 +257,9 @@ Methods:
 
 ## Passages
 
-Types:
-
-```python
-from letta_client.types.archives import PassageCreateResponse
-```
-
 Methods:
 
-- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">create</a>(archive_id, \*\*<a href="src/letta_client/types/archives/passage_create_params.py">params</a>) -> <a href="./src/letta_client/types/archives/passage_create_response.py">PassageCreateResponse</a></code>
+- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">create</a>(archive_id, \*\*<a href="src/letta_client/types/archives/passage_create_params.py">params</a>) -> <a href="./src/letta_client/types/passage.py">Passage</a></code>
 - <code title="delete /v1/archives/{archive_id}/passages/{passage_id}">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">delete</a>(passage_id, \*, archive_id) -> None</code>
 
 # Folders
@@ -576,6 +570,36 @@ Methods:
 - <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">list</a>(group_id, \*\*<a href="src/letta_client/types/groups/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncArrayPage[Message]</a></code>
 - <code title="patch /v1/groups/{group_id}/reset-messages">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">reset</a>(group_id) -> object</code>
 - <code title="post /v1/groups/{group_id}/messages/stream">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">stream</a>(group_id, \*\*<a href="src/letta_client/types/groups/message_stream_params.py">params</a>) -> object</code>
+
+# Messages
+
+Types:
+
+```python
+from letta_client.types import (
+    MessageSearchRequest,
+    MessageSearchResult,
+    MessageListResponse,
+    MessageSearchResponse,
+)
+```
+
+Methods:
+
+- <code title="get /v1/messages/">client.messages.<a href="./src/letta_client/resources/messages.py">list</a>(\*\*<a href="src/letta_client/types/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/message_list_response.py">MessageListResponse</a></code>
+- <code title="post /v1/messages/search">client.messages.<a href="./src/letta_client/resources/messages.py">search</a>(\*\*<a href="src/letta_client/types/message_search_params.py">params</a>) -> <a href="./src/letta_client/types/message_search_response.py">MessageSearchResponse</a></code>
+
+# Passages
+
+Types:
+
+```python
+from letta_client.types import Passage, PassageSearchResponse
+```
+
+Methods:
+
+- <code title="post /v1/passages/search">client.passages.<a href="./src/letta_client/resources/passages.py">search</a>(\*\*<a href="src/letta_client/types/passage_search_params.py">params</a>) -> <a href="./src/letta_client/types/passage_search_response.py">PassageSearchResponse</a></code>
 
 # Batches
 
