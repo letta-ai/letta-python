@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Union, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .provider_category import ProviderCategory
+from .text_response_format_param import TextResponseFormatParam
+from .json_object_response_format_param import JsonObjectResponseFormatParam
+from .json_schema_response_format_param import JsonSchemaResponseFormatParam
 
-__all__ = ["LlmConfigParam"]
+__all__ = ["LlmConfigParam", "ResponseFormat"]
+
+ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
 
 class LlmConfigParam(TypedDict, total=False):
@@ -112,6 +117,13 @@ class LlmConfigParam(TypedDict, total=False):
 
     reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high"]]
     """The reasoning effort to use when generating text reasoning models"""
+
+    response_format: Optional[ResponseFormat]
+    """The response format for the model's output.
+
+    Supports text, json_object, and json_schema (structured outputs). Can be set via
+    model_settings.
+    """
 
     temperature: float
     """The temperature to use when generating text with the model.
