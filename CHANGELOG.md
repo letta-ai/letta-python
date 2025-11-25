@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.0 (2025-11-25)
+
+Full Changelog: [v1.2.0...v1.3.0](https://github.com/letta-ai/letta-python/compare/v1.2.0...v1.3.0)
+
+### Features
+
+* add messages + passages to stainless.yml ([44aac08](https://github.com/letta-ai/letta-python/commit/44aac08d1d31a4fa1cb7f805dd5de9744c674daa))
+
+
+### Chores
+
+* use main branch in sdk repos ([b71fff8](https://github.com/letta-ai/letta-python/commit/b71fff88a4c194f478fe3e5fc0ac1430607c1947))
+
 ## 1.2.0 (2025-11-25)
 
 Full Changelog: [v1.1.2...v1.2.0](https://github.com/letta-ai/letta-python/compare/v1.1.2...v1.2.0)

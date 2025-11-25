@@ -253,12 +253,16 @@ for chunk in stream:
     print(chunk)
 ```
 
+These methods return an [`APIResponse`](https://github.com/letta-ai/letta-python/tree/main/src/letta_client/_response.py) object.
+
+The async client returns an [`AsyncAPIResponse`](https://github.com/letta-ai/letta-python/tree/main/src/letta_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+
 ### Message Types ([full guide](https://docs.letta.com/guides/agents/message-types))
 
 Agent responses contain different message types. Handle them with the `message_type` discriminator:
 
 ```python
-messages = client.agents.messages.list(agent_id=agent.id)
+messages = client.agents.messages.list(agent_id=agent.id) 
 
 for message in messages:
     if message.message_type == "user_message":
