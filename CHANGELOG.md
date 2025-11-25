@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.2.0 (2025-11-25)
+
+Full Changelog: [v1.1.2...v1.2.0](https://github.com/letta-ai/letta-python/compare/v1.1.2...v1.2.0)
+
+### Features
+
+* add search routes ([71094b3](https://github.com/letta-ai/letta-python/commit/71094b371fc636bdc3a8956ce36793b8218a96e0))
+* add support for new model ([03a1d2d](https://github.com/letta-ai/letta-python/commit/03a1d2d9c7fc4b3ba4b7aa14020c3ef5118d5506))
+
+
+### Bug Fixes
+
+* disable messages + passages for now ([f6c4e54](https://github.com/letta-ai/letta-python/commit/f6c4e545e0eac72f03829cfd08da2e8dfa37b2b0))
+* properly limit runs query ([eccc942](https://github.com/letta-ai/letta-python/commit/eccc942c424192fed7993024b88edb37b130e434))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([4d3c6e8](https://github.com/letta-ai/letta-python/commit/4d3c6e851c009dcb1aa667e459df4788cadf050b))
+
 ## 1.1.2 (2025-11-21)
 
 Full Changelog: [v1.1.1...v1.1.2](https://github.com/letta-ai/letta-python/compare/v1.1.1...v1.1.2)
