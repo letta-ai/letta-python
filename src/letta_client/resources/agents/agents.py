@@ -319,7 +319,8 @@ class AgentsResource(SyncAPIResource):
           reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
               reasoning for this agent.
 
-          response_format: The response format for the agent.
+          response_format: Deprecated: Use `model_settings` field to configure response format instead. The
+              response format for the agent.
 
           secrets: The environment variables for tool execution specific to this agent.
 
@@ -596,8 +597,8 @@ class AgentsResource(SyncAPIResource):
           reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
               reasoning for this agent.
 
-          response_format: Deprecated: Use `model` field to configure response format instead. The response
-              format for the agent.
+          response_format: Deprecated: Use `model_settings` field to configure response format instead. The
+              response format for the agent.
 
           secrets: The environment variables for tool execution specific to this agent.
 
@@ -1193,7 +1194,8 @@ class AsyncAgentsResource(AsyncAPIResource):
           reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
               reasoning for this agent.
 
-          response_format: The response format for the agent.
+          response_format: Deprecated: Use `model_settings` field to configure response format instead. The
+              response format for the agent.
 
           secrets: The environment variables for tool execution specific to this agent.
 
@@ -1470,8 +1472,8 @@ class AsyncAgentsResource(AsyncAPIResource):
           reasoning: Deprecated: Use `model` field to configure reasoning instead. Whether to enable
               reasoning for this agent.
 
-          response_format: Deprecated: Use `model` field to configure response format instead. The response
-              format for the agent.
+          response_format: Deprecated: Use `model_settings` field to configure response format instead. The
+              response format for the agent.
 
           secrets: The environment variables for tool execution specific to this agent.
 
