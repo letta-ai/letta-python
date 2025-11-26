@@ -88,6 +88,22 @@ from .archives import (
     ArchivesResourceWithStreamingResponse,
     AsyncArchivesResourceWithStreamingResponse,
 )
+from .messages import (
+    MessagesResource,
+    AsyncMessagesResource,
+    MessagesResourceWithRawResponse,
+    AsyncMessagesResourceWithRawResponse,
+    MessagesResourceWithStreamingResponse,
+    AsyncMessagesResourceWithStreamingResponse,
+)
+from .passages import (
+    PassagesResource,
+    AsyncPassagesResource,
+    PassagesResourceWithRawResponse,
+    AsyncPassagesResourceWithRawResponse,
+    PassagesResourceWithStreamingResponse,
+    AsyncPassagesResourceWithStreamingResponse,
+)
 from .templates import (
     TemplatesResource,
     AsyncTemplatesResource,
@@ -200,6 +216,18 @@ __all__ = [
     "AsyncGroupsResourceWithRawResponse",
     "GroupsResourceWithStreamingResponse",
     "AsyncGroupsResourceWithStreamingResponse",
+    "MessagesResource",
+    "AsyncMessagesResource",
+    "MessagesResourceWithRawResponse",
+    "AsyncMessagesResourceWithRawResponse",
+    "MessagesResourceWithStreamingResponse",
+    "AsyncMessagesResourceWithStreamingResponse",
+    "PassagesResource",
+    "AsyncPassagesResource",
+    "PassagesResourceWithRawResponse",
+    "AsyncPassagesResourceWithRawResponse",
+    "PassagesResourceWithStreamingResponse",
+    "AsyncPassagesResourceWithStreamingResponse",
     "BatchesResource",
     "AsyncBatchesResource",
     "BatchesResourceWithRawResponse",

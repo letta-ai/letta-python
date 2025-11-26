@@ -30,7 +30,7 @@ from ._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .resources import tags, tools, access_tokens
+from .resources import tags, tools, messages, passages, access_tokens
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -85,6 +85,8 @@ class Letta(SyncAPIClient):
     tags: tags.TagsResource
     identities: identities.IdentitiesResource
     groups: groups.GroupsResource
+    messages: messages.MessagesResource
+    passages: passages.PassagesResource
     batches: batches.BatchesResource
     access_tokens: access_tokens.AccessTokensResource
     with_raw_response: LettaWithRawResponse
@@ -187,6 +189,8 @@ class Letta(SyncAPIClient):
         self.tags = tags.TagsResource(self)
         self.identities = identities.IdentitiesResource(self)
         self.groups = groups.GroupsResource(self)
+        self.messages = messages.MessagesResource(self)
+        self.passages = passages.PassagesResource(self)
         self.batches = batches.BatchesResource(self)
         self.access_tokens = access_tokens.AccessTokensResource(self)
         self.with_raw_response = LettaWithRawResponse(self)
@@ -340,6 +344,8 @@ class AsyncLetta(AsyncAPIClient):
     tags: tags.AsyncTagsResource
     identities: identities.AsyncIdentitiesResource
     groups: groups.AsyncGroupsResource
+    messages: messages.AsyncMessagesResource
+    passages: passages.AsyncPassagesResource
     batches: batches.AsyncBatchesResource
     access_tokens: access_tokens.AsyncAccessTokensResource
     with_raw_response: AsyncLettaWithRawResponse
@@ -442,6 +448,8 @@ class AsyncLetta(AsyncAPIClient):
         self.tags = tags.AsyncTagsResource(self)
         self.identities = identities.AsyncIdentitiesResource(self)
         self.groups = groups.AsyncGroupsResource(self)
+        self.messages = messages.AsyncMessagesResource(self)
+        self.passages = passages.AsyncPassagesResource(self)
         self.batches = batches.AsyncBatchesResource(self)
         self.access_tokens = access_tokens.AsyncAccessTokensResource(self)
         self.with_raw_response = AsyncLettaWithRawResponse(self)
@@ -596,6 +604,8 @@ class LettaWithRawResponse:
         self.tags = tags.TagsResourceWithRawResponse(client.tags)
         self.identities = identities.IdentitiesResourceWithRawResponse(client.identities)
         self.groups = groups.GroupsResourceWithRawResponse(client.groups)
+        self.messages = messages.MessagesResourceWithRawResponse(client.messages)
+        self.passages = passages.PassagesResourceWithRawResponse(client.passages)
         self.batches = batches.BatchesResourceWithRawResponse(client.batches)
         self.access_tokens = access_tokens.AccessTokensResourceWithRawResponse(client.access_tokens)
 
@@ -619,6 +629,8 @@ class AsyncLettaWithRawResponse:
         self.tags = tags.AsyncTagsResourceWithRawResponse(client.tags)
         self.identities = identities.AsyncIdentitiesResourceWithRawResponse(client.identities)
         self.groups = groups.AsyncGroupsResourceWithRawResponse(client.groups)
+        self.messages = messages.AsyncMessagesResourceWithRawResponse(client.messages)
+        self.passages = passages.AsyncPassagesResourceWithRawResponse(client.passages)
         self.batches = batches.AsyncBatchesResourceWithRawResponse(client.batches)
         self.access_tokens = access_tokens.AsyncAccessTokensResourceWithRawResponse(client.access_tokens)
 
@@ -642,6 +654,8 @@ class LettaWithStreamedResponse:
         self.tags = tags.TagsResourceWithStreamingResponse(client.tags)
         self.identities = identities.IdentitiesResourceWithStreamingResponse(client.identities)
         self.groups = groups.GroupsResourceWithStreamingResponse(client.groups)
+        self.messages = messages.MessagesResourceWithStreamingResponse(client.messages)
+        self.passages = passages.PassagesResourceWithStreamingResponse(client.passages)
         self.batches = batches.BatchesResourceWithStreamingResponse(client.batches)
         self.access_tokens = access_tokens.AccessTokensResourceWithStreamingResponse(client.access_tokens)
 
@@ -665,6 +679,8 @@ class AsyncLettaWithStreamedResponse:
         self.tags = tags.AsyncTagsResourceWithStreamingResponse(client.tags)
         self.identities = identities.AsyncIdentitiesResourceWithStreamingResponse(client.identities)
         self.groups = groups.AsyncGroupsResourceWithStreamingResponse(client.groups)
+        self.messages = messages.AsyncMessagesResourceWithStreamingResponse(client.messages)
+        self.passages = passages.AsyncPassagesResourceWithStreamingResponse(client.passages)
         self.batches = batches.AsyncBatchesResourceWithStreamingResponse(client.batches)
         self.access_tokens = access_tokens.AsyncAccessTokensResourceWithStreamingResponse(client.access_tokens)
 

@@ -135,18 +135,11 @@ Methods:
 
 ## Tools
 
-Types:
-
-```python
-from letta_client.types.agents import ToolExecuteRequest, ToolExecutionResult
-```
-
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/tool_list_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">SyncArrayPage[Tool]</a></code>
 - <code title="patch /v1/agents/{agent_id}/tools/attach/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">attach</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
 - <code title="patch /v1/agents/{agent_id}/tools/detach/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">detach</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
-- <code title="post /v1/agents/{agent_id}/tools/{tool_name}/run">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">run</a>(tool_name, \*, agent_id, \*\*<a href="src/letta_client/types/agents/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/agents/tool_execution_result.py">ToolExecutionResult</a></code>
 - <code title="patch /v1/agents/{agent_id}/tools/approval/{tool_name}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">update_approval</a>(tool_name, \*, agent_id, \*\*<a href="src/letta_client/types/agents/tool_update_approval_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
 
 ## Folders
@@ -264,15 +257,9 @@ Methods:
 
 ## Passages
 
-Types:
-
-```python
-from letta_client.types.archives import PassageCreateResponse
-```
-
 Methods:
 
-- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">create</a>(archive_id, \*\*<a href="src/letta_client/types/archives/passage_create_params.py">params</a>) -> <a href="./src/letta_client/types/archives/passage_create_response.py">PassageCreateResponse</a></code>
+- <code title="post /v1/archives/{archive_id}/passages">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">create</a>(archive_id, \*\*<a href="src/letta_client/types/archives/passage_create_params.py">params</a>) -> <a href="./src/letta_client/types/passage.py">Passage</a></code>
 - <code title="delete /v1/archives/{archive_id}/passages/{passage_id}">client.archives.passages.<a href="./src/letta_client/resources/archives/passages.py">delete</a>(passage_id, \*, archive_id) -> None</code>
 
 # Folders
@@ -358,9 +345,11 @@ from letta_client.types import (
     CreateSseMcpServer,
     CreateStdioMcpServer,
     CreateStreamableHTTPMcpServer,
+    McpToolExecuteRequest,
     SseMcpServer,
     StdioMcpServer,
     StreamableHTTPMcpServer,
+    ToolExecutionResult,
     UpdateSseMcpServer,
     UpdateStdioMcpServer,
     UpdateStreamableHTTPMcpServer,
@@ -392,7 +381,7 @@ Methods:
 
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">retrieve</a>(tool_id, \*, mcp_server_id) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">list</a>(mcp_server_id) -> <a href="./src/letta_client/types/mcp_servers/tool_list_response.py">ToolListResponse</a></code>
-- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">run</a>(tool_id, \*, mcp_server_id, \*\*<a href="src/letta_client/types/mcp_servers/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/agents/tool_execution_result.py">ToolExecutionResult</a></code>
+- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">run</a>(tool_id, \*, mcp_server_id, \*\*<a href="src/letta_client/types/mcp_servers/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/tool_execution_result.py">ToolExecutionResult</a></code>
 
 # Runs
 
@@ -581,6 +570,36 @@ Methods:
 - <code title="get /v1/groups/{group_id}/messages">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">list</a>(group_id, \*\*<a href="src/letta_client/types/groups/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncArrayPage[Message]</a></code>
 - <code title="patch /v1/groups/{group_id}/reset-messages">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">reset</a>(group_id) -> object</code>
 - <code title="post /v1/groups/{group_id}/messages/stream">client.groups.messages.<a href="./src/letta_client/resources/groups/messages.py">stream</a>(group_id, \*\*<a href="src/letta_client/types/groups/message_stream_params.py">params</a>) -> object</code>
+
+# Messages
+
+Types:
+
+```python
+from letta_client.types import (
+    MessageSearchRequest,
+    MessageSearchResult,
+    MessageListResponse,
+    MessageSearchResponse,
+)
+```
+
+Methods:
+
+- <code title="get /v1/messages/">client.messages.<a href="./src/letta_client/resources/messages.py">list</a>(\*\*<a href="src/letta_client/types/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/message_list_response.py">MessageListResponse</a></code>
+- <code title="post /v1/messages/search">client.messages.<a href="./src/letta_client/resources/messages.py">search</a>(\*\*<a href="src/letta_client/types/message_search_params.py">params</a>) -> <a href="./src/letta_client/types/message_search_response.py">MessageSearchResponse</a></code>
+
+# Passages
+
+Types:
+
+```python
+from letta_client.types import Passage, PassageSearchResponse
+```
+
+Methods:
+
+- <code title="post /v1/passages/search">client.passages.<a href="./src/letta_client/resources/passages.py">search</a>(\*\*<a href="src/letta_client/types/passage_search_params.py">params</a>) -> <a href="./src/letta_client/types/passage_search_response.py">PassageSearchResponse</a></code>
 
 # Batches
 

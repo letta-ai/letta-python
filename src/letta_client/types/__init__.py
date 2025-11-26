@@ -8,6 +8,7 @@ from .group import Group as Group
 from .model import Model as Model
 from .folder import Folder as Folder
 from .archive import Archive as Archive
+from .passage import Passage as Passage
 from .identity import Identity as Identity
 from .batch_job import BatchJob as BatchJob
 from .tool_type import ToolType as ToolType
@@ -61,6 +62,7 @@ from .block_update_params import BlockUpdateParams as BlockUpdateParams
 from .groq_model_settings import GroqModelSettings as GroqModelSettings
 from .group_create_params import GroupCreateParams as GroupCreateParams
 from .group_update_params import GroupUpdateParams as GroupUpdateParams
+from .message_list_params import MessageListParams as MessageListParams
 from .model_list_response import ModelListResponse as ModelListResponse
 from .tool_return_message import ToolReturnMessage as ToolReturnMessage
 from .azure_model_settings import AzureModelSettings as AzureModelSettings
@@ -76,9 +78,13 @@ from .archive_update_params import ArchiveUpdateParams as ArchiveUpdateParams
 from .child_tool_rule_param import ChildToolRuleParam as ChildToolRuleParam
 from .conditional_tool_rule import ConditionalToolRule as ConditionalToolRule
 from .dynamic_manager_param import DynamicManagerParam as DynamicManagerParam
+from .message_list_response import MessageListResponse as MessageListResponse
+from .message_search_params import MessageSearchParams as MessageSearchParams
 from .npm_requirement_param import NpmRequirementParam as NpmRequirementParam
 from .openai_model_settings import OpenAIModelSettings as OpenAIModelSettings
+from .passage_search_params import PassageSearchParams as PassageSearchParams
 from .pip_requirement_param import PipRequirementParam as PipRequirementParam
+from .tool_execution_result import ToolExecutionResult as ToolExecutionResult
 from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .identity_create_params import IdentityCreateParams as IdentityCreateParams
@@ -87,6 +93,8 @@ from .identity_upsert_params import IdentityUpsertParams as IdentityUpsertParams
 from .parent_tool_rule_param import ParentToolRuleParam as ParentToolRuleParam
 from .deepseek_model_settings import DeepseekModelSettings as DeepseekModelSettings
 from .identity_property_param import IdentityPropertyParam as IdentityPropertyParam
+from .message_search_response import MessageSearchResponse as MessageSearchResponse
+from .passage_search_response import PassageSearchResponse as PassageSearchResponse
 from .sleeptime_manager_param import SleeptimeManagerParam as SleeptimeManagerParam
 from .together_model_settings import TogetherModelSettings as TogetherModelSettings
 from .access_token_list_params import AccessTokenListParams as AccessTokenListParams

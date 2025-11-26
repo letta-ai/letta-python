@@ -3,13 +3,13 @@
 from typing import Dict, List, Optional
 from datetime import datetime
 
-from ..._models import BaseModel
-from ..embedding_config import EmbeddingConfig
+from .._models import BaseModel
+from .embedding_config import EmbeddingConfig
 
-__all__ = ["PassageCreateResponse"]
+__all__ = ["Passage"]
 
 
-class PassageCreateResponse(BaseModel):
+class Passage(BaseModel):
     embedding: Optional[List[float]] = None
     """The embedding of the passage."""
 

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -20,9 +20,8 @@ from ..._response import (
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ...types.tool import Tool
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.agents import tool_run_params, tool_list_params, tool_update_approval_params
+from ...types.agents import tool_list_params, tool_update_approval_params
 from ...types.agent_state import AgentState
-from ...types.agents.tool_execution_result import ToolExecutionResult
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
 
@@ -192,51 +191,6 @@ class ToolsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AgentState,
-        )
-
-    def run(
-        self,
-        tool_name: str,
-        *,
-        agent_id: str,
-        args: Dict[str, object] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolExecutionResult:
-        """
-        Trigger a tool by name on a specific agent, providing the necessary arguments.
-
-        This endpoint executes a tool that is attached to the agent, using the agent's
-        state and environment variables for execution context.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          args: Arguments to pass to the tool
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        if not tool_name:
-            raise ValueError(f"Expected a non-empty value for `tool_name` but received {tool_name!r}")
-        return self._post(
-            f"/v1/agents/{agent_id}/tools/{tool_name}/run",
-            body=maybe_transform({"args": args}, tool_run_params.ToolRunParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ToolExecutionResult,
         )
 
     def update_approval(
@@ -464,51 +418,6 @@ class AsyncToolsResource(AsyncAPIResource):
             cast_to=AgentState,
         )
 
-    async def run(
-        self,
-        tool_name: str,
-        *,
-        agent_id: str,
-        args: Dict[str, object] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolExecutionResult:
-        """
-        Trigger a tool by name on a specific agent, providing the necessary arguments.
-
-        This endpoint executes a tool that is attached to the agent, using the agent's
-        state and environment variables for execution context.
-
-        Args:
-          agent_id: The ID of the agent in the format 'agent-<uuid4>'
-
-          args: Arguments to pass to the tool
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        if not tool_name:
-            raise ValueError(f"Expected a non-empty value for `tool_name` but received {tool_name!r}")
-        return await self._post(
-            f"/v1/agents/{agent_id}/tools/{tool_name}/run",
-            body=await async_maybe_transform({"args": args}, tool_run_params.ToolRunParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ToolExecutionResult,
-        )
-
     async def update_approval(
         self,
         tool_name: str,
@@ -580,9 +489,6 @@ class ToolsResourceWithRawResponse:
         self.detach = to_raw_response_wrapper(
             tools.detach,
         )
-        self.run = to_raw_response_wrapper(
-            tools.run,
-        )
         self.update_approval = to_raw_response_wrapper(
             tools.update_approval,
         )
@@ -600,9 +506,6 @@ class AsyncToolsResourceWithRawResponse:
         )
         self.detach = async_to_raw_response_wrapper(
             tools.detach,
-        )
-        self.run = async_to_raw_response_wrapper(
-            tools.run,
         )
         self.update_approval = async_to_raw_response_wrapper(
             tools.update_approval,
@@ -622,9 +525,6 @@ class ToolsResourceWithStreamingResponse:
         self.detach = to_streamed_response_wrapper(
             tools.detach,
         )
-        self.run = to_streamed_response_wrapper(
-            tools.run,
-        )
         self.update_approval = to_streamed_response_wrapper(
             tools.update_approval,
         )
@@ -642,9 +542,6 @@ class AsyncToolsResourceWithStreamingResponse:
         )
         self.detach = async_to_streamed_response_wrapper(
             tools.detach,
-        )
-        self.run = async_to_streamed_response_wrapper(
-            tools.run,
         )
         self.update_approval = async_to_streamed_response_wrapper(
             tools.update_approval,
