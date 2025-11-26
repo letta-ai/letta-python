@@ -20,6 +20,7 @@ from .system_message import SystemMessage as SystemMessage
 from .approval_return import ApprovalReturn as ApprovalReturn
 from .summary_message import SummaryMessage as SummaryMessage
 from .tool_call_delta import ToolCallDelta as ToolCallDelta
+from .tool_run_params import ToolRunParams as ToolRunParams
 from .file_list_params import FileListParams as FileListParams
 from .internal_message import InternalMessage as InternalMessage
 from .tool_list_params import ToolListParams as ToolListParams
@@ -46,6 +47,7 @@ from .approval_return_param import ApprovalReturnParam as ApprovalReturnParam
 from .message_cancel_params import MessageCancelParams as MessageCancelParams
 from .message_create_params import MessageCreateParams as MessageCreateParams
 from .message_stream_params import MessageStreamParams as MessageStreamParams
+from .tool_execution_result import ToolExecutionResult as ToolExecutionResult
 from .file_close_all_response import FileCloseAllResponse as FileCloseAllResponse
 from .message_cancel_response import MessageCancelResponse as MessageCancelResponse
 from .reasoning_content_param import ReasoningContentParam as ReasoningContentParam

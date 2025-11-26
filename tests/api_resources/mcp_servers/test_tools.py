@@ -9,7 +9,8 @@ import pytest
 
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
-from letta_client.types import Tool, ToolExecutionResult
+from letta_client.types import Tool
+from letta_client.types.agents import ToolExecutionResult
 from letta_client.types.mcp_servers import ToolListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
