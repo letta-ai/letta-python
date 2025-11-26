@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0 (2025-11-26)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/letta-ai/letta-python/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* query param validation block label, name, and search ([9559f56](https://github.com/letta-ai/letta-python/commit/9559f56e0374603ff3977ee6952b3fb691ab9163))
+* structured outputs for openai [LET-6233] ([96e56fa](https://github.com/letta-ai/letta-python/commit/96e56fa56612e293d8b7beef6e3d74a216ea07f2))
+
 ## 1.3.0 (2025-11-25)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/letta-ai/letta-python/compare/v1.2.0...v1.3.0)
