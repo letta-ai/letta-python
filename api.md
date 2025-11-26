@@ -209,10 +209,7 @@ from letta_client.types import (
     Tool,
     ToolCreate,
     ToolReturnMessage,
-    ToolSearchRequest,
-    ToolSearchResult,
     ToolType,
-    ToolSearchResponse,
     ToolUpsertBaseToolsResponse,
 )
 ```
@@ -224,7 +221,6 @@ Methods:
 - <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">update</a>(tool_id, \*\*<a href="src/letta_client/types/tool_update_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">list</a>(\*\*<a href="src/letta_client/types/tool_list_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">SyncArrayPage[Tool]</a></code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">delete</a>(tool_id) -> object</code>
-- <code title="post /v1/tools/search">client.tools.<a href="./src/letta_client/resources/tools.py">search</a>(\*\*<a href="src/letta_client/types/tool_search_params.py">params</a>) -> <a href="./src/letta_client/types/tool_search_response.py">ToolSearchResponse</a></code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">upsert</a>(\*\*<a href="src/letta_client/types/tool_upsert_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/letta_client/resources/tools.py">upsert_base_tools</a>() -> <a href="./src/letta_client/types/tool_upsert_base_tools_response.py">ToolUpsertBaseToolsResponse</a></code>
 
@@ -480,6 +476,17 @@ Methods:
 - <code title="get /v1/steps/{step_id}/messages">client.steps.messages.<a href="./src/letta_client/resources/steps/messages.py">list</a>(step_id, \*\*<a href="src/letta_client/types/steps/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/steps/message_list_response.py">SyncArrayPage[MessageListResponse]</a></code>
 
 # Templates
+
+Types:
+
+```python
+from letta_client.types import TemplateCreateResponse, TemplateDeleteResponse
+```
+
+Methods:
+
+- <code title="post /v1/templates">client.templates.<a href="./src/letta_client/resources/templates/templates.py">create</a>(\*\*<a href="src/letta_client/types/template_create_params.py">params</a>) -> <a href="./src/letta_client/types/template_create_response.py">TemplateCreateResponse</a></code>
+- <code title="delete /v1/templates/{template_name}">client.templates.<a href="./src/letta_client/resources/templates/templates.py">delete</a>(template_name) -> <a href="./src/letta_client/types/template_delete_response.py">TemplateDeleteResponse</a></code>
 
 ## Agents
 
