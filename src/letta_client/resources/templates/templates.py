@@ -15,7 +15,7 @@ from .agents import (
     AgentsResourceWithStreamingResponse,
     AsyncAgentsResourceWithStreamingResponse,
 )
-from ...types import template_create_params
+from ...types import template_create_params, template_update_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -29,6 +29,7 @@ from ..._response import (
 from ..._base_client import make_request_options
 from ...types.template_create_response import TemplateCreateResponse
 from ...types.template_delete_response import TemplateDeleteResponse
+from ...types.template_update_response import TemplateUpdateResponse
 
 __all__ = ["TemplatesResource", "AsyncTemplatesResource"]
 
@@ -160,6 +161,58 @@ class TemplatesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=TemplateCreateResponse,
+        )
+
+    def update(
+        self,
+        template_name: str,
+        *,
+        agent_file_json: Dict[str, Optional[object]],
+        save_existing_changes: bool | Omit = omit,
+        update_existing_tools: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TemplateUpdateResponse:
+        """
+        Updates the current working version of a template from an agent file
+
+        Args:
+          agent_file_json: The agent file to update the current template version from
+
+          save_existing_changes: If true, Letta will automatically save any changes as a version before updating
+              the template
+
+          update_existing_tools: If true, update existing custom tools source_code and json_schema (source_type
+              cannot be changed)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not template_name:
+            raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
+        return self._patch(
+            f"/v1/templates/{template_name}",
+            body=maybe_transform(
+                {
+                    "agent_file_json": agent_file_json,
+                    "save_existing_changes": save_existing_changes,
+                    "update_existing_tools": update_existing_tools,
+                },
+                template_update_params.TemplateUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TemplateUpdateResponse,
         )
 
     def delete(
@@ -325,6 +378,58 @@ class AsyncTemplatesResource(AsyncAPIResource):
             cast_to=TemplateCreateResponse,
         )
 
+    async def update(
+        self,
+        template_name: str,
+        *,
+        agent_file_json: Dict[str, Optional[object]],
+        save_existing_changes: bool | Omit = omit,
+        update_existing_tools: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TemplateUpdateResponse:
+        """
+        Updates the current working version of a template from an agent file
+
+        Args:
+          agent_file_json: The agent file to update the current template version from
+
+          save_existing_changes: If true, Letta will automatically save any changes as a version before updating
+              the template
+
+          update_existing_tools: If true, update existing custom tools source_code and json_schema (source_type
+              cannot be changed)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not template_name:
+            raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
+        return await self._patch(
+            f"/v1/templates/{template_name}",
+            body=await async_maybe_transform(
+                {
+                    "agent_file_json": agent_file_json,
+                    "save_existing_changes": save_existing_changes,
+                    "update_existing_tools": update_existing_tools,
+                },
+                template_update_params.TemplateUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TemplateUpdateResponse,
+        )
+
     async def delete(
         self,
         template_name: str,
@@ -366,6 +471,9 @@ class TemplatesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             templates.create,
         )
+        self.update = to_raw_response_wrapper(
+            templates.update,
+        )
         self.delete = to_raw_response_wrapper(
             templates.delete,
         )
@@ -381,6 +489,9 @@ class AsyncTemplatesResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             templates.create,
+        )
+        self.update = async_to_raw_response_wrapper(
+            templates.update,
         )
         self.delete = async_to_raw_response_wrapper(
             templates.delete,
@@ -398,6 +509,9 @@ class TemplatesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             templates.create,
         )
+        self.update = to_streamed_response_wrapper(
+            templates.update,
+        )
         self.delete = to_streamed_response_wrapper(
             templates.delete,
         )
@@ -413,6 +527,9 @@ class AsyncTemplatesResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             templates.create,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            templates.update,
         )
         self.delete = async_to_streamed_response_wrapper(
             templates.delete,

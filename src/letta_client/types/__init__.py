@@ -49,6 +49,8 @@ from .create_block_param import CreateBlockParam as CreateBlockParam
 from .folder_list_params import FolderListParams as FolderListParams
 from .terminal_tool_rule import TerminalToolRule as TerminalToolRule
 from .tool_create_params import ToolCreateParams as ToolCreateParams
+from .tool_search_params import ToolSearchParams as ToolSearchParams
+from .tool_search_result import ToolSearchResult as ToolSearchResult
 from .tool_update_params import ToolUpdateParams as ToolUpdateParams
 from .tool_upsert_params import ToolUpsertParams as ToolUpsertParams
 from .vector_db_provider import VectorDBProvider as VectorDBProvider
@@ -72,6 +74,7 @@ from .identity_list_params import IdentityListParams as IdentityListParams
 from .init_tool_rule_param import InitToolRuleParam as InitToolRuleParam
 from .message_create_param import MessageCreateParam as MessageCreateParam
 from .text_response_format import TextResponseFormat as TextResponseFormat
+from .tool_search_response import ToolSearchResponse as ToolSearchResponse
 from .agent_retrieve_params import AgentRetrieveParams as AgentRetrieveParams
 from .archive_create_params import ArchiveCreateParams as ArchiveCreateParams
 from .archive_update_params import ArchiveUpdateParams as ArchiveUpdateParams
@@ -91,6 +94,7 @@ from .identity_update_params import IdentityUpdateParams as IdentityUpdateParams
 from .identity_upsert_params import IdentityUpsertParams as IdentityUpsertParams
 from .parent_tool_rule_param import ParentToolRuleParam as ParentToolRuleParam
 from .template_create_params import TemplateCreateParams as TemplateCreateParams
+from .template_update_params import TemplateUpdateParams as TemplateUpdateParams
 from .deepseek_model_settings import DeepseekModelSettings as DeepseekModelSettings
 from .identity_property_param import IdentityPropertyParam as IdentityPropertyParam
 from .message_search_response import MessageSearchResponse as MessageSearchResponse
@@ -109,6 +113,7 @@ from .mcp_server_update_params import McpServerUpdateParams as McpServerUpdatePa
 from .supervisor_manager_param import SupervisorManagerParam as SupervisorManagerParam
 from .template_create_response import TemplateCreateResponse as TemplateCreateResponse
 from .template_delete_response import TemplateDeleteResponse as TemplateDeleteResponse
+from .template_update_response import TemplateUpdateResponse as TemplateUpdateResponse
 from .terminal_tool_rule_param import TerminalToolRuleParam as TerminalToolRuleParam
 from .xai_model_settings_param import XaiModelSettingsParam as XaiModelSettingsParam
 from .groq_model_settings_param import GroqModelSettingsParam as GroqModelSettingsParam

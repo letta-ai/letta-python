@@ -9,7 +9,11 @@ import pytest
 
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
-from letta_client.types import TemplateCreateResponse, TemplateDeleteResponse
+from letta_client.types import (
+    TemplateCreateResponse,
+    TemplateDeleteResponse,
+    TemplateUpdateResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -111,6 +115,63 @@ class TestTemplates:
             assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update(self, client: Letta) -> None:
+        template = client.templates.update(
+            template_name="template_name",
+            agent_file_json={"foo": "bar"},
+        )
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Letta) -> None:
+        template = client.templates.update(
+            template_name="template_name",
+            agent_file_json={"foo": "bar"},
+            save_existing_changes=True,
+            update_existing_tools=True,
+        )
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Letta) -> None:
+        response = client.templates.with_raw_response.update(
+            template_name="template_name",
+            agent_file_json={"foo": "bar"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        template = response.parse()
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Letta) -> None:
+        with client.templates.with_streaming_response.update(
+            template_name="template_name",
+            agent_file_json={"foo": "bar"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            template = response.parse()
+            assert_matches_type(TemplateUpdateResponse, template, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
+            client.templates.with_raw_response.update(
+                template_name="",
+                agent_file_json={"foo": "bar"},
+            )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -254,6 +315,63 @@ class TestAsyncTemplates:
             assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncLetta) -> None:
+        template = await async_client.templates.update(
+            template_name="template_name",
+            agent_file_json={"foo": "bar"},
+        )
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
+        template = await async_client.templates.update(
+            template_name="template_name",
+            agent_file_json={"foo": "bar"},
+            save_existing_changes=True,
+            update_existing_tools=True,
+        )
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
+        response = await async_client.templates.with_raw_response.update(
+            template_name="template_name",
+            agent_file_json={"foo": "bar"},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        template = await response.parse()
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
+        async with async_client.templates.with_streaming_response.update(
+            template_name="template_name",
+            agent_file_json={"foo": "bar"},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            template = await response.parse()
+            assert_matches_type(TemplateUpdateResponse, template, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
+            await async_client.templates.with_raw_response.update(
+                template_name="",
+                agent_file_json={"foo": "bar"},
+            )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize

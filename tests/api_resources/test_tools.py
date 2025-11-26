@@ -11,6 +11,7 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     Tool,
+    ToolSearchResponse,
     ToolUpsertBaseToolsResponse,
 )
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
@@ -285,6 +286,46 @@ class TestTools:
             client.tools.with_raw_response.delete(
                 "",
             )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_search(self, client: Letta) -> None:
+        tool = client.tools.search()
+        assert_matches_type(ToolSearchResponse, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_search_with_all_params(self, client: Letta) -> None:
+        tool = client.tools.search(
+            limit=1,
+            query="query",
+            search_mode="vector",
+            tags=["string"],
+            tool_types=["string"],
+        )
+        assert_matches_type(ToolSearchResponse, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_search(self, client: Letta) -> None:
+        response = client.tools.with_raw_response.search()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        tool = response.parse()
+        assert_matches_type(ToolSearchResponse, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_search(self, client: Letta) -> None:
+        with client.tools.with_streaming_response.search() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            tool = response.parse()
+            assert_matches_type(ToolSearchResponse, tool, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -646,6 +687,46 @@ class TestAsyncTools:
             await async_client.tools.with_raw_response.delete(
                 "",
             )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_search(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.tools.search()
+        assert_matches_type(ToolSearchResponse, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_search_with_all_params(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.tools.search(
+            limit=1,
+            query="query",
+            search_mode="vector",
+            tags=["string"],
+            tool_types=["string"],
+        )
+        assert_matches_type(ToolSearchResponse, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_search(self, async_client: AsyncLetta) -> None:
+        response = await async_client.tools.with_raw_response.search()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        tool = await response.parse()
+        assert_matches_type(ToolSearchResponse, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_search(self, async_client: AsyncLetta) -> None:
+        async with async_client.tools.with_streaming_response.search() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            tool = await response.parse()
+            assert_matches_type(ToolSearchResponse, tool, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
