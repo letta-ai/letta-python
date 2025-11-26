@@ -191,10 +191,7 @@ class AgentCreateParams(TypedDict, total=False):
     """
 
     response_format: Optional[ResponseFormat]
-    """Deprecated: Use `model_settings` field to configure response format instead.
-
-    The response format for the agent.
-    """
+    """The response format for the agent."""
 
     secrets: Optional[Dict[str, str]]
     """The environment variables for tool execution specific to this agent."""

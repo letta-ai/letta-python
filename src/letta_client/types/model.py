@@ -1,24 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
-from typing_extensions import Literal, Annotated, TypeAlias
+from typing import Optional
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
-from .._utils import PropertyInfo
 from .._models import BaseModel
 from .provider_type import ProviderType
 from .provider_category import ProviderCategory
-from .text_response_format import TextResponseFormat
-from .json_object_response_format import JsonObjectResponseFormat
-from .json_schema_response_format import JsonSchemaResponseFormat
 
-__all__ = ["Model", "ResponseFormat"]
-
-ResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
+__all__ = ["Model"]
 
 
 class Model(BaseModel):
@@ -121,13 +112,6 @@ class Model(BaseModel):
 
     reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high"]] = None
     """Deprecated: The reasoning effort to use when generating text reasoning models."""
-
-    response_format: Optional[ResponseFormat] = None
-    """The response format for the model's output.
-
-    Supports text, json_object, and json_schema (structured outputs). Can be set via
-    model_settings.
-    """
 
     temperature: Optional[float] = None
     """Deprecated: The temperature to use when generating text with the model."""
