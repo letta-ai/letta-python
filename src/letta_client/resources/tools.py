@@ -11,7 +11,7 @@ from typing_extensions import Literal
 import httpx
 from pydantic import BaseModel
 
-from ..types import tool_list_params, tool_create_params, tool_update_params, tool_upsert_params
+from ..types import tool_list_params, tool_create_params, tool_search_params, tool_update_params, tool_upsert_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -25,6 +25,7 @@ from .._response import (
 from ..pagination import SyncArrayPage, AsyncArrayPage
 from ..types.tool import Tool, BaseTool
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.tool_search_response import ToolSearchResponse
 from ..types.npm_requirement_param import NpmRequirementParam
 from ..types.pip_requirement_param import PipRequirementParam
 from ..types.tool_upsert_base_tools_response import ToolUpsertBaseToolsResponse
@@ -381,6 +382,66 @@ class ToolsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
+        )
+
+    def search(
+        self,
+        *,
+        limit: int | Omit = omit,
+        query: Optional[str] | Omit = omit,
+        search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ToolSearchResponse:
+        """
+        Search tools using semantic search.
+
+        Requires tool embedding to be enabled (embed_tools=True). Uses vector search,
+        full-text search, or hybrid mode to find tools matching the query.
+
+        Returns tools ranked by relevance with their search scores.
+
+        Args:
+          limit: Maximum number of results to return.
+
+          query: Text query for semantic search.
+
+          search_mode: Search mode: vector, fts, or hybrid.
+
+          tags: Filter by tags (match any).
+
+          tool_types: Filter by tool types (e.g., 'custom', 'letta_core').
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/tools/search",
+            body=maybe_transform(
+                {
+                    "limit": limit,
+                    "query": query,
+                    "search_mode": search_mode,
+                    "tags": tags,
+                    "tool_types": tool_types,
+                },
+                tool_search_params.ToolSearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ToolSearchResponse,
         )
 
     def upsert(
@@ -1132,6 +1193,66 @@ class AsyncToolsResource(AsyncAPIResource):
             cast_to=object,
         )
 
+    async def search(
+        self,
+        *,
+        limit: int | Omit = omit,
+        query: Optional[str] | Omit = omit,
+        search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ToolSearchResponse:
+        """
+        Search tools using semantic search.
+
+        Requires tool embedding to be enabled (embed_tools=True). Uses vector search,
+        full-text search, or hybrid mode to find tools matching the query.
+
+        Returns tools ranked by relevance with their search scores.
+
+        Args:
+          limit: Maximum number of results to return.
+
+          query: Text query for semantic search.
+
+          search_mode: Search mode: vector, fts, or hybrid.
+
+          tags: Filter by tags (match any).
+
+          tool_types: Filter by tool types (e.g., 'custom', 'letta_core').
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/tools/search",
+            body=await async_maybe_transform(
+                {
+                    "limit": limit,
+                    "query": query,
+                    "search_mode": search_mode,
+                    "tags": tags,
+                    "tool_types": tool_types,
+                },
+                tool_search_params.ToolSearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ToolSearchResponse,
+        )
+
     async def upsert(
         self,
         *,
@@ -1551,6 +1672,9 @@ class ToolsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             tools.delete,
         )
+        self.search = to_raw_response_wrapper(
+            tools.search,
+        )
         self.upsert = to_raw_response_wrapper(
             tools.upsert,
         )
@@ -1577,6 +1701,9 @@ class AsyncToolsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             tools.delete,
+        )
+        self.search = async_to_raw_response_wrapper(
+            tools.search,
         )
         self.upsert = async_to_raw_response_wrapper(
             tools.upsert,
@@ -1605,6 +1732,9 @@ class ToolsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             tools.delete,
         )
+        self.search = to_streamed_response_wrapper(
+            tools.search,
+        )
         self.upsert = to_streamed_response_wrapper(
             tools.upsert,
         )
@@ -1631,6 +1761,9 @@ class AsyncToolsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             tools.delete,
+        )
+        self.search = async_to_streamed_response_wrapper(
+            tools.search,
         )
         self.upsert = async_to_streamed_response_wrapper(
             tools.upsert,
