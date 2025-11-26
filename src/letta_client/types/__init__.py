@@ -79,7 +79,6 @@ from .dynamic_manager_param import DynamicManagerParam as DynamicManagerParam
 from .npm_requirement_param import NpmRequirementParam as NpmRequirementParam
 from .openai_model_settings import OpenAIModelSettings as OpenAIModelSettings
 from .pip_requirement_param import PipRequirementParam as PipRequirementParam
-from .tool_execution_result import ToolExecutionResult as ToolExecutionResult
 from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .identity_create_params import IdentityCreateParams as IdentityCreateParams
