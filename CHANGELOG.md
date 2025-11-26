@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.4.0 (2025-11-26)
+
+Full Changelog: [v1.3.0...v1.4.0](https://github.com/letta-ai/letta-python/compare/v1.3.0...v1.4.0)
+
+### Features
+
+* Fix template alignment ([0380268](https://github.com/letta-ai/letta-python/commit/0380268aab9df514c7d0948e9c31b63953d7b249))
+* query param validation block label, name, and search ([9559f56](https://github.com/letta-ai/letta-python/commit/9559f56e0374603ff3977ee6952b3fb691ab9163))
+* run tool by  for a given agent ([4706b60](https://github.com/letta-ai/letta-python/commit/4706b6010115f3a89c82674d40ce7277663c332b))
+* structured outputs for openai [LET-6233] ([96e56fa](https://github.com/letta-ai/letta-python/commit/96e56fa56612e293d8b7beef6e3d74a216ea07f2))
+
 ## 1.3.0 (2025-11-25)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/letta-ai/letta-python/compare/v1.2.0...v1.3.0)
