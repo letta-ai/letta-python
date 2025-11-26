@@ -49,6 +49,8 @@ from .create_block_param import CreateBlockParam as CreateBlockParam
 from .folder_list_params import FolderListParams as FolderListParams
 from .terminal_tool_rule import TerminalToolRule as TerminalToolRule
 from .tool_create_params import ToolCreateParams as ToolCreateParams
+from .tool_search_params import ToolSearchParams as ToolSearchParams
+from .tool_search_result import ToolSearchResult as ToolSearchResult
 from .tool_update_params import ToolUpdateParams as ToolUpdateParams
 from .tool_upsert_params import ToolUpsertParams as ToolUpsertParams
 from .vector_db_provider import VectorDBProvider as VectorDBProvider
@@ -72,6 +74,7 @@ from .identity_list_params import IdentityListParams as IdentityListParams
 from .init_tool_rule_param import InitToolRuleParam as InitToolRuleParam
 from .message_create_param import MessageCreateParam as MessageCreateParam
 from .text_response_format import TextResponseFormat as TextResponseFormat
+from .tool_search_response import ToolSearchResponse as ToolSearchResponse
 from .agent_retrieve_params import AgentRetrieveParams as AgentRetrieveParams
 from .archive_create_params import ArchiveCreateParams as ArchiveCreateParams
 from .archive_update_params import ArchiveUpdateParams as ArchiveUpdateParams
@@ -84,7 +87,6 @@ from .npm_requirement_param import NpmRequirementParam as NpmRequirementParam
 from .openai_model_settings import OpenAIModelSettings as OpenAIModelSettings
 from .passage_search_params import PassageSearchParams as PassageSearchParams
 from .pip_requirement_param import PipRequirementParam as PipRequirementParam
-from .tool_execution_result import ToolExecutionResult as ToolExecutionResult
 from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .identity_create_params import IdentityCreateParams as IdentityCreateParams

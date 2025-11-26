@@ -9,7 +9,8 @@ __all__ = ["ToolRunParams"]
 
 
 class ToolRunParams(TypedDict, total=False):
-    mcp_server_id: Required[str]
+    agent_id: Required[str]
+    """The ID of the agent in the format 'agent-<uuid4>'"""
 
     args: Dict[str, object]
     """Arguments to pass to the tool"""
