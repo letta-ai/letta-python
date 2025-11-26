@@ -135,11 +135,18 @@ Methods:
 
 ## Tools
 
+Types:
+
+```python
+from letta_client.types.agents import ToolExecuteRequest, ToolExecutionResult
+```
+
 Methods:
 
 - <code title="get /v1/agents/{agent_id}/tools">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/tool_list_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">SyncArrayPage[Tool]</a></code>
 - <code title="patch /v1/agents/{agent_id}/tools/attach/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">attach</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
 - <code title="patch /v1/agents/{agent_id}/tools/detach/{tool_id}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">detach</a>(tool_id, \*, agent_id) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
+- <code title="post /v1/agents/{agent_id}/tools/{tool_name}/run">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">run</a>(tool_name, \*, agent_id, \*\*<a href="src/letta_client/types/agents/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/agents/tool_execution_result.py">ToolExecutionResult</a></code>
 - <code title="patch /v1/agents/{agent_id}/tools/approval/{tool_name}">client.agents.tools.<a href="./src/letta_client/resources/agents/tools.py">update_approval</a>(tool_name, \*, agent_id, \*\*<a href="src/letta_client/types/agents/tool_update_approval_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
 
 ## Folders
@@ -202,7 +209,10 @@ from letta_client.types import (
     Tool,
     ToolCreate,
     ToolReturnMessage,
+    ToolSearchRequest,
+    ToolSearchResult,
     ToolType,
+    ToolSearchResponse,
     ToolUpsertBaseToolsResponse,
 )
 ```
@@ -214,6 +224,7 @@ Methods:
 - <code title="patch /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">update</a>(tool_id, \*\*<a href="src/letta_client/types/tool_update_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="get /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">list</a>(\*\*<a href="src/letta_client/types/tool_list_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">SyncArrayPage[Tool]</a></code>
 - <code title="delete /v1/tools/{tool_id}">client.tools.<a href="./src/letta_client/resources/tools.py">delete</a>(tool_id) -> object</code>
+- <code title="post /v1/tools/search">client.tools.<a href="./src/letta_client/resources/tools.py">search</a>(\*\*<a href="src/letta_client/types/tool_search_params.py">params</a>) -> <a href="./src/letta_client/types/tool_search_response.py">ToolSearchResponse</a></code>
 - <code title="put /v1/tools/">client.tools.<a href="./src/letta_client/resources/tools.py">upsert</a>(\*\*<a href="src/letta_client/types/tool_upsert_params.py">params</a>) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="post /v1/tools/add-base-tools">client.tools.<a href="./src/letta_client/resources/tools.py">upsert_base_tools</a>() -> <a href="./src/letta_client/types/tool_upsert_base_tools_response.py">ToolUpsertBaseToolsResponse</a></code>
 
@@ -345,11 +356,9 @@ from letta_client.types import (
     CreateSseMcpServer,
     CreateStdioMcpServer,
     CreateStreamableHTTPMcpServer,
-    McpToolExecuteRequest,
     SseMcpServer,
     StdioMcpServer,
     StreamableHTTPMcpServer,
-    ToolExecutionResult,
     UpdateSseMcpServer,
     UpdateStdioMcpServer,
     UpdateStreamableHTTPMcpServer,
@@ -381,7 +390,7 @@ Methods:
 
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">retrieve</a>(tool_id, \*, mcp_server_id) -> <a href="./src/letta_client/types/tool.py">Tool</a></code>
 - <code title="get /v1/mcp-servers/{mcp_server_id}/tools">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">list</a>(mcp_server_id) -> <a href="./src/letta_client/types/mcp_servers/tool_list_response.py">ToolListResponse</a></code>
-- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">run</a>(tool_id, \*, mcp_server_id, \*\*<a href="src/letta_client/types/mcp_servers/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/tool_execution_result.py">ToolExecutionResult</a></code>
+- <code title="post /v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run">client.mcp_servers.tools.<a href="./src/letta_client/resources/mcp_servers/tools.py">run</a>(tool_id, \*, mcp_server_id, \*\*<a href="src/letta_client/types/mcp_servers/tool_run_params.py">params</a>) -> <a href="./src/letta_client/types/agents/tool_execution_result.py">ToolExecutionResult</a></code>
 
 # Runs
 

@@ -19,7 +19,7 @@ from ..._response import (
 from ...types.tool import Tool
 from ..._base_client import make_request_options
 from ...types.mcp_servers import tool_run_params
-from ...types.tool_execution_result import ToolExecutionResult
+from ...types.agents.tool_execution_result import ToolExecutionResult
 from ...types.mcp_servers.tool_list_response import ToolListResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
@@ -130,11 +130,11 @@ class ToolsResource(SyncAPIResource):
         """
         Execute a specific MCP tool
 
-        The request body should contain the tool arguments in the MCPToolExecuteRequest
+        The request body should contain the tool arguments in the ToolExecuteRequest
         format.
 
         Args:
-          args: Arguments to pass to the MCP tool
+          args: Arguments to pass to the tool
 
           extra_headers: Send extra headers
 
@@ -263,11 +263,11 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         Execute a specific MCP tool
 
-        The request body should contain the tool arguments in the MCPToolExecuteRequest
+        The request body should contain the tool arguments in the ToolExecuteRequest
         format.
 
         Args:
-          args: Arguments to pass to the MCP tool
+          args: Arguments to pass to the tool
 
           extra_headers: Send extra headers
 
