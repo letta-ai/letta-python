@@ -43,3 +43,4 @@ class IdentityListParams(TypedDict, total=False):
     """Field to sort by"""
 
     project_id: Optional[str]
+    """[DEPRECATED: Use X-Project-Id header instead] Filter identities by project ID"""
