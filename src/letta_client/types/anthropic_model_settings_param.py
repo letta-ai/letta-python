@@ -2,10 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing import Union, Optional
+from typing_extensions import Literal, TypeAlias, TypedDict
 
-__all__ = ["AnthropicModelSettingsParam", "Thinking"]
+from .text_response_format_param import TextResponseFormatParam
+from .json_object_response_format_param import JsonObjectResponseFormatParam
+from .json_schema_response_format_param import JsonSchemaResponseFormatParam
+
+__all__ = ["AnthropicModelSettingsParam", "ResponseFormat", "Thinking"]
+
+ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
 
 class Thinking(TypedDict, total=False):
@@ -31,6 +37,9 @@ class AnthropicModelSettingsParam(TypedDict, total=False):
 
     provider_type: Literal["anthropic"]
     """The type of the provider."""
+
+    response_format: Optional[ResponseFormat]
+    """The response format for the model."""
 
     temperature: float
     """The temperature of the model."""

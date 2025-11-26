@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.3.1 (2025-11-26)
+
+Full Changelog: [v1.3.0...v1.3.1](https://github.com/letta-ai/letta-python/compare/v1.3.0...v1.3.1)
+
+### Features
+
+* Fix template alignment ([0380268](https://github.com/letta-ai/letta-python/commit/0380268aab9df514c7d0948e9c31b63953d7b249))
+* query param validation block label, name, and search ([9559f56](https://github.com/letta-ai/letta-python/commit/9559f56e0374603ff3977ee6952b3fb691ab9163))
+* run tool by  for a given agent ([4706b60](https://github.com/letta-ai/letta-python/commit/4706b6010115f3a89c82674d40ce7277663c332b))
+* Shub/let 6339 add endpoint for counting non hidden agents [LET-6339] ([cfee192](https://github.com/letta-ai/letta-python/commit/cfee1925329419dfd1f2f65b6e47b74bc24781de))
+* structured outputs for anthropic ([7dd7254](https://github.com/letta-ai/letta-python/commit/7dd72547133d23e171c6bf9d27d54631a10eb144))
+* structured outputs for openai [LET-6233] ([96e56fa](https://github.com/letta-ai/letta-python/commit/96e56fa56612e293d8b7beef6e3d74a216ea07f2))
+
+
+### Chores
+
+* add tools search to stainless ([e1dfa06](https://github.com/letta-ai/letta-python/commit/e1dfa064626578158483db163d511af7f153d921))
+
 ## 1.3.0 (2025-11-25)
 
 Full Changelog: [v1.2.0...v1.3.0](https://github.com/letta-ai/letta-python/compare/v1.2.0...v1.3.0)
