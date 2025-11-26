@@ -332,21 +332,21 @@ class BlocksResource(SyncAPIResource):
           connected_to_agents_count_lt: Filter blocks by the number of connected agents. If provided, returns blocks
               that have less than this number of connected agents.
 
-          description_search: Search blocks by description. If provided, returns blocks that match this
-              description. This is a full-text search on block descriptions.
+          description_search: Search blocks by description. If provided, returns blocks whose description
+              matches the search query. This is a full-text search on block descriptions.
 
           identifier_keys: Search agents by identifier keys
 
-          identity_id: Search agents by identifier id
+          identity_id: The ID of the identity in the format 'identity-<uuid4>'
 
-          label: Labels to include (e.g. human, persona)
+          label: Label to include (alphanumeric, hyphens, underscores only)
 
-          label_search: Search blocks by label. If provided, returns blocks that match this label. This
-              is a full-text search on labels.
+          label_search: Search blocks by label. If provided, returns blocks whose label matches the
+              search query. This is a full-text search on block labels.
 
           limit: Number of blocks to return
 
-          name: Name of the block
+          name: Name filter (alphanumeric, spaces, hyphens, underscores)
 
           order: Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for
               newest first
@@ -357,7 +357,8 @@ class BlocksResource(SyncAPIResource):
 
           templates_only: Whether to include only templates
 
-          value_search: Search blocks by value. If provided, returns blocks that match this value.
+          value_search: Search blocks by value. If provided, returns blocks whose value matches the
+              search query. This is a full-text search on block values.
 
           extra_headers: Send extra headers
 
@@ -736,21 +737,21 @@ class AsyncBlocksResource(AsyncAPIResource):
           connected_to_agents_count_lt: Filter blocks by the number of connected agents. If provided, returns blocks
               that have less than this number of connected agents.
 
-          description_search: Search blocks by description. If provided, returns blocks that match this
-              description. This is a full-text search on block descriptions.
+          description_search: Search blocks by description. If provided, returns blocks whose description
+              matches the search query. This is a full-text search on block descriptions.
 
           identifier_keys: Search agents by identifier keys
 
-          identity_id: Search agents by identifier id
+          identity_id: The ID of the identity in the format 'identity-<uuid4>'
 
-          label: Labels to include (e.g. human, persona)
+          label: Label to include (alphanumeric, hyphens, underscores only)
 
-          label_search: Search blocks by label. If provided, returns blocks that match this label. This
-              is a full-text search on labels.
+          label_search: Search blocks by label. If provided, returns blocks whose label matches the
+              search query. This is a full-text search on block labels.
 
           limit: Number of blocks to return
 
-          name: Name of the block
+          name: Name filter (alphanumeric, spaces, hyphens, underscores)
 
           order: Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for
               newest first
@@ -761,7 +762,8 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           templates_only: Whether to include only templates
 
-          value_search: Search blocks by value. If provided, returns blocks that match this value.
+          value_search: Search blocks by value. If provided, returns blocks whose value matches the
+              search query. This is a full-text search on block values.
 
           extra_headers: Send extra headers
 

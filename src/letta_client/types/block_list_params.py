@@ -44,31 +44,31 @@ class BlockListParams(TypedDict, total=False):
     description_search: Optional[str]
     """Search blocks by description.
 
-    If provided, returns blocks that match this description. This is a full-text
-    search on block descriptions.
+    If provided, returns blocks whose description matches the search query. This is
+    a full-text search on block descriptions.
     """
 
     identifier_keys: Optional[SequenceNotStr[str]]
     """Search agents by identifier keys"""
 
     identity_id: Optional[str]
-    """Search agents by identifier id"""
+    """The ID of the identity in the format 'identity-<uuid4>'"""
 
     label: Optional[str]
-    """Labels to include (e.g. human, persona)"""
+    """Label to include (alphanumeric, hyphens, underscores only)"""
 
     label_search: Optional[str]
     """Search blocks by label.
 
-    If provided, returns blocks that match this label. This is a full-text search on
-    labels.
+    If provided, returns blocks whose label matches the search query. This is a
+    full-text search on block labels.
     """
 
     limit: Optional[int]
     """Number of blocks to return"""
 
     name: Optional[str]
-    """Name of the block"""
+    """Name filter (alphanumeric, spaces, hyphens, underscores)"""
 
     order: Literal["asc", "desc"]
     """Sort order for blocks by creation time.
@@ -86,4 +86,8 @@ class BlockListParams(TypedDict, total=False):
     """Whether to include only templates"""
 
     value_search: Optional[str]
-    """Search blocks by value. If provided, returns blocks that match this value."""
+    """Search blocks by value.
+
+    If provided, returns blocks whose value matches the search query. This is a
+    full-text search on block values.
+    """

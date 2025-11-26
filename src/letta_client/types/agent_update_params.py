@@ -142,7 +142,7 @@ class AgentUpdateParams(TypedDict, total=False):
     """
 
     response_format: Optional[ResponseFormat]
-    """Deprecated: Use `model` field to configure response format instead.
+    """Deprecated: Use `model_settings` field to configure response format instead.
 
     The response format for the agent.
     """

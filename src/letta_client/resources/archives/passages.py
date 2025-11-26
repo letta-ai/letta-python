@@ -17,8 +17,8 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
+from ...types.passage import Passage
 from ...types.archives import passage_create_params
-from ...types.archives.passage_create_response import PassageCreateResponse
 
 __all__ = ["PassagesResource", "AsyncPassagesResource"]
 
@@ -56,7 +56,7 @@ class PassagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PassageCreateResponse:
+    ) -> Passage:
         """
         Create a new passage in an archive.
 
@@ -94,7 +94,7 @@ class PassagesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PassageCreateResponse,
+            cast_to=Passage,
         )
 
     def delete(
@@ -175,7 +175,7 @@ class AsyncPassagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PassageCreateResponse:
+    ) -> Passage:
         """
         Create a new passage in an archive.
 
@@ -213,7 +213,7 @@ class AsyncPassagesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PassageCreateResponse,
+            cast_to=Passage,
         )
 
     async def delete(

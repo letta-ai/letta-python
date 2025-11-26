@@ -12,4 +12,4 @@ class ToolRunParams(TypedDict, total=False):
     mcp_server_id: Required[str]
 
     args: Dict[str, object]
-    """Arguments to pass to the tool"""
+    """Arguments to pass to the MCP tool"""

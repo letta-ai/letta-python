@@ -11,9 +11,6 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import Tool, AgentState
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
-from letta_client.types.agents import (
-    ToolExecutionResult,
-)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -177,68 +174,6 @@ class TestTools:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             client.agents.tools.with_raw_response.detach(
                 tool_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_run(self, client: Letta) -> None:
-        tool = client.agents.tools.run(
-            tool_name="tool_name",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(ToolExecutionResult, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_run_with_all_params(self, client: Letta) -> None:
-        tool = client.agents.tools.run(
-            tool_name="tool_name",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            args={"foo": "bar"},
-        )
-        assert_matches_type(ToolExecutionResult, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_run(self, client: Letta) -> None:
-        response = client.agents.tools.with_raw_response.run(
-            tool_name="tool_name",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        tool = response.parse()
-        assert_matches_type(ToolExecutionResult, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_run(self, client: Letta) -> None:
-        with client.agents.tools.with_streaming_response.run(
-            tool_name="tool_name",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            tool = response.parse()
-            assert_matches_type(ToolExecutionResult, tool, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_run(self, client: Letta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            client.agents.tools.with_raw_response.run(
-                tool_name="tool_name",
-                agent_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
-            client.agents.tools.with_raw_response.run(
-                tool_name="",
                 agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
@@ -472,68 +407,6 @@ class TestAsyncTools:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             await async_client.agents.tools.with_raw_response.detach(
                 tool_id="",
-                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            )
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_run(self, async_client: AsyncLetta) -> None:
-        tool = await async_client.agents.tools.run(
-            tool_name="tool_name",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(ToolExecutionResult, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_run_with_all_params(self, async_client: AsyncLetta) -> None:
-        tool = await async_client.agents.tools.run(
-            tool_name="tool_name",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            args={"foo": "bar"},
-        )
-        assert_matches_type(ToolExecutionResult, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_run(self, async_client: AsyncLetta) -> None:
-        response = await async_client.agents.tools.with_raw_response.run(
-            tool_name="tool_name",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        tool = await response.parse()
-        assert_matches_type(ToolExecutionResult, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_run(self, async_client: AsyncLetta) -> None:
-        async with async_client.agents.tools.with_streaming_response.run(
-            tool_name="tool_name",
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            tool = await response.parse()
-            assert_matches_type(ToolExecutionResult, tool, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_run(self, async_client: AsyncLetta) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-            await async_client.agents.tools.with_raw_response.run(
-                tool_name="tool_name",
-                agent_id="",
-            )
-
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
-            await async_client.agents.tools.with_raw_response.run(
-                tool_name="",
                 agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
