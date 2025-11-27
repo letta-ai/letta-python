@@ -24,7 +24,6 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.tool_search_response import ToolSearchResponse
 from ..types.npm_requirement_param import NpmRequirementParam
 from ..types.pip_requirement_param import PipRequirementParam
-from ..types.tool_upsert_base_tools_response import ToolUpsertBaseToolsResponse
 
 __all__ = ["ToolsResource", "AsyncToolsResource"]
 
@@ -521,25 +520,6 @@ class ToolsResource(SyncAPIResource):
             cast_to=Tool,
         )
 
-    def upsert_base_tools(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolUpsertBaseToolsResponse:
-        """Upsert base tools"""
-        return self._post(
-            "/v1/tools/add-base-tools",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ToolUpsertBaseToolsResponse,
-        )
-
 
 class AsyncToolsResource(AsyncAPIResource):
     @cached_property
@@ -1033,25 +1013,6 @@ class AsyncToolsResource(AsyncAPIResource):
             cast_to=Tool,
         )
 
-    async def upsert_base_tools(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolUpsertBaseToolsResponse:
-        """Upsert base tools"""
-        return await self._post(
-            "/v1/tools/add-base-tools",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=ToolUpsertBaseToolsResponse,
-        )
-
 
 class ToolsResourceWithRawResponse:
     def __init__(self, tools: ToolsResource) -> None:
@@ -1077,9 +1038,6 @@ class ToolsResourceWithRawResponse:
         )
         self.upsert = to_raw_response_wrapper(
             tools.upsert,
-        )
-        self.upsert_base_tools = to_raw_response_wrapper(
-            tools.upsert_base_tools,
         )
 
 
@@ -1108,9 +1066,6 @@ class AsyncToolsResourceWithRawResponse:
         self.upsert = async_to_raw_response_wrapper(
             tools.upsert,
         )
-        self.upsert_base_tools = async_to_raw_response_wrapper(
-            tools.upsert_base_tools,
-        )
 
 
 class ToolsResourceWithStreamingResponse:
@@ -1138,9 +1093,6 @@ class ToolsResourceWithStreamingResponse:
         self.upsert = to_streamed_response_wrapper(
             tools.upsert,
         )
-        self.upsert_base_tools = to_streamed_response_wrapper(
-            tools.upsert_base_tools,
-        )
 
 
 class AsyncToolsResourceWithStreamingResponse:
@@ -1167,7 +1119,4 @@ class AsyncToolsResourceWithStreamingResponse:
         )
         self.upsert = async_to_streamed_response_wrapper(
             tools.upsert,
-        )
-        self.upsert_base_tools = async_to_streamed_response_wrapper(
-            tools.upsert_base_tools,
         )
