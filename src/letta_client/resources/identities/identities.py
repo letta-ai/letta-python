@@ -289,6 +289,8 @@ class IdentitiesResource(SyncAPIResource):
 
           order_by: Field to sort by
 
+          project_id: [DEPRECATED: Use X-Project-Id header instead] Filter identities by project ID
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -653,6 +655,8 @@ class AsyncIdentitiesResource(AsyncAPIResource):
               newest first
 
           order_by: Field to sort by
+
+          project_id: [DEPRECATED: Use X-Project-Id header instead] Filter identities by project ID
 
           extra_headers: Send extra headers
 

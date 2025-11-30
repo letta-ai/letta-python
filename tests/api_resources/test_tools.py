@@ -12,7 +12,6 @@ from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     Tool,
     ToolSearchResponse,
-    ToolUpsertBaseToolsResponse,
 )
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
@@ -389,34 +388,6 @@ class TestTools:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_upsert_base_tools(self, client: Letta) -> None:
-        tool = client.tools.upsert_base_tools()
-        assert_matches_type(ToolUpsertBaseToolsResponse, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_upsert_base_tools(self, client: Letta) -> None:
-        response = client.tools.with_raw_response.upsert_base_tools()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        tool = response.parse()
-        assert_matches_type(ToolUpsertBaseToolsResponse, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_upsert_base_tools(self, client: Letta) -> None:
-        with client.tools.with_streaming_response.upsert_base_tools() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            tool = response.parse()
-            assert_matches_type(ToolUpsertBaseToolsResponse, tool, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncTools:
     parametrize = pytest.mark.parametrize(
@@ -787,33 +758,5 @@ class TestAsyncTools:
 
             tool = await response.parse()
             assert_matches_type(Tool, tool, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_upsert_base_tools(self, async_client: AsyncLetta) -> None:
-        tool = await async_client.tools.upsert_base_tools()
-        assert_matches_type(ToolUpsertBaseToolsResponse, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_upsert_base_tools(self, async_client: AsyncLetta) -> None:
-        response = await async_client.tools.with_raw_response.upsert_base_tools()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        tool = await response.parse()
-        assert_matches_type(ToolUpsertBaseToolsResponse, tool, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_upsert_base_tools(self, async_client: AsyncLetta) -> None:
-        async with async_client.tools.with_streaming_response.upsert_base_tools() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            tool = await response.parse()
-            assert_matches_type(ToolUpsertBaseToolsResponse, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True

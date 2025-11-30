@@ -12,6 +12,10 @@ class CompletionTokensDetails(BaseModel):
 
 
 class PromptTokensDetails(BaseModel):
+    cache_creation_tokens: Optional[int] = None
+
+    cache_read_tokens: Optional[int] = None
+
     cached_tokens: Optional[int] = None
 
 
