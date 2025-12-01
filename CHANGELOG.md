@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.3.2 (2025-12-01)
+
+Full Changelog: [v1.3.1...v1.3.2](https://github.com/letta-ai/letta-python/compare/v1.3.1...v1.3.2)
+
+### Features
+
+* add delete/create template endpoint ([b3fb93d](https://github.com/letta-ai/letta-python/commit/b3fb93de1b3eb063c02b3d6fdb13df14169d0993))
+* add tracking of advanced usage data (eg caching) [LET-6372] ([eca8dda](https://github.com/letta-ai/letta-python/commit/eca8dda6ab5583ae560e3e714fd5d20f83dabfc7))
+
+
+### Bug Fixes
+
+* **core:** distinguish between null and 0 for prompt caching ([00a938f](https://github.com/letta-ai/letta-python/commit/00a938f9b6b92f7330683913701f67cf2ace6e87))
+* ensure streams are always closed ([7efff66](https://github.com/letta-ai/letta-python/commit/7efff66b0da512182aab0f19e007128d39b08ba5))
+* remove project_id from identities list ([77dee4b](https://github.com/letta-ai/letta-python/commit/77dee4b26fcafdc85beb179ae7d34e4ec7ed45bc))
+* remove upsert base tools from sdk ([665ce21](https://github.com/letta-ai/letta-python/commit/665ce21a49cbf9ddc221d014bb84514d376fa19e))
+
+
+### Chores
+
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([3468c79](https://github.com/letta-ai/letta-python/commit/3468c7933fe85faf6348ef26f25666df8b26060f))
+* update endpoints ([693d7c9](https://github.com/letta-ai/letta-python/commit/693d7c97ffa94f16eb7f2a33fb6c10dd33078eed))
+
 ## 1.3.1 (2025-11-26)
 
 Full Changelog: [v1.3.0...v1.3.1](https://github.com/letta-ai/letta-python/compare/v1.3.0...v1.3.1)
