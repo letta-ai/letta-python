@@ -1928,6 +1928,7 @@ def platform_headers(version: str, *, platform: Platform | None) -> Dict[str, st
         "X-Stainless-Arch": str(get_architecture()),
         "X-Stainless-Runtime": get_python_runtime(),
         "X-Stainless-Runtime-Version": get_python_version(),
+        "X-Letta-Source": "letta-sdk-python",
     }
 
 
