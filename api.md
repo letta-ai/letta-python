@@ -191,6 +191,25 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/archives/attach/{archive_id}">client.agents.archives.<a href="./src/letta_client/resources/agents/archives.py">attach</a>(archive_id, \*, agent_id) -> object</code>
 - <code title="patch /v1/agents/{agent_id}/archives/detach/{archive_id}">client.agents.archives.<a href="./src/letta_client/resources/agents/archives.py">detach</a>(archive_id, \*, agent_id) -> object</code>
 
+## Passages
+
+Types:
+
+```python
+from letta_client.types.agents import (
+    PassageCreateResponse,
+    PassageListResponse,
+    PassageSearchResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/archival-memory">client.agents.passages.<a href="./src/letta_client/resources/agents/passages.py">create</a>(agent_id, \*\*<a href="src/letta_client/types/agents/passage_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/passage_create_response.py">PassageCreateResponse</a></code>
+- <code title="get /v1/agents/{agent_id}/archival-memory">client.agents.passages.<a href="./src/letta_client/resources/agents/passages.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/passage_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/passage_list_response.py">PassageListResponse</a></code>
+- <code title="delete /v1/agents/{agent_id}/archival-memory/{memory_id}">client.agents.passages.<a href="./src/letta_client/resources/agents/passages.py">delete</a>(memory_id, \*, agent_id) -> object</code>
+- <code title="get /v1/agents/{agent_id}/archival-memory/search">client.agents.passages.<a href="./src/letta_client/resources/agents/passages.py">search</a>(agent_id, \*\*<a href="src/letta_client/types/agents/passage_search_params.py">params</a>) -> <a href="./src/letta_client/types/agents/passage_search_response.py">PassageSearchResponse</a></code>
+
 ## Identities
 
 Methods:
