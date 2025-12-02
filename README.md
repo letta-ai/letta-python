@@ -87,6 +87,7 @@ pip install letta-client[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from letta_client import DefaultAioHttpClient
 from letta_client import AsyncLetta
@@ -94,7 +95,7 @@ from letta_client import AsyncLetta
 
 async def main() -> None:
     async with AsyncLetta(
-        api_key="My API Key",
+        api_key=os.environ.get("LETTA_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         archive = await client.archives.create(
