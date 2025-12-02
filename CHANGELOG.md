@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.3 (2025-12-02)
+
+Full Changelog: [v1.3.2...v1.3.3](https://github.com/letta-ai/letta-python/compare/v1.3.2...v1.3.3)
+
+### Chores
+
+* add letta source header ([#58](https://github.com/letta-ai/letta-python/issues/58)) ([51c6027](https://github.com/letta-ai/letta-python/commit/51c6027b976b17146f25eab52d9442cbe5e3cfa9))
+* add passages convenience sdk methods to agents route ([f515461](https://github.com/letta-ai/letta-python/commit/f5154617a6dfe9c5fcd5aee0e3604470182813e9))
+* update lockfile ([e57249f](https://github.com/letta-ai/letta-python/commit/e57249ff2a30fdbaeba9fd160be44bc1398dec6d))
+
 ## 1.3.2 (2025-12-01)
 
 Full Changelog: [v1.3.1...v1.3.2](https://github.com/letta-ai/letta-python/compare/v1.3.1...v1.3.2)
