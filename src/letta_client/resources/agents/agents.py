@@ -86,6 +86,14 @@ from .messages import (
     MessagesResourceWithStreamingResponse,
     AsyncMessagesResourceWithStreamingResponse,
 )
+from .passages import (
+    PassagesResource,
+    AsyncPassagesResource,
+    PassagesResourceWithRawResponse,
+    AsyncPassagesResourceWithRawResponse,
+    PassagesResourceWithStreamingResponse,
+    AsyncPassagesResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from .identities import (
     IdentitiesResource,
@@ -144,6 +152,10 @@ class AgentsResource(SyncAPIResource):
     @cached_property
     def archives(self) -> ArchivesResource:
         return ArchivesResource(self._client)
+
+    @cached_property
+    def passages(self) -> PassagesResource:
+        return PassagesResource(self._client)
 
     @cached_property
     def identities(self) -> IdentitiesResource:
@@ -1019,6 +1031,10 @@ class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
     def archives(self) -> AsyncArchivesResource:
         return AsyncArchivesResource(self._client)
+
+    @cached_property
+    def passages(self) -> AsyncPassagesResource:
+        return AsyncPassagesResource(self._client)
 
     @cached_property
     def identities(self) -> AsyncIdentitiesResource:
@@ -1921,6 +1937,10 @@ class AgentsResourceWithRawResponse:
         return ArchivesResourceWithRawResponse(self._agents.archives)
 
     @cached_property
+    def passages(self) -> PassagesResourceWithRawResponse:
+        return PassagesResourceWithRawResponse(self._agents.passages)
+
+    @cached_property
     def identities(self) -> IdentitiesResourceWithRawResponse:
         return IdentitiesResourceWithRawResponse(self._agents.identities)
 
@@ -1978,6 +1998,10 @@ class AsyncAgentsResourceWithRawResponse:
     @cached_property
     def archives(self) -> AsyncArchivesResourceWithRawResponse:
         return AsyncArchivesResourceWithRawResponse(self._agents.archives)
+
+    @cached_property
+    def passages(self) -> AsyncPassagesResourceWithRawResponse:
+        return AsyncPassagesResourceWithRawResponse(self._agents.passages)
 
     @cached_property
     def identities(self) -> AsyncIdentitiesResourceWithRawResponse:
@@ -2039,6 +2063,10 @@ class AgentsResourceWithStreamingResponse:
         return ArchivesResourceWithStreamingResponse(self._agents.archives)
 
     @cached_property
+    def passages(self) -> PassagesResourceWithStreamingResponse:
+        return PassagesResourceWithStreamingResponse(self._agents.passages)
+
+    @cached_property
     def identities(self) -> IdentitiesResourceWithStreamingResponse:
         return IdentitiesResourceWithStreamingResponse(self._agents.identities)
 
@@ -2096,6 +2124,10 @@ class AsyncAgentsResourceWithStreamingResponse:
     @cached_property
     def archives(self) -> AsyncArchivesResourceWithStreamingResponse:
         return AsyncArchivesResourceWithStreamingResponse(self._agents.archives)
+
+    @cached_property
+    def passages(self) -> AsyncPassagesResourceWithStreamingResponse:
+        return AsyncPassagesResourceWithStreamingResponse(self._agents.passages)
 
     @cached_property
     def identities(self) -> AsyncIdentitiesResourceWithStreamingResponse:
