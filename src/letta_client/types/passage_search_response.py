@@ -10,6 +10,8 @@ __all__ = ["PassageSearchResponse", "PassageSearchResponseItem"]
 
 
 class PassageSearchResponseItem(BaseModel):
+    """Result from a passage search operation with scoring details."""
+
     passage: Passage
     """The passage object"""
 

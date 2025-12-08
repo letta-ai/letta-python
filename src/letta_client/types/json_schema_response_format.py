@@ -9,6 +9,8 @@ __all__ = ["JsonSchemaResponseFormat"]
 
 
 class JsonSchemaResponseFormat(BaseModel):
+    """Response format for JSON schema-based responses."""
+
     json_schema: Dict[str, object]
     """The JSON schema of the response."""
 

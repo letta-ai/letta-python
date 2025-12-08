@@ -9,6 +9,10 @@ __all__ = ["ConditionalToolRule"]
 
 
 class ConditionalToolRule(BaseModel):
+    """
+    A ToolRule that conditionally maps to different child tools based on the output.
+    """
+
     child_output_mapping: Dict[str, str]
     """The output case to check for mapping"""
 

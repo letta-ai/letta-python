@@ -11,6 +11,10 @@ __all__ = ["Archive"]
 
 
 class Archive(BaseModel):
+    """
+    Representation of an archive - a collection of archival passages that can be shared between agents.
+    """
+
     id: str
     """The human-friendly ID of the Archive"""
 

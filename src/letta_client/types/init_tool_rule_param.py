@@ -9,6 +9,8 @@ __all__ = ["InitToolRuleParam"]
 
 
 class InitToolRuleParam(TypedDict, total=False):
+    """Represents the initial tool rule configuration."""
+
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 

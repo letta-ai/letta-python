@@ -13,6 +13,8 @@ __all__ = ["Tool"]
 
 
 class Tool(BaseModel):
+    """Representation of a tool, which is a function that can be called by the agent."""
+
     id: str
     """The human-friendly ID of the Tool"""
 

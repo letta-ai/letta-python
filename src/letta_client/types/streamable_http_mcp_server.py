@@ -9,6 +9,8 @@ __all__ = ["StreamableHTTPMcpServer"]
 
 
 class StreamableHTTPMcpServer(BaseModel):
+    """A Streamable HTTP MCP server"""
+
     server_name: str
     """The name of the MCP server"""
 

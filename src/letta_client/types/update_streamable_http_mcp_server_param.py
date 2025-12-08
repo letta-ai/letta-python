@@ -9,6 +9,8 @@ __all__ = ["UpdateStreamableHTTPMcpServerParam"]
 
 
 class UpdateStreamableHTTPMcpServerParam(TypedDict, total=False):
+    """Update schema for Streamable HTTP MCP server - all fields optional"""
+
     server_url: Required[Optional[str]]
     """The URL of the server"""
 

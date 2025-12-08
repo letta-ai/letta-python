@@ -12,6 +12,8 @@ __all__ = ["Run", "RequestConfig"]
 
 
 class RequestConfig(BaseModel):
+    """The request configuration for the run."""
+
     assistant_message_tool_kwarg: Optional[str] = None
     """The name of the message argument in the designated message tool."""
 
@@ -32,6 +34,11 @@ class RequestConfig(BaseModel):
 
 
 class Run(BaseModel):
+    """Representation of a run - a conversation or processing session for an agent.
+
+    Runs track when agents process messages and maintain the relationship between agents, steps, and messages.
+    """
+
     id: str
     """The human-friendly ID of the Run"""
 

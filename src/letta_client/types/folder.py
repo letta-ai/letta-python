@@ -10,6 +10,8 @@ __all__ = ["Folder"]
 
 
 class Folder(BaseModel):
+    """Representation of a folder, which is a collection of files and passages."""
+
     id: str
     """The human-friendly ID of the Source"""
 
