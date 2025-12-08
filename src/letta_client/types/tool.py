@@ -52,6 +52,9 @@ class Tool(BaseModel):
     pip_requirements: Optional[List[PipRequirement]] = None
     """Optional list of pip packages required by this tool."""
 
+    project_id: Optional[str] = None
+    """The project id of the tool."""
+
     return_char_limit: Optional[int] = None
     """The maximum number of characters in the response."""
 
