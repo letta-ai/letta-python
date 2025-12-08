@@ -9,6 +9,8 @@ __all__ = ["StdioMcpServer"]
 
 
 class StdioMcpServer(BaseModel):
+    """A Stdio MCP server"""
+
     args: List[str]
     """The arguments to pass to the command"""
 

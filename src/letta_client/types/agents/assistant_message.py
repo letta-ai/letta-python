@@ -11,6 +11,15 @@ __all__ = ["AssistantMessage"]
 
 
 class AssistantMessage(BaseModel):
+    """A message sent by the LLM in response to user input. Used in the LLM context.
+
+    Args:
+        id (str): The ID of the message
+        date (datetime): The date the message was created in ISO format
+        name (Optional[str]): The name of the sender of the message
+        content (Union[str, List[LettaAssistantMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)
+    """
+
     id: str
 
     content: Union[List[LettaAssistantMessageContentUnion], str]

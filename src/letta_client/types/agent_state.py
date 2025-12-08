@@ -116,6 +116,8 @@ class MemoryFileBlock(BaseModel):
 
 
 class Memory(BaseModel):
+    """Deprecated: Use `blocks` field instead. The in-context memory of the agent."""
+
     blocks: List[Block]
     """Memory blocks contained in the agent's in-context memory"""
 
@@ -130,6 +132,10 @@ class Memory(BaseModel):
 
 
 class Source(BaseModel):
+    """
+    (Deprecated: Use Folder) Representation of a source, which is a collection of files and passages.
+    """
+
     id: str
     """The human-friendly ID of the Source"""
 
@@ -203,6 +209,11 @@ ToolRule: TypeAlias = Annotated[
 
 
 class AgentState(BaseModel):
+    """Representation of an agent's state.
+
+    This is the state of the agent at a given time, and is persisted in the DB backend. The state has all the information needed to recreate a persisted agent.
+    """
+
     id: str
     """The id of the agent. Assigned by the database."""
 

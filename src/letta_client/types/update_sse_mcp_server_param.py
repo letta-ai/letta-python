@@ -9,6 +9,8 @@ __all__ = ["UpdateSseMcpServerParam"]
 
 
 class UpdateSseMcpServerParam(TypedDict, total=False):
+    """Update schema for SSE MCP server - all fields optional"""
+
     server_url: Required[Optional[str]]
     """The URL of the server"""
 

@@ -9,6 +9,8 @@ __all__ = ["CreateBlockParam"]
 
 
 class CreateBlockParam(TypedDict, total=False):
+    """Create a block"""
+
     label: Required[str]
     """Label of the block."""
 

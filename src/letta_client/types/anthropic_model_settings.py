@@ -18,6 +18,8 @@ ResponseFormat: TypeAlias = Annotated[
 
 
 class Thinking(BaseModel):
+    """The thinking configuration for the model."""
+
     budget_tokens: Optional[int] = None
     """The maximum number of tokens the model can use for extended thinking."""
 

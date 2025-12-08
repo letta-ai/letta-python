@@ -9,6 +9,10 @@ __all__ = ["ParentToolRule"]
 
 
 class ParentToolRule(BaseModel):
+    """
+    A ToolRule that only allows a child tool to be called if the parent has been called.
+    """
+
     children: List[str]
     """The children tools that can be invoked."""
 

@@ -10,6 +10,11 @@ __all__ = ["EventMessage"]
 
 
 class EventMessage(BaseModel):
+    """A message for notifying the developer that an event that has occured (e.g.
+
+    a compaction). Events are NOT part of the context window.
+    """
+
     id: str
 
     date: datetime

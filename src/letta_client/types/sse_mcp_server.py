@@ -9,6 +9,8 @@ __all__ = ["SseMcpServer"]
 
 
 class SseMcpServer(BaseModel):
+    """An SSE MCP server"""
+
     server_name: str
     """The name of the MCP server"""
 

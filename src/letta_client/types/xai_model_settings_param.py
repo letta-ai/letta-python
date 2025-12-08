@@ -15,6 +15,8 @@ ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFor
 
 
 class XaiModelSettingsParam(TypedDict, total=False):
+    """xAI model configuration (OpenAI-compatible)."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 

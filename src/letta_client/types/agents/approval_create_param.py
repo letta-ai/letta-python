@@ -14,6 +14,8 @@ Approval: TypeAlias = Union[ApprovalReturnParam, ToolReturnParam]
 
 
 class ApprovalCreateParam(TypedDict, total=False):
+    """Input to approve or deny a tool call request"""
+
     approval_request_id: Optional[str]
     """The message ID of the approval request"""
 

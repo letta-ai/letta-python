@@ -9,6 +9,8 @@ __all__ = ["InitToolRule"]
 
 
 class InitToolRule(BaseModel):
+    """Represents the initial tool rule configuration."""
+
     tool_name: str
     """The name of the tool. Must exist in the database for the user's organization."""
 
