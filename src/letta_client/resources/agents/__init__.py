@@ -64,6 +64,14 @@ from .messages import (
     MessagesResourceWithStreamingResponse,
     AsyncMessagesResourceWithStreamingResponse,
 )
+from .passages import (
+    PassagesResource,
+    AsyncPassagesResource,
+    PassagesResourceWithRawResponse,
+    AsyncPassagesResourceWithRawResponse,
+    PassagesResourceWithStreamingResponse,
+    AsyncPassagesResourceWithStreamingResponse,
+)
 from .identities import (
     IdentitiesResource,
     AsyncIdentitiesResource,
@@ -116,6 +124,12 @@ __all__ = [
     "AsyncArchivesResourceWithRawResponse",
     "ArchivesResourceWithStreamingResponse",
     "AsyncArchivesResourceWithStreamingResponse",
+    "PassagesResource",
+    "AsyncPassagesResource",
+    "PassagesResourceWithRawResponse",
+    "AsyncPassagesResourceWithRawResponse",
+    "PassagesResourceWithStreamingResponse",
+    "AsyncPassagesResourceWithStreamingResponse",
     "IdentitiesResource",
     "AsyncIdentitiesResource",
     "IdentitiesResourceWithRawResponse",
