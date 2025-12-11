@@ -10,6 +10,8 @@ __all__ = ["FileListResponse"]
 
 
 class FileListResponse(BaseModel):
+    """Representation of a single FileMetadata"""
+
     id: str
     """The human-friendly ID of the File"""
 

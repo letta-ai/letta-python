@@ -9,6 +9,17 @@ __all__ = ["ProviderTrace"]
 
 
 class ProviderTrace(BaseModel):
+    """Letta's internal representation of a provider trace.
+
+    Attributes:
+        id (str): The unique identifier of the provider trace.
+        request_json (Dict[str, Any]): JSON content of the provider request.
+        response_json (Dict[str, Any]): JSON content of the provider response.
+        step_id (str): ID of the step that this trace is associated with.
+        organization_id (str): The unique identifier of the organization.
+        created_at (datetime): The timestamp when the object was created.
+    """
+
     request_json: Dict[str, object]
     """JSON content of the provider request"""
 

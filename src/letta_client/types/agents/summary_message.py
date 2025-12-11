@@ -10,6 +10,11 @@ __all__ = ["SummaryMessage"]
 
 
 class SummaryMessage(BaseModel):
+    """A message representing a summary of the conversation.
+
+    Sent to the LLM as a user or system message depending on the provider.
+    """
+
     id: str
 
     date: datetime

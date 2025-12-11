@@ -9,6 +9,10 @@ __all__ = ["TerminalToolRuleParam"]
 
 
 class TerminalToolRuleParam(TypedDict, total=False):
+    """
+    Represents a terminal tool rule configuration where if this tool gets called, it must end the agent loop.
+    """
+
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 

@@ -9,6 +9,8 @@ __all__ = ["IdentityPropertyParam"]
 
 
 class IdentityPropertyParam(TypedDict, total=False):
+    """A property of an identity"""
+
     key: Required[str]
     """The key of the property"""
 

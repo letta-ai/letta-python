@@ -11,6 +11,8 @@ __all__ = ["MessageCreateParam"]
 
 
 class MessageCreateParam(TypedDict, total=False):
+    """Request to create a message"""
+
     content: Required[Union[Iterable[LettaMessageContentUnionParam], str]]
     """The content of the message."""
 

@@ -18,6 +18,8 @@ ResponseSchema: TypeAlias = Annotated[
 
 
 class ThinkingConfig(BaseModel):
+    """The thinking configuration for the model."""
+
     include_thoughts: Optional[bool] = None
     """Whether to include thoughts in the model's response."""
 

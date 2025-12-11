@@ -10,6 +10,8 @@ __all__ = ["Passage"]
 
 
 class Passage(BaseModel):
+    """Representation of a passage, which is stored in archival memory."""
+
     embedding: Optional[List[float]] = None
     """The embedding of the passage."""
 

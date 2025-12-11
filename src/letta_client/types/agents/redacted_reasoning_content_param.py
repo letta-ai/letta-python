@@ -8,6 +8,8 @@ __all__ = ["RedactedReasoningContentParam"]
 
 
 class RedactedReasoningContentParam(TypedDict, total=False):
+    """Sent via the Anthropic Messages API"""
+
     data: Required[str]
     """The redacted or filtered intermediate reasoning content."""
 

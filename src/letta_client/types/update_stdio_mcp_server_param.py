@@ -11,6 +11,8 @@ __all__ = ["UpdateStdioMcpServerParam"]
 
 
 class UpdateStdioMcpServerParam(TypedDict, total=False):
+    """Update schema for Stdio MCP server - all fields optional"""
+
     args: Required[Optional[SequenceNotStr[str]]]
     """The arguments to pass to the command"""
 

@@ -9,6 +9,10 @@ __all__ = ["OmittedReasoningContent"]
 
 
 class OmittedReasoningContent(BaseModel):
+    """
+    A placeholder for reasoning content we know is present, but isn't returned by the provider (e.g. OpenAI GPT-5 on ChatCompletions)
+    """
+
     signature: Optional[str] = None
     """A unique identifier for this reasoning step."""
 

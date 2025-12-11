@@ -15,4 +15,5 @@ StopReasonType: TypeAlias = Literal[
     "tool_rule",
     "cancelled",
     "requires_approval",
+    "context_window_overflow_in_system_prompt",
 ]

@@ -10,6 +10,19 @@ __all__ = ["HiddenReasoningMessage"]
 
 
 class HiddenReasoningMessage(BaseModel):
+    """
+    Representation of an agent's internal reasoning where reasoning content
+    has been hidden from the response.
+
+    Args:
+        id (str): The ID of the message
+        date (datetime): The date the message was created in ISO format
+        name (Optional[str]): The name of the sender of the message
+        state (Literal["redacted", "omitted"]): Whether the reasoning
+            content was redacted by the provider or simply omitted by the API
+        hidden_reasoning (Optional[str]): The internal reasoning of the agent
+    """
+
     id: str
 
     date: datetime

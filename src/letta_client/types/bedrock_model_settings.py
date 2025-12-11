@@ -18,6 +18,8 @@ ResponseFormat: TypeAlias = Annotated[
 
 
 class BedrockModelSettings(BaseModel):
+    """AWS Bedrock model configuration."""
+
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 

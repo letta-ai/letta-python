@@ -9,5 +9,7 @@ __all__ = ["TextResponseFormat"]
 
 
 class TextResponseFormat(BaseModel):
+    """Response format for plain text responses."""
+
     type: Optional[Literal["text"]] = None
     """The type of the response format."""

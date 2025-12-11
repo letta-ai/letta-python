@@ -9,6 +9,8 @@ __all__ = ["ToolSearchResult"]
 
 
 class ToolSearchResult(BaseModel):
+    """Result from a tool search operation."""
+
     combined_score: float
     """Combined relevance score (RRF for hybrid mode)."""
 

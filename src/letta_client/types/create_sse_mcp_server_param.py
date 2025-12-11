@@ -9,6 +9,8 @@ __all__ = ["CreateSseMcpServerParam"]
 
 
 class CreateSseMcpServerParam(TypedDict, total=False):
+    """Create a new SSE MCP server"""
+
     server_url: Required[str]
     """The URL of the server"""
 

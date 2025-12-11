@@ -11,6 +11,8 @@ __all__ = ["CreateStdioMcpServerParam"]
 
 
 class CreateStdioMcpServerParam(TypedDict, total=False):
+    """Create a new Stdio MCP server"""
+
     args: Required[SequenceNotStr[str]]
     """The arguments to pass to the command"""
 

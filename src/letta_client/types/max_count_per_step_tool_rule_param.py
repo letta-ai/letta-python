@@ -9,6 +9,10 @@ __all__ = ["MaxCountPerStepToolRuleParam"]
 
 
 class MaxCountPerStepToolRuleParam(TypedDict, total=False):
+    """
+    Represents a tool rule configuration which constrains the total number of times this tool can be invoked in a single step.
+    """
+
     max_count_limit: Required[int]
     """
     The max limit for the total number of times this tool can be invoked in a single

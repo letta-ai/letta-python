@@ -9,6 +9,8 @@ __all__ = ["FileListResponse"]
 
 
 class FileListResponse(BaseModel):
+    """Response model for agent file attachments showing file status in agent context"""
+
     id: str
     """Unique identifier of the file-agent relationship"""
 

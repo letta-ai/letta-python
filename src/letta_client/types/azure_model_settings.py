@@ -18,6 +18,8 @@ ResponseFormat: TypeAlias = Annotated[
 
 
 class AzureModelSettings(BaseModel):
+    """Azure OpenAI model configuration (OpenAI-compatible)."""
+
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 

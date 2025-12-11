@@ -9,6 +9,8 @@ __all__ = ["CreateStreamableHTTPMcpServerParam"]
 
 
 class CreateStreamableHTTPMcpServerParam(TypedDict, total=False):
+    """Create a new Streamable HTTP MCP server"""
+
     server_url: Required[str]
     """The URL of the server"""
 

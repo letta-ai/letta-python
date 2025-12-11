@@ -15,6 +15,8 @@ ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFor
 
 
 class Thinking(TypedDict, total=False):
+    """The thinking configuration for the model."""
+
     budget_tokens: int
     """The maximum number of tokens the model can use for extended thinking."""
 

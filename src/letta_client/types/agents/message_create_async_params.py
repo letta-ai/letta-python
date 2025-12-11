@@ -83,6 +83,8 @@ class InputUnionMember1SummarizedReasoningContentSummary(TypedDict, total=False)
 
 
 class InputUnionMember1SummarizedReasoningContent(TypedDict, total=False):
+    """The style of reasoning content returned by the OpenAI Responses API"""
+
     id: Required[str]
     """The unique identifier for this reasoning step."""
 

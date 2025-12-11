@@ -11,6 +11,17 @@ __all__ = ["UserMessage"]
 
 
 class UserMessage(BaseModel):
+    """A message sent by the user.
+
+    Never streamed back on a response, only used for cursor pagination.
+
+    Args:
+        id (str): The ID of the message
+        date (datetime): The date the message was created in ISO format
+        name (Optional[str]): The name of the sender of the message
+        content (Union[str, List[LettaUserMessageContentUnion]]): The message content sent by the user (can be a string or an array of multi-modal content parts)
+    """
+
     id: str
 
     content: Union[List[LettaUserMessageContentUnion], str]

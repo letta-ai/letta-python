@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -41,7 +41,17 @@ from .google_vertex_model_settings import GoogleVertexModelSettings
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
 
-__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "ModelSettings", "ResponseFormat", "ToolRule"]
+__all__ = [
+    "AgentState",
+    "Memory",
+    "MemoryFileBlock",
+    "Source",
+    "CompactionSettings",
+    "CompactionSettingsModelSettings",
+    "ModelSettings",
+    "ResponseFormat",
+    "ToolRule",
+]
 
 
 class MemoryFileBlock(BaseModel):
@@ -116,6 +126,8 @@ class MemoryFileBlock(BaseModel):
 
 
 class Memory(BaseModel):
+    """Deprecated: Use `blocks` field instead. The in-context memory of the agent."""
+
     blocks: List[Block]
     """Memory blocks contained in the agent's in-context memory"""
 
@@ -130,6 +142,10 @@ class Memory(BaseModel):
 
 
 class Source(BaseModel):
+    """
+    (Deprecated: Use Folder) Representation of a source, which is a collection of files and passages.
+    """
+
     id: str
     """The human-friendly ID of the Source"""
 
@@ -162,6 +178,47 @@ class Source(BaseModel):
 
     vector_db_provider: Optional[VectorDBProvider] = None
     """The vector database provider used for this source's passages"""
+
+
+class CompactionSettingsModelSettings(BaseModel):
+    """The model settings to use for summarization."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+
+class CompactionSettings(BaseModel):
+    """The compaction settings configuration used for compaction."""
+
+    api_model_settings: CompactionSettingsModelSettings = FieldInfo(alias="model_settings")
+    """The model settings to use for summarization."""
+
+    prompt: str
+    """The prompt to use for summarization."""
+
+    prompt_acknowledgement: str
+    """
+    Whether to include an acknowledgement post-prompt (helps prevent non-summary
+    outputs).
+    """
+
+    clip_chars: Optional[int] = None
+    """The maximum length of the summary in characters.
+
+    If none, no clipping is performed.
+    """
+
+    mode: Optional[Literal["all", "sliding_window"]] = None
+    """The type of summarization technique use."""
+
+    sliding_window_percentage: Optional[float] = None
+    """
+    The percentage of the context window to keep post-summarization (only used in
+    sliding window mode).
+    """
 
 
 ModelSettings: TypeAlias = Annotated[
@@ -203,6 +260,11 @@ ToolRule: TypeAlias = Annotated[
 
 
 class AgentState(BaseModel):
+    """Representation of an agent's state.
+
+    This is the state of the agent at a given time, and is persisted in the DB backend. The state has all the information needed to recreate a persisted agent.
+    """
+
     id: str
     """The id of the agent. Assigned by the database."""
 
@@ -241,6 +303,9 @@ class AgentState(BaseModel):
 
     base_template_id: Optional[str] = None
     """The base template id of the agent."""
+
+    compaction_settings: Optional[CompactionSettings] = None
+    """The compaction settings configuration used for compaction."""
 
     created_at: Optional[datetime] = None
     """The timestamp when the object was created."""

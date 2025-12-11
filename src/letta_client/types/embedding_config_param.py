@@ -9,6 +9,8 @@ __all__ = ["EmbeddingConfigParam"]
 
 
 class EmbeddingConfigParam(TypedDict, total=False):
+    """Configuration for embedding model connection and processing parameters."""
+
     embedding_dim: Required[int]
     """The dimension of the embedding."""
 

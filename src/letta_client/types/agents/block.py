@@ -8,6 +8,8 @@ __all__ = ["Block"]
 
 
 class Block(BaseModel):
+    """A Block represents a reserved section of the LLM's context window."""
+
     value: str
     """Value of the block."""
 

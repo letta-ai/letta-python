@@ -11,6 +11,10 @@ __all__ = ["FolderListResponse"]
 
 
 class FolderListResponse(BaseModel):
+    """
+    (Deprecated: Use Folder) Representation of a source, which is a collection of files and passages.
+    """
+
     id: str
     """The human-friendly ID of the Source"""
 

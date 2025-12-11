@@ -9,6 +9,10 @@ __all__ = ["RequiredBeforeExitToolRuleParam"]
 
 
 class RequiredBeforeExitToolRuleParam(TypedDict, total=False):
+    """
+    Represents a tool rule configuration where this tool must be called before the agent loop can exit.
+    """
+
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 

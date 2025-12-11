@@ -15,6 +15,8 @@ ResponseSchema: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFor
 
 
 class ThinkingConfig(TypedDict, total=False):
+    """The thinking configuration for the model."""
+
     include_thoughts: bool
     """Whether to include thoughts in the model's response."""
 
