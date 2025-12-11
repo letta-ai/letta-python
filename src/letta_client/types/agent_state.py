@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypeAlias
+from typing_extensions import Literal, Annotated, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -41,7 +41,17 @@ from .google_vertex_model_settings import GoogleVertexModelSettings
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
 
-__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "ModelSettings", "ResponseFormat", "ToolRule"]
+__all__ = [
+    "AgentState",
+    "Memory",
+    "MemoryFileBlock",
+    "Source",
+    "CompactionSettings",
+    "CompactionSettingsModelSettings",
+    "ModelSettings",
+    "ResponseFormat",
+    "ToolRule",
+]
 
 
 class MemoryFileBlock(BaseModel):
@@ -170,6 +180,47 @@ class Source(BaseModel):
     """The vector database provider used for this source's passages"""
 
 
+class CompactionSettingsModelSettings(BaseModel):
+    """The model settings to use for summarization."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+
+class CompactionSettings(BaseModel):
+    """The compaction settings configuration used for compaction."""
+
+    api_model_settings: CompactionSettingsModelSettings = FieldInfo(alias="model_settings")
+    """The model settings to use for summarization."""
+
+    prompt: str
+    """The prompt to use for summarization."""
+
+    prompt_acknowledgement: str
+    """
+    Whether to include an acknowledgement post-prompt (helps prevent non-summary
+    outputs).
+    """
+
+    clip_chars: Optional[int] = None
+    """The maximum length of the summary in characters.
+
+    If none, no clipping is performed.
+    """
+
+    mode: Optional[Literal["all", "sliding_window"]] = None
+    """The type of summarization technique use."""
+
+    sliding_window_percentage: Optional[float] = None
+    """
+    The percentage of the context window to keep post-summarization (only used in
+    sliding window mode).
+    """
+
+
 ModelSettings: TypeAlias = Annotated[
     Union[
         OpenAIModelSettings,
@@ -252,6 +303,9 @@ class AgentState(BaseModel):
 
     base_template_id: Optional[str] = None
     """The base template id of the agent."""
+
+    compaction_settings: Optional[CompactionSettings] = None
+    """The compaction settings configuration used for compaction."""
 
     created_at: Optional[datetime] = None
     """The timestamp when the object was created."""

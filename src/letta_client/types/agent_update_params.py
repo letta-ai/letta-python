@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -34,7 +34,14 @@ from .google_vertex_model_settings_param import GoogleVertexModelSettingsParam
 from .max_count_per_step_tool_rule_param import MaxCountPerStepToolRuleParam
 from .required_before_exit_tool_rule_param import RequiredBeforeExitToolRuleParam
 
-__all__ = ["AgentUpdateParams", "ModelSettings", "ResponseFormat", "ToolRule"]
+__all__ = [
+    "AgentUpdateParams",
+    "CompactionSettings",
+    "CompactionSettingsModelSettings",
+    "ModelSettings",
+    "ResponseFormat",
+    "ToolRule",
+]
 
 
 class AgentUpdateParams(TypedDict, total=False):
@@ -43,6 +50,9 @@ class AgentUpdateParams(TypedDict, total=False):
 
     block_ids: Optional[SequenceNotStr[str]]
     """The ids of the blocks used by the agent."""
+
+    compaction_settings: Optional[CompactionSettings]
+    """The compaction settings configuration used for compaction."""
 
     context_window_limit: Optional[int]
     """The context window limit used by the agent."""
@@ -176,6 +186,47 @@ class AgentUpdateParams(TypedDict, total=False):
 
     tool_rules: Optional[Iterable[ToolRule]]
     """The tool rules governing the agent."""
+
+
+class CompactionSettingsModelSettings(TypedDict, total=False):
+    """The model settings to use for summarization."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+
+class CompactionSettings(TypedDict, total=False):
+    """The compaction settings configuration used for compaction."""
+
+    model_settings: Required[CompactionSettingsModelSettings]
+    """The model settings to use for summarization."""
+
+    prompt: Required[str]
+    """The prompt to use for summarization."""
+
+    prompt_acknowledgement: Required[str]
+    """
+    Whether to include an acknowledgement post-prompt (helps prevent non-summary
+    outputs).
+    """
+
+    clip_chars: Optional[int]
+    """The maximum length of the summary in characters.
+
+    If none, no clipping is performed.
+    """
+
+    mode: Literal["all", "sliding_window"]
+    """The type of summarization technique use."""
+
+    sliding_window_percentage: float
+    """
+    The percentage of the context window to keep post-summarization (only used in
+    sliding window mode).
+    """
 
 
 ModelSettings: TypeAlias = Union[
