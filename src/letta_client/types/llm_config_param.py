@@ -123,7 +123,7 @@ class LlmConfigParam(TypedDict, total=False):
     thoughts.
     """
 
-    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high"]]
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]]
     """The reasoning effort to use when generating text reasoning models"""
 
     response_format: Optional[ResponseFormat]

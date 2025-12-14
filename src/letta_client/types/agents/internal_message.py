@@ -91,6 +91,8 @@ Content: TypeAlias = Annotated[
 
 
 class ToolCallFunction(BaseModel):
+    """The function that the model called."""
+
     arguments: str
 
     name: str
@@ -109,9 +111,12 @@ class ToolCallFunction(BaseModel):
 
 
 class ToolCall(BaseModel):
+    """A call to a function tool created by the model."""
+
     id: str
 
     function: ToolCallFunction
+    """The function that the model called."""
 
     type: Literal["function"]
 
