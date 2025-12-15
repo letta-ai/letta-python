@@ -276,15 +276,6 @@ class CompactionSettings(TypedDict, total=False):
     model: Required[str]
     """Model handle to use for summarization (format: provider/model-name)."""
 
-    prompt: Required[str]
-    """The prompt to use for summarization."""
-
-    prompt_acknowledgement: Required[str]
-    """
-    Whether to include an acknowledgement post-prompt (helps prevent non-summary
-    outputs).
-    """
-
     clip_chars: Optional[int]
     """The maximum length of the summary in characters.
 
@@ -296,6 +287,15 @@ class CompactionSettings(TypedDict, total=False):
 
     model_settings: Optional[CompactionSettingsModelSettings]
     """Optional model settings used to override defaults for the summarizer model."""
+
+    prompt: str
+    """The prompt to use for summarization."""
+
+    prompt_acknowledgement: bool
+    """
+    Whether to include an acknowledgement post-prompt (helps prevent non-summary
+    outputs).
+    """
 
     sliding_window_percentage: float
     """

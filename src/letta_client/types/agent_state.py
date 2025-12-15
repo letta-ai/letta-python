@@ -209,15 +209,6 @@ class CompactionSettings(BaseModel):
     model: str
     """Model handle to use for summarization (format: provider/model-name)."""
 
-    prompt: str
-    """The prompt to use for summarization."""
-
-    prompt_acknowledgement: str
-    """
-    Whether to include an acknowledgement post-prompt (helps prevent non-summary
-    outputs).
-    """
-
     clip_chars: Optional[int] = None
     """The maximum length of the summary in characters.
 
@@ -229,6 +220,15 @@ class CompactionSettings(BaseModel):
 
     api_model_settings: Optional[CompactionSettingsModelSettings] = FieldInfo(alias="model_settings", default=None)
     """Optional model settings used to override defaults for the summarizer model."""
+
+    prompt: Optional[str] = None
+    """The prompt to use for summarization."""
+
+    prompt_acknowledgement: Optional[bool] = None
+    """
+    Whether to include an acknowledgement post-prompt (helps prevent non-summary
+    outputs).
+    """
 
     sliding_window_percentage: Optional[float] = None
     """

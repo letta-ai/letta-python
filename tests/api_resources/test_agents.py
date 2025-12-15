@@ -37,8 +37,6 @@ class TestAgents:
             block_ids=["string"],
             compaction_settings={
                 "model": "model",
-                "prompt": "prompt",
-                "prompt_acknowledgement": "prompt_acknowledgement",
                 "clip_chars": 0,
                 "mode": "all",
                 "model_settings": {
@@ -49,6 +47,8 @@ class TestAgents:
                     "response_format": {"type": "text"},
                     "temperature": 0,
                 },
+                "prompt": "prompt",
+                "prompt_acknowledgement": True,
                 "sliding_window_percentage": 0,
             },
             context_window_limit=0,
@@ -278,8 +278,6 @@ class TestAgents:
             block_ids=["string"],
             compaction_settings={
                 "model": "model",
-                "prompt": "prompt",
-                "prompt_acknowledgement": "prompt_acknowledgement",
                 "clip_chars": 0,
                 "mode": "all",
                 "model_settings": {
@@ -290,6 +288,8 @@ class TestAgents:
                     "response_format": {"type": "text"},
                     "temperature": 0,
                 },
+                "prompt": "prompt",
+                "prompt_acknowledgement": True,
                 "sliding_window_percentage": 0,
             },
             context_window_limit=0,
@@ -639,8 +639,6 @@ class TestAsyncAgents:
             block_ids=["string"],
             compaction_settings={
                 "model": "model",
-                "prompt": "prompt",
-                "prompt_acknowledgement": "prompt_acknowledgement",
                 "clip_chars": 0,
                 "mode": "all",
                 "model_settings": {
@@ -651,6 +649,8 @@ class TestAsyncAgents:
                     "response_format": {"type": "text"},
                     "temperature": 0,
                 },
+                "prompt": "prompt",
+                "prompt_acknowledgement": True,
                 "sliding_window_percentage": 0,
             },
             context_window_limit=0,
@@ -880,8 +880,6 @@ class TestAsyncAgents:
             block_ids=["string"],
             compaction_settings={
                 "model": "model",
-                "prompt": "prompt",
-                "prompt_acknowledgement": "prompt_acknowledgement",
                 "clip_chars": 0,
                 "mode": "all",
                 "model_settings": {
@@ -892,6 +890,8 @@ class TestAsyncAgents:
                     "response_format": {"type": "text"},
                     "temperature": 0,
                 },
+                "prompt": "prompt",
+                "prompt_acknowledgement": True,
                 "sliding_window_percentage": 0,
             },
             context_window_limit=0,
