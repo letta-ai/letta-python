@@ -186,6 +186,7 @@ class AgentsResource(SyncAPIResource):
         agent_type: AgentType | Omit = omit,
         base_template_id: Optional[str] | Omit = omit,
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        compaction_settings: Optional[agent_create_params.CompactionSettings] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
@@ -246,6 +247,12 @@ class AgentsResource(SyncAPIResource):
           base_template_id: Deprecated: No longer used. The base template id of the agent.
 
           block_ids: The ids of the blocks used by the agent.
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
 
           context_window_limit: The context window limit used by the agent.
 
@@ -373,6 +380,7 @@ class AgentsResource(SyncAPIResource):
                     "agent_type": agent_type,
                     "base_template_id": base_template_id,
                     "block_ids": block_ids,
+                    "compaction_settings": compaction_settings,
                     "context_window_limit": context_window_limit,
                     "description": description,
                     "embedding": embedding,
@@ -498,6 +506,7 @@ class AgentsResource(SyncAPIResource):
         *,
         base_template_id: Optional[str] | Omit = omit,
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        compaction_settings: Optional[agent_update_params.CompactionSettings] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
@@ -548,6 +557,12 @@ class AgentsResource(SyncAPIResource):
           base_template_id: The base template id of the agent.
 
           block_ids: The ids of the blocks used by the agent.
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
 
           context_window_limit: The context window limit used by the agent.
 
@@ -647,6 +662,7 @@ class AgentsResource(SyncAPIResource):
                 {
                     "base_template_id": base_template_id,
                     "block_ids": block_ids,
+                    "compaction_settings": compaction_settings,
                     "context_window_limit": context_window_limit,
                     "description": description,
                     "embedding": embedding,
@@ -1065,6 +1081,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         agent_type: AgentType | Omit = omit,
         base_template_id: Optional[str] | Omit = omit,
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        compaction_settings: Optional[agent_create_params.CompactionSettings] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
@@ -1125,6 +1142,12 @@ class AsyncAgentsResource(AsyncAPIResource):
           base_template_id: Deprecated: No longer used. The base template id of the agent.
 
           block_ids: The ids of the blocks used by the agent.
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
 
           context_window_limit: The context window limit used by the agent.
 
@@ -1252,6 +1275,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "agent_type": agent_type,
                     "base_template_id": base_template_id,
                     "block_ids": block_ids,
+                    "compaction_settings": compaction_settings,
                     "context_window_limit": context_window_limit,
                     "description": description,
                     "embedding": embedding,
@@ -1377,6 +1401,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         base_template_id: Optional[str] | Omit = omit,
         block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        compaction_settings: Optional[agent_update_params.CompactionSettings] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
@@ -1427,6 +1452,12 @@ class AsyncAgentsResource(AsyncAPIResource):
           base_template_id: The base template id of the agent.
 
           block_ids: The ids of the blocks used by the agent.
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
 
           context_window_limit: The context window limit used by the agent.
 
@@ -1526,6 +1557,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                 {
                     "base_template_id": base_template_id,
                     "block_ids": block_ids,
+                    "compaction_settings": compaction_settings,
                     "context_window_limit": context_window_limit,
                     "description": description,
                     "embedding": embedding,

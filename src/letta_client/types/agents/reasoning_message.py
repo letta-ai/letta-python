@@ -10,6 +10,18 @@ __all__ = ["ReasoningMessage"]
 
 
 class ReasoningMessage(BaseModel):
+    """Representation of an agent's internal reasoning.
+
+    Args:
+        id (str): The ID of the message
+        date (datetime): The date the message was created in ISO format
+        name (Optional[str]): The name of the sender of the message
+        source (Literal["reasoner_model", "non_reasoner_model"]): Whether the reasoning
+            content was generated natively by a reasoner model or derived via prompting
+        reasoning (str): The internal reasoning of the agent
+        signature (Optional[str]): The model-generated signature of the reasoning step
+    """
+
     id: str
 
     date: datetime

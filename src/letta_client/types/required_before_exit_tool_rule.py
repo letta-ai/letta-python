@@ -9,6 +9,10 @@ __all__ = ["RequiredBeforeExitToolRule"]
 
 
 class RequiredBeforeExitToolRule(BaseModel):
+    """
+    Represents a tool rule configuration where this tool must be called before the agent loop can exit.
+    """
+
     tool_name: str
     """The name of the tool. Must exist in the database for the user's organization."""
 

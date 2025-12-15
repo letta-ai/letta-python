@@ -18,6 +18,8 @@ ResponseFormat: TypeAlias = Annotated[
 
 
 class GroqModelSettings(BaseModel):
+    """Groq model configuration (OpenAI-compatible)."""
+
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 

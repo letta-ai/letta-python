@@ -8,6 +8,8 @@ __all__ = ["AgentCreateResponse"]
 
 
 class AgentCreateResponse(BaseModel):
+    """Response containing created agent IDs and associated metadata"""
+
     agent_ids: List[str]
     """Array of created agent IDs"""
 

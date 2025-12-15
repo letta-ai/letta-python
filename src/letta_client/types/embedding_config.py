@@ -9,6 +9,8 @@ __all__ = ["EmbeddingConfig"]
 
 
 class EmbeddingConfig(BaseModel):
+    """Configuration for embedding model connection and processing parameters."""
+
     embedding_dim: int
     """The dimension of the embedding."""
 

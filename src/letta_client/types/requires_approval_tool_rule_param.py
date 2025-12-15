@@ -9,6 +9,10 @@ __all__ = ["RequiresApprovalToolRuleParam"]
 
 
 class RequiresApprovalToolRuleParam(TypedDict, total=False):
+    """
+    Represents a tool rule configuration which requires approval before the tool can be invoked.
+    """
+
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 

@@ -21,6 +21,14 @@ ResponseFormat: TypeAlias = Annotated[
 
 
 class LlmConfig(BaseModel):
+    """Configuration for Language Model (LLM) connection and generation parameters.
+
+    .. deprecated::
+        LLMConfig is deprecated and should not be used as an input or return type in API calls.
+        Use the schemas in letta.schemas.model (ModelSettings, OpenAIModelSettings, etc.) instead.
+        For conversion, use the _to_model() method or Model._from_llm_config() method.
+    """
+
     context_window: int
     """The context window size for the model."""
 
@@ -118,7 +126,7 @@ class LlmConfig(BaseModel):
     thoughts.
     """
 
-    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high"]] = None
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
     """The reasoning effort to use when generating text reasoning models"""
 
     response_format: Optional[ResponseFormat] = None

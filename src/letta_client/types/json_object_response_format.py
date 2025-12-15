@@ -9,5 +9,7 @@ __all__ = ["JsonObjectResponseFormat"]
 
 
 class JsonObjectResponseFormat(BaseModel):
+    """Response format for JSON object responses."""
+
     type: Optional[Literal["json_object"]] = None
     """The type of the response format."""

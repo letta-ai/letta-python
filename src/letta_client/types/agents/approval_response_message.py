@@ -15,6 +15,18 @@ Approval: TypeAlias = Annotated[Union[ApprovalReturn, ToolReturn], PropertyInfo(
 
 
 class ApprovalResponseMessage(BaseModel):
+    """
+    A message representing a response form the user indicating whether a tool has been approved to run.
+
+    Args:
+        id (str): The ID of the message
+        date (datetime): The date the message was created in ISO format
+        name (Optional[str]): The name of the sender of the message
+        approve: (bool) Whether the tool has been approved
+        approval_request_id: The ID of the approval request
+        reason: (Optional[str]) An optional explanation for the provided approval status
+    """
+
     id: str
 
     date: datetime

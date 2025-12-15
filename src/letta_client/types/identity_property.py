@@ -9,6 +9,8 @@ __all__ = ["IdentityProperty"]
 
 
 class IdentityProperty(BaseModel):
+    """A property of an identity"""
+
     key: str
     """The key of the property"""
 

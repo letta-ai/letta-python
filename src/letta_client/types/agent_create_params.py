@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .agent_type import AgentType
@@ -34,7 +34,14 @@ from .google_vertex_model_settings_param import GoogleVertexModelSettingsParam
 from .max_count_per_step_tool_rule_param import MaxCountPerStepToolRuleParam
 from .required_before_exit_tool_rule_param import RequiredBeforeExitToolRuleParam
 
-__all__ = ["AgentCreateParams", "ModelSettings", "ResponseFormat", "ToolRule"]
+__all__ = [
+    "AgentCreateParams",
+    "CompactionSettings",
+    "CompactionSettingsModelSettings",
+    "ModelSettings",
+    "ResponseFormat",
+    "ToolRule",
+]
 
 
 class AgentCreateParams(TypedDict, total=False):
@@ -46,6 +53,14 @@ class AgentCreateParams(TypedDict, total=False):
 
     block_ids: Optional[SequenceNotStr[str]]
     """The ids of the blocks used by the agent."""
+
+    compaction_settings: Optional[CompactionSettings]
+    """Configuration for conversation compaction / summarization.
+
+    `model` is the only required user-facing field – it specifies the summarizer
+    model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+    tokens, etc.) are derived from the default configuration for that handle.
+    """
 
     context_window_limit: Optional[int]
     """The context window limit used by the agent."""
@@ -234,6 +249,59 @@ class AgentCreateParams(TypedDict, total=False):
 
     tools: Optional[SequenceNotStr[str]]
     """The tools used by the agent."""
+
+
+CompactionSettingsModelSettings: TypeAlias = Union[
+    OpenAIModelSettingsParam,
+    AnthropicModelSettingsParam,
+    GoogleAIModelSettingsParam,
+    GoogleVertexModelSettingsParam,
+    AzureModelSettingsParam,
+    XaiModelSettingsParam,
+    GroqModelSettingsParam,
+    DeepseekModelSettingsParam,
+    TogetherModelSettingsParam,
+    BedrockModelSettingsParam,
+]
+
+
+class CompactionSettings(TypedDict, total=False):
+    """Configuration for conversation compaction / summarization.
+
+    ``model`` is the only required user-facing field – it specifies the summarizer
+    model handle (e.g. ``"openai/gpt-4o-mini"``). Per-model settings (temperature,
+    max tokens, etc.) are derived from the default configuration for that handle.
+    """
+
+    model: Required[str]
+    """Model handle to use for summarization (format: provider/model-name)."""
+
+    clip_chars: Optional[int]
+    """The maximum length of the summary in characters.
+
+    If none, no clipping is performed.
+    """
+
+    mode: Literal["all", "sliding_window"]
+    """The type of summarization technique use."""
+
+    model_settings: Optional[CompactionSettingsModelSettings]
+    """Optional model settings used to override defaults for the summarizer model."""
+
+    prompt: str
+    """The prompt to use for summarization."""
+
+    prompt_acknowledgement: bool
+    """
+    Whether to include an acknowledgement post-prompt (helps prevent non-summary
+    outputs).
+    """
+
+    sliding_window_percentage: float
+    """
+    The percentage of the context window to keep post-summarization (only used in
+    sliding window mode).
+    """
 
 
 ModelSettings: TypeAlias = Union[

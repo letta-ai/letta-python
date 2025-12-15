@@ -8,5 +8,7 @@ __all__ = ["AgentImportFileResponse"]
 
 
 class AgentImportFileResponse(BaseModel):
+    """Response model for imported agents"""
+
     agent_ids: List[str]
     """List of IDs of the imported agents"""

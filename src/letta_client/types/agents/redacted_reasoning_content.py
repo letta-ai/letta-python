@@ -9,6 +9,8 @@ __all__ = ["RedactedReasoningContent"]
 
 
 class RedactedReasoningContent(BaseModel):
+    """Sent via the Anthropic Messages API"""
+
     data: str
     """The redacted or filtered intermediate reasoning content."""
 

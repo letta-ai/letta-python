@@ -60,6 +60,8 @@ class ContentSummarizedReasoningContentSummary(BaseModel):
 
 
 class ContentSummarizedReasoningContent(BaseModel):
+    """The style of reasoning content returned by the OpenAI Responses API"""
+
     id: str
     """The unique identifier for this reasoning step."""
 
@@ -89,6 +91,8 @@ Content: TypeAlias = Annotated[
 
 
 class ToolCallFunction(BaseModel):
+    """The function that the model called."""
+
     arguments: str
 
     name: str
@@ -107,9 +111,12 @@ class ToolCallFunction(BaseModel):
 
 
 class ToolCall(BaseModel):
+    """A call to a function tool created by the model."""
+
     id: str
 
     function: ToolCallFunction
+    """The function that the model called."""
 
     type: Literal["function"]
 
@@ -144,6 +151,29 @@ class ToolReturn(BaseModel):
 
 
 class InternalMessage(BaseModel):
+    """Letta's internal representation of a message.
+
+    Includes methods to convert to/from LLM provider formats.
+
+        Attributes:
+            id (str): The unique identifier of the message.
+            role (MessageRole): The role of the participant.
+            text (str): The text of the message.
+            user_id (str): The unique identifier of the user.
+            agent_id (str): The unique identifier of the agent.
+            model (str): The model used to make the function call.
+            name (str): The name of the participant.
+            created_at (datetime): The time the message was created.
+            tool_calls (List[OpenAIToolCall,]): The list of tool calls requested.
+            tool_call_id (str): The id of the tool call.
+            step_id (str): The id of the step that this message was created in.
+            otid (str): The offline threading id associated with this message.
+            tool_returns (List[ToolReturn]): The list of tool returns requested.
+            group_id (str): The multi-agent group that the message was sent in.
+            sender_id (str): The id of the sender of the message, can be an identity id or agent id.
+    t
+    """
+
     id: str
     """The human-friendly ID of the Message"""
 

@@ -16,6 +16,14 @@ ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFor
 
 
 class LlmConfigParam(TypedDict, total=False):
+    """Configuration for Language Model (LLM) connection and generation parameters.
+
+    .. deprecated::
+        LLMConfig is deprecated and should not be used as an input or return type in API calls.
+        Use the schemas in letta.schemas.model (ModelSettings, OpenAIModelSettings, etc.) instead.
+        For conversion, use the _to_model() method or Model._from_llm_config() method.
+    """
+
     context_window: Required[int]
     """The context window size for the model."""
 
@@ -115,7 +123,7 @@ class LlmConfigParam(TypedDict, total=False):
     thoughts.
     """
 
-    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high"]]
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]]
     """The reasoning effort to use when generating text reasoning models"""
 
     response_format: Optional[ResponseFormat]
