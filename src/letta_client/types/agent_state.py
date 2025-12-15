@@ -180,21 +180,34 @@ class Source(BaseModel):
     """The vector database provider used for this source's passages"""
 
 
-class CompactionSettingsModelSettings(BaseModel):
-    """The model settings to use for summarization."""
-
-    max_output_tokens: Optional[int] = None
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: Optional[bool] = None
-    """Whether to enable parallel tool calling."""
+CompactionSettingsModelSettings: TypeAlias = Annotated[
+    Union[
+        OpenAIModelSettings,
+        AnthropicModelSettings,
+        GoogleAIModelSettings,
+        GoogleVertexModelSettings,
+        AzureModelSettings,
+        XaiModelSettings,
+        GroqModelSettings,
+        DeepseekModelSettings,
+        TogetherModelSettings,
+        BedrockModelSettings,
+        None,
+    ],
+    PropertyInfo(discriminator="provider_type"),
+]
 
 
 class CompactionSettings(BaseModel):
-    """The compaction settings configuration used for compaction."""
+    """Configuration for conversation compaction / summarization.
 
-    api_model_settings: CompactionSettingsModelSettings = FieldInfo(alias="model_settings")
-    """The model settings to use for summarization."""
+    ``model`` is the only required user-facing field – it specifies the summarizer
+    model handle (e.g. ``"openai/gpt-4o-mini"``). Per-model settings (temperature,
+    max tokens, etc.) are derived from the default configuration for that handle.
+    """
+
+    model: str
+    """Model handle to use for summarization (format: provider/model-name)."""
 
     prompt: str
     """The prompt to use for summarization."""
@@ -213,6 +226,9 @@ class CompactionSettings(BaseModel):
 
     mode: Optional[Literal["all", "sliding_window"]] = None
     """The type of summarization technique use."""
+
+    api_model_settings: Optional[CompactionSettingsModelSettings] = FieldInfo(alias="model_settings", default=None)
+    """Optional model settings used to override defaults for the summarizer model."""
 
     sliding_window_percentage: Optional[float] = None
     """
@@ -305,7 +321,12 @@ class AgentState(BaseModel):
     """The base template id of the agent."""
 
     compaction_settings: Optional[CompactionSettings] = None
-    """The compaction settings configuration used for compaction."""
+    """Configuration for conversation compaction / summarization.
+
+    `model` is the only required user-facing field – it specifies the summarizer
+    model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+    tokens, etc.) are derived from the default configuration for that handle.
+    """
 
     created_at: Optional[datetime] = None
     """The timestamp when the object was created."""

@@ -55,7 +55,12 @@ class AgentCreateParams(TypedDict, total=False):
     """The ids of the blocks used by the agent."""
 
     compaction_settings: Optional[CompactionSettings]
-    """The compaction settings configuration used for compaction."""
+    """Configuration for conversation compaction / summarization.
+
+    `model` is the only required user-facing field – it specifies the summarizer
+    model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+    tokens, etc.) are derived from the default configuration for that handle.
+    """
 
     context_window_limit: Optional[int]
     """The context window limit used by the agent."""
@@ -246,21 +251,30 @@ class AgentCreateParams(TypedDict, total=False):
     """The tools used by the agent."""
 
 
-class CompactionSettingsModelSettings(TypedDict, total=False):
-    """The model settings to use for summarization."""
-
-    max_output_tokens: int
-    """The maximum number of tokens the model can generate."""
-
-    parallel_tool_calls: bool
-    """Whether to enable parallel tool calling."""
+CompactionSettingsModelSettings: TypeAlias = Union[
+    OpenAIModelSettingsParam,
+    AnthropicModelSettingsParam,
+    GoogleAIModelSettingsParam,
+    GoogleVertexModelSettingsParam,
+    AzureModelSettingsParam,
+    XaiModelSettingsParam,
+    GroqModelSettingsParam,
+    DeepseekModelSettingsParam,
+    TogetherModelSettingsParam,
+    BedrockModelSettingsParam,
+]
 
 
 class CompactionSettings(TypedDict, total=False):
-    """The compaction settings configuration used for compaction."""
+    """Configuration for conversation compaction / summarization.
 
-    model_settings: Required[CompactionSettingsModelSettings]
-    """The model settings to use for summarization."""
+    ``model`` is the only required user-facing field – it specifies the summarizer
+    model handle (e.g. ``"openai/gpt-4o-mini"``). Per-model settings (temperature,
+    max tokens, etc.) are derived from the default configuration for that handle.
+    """
+
+    model: Required[str]
+    """Model handle to use for summarization (format: provider/model-name)."""
 
     prompt: Required[str]
     """The prompt to use for summarization."""
@@ -279,6 +293,9 @@ class CompactionSettings(TypedDict, total=False):
 
     mode: Literal["all", "sliding_window"]
     """The type of summarization technique use."""
+
+    model_settings: Optional[CompactionSettingsModelSettings]
+    """Optional model settings used to override defaults for the summarizer model."""
 
     sliding_window_percentage: float
     """
