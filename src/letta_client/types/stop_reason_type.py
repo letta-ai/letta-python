@@ -11,6 +11,7 @@ StopReasonType: TypeAlias = Literal[
     "invalid_llm_response",
     "invalid_tool_call",
     "max_steps",
+    "max_tokens_exceeded",
     "no_tool_call",
     "tool_rule",
     "cancelled",
