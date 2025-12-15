@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.4.0 (2025-12-15)
+
+Full Changelog: [v1.3.3...v1.4.0](https://github.com/letta-ai/letta-python/compare/v1.3.3...v1.4.0)
+
+### Features
+
+* add  `agent_id` to search results ([3d78133](https://github.com/letta-ai/letta-python/commit/3d78133291ee4ed9b77b0f0b5af1f0f7a537cb84))
+* add `compaction_settings` to agents ([42b5520](https://github.com/letta-ai/letta-python/commit/42b5520152785d0b70d6709e4bd1dd6808884d8e))
+* Add max tokens exceeded to stop reasons [LET-6480] ([1c09fbc](https://github.com/letta-ai/letta-python/commit/1c09fbc41f24332a5f89cda9149aa0254d0957e3))
+* add project id scoping backend changes ([a8cbf43](https://github.com/letta-ai/letta-python/commit/a8cbf4366da627d1e18dfeed2911847381e8c90f))
+* refactor summarization and message persistence code ([91165d8](https://github.com/letta-ai/letta-python/commit/91165d808b072441aa06f6dad03b3560c537698c))
+
+
+### Bug Fixes
+
+* fix `prompt_acknowledgement` usage ([eb72984](https://github.com/letta-ai/letta-python/commit/eb72984c95c48e653e3c9b4037b5841dc07dca65))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([b2d9116](https://github.com/letta-ai/letta-python/commit/b2d9116b07e59511c33aa8e288c9b0b0bbed1823))
+* use `model` instead of `model_settings` ([07c1bdc](https://github.com/letta-ai/letta-python/commit/07c1bdc08cda66c8b4a6de37ef0a553948e04ece))
+
+
+### Chores
+
+* add missing docstrings ([f40eef6](https://github.com/letta-ai/letta-python/commit/f40eef68197f582ca96dc6d9e3234c30e8e3d12a))
+* **docs:** use environment variables for authentication in code snippets ([826753b](https://github.com/letta-ai/letta-python/commit/826753bdc8efe7a56f72046a6d9b1ed10d7dbdfd))
+* **internal:** add missing files argument to base client ([3c49896](https://github.com/letta-ai/letta-python/commit/3c49896c8eec32865f40d406c73922db315b1cd3))
+
 ## 1.3.3 (2025-12-02)
 
 Full Changelog: [v1.3.2...v1.3.3](https://github.com/letta-ai/letta-python/compare/v1.3.2...v1.3.3)
