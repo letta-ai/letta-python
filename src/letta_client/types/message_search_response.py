@@ -22,7 +22,7 @@ __all__ = [
 class MessageSearchResponseItemSystemMessageListResult(BaseModel):
     """System message list result with agent context.
 
-    Shape is identical to UpdateSystemMessage but includes the owning agent_id.
+    Shape is identical to UpdateSystemMessage but includes the owning agent_id and message id.
     """
 
     content: str
@@ -34,6 +34,9 @@ class MessageSearchResponseItemSystemMessageListResult(BaseModel):
     created_at: datetime
     """The time the message was created in ISO format."""
 
+    message_id: str
+    """The unique identifier of the message."""
+
     agent_id: Optional[str] = None
     """The unique identifier of the agent that owns the message."""
 
@@ -43,7 +46,7 @@ class MessageSearchResponseItemSystemMessageListResult(BaseModel):
 class MessageSearchResponseItemUserMessageListResult(BaseModel):
     """User message list result with agent context.
 
-    Shape is identical to UpdateUserMessage but includes the owning agent_id.
+    Shape is identical to UpdateUserMessage but includes the owning agent_id and message id.
     """
 
     content: Union[List[LettaUserMessageContentUnion], str]
@@ -55,6 +58,9 @@ class MessageSearchResponseItemUserMessageListResult(BaseModel):
     created_at: datetime
     """The time the message was created in ISO format."""
 
+    message_id: str
+    """The unique identifier of the message."""
+
     agent_id: Optional[str] = None
     """The unique identifier of the agent that owns the message."""
 
@@ -64,11 +70,14 @@ class MessageSearchResponseItemUserMessageListResult(BaseModel):
 class MessageSearchResponseItemReasoningMessageListResult(BaseModel):
     """Reasoning message list result with agent context.
 
-    Shape is identical to UpdateReasoningMessage but includes the owning agent_id.
+    Shape is identical to UpdateReasoningMessage but includes the owning agent_id and message id.
     """
 
     created_at: datetime
     """The time the message was created in ISO format."""
+
+    message_id: str
+    """The unique identifier of the message."""
 
     reasoning: str
 
@@ -81,7 +90,7 @@ class MessageSearchResponseItemReasoningMessageListResult(BaseModel):
 class MessageSearchResponseItemAssistantMessageListResult(BaseModel):
     """Assistant message list result with agent context.
 
-    Shape is identical to UpdateAssistantMessage but includes the owning agent_id.
+    Shape is identical to UpdateAssistantMessage but includes the owning agent_id and message id.
     """
 
     content: Union[List[LettaAssistantMessageContentUnion], str]
@@ -92,6 +101,9 @@ class MessageSearchResponseItemAssistantMessageListResult(BaseModel):
 
     created_at: datetime
     """The time the message was created in ISO format."""
+
+    message_id: str
+    """The unique identifier of the message."""
 
     agent_id: Optional[str] = None
     """The unique identifier of the agent that owns the message."""
