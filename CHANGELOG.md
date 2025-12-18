@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.0 (2025-12-18)
+
+Full Changelog: [v1.5.0...v1.6.0](https://github.com/letta-ai/letta-python/compare/v1.5.0...v1.6.0)
+
+### Features
+
+* add compaction response ([2b34802](https://github.com/letta-ai/letta-python/commit/2b348028c316f56d691bcc94595283b05e4c0749))
+
 ## 1.5.0 (2025-12-18)
 
 Full Changelog: [v1.4.0...v1.5.0](https://github.com/letta-ai/letta-python/compare/v1.4.0...v1.5.0)
