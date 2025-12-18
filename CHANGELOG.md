@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.5.0 (2025-12-18)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/letta-ai/letta-python/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* add msg id to search endpoint response ([43669d7](https://github.com/letta-ai/letta-python/commit/43669d76a38274d41e0fe7b37608d728b6925829))
+* allow for configuration compaction and return message delta ([203f65e](https://github.com/letta-ai/letta-python/commit/203f65e469c3c44c85eb212f1bdc5c86e1538ed9))
+
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([a0095bb](https://github.com/letta-ai/letta-python/commit/a0095bb7bc4c525edc406c8be58ae34f2968d0aa))
+
+
+### Chores
+
+* speedup initial import ([a4a4f90](https://github.com/letta-ai/letta-python/commit/a4a4f90bf8d8e6de1796963181b0ba2d2cf8a9bd))
+
 ## 1.4.0 (2025-12-15)
 
 Full Changelog: [v1.3.3...v1.4.0](https://github.com/letta-ai/letta-python/compare/v1.3.3...v1.4.0)

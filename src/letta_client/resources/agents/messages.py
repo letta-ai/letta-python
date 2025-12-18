@@ -26,6 +26,7 @@ from ...types.agents import (
     message_cancel_params,
     message_create_params,
     message_stream_params,
+    message_compact_params,
     message_create_async_params,
 )
 from ...types.agents.run import Run
@@ -515,6 +516,7 @@ class MessagesResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
+        compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -527,6 +529,12 @@ class MessagesResource(SyncAPIResource):
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
 
           extra_headers: Send extra headers
 
@@ -541,6 +549,9 @@ class MessagesResource(SyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/v1/agents/{agent_id}/summarize",
+            body=maybe_transform(
+                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1260,6 +1271,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
+        compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1272,6 +1284,12 @@ class AsyncMessagesResource(AsyncAPIResource):
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
 
           extra_headers: Send extra headers
 
@@ -1286,6 +1304,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/v1/agents/{agent_id}/summarize",
+            body=await async_maybe_transform(
+                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
