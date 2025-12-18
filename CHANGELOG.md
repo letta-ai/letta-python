@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.1 (2025-12-18)
+
+Full Changelog: [v1.6.0...v1.6.1](https://github.com/letta-ai/letta-python/compare/v1.6.0...v1.6.1)
+
+### Bug Fixes
+
+* fix summary message return for compaction ([0c3f364](https://github.com/letta-ai/letta-python/commit/0c3f36455dbcec6f02f0debe8fbb105f11878a97))
+
 ## 1.6.0 (2025-12-18)
 
 Full Changelog: [v1.5.0...v1.6.0](https://github.com/letta-ai/letta-python/compare/v1.5.0...v1.6.0)
