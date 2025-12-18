@@ -1,4 +1,4 @@
 configured_endpoints: 128
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/letta-ai%2Fletta-sdk-13385948b91a6c930ab6349a8c6acc0e863ae90715c60e6d8a151dad0c500987.yml
-openapi_spec_hash: 4d5e404314f9d9684de75a0935cfaea0
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/letta-ai%2Fletta-sdk-60293d20c9007d817661defdcad53ed94b0f47c413099fe5e2f7e3bfee8237dc.yml
+openapi_spec_hash: d227e550a761118acffcfdd6d2e4b3f4
 config_hash: af181af60655305bf430e7a5ad358f8d
