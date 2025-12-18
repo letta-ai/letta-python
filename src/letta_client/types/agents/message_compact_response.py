@@ -10,4 +10,4 @@ class MessageCompactResponse(BaseModel):
 
     num_messages_before: int
 
-    summary_message: str
+    summary: str
