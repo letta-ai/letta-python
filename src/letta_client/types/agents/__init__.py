@@ -62,6 +62,7 @@ from .tool_call_content_param import ToolCallContentParam as ToolCallContentPara
 from .approval_request_message import ApprovalRequestMessage as ApprovalRequestMessage
 from .hidden_reasoning_message import HiddenReasoningMessage as HiddenReasoningMessage
 from .letta_streaming_response import LettaStreamingResponse as LettaStreamingResponse
+from .message_compact_response import MessageCompactResponse as MessageCompactResponse
 from .approval_response_message import ApprovalResponseMessage as ApprovalResponseMessage
 from .omitted_reasoning_content import OmittedReasoningContent as OmittedReasoningContent
 from .tool_return_content_param import ToolReturnContentParam as ToolReturnContentParam
