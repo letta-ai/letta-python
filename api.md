@@ -104,6 +104,7 @@ from letta_client.types.agents import (
     UpdateUserMessage,
     UserMessage,
     MessageCancelResponse,
+    MessageCompactResponse,
 )
 ```
 
@@ -112,7 +113,7 @@ Methods:
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">create</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_response.py">LettaResponse</a></code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncArrayPage[Message]</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">cancel</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_cancel_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message_cancel_response.py">MessageCancelResponse</a></code>
-- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">compact</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_compact_params.py">params</a>) -> None</code>
+- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">compact</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_compact_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message_compact_response.py">MessageCompactResponse</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">create_async</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_create_async_params.py">params</a>) -> <a href="./src/letta_client/types/agents/run.py">Run</a></code>
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">reset</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_reset_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">stream</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_stream_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_streaming_response.py">LettaStreamingResponse</a></code>

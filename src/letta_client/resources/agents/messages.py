@@ -7,7 +7,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -36,6 +36,7 @@ from ...types.agents.message_type import MessageType
 from ...types.agents.letta_response import LettaResponse
 from ...types.agents.message_cancel_response import MessageCancelResponse
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
+from ...types.agents.message_compact_response import MessageCompactResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -523,7 +524,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> MessageCompactResponse:
         """
         Summarize an agent's conversation history.
 
@@ -546,7 +547,6 @@ class MessagesResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             f"/v1/agents/{agent_id}/summarize",
             body=maybe_transform(
@@ -555,7 +555,7 @@ class MessagesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=MessageCompactResponse,
         )
 
     def create_async(
@@ -1278,7 +1278,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    ) -> MessageCompactResponse:
         """
         Summarize an agent's conversation history.
 
@@ -1301,7 +1301,6 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/v1/agents/{agent_id}/summarize",
             body=await async_maybe_transform(
@@ -1310,7 +1309,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=NoneType,
+            cast_to=MessageCompactResponse,
         )
 
     async def create_async(
