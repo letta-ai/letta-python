@@ -52,6 +52,7 @@ from .passage_create_params import PassageCreateParams as PassageCreateParams
 from .passage_list_response import PassageListResponse as PassageListResponse
 from .passage_search_params import PassageSearchParams as PassageSearchParams
 from .tool_execution_result import ToolExecutionResult as ToolExecutionResult
+from .message_compact_params import MessageCompactParams as MessageCompactParams
 from .file_close_all_response import FileCloseAllResponse as FileCloseAllResponse
 from .message_cancel_response import MessageCancelResponse as MessageCancelResponse
 from .passage_create_response import PassageCreateResponse as PassageCreateResponse
