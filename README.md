@@ -107,6 +107,38 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
+## Streaming responses
+
+We provide support for streaming responses using Server Side Events (SSE).
+
+```python
+from letta_client import Letta
+
+client = Letta()
+
+stream = client.agents.messages.create(
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+    streaming=True,
+)
+for message in stream:
+    print(message.messages)
+```
+
+The async client uses the exact same interface.
+
+```python
+from letta_client import AsyncLetta
+
+client = AsyncLetta()
+
+stream = await client.agents.messages.create(
+    agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+    streaming=True,
+)
+async for message in stream:
+    print(message.messages)
+```
+
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
@@ -115,6 +147,69 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+## Pagination
+
+List methods in the Letta API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+from letta_client import Letta
+
+client = Letta()
+
+all_agents = []
+# Automatically fetches more pages as needed.
+for agent in client.agents.list():
+    # Do something with agent here
+    all_agents.append(agent)
+print(all_agents)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+from letta_client import AsyncLetta
+
+client = AsyncLetta()
+
+
+async def main() -> None:
+    all_agents = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for agent in client.agents.list():
+        all_agents.append(agent)
+    print(all_agents)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.agents.list()
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.items)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.agents.list()
+
+print(f"next page cursor: {first_page.after}")  # => "next page cursor: ..."
+for agent in first_page.items:
+    print(agent.id)
+
+# Remove `await` for non-async usage.
+```
 
 ## Nested params
 
