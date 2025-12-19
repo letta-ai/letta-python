@@ -312,11 +312,12 @@ Methods:
 Types:
 
 ```python
-from letta_client.types.folders import FileListResponse, FileUploadResponse
+from letta_client.types.folders import FileRetrieveResponse, FileListResponse, FileUploadResponse
 ```
 
 Methods:
 
+- <code title="get /v1/folders/{folder_id}/files/{file_id}">client.folders.files.<a href="./src/letta_client/resources/folders/files.py">retrieve</a>(file_id, \*, folder_id, \*\*<a href="src/letta_client/types/folders/file_retrieve_params.py">params</a>) -> <a href="./src/letta_client/types/folders/file_retrieve_response.py">FileRetrieveResponse</a></code>
 - <code title="get /v1/folders/{folder_id}/files">client.folders.files.<a href="./src/letta_client/resources/folders/files.py">list</a>(folder_id, \*\*<a href="src/letta_client/types/folders/file_list_params.py">params</a>) -> <a href="./src/letta_client/types/folders/file_list_response.py">SyncArrayPage[FileListResponse]</a></code>
 - <code title="delete /v1/folders/{folder_id}/{file_id}">client.folders.files.<a href="./src/letta_client/resources/folders/files.py">delete</a>(file_id, \*, folder_id) -> None</code>
 - <code title="post /v1/folders/{folder_id}/upload">client.folders.files.<a href="./src/letta_client/resources/folders/files.py">upload</a>(folder_id, \*\*<a href="src/letta_client/types/folders/file_upload_params.py">params</a>) -> <a href="./src/letta_client/types/folders/file_upload_response.py">FileUploadResponse</a></code>

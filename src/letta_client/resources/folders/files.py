@@ -19,9 +19,10 @@ from ..._response import (
 )
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.folders import file_list_params, file_upload_params
+from ...types.folders import file_list_params, file_upload_params, file_retrieve_params
 from ...types.folders.file_list_response import FileListResponse
 from ...types.folders.file_upload_response import FileUploadResponse
+from ...types.folders.file_retrieve_response import FileRetrieveResponse
 
 __all__ = ["FilesResource", "AsyncFilesResource"]
 
@@ -45,6 +46,53 @@ class FilesResource(SyncAPIResource):
         For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return FilesResourceWithStreamingResponse(self)
+
+    def retrieve(
+        self,
+        file_id: str,
+        *,
+        folder_id: str,
+        include_content: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileRetrieveResponse:
+        """
+        Retrieve a file from a folder by ID.
+
+        Args:
+          folder_id: The ID of the source in the format 'source-<uuid4>'
+
+          file_id: The ID of the file in the format 'file-<uuid4>'
+
+          include_content: Whether to include full file content
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not folder_id:
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        if not file_id:
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+        return self._get(
+            f"/v1/folders/{folder_id}/files/{file_id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"include_content": include_content}, file_retrieve_params.FileRetrieveParams),
+            ),
+            cast_to=FileRetrieveResponse,
+        )
 
     def list(
         self,
@@ -239,6 +287,55 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         return AsyncFilesResourceWithStreamingResponse(self)
 
+    async def retrieve(
+        self,
+        file_id: str,
+        *,
+        folder_id: str,
+        include_content: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileRetrieveResponse:
+        """
+        Retrieve a file from a folder by ID.
+
+        Args:
+          folder_id: The ID of the source in the format 'source-<uuid4>'
+
+          file_id: The ID of the file in the format 'file-<uuid4>'
+
+          include_content: Whether to include full file content
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not folder_id:
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        if not file_id:
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+        return await self._get(
+            f"/v1/folders/{folder_id}/files/{file_id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"include_content": include_content}, file_retrieve_params.FileRetrieveParams
+                ),
+            ),
+            cast_to=FileRetrieveResponse,
+        )
+
     def list(
         self,
         folder_id: str,
@@ -416,6 +513,9 @@ class FilesResourceWithRawResponse:
     def __init__(self, files: FilesResource) -> None:
         self._files = files
 
+        self.retrieve = to_raw_response_wrapper(
+            files.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             files.list,
         )
@@ -431,6 +531,9 @@ class AsyncFilesResourceWithRawResponse:
     def __init__(self, files: AsyncFilesResource) -> None:
         self._files = files
 
+        self.retrieve = async_to_raw_response_wrapper(
+            files.retrieve,
+        )
         self.list = async_to_raw_response_wrapper(
             files.list,
         )
@@ -446,6 +549,9 @@ class FilesResourceWithStreamingResponse:
     def __init__(self, files: FilesResource) -> None:
         self._files = files
 
+        self.retrieve = to_streamed_response_wrapper(
+            files.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             files.list,
         )
@@ -461,6 +567,9 @@ class AsyncFilesResourceWithStreamingResponse:
     def __init__(self, files: AsyncFilesResource) -> None:
         self._files = files
 
+        self.retrieve = async_to_streamed_response_wrapper(
+            files.retrieve,
+        )
         self.list = async_to_streamed_response_wrapper(
             files.list,
         )
