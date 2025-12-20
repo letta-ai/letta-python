@@ -346,12 +346,6 @@ class AgentState(BaseModel):
     blocks: List[Block]
     """The memory blocks used by the agent."""
 
-    embedding_config: EmbeddingConfig
-    """Deprecated: Use `embedding` field instead.
-
-    The embedding configuration used by the agent.
-    """
-
     llm_config: LlmConfig
     """Deprecated: Use `model` field instead. The LLM configuration used by the agent."""
 
@@ -398,6 +392,9 @@ class AgentState(BaseModel):
 
     embedding: Optional[str] = None
     """The embedding model handle used by the agent (format: provider/model-name)."""
+
+    embedding_config: Optional[EmbeddingConfig] = None
+    """Configuration for embedding model connection and processing parameters."""
 
     enable_sleeptime: Optional[bool] = None
     """If set to True, memory management will move to a background agent thread."""
