@@ -22,4 +22,5 @@ ProviderType: TypeAlias = Literal[
     "together",
     "vllm",
     "xai",
+    "zai",
 ]

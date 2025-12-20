@@ -38,7 +38,11 @@ __all__ = [
     "AgentUpdateParams",
     "CompactionSettings",
     "CompactionSettingsModelSettings",
+    "CompactionSettingsModelSettingsZaiModelSettings",
+    "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettings",
+    "ModelSettingsZaiModelSettings",
+    "ModelSettingsZaiModelSettingsResponseFormat",
     "ResponseFormat",
     "ToolRule",
 ]
@@ -193,6 +197,30 @@ class AgentUpdateParams(TypedDict, total=False):
     """The tool rules governing the agent."""
 
 
+CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
+    """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["zai"]
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsZaiModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    temperature: float
+    """The temperature of the model."""
+
+
 CompactionSettingsModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
     AnthropicModelSettingsParam,
@@ -200,6 +228,7 @@ CompactionSettingsModelSettings: TypeAlias = Union[
     GoogleVertexModelSettingsParam,
     AzureModelSettingsParam,
     XaiModelSettingsParam,
+    CompactionSettingsModelSettingsZaiModelSettings,
     GroqModelSettingsParam,
     DeepseekModelSettingsParam,
     TogetherModelSettingsParam,
@@ -246,6 +275,30 @@ class CompactionSettings(TypedDict, total=False):
     """
 
 
+ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class ModelSettingsZaiModelSettings(TypedDict, total=False):
+    """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["zai"]
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsZaiModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    temperature: float
+    """The temperature of the model."""
+
+
 ModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
     AnthropicModelSettingsParam,
@@ -253,6 +306,7 @@ ModelSettings: TypeAlias = Union[
     GoogleVertexModelSettingsParam,
     AzureModelSettingsParam,
     XaiModelSettingsParam,
+    ModelSettingsZaiModelSettings,
     GroqModelSettingsParam,
     DeepseekModelSettingsParam,
     TogetherModelSettingsParam,
