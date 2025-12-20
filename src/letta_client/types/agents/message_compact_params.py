@@ -8,15 +8,24 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 from ..xai_model_settings_param import XaiModelSettingsParam
 from ..groq_model_settings_param import GroqModelSettingsParam
 from ..azure_model_settings_param import AzureModelSettingsParam
+from ..text_response_format_param import TextResponseFormatParam
 from ..openai_model_settings_param import OpenAIModelSettingsParam
 from ..bedrock_model_settings_param import BedrockModelSettingsParam
 from ..deepseek_model_settings_param import DeepseekModelSettingsParam
 from ..together_model_settings_param import TogetherModelSettingsParam
 from ..anthropic_model_settings_param import AnthropicModelSettingsParam
 from ..google_ai_model_settings_param import GoogleAIModelSettingsParam
+from ..json_object_response_format_param import JsonObjectResponseFormatParam
+from ..json_schema_response_format_param import JsonSchemaResponseFormatParam
 from ..google_vertex_model_settings_param import GoogleVertexModelSettingsParam
 
-__all__ = ["MessageCompactParams", "CompactionSettings", "CompactionSettingsModelSettings"]
+__all__ = [
+    "MessageCompactParams",
+    "CompactionSettings",
+    "CompactionSettingsModelSettings",
+    "CompactionSettingsModelSettingsZaiModelSettings",
+    "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
+]
 
 
 class MessageCompactParams(TypedDict, total=False):
@@ -29,6 +38,30 @@ class MessageCompactParams(TypedDict, total=False):
     """
 
 
+CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
+    """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["zai"]
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsZaiModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    temperature: float
+    """The temperature of the model."""
+
+
 CompactionSettingsModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
     AnthropicModelSettingsParam,
@@ -36,6 +69,7 @@ CompactionSettingsModelSettings: TypeAlias = Union[
     GoogleVertexModelSettingsParam,
     AzureModelSettingsParam,
     XaiModelSettingsParam,
+    CompactionSettingsModelSettingsZaiModelSettings,
     GroqModelSettingsParam,
     DeepseekModelSettingsParam,
     TogetherModelSettingsParam,

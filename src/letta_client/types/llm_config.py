@@ -57,6 +57,7 @@ class LlmConfig(BaseModel):
         "bedrock",
         "deepseek",
         "xai",
+        "zai",
     ] = FieldInfo(alias="model_endpoint_type")
     """The endpoint type for the model."""
 

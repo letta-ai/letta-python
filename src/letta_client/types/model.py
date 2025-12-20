@@ -56,6 +56,7 @@ class Model(BaseModel):
         "bedrock",
         "deepseek",
         "xai",
+        "zai",
     ] = FieldInfo(alias="model_endpoint_type")
     """Deprecated: Use 'provider_type' field instead. The endpoint type for the model."""
 
