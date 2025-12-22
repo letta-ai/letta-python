@@ -48,7 +48,11 @@ __all__ = [
     "Source",
     "CompactionSettings",
     "CompactionSettingsModelSettings",
+    "CompactionSettingsModelSettingsZaiModelSettings",
+    "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettings",
+    "ModelSettingsZaiModelSettings",
+    "ModelSettingsZaiModelSettingsResponseFormat",
     "ResponseFormat",
     "ToolRule",
 ]
@@ -180,6 +184,31 @@ class Source(BaseModel):
     """The vector database provider used for this source's passages"""
 
 
+CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class CompactionSettingsModelSettingsZaiModelSettings(BaseModel):
+    """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["zai"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsZaiModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+
 CompactionSettingsModelSettings: TypeAlias = Annotated[
     Union[
         OpenAIModelSettings,
@@ -188,6 +217,7 @@ CompactionSettingsModelSettings: TypeAlias = Annotated[
         GoogleVertexModelSettings,
         AzureModelSettings,
         XaiModelSettings,
+        CompactionSettingsModelSettingsZaiModelSettings,
         GroqModelSettings,
         DeepseekModelSettings,
         TogetherModelSettings,
@@ -237,6 +267,31 @@ class CompactionSettings(BaseModel):
     """
 
 
+ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsZaiModelSettings(BaseModel):
+    """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["zai"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsZaiModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+
 ModelSettings: TypeAlias = Annotated[
     Union[
         OpenAIModelSettings,
@@ -245,6 +300,7 @@ ModelSettings: TypeAlias = Annotated[
         GoogleVertexModelSettings,
         AzureModelSettings,
         XaiModelSettings,
+        ModelSettingsZaiModelSettings,
         GroqModelSettings,
         DeepseekModelSettings,
         TogetherModelSettings,
@@ -289,12 +345,6 @@ class AgentState(BaseModel):
 
     blocks: List[Block]
     """The memory blocks used by the agent."""
-
-    embedding_config: EmbeddingConfig
-    """Deprecated: Use `embedding` field instead.
-
-    The embedding configuration used by the agent.
-    """
 
     llm_config: LlmConfig
     """Deprecated: Use `model` field instead. The LLM configuration used by the agent."""
@@ -342,6 +392,9 @@ class AgentState(BaseModel):
 
     embedding: Optional[str] = None
     """The embedding model handle used by the agent (format: provider/model-name)."""
+
+    embedding_config: Optional[EmbeddingConfig] = None
+    """Configuration for embedding model connection and processing parameters."""
 
     enable_sleeptime: Optional[bool] = None
     """If set to True, memory management will move to a background agent thread."""

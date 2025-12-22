@@ -73,6 +73,9 @@ class Step(BaseModel):
     provider_name: Optional[str] = None
     """The name of the provider used for this step."""
 
+    request_id: Optional[str] = None
+    """The API request log ID from cloud-api for correlating steps with API requests."""
+
     run_id: Optional[str] = None
     """The unique identifier of the run that this step belongs to.
 

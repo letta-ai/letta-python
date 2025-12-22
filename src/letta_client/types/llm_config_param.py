@@ -53,6 +53,7 @@ class LlmConfigParam(TypedDict, total=False):
             "bedrock",
             "deepseek",
             "xai",
+            "zai",
         ]
     ]
     """The endpoint type for the model."""

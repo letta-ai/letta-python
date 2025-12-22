@@ -7,4 +7,6 @@ from .agent_list_params import AgentListParams as AgentListParams
 from .file_list_response import FileListResponse as FileListResponse
 from .file_upload_params import FileUploadParams as FileUploadParams
 from .agent_list_response import AgentListResponse as AgentListResponse
+from .file_retrieve_params import FileRetrieveParams as FileRetrieveParams
 from .file_upload_response import FileUploadResponse as FileUploadResponse
+from .file_retrieve_response import FileRetrieveResponse as FileRetrieveResponse
