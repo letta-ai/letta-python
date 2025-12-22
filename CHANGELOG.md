@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.6.2 (2025-12-22)
+
+Full Changelog: [v1.6.1...v1.6.2](https://github.com/letta-ai/letta-python/compare/v1.6.1...v1.6.2)
+
+### Features
+
+* add request-id for steps [LET-6587] ([e8e8768](https://github.com/letta-ai/letta-python/commit/e8e8768d4144eceb66b4c0b00132310c4cf002a7))
+* add retrieve_file endpoint to get file content ([db16acf](https://github.com/letta-ai/letta-python/commit/db16acfd5cd80de0001f6c69eddb5682acd23808))
+* add zai provider support ([0df53e4](https://github.com/letta-ai/letta-python/commit/0df53e4c00fce475158570f8f8306bc43c9f2338))
+* make embedding_config optional on agent creation ([24f083d](https://github.com/letta-ai/letta-python/commit/24f083d25f7239083f4bf8986113d93c2f54d65a))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([5f85faa](https://github.com/letta-ai/letta-python/commit/5f85faacd6525f5f2d079c3b46bc876ebc2c4fb9))
+
+
+### Documentation
+
+* add more examples ([2c9bba3](https://github.com/letta-ai/letta-python/commit/2c9bba3b07cb677d53a66b1f288e28589b460b93))
+
 ## 1.6.1 (2025-12-18)
 
 Full Changelog: [v1.6.0...v1.6.1](https://github.com/letta-ai/letta-python/compare/v1.6.0...v1.6.1)
