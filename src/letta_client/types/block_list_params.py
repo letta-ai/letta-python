@@ -55,7 +55,7 @@ class BlockListParams(TypedDict, total=False):
     """The ID of the identity in the format 'identity-<uuid4>'"""
 
     label: Optional[str]
-    """Label to include (alphanumeric, hyphens, underscores only)"""
+    """Label to include (alphanumeric, hyphens, underscores, forward slashes)"""
 
     label_search: Optional[str]
     """Search blocks by label.
