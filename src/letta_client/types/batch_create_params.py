@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .agents.message_type import MessageType
@@ -19,6 +19,7 @@ from .agents.redacted_reasoning_content_param import RedactedReasoningContentPar
 __all__ = [
     "BatchCreateParams",
     "Request",
+    "RequestClientTool",
     "RequestInputUnionMember1",
     "RequestInputUnionMember1SummarizedReasoningContent",
     "RequestInputUnionMember1SummarizedReasoningContentSummary",
@@ -39,6 +40,24 @@ class BatchCreateParams(TypedDict, total=False):
     'failed'), and 'completed_at' is an ISO 8601 timestamp indicating when the batch
     job completed.
     """
+
+
+class RequestClientTool(TypedDict, total=False):
+    """Schema for a client-side tool passed in the request.
+
+    Client-side tools are executed by the client, not the server. When the agent
+    calls a client-side tool, execution pauses and returns control to the client
+    to execute the tool and provide the result.
+    """
+
+    name: Required[str]
+    """The name of the tool function"""
+
+    description: Optional[str]
+    """Description of what the tool does"""
+
+    parameters: Optional[Dict[str, object]]
+    """JSON Schema for the function parameters"""
 
 
 class RequestInputUnionMember1SummarizedReasoningContentSummary(TypedDict, total=False):
@@ -95,6 +114,13 @@ class Request(TypedDict, total=False):
 
     Still supported for legacy agent types, but deprecated for letta_v1_agent
     onward.
+    """
+
+    client_tools: Optional[Iterable[RequestClientTool]]
+    """Client-side tools that the agent can call.
+
+    When the agent calls a client-side tool, execution pauses and returns control to
+    the client to execute the tool and provide the result via a ToolReturn.
     """
 
     enable_thinking: str

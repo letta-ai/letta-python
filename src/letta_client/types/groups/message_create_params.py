@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from ..agents.message_type import MessageType
@@ -18,6 +18,7 @@ from ..agents.redacted_reasoning_content_param import RedactedReasoningContentPa
 
 __all__ = [
     "MessageCreateParams",
+    "ClientTool",
     "InputUnionMember1",
     "InputUnionMember1SummarizedReasoningContent",
     "InputUnionMember1SummarizedReasoningContentSummary",
@@ -38,6 +39,13 @@ class MessageCreateParams(TypedDict, total=False):
 
     Still supported for legacy agent types, but deprecated for letta_v1_agent
     onward.
+    """
+
+    client_tools: Optional[Iterable[ClientTool]]
+    """Client-side tools that the agent can call.
+
+    When the agent calls a client-side tool, execution pauses and returns control to
+    the client to execute the tool and provide the result via a ToolReturn.
     """
 
     enable_thinking: str
@@ -69,6 +77,24 @@ class MessageCreateParams(TypedDict, total=False):
     `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
     types, but deprecated for letta_v1_agent onward.
     """
+
+
+class ClientTool(TypedDict, total=False):
+    """Schema for a client-side tool passed in the request.
+
+    Client-side tools are executed by the client, not the server. When the agent
+    calls a client-side tool, execution pauses and returns control to the client
+    to execute the tool and provide the result.
+    """
+
+    name: Required[str]
+    """The name of the tool function"""
+
+    description: Optional[str]
+    """Description of what the tool does"""
+
+    parameters: Optional[Dict[str, object]]
+    """JSON Schema for the function parameters"""
 
 
 class InputUnionMember1SummarizedReasoningContentSummary(TypedDict, total=False):
