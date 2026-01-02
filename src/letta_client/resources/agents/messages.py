@@ -69,6 +69,7 @@ class MessagesResource(SyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -113,6 +114,10 @@ class MessagesResource(SyncAPIResource):
 
           background: Whether to process the request in the background (only used when
               streaming=true).
+
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
@@ -159,6 +164,7 @@ class MessagesResource(SyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -206,6 +212,10 @@ class MessagesResource(SyncAPIResource):
           background: Whether to process the request in the background (only used when
               streaming=true).
 
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
+
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
@@ -248,6 +258,7 @@ class MessagesResource(SyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -295,6 +306,10 @@ class MessagesResource(SyncAPIResource):
           background: Whether to process the request in the background (only used when
               streaming=true).
 
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
+
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
@@ -335,6 +350,7 @@ class MessagesResource(SyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -360,6 +376,7 @@ class MessagesResource(SyncAPIResource):
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
+                    "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
@@ -565,6 +582,7 @@ class MessagesResource(SyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         callback_url: Optional[str] | Omit = omit,
+        client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
@@ -597,6 +615,10 @@ class MessagesResource(SyncAPIResource):
               but deprecated for letta_v1_agent onward.
 
           callback_url: Optional callback URL to POST to when the job completes
+
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
@@ -632,6 +654,7 @@ class MessagesResource(SyncAPIResource):
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "callback_url": callback_url,
+                    "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
@@ -695,6 +718,7 @@ class MessagesResource(SyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -728,6 +752,10 @@ class MessagesResource(SyncAPIResource):
 
           background: Whether to process the request in the background (only used when
               streaming=true).
+
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
@@ -772,6 +800,7 @@ class MessagesResource(SyncAPIResource):
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
+                    "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
@@ -823,6 +852,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -867,6 +897,10 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           background: Whether to process the request in the background (only used when
               streaming=true).
+
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
@@ -913,6 +947,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -960,6 +995,10 @@ class AsyncMessagesResource(AsyncAPIResource):
           background: Whether to process the request in the background (only used when
               streaming=true).
 
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
+
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
@@ -1002,6 +1041,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -1049,6 +1089,10 @@ class AsyncMessagesResource(AsyncAPIResource):
           background: Whether to process the request in the background (only used when
               streaming=true).
 
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
+
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
@@ -1089,6 +1133,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -1114,6 +1159,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
+                    "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
@@ -1319,6 +1365,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         callback_url: Optional[str] | Omit = omit,
+        client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
@@ -1351,6 +1398,10 @@ class AsyncMessagesResource(AsyncAPIResource):
               but deprecated for letta_v1_agent onward.
 
           callback_url: Optional callback URL to POST to when the job completes
+
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
@@ -1386,6 +1437,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "callback_url": callback_url,
+                    "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
@@ -1449,6 +1501,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
@@ -1482,6 +1535,10 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           background: Whether to process the request in the background (only used when
               streaming=true).
+
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
@@ -1526,6 +1583,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
+                    "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
