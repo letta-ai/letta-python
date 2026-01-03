@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.6.3 (2026-01-03)
+
+Full Changelog: [v1.6.2...v1.6.3](https://github.com/letta-ai/letta-python/compare/v1.6.2...v1.6.3)
+
+### Features
+
+* allow client-side tools to be specified in request ([2c95b29](https://github.com/letta-ai/letta-python/commit/2c95b293f6c0223b9f3c3fd1de9be631433be50b))
+
+
+### Bug Fixes
+
+* validation failure on blocks retrieve [LET-6709] ([9a286d3](https://github.com/letta-ai/letta-python/commit/9a286d30ff19759b56f0705e899da99bc4b2b611))
+
 ## 1.6.2 (2025-12-22)
 
 Full Changelog: [v1.6.1...v1.6.2](https://github.com/letta-ai/letta-python/compare/v1.6.1...v1.6.2)
