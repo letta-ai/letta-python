@@ -36,6 +36,13 @@ class TestMessages:
             group_id="group-123e4567-e89b-42d3-8456-426614174000",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
+            client_tools=[
+                {
+                    "name": "name",
+                    "description": "description",
+                    "parameters": {"foo": "bar"},
+                }
+            ],
             enable_thinking="enable_thinking",
             include_return_message_types=["system_message"],
             input="string",
@@ -521,6 +528,13 @@ class TestMessages:
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
+            client_tools=[
+                {
+                    "name": "name",
+                    "description": "description",
+                    "parameters": {"foo": "bar"},
+                }
+            ],
             enable_thinking="enable_thinking",
             include_pings=True,
             include_return_message_types=["system_message"],
@@ -604,6 +618,13 @@ class TestAsyncMessages:
             group_id="group-123e4567-e89b-42d3-8456-426614174000",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
+            client_tools=[
+                {
+                    "name": "name",
+                    "description": "description",
+                    "parameters": {"foo": "bar"},
+                }
+            ],
             enable_thinking="enable_thinking",
             include_return_message_types=["system_message"],
             input="string",
@@ -1089,6 +1110,13 @@ class TestAsyncMessages:
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
+            client_tools=[
+                {
+                    "name": "name",
+                    "description": "description",
+                    "parameters": {"foo": "bar"},
+                }
+            ],
             enable_thinking="enable_thinking",
             include_pings=True,
             include_return_message_types=["system_message"],

@@ -339,7 +339,7 @@ class BlocksResource(SyncAPIResource):
 
           identity_id: The ID of the identity in the format 'identity-<uuid4>'
 
-          label: Label to include (alphanumeric, hyphens, underscores only)
+          label: Label to include (alphanumeric, hyphens, underscores, forward slashes)
 
           label_search: Search blocks by label. If provided, returns blocks whose label matches the
               search query. This is a full-text search on block labels.
@@ -744,7 +744,7 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           identity_id: The ID of the identity in the format 'identity-<uuid4>'
 
-          label: Label to include (alphanumeric, hyphens, underscores only)
+          label: Label to include (alphanumeric, hyphens, underscores, forward slashes)
 
           label_search: Search blocks by label. If provided, returns blocks whose label matches the
               search query. This is a full-text search on block labels.

@@ -35,6 +35,13 @@ class TestBatches:
                     "agent_id": "agent_id",
                     "assistant_message_tool_kwarg": "assistant_message_tool_kwarg",
                     "assistant_message_tool_name": "assistant_message_tool_name",
+                    "client_tools": [
+                        {
+                            "name": "name",
+                            "description": "description",
+                            "parameters": {"foo": "bar"},
+                        }
+                    ],
                     "enable_thinking": "enable_thinking",
                     "include_return_message_types": ["system_message"],
                     "input": "string",
@@ -237,6 +244,13 @@ class TestAsyncBatches:
                     "agent_id": "agent_id",
                     "assistant_message_tool_kwarg": "assistant_message_tool_kwarg",
                     "assistant_message_tool_name": "assistant_message_tool_name",
+                    "client_tools": [
+                        {
+                            "name": "name",
+                            "description": "description",
+                            "parameters": {"foo": "bar"},
+                        }
+                    ],
                     "enable_thinking": "enable_thinking",
                     "include_return_message_types": ["system_message"],
                     "input": "string",
