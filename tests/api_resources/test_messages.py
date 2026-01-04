@@ -70,6 +70,7 @@ class TestMessages:
     def test_method_search_with_all_params(self, client: Letta) -> None:
         message = client.messages.search(
             query="query",
+            agent_id="agent_id",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
             search_mode="vector",
@@ -161,6 +162,7 @@ class TestAsyncMessages:
     async def test_method_search_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.messages.search(
             query="query",
+            agent_id="agent_id",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
             search_mode="vector",

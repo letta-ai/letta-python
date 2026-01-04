@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -14,6 +14,9 @@ __all__ = ["MessageSearchParams"]
 class MessageSearchParams(TypedDict, total=False):
     query: Required[str]
     """Text query for full-text search"""
+
+    agent_id: Optional[str]
+    """Filter messages by agent ID"""
 
     end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter messages created on or before this date"""
