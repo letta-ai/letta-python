@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.4 (2026-01-04)
+
+Full Changelog: [v1.6.3...v1.6.4](https://github.com/letta-ai/letta-python/compare/v1.6.3...v1.6.4)
+
+### Features
+
+* expose agent_id to the messages search api endpoint ([dadba42](https://github.com/letta-ai/letta-python/commit/dadba42d86619d9ee5e331b1d6a089775645747e))
+
 ## 1.6.3 (2026-01-03)
 
 Full Changelog: [v1.6.2...v1.6.3](https://github.com/letta-ai/letta-python/compare/v1.6.2...v1.6.3)
