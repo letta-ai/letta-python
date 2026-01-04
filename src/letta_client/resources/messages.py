@@ -107,6 +107,7 @@ class MessagesResource(SyncAPIResource):
         self,
         *,
         query: str,
+        agent_id: Optional[str] | Omit = omit,
         end_date: Union[str, datetime, None] | Omit = omit,
         limit: int | Omit = omit,
         search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
@@ -127,6 +128,8 @@ class MessagesResource(SyncAPIResource):
 
         Args:
           query: Text query for full-text search
+
+          agent_id: Filter messages by agent ID
 
           end_date: Filter messages created on or before this date
 
@@ -149,6 +152,7 @@ class MessagesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "query": query,
+                    "agent_id": agent_id,
                     "end_date": end_date,
                     "limit": limit,
                     "search_mode": search_mode,
@@ -244,6 +248,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         *,
         query: str,
+        agent_id: Optional[str] | Omit = omit,
         end_date: Union[str, datetime, None] | Omit = omit,
         limit: int | Omit = omit,
         search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
@@ -264,6 +269,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
         Args:
           query: Text query for full-text search
+
+          agent_id: Filter messages by agent ID
 
           end_date: Filter messages created on or before this date
 
@@ -286,6 +293,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "query": query,
+                    "agent_id": agent_id,
                     "end_date": end_date,
                     "limit": limit,
                     "search_mode": search_mode,
