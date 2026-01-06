@@ -666,6 +666,34 @@ Methods:
 
 - <code title="get /v1/messages/batches/{batch_id}/messages">client.batches.messages.<a href="./src/letta_client/resources/batches/messages.py">list</a>(batch_id, \*\*<a href="src/letta_client/types/batches/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/internal_message.py">SyncObjectPage[InternalMessage]</a></code>
 
+# Conversations
+
+Types:
+
+```python
+from letta_client.types import Conversation, CreateConversation, ConversationListResponse
+```
+
+Methods:
+
+- <code title="post /v1/conversations/">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">create</a>(\*\*<a href="src/letta_client/types/conversation_create_params.py">params</a>) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
+- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">retrieve</a>(conversation_id) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
+- <code title="get /v1/conversations/">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">list</a>(\*\*<a href="src/letta_client/types/conversation_list_params.py">params</a>) -> <a href="./src/letta_client/types/conversation_list_response.py">ConversationListResponse</a></code>
+
+## Messages
+
+Types:
+
+```python
+from letta_client.types.conversations import MessageListResponse
+```
+
+Methods:
+
+- <code title="post /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">create</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_streaming_response.py">LettaStreamingResponse</a></code>
+- <code title="get /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">list</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/conversations/message_list_response.py">MessageListResponse</a></code>
+- <code title="post /v1/conversations/{conversation_id}/stream">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">stream</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_stream_params.py">params</a>) -> object</code>
+
 # AccessTokens
 
 Types:
