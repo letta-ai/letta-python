@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Literal, TypedDict
-
-from .message_type import MessageType
 
 __all__ = ["MessageListParams"]
 
@@ -40,12 +38,6 @@ class MessageListParams(TypedDict, total=False):
 
     limit: Optional[int]
     """Maximum number of messages to return"""
-
-    message_types: Optional[List[MessageType]]
-    """Filter to only return specified message types.
-
-    If None (default), returns all message types.
-    """
 
     order: Literal["asc", "desc"]
     """Sort order for messages by creation time.
