@@ -410,6 +410,7 @@ class MessagesResource(SyncAPIResource):
         group_id: Optional[str] | Omit = omit,
         include_err: Optional[bool] | Omit = omit,
         limit: Optional[int] | Omit = omit,
+        message_types: Optional[List[MessageType]] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
@@ -442,6 +443,9 @@ class MessagesResource(SyncAPIResource):
               only.
 
           limit: Maximum number of messages to return
+
+          message_types: Filter to only return specified message types. If None (default), returns all
+              message types.
 
           order: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
               newest first
@@ -477,6 +481,7 @@ class MessagesResource(SyncAPIResource):
                         "group_id": group_id,
                         "include_err": include_err,
                         "limit": limit,
+                        "message_types": message_types,
                         "order": order,
                         "order_by": order_by,
                         "use_assistant_message": use_assistant_message,
@@ -1193,6 +1198,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         group_id: Optional[str] | Omit = omit,
         include_err: Optional[bool] | Omit = omit,
         limit: Optional[int] | Omit = omit,
+        message_types: Optional[List[MessageType]] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
@@ -1225,6 +1231,9 @@ class AsyncMessagesResource(AsyncAPIResource):
               only.
 
           limit: Maximum number of messages to return
+
+          message_types: Filter to only return specified message types. If None (default), returns all
+              message types.
 
           order: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
               newest first
@@ -1260,6 +1269,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                         "group_id": group_id,
                         "include_err": include_err,
                         "limit": limit,
+                        "message_types": message_types,
                         "order": order,
                         "order_by": order_by,
                         "use_assistant_message": use_assistant_message,
