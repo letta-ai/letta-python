@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.6.5 (2026-01-06)
+
+Full Changelog: [v1.6.4...v1.6.5](https://github.com/letta-ai/letta-python/compare/v1.6.4...v1.6.5)
+
+### Features
+
+* add conversation and conversation_messages tables for concurrent messaging ([cfcd354](https://github.com/letta-ai/letta-python/commit/cfcd354fd03b5d4a07550be196747ccb28396280))
+* add message_types filter to list messages endpoint ([da8ad59](https://github.com/letta-ai/letta-python/commit/da8ad597514ce4601f4e7111353aad930fe16bd2))
+
+
+### Chores
+
+* mark agent.messages.stream endpoint as deprecated ([d1bbf3f](https://github.com/letta-ai/letta-python/commit/d1bbf3f688c2587470d0d45144f8b8fe7b89f44d))
+
 ## 1.6.4 (2026-01-04)
 
 Full Changelog: [v1.6.3...v1.6.4](https://github.com/letta-ai/letta-python/compare/v1.6.3...v1.6.4)
