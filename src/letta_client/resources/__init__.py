@@ -136,6 +136,14 @@ from .access_tokens import (
     AccessTokensResourceWithStreamingResponse,
     AsyncAccessTokensResourceWithStreamingResponse,
 )
+from .conversations import (
+    ConversationsResource,
+    AsyncConversationsResource,
+    ConversationsResourceWithRawResponse,
+    AsyncConversationsResourceWithRawResponse,
+    ConversationsResourceWithStreamingResponse,
+    AsyncConversationsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "AgentsResource",
@@ -234,6 +242,12 @@ __all__ = [
     "AsyncBatchesResourceWithRawResponse",
     "BatchesResourceWithStreamingResponse",
     "AsyncBatchesResourceWithStreamingResponse",
+    "ConversationsResource",
+    "AsyncConversationsResource",
+    "ConversationsResourceWithRawResponse",
+    "AsyncConversationsResourceWithRawResponse",
+    "ConversationsResourceWithStreamingResponse",
+    "AsyncConversationsResourceWithStreamingResponse",
     "AccessTokensResource",
     "AsyncAccessTokensResource",
     "AccessTokensResourceWithRawResponse",

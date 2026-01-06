@@ -1,0 +1,600 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Any, List, Union, Iterable, Optional, cast
+
+import httpx
+
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._streaming import Stream, AsyncStream
+from ..._base_client import make_request_options
+from ...types.conversations import message_list_params, message_create_params, message_stream_params
+from ...types.agents.message_type import MessageType
+from ...types.agents.letta_streaming_response import LettaStreamingResponse
+from ...types.conversations.message_list_response import MessageListResponse
+
+__all__ = ["MessagesResource", "AsyncMessagesResource"]
+
+
+class MessagesResource(SyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> MessagesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/letta-ai/letta-python#accessing-raw-response-data-eg-headers
+        """
+        return MessagesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> MessagesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
+        """
+        return MessagesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        conversation_id: str,
+        *,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        streaming: bool | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Stream[LettaStreamingResponse]:
+        """
+        Send a message to a conversation and get a streaming response.
+
+        This endpoint sends a message to an existing conversation and streams the
+        agent's response back.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          background: Whether to process the request in the background (only used when
+              streaming=true).
+
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts (only used when streaming=true).
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when streaming=true).
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._post(
+            f"/v1/conversations/{conversation_id}/messages",
+            body=maybe_transform(
+                {
+                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                    "assistant_message_tool_name": assistant_message_tool_name,
+                    "background": background,
+                    "client_tools": client_tools,
+                    "enable_thinking": enable_thinking,
+                    "include_pings": include_pings,
+                    "include_return_message_types": include_return_message_types,
+                    "input": input,
+                    "max_steps": max_steps,
+                    "messages": messages,
+                    "stream_tokens": stream_tokens,
+                    "streaming": streaming,
+                    "use_assistant_message": use_assistant_message,
+                },
+                message_create_params.MessageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=cast(
+                Any, LettaStreamingResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            stream=True,
+            stream_cls=Stream[LettaStreamingResponse],
+        )
+
+    def list(
+        self,
+        conversation_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageListResponse:
+        """
+        List all messages in a conversation.
+
+        Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
+        messages in the conversation, ordered by position (oldest first), with support
+        for cursor-based pagination.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          after: Message ID cursor for pagination. Returns messages that come after this message
+              ID in the conversation
+
+          before: Message ID cursor for pagination. Returns messages that come before this message
+              ID in the conversation
+
+          limit: Maximum number of messages to return
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._get(
+            f"/v1/conversations/{conversation_id}/messages",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "limit": limit,
+                    },
+                    message_list_params.MessageListParams,
+                ),
+            ),
+            cast_to=MessageListResponse,
+        )
+
+    def stream(
+        self,
+        conversation_id: str,
+        *,
+        batch_size: Optional[int] | Omit = omit,
+        include_pings: Optional[bool] | Omit = omit,
+        poll_interval: Optional[float] | Omit = omit,
+        starting_after: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Stream[LettaStreamingResponse]:
+        """
+        Resume the stream for the most recent active run in a conversation.
+
+        This endpoint allows you to reconnect to an active background stream for a
+        conversation, enabling recovery from network interruptions.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          batch_size: Number of entries to read per batch.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts.
+
+          poll_interval: Seconds to wait between polls when no new data.
+
+          starting_after: Sequence id to use as a cursor for pagination. Response will start streaming
+              after this chunk sequence id
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._post(
+            f"/v1/conversations/{conversation_id}/stream",
+            body=maybe_transform(
+                {
+                    "batch_size": batch_size,
+                    "include_pings": include_pings,
+                    "poll_interval": poll_interval,
+                    "starting_after": starting_after,
+                },
+                message_stream_params.MessageStreamParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+            stream=True,
+            stream_cls=Stream[LettaStreamingResponse],
+        )
+
+
+class AsyncMessagesResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncMessagesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/letta-ai/letta-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncMessagesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncMessagesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
+        """
+        return AsyncMessagesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        conversation_id: str,
+        *,
+        assistant_message_tool_kwarg: str | Omit = omit,
+        assistant_message_tool_name: str | Omit = omit,
+        background: bool | Omit = omit,
+        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+        enable_thinking: str | Omit = omit,
+        include_pings: bool | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+        max_steps: int | Omit = omit,
+        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        stream_tokens: bool | Omit = omit,
+        streaming: bool | Omit = omit,
+        use_assistant_message: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncStream[LettaStreamingResponse]:
+        """
+        Send a message to a conversation and get a streaming response.
+
+        This endpoint sends a message to an existing conversation and streams the
+        agent's response back.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
+              for legacy agent types, but deprecated for letta_v1_agent onward.
+
+          assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
+              but deprecated for letta_v1_agent onward.
+
+          background: Whether to process the request in the background (only used when
+              streaming=true).
+
+          client_tools: Client-side tools that the agent can call. When the agent calls a client-side
+              tool, execution pauses and returns control to the client to execute the tool and
+              provide the result via a ToolReturn.
+
+          enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts (only used when streaming=true).
+
+          include_return_message_types: Only return specified message types in the response. If `None` (default) returns
+              all messages.
+
+          input:
+              Syntactic sugar for a single user message. Equivalent to messages=[{'role':
+              'user', 'content': input}].
+
+          max_steps: Maximum number of steps the agent should take to process the request.
+
+          messages: The messages to be sent to the agent.
+
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when streaming=true).
+
+          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
+              returns a complete response.
+
+          use_assistant_message: Whether the server should parse specific tool call arguments (default
+              `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
+              types, but deprecated for letta_v1_agent onward.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._post(
+            f"/v1/conversations/{conversation_id}/messages",
+            body=await async_maybe_transform(
+                {
+                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                    "assistant_message_tool_name": assistant_message_tool_name,
+                    "background": background,
+                    "client_tools": client_tools,
+                    "enable_thinking": enable_thinking,
+                    "include_pings": include_pings,
+                    "include_return_message_types": include_return_message_types,
+                    "input": input,
+                    "max_steps": max_steps,
+                    "messages": messages,
+                    "stream_tokens": stream_tokens,
+                    "streaming": streaming,
+                    "use_assistant_message": use_assistant_message,
+                },
+                message_create_params.MessageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=cast(
+                Any, LettaStreamingResponse
+            ),  # Union types cannot be passed in as arguments in the type system
+            stream=True,
+            stream_cls=AsyncStream[LettaStreamingResponse],
+        )
+
+    async def list(
+        self,
+        conversation_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageListResponse:
+        """
+        List all messages in a conversation.
+
+        Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
+        messages in the conversation, ordered by position (oldest first), with support
+        for cursor-based pagination.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          after: Message ID cursor for pagination. Returns messages that come after this message
+              ID in the conversation
+
+          before: Message ID cursor for pagination. Returns messages that come before this message
+              ID in the conversation
+
+          limit: Maximum number of messages to return
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._get(
+            f"/v1/conversations/{conversation_id}/messages",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "limit": limit,
+                    },
+                    message_list_params.MessageListParams,
+                ),
+            ),
+            cast_to=MessageListResponse,
+        )
+
+    async def stream(
+        self,
+        conversation_id: str,
+        *,
+        batch_size: Optional[int] | Omit = omit,
+        include_pings: Optional[bool] | Omit = omit,
+        poll_interval: Optional[float] | Omit = omit,
+        starting_after: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncStream[LettaStreamingResponse]:
+        """
+        Resume the stream for the most recent active run in a conversation.
+
+        This endpoint allows you to reconnect to an active background stream for a
+        conversation, enabling recovery from network interruptions.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          batch_size: Number of entries to read per batch.
+
+          include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
+              connection timeouts.
+
+          poll_interval: Seconds to wait between polls when no new data.
+
+          starting_after: Sequence id to use as a cursor for pagination. Response will start streaming
+              after this chunk sequence id
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._post(
+            f"/v1/conversations/{conversation_id}/stream",
+            body=await async_maybe_transform(
+                {
+                    "batch_size": batch_size,
+                    "include_pings": include_pings,
+                    "poll_interval": poll_interval,
+                    "starting_after": starting_after,
+                },
+                message_stream_params.MessageStreamParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+            stream=True,
+            stream_cls=AsyncStream[LettaStreamingResponse],
+        )
+
+
+class MessagesResourceWithRawResponse:
+    def __init__(self, messages: MessagesResource) -> None:
+        self._messages = messages
+
+        self.create = to_raw_response_wrapper(
+            messages.create,
+        )
+        self.list = to_raw_response_wrapper(
+            messages.list,
+        )
+        self.stream = to_raw_response_wrapper(
+            messages.stream,
+        )
+
+
+class AsyncMessagesResourceWithRawResponse:
+    def __init__(self, messages: AsyncMessagesResource) -> None:
+        self._messages = messages
+
+        self.create = async_to_raw_response_wrapper(
+            messages.create,
+        )
+        self.list = async_to_raw_response_wrapper(
+            messages.list,
+        )
+        self.stream = async_to_raw_response_wrapper(
+            messages.stream,
+        )
+
+
+class MessagesResourceWithStreamingResponse:
+    def __init__(self, messages: MessagesResource) -> None:
+        self._messages = messages
+
+        self.create = to_streamed_response_wrapper(
+            messages.create,
+        )
+        self.list = to_streamed_response_wrapper(
+            messages.list,
+        )
+        self.stream = to_streamed_response_wrapper(
+            messages.stream,
+        )
+
+
+class AsyncMessagesResourceWithStreamingResponse:
+    def __init__(self, messages: AsyncMessagesResource) -> None:
+        self._messages = messages
+
+        self.create = async_to_streamed_response_wrapper(
+            messages.create,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            messages.list,
+        )
+        self.stream = async_to_streamed_response_wrapper(
+            messages.stream,
+        )
