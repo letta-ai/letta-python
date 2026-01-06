@@ -15,6 +15,7 @@ from .tool_type import ToolType as ToolType
 from .agent_type import AgentType as AgentType
 from .llm_config import LlmConfig as LlmConfig
 from .agent_state import AgentState as AgentState
+from .conversation import Conversation as Conversation
 from .manager_type import ManagerType as ManagerType
 from .identity_type import IdentityType as IdentityType
 from .provider_type import ProviderType as ProviderType
@@ -106,6 +107,7 @@ from .agent_export_file_params import AgentExportFileParams as AgentExportFilePa
 from .agent_import_file_params import AgentImportFileParams as AgentImportFileParams
 from .anthropic_model_settings import AnthropicModelSettings as AnthropicModelSettings
 from .continue_tool_rule_param import ContinueToolRuleParam as ContinueToolRuleParam
+from .conversation_list_params import ConversationListParams as ConversationListParams
 from .google_ai_model_settings import GoogleAIModelSettings as GoogleAIModelSettings
 from .mcp_server_create_params import McpServerCreateParams as McpServerCreateParams
 from .mcp_server_list_response import McpServerListResponse as McpServerListResponse
@@ -126,6 +128,8 @@ from .agent_environment_variable import AgentEnvironmentVariable as AgentEnviron
 from .agent_export_file_response import AgentExportFileResponse as AgentExportFileResponse
 from .agent_import_file_response import AgentImportFileResponse as AgentImportFileResponse
 from .azure_model_settings_param import AzureModelSettingsParam as AzureModelSettingsParam
+from .conversation_create_params import ConversationCreateParams as ConversationCreateParams
+from .conversation_list_response import ConversationListResponse as ConversationListResponse
 from .mcp_server_create_response import McpServerCreateResponse as McpServerCreateResponse
 from .mcp_server_update_response import McpServerUpdateResponse as McpServerUpdateResponse
 from .streamable_http_mcp_server import StreamableHTTPMcpServer as StreamableHTTPMcpServer

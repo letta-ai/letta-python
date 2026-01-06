@@ -66,6 +66,9 @@ class Run(BaseModel):
     completed_at: Optional[datetime] = None
     """The timestamp when the run was completed."""
 
+    conversation_id: Optional[str] = None
+    """The unique identifier of the conversation associated with the run."""
+
     created_at: Optional[datetime] = None
     """The timestamp when the run was created."""
 

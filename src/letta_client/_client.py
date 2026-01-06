@@ -60,6 +60,7 @@ if TYPE_CHECKING:
         identities,
         mcp_servers,
         access_tokens,
+        conversations,
     )
     from .resources.tags import TagsResource, AsyncTagsResource
     from .resources.tools import ToolsResource, AsyncToolsResource
@@ -78,6 +79,7 @@ if TYPE_CHECKING:
     from .resources.templates.templates import TemplatesResource, AsyncTemplatesResource
     from .resources.identities.identities import IdentitiesResource, AsyncIdentitiesResource
     from .resources.mcp_servers.mcp_servers import McpServersResource, AsyncMcpServersResource
+    from .resources.conversations.conversations import ConversationsResource, AsyncConversationsResource
 
 __all__ = [
     "ENVIRONMENTS",
@@ -277,6 +279,12 @@ class Letta(SyncAPIClient):
         from .resources.batches import BatchesResource
 
         return BatchesResource(self)
+
+    @cached_property
+    def conversations(self) -> ConversationsResource:
+        from .resources.conversations import ConversationsResource
+
+        return ConversationsResource(self)
 
     @cached_property
     def access_tokens(self) -> AccessTokensResource:
@@ -608,6 +616,12 @@ class AsyncLetta(AsyncAPIClient):
         return AsyncBatchesResource(self)
 
     @cached_property
+    def conversations(self) -> AsyncConversationsResource:
+        from .resources.conversations import AsyncConversationsResource
+
+        return AsyncConversationsResource(self)
+
+    @cached_property
     def access_tokens(self) -> AsyncAccessTokensResource:
         from .resources.access_tokens import AsyncAccessTokensResource
 
@@ -862,6 +876,12 @@ class LettaWithRawResponse:
         return BatchesResourceWithRawResponse(self._client.batches)
 
     @cached_property
+    def conversations(self) -> conversations.ConversationsResourceWithRawResponse:
+        from .resources.conversations import ConversationsResourceWithRawResponse
+
+        return ConversationsResourceWithRawResponse(self._client.conversations)
+
+    @cached_property
     def access_tokens(self) -> access_tokens.AccessTokensResourceWithRawResponse:
         from .resources.access_tokens import AccessTokensResourceWithRawResponse
 
@@ -973,6 +993,12 @@ class AsyncLettaWithRawResponse:
         from .resources.batches import AsyncBatchesResourceWithRawResponse
 
         return AsyncBatchesResourceWithRawResponse(self._client.batches)
+
+    @cached_property
+    def conversations(self) -> conversations.AsyncConversationsResourceWithRawResponse:
+        from .resources.conversations import AsyncConversationsResourceWithRawResponse
+
+        return AsyncConversationsResourceWithRawResponse(self._client.conversations)
 
     @cached_property
     def access_tokens(self) -> access_tokens.AsyncAccessTokensResourceWithRawResponse:
@@ -1088,6 +1114,12 @@ class LettaWithStreamedResponse:
         return BatchesResourceWithStreamingResponse(self._client.batches)
 
     @cached_property
+    def conversations(self) -> conversations.ConversationsResourceWithStreamingResponse:
+        from .resources.conversations import ConversationsResourceWithStreamingResponse
+
+        return ConversationsResourceWithStreamingResponse(self._client.conversations)
+
+    @cached_property
     def access_tokens(self) -> access_tokens.AccessTokensResourceWithStreamingResponse:
         from .resources.access_tokens import AccessTokensResourceWithStreamingResponse
 
@@ -1199,6 +1231,12 @@ class AsyncLettaWithStreamedResponse:
         from .resources.batches import AsyncBatchesResourceWithStreamingResponse
 
         return AsyncBatchesResourceWithStreamingResponse(self._client.batches)
+
+    @cached_property
+    def conversations(self) -> conversations.AsyncConversationsResourceWithStreamingResponse:
+        from .resources.conversations import AsyncConversationsResourceWithStreamingResponse
+
+        return AsyncConversationsResourceWithStreamingResponse(self._client.conversations)
 
     @cached_property
     def access_tokens(self) -> access_tokens.AsyncAccessTokensResourceWithStreamingResponse:
