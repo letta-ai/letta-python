@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Any, List, Union, Iterable, Optional, cast
 from typing_extensions import Literal, overload
 
@@ -716,6 +717,7 @@ class MessagesResource(SyncAPIResource):
             cast_to=AgentState,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def stream(
         self,
         agent_id: str,
@@ -740,11 +742,15 @@ class MessagesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[LettaStreamingResponse]:
-        """Process a user message and return the agent's response.
+        """
+        Process a user message and return the agent's response.
 
-        This endpoint accepts a
-        message from a user and processes it through the agent. It will stream the steps
-        of the response always, and stream the tokens if 'stream_tokens' is set to True.
+        Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
+        in the request body instead.
+
+        This endpoint accepts a message from a user and processes it through the agent.
+        It will stream the steps of the response always, and stream the tokens if
+        'stream_tokens' is set to True.
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
@@ -1504,6 +1510,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             cast_to=AgentState,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def stream(
         self,
         agent_id: str,
@@ -1528,11 +1535,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[LettaStreamingResponse]:
-        """Process a user message and return the agent's response.
+        """
+        Process a user message and return the agent's response.
 
-        This endpoint accepts a
-        message from a user and processes it through the agent. It will stream the steps
-        of the response always, and stream the tokens if 'stream_tokens' is set to True.
+        Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
+        in the request body instead.
+
+        This endpoint accepts a message from a user and processes it through the agent.
+        It will stream the steps of the response always, and stream the tokens if
+        'stream_tokens' is set to True.
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
@@ -1639,8 +1650,10 @@ class MessagesResourceWithRawResponse:
         self.reset = to_raw_response_wrapper(
             messages.reset,
         )
-        self.stream = to_raw_response_wrapper(
-            messages.stream,
+        self.stream = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                messages.stream,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -1666,8 +1679,10 @@ class AsyncMessagesResourceWithRawResponse:
         self.reset = async_to_raw_response_wrapper(
             messages.reset,
         )
-        self.stream = async_to_raw_response_wrapper(
-            messages.stream,
+        self.stream = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                messages.stream,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -1693,8 +1708,10 @@ class MessagesResourceWithStreamingResponse:
         self.reset = to_streamed_response_wrapper(
             messages.reset,
         )
-        self.stream = to_streamed_response_wrapper(
-            messages.stream,
+        self.stream = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                messages.stream,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -1720,6 +1737,8 @@ class AsyncMessagesResourceWithStreamingResponse:
         self.reset = async_to_streamed_response_wrapper(
             messages.reset,
         )
-        self.stream = async_to_streamed_response_wrapper(
-            messages.stream,
+        self.stream = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                messages.stream,  # pyright: ignore[reportDeprecated],
+            )
         )
