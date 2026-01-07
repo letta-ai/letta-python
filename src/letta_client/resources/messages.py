@@ -51,6 +51,7 @@ class MessagesResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        conversation_id: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -69,6 +70,8 @@ class MessagesResource(SyncAPIResource):
 
           before: Message ID cursor for pagination. Returns messages that come before this message
               ID in the specified sort order
+
+          conversation_id: Conversation ID to filter messages by
 
           limit: Maximum number of messages to return
 
@@ -94,6 +97,7 @@ class MessagesResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "conversation_id": conversation_id,
                         "limit": limit,
                         "order": order,
                     },
@@ -108,6 +112,7 @@ class MessagesResource(SyncAPIResource):
         *,
         query: str,
         agent_id: Optional[str] | Omit = omit,
+        conversation_id: Optional[str] | Omit = omit,
         end_date: Union[str, datetime, None] | Omit = omit,
         limit: int | Omit = omit,
         search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
@@ -131,6 +136,8 @@ class MessagesResource(SyncAPIResource):
 
           agent_id: Filter messages by agent ID
 
+          conversation_id: Filter messages by conversation ID
+
           end_date: Filter messages created on or before this date
 
           limit: Maximum number of results to return
@@ -153,6 +160,7 @@ class MessagesResource(SyncAPIResource):
                 {
                     "query": query,
                     "agent_id": agent_id,
+                    "conversation_id": conversation_id,
                     "end_date": end_date,
                     "limit": limit,
                     "search_mode": search_mode,
@@ -192,6 +200,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        conversation_id: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -210,6 +219,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           before: Message ID cursor for pagination. Returns messages that come before this message
               ID in the specified sort order
+
+          conversation_id: Conversation ID to filter messages by
 
           limit: Maximum number of messages to return
 
@@ -235,6 +246,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "conversation_id": conversation_id,
                         "limit": limit,
                         "order": order,
                     },
@@ -249,6 +261,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         *,
         query: str,
         agent_id: Optional[str] | Omit = omit,
+        conversation_id: Optional[str] | Omit = omit,
         end_date: Union[str, datetime, None] | Omit = omit,
         limit: int | Omit = omit,
         search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
@@ -272,6 +285,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           agent_id: Filter messages by agent ID
 
+          conversation_id: Filter messages by conversation ID
+
           end_date: Filter messages created on or before this date
 
           limit: Maximum number of results to return
@@ -294,6 +309,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                 {
                     "query": query,
                     "agent_id": agent_id,
+                    "conversation_id": conversation_id,
                     "end_date": end_date,
                     "limit": limit,
                     "search_mode": search_mode,

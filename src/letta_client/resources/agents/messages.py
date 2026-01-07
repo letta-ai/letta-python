@@ -408,6 +408,7 @@ class MessagesResource(SyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         before: Optional[str] | Omit = omit,
+        conversation_id: Optional[str] | Omit = omit,
         group_id: Optional[str] | Omit = omit,
         include_err: Optional[bool] | Omit = omit,
         limit: Optional[int] | Omit = omit,
@@ -436,6 +437,8 @@ class MessagesResource(SyncAPIResource):
 
           before: Message ID cursor for pagination. Returns messages that come before this message
               ID in the specified sort order
+
+          conversation_id: Conversation ID to filter messages by.
 
           group_id: Group ID to filter messages by.
 
@@ -475,6 +478,7 @@ class MessagesResource(SyncAPIResource):
                         "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                         "assistant_message_tool_name": assistant_message_tool_name,
                         "before": before,
+                        "conversation_id": conversation_id,
                         "group_id": group_id,
                         "include_err": include_err,
                         "limit": limit,
@@ -1196,6 +1200,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         before: Optional[str] | Omit = omit,
+        conversation_id: Optional[str] | Omit = omit,
         group_id: Optional[str] | Omit = omit,
         include_err: Optional[bool] | Omit = omit,
         limit: Optional[int] | Omit = omit,
@@ -1224,6 +1229,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           before: Message ID cursor for pagination. Returns messages that come before this message
               ID in the specified sort order
+
+          conversation_id: Conversation ID to filter messages by.
 
           group_id: Group ID to filter messages by.
 
@@ -1263,6 +1270,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                         "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                         "assistant_message_tool_name": assistant_message_tool_name,
                         "before": before,
+                        "conversation_id": conversation_id,
                         "group_id": group_id,
                         "include_err": include_err,
                         "limit": limit,
