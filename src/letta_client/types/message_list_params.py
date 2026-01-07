@@ -21,6 +21,9 @@ class MessageListParams(TypedDict, total=False):
     Returns messages that come before this message ID in the specified sort order
     """
 
+    conversation_id: Optional[str]
+    """Conversation ID to filter messages by"""
+
     limit: Optional[int]
     """Maximum number of messages to return"""
 

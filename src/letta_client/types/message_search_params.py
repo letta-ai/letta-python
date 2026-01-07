@@ -18,6 +18,9 @@ class MessageSearchParams(TypedDict, total=False):
     agent_id: Optional[str]
     """Filter messages by agent ID"""
 
+    conversation_id: Optional[str]
+    """Filter messages by conversation ID"""
+
     end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter messages created on or before this date"""
 
