@@ -45,6 +45,9 @@ class RunListParams(TypedDict, total=False):
     Returns runs that come before this run ID in the specified sort order
     """
 
+    conversation_id: Optional[str]
+    """Filter runs by conversation ID."""
+
     limit: Optional[int]
     """Maximum number of runs to return"""
 
