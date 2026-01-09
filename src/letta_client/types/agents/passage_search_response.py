@@ -8,6 +8,9 @@ __all__ = ["PassageSearchResponse", "Result"]
 
 
 class Result(BaseModel):
+    id: str
+    """Unique identifier of the archival memory passage"""
+
     content: str
     """Text content of the archival memory passage"""
 

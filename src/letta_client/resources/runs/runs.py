@@ -125,6 +125,7 @@ class RunsResource(SyncAPIResource):
         ascending: bool | Omit = omit,
         background: Optional[bool] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        conversation_id: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
@@ -158,6 +159,8 @@ class RunsResource(SyncAPIResource):
 
           before: Run ID cursor for pagination. Returns runs that come before this run ID in the
               specified sort order
+
+          conversation_id: Filter runs by conversation ID.
 
           limit: Maximum number of runs to return
 
@@ -195,6 +198,7 @@ class RunsResource(SyncAPIResource):
                         "ascending": ascending,
                         "background": background,
                         "before": before,
+                        "conversation_id": conversation_id,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,
@@ -283,6 +287,7 @@ class AsyncRunsResource(AsyncAPIResource):
         ascending: bool | Omit = omit,
         background: Optional[bool] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        conversation_id: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
@@ -316,6 +321,8 @@ class AsyncRunsResource(AsyncAPIResource):
 
           before: Run ID cursor for pagination. Returns runs that come before this run ID in the
               specified sort order
+
+          conversation_id: Filter runs by conversation ID.
 
           limit: Maximum number of runs to return
 
@@ -353,6 +360,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "ascending": ascending,
                         "background": background,
                         "before": before,
+                        "conversation_id": conversation_id,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,

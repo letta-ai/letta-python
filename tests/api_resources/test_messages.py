@@ -30,6 +30,7 @@ class TestMessages:
         message = client.messages.list(
             after="after",
             before="before",
+            conversation_id="conversation_id",
             limit=0,
             order="asc",
         )
@@ -71,6 +72,7 @@ class TestMessages:
         message = client.messages.search(
             query="query",
             agent_id="agent_id",
+            conversation_id="conversation_id",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
             search_mode="vector",
@@ -122,6 +124,7 @@ class TestAsyncMessages:
         message = await async_client.messages.list(
             after="after",
             before="before",
+            conversation_id="conversation_id",
             limit=0,
             order="asc",
         )
@@ -163,6 +166,7 @@ class TestAsyncMessages:
         message = await async_client.messages.search(
             query="query",
             agent_id="agent_id",
+            conversation_id="conversation_id",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
             search_mode="vector",
