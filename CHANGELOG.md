@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.7.0 (2026-01-09)
+
+Full Changelog: [v1.6.5...v1.7.0](https://github.com/letta-ai/letta-python/compare/v1.6.5...v1.7.0)
+
+### Features
+
+* add /v1/metadata/user [LET-6845] ([a56acb7](https://github.com/letta-ai/letta-python/commit/a56acb7bc419f38c18b560238c151eaf2c4b17f7))
+* add conversation_id filter to list runs ([095e489](https://github.com/letta-ai/letta-python/commit/095e4894c09ade6fedf6b79bd91dc8fd40618538))
+* Add conversation_id filtering to message endpoints ([d5cad46](https://github.com/letta-ai/letta-python/commit/d5cad46ec14eae56778faa225d871d5b3920180a))
+* add ids to archival memory search ([f7eaf79](https://github.com/letta-ai/letta-python/commit/f7eaf792f311fa084c14dcf43d3baa338e81a911))
+* add pending approval field on agent state ([7ddc612](https://github.com/letta-ai/letta-python/commit/7ddc612138ff3d118df72bc5a013aa980d6d09c1))
+
+
+### Chores
+
+* add scheduled message api ([5a85700](https://github.com/letta-ai/letta-python/commit/5a85700c0f294c82a5c6b3de16497185fe9a5768))
+
 ## 1.6.5 (2026-01-06)
 
 Full Changelog: [v1.6.4...v1.6.5](https://github.com/letta-ai/letta-python/compare/v1.6.4...v1.6.5)
