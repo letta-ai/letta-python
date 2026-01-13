@@ -134,6 +134,13 @@ class LlmConfigParam(TypedDict, total=False):
     model_settings.
     """
 
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool schemas include strict: true and additionalProperties: false,
+    guaranteeing tool outputs match JSON schemas.
+    """
+
     temperature: float
     """The temperature to use when generating text with the model.
 

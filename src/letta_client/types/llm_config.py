@@ -137,6 +137,13 @@ class LlmConfig(BaseModel):
     model_settings.
     """
 
+    strict: Optional[bool] = None
+    """Enable strict mode for tool calling.
+
+    When true, tool schemas include strict: true and additionalProperties: false,
+    guaranteeing tool outputs match JSON schemas.
+    """
+
     temperature: Optional[float] = None
     """The temperature to use when generating text with the model.
 
