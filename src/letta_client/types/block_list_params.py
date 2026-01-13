@@ -67,6 +67,12 @@ class BlockListParams(TypedDict, total=False):
     limit: Optional[int]
     """Number of blocks to return"""
 
+    match_all_tags: bool
+    """If True, only returns blocks that match ALL given tags.
+
+    Otherwise, return blocks that have ANY of the passed-in tags.
+    """
+
     name: Optional[str]
     """Name filter (alphanumeric, spaces, hyphens, underscores)"""
 
@@ -81,6 +87,9 @@ class BlockListParams(TypedDict, total=False):
 
     project_id: Optional[str]
     """Search blocks by project id"""
+
+    tags: Optional[SequenceNotStr[str]]
+    """List of tags to filter blocks by"""
 
     templates_only: bool
     """Whether to include only templates"""

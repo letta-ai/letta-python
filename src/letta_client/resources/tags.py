@@ -62,7 +62,7 @@ class TagsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TagListResponse:
         """
-        Get the list of all agent tags that have been created.
+        Get the list of all tags (from agents and blocks) that have been created.
 
         Args:
           after: Tag cursor for pagination. Returns tags that come after this tag in the
@@ -152,7 +152,7 @@ class AsyncTagsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TagListResponse:
         """
-        Get the list of all agent tags that have been created.
+        Get the list of all tags (from agents and blocks) that have been created.
 
         Args:
           after: Tag cursor for pagination. Returns tags that come after this tag in the

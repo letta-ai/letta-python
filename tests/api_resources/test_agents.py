@@ -137,6 +137,7 @@ class TestAgents:
                     "preserve_on_migration": True,
                     "project_id": "project_id",
                     "read_only": True,
+                    "tags": ["string"],
                     "template_id": "template_id",
                     "template_name": "template_name",
                 }
@@ -739,6 +740,7 @@ class TestAsyncAgents:
                     "preserve_on_migration": True,
                     "project_id": "project_id",
                     "read_only": True,
+                    "tags": ["string"],
                     "template_id": "template_id",
                     "template_name": "template_name",
                 }

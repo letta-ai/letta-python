@@ -123,6 +123,9 @@ class MemoryFileBlock(BaseModel):
     read_only: Optional[bool] = None
     """Whether the agent has read-only access to the block."""
 
+    tags: Optional[List[str]] = None
+    """The tags associated with the block."""
+
     template_id: Optional[str] = None
     """The id of the template."""
 

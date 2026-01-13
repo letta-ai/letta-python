@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -101,6 +101,7 @@ class BlocksResource(SyncAPIResource):
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
@@ -141,6 +142,8 @@ class BlocksResource(SyncAPIResource):
 
           read_only: Whether the agent has read-only access to the block.
 
+          tags: The tags to associate with the block.
+
           template_id: The id of the template.
 
           template_name: Name of the block if it is a template.
@@ -175,6 +178,7 @@ class BlocksResource(SyncAPIResource):
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "tags": tags,
                     "template_id": template_id,
                     "template_name": template_name,
                     "value": value,
@@ -410,6 +414,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
@@ -450,6 +455,8 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           read_only: Whether the agent has read-only access to the block.
 
+          tags: The tags to associate with the block.
+
           template_id: The id of the template.
 
           template_name: Name of the block if it is a template.
@@ -484,6 +491,7 @@ class AsyncBlocksResource(AsyncAPIResource):
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "tags": tags,
                     "template_id": template_id,
                     "template_name": template_name,
                     "value": value,

@@ -73,6 +73,7 @@ class BlocksResource(SyncAPIResource):
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -110,6 +111,8 @@ class BlocksResource(SyncAPIResource):
 
           read_only: Whether the agent has read-only access to the block.
 
+          tags: The tags to associate with the block.
+
           template_id: The id of the template.
 
           template_name: Name of the block if it is a template.
@@ -139,6 +142,7 @@ class BlocksResource(SyncAPIResource):
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "tags": tags,
                     "template_id": template_id,
                     "template_name": template_name,
                 },
@@ -201,6 +205,7 @@ class BlocksResource(SyncAPIResource):
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
@@ -241,6 +246,8 @@ class BlocksResource(SyncAPIResource):
 
           read_only: Whether the agent has read-only access to the block.
 
+          tags: The tags to associate with the block.
+
           template_id: The id of the template.
 
           template_name: Name of the block if it is a template.
@@ -273,6 +280,7 @@ class BlocksResource(SyncAPIResource):
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "tags": tags,
                     "template_id": template_id,
                     "template_name": template_name,
                     "value": value,
@@ -299,10 +307,12 @@ class BlocksResource(SyncAPIResource):
         label: Optional[str] | Omit = omit,
         label_search: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
+        match_all_tags: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         templates_only: bool | Omit = omit,
         value_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -346,6 +356,9 @@ class BlocksResource(SyncAPIResource):
 
           limit: Number of blocks to return
 
+          match_all_tags: If True, only returns blocks that match ALL given tags. Otherwise, return blocks
+              that have ANY of the passed-in tags.
+
           name: Name filter (alphanumeric, spaces, hyphens, underscores)
 
           order: Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for
@@ -354,6 +367,8 @@ class BlocksResource(SyncAPIResource):
           order_by: Field to sort by
 
           project_id: Search blocks by project id
+
+          tags: List of tags to filter blocks by
 
           templates_only: Whether to include only templates
 
@@ -389,10 +404,12 @@ class BlocksResource(SyncAPIResource):
                         "label": label,
                         "label_search": label_search,
                         "limit": limit,
+                        "match_all_tags": match_all_tags,
                         "name": name,
                         "order": order,
                         "order_by": order_by,
                         "project_id": project_id,
+                        "tags": tags,
                         "templates_only": templates_only,
                         "value_search": value_search,
                     },
@@ -478,6 +495,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -515,6 +533,8 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           read_only: Whether the agent has read-only access to the block.
 
+          tags: The tags to associate with the block.
+
           template_id: The id of the template.
 
           template_name: Name of the block if it is a template.
@@ -544,6 +564,7 @@ class AsyncBlocksResource(AsyncAPIResource):
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "tags": tags,
                     "template_id": template_id,
                     "template_name": template_name,
                 },
@@ -606,6 +627,7 @@ class AsyncBlocksResource(AsyncAPIResource):
         preserve_on_migration: Optional[bool] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
@@ -646,6 +668,8 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           read_only: Whether the agent has read-only access to the block.
 
+          tags: The tags to associate with the block.
+
           template_id: The id of the template.
 
           template_name: Name of the block if it is a template.
@@ -678,6 +702,7 @@ class AsyncBlocksResource(AsyncAPIResource):
                     "preserve_on_migration": preserve_on_migration,
                     "project_id": project_id,
                     "read_only": read_only,
+                    "tags": tags,
                     "template_id": template_id,
                     "template_name": template_name,
                     "value": value,
@@ -704,10 +729,12 @@ class AsyncBlocksResource(AsyncAPIResource):
         label: Optional[str] | Omit = omit,
         label_search: Optional[str] | Omit = omit,
         limit: Optional[int] | Omit = omit,
+        match_all_tags: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         templates_only: bool | Omit = omit,
         value_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -751,6 +778,9 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           limit: Number of blocks to return
 
+          match_all_tags: If True, only returns blocks that match ALL given tags. Otherwise, return blocks
+              that have ANY of the passed-in tags.
+
           name: Name filter (alphanumeric, spaces, hyphens, underscores)
 
           order: Sort order for blocks by creation time. 'asc' for oldest first, 'desc' for
@@ -759,6 +789,8 @@ class AsyncBlocksResource(AsyncAPIResource):
           order_by: Field to sort by
 
           project_id: Search blocks by project id
+
+          tags: List of tags to filter blocks by
 
           templates_only: Whether to include only templates
 
@@ -794,10 +826,12 @@ class AsyncBlocksResource(AsyncAPIResource):
                         "label": label,
                         "label_search": label_search,
                         "limit": limit,
+                        "match_all_tags": match_all_tags,
                         "name": name,
                         "order": order,
                         "order_by": order_by,
                         "project_id": project_id,
+                        "tags": tags,
                         "templates_only": templates_only,
                         "value_search": value_search,
                     },
