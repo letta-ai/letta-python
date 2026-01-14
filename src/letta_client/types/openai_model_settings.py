@@ -41,11 +41,5 @@ class OpenAIModelSettings(BaseModel):
     response_format: Optional[ResponseFormat] = None
     """The response format for the model."""
 
-    strict: Optional[bool] = None
-    """Enable strict mode for tool calling.
-
-    When true, tool outputs are guaranteed to match JSON schemas.
-    """
-
     temperature: Optional[float] = None
     """The temperature of the model."""

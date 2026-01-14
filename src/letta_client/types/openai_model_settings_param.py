@@ -38,11 +38,5 @@ class OpenAIModelSettingsParam(TypedDict, total=False):
     response_format: Optional[ResponseFormat]
     """The response format for the model."""
 
-    strict: bool
-    """Enable strict mode for tool calling.
-
-    When true, tool outputs are guaranteed to match JSON schemas.
-    """
-
     temperature: float
     """The temperature of the model."""
