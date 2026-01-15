@@ -64,6 +64,7 @@ class TestMessages:
                     "type": "message",
                 }
             ],
+            override_model="override_model",
             stream_tokens=True,
             streaming=True,
             use_assistant_message=True,
@@ -265,6 +266,7 @@ class TestAsyncMessages:
                     "type": "message",
                 }
             ],
+            override_model="override_model",
             stream_tokens=True,
             streaming=True,
             use_assistant_message=True,
