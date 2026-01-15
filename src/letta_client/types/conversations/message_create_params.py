@@ -83,6 +83,13 @@ class MessageCreateParams(TypedDict, total=False):
     messages: Optional[Iterable[Message]]
     """The messages to be sent to the agent."""
 
+    override_model: Optional[str]
+    """Model handle to use for this request instead of the agent's default model.
+
+    This allows sending a message to a different model without changing the agent's
+    configuration.
+    """
+
     stream_tokens: bool
     """
     Flag to determine if individual tokens should be streamed, rather than streaming

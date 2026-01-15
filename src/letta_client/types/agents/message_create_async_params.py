@@ -74,6 +74,13 @@ class MessageCreateAsyncParams(TypedDict, total=False):
     messages: Optional[Iterable[Message]]
     """The messages to be sent to the agent."""
 
+    override_model: Optional[str]
+    """Model handle to use for this request instead of the agent's default model.
+
+    This allows sending a message to a different model without changing the agent's
+    configuration.
+    """
+
     use_assistant_message: bool
     """
     Whether the server should parse specific tool call arguments (default

@@ -62,6 +62,7 @@ class MessagesResource(SyncAPIResource):
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        override_model: Optional[str] | Omit = omit,
         stream_tokens: bool | Omit = omit,
         streaming: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
@@ -110,6 +111,10 @@ class MessagesResource(SyncAPIResource):
 
           messages: The messages to be sent to the agent.
 
+          override_model: Model handle to use for this request instead of the agent's default model. This
+              allows sending a message to a different model without changing the agent's
+              configuration.
+
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
               per step (only used when streaming=true).
 
@@ -144,6 +149,7 @@ class MessagesResource(SyncAPIResource):
                     "input": input,
                     "max_steps": max_steps,
                     "messages": messages,
+                    "override_model": override_model,
                     "stream_tokens": stream_tokens,
                     "streaming": streaming,
                     "use_assistant_message": use_assistant_message,
@@ -337,6 +343,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+        override_model: Optional[str] | Omit = omit,
         stream_tokens: bool | Omit = omit,
         streaming: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
@@ -385,6 +392,10 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           messages: The messages to be sent to the agent.
 
+          override_model: Model handle to use for this request instead of the agent's default model. This
+              allows sending a message to a different model without changing the agent's
+              configuration.
+
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
               per step (only used when streaming=true).
 
@@ -419,6 +430,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "input": input,
                     "max_steps": max_steps,
                     "messages": messages,
+                    "override_model": override_model,
                     "stream_tokens": stream_tokens,
                     "streaming": streaming,
                     "use_assistant_message": use_assistant_message,
