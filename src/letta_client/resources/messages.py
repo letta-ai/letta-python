@@ -22,6 +22,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.message_list_response import MessageListResponse
 from ..types.message_search_response import MessageSearchResponse
+from ..types.message_retrieve_response import MessageRetrieveResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -45,6 +46,41 @@ class MessagesResource(SyncAPIResource):
         For more information, see https://www.github.com/letta-ai/letta-python#with_streaming_response
         """
         return MessagesResourceWithStreamingResponse(self)
+
+    def retrieve(
+        self,
+        message_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageRetrieveResponse:
+        """
+        Retrieve a message by ID.
+
+        Args:
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return self._get(
+            f"/v1/messages/{message_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageRetrieveResponse,
+        )
 
     def list(
         self,
@@ -195,6 +231,41 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
+    async def retrieve(
+        self,
+        message_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageRetrieveResponse:
+        """
+        Retrieve a message by ID.
+
+        Args:
+          message_id: The ID of the message in the format 'message-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return await self._get(
+            f"/v1/messages/{message_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=MessageRetrieveResponse,
+        )
+
     async def list(
         self,
         *,
@@ -328,6 +399,9 @@ class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
 
+        self.retrieve = to_raw_response_wrapper(
+            messages.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             messages.list,
         )
@@ -340,6 +414,9 @@ class AsyncMessagesResourceWithRawResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
 
+        self.retrieve = async_to_raw_response_wrapper(
+            messages.retrieve,
+        )
         self.list = async_to_raw_response_wrapper(
             messages.list,
         )
@@ -352,6 +429,9 @@ class MessagesResourceWithStreamingResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
 
+        self.retrieve = to_streamed_response_wrapper(
+            messages.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
@@ -364,6 +444,9 @@ class AsyncMessagesResourceWithStreamingResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
 
+        self.retrieve = async_to_streamed_response_wrapper(
+            messages.retrieve,
+        )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
         )

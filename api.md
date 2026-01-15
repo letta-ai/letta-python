@@ -655,6 +655,7 @@ Types:
 from letta_client.types import (
     MessageSearchRequest,
     MessageSearchResult,
+    MessageRetrieveResponse,
     MessageListResponse,
     MessageSearchResponse,
 )
@@ -662,6 +663,7 @@ from letta_client.types import (
 
 Methods:
 
+- <code title="get /v1/messages/{message_id}">client.messages.<a href="./src/letta_client/resources/messages.py">retrieve</a>(message_id) -> <a href="./src/letta_client/types/message_retrieve_response.py">MessageRetrieveResponse</a></code>
 - <code title="get /v1/messages/">client.messages.<a href="./src/letta_client/resources/messages.py">list</a>(\*\*<a href="src/letta_client/types/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/message_list_response.py">MessageListResponse</a></code>
 - <code title="post /v1/messages/search">client.messages.<a href="./src/letta_client/resources/messages.py">search</a>(\*\*<a href="src/letta_client/types/message_search_params.py">params</a>) -> <a href="./src/letta_client/types/message_search_response.py">MessageSearchResponse</a></code>
 
