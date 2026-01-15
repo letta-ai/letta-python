@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.7.1 (2026-01-15)
+
+Full Changelog: [v1.7.0...v1.7.1](https://github.com/letta-ai/letta-python/compare/v1.7.0...v1.7.1)
+
+### Features
+
+* add /v1/runs/{run_id}/trace endpoint for OTEL traces ([64a74a8](https://github.com/letta-ai/letta-python/commit/64a74a84aa42682726229254fc36f1db688eaca7))
+* add override_model to message endpoints ([05863cc](https://github.com/letta-ai/letta-python/commit/05863cc3a550b59e0d582f670226f21554156f03))
+* add PATCH route for updating conversation summary ([428a171](https://github.com/letta-ai/letta-python/commit/428a171a11d21a7173300f85d6cedc32280be051))
+* add retrieve message endpoint and to client sdk ([30833c7](https://github.com/letta-ai/letta-python/commit/30833c786756cd57866f1bfc585295c25d92df01))
+* query param parity for conversation messages ([f0c80fe](https://github.com/letta-ai/letta-python/commit/f0c80fec17b47f776d43809692db5ae38dfac624))
+
+
+### Bug Fixes
+
+* fix apis ([5118ea2](https://github.com/letta-ai/letta-python/commit/5118ea267607ba6be87c56e78f9dfaf689ddb080))
+* remove letta ping schema override ([30fe2d2](https://github.com/letta-ai/letta-python/commit/30fe2d2b5660019e211e94e1c0a7d346d0686ce8))
+
+
+### Chores
+
+* deprecate identities/groups APIs and remove from SDK ([e0089f9](https://github.com/letta-ai/letta-python/commit/e0089f95a2a7b7ee4f975a84b9ca1a16b2b6fd3e))
+
 ## 1.7.0 (2026-01-14)
 
 Full Changelog: [v1.6.5...v1.7.0](https://github.com/letta-ai/letta-python/compare/v1.6.5...v1.7.0)
