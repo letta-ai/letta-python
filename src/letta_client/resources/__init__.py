@@ -48,14 +48,6 @@ from .blocks import (
     BlocksResourceWithStreamingResponse,
     AsyncBlocksResourceWithStreamingResponse,
 )
-from .groups import (
-    GroupsResource,
-    AsyncGroupsResource,
-    GroupsResourceWithRawResponse,
-    AsyncGroupsResourceWithRawResponse,
-    GroupsResourceWithStreamingResponse,
-    AsyncGroupsResourceWithStreamingResponse,
-)
 from .models import (
     ModelsResource,
     AsyncModelsResource,
@@ -63,14 +55,6 @@ from .models import (
     AsyncModelsResourceWithRawResponse,
     ModelsResourceWithStreamingResponse,
     AsyncModelsResourceWithStreamingResponse,
-)
-from .batches import (
-    BatchesResource,
-    AsyncBatchesResource,
-    BatchesResourceWithRawResponse,
-    AsyncBatchesResourceWithRawResponse,
-    BatchesResourceWithStreamingResponse,
-    AsyncBatchesResourceWithStreamingResponse,
 )
 from .folders import (
     FoldersResource,
@@ -111,14 +95,6 @@ from .templates import (
     AsyncTemplatesResourceWithRawResponse,
     TemplatesResourceWithStreamingResponse,
     AsyncTemplatesResourceWithStreamingResponse,
-)
-from .identities import (
-    IdentitiesResource,
-    AsyncIdentitiesResource,
-    IdentitiesResourceWithRawResponse,
-    AsyncIdentitiesResourceWithRawResponse,
-    IdentitiesResourceWithStreamingResponse,
-    AsyncIdentitiesResourceWithStreamingResponse,
 )
 from .mcp_servers import (
     McpServersResource,
@@ -212,18 +188,6 @@ __all__ = [
     "AsyncTagsResourceWithRawResponse",
     "TagsResourceWithStreamingResponse",
     "AsyncTagsResourceWithStreamingResponse",
-    "IdentitiesResource",
-    "AsyncIdentitiesResource",
-    "IdentitiesResourceWithRawResponse",
-    "AsyncIdentitiesResourceWithRawResponse",
-    "IdentitiesResourceWithStreamingResponse",
-    "AsyncIdentitiesResourceWithStreamingResponse",
-    "GroupsResource",
-    "AsyncGroupsResource",
-    "GroupsResourceWithRawResponse",
-    "AsyncGroupsResourceWithRawResponse",
-    "GroupsResourceWithStreamingResponse",
-    "AsyncGroupsResourceWithStreamingResponse",
     "MessagesResource",
     "AsyncMessagesResource",
     "MessagesResourceWithRawResponse",
@@ -236,12 +200,6 @@ __all__ = [
     "AsyncPassagesResourceWithRawResponse",
     "PassagesResourceWithStreamingResponse",
     "AsyncPassagesResourceWithStreamingResponse",
-    "BatchesResource",
-    "AsyncBatchesResource",
-    "BatchesResourceWithRawResponse",
-    "AsyncBatchesResourceWithRawResponse",
-    "BatchesResourceWithStreamingResponse",
-    "AsyncBatchesResourceWithStreamingResponse",
     "ConversationsResource",
     "AsyncConversationsResource",
     "ConversationsResourceWithRawResponse",

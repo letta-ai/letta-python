@@ -7,10 +7,8 @@ from typing_extensions import Literal, Annotated, TypeAlias
 from pydantic import Field as FieldInfo
 
 from .tool import Tool
-from .group import Group
 from .._utils import PropertyInfo
 from .._models import BaseModel
-from .identity import Identity
 from .agent_type import AgentType
 from .llm_config import LlmConfig
 from .agents.block import Block
@@ -51,9 +49,13 @@ __all__ = [
     "CompactionSettingsModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
+    "Identity",
+    "IdentityProperty",
+    "ManagedGroup",
     "ModelSettings",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
+    "MultiAgentGroup",
     "ResponseFormat",
     "ToolRule",
 ]
@@ -271,6 +273,100 @@ class CompactionSettings(BaseModel):
     """
 
 
+class IdentityProperty(BaseModel):
+    """A property of an identity"""
+
+    key: str
+    """The key of the property"""
+
+    type: Literal["string", "number", "boolean", "json"]
+    """The type of the property"""
+
+    value: Union[str, float, bool, Dict[str, object]]
+    """The value of the property"""
+
+
+class Identity(BaseModel):
+    id: str
+    """The human-friendly ID of the Identity"""
+
+    agent_ids: List[str]
+    """The IDs of the agents associated with the identity."""
+
+    block_ids: List[str]
+    """The IDs of the blocks associated with the identity."""
+
+    identifier_key: str
+    """External, user-generated identifier key of the identity."""
+
+    identity_type: Literal["org", "user", "other"]
+    """The type of the identity."""
+
+    name: str
+    """The name of the identity."""
+
+    project_id: Optional[str] = None
+    """The project id of the identity, if applicable."""
+
+    properties: Optional[List[IdentityProperty]] = None
+    """List of properties associated with the identity"""
+
+
+class ManagedGroup(BaseModel):
+    """The multi-agent group that this agent manages"""
+
+    id: str
+    """The id of the group. Assigned by the database."""
+
+    agent_ids: List[str]
+
+    description: str
+
+    manager_type: Literal["round_robin", "supervisor", "dynamic", "sleeptime", "voice_sleeptime", "swarm"]
+
+    base_template_id: Optional[str] = None
+    """The base template id."""
+
+    deployment_id: Optional[str] = None
+    """The id of the deployment."""
+
+    hidden: Optional[bool] = None
+    """If set to True, the group will be hidden."""
+
+    last_processed_message_id: Optional[str] = None
+
+    manager_agent_id: Optional[str] = None
+
+    max_message_buffer_length: Optional[int] = None
+    """The desired maximum length of messages in the context window of the convo agent.
+
+    This is a best effort, and may be off slightly due to user/assistant
+    interleaving.
+    """
+
+    max_turns: Optional[int] = None
+
+    min_message_buffer_length: Optional[int] = None
+    """The desired minimum length of messages in the context window of the convo agent.
+
+    This is a best effort, and may be off-by-one due to user/assistant interleaving.
+    """
+
+    project_id: Optional[str] = None
+    """The associated project id."""
+
+    shared_block_ids: Optional[List[str]] = None
+
+    sleeptime_agent_frequency: Optional[int] = None
+
+    template_id: Optional[str] = None
+    """The id of the template."""
+
+    termination_token: Optional[str] = None
+
+    turns_counter: Optional[int] = None
+
+
 ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
     PropertyInfo(discriminator="type"),
@@ -313,6 +409,65 @@ ModelSettings: TypeAlias = Annotated[
     ],
     PropertyInfo(discriminator="provider_type"),
 ]
+
+
+class MultiAgentGroup(BaseModel):
+    """Deprecated: Use `managed_group` field instead.
+
+    The multi-agent group that this agent manages.
+    """
+
+    id: str
+    """The id of the group. Assigned by the database."""
+
+    agent_ids: List[str]
+
+    description: str
+
+    manager_type: Literal["round_robin", "supervisor", "dynamic", "sleeptime", "voice_sleeptime", "swarm"]
+
+    base_template_id: Optional[str] = None
+    """The base template id."""
+
+    deployment_id: Optional[str] = None
+    """The id of the deployment."""
+
+    hidden: Optional[bool] = None
+    """If set to True, the group will be hidden."""
+
+    last_processed_message_id: Optional[str] = None
+
+    manager_agent_id: Optional[str] = None
+
+    max_message_buffer_length: Optional[int] = None
+    """The desired maximum length of messages in the context window of the convo agent.
+
+    This is a best effort, and may be off slightly due to user/assistant
+    interleaving.
+    """
+
+    max_turns: Optional[int] = None
+
+    min_message_buffer_length: Optional[int] = None
+    """The desired minimum length of messages in the context window of the convo agent.
+
+    This is a best effort, and may be off-by-one due to user/assistant interleaving.
+    """
+
+    project_id: Optional[str] = None
+    """The associated project id."""
+
+    shared_block_ids: Optional[List[str]] = None
+
+    sleeptime_agent_frequency: Optional[int] = None
+
+    template_id: Optional[str] = None
+    """The id of the template."""
+
+    termination_token: Optional[str] = None
+
+    turns_counter: Optional[int] = None
+
 
 ResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
@@ -430,7 +585,7 @@ class AgentState(BaseModel):
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
 
-    managed_group: Optional[Group] = None
+    managed_group: Optional[ManagedGroup] = None
     """The multi-agent group that this agent manages"""
 
     max_files_open: Optional[int] = None
@@ -458,7 +613,7 @@ class AgentState(BaseModel):
     api_model_settings: Optional[ModelSettings] = FieldInfo(alias="model_settings", default=None)
     """The model settings used by the agent."""
 
-    multi_agent_group: Optional[Group] = None
+    multi_agent_group: Optional[MultiAgentGroup] = None
     """Deprecated: Use `managed_group` field instead.
 
     The multi-agent group that this agent manages.

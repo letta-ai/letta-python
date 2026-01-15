@@ -26,7 +26,6 @@ from .internal_message import InternalMessage as InternalMessage
 from .tool_list_params import ToolListParams as ToolListParams
 from .assistant_message import AssistantMessage as AssistantMessage
 from .block_list_params import BlockListParams as BlockListParams
-from .group_list_params import GroupListParams as GroupListParams
 from .reasoning_content import ReasoningContent as ReasoningContent
 from .reasoning_message import ReasoningMessage as ReasoningMessage
 from .tool_call_content import ToolCallContent as ToolCallContent
@@ -43,7 +42,6 @@ from .passage_list_params import PassageListParams as PassageListParams
 from .tool_return_content import ToolReturnContent as ToolReturnContent
 from .folder_list_response import FolderListResponse as FolderListResponse
 from .message_reset_params import MessageResetParams as MessageResetParams
-from .schedule_list_params import ScheduleListParams as ScheduleListParams
 from .approval_create_param import ApprovalCreateParam as ApprovalCreateParam
 from .approval_return_param import ApprovalReturnParam as ApprovalReturnParam
 from .message_cancel_params import MessageCancelParams as MessageCancelParams
@@ -54,8 +52,6 @@ from .passage_list_response import PassageListResponse as PassageListResponse
 from .passage_search_params import PassageSearchParams as PassageSearchParams
 from .tool_execution_result import ToolExecutionResult as ToolExecutionResult
 from .message_compact_params import MessageCompactParams as MessageCompactParams
-from .schedule_create_params import ScheduleCreateParams as ScheduleCreateParams
-from .schedule_list_response import ScheduleListResponse as ScheduleListResponse
 from .file_close_all_response import FileCloseAllResponse as FileCloseAllResponse
 from .message_cancel_response import MessageCancelResponse as MessageCancelResponse
 from .passage_create_response import PassageCreateResponse as PassageCreateResponse
@@ -66,28 +62,15 @@ from .approval_request_message import ApprovalRequestMessage as ApprovalRequestM
 from .hidden_reasoning_message import HiddenReasoningMessage as HiddenReasoningMessage
 from .letta_streaming_response import LettaStreamingResponse as LettaStreamingResponse
 from .message_compact_response import MessageCompactResponse as MessageCompactResponse
-from .schedule_create_response import ScheduleCreateResponse as ScheduleCreateResponse
-from .schedule_delete_response import ScheduleDeleteResponse as ScheduleDeleteResponse
 from .approval_response_message import ApprovalResponseMessage as ApprovalResponseMessage
 from .omitted_reasoning_content import OmittedReasoningContent as OmittedReasoningContent
 from .tool_return_content_param import ToolReturnContentParam as ToolReturnContentParam
-from .update_user_message_param import UpdateUserMessageParam as UpdateUserMessageParam
 from .redacted_reasoning_content import RedactedReasoningContent as RedactedReasoningContent
-from .schedule_retrieve_response import ScheduleRetrieveResponse as ScheduleRetrieveResponse
 from .message_create_async_params import MessageCreateAsyncParams as MessageCreateAsyncParams
 from .tool_update_approval_params import ToolUpdateApprovalParams as ToolUpdateApprovalParams
-from .update_system_message_param import UpdateSystemMessageParam as UpdateSystemMessageParam
-from .update_assistant_message_param import UpdateAssistantMessageParam as UpdateAssistantMessageParam
-from .update_reasoning_message_param import UpdateReasoningMessageParam as UpdateReasoningMessageParam
 from .omitted_reasoning_content_param import OmittedReasoningContentParam as OmittedReasoningContentParam
 from .letta_user_message_content_union import LettaUserMessageContentUnion as LettaUserMessageContentUnion
 from .redacted_reasoning_content_param import RedactedReasoningContentParam as RedactedReasoningContentParam
 from .letta_assistant_message_content_union import (
     LettaAssistantMessageContentUnion as LettaAssistantMessageContentUnion,
-)
-from .letta_user_message_content_union_param import (
-    LettaUserMessageContentUnionParam as LettaUserMessageContentUnionParam,
-)
-from .letta_assistant_message_content_union_param import (
-    LettaAssistantMessageContentUnionParam as LettaAssistantMessageContentUnionParam,
 )
