@@ -586,6 +586,7 @@ Types:
 from letta_client.types import (
     Conversation,
     CreateConversation,
+    UpdateConversation,
     ConversationListResponse,
     ConversationCancelResponse,
 )
@@ -595,6 +596,7 @@ Methods:
 
 - <code title="post /v1/conversations/">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">create</a>(\*\*<a href="src/letta_client/types/conversation_create_params.py">params</a>) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
 - <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">retrieve</a>(conversation_id) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
+- <code title="patch /v1/conversations/{conversation_id}">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">update</a>(conversation_id, \*\*<a href="src/letta_client/types/conversation_update_params.py">params</a>) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">list</a>(\*\*<a href="src/letta_client/types/conversation_list_params.py">params</a>) -> <a href="./src/letta_client/types/conversation_list_response.py">ConversationListResponse</a></code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">cancel</a>(conversation_id) -> <a href="./src/letta_client/types/conversation_cancel_response.py">ConversationCancelResponse</a></code>
 
