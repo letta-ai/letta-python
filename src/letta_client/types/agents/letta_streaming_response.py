@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
@@ -21,11 +22,37 @@ __all__ = ["LettaStreamingResponse", "LettaPing", "LettaErrorMessage", "LettaSto
 
 class LettaPing(BaseModel):
     """
-    Ping messages are a keep-alive to prevent SSE streams from timing out during long running requests.
+    A ping message used as a keepalive to prevent SSE streams from timing out during long running requests.
+
+    Args:
+        id (str): The ID of the message
+        date (datetime): The date the message was created in ISO format
     """
 
-    message_type: Literal["ping"]
-    """The type of the message."""
+    id: str
+
+    date: datetime
+
+    is_err: Optional[bool] = None
+
+    message_type: Optional[Literal["ping"]] = None
+    """The type of the message.
+
+    Ping messages are a keep-alive to prevent SSE streams from timing out during
+    long running requests.
+    """
+
+    name: Optional[str] = None
+
+    otid: Optional[str] = None
+
+    run_id: Optional[str] = None
+
+    sender_id: Optional[str] = None
+
+    seq_id: Optional[int] = None
+
+    step_id: Optional[str] = None
 
 
 class LettaErrorMessage(BaseModel):
