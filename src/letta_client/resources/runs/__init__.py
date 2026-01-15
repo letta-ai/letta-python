@@ -16,6 +16,14 @@ from .steps import (
     StepsResourceWithStreamingResponse,
     AsyncStepsResourceWithStreamingResponse,
 )
+from .trace import (
+    TraceResource,
+    AsyncTraceResource,
+    TraceResourceWithRawResponse,
+    AsyncTraceResourceWithRawResponse,
+    TraceResourceWithStreamingResponse,
+    AsyncTraceResourceWithStreamingResponse,
+)
 from .usage import (
     UsageResource,
     AsyncUsageResource,
@@ -52,6 +60,12 @@ __all__ = [
     "AsyncStepsResourceWithRawResponse",
     "StepsResourceWithStreamingResponse",
     "AsyncStepsResourceWithStreamingResponse",
+    "TraceResource",
+    "AsyncTraceResource",
+    "TraceResourceWithRawResponse",
+    "AsyncTraceResourceWithRawResponse",
+    "TraceResourceWithStreamingResponse",
+    "AsyncTraceResourceWithStreamingResponse",
     "RunsResource",
     "AsyncRunsResource",
     "RunsResourceWithRawResponse",

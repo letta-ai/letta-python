@@ -469,6 +469,18 @@ Methods:
 
 - <code title="get /v1/runs/{run_id}/steps">client.runs.steps.<a href="./src/letta_client/resources/runs/steps.py">list</a>(run_id, \*\*<a href="src/letta_client/types/runs/step_list_params.py">params</a>) -> <a href="./src/letta_client/types/step.py">SyncArrayPage[Step]</a></code>
 
+## Trace
+
+Types:
+
+```python
+from letta_client.types.runs import TraceRetrieveResponse
+```
+
+Methods:
+
+- <code title="get /v1/runs/{run_id}/trace">client.runs.trace.<a href="./src/letta_client/resources/runs/trace.py">retrieve</a>(run_id, \*\*<a href="src/letta_client/types/runs/trace_retrieve_params.py">params</a>) -> <a href="./src/letta_client/types/runs/trace_retrieve_response.py">TraceRetrieveResponse</a></code>
+
 # Steps
 
 Types:
