@@ -33,6 +33,7 @@ class TestConversations:
     def test_method_create_with_all_params(self, client: Letta) -> None:
         conversation = client.conversations.create(
             agent_id="agent_id",
+            isolated_block_labels=["string"],
             summary="summary",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
@@ -168,6 +169,7 @@ class TestAsyncConversations:
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.create(
             agent_id="agent_id",
+            isolated_block_labels=["string"],
             summary="summary",
         )
         assert_matches_type(Conversation, conversation, path=["response"])

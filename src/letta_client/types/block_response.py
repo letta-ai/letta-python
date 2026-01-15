@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 from .._models import BaseModel
 
@@ -55,6 +55,9 @@ class BlockResponse(BaseModel):
 
     read_only: Optional[bool] = None
     """(Deprecated) Whether the agent has read-only access to the block."""
+
+    tags: Optional[List[str]] = None
+    """The tags associated with the block."""
 
     template_id: Optional[str] = None
     """(Deprecated) The id of the template."""

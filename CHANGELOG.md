@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.7.0 (2026-01-14)
+
+Full Changelog: [v1.6.5...v1.7.0](https://github.com/letta-ai/letta-python/compare/v1.6.5...v1.7.0)
+
+### Features
+
+* add /v1/metadata/user [LET-6845] ([a56acb7](https://github.com/letta-ai/letta-python/commit/a56acb7bc419f38c18b560238c151eaf2c4b17f7))
+* add conversation_id filter to list runs ([095e489](https://github.com/letta-ai/letta-python/commit/095e4894c09ade6fedf6b79bd91dc8fd40618538))
+* Add conversation_id filtering to message endpoints ([d5cad46](https://github.com/letta-ai/letta-python/commit/d5cad46ec14eae56778faa225d871d5b3920180a))
+* add ids to archival memory search ([f7eaf79](https://github.com/letta-ai/letta-python/commit/f7eaf792f311fa084c14dcf43d3baa338e81a911))
+* add pending approval field on agent state ([7ddc612](https://github.com/letta-ai/letta-python/commit/7ddc612138ff3d118df72bc5a013aa980d6d09c1))
+* add strict tool calling setting [LET-6902] ([7919066](https://github.com/letta-ai/letta-python/commit/7919066530788b968950f1048e3cf9fe655abd5f))
+* add tags support to blocks ([d84042c](https://github.com/letta-ai/letta-python/commit/d84042c4f1e73a1eddaaf55aad7cd17c83be2270))
+* allow for conversation-level isolation of blocks ([0938de1](https://github.com/letta-ai/letta-python/commit/0938de1ac65b5d2d1c2647132c8a56af844582b1))
+* **client:** add support for binary request streaming ([86159cc](https://github.com/letta-ai/letta-python/commit/86159cc6139476783da4891327fb5c9eb66af2da))
+* Revert "feat: add strict tool calling setting [LET-6902]" ([4b72833](https://github.com/letta-ai/letta-python/commit/4b72833a2c1078d3f225301f30a4a8bf21d1212a))
+
+
+### Chores
+
+* add scheduled message api ([5a85700](https://github.com/letta-ai/letta-python/commit/5a85700c0f294c82a5c6b3de16497185fe9a5768))
+
 ## 1.6.5 (2026-01-06)
 
 Full Changelog: [v1.6.4...v1.6.5](https://github.com/letta-ai/letta-python/compare/v1.6.4...v1.6.5)

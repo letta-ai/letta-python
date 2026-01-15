@@ -94,6 +94,14 @@ from .passages import (
     PassagesResourceWithStreamingResponse,
     AsyncPassagesResourceWithStreamingResponse,
 )
+from .schedule import (
+    ScheduleResource,
+    AsyncScheduleResource,
+    ScheduleResourceWithRawResponse,
+    AsyncScheduleResourceWithRawResponse,
+    ScheduleResourceWithStreamingResponse,
+    AsyncScheduleResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from .identities import (
     IdentitiesResource,
@@ -128,6 +136,10 @@ class AgentsResource(SyncAPIResource):
     @cached_property
     def messages(self) -> MessagesResource:
         return MessagesResource(self._client)
+
+    @cached_property
+    def schedule(self) -> ScheduleResource:
+        return ScheduleResource(self._client)
 
     @cached_property
     def blocks(self) -> BlocksResource:
@@ -443,6 +455,7 @@ class AgentsResource(SyncAPIResource):
                 "agent.blocks",
                 "agent.identities",
                 "agent.managed_group",
+                "agent.pending_approval",
                 "agent.secrets",
                 "agent.sources",
                 "agent.tags",
@@ -720,6 +733,7 @@ class AgentsResource(SyncAPIResource):
                 "agent.blocks",
                 "agent.identities",
                 "agent.managed_group",
+                "agent.pending_approval",
                 "agent.secrets",
                 "agent.sources",
                 "agent.tags",
@@ -1023,6 +1037,10 @@ class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
     def messages(self) -> AsyncMessagesResource:
         return AsyncMessagesResource(self._client)
+
+    @cached_property
+    def schedule(self) -> AsyncScheduleResource:
+        return AsyncScheduleResource(self._client)
 
     @cached_property
     def blocks(self) -> AsyncBlocksResource:
@@ -1338,6 +1356,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                 "agent.blocks",
                 "agent.identities",
                 "agent.managed_group",
+                "agent.pending_approval",
                 "agent.secrets",
                 "agent.sources",
                 "agent.tags",
@@ -1615,6 +1634,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                 "agent.blocks",
                 "agent.identities",
                 "agent.managed_group",
+                "agent.pending_approval",
                 "agent.secrets",
                 "agent.sources",
                 "agent.tags",
@@ -1945,6 +1965,10 @@ class AgentsResourceWithRawResponse:
         return MessagesResourceWithRawResponse(self._agents.messages)
 
     @cached_property
+    def schedule(self) -> ScheduleResourceWithRawResponse:
+        return ScheduleResourceWithRawResponse(self._agents.schedule)
+
+    @cached_property
     def blocks(self) -> BlocksResourceWithRawResponse:
         return BlocksResourceWithRawResponse(self._agents.blocks)
 
@@ -2006,6 +2030,10 @@ class AsyncAgentsResourceWithRawResponse:
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
         return AsyncMessagesResourceWithRawResponse(self._agents.messages)
+
+    @cached_property
+    def schedule(self) -> AsyncScheduleResourceWithRawResponse:
+        return AsyncScheduleResourceWithRawResponse(self._agents.schedule)
 
     @cached_property
     def blocks(self) -> AsyncBlocksResourceWithRawResponse:
@@ -2071,6 +2099,10 @@ class AgentsResourceWithStreamingResponse:
         return MessagesResourceWithStreamingResponse(self._agents.messages)
 
     @cached_property
+    def schedule(self) -> ScheduleResourceWithStreamingResponse:
+        return ScheduleResourceWithStreamingResponse(self._agents.schedule)
+
+    @cached_property
     def blocks(self) -> BlocksResourceWithStreamingResponse:
         return BlocksResourceWithStreamingResponse(self._agents.blocks)
 
@@ -2132,6 +2164,10 @@ class AsyncAgentsResourceWithStreamingResponse:
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithStreamingResponse:
         return AsyncMessagesResourceWithStreamingResponse(self._agents.messages)
+
+    @cached_property
+    def schedule(self) -> AsyncScheduleResourceWithStreamingResponse:
+        return AsyncScheduleResourceWithStreamingResponse(self._agents.schedule)
 
     @cached_property
     def blocks(self) -> AsyncBlocksResourceWithStreamingResponse:

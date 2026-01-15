@@ -26,6 +26,12 @@ class Conversation(BaseModel):
     in_context_message_ids: Optional[List[str]] = None
     """The IDs of in-context messages for the conversation."""
 
+    isolated_block_ids: Optional[List[str]] = None
+    """
+    IDs of blocks that are isolated (specific to this conversation, overriding agent
+    defaults).
+    """
+
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
 

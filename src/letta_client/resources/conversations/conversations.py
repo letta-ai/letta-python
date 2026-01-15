@@ -7,7 +7,7 @@ from typing import Optional
 import httpx
 
 from ...types import conversation_list_params, conversation_create_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from .messages import (
     MessagesResource,
@@ -60,6 +60,7 @@ class ConversationsResource(SyncAPIResource):
         self,
         *,
         agent_id: str,
+        isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         summary: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -74,6 +75,10 @@ class ConversationsResource(SyncAPIResource):
         Args:
           agent_id: The agent ID to create a conversation for
 
+          isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
+              shared across conversations. New blocks will be created as copies of the agent's
+              blocks with these labels.
+
           summary: A summary of the conversation.
 
           extra_headers: Send extra headers
@@ -86,7 +91,13 @@ class ConversationsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/conversations/",
-            body=maybe_transform({"summary": summary}, conversation_create_params.ConversationCreateParams),
+            body=maybe_transform(
+                {
+                    "isolated_block_labels": isolated_block_labels,
+                    "summary": summary,
+                },
+                conversation_create_params.ConversationCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -211,6 +222,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         *,
         agent_id: str,
+        isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         summary: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -225,6 +237,10 @@ class AsyncConversationsResource(AsyncAPIResource):
         Args:
           agent_id: The agent ID to create a conversation for
 
+          isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
+              shared across conversations. New blocks will be created as copies of the agent's
+              blocks with these labels.
+
           summary: A summary of the conversation.
 
           extra_headers: Send extra headers
@@ -237,7 +253,13 @@ class AsyncConversationsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/conversations/",
-            body=await async_maybe_transform({"summary": summary}, conversation_create_params.ConversationCreateParams),
+            body=await async_maybe_transform(
+                {
+                    "isolated_block_labels": isolated_block_labels,
+                    "summary": summary,
+                },
+                conversation_create_params.ConversationCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

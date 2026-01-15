@@ -171,6 +171,7 @@ class InternalMessage(BaseModel):
             tool_returns (List[ToolReturn]): The list of tool returns requested.
             group_id (str): The multi-agent group that the message was sent in.
             sender_id (str): The id of the sender of the message, can be an identity id or agent id.
+            conversation_id (str): The conversation this message belongs to.
     t
     """
 
@@ -200,6 +201,9 @@ class InternalMessage(BaseModel):
 
     content: Optional[List[Content]] = None
     """The content of the message."""
+
+    conversation_id: Optional[str] = None
+    """The conversation this message belongs to"""
 
     created_at: Optional[datetime] = None
     """The timestamp when the object was created."""

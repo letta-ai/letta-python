@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Dict, Optional
 from typing_extensions import TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["BlockUpdateParams"]
 
 
@@ -44,6 +46,9 @@ class BlockUpdateParams(TypedDict, total=False):
 
     read_only: bool
     """Whether the agent has read-only access to the block."""
+
+    tags: Optional[SequenceNotStr[str]]
+    """The tags to associate with the block."""
 
     template_id: Optional[str]
     """The id of the template."""

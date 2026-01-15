@@ -26,6 +26,7 @@ class AgentListParams(TypedDict, total=False):
             "agent.blocks",
             "agent.identities",
             "agent.managed_group",
+            "agent.pending_approval",
             "agent.secrets",
             "agent.sources",
             "agent.tags",
