@@ -28,6 +28,7 @@ from ..._response import (
 from ..._base_client import make_request_options
 from ...types.conversation import Conversation
 from ...types.conversation_list_response import ConversationListResponse
+from ...types.conversation_cancel_response import ConversationCancelResponse
 
 __all__ = ["ConversationsResource", "AsyncConversationsResource"]
 
@@ -191,6 +192,43 @@ class ConversationsResource(SyncAPIResource):
                 ),
             ),
             cast_to=ConversationListResponse,
+        )
+
+    def cancel(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConversationCancelResponse:
+        """
+        Cancel runs associated with a conversation.
+
+        Note: To cancel active runs, Redis is required.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._post(
+            f"/v1/conversations/{conversation_id}/cancel",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConversationCancelResponse,
         )
 
 
@@ -357,6 +395,43 @@ class AsyncConversationsResource(AsyncAPIResource):
             cast_to=ConversationListResponse,
         )
 
+    async def cancel(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConversationCancelResponse:
+        """
+        Cancel runs associated with a conversation.
+
+        Note: To cancel active runs, Redis is required.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._post(
+            f"/v1/conversations/{conversation_id}/cancel",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConversationCancelResponse,
+        )
+
 
 class ConversationsResourceWithRawResponse:
     def __init__(self, conversations: ConversationsResource) -> None:
@@ -370,6 +445,9 @@ class ConversationsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             conversations.list,
+        )
+        self.cancel = to_raw_response_wrapper(
+            conversations.cancel,
         )
 
     @cached_property
@@ -390,6 +468,9 @@ class AsyncConversationsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             conversations.list,
         )
+        self.cancel = async_to_raw_response_wrapper(
+            conversations.cancel,
+        )
 
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
@@ -409,6 +490,9 @@ class ConversationsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             conversations.list,
         )
+        self.cancel = to_streamed_response_wrapper(
+            conversations.cancel,
+        )
 
     @cached_property
     def messages(self) -> MessagesResourceWithStreamingResponse:
@@ -427,6 +511,9 @@ class AsyncConversationsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             conversations.list,
+        )
+        self.cancel = async_to_streamed_response_wrapper(
+            conversations.cancel,
         )
 
     @cached_property
