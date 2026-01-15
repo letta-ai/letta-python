@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Any, List, Union, Iterable, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -17,11 +18,12 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._streaming import Stream, AsyncStream
-from ..._base_client import make_request_options
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.conversations import message_list_params, message_create_params, message_stream_params
+from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
-from ...types.conversations.message_list_response import MessageListResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -164,31 +166,44 @@ class MessagesResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        group_id: Optional[str] | Omit = omit,
+        include_err: Optional[bool] | Omit = omit,
         limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageListResponse:
+    ) -> SyncArrayPage[Message]:
         """
         List all messages in a conversation.
 
         Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
-        messages in the conversation, ordered by position (oldest first), with support
-        for cursor-based pagination.
+        messages in the conversation, with support for cursor-based pagination.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           after: Message ID cursor for pagination. Returns messages that come after this message
-              ID in the conversation
+              ID in the specified sort order
 
           before: Message ID cursor for pagination. Returns messages that come before this message
-              ID in the conversation
+              ID in the specified sort order
+
+          group_id: Group ID to filter messages by.
+
+          include_err: Whether to include error messages and error statuses. For debugging purposes
+              only.
 
           limit: Maximum number of messages to return
+
+          order: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
+              newest first
+
+          order_by: Field to sort by
 
           extra_headers: Send extra headers
 
@@ -200,8 +215,9 @@ class MessagesResource(SyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
-        return self._get(
+        return self._get_api_list(
             f"/v1/conversations/{conversation_id}/messages",
+            page=SyncArrayPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -211,12 +227,16 @@ class MessagesResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "group_id": group_id,
+                        "include_err": include_err,
                         "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
                     },
                     message_list_params.MessageListParams,
                 ),
             ),
-            cast_to=MessageListResponse,
+            model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
     def stream(
@@ -415,37 +435,50 @@ class AsyncMessagesResource(AsyncAPIResource):
             stream_cls=AsyncStream[LettaStreamingResponse],
         )
 
-    async def list(
+    def list(
         self,
         conversation_id: str,
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        group_id: Optional[str] | Omit = omit,
+        include_err: Optional[bool] | Omit = omit,
         limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageListResponse:
+    ) -> AsyncPaginator[Message, AsyncArrayPage[Message]]:
         """
         List all messages in a conversation.
 
         Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
-        messages in the conversation, ordered by position (oldest first), with support
-        for cursor-based pagination.
+        messages in the conversation, with support for cursor-based pagination.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           after: Message ID cursor for pagination. Returns messages that come after this message
-              ID in the conversation
+              ID in the specified sort order
 
           before: Message ID cursor for pagination. Returns messages that come before this message
-              ID in the conversation
+              ID in the specified sort order
+
+          group_id: Group ID to filter messages by.
+
+          include_err: Whether to include error messages and error statuses. For debugging purposes
+              only.
 
           limit: Maximum number of messages to return
+
+          order: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
+              newest first
+
+          order_by: Field to sort by
 
           extra_headers: Send extra headers
 
@@ -457,23 +490,28 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
-        return await self._get(
+        return self._get_api_list(
             f"/v1/conversations/{conversation_id}/messages",
+            page=AsyncArrayPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "after": after,
                         "before": before,
+                        "group_id": group_id,
+                        "include_err": include_err,
                         "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
                     },
                     message_list_params.MessageListParams,
                 ),
             ),
-            cast_to=MessageListResponse,
+            model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
     async def stream(
