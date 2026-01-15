@@ -594,16 +594,10 @@ Methods:
 
 ## Messages
 
-Types:
-
-```python
-from letta_client.types.conversations import MessageListResponse
-```
-
 Methods:
 
 - <code title="post /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">create</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_streaming_response.py">LettaStreamingResponse</a></code>
-- <code title="get /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">list</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/conversations/message_list_response.py">MessageListResponse</a></code>
+- <code title="get /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">list</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncArrayPage[Message]</a></code>
 - <code title="post /v1/conversations/{conversation_id}/stream">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">stream</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_stream_params.py">params</a>) -> object</code>
 
 # AccessTokens
