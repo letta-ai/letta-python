@@ -75,6 +75,9 @@ class LettaErrorMessage(BaseModel):
     detail: Optional[str] = None
     """An optional error detail."""
 
+    seq_id: Optional[int] = None
+    """The sequence ID for cursor-based pagination."""
+
 
 class LettaStopReason(BaseModel):
     """The stop reason from Letta indicating why agent loop stopped execution."""
