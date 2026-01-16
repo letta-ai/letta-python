@@ -54,6 +54,7 @@ class LlmConfigParam(TypedDict, total=False):
             "deepseek",
             "xai",
             "zai",
+            "chatgpt_oauth",
         ]
     ]
     """The endpoint type for the model."""
