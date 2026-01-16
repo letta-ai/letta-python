@@ -57,6 +57,7 @@ class Model(BaseModel):
         "deepseek",
         "xai",
         "zai",
+        "chatgpt_oauth",
     ] = FieldInfo(alias="model_endpoint_type")
     """Deprecated: Use 'provider_type' field instead. The endpoint type for the model."""
 
