@@ -49,15 +49,12 @@ if TYPE_CHECKING:
         tools,
         agents,
         blocks,
-        groups,
         models,
-        batches,
         folders,
         archives,
         messages,
         passages,
         templates,
-        identities,
         mcp_servers,
         access_tokens,
         conversations,
@@ -71,13 +68,10 @@ if TYPE_CHECKING:
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
     from .resources.agents.agents import AgentsResource, AsyncAgentsResource
     from .resources.blocks.blocks import BlocksResource, AsyncBlocksResource
-    from .resources.groups.groups import GroupsResource, AsyncGroupsResource
     from .resources.models.models import ModelsResource, AsyncModelsResource
-    from .resources.batches.batches import BatchesResource, AsyncBatchesResource
     from .resources.folders.folders import FoldersResource, AsyncFoldersResource
     from .resources.archives.archives import ArchivesResource, AsyncArchivesResource
     from .resources.templates.templates import TemplatesResource, AsyncTemplatesResource
-    from .resources.identities.identities import IdentitiesResource, AsyncIdentitiesResource
     from .resources.mcp_servers.mcp_servers import McpServersResource, AsyncMcpServersResource
     from .resources.conversations.conversations import ConversationsResource, AsyncConversationsResource
 
@@ -251,18 +245,6 @@ class Letta(SyncAPIClient):
         return TagsResource(self)
 
     @cached_property
-    def identities(self) -> IdentitiesResource:
-        from .resources.identities import IdentitiesResource
-
-        return IdentitiesResource(self)
-
-    @cached_property
-    def groups(self) -> GroupsResource:
-        from .resources.groups import GroupsResource
-
-        return GroupsResource(self)
-
-    @cached_property
     def messages(self) -> MessagesResource:
         from .resources.messages import MessagesResource
 
@@ -273,12 +255,6 @@ class Letta(SyncAPIClient):
         from .resources.passages import PassagesResource
 
         return PassagesResource(self)
-
-    @cached_property
-    def batches(self) -> BatchesResource:
-        from .resources.batches import BatchesResource
-
-        return BatchesResource(self)
 
     @cached_property
     def conversations(self) -> ConversationsResource:
@@ -586,18 +562,6 @@ class AsyncLetta(AsyncAPIClient):
         return AsyncTagsResource(self)
 
     @cached_property
-    def identities(self) -> AsyncIdentitiesResource:
-        from .resources.identities import AsyncIdentitiesResource
-
-        return AsyncIdentitiesResource(self)
-
-    @cached_property
-    def groups(self) -> AsyncGroupsResource:
-        from .resources.groups import AsyncGroupsResource
-
-        return AsyncGroupsResource(self)
-
-    @cached_property
     def messages(self) -> AsyncMessagesResource:
         from .resources.messages import AsyncMessagesResource
 
@@ -608,12 +572,6 @@ class AsyncLetta(AsyncAPIClient):
         from .resources.passages import AsyncPassagesResource
 
         return AsyncPassagesResource(self)
-
-    @cached_property
-    def batches(self) -> AsyncBatchesResource:
-        from .resources.batches import AsyncBatchesResource
-
-        return AsyncBatchesResource(self)
 
     @cached_property
     def conversations(self) -> AsyncConversationsResource:
@@ -846,18 +804,6 @@ class LettaWithRawResponse:
         return TagsResourceWithRawResponse(self._client.tags)
 
     @cached_property
-    def identities(self) -> identities.IdentitiesResourceWithRawResponse:
-        from .resources.identities import IdentitiesResourceWithRawResponse
-
-        return IdentitiesResourceWithRawResponse(self._client.identities)
-
-    @cached_property
-    def groups(self) -> groups.GroupsResourceWithRawResponse:
-        from .resources.groups import GroupsResourceWithRawResponse
-
-        return GroupsResourceWithRawResponse(self._client.groups)
-
-    @cached_property
     def messages(self) -> messages.MessagesResourceWithRawResponse:
         from .resources.messages import MessagesResourceWithRawResponse
 
@@ -868,12 +814,6 @@ class LettaWithRawResponse:
         from .resources.passages import PassagesResourceWithRawResponse
 
         return PassagesResourceWithRawResponse(self._client.passages)
-
-    @cached_property
-    def batches(self) -> batches.BatchesResourceWithRawResponse:
-        from .resources.batches import BatchesResourceWithRawResponse
-
-        return BatchesResourceWithRawResponse(self._client.batches)
 
     @cached_property
     def conversations(self) -> conversations.ConversationsResourceWithRawResponse:
@@ -965,18 +905,6 @@ class AsyncLettaWithRawResponse:
         return AsyncTagsResourceWithRawResponse(self._client.tags)
 
     @cached_property
-    def identities(self) -> identities.AsyncIdentitiesResourceWithRawResponse:
-        from .resources.identities import AsyncIdentitiesResourceWithRawResponse
-
-        return AsyncIdentitiesResourceWithRawResponse(self._client.identities)
-
-    @cached_property
-    def groups(self) -> groups.AsyncGroupsResourceWithRawResponse:
-        from .resources.groups import AsyncGroupsResourceWithRawResponse
-
-        return AsyncGroupsResourceWithRawResponse(self._client.groups)
-
-    @cached_property
     def messages(self) -> messages.AsyncMessagesResourceWithRawResponse:
         from .resources.messages import AsyncMessagesResourceWithRawResponse
 
@@ -987,12 +915,6 @@ class AsyncLettaWithRawResponse:
         from .resources.passages import AsyncPassagesResourceWithRawResponse
 
         return AsyncPassagesResourceWithRawResponse(self._client.passages)
-
-    @cached_property
-    def batches(self) -> batches.AsyncBatchesResourceWithRawResponse:
-        from .resources.batches import AsyncBatchesResourceWithRawResponse
-
-        return AsyncBatchesResourceWithRawResponse(self._client.batches)
 
     @cached_property
     def conversations(self) -> conversations.AsyncConversationsResourceWithRawResponse:
@@ -1084,18 +1006,6 @@ class LettaWithStreamedResponse:
         return TagsResourceWithStreamingResponse(self._client.tags)
 
     @cached_property
-    def identities(self) -> identities.IdentitiesResourceWithStreamingResponse:
-        from .resources.identities import IdentitiesResourceWithStreamingResponse
-
-        return IdentitiesResourceWithStreamingResponse(self._client.identities)
-
-    @cached_property
-    def groups(self) -> groups.GroupsResourceWithStreamingResponse:
-        from .resources.groups import GroupsResourceWithStreamingResponse
-
-        return GroupsResourceWithStreamingResponse(self._client.groups)
-
-    @cached_property
     def messages(self) -> messages.MessagesResourceWithStreamingResponse:
         from .resources.messages import MessagesResourceWithStreamingResponse
 
@@ -1106,12 +1016,6 @@ class LettaWithStreamedResponse:
         from .resources.passages import PassagesResourceWithStreamingResponse
 
         return PassagesResourceWithStreamingResponse(self._client.passages)
-
-    @cached_property
-    def batches(self) -> batches.BatchesResourceWithStreamingResponse:
-        from .resources.batches import BatchesResourceWithStreamingResponse
-
-        return BatchesResourceWithStreamingResponse(self._client.batches)
 
     @cached_property
     def conversations(self) -> conversations.ConversationsResourceWithStreamingResponse:
@@ -1203,18 +1107,6 @@ class AsyncLettaWithStreamedResponse:
         return AsyncTagsResourceWithStreamingResponse(self._client.tags)
 
     @cached_property
-    def identities(self) -> identities.AsyncIdentitiesResourceWithStreamingResponse:
-        from .resources.identities import AsyncIdentitiesResourceWithStreamingResponse
-
-        return AsyncIdentitiesResourceWithStreamingResponse(self._client.identities)
-
-    @cached_property
-    def groups(self) -> groups.AsyncGroupsResourceWithStreamingResponse:
-        from .resources.groups import AsyncGroupsResourceWithStreamingResponse
-
-        return AsyncGroupsResourceWithStreamingResponse(self._client.groups)
-
-    @cached_property
     def messages(self) -> messages.AsyncMessagesResourceWithStreamingResponse:
         from .resources.messages import AsyncMessagesResourceWithStreamingResponse
 
@@ -1225,12 +1117,6 @@ class AsyncLettaWithStreamedResponse:
         from .resources.passages import AsyncPassagesResourceWithStreamingResponse
 
         return AsyncPassagesResourceWithStreamingResponse(self._client.passages)
-
-    @cached_property
-    def batches(self) -> batches.AsyncBatchesResourceWithStreamingResponse:
-        from .resources.batches import AsyncBatchesResourceWithStreamingResponse
-
-        return AsyncBatchesResourceWithStreamingResponse(self._client.batches)
 
     @cached_property
     def conversations(self) -> conversations.AsyncConversationsResourceWithStreamingResponse:

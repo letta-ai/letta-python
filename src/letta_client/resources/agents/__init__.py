@@ -32,14 +32,6 @@ from .blocks import (
     BlocksResourceWithStreamingResponse,
     AsyncBlocksResourceWithStreamingResponse,
 )
-from .groups import (
-    GroupsResource,
-    AsyncGroupsResource,
-    GroupsResourceWithRawResponse,
-    AsyncGroupsResourceWithRawResponse,
-    GroupsResourceWithStreamingResponse,
-    AsyncGroupsResourceWithStreamingResponse,
-)
 from .folders import (
     FoldersResource,
     AsyncFoldersResource,
@@ -72,14 +64,6 @@ from .passages import (
     PassagesResourceWithStreamingResponse,
     AsyncPassagesResourceWithStreamingResponse,
 )
-from .schedule import (
-    ScheduleResource,
-    AsyncScheduleResource,
-    ScheduleResourceWithRawResponse,
-    AsyncScheduleResourceWithRawResponse,
-    ScheduleResourceWithStreamingResponse,
-    AsyncScheduleResourceWithStreamingResponse,
-)
 from .identities import (
     IdentitiesResource,
     AsyncIdentitiesResource,
@@ -96,12 +80,6 @@ __all__ = [
     "AsyncMessagesResourceWithRawResponse",
     "MessagesResourceWithStreamingResponse",
     "AsyncMessagesResourceWithStreamingResponse",
-    "ScheduleResource",
-    "AsyncScheduleResource",
-    "ScheduleResourceWithRawResponse",
-    "AsyncScheduleResourceWithRawResponse",
-    "ScheduleResourceWithStreamingResponse",
-    "AsyncScheduleResourceWithStreamingResponse",
     "BlocksResource",
     "AsyncBlocksResource",
     "BlocksResourceWithRawResponse",
@@ -126,12 +104,6 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
-    "GroupsResource",
-    "AsyncGroupsResource",
-    "GroupsResourceWithRawResponse",
-    "AsyncGroupsResourceWithRawResponse",
-    "GroupsResourceWithStreamingResponse",
-    "AsyncGroupsResourceWithStreamingResponse",
     "ArchivesResource",
     "AsyncArchivesResource",
     "ArchivesResourceWithRawResponse",

@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from ..agents.message import Message
+from .agents.message import Message
 
-__all__ = ["MessageListResponse"]
+__all__ = ["MessageRetrieveResponse"]
 
-MessageListResponse: TypeAlias = List[Message]
+MessageRetrieveResponse: TypeAlias = List[Message]

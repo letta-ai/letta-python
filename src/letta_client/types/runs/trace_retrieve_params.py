@@ -4,10 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["ScheduleListParams"]
+__all__ = ["TraceRetrieveParams"]
 
 
-class ScheduleListParams(TypedDict, total=False):
-    after: str
-
-    limit: str
+class TraceRetrieveParams(TypedDict, total=False):
+    limit: int
+    """Maximum number of spans to return"""

@@ -15,6 +15,14 @@ from .steps import (
     StepsResourceWithStreamingResponse,
     AsyncStepsResourceWithStreamingResponse,
 )
+from .trace import (
+    TraceResource,
+    AsyncTraceResource,
+    TraceResourceWithRawResponse,
+    AsyncTraceResourceWithRawResponse,
+    TraceResourceWithStreamingResponse,
+    AsyncTraceResourceWithStreamingResponse,
+)
 from .usage import (
     UsageResource,
     AsyncUsageResource,
@@ -62,6 +70,10 @@ class RunsResource(SyncAPIResource):
     @cached_property
     def steps(self) -> StepsResource:
         return StepsResource(self._client)
+
+    @cached_property
+    def trace(self) -> TraceResource:
+        return TraceResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> RunsResourceWithRawResponse:
@@ -224,6 +236,10 @@ class AsyncRunsResource(AsyncAPIResource):
     @cached_property
     def steps(self) -> AsyncStepsResource:
         return AsyncStepsResource(self._client)
+
+    @cached_property
+    def trace(self) -> AsyncTraceResource:
+        return AsyncTraceResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncRunsResourceWithRawResponse:
@@ -397,6 +413,10 @@ class RunsResourceWithRawResponse:
     def steps(self) -> StepsResourceWithRawResponse:
         return StepsResourceWithRawResponse(self._runs.steps)
 
+    @cached_property
+    def trace(self) -> TraceResourceWithRawResponse:
+        return TraceResourceWithRawResponse(self._runs.trace)
+
 
 class AsyncRunsResourceWithRawResponse:
     def __init__(self, runs: AsyncRunsResource) -> None:
@@ -420,6 +440,10 @@ class AsyncRunsResourceWithRawResponse:
     @cached_property
     def steps(self) -> AsyncStepsResourceWithRawResponse:
         return AsyncStepsResourceWithRawResponse(self._runs.steps)
+
+    @cached_property
+    def trace(self) -> AsyncTraceResourceWithRawResponse:
+        return AsyncTraceResourceWithRawResponse(self._runs.trace)
 
 
 class RunsResourceWithStreamingResponse:
@@ -445,6 +469,10 @@ class RunsResourceWithStreamingResponse:
     def steps(self) -> StepsResourceWithStreamingResponse:
         return StepsResourceWithStreamingResponse(self._runs.steps)
 
+    @cached_property
+    def trace(self) -> TraceResourceWithStreamingResponse:
+        return TraceResourceWithStreamingResponse(self._runs.trace)
+
 
 class AsyncRunsResourceWithStreamingResponse:
     def __init__(self, runs: AsyncRunsResource) -> None:
@@ -468,3 +496,7 @@ class AsyncRunsResourceWithStreamingResponse:
     @cached_property
     def steps(self) -> AsyncStepsResourceWithStreamingResponse:
         return AsyncStepsResourceWithStreamingResponse(self._runs.steps)
+
+    @cached_property
+    def trace(self) -> AsyncTraceResourceWithStreamingResponse:
+        return AsyncTraceResourceWithStreamingResponse(self._runs.trace)
