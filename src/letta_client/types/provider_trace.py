@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
@@ -16,6 +16,10 @@ class ProviderTrace(BaseModel):
         request_json (Dict[str, Any]): JSON content of the provider request.
         response_json (Dict[str, Any]): JSON content of the provider response.
         step_id (str): ID of the step that this trace is associated with.
+        agent_id (str): ID of the agent that generated this trace.
+        agent_tags (list[str]): Tags associated with the agent for filtering.
+        call_type (str): Type of call (agent_step, summarization, etc.).
+        run_id (str): ID of the run this trace is associated with.
         organization_id (str): The unique identifier of the organization.
         created_at (datetime): The timestamp when the object was created.
     """
@@ -29,6 +33,15 @@ class ProviderTrace(BaseModel):
     id: Optional[str] = None
     """The human-friendly ID of the Provider_trace"""
 
+    agent_id: Optional[str] = None
+    """ID of the agent that generated this trace"""
+
+    agent_tags: Optional[List[str]] = None
+    """Tags associated with the agent for filtering"""
+
+    call_type: Optional[str] = None
+    """Type of call (agent_step, summarization, etc.)"""
+
     created_at: Optional[datetime] = None
     """The timestamp when the object was created."""
 
@@ -37,6 +50,9 @@ class ProviderTrace(BaseModel):
 
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
+
+    run_id: Optional[str] = None
+    """ID of the run this trace is associated with"""
 
     step_id: Optional[str] = None
     """ID of the step that this trace is associated with"""
