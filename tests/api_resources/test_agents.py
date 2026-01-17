@@ -533,6 +533,7 @@ class TestAgents:
     def test_method_export_file_with_all_params(self, client: Letta) -> None:
         agent = client.agents.export_file(
             agent_id="agent_id",
+            conversation_id="conversation_id",
             max_steps=0,
             use_legacy_format=True,
         )
@@ -1142,6 +1143,7 @@ class TestAsyncAgents:
     async def test_method_export_file_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.export_file(
             agent_id="agent_id",
+            conversation_id="conversation_id",
             max_steps=0,
             use_legacy_format=True,
         )
