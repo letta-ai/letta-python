@@ -868,6 +868,7 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
+        conversation_id: Optional[str] | Omit = omit,
         max_steps: int | Omit = omit,
         use_legacy_format: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -882,6 +883,9 @@ class AgentsResource(SyncAPIResource):
         indentation.
 
         Args:
+          conversation_id: Conversation ID to export. If provided, uses messages from this conversation
+              instead of the agent's global message history.
+
           use_legacy_format: If True, exports using the legacy single-agent 'v1' format with inline
               tools/blocks. If False, exports using the new multi-entity 'v2' format, with
               separate agents, tools, blocks, files, etc.
@@ -905,6 +909,7 @@ class AgentsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "conversation_id": conversation_id,
                         "max_steps": max_steps,
                         "use_legacy_format": use_legacy_format,
                     },
@@ -1761,6 +1766,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
+        conversation_id: Optional[str] | Omit = omit,
         max_steps: int | Omit = omit,
         use_legacy_format: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1775,6 +1781,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         indentation.
 
         Args:
+          conversation_id: Conversation ID to export. If provided, uses messages from this conversation
+              instead of the agent's global message history.
+
           use_legacy_format: If True, exports using the legacy single-agent 'v1' format with inline
               tools/blocks. If False, exports using the new multi-entity 'v2' format, with
               separate agents, tools, blocks, files, etc.
@@ -1798,6 +1807,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "conversation_id": conversation_id,
                         "max_steps": max_steps,
                         "use_legacy_format": use_legacy_format,
                     },
