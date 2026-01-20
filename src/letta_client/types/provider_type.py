@@ -22,6 +22,7 @@ ProviderType: TypeAlias = Literal[
     "openai",
     "together",
     "vllm",
+    "sglang",
     "xai",
     "zai",
 ]
