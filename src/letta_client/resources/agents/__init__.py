@@ -64,6 +64,14 @@ from .passages import (
     PassagesResourceWithStreamingResponse,
     AsyncPassagesResourceWithStreamingResponse,
 )
+from .schedule import (
+    ScheduleResource,
+    AsyncScheduleResource,
+    ScheduleResourceWithRawResponse,
+    AsyncScheduleResourceWithRawResponse,
+    ScheduleResourceWithStreamingResponse,
+    AsyncScheduleResourceWithStreamingResponse,
+)
 from .identities import (
     IdentitiesResource,
     AsyncIdentitiesResource,
@@ -80,6 +88,12 @@ __all__ = [
     "AsyncMessagesResourceWithRawResponse",
     "MessagesResourceWithStreamingResponse",
     "AsyncMessagesResourceWithStreamingResponse",
+    "ScheduleResource",
+    "AsyncScheduleResource",
+    "ScheduleResourceWithRawResponse",
+    "AsyncScheduleResourceWithRawResponse",
+    "ScheduleResourceWithStreamingResponse",
+    "AsyncScheduleResourceWithStreamingResponse",
     "BlocksResource",
     "AsyncBlocksResource",
     "BlocksResourceWithRawResponse",
