@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.7.2 (2026-01-21)
+
+Full Changelog: [v1.7.1...v1.7.2](https://github.com/letta-ai/letta-python/compare/v1.7.1...v1.7.2)
+
+### Features
+
+* add chatgpt oauth client for codex routing ([91da4e7](https://github.com/letta-ai/letta-python/commit/91da4e7687f83992e9f2d72196072f92f976cafa))
+* add conversation_id to export export and compact ([5ad13c5](https://github.com/letta-ai/letta-python/commit/5ad13c5e2afcc31b2d11cebf98a19cbb66639b98))
+* add provider trace backend abstraction for multi-backend telemetry ([4505c2f](https://github.com/letta-ai/letta-python/commit/4505c2f3875d4dec650ad918b6bfe4e7afaf0f9e))
+* add seq id to error chunks ([f8f723e](https://github.com/letta-ai/letta-python/commit/f8f723ea3b6ce3faacf7611990877ff252338a97))
+* add SGLang support ([73cb106](https://github.com/letta-ai/letta-python/commit/73cb106a84518ebb2ea36b47877b6226501b196f))
+* add telemetry source identifier ([35c30c6](https://github.com/letta-ai/letta-python/commit/35c30c615d779fedf71a6eb324c53e760dadf17c))
+* **core:** add image support in tool returns [LET-7140] ([ff71c2d](https://github.com/letta-ai/letta-python/commit/ff71c2df0cb5b8ebc6618f06db6db2d743193ab5))
+* strict tool calling setting ([94dff06](https://github.com/letta-ai/letta-python/commit/94dff068ccb26b808d1c83918472c712ec8c82d2))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([0b206d0](https://github.com/letta-ai/letta-python/commit/0b206d0fa019681d374e614b0886b7f91a4a5920))
+
 ## 1.7.1 (2026-01-15)
 
 Full Changelog: [v1.7.0...v1.7.1](https://github.com/letta-ai/letta-python/compare/v1.7.0...v1.7.1)

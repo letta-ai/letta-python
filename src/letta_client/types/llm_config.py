@@ -58,6 +58,7 @@ class LlmConfig(BaseModel):
         "deepseek",
         "xai",
         "zai",
+        "chatgpt_oauth",
     ] = FieldInfo(alias="model_endpoint_type")
     """The endpoint type for the model."""
 
@@ -135,6 +136,13 @@ class LlmConfig(BaseModel):
 
     Supports text, json_object, and json_schema (structured outputs). Can be set via
     model_settings.
+    """
+
+    strict: Optional[bool] = None
+    """Enable strict mode for tool calling.
+
+    When true, tool schemas include strict: true and additionalProperties: false,
+    guaranteeing tool outputs match JSON schemas.
     """
 
     temperature: Optional[float] = None

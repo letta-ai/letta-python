@@ -54,6 +54,7 @@ class LlmConfigParam(TypedDict, total=False):
             "deepseek",
             "xai",
             "zai",
+            "chatgpt_oauth",
         ]
     ]
     """The endpoint type for the model."""
@@ -132,6 +133,13 @@ class LlmConfigParam(TypedDict, total=False):
 
     Supports text, json_object, and json_schema (structured outputs). Can be set via
     model_settings.
+    """
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool schemas include strict: true and additionalProperties: false,
+    guaranteeing tool outputs match JSON schemas.
     """
 
     temperature: float

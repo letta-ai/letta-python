@@ -9,6 +9,7 @@ ProviderType: TypeAlias = Literal[
     "azure",
     "bedrock",
     "cerebras",
+    "chatgpt_oauth",
     "deepseek",
     "google_ai",
     "google_vertex",
@@ -21,6 +22,7 @@ ProviderType: TypeAlias = Literal[
     "openai",
     "together",
     "vllm",
+    "sglang",
     "xai",
     "zai",
 ]

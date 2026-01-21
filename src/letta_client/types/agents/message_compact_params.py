@@ -25,6 +25,8 @@ __all__ = [
     "CompactionSettingsModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsChatGptoAuthModelSettings",
+    "CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning",
 ]
 
 
@@ -62,6 +64,32 @@ class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
     """The temperature of the model."""
 
 
+class CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning(TypedDict, total=False):
+    """The reasoning configuration for the model."""
+
+    reasoning_effort: Literal["none", "low", "medium", "high", "xhigh"]
+    """The reasoning effort level for GPT-5.x and o-series models."""
+
+
+class CompactionSettingsModelSettingsChatGptoAuthModelSettings(TypedDict, total=False):
+    """ChatGPT OAuth model configuration (uses ChatGPT backend API)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["chatgpt_oauth"]
+    """The type of the provider."""
+
+    reasoning: CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning
+    """The reasoning configuration for the model."""
+
+    temperature: float
+    """The temperature of the model."""
+
+
 CompactionSettingsModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
     AnthropicModelSettingsParam,
@@ -74,6 +102,7 @@ CompactionSettingsModelSettings: TypeAlias = Union[
     DeepseekModelSettingsParam,
     TogetherModelSettingsParam,
     BedrockModelSettingsParam,
+    CompactionSettingsModelSettingsChatGptoAuthModelSettings,
 ]
 
 
