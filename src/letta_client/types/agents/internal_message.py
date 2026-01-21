@@ -21,22 +21,28 @@ from .redacted_reasoning_content import RedactedReasoningContent
 __all__ = [
     "InternalMessage",
     "Approval",
-    "ApprovalLettaSchemasMessageToolReturn",
+    "ApprovalLettaSchemasMessageToolReturnOutput",
+    "ApprovalLettaSchemasMessageToolReturnOutputFuncResponseUnionMember1",
     "Content",
     "ContentSummarizedReasoningContent",
     "ContentSummarizedReasoningContentSummary",
     "ToolCall",
     "ToolCallFunction",
     "ToolReturn",
+    "ToolReturnFuncResponseUnionMember1",
+]
+
+ApprovalLettaSchemasMessageToolReturnOutputFuncResponseUnionMember1: TypeAlias = Annotated[
+    Union[TextContent, ImageContent], PropertyInfo(discriminator="type")
 ]
 
 
-class ApprovalLettaSchemasMessageToolReturn(BaseModel):
+class ApprovalLettaSchemasMessageToolReturnOutput(BaseModel):
     status: Literal["success", "error"]
     """The status of the tool call"""
 
-    func_response: Optional[str] = None
-    """The function response string"""
+    func_response: Union[str, List[ApprovalLettaSchemasMessageToolReturnOutputFuncResponseUnionMember1], None] = None
+    """The function response - either a string or list of content parts (text/image)"""
 
     stderr: Optional[List[str]] = None
     """Captured stderr from the tool invocation"""
@@ -48,7 +54,7 @@ class ApprovalLettaSchemasMessageToolReturn(BaseModel):
     """The ID for the tool call"""
 
 
-Approval: TypeAlias = Union[ApprovalReturn, ApprovalLettaSchemasMessageToolReturn]
+Approval: TypeAlias = Union[ApprovalReturn, ApprovalLettaSchemasMessageToolReturnOutput]
 
 
 class ContentSummarizedReasoningContentSummary(BaseModel):
@@ -133,12 +139,17 @@ class ToolCall(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
+ToolReturnFuncResponseUnionMember1: TypeAlias = Annotated[
+    Union[TextContent, ImageContent], PropertyInfo(discriminator="type")
+]
+
+
 class ToolReturn(BaseModel):
     status: Literal["success", "error"]
     """The status of the tool call"""
 
-    func_response: Optional[str] = None
-    """The function response string"""
+    func_response: Union[str, List[ToolReturnFuncResponseUnionMember1], None] = None
+    """The function response - either a string or list of content parts (text/image)"""
 
     stderr: Optional[List[str]] = None
     """Captured stderr from the tool invocation"""
