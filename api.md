@@ -118,6 +118,26 @@ Methods:
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">reset</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_reset_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">stream</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_stream_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_streaming_response.py">LettaStreamingResponse</a></code>
 
+## Schedule
+
+Types:
+
+```python
+from letta_client.types.agents import (
+    ScheduleCreateResponse,
+    ScheduleRetrieveResponse,
+    ScheduleListResponse,
+    ScheduleDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/agents/{agent_id}/schedule">client.agents.schedule.<a href="./src/letta_client/resources/agents/schedule.py">create</a>(agent_id, \*\*<a href="src/letta_client/types/agents/schedule_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/schedule_create_response.py">ScheduleCreateResponse</a></code>
+- <code title="get /v1/agents/{agent_id}/schedule/{scheduled_message_id}">client.agents.schedule.<a href="./src/letta_client/resources/agents/schedule.py">retrieve</a>(scheduled_message_id, \*, agent_id) -> <a href="./src/letta_client/types/agents/schedule_retrieve_response.py">ScheduleRetrieveResponse</a></code>
+- <code title="get /v1/agents/{agent_id}/schedule">client.agents.schedule.<a href="./src/letta_client/resources/agents/schedule.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/schedule_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/schedule_list_response.py">ScheduleListResponse</a></code>
+- <code title="delete /v1/agents/{agent_id}/schedule/{scheduled_message_id}">client.agents.schedule.<a href="./src/letta_client/resources/agents/schedule.py">delete</a>(scheduled_message_id, \*, agent_id) -> <a href="./src/letta_client/types/agents/schedule_delete_response.py">ScheduleDeleteResponse</a></code>
+
 ## Blocks
 
 Types:
