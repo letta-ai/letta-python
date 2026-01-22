@@ -53,6 +53,7 @@ from .agent_update_params import AgentUpdateParams as AgentUpdateParams
 from .archive_list_params import ArchiveListParams as ArchiveListParams
 from .block_create_params import BlockCreateParams as BlockCreateParams
 from .block_update_params import BlockUpdateParams as BlockUpdateParams
+from .compaction_response import CompactionResponse as CompactionResponse
 from .groq_model_settings import GroqModelSettings as GroqModelSettings
 from .message_list_params import MessageListParams as MessageListParams
 from .model_list_response import ModelListResponse as ModelListResponse
@@ -117,6 +118,7 @@ from .mcp_server_update_response import McpServerUpdateResponse as McpServerUpda
 from .streamable_http_mcp_server import StreamableHTTPMcpServer as StreamableHTTPMcpServer
 from .text_response_format_param import TextResponseFormatParam as TextResponseFormatParam
 from .conditional_tool_rule_param import ConditionalToolRuleParam as ConditionalToolRuleParam
+from .conversation_compact_params import ConversationCompactParams as ConversationCompactParams
 from .create_sse_mcp_server_param import CreateSseMcpServerParam as CreateSseMcpServerParam
 from .json_object_response_format import JsonObjectResponseFormat as JsonObjectResponseFormat
 from .json_schema_response_format import JsonSchemaResponseFormat as JsonSchemaResponseFormat

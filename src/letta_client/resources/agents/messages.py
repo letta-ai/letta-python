@@ -34,10 +34,10 @@ from ...types.agents.run import Run
 from ...types.agent_state import AgentState
 from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
+from ...types.compaction_response import CompactionResponse
 from ...types.agents.letta_response import LettaResponse
 from ...types.agents.message_cancel_response import MessageCancelResponse
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
-from ...types.agents.message_compact_response import MessageCompactResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -563,7 +563,7 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageCompactResponse:
+    ) -> CompactionResponse:
         """
         Summarize an agent's conversation history.
 
@@ -594,7 +594,7 @@ class MessagesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MessageCompactResponse,
+            cast_to=CompactionResponse,
         )
 
     def create_async(
@@ -1384,7 +1384,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageCompactResponse:
+    ) -> CompactionResponse:
         """
         Summarize an agent's conversation history.
 
@@ -1415,7 +1415,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=MessageCompactResponse,
+            cast_to=CompactionResponse,
         )
 
     async def create_async(
