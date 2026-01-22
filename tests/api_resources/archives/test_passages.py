@@ -10,6 +10,7 @@ import pytest
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import Passage
+from letta_client.types.archives import PassageCreateManyResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -32,6 +33,7 @@ class TestPassages:
         passage = client.archives.passages.create(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
+            created_at="created_at",
             metadata={"foo": "bar"},
             tags=["string"],
         )
@@ -126,6 +128,52 @@ class TestPassages:
                 archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_create_many(self, client: Letta) -> None:
+        passage = client.archives.passages.create_many(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            passages=[{"text": "text"}],
+        )
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_create_many(self, client: Letta) -> None:
+        response = client.archives.passages.with_raw_response.create_many(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            passages=[{"text": "text"}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        passage = response.parse()
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_create_many(self, client: Letta) -> None:
+        with client.archives.passages.with_streaming_response.create_many(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            passages=[{"text": "text"}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            passage = response.parse()
+            assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_create_many(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
+            client.archives.passages.with_raw_response.create_many(
+                archive_id="",
+                passages=[{"text": "text"}],
+            )
+
 
 class TestAsyncPassages:
     parametrize = pytest.mark.parametrize(
@@ -147,6 +195,7 @@ class TestAsyncPassages:
         passage = await async_client.archives.passages.create(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
+            created_at="created_at",
             metadata={"foo": "bar"},
             tags=["string"],
         )
@@ -239,4 +288,50 @@ class TestAsyncPassages:
             await async_client.archives.passages.with_raw_response.delete(
                 passage_id="",
                 archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create_many(self, async_client: AsyncLetta) -> None:
+        passage = await async_client.archives.passages.create_many(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            passages=[{"text": "text"}],
+        )
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_create_many(self, async_client: AsyncLetta) -> None:
+        response = await async_client.archives.passages.with_raw_response.create_many(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            passages=[{"text": "text"}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        passage = await response.parse()
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_many(self, async_client: AsyncLetta) -> None:
+        async with async_client.archives.passages.with_streaming_response.create_many(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            passages=[{"text": "text"}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            passage = await response.parse()
+            assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_create_many(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
+            await async_client.archives.passages.with_raw_response.create_many(
+                archive_id="",
+                passages=[{"text": "text"}],
             )

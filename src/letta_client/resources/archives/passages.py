@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Iterable, Optional
 
 import httpx
 
@@ -18,7 +18,8 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.passage import Passage
-from ...types.archives import passage_create_params
+from ...types.archives import passage_create_params, passage_create_many_params
+from ...types.archives.passage_create_many_response import PassageCreateManyResponse
 
 __all__ = ["PassagesResource", "AsyncPassagesResource"]
 
@@ -48,6 +49,7 @@ class PassagesResource(SyncAPIResource):
         archive_id: str,
         *,
         text: str,
+        created_at: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -66,6 +68,8 @@ class PassagesResource(SyncAPIResource):
           archive_id: The ID of the archive in the format 'archive-<uuid4>'
 
           text: The text content of the passage
+
+          created_at: Optional creation datetime for the passage (ISO 8601 format)
 
           metadata: Optional metadata for the passage
 
@@ -86,6 +90,7 @@ class PassagesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "text": text,
+                    "created_at": created_at,
                     "metadata": metadata,
                     "tags": tags,
                 },
@@ -141,6 +146,47 @@ class PassagesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def create_many(
+        self,
+        archive_id: str,
+        *,
+        passages: Iterable[passage_create_many_params.Passage],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageCreateManyResponse:
+        """
+        Create multiple passages in an archive.
+
+        This adds passages to the archive and creates embeddings for vector storage.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          passages: Passages to create in the archive
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return self._post(
+            f"/v1/archives/{archive_id}/passages/batch",
+            body=maybe_transform({"passages": passages}, passage_create_many_params.PassageCreateManyParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PassageCreateManyResponse,
+        )
+
 
 class AsyncPassagesResource(AsyncAPIResource):
     @cached_property
@@ -167,6 +213,7 @@ class AsyncPassagesResource(AsyncAPIResource):
         archive_id: str,
         *,
         text: str,
+        created_at: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -185,6 +232,8 @@ class AsyncPassagesResource(AsyncAPIResource):
           archive_id: The ID of the archive in the format 'archive-<uuid4>'
 
           text: The text content of the passage
+
+          created_at: Optional creation datetime for the passage (ISO 8601 format)
 
           metadata: Optional metadata for the passage
 
@@ -205,6 +254,7 @@ class AsyncPassagesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "text": text,
+                    "created_at": created_at,
                     "metadata": metadata,
                     "tags": tags,
                 },
@@ -260,6 +310,49 @@ class AsyncPassagesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def create_many(
+        self,
+        archive_id: str,
+        *,
+        passages: Iterable[passage_create_many_params.Passage],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageCreateManyResponse:
+        """
+        Create multiple passages in an archive.
+
+        This adds passages to the archive and creates embeddings for vector storage.
+
+        Args:
+          archive_id: The ID of the archive in the format 'archive-<uuid4>'
+
+          passages: Passages to create in the archive
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not archive_id:
+            raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        return await self._post(
+            f"/v1/archives/{archive_id}/passages/batch",
+            body=await async_maybe_transform(
+                {"passages": passages}, passage_create_many_params.PassageCreateManyParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PassageCreateManyResponse,
+        )
+
 
 class PassagesResourceWithRawResponse:
     def __init__(self, passages: PassagesResource) -> None:
@@ -270,6 +363,9 @@ class PassagesResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             passages.delete,
+        )
+        self.create_many = to_raw_response_wrapper(
+            passages.create_many,
         )
 
 
@@ -283,6 +379,9 @@ class AsyncPassagesResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             passages.delete,
         )
+        self.create_many = async_to_raw_response_wrapper(
+            passages.create_many,
+        )
 
 
 class PassagesResourceWithStreamingResponse:
@@ -295,6 +394,9 @@ class PassagesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             passages.delete,
         )
+        self.create_many = to_streamed_response_wrapper(
+            passages.create_many,
+        )
 
 
 class AsyncPassagesResourceWithStreamingResponse:
@@ -306,4 +408,7 @@ class AsyncPassagesResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             passages.delete,
+        )
+        self.create_many = async_to_streamed_response_wrapper(
+            passages.create_many,
         )
