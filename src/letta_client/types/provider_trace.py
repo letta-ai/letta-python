@@ -22,6 +22,9 @@ class ProviderTrace(BaseModel):
         run_id (str): ID of the run this trace is associated with.
         source (str): Source service that generated this trace (memgpt-server, lettuce-py).
         organization_id (str): The unique identifier of the organization.
+        user_id (str): The unique identifier of the user who initiated the request.
+        compaction_settings (Dict[str, Any]): Compaction/summarization settings (only for summarization calls).
+        llm_config (Dict[str, Any]): LLM configuration used for this call (only for non-summarization calls).
         created_at (datetime): The timestamp when the object was created.
     """
 
@@ -43,6 +46,9 @@ class ProviderTrace(BaseModel):
     call_type: Optional[str] = None
     """Type of call (agent_step, summarization, etc.)"""
 
+    compaction_settings: Optional[Dict[str, object]] = None
+    """Compaction/summarization settings (summarization calls only)"""
+
     created_at: Optional[datetime] = None
     """The timestamp when the object was created."""
 
@@ -51,6 +57,12 @@ class ProviderTrace(BaseModel):
 
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
+
+    llm_config: Optional[Dict[str, object]] = None
+    """LLM configuration used for this call (non-summarization calls only)"""
+
+    org_id: Optional[str] = None
+    """ID of the organization"""
 
     run_id: Optional[str] = None
     """ID of the run this trace is associated with"""
