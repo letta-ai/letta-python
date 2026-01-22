@@ -48,11 +48,11 @@ class PassagesResource(SyncAPIResource):
     def search(
         self,
         *,
-        query: str,
         agent_id: Optional[str] | Omit = omit,
         archive_id: Optional[str] | Omit = omit,
         end_date: Union[str, datetime, None] | Omit = omit,
         limit: int | Omit = omit,
+        query: Optional[str] | Omit = omit,
         start_date: Union[str, datetime, None] | Omit = omit,
         tag_match_mode: Literal["any", "all"] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -77,8 +77,6 @@ class PassagesResource(SyncAPIResource):
         - If both are provided, agent_id takes precedence
 
         Args:
-          query: Text query for semantic search
-
           agent_id: Filter passages by agent ID
 
           archive_id: Filter passages by archive ID
@@ -86,6 +84,8 @@ class PassagesResource(SyncAPIResource):
           end_date: Filter results to passages created before this datetime
 
           limit: Maximum number of results to return
+
+          query: Text query for semantic search
 
           start_date: Filter results to passages created after this datetime
 
@@ -106,11 +106,11 @@ class PassagesResource(SyncAPIResource):
             "/v1/passages/search",
             body=maybe_transform(
                 {
-                    "query": query,
                     "agent_id": agent_id,
                     "archive_id": archive_id,
                     "end_date": end_date,
                     "limit": limit,
+                    "query": query,
                     "start_date": start_date,
                     "tag_match_mode": tag_match_mode,
                     "tags": tags,
@@ -147,11 +147,11 @@ class AsyncPassagesResource(AsyncAPIResource):
     async def search(
         self,
         *,
-        query: str,
         agent_id: Optional[str] | Omit = omit,
         archive_id: Optional[str] | Omit = omit,
         end_date: Union[str, datetime, None] | Omit = omit,
         limit: int | Omit = omit,
+        query: Optional[str] | Omit = omit,
         start_date: Union[str, datetime, None] | Omit = omit,
         tag_match_mode: Literal["any", "all"] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -176,8 +176,6 @@ class AsyncPassagesResource(AsyncAPIResource):
         - If both are provided, agent_id takes precedence
 
         Args:
-          query: Text query for semantic search
-
           agent_id: Filter passages by agent ID
 
           archive_id: Filter passages by archive ID
@@ -185,6 +183,8 @@ class AsyncPassagesResource(AsyncAPIResource):
           end_date: Filter results to passages created before this datetime
 
           limit: Maximum number of results to return
+
+          query: Text query for semantic search
 
           start_date: Filter results to passages created after this datetime
 
@@ -205,11 +205,11 @@ class AsyncPassagesResource(AsyncAPIResource):
             "/v1/passages/search",
             body=await async_maybe_transform(
                 {
-                    "query": query,
                     "agent_id": agent_id,
                     "archive_id": archive_id,
                     "end_date": end_date,
                     "limit": limit,
+                    "query": query,
                     "start_date": start_date,
                     "tag_match_mode": tag_match_mode,
                     "tags": tags,

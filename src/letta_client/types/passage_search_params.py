@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
@@ -13,9 +13,6 @@ __all__ = ["PassageSearchParams"]
 
 
 class PassageSearchParams(TypedDict, total=False):
-    query: Required[str]
-    """Text query for semantic search"""
-
     agent_id: Optional[str]
     """Filter passages by agent ID"""
 
@@ -27,6 +24,9 @@ class PassageSearchParams(TypedDict, total=False):
 
     limit: int
     """Maximum number of results to return"""
+
+    query: Optional[str]
+    """Text query for semantic search"""
 
     start_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter results to passages created after this datetime"""

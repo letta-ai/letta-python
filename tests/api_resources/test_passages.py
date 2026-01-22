@@ -21,20 +21,18 @@ class TestPassages:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_search(self, client: Letta) -> None:
-        passage = client.passages.search(
-            query="query",
-        )
+        passage = client.passages.search()
         assert_matches_type(PassageSearchResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_search_with_all_params(self, client: Letta) -> None:
         passage = client.passages.search(
-            query="query",
             agent_id="agent_id",
             archive_id="archive_id",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
+            query="query",
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             tag_match_mode="any",
             tags=["string"],
@@ -44,9 +42,7 @@ class TestPassages:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_search(self, client: Letta) -> None:
-        response = client.passages.with_raw_response.search(
-            query="query",
-        )
+        response = client.passages.with_raw_response.search()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -56,9 +52,7 @@ class TestPassages:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_search(self, client: Letta) -> None:
-        with client.passages.with_streaming_response.search(
-            query="query",
-        ) as response:
+        with client.passages.with_streaming_response.search() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -76,20 +70,18 @@ class TestAsyncPassages:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_search(self, async_client: AsyncLetta) -> None:
-        passage = await async_client.passages.search(
-            query="query",
-        )
+        passage = await async_client.passages.search()
         assert_matches_type(PassageSearchResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncLetta) -> None:
         passage = await async_client.passages.search(
-            query="query",
             agent_id="agent_id",
             archive_id="archive_id",
             end_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             limit=1,
+            query="query",
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             tag_match_mode="any",
             tags=["string"],
@@ -99,9 +91,7 @@ class TestAsyncPassages:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncLetta) -> None:
-        response = await async_client.passages.with_raw_response.search(
-            query="query",
-        )
+        response = await async_client.passages.with_raw_response.search()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -111,9 +101,7 @@ class TestAsyncPassages:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncLetta) -> None:
-        async with async_client.passages.with_streaming_response.search(
-            query="query",
-        ) as response:
+        async with async_client.passages.with_streaming_response.search() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
