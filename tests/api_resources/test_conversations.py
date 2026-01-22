@@ -11,6 +11,7 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     Conversation,
+    CompactionResponse,
     ConversationListResponse,
     ConversationCancelResponse,
 )
@@ -244,6 +245,73 @@ class TestConversations:
                 "",
             )
 
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_compact(self, client: Letta) -> None:
+        conversation = client.conversations.compact(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(CompactionResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_compact_with_all_params(self, client: Letta) -> None:
+        conversation = client.conversations.compact(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            compaction_settings={
+                "model": "model",
+                "clip_chars": 0,
+                "mode": "all",
+                "model_settings": {
+                    "max_output_tokens": 0,
+                    "parallel_tool_calls": True,
+                    "provider_type": "openai",
+                    "reasoning": {"reasoning_effort": "none"},
+                    "response_format": {"type": "text"},
+                    "strict": True,
+                    "temperature": 0,
+                },
+                "prompt": "prompt",
+                "prompt_acknowledgement": True,
+                "sliding_window_percentage": 0,
+            },
+        )
+        assert_matches_type(CompactionResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_compact(self, client: Letta) -> None:
+        response = client.conversations.with_raw_response.compact(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        conversation = response.parse()
+        assert_matches_type(CompactionResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_compact(self, client: Letta) -> None:
+        with client.conversations.with_streaming_response.compact(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            conversation = response.parse()
+            assert_matches_type(CompactionResponse, conversation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_compact(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
+            client.conversations.with_raw_response.compact(
+                conversation_id="",
+            )
+
 
 class TestAsyncConversations:
     parametrize = pytest.mark.parametrize(
@@ -471,4 +539,71 @@ class TestAsyncConversations:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.cancel(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_compact(self, async_client: AsyncLetta) -> None:
+        conversation = await async_client.conversations.compact(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(CompactionResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_compact_with_all_params(self, async_client: AsyncLetta) -> None:
+        conversation = await async_client.conversations.compact(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            compaction_settings={
+                "model": "model",
+                "clip_chars": 0,
+                "mode": "all",
+                "model_settings": {
+                    "max_output_tokens": 0,
+                    "parallel_tool_calls": True,
+                    "provider_type": "openai",
+                    "reasoning": {"reasoning_effort": "none"},
+                    "response_format": {"type": "text"},
+                    "strict": True,
+                    "temperature": 0,
+                },
+                "prompt": "prompt",
+                "prompt_acknowledgement": True,
+                "sliding_window_percentage": 0,
+            },
+        )
+        assert_matches_type(CompactionResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_compact(self, async_client: AsyncLetta) -> None:
+        response = await async_client.conversations.with_raw_response.compact(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        conversation = await response.parse()
+        assert_matches_type(CompactionResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_compact(self, async_client: AsyncLetta) -> None:
+        async with async_client.conversations.with_streaming_response.compact(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            conversation = await response.parse()
+            assert_matches_type(CompactionResponse, conversation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_compact(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
+            await async_client.conversations.with_raw_response.compact(
+                conversation_id="",
             )
