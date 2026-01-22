@@ -21,9 +21,6 @@ class Archive(BaseModel):
     created_at: datetime
     """The creation date of the archive"""
 
-    embedding_config: EmbeddingConfig
-    """Embedding configuration for passages in this archive"""
-
     name: str
     """The name of the archive"""
 
@@ -32,6 +29,9 @@ class Archive(BaseModel):
 
     description: Optional[str] = None
     """A description of the archive"""
+
+    embedding_config: Optional[EmbeddingConfig] = None
+    """Configuration for embedding model connection and processing parameters."""
 
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
