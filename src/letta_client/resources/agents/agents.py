@@ -938,9 +938,11 @@ class AgentsResource(SyncAPIResource):
         append_copy_suffix: bool | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         env_vars_json: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         override_embedding_handle: Optional[str] | Omit = omit,
         override_existing_tools: bool | Omit = omit,
+        override_model_handle: Optional[str] | Omit = omit,
         override_name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         secrets: Optional[str] | Omit = omit,
@@ -966,6 +968,10 @@ class AgentsResource(SyncAPIResource):
           env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
               Use 'secrets' instead.
 
+          model: Model handle to override the agent's default model. This allows the imported
+              agent to use a different model while keeping other defaults (e.g., context size)
+              from the original configuration.
+
           name: If provided, overrides the agent name with this value.
 
           override_embedding_handle: Override import with specific embedding handle. Use 'embedding' instead.
@@ -973,6 +979,8 @@ class AgentsResource(SyncAPIResource):
           override_existing_tools: If set to True, existing tools can get their source code overwritten by the
               uploaded tool definitions. Note that Letta core tools can never be updated
               externally.
+
+          override_model_handle: Model handle to override the agent's default model. Use 'model' instead.
 
           override_name: If provided, overrides the agent name with this value. Use 'name' instead.
 
@@ -1001,9 +1009,11 @@ class AgentsResource(SyncAPIResource):
                 "append_copy_suffix": append_copy_suffix,
                 "embedding": embedding,
                 "env_vars_json": env_vars_json,
+                "model": model,
                 "name": name,
                 "override_embedding_handle": override_embedding_handle,
                 "override_existing_tools": override_existing_tools,
+                "override_model_handle": override_model_handle,
                 "override_name": override_name,
                 "project_id": project_id,
                 "secrets": secrets,
@@ -1840,9 +1850,11 @@ class AsyncAgentsResource(AsyncAPIResource):
         append_copy_suffix: bool | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         env_vars_json: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
         override_embedding_handle: Optional[str] | Omit = omit,
         override_existing_tools: bool | Omit = omit,
+        override_model_handle: Optional[str] | Omit = omit,
         override_name: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         secrets: Optional[str] | Omit = omit,
@@ -1868,6 +1880,10 @@ class AsyncAgentsResource(AsyncAPIResource):
           env_vars_json: Environment variables as a JSON string to pass to the agent for tool execution.
               Use 'secrets' instead.
 
+          model: Model handle to override the agent's default model. This allows the imported
+              agent to use a different model while keeping other defaults (e.g., context size)
+              from the original configuration.
+
           name: If provided, overrides the agent name with this value.
 
           override_embedding_handle: Override import with specific embedding handle. Use 'embedding' instead.
@@ -1875,6 +1891,8 @@ class AsyncAgentsResource(AsyncAPIResource):
           override_existing_tools: If set to True, existing tools can get their source code overwritten by the
               uploaded tool definitions. Note that Letta core tools can never be updated
               externally.
+
+          override_model_handle: Model handle to override the agent's default model. Use 'model' instead.
 
           override_name: If provided, overrides the agent name with this value. Use 'name' instead.
 
@@ -1903,9 +1921,11 @@ class AsyncAgentsResource(AsyncAPIResource):
                 "append_copy_suffix": append_copy_suffix,
                 "embedding": embedding,
                 "env_vars_json": env_vars_json,
+                "model": model,
                 "name": name,
                 "override_embedding_handle": override_embedding_handle,
                 "override_existing_tools": override_existing_tools,
+                "override_model_handle": override_model_handle,
                 "override_name": override_name,
                 "project_id": project_id,
                 "secrets": secrets,
