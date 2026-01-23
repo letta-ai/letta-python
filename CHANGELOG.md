@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.7.4 (2026-01-23)
+
+Full Changelog: [v1.7.3...v1.7.4](https://github.com/letta-ai/letta-python/compare/v1.7.3...v1.7.4)
+
+### Features
+
+* add non-streaming option for conversation messages ([06e1802](https://github.com/letta-ai/letta-python/commit/06e18029b2fb7fccbef56d0b012bb96a21703e1e))
+
+
+### Bug Fixes
+
+* move conversations.compact to conversations.messages.compact ([f84092c](https://github.com/letta-ai/letta-python/commit/f84092c198d2d3cab3fc2ade1812b41e1aad16cc))
+
 ## 1.7.3 (2026-01-22)
 
 Full Changelog: [v1.7.2...v1.7.3](https://github.com/letta-ai/letta-python/compare/v1.7.2...v1.7.3)

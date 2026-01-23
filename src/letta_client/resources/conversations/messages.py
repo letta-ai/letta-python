@@ -20,10 +20,16 @@ from ..._response import (
 from ..._streaming import Stream, AsyncStream
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.conversations import message_list_params, message_create_params, message_stream_params
+from ...types.conversations import (
+    message_list_params,
+    message_create_params,
+    message_stream_params,
+    message_compact_params,
+)
 from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
+from ...types.conversations.compaction_response import CompactionResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -63,8 +69,8 @@ class MessagesResource(SyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
+        stream: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
-        streaming: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -74,10 +80,11 @@ class MessagesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[LettaStreamingResponse]:
         """
-        Send a message to a conversation and get a streaming response.
+        Send a message to a conversation and get a response.
 
-        This endpoint sends a message to an existing conversation and streams the
-        agent's response back.
+        This endpoint sends a message to an existing conversation. By default
+        (stream=true), returns a streaming response (Server-Sent Events). Set
+        stream=false to get a complete JSON response.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
@@ -88,8 +95,7 @@ class MessagesResource(SyncAPIResource):
           assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
               but deprecated for letta_v1_agent onward.
 
-          background: Whether to process the request in the background (only used when
-              streaming=true).
+          background: Whether to process the request in the background (only used when stream=true).
 
           client_tools: Client-side tools that the agent can call. When the agent calls a client-side
               tool, execution pauses and returns control to the client to execute the tool and
@@ -98,7 +104,7 @@ class MessagesResource(SyncAPIResource):
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when streaming=true).
+              connection timeouts (only used when stream=true).
 
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
@@ -115,11 +121,11 @@ class MessagesResource(SyncAPIResource):
               allows sending a message to a different model without changing the agent's
               configuration.
 
-          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when streaming=true).
+          stream: If True (default), returns a streaming response (Server-Sent Events). If False,
+              returns a complete JSON response.
 
-          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
-              returns a complete response.
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when stream=true).
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -150,8 +156,8 @@ class MessagesResource(SyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "override_model": override_model,
+                    "stream": stream,
                     "stream_tokens": stream_tokens,
-                    "streaming": streaming,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_create_params.MessageCreateParams,
@@ -243,6 +249,54 @@ class MessagesResource(SyncAPIResource):
                 ),
             ),
             model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
+        )
+
+    def compact(
+        self,
+        conversation_id: str,
+        *,
+        compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CompactionResponse:
+        """
+        Compact (summarize) a conversation's message history.
+
+        This endpoint summarizes the in-context messages for a specific conversation,
+        reducing the message count while preserving important context.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._post(
+            f"/v1/conversations/{conversation_id}/compact",
+            body=maybe_transform(
+                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CompactionResponse,
         )
 
     def stream(
@@ -344,8 +398,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
+        stream: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
-        streaming: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -355,10 +409,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[LettaStreamingResponse]:
         """
-        Send a message to a conversation and get a streaming response.
+        Send a message to a conversation and get a response.
 
-        This endpoint sends a message to an existing conversation and streams the
-        agent's response back.
+        This endpoint sends a message to an existing conversation. By default
+        (stream=true), returns a streaming response (Server-Sent Events). Set
+        stream=false to get a complete JSON response.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
@@ -369,8 +424,7 @@ class AsyncMessagesResource(AsyncAPIResource):
           assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
               but deprecated for letta_v1_agent onward.
 
-          background: Whether to process the request in the background (only used when
-              streaming=true).
+          background: Whether to process the request in the background (only used when stream=true).
 
           client_tools: Client-side tools that the agent can call. When the agent calls a client-side
               tool, execution pauses and returns control to the client to execute the tool and
@@ -379,7 +433,7 @@ class AsyncMessagesResource(AsyncAPIResource):
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when streaming=true).
+              connection timeouts (only used when stream=true).
 
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
@@ -396,11 +450,11 @@ class AsyncMessagesResource(AsyncAPIResource):
               allows sending a message to a different model without changing the agent's
               configuration.
 
-          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when streaming=true).
+          stream: If True (default), returns a streaming response (Server-Sent Events). If False,
+              returns a complete JSON response.
 
-          streaming: If True, returns a streaming response (Server-Sent Events). If False (default),
-              returns a complete response.
+          stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
+              per step (only used when stream=true).
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -431,8 +485,8 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "override_model": override_model,
+                    "stream": stream,
                     "stream_tokens": stream_tokens,
-                    "streaming": streaming,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_create_params.MessageCreateParams,
@@ -526,6 +580,54 @@ class AsyncMessagesResource(AsyncAPIResource):
             model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
+    async def compact(
+        self,
+        conversation_id: str,
+        *,
+        compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CompactionResponse:
+        """
+        Compact (summarize) a conversation's message history.
+
+        This endpoint summarizes the in-context messages for a specific conversation,
+        reducing the message count while preserving important context.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._post(
+            f"/v1/conversations/{conversation_id}/compact",
+            body=await async_maybe_transform(
+                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CompactionResponse,
+        )
+
     async def stream(
         self,
         conversation_id: str,
@@ -600,6 +702,9 @@ class MessagesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             messages.list,
         )
+        self.compact = to_raw_response_wrapper(
+            messages.compact,
+        )
         self.stream = to_raw_response_wrapper(
             messages.stream,
         )
@@ -614,6 +719,9 @@ class AsyncMessagesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             messages.list,
+        )
+        self.compact = async_to_raw_response_wrapper(
+            messages.compact,
         )
         self.stream = async_to_raw_response_wrapper(
             messages.stream,
@@ -630,6 +738,9 @@ class MessagesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
+        self.compact = to_streamed_response_wrapper(
+            messages.compact,
+        )
         self.stream = to_streamed_response_wrapper(
             messages.stream,
         )
@@ -644,6 +755,9 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
+        )
+        self.compact = async_to_streamed_response_wrapper(
+            messages.compact,
         )
         self.stream = async_to_streamed_response_wrapper(
             messages.stream,

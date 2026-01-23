@@ -6,12 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ...types import (
-    conversation_list_params,
-    conversation_create_params,
-    conversation_update_params,
-    conversation_compact_params,
-)
+from ...types import conversation_list_params, conversation_create_params, conversation_update_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from .messages import (
@@ -32,7 +27,6 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.conversation import Conversation
-from ...types.compaction_response import CompactionResponse
 from ...types.conversation_list_response import ConversationListResponse
 from ...types.conversation_cancel_response import ConversationCancelResponse
 
@@ -276,54 +270,6 @@ class ConversationsResource(SyncAPIResource):
             cast_to=ConversationCancelResponse,
         )
 
-    def compact(
-        self,
-        conversation_id: str,
-        *,
-        compaction_settings: Optional[conversation_compact_params.CompactionSettings] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompactionResponse:
-        """
-        Compact (summarize) a conversation's message history.
-
-        This endpoint summarizes the in-context messages for a specific conversation,
-        reducing the message count while preserving important context.
-
-        Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
-
-          compaction_settings: Configuration for conversation compaction / summarization.
-
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not conversation_id:
-            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
-        return self._post(
-            f"/v1/conversations/{conversation_id}/compact",
-            body=maybe_transform(
-                {"compaction_settings": compaction_settings}, conversation_compact_params.ConversationCompactParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CompactionResponse,
-        )
-
 
 class AsyncConversationsResource(AsyncAPIResource):
     @cached_property
@@ -564,54 +510,6 @@ class AsyncConversationsResource(AsyncAPIResource):
             cast_to=ConversationCancelResponse,
         )
 
-    async def compact(
-        self,
-        conversation_id: str,
-        *,
-        compaction_settings: Optional[conversation_compact_params.CompactionSettings] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompactionResponse:
-        """
-        Compact (summarize) a conversation's message history.
-
-        This endpoint summarizes the in-context messages for a specific conversation,
-        reducing the message count while preserving important context.
-
-        Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
-
-          compaction_settings: Configuration for conversation compaction / summarization.
-
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not conversation_id:
-            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
-        return await self._post(
-            f"/v1/conversations/{conversation_id}/compact",
-            body=await async_maybe_transform(
-                {"compaction_settings": compaction_settings}, conversation_compact_params.ConversationCompactParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=CompactionResponse,
-        )
-
 
 class ConversationsResourceWithRawResponse:
     def __init__(self, conversations: ConversationsResource) -> None:
@@ -631,9 +529,6 @@ class ConversationsResourceWithRawResponse:
         )
         self.cancel = to_raw_response_wrapper(
             conversations.cancel,
-        )
-        self.compact = to_raw_response_wrapper(
-            conversations.compact,
         )
 
     @cached_property
@@ -660,9 +555,6 @@ class AsyncConversationsResourceWithRawResponse:
         self.cancel = async_to_raw_response_wrapper(
             conversations.cancel,
         )
-        self.compact = async_to_raw_response_wrapper(
-            conversations.compact,
-        )
 
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
@@ -688,9 +580,6 @@ class ConversationsResourceWithStreamingResponse:
         self.cancel = to_streamed_response_wrapper(
             conversations.cancel,
         )
-        self.compact = to_streamed_response_wrapper(
-            conversations.compact,
-        )
 
     @cached_property
     def messages(self) -> MessagesResourceWithStreamingResponse:
@@ -715,9 +604,6 @@ class AsyncConversationsResourceWithStreamingResponse:
         )
         self.cancel = async_to_streamed_response_wrapper(
             conversations.cancel,
-        )
-        self.compact = async_to_streamed_response_wrapper(
-            conversations.compact,
         )
 
     @cached_property
