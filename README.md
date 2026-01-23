@@ -4,11 +4,8 @@
 
 Letta is the platform for building stateful agents: open AI with advanced memory that can learn and self-improve over time.
 
-### Quicklinks:
-* [**Developer Documentation**](https://docs.letta.com): Learn how to create agents using Python or TypeScript
-* [**Python API Reference**](./reference.md): Complete Python SDK documentation
-* [**Agent Development Environment (ADE)**](https://docs.letta.com/guides/ade/overview): A no-code UI for building stateful agents
-* [**Letta Cloud**](https://app.letta.com/): The fastest way to try Letta
+* [Letta Code](https://docs.letta.com/letta-code): run agents locally in your terminal
+* [Letta API](https://docs.letta.com/quickstart/): build agents into your applications
 
 ## Get started
 
@@ -20,15 +17,13 @@ pip install letta-client
 
 ## Simple Hello World example
 
-In the example below, we'll create a stateful agent with two memory blocks. We'll initialize the `human` memory block with incorrect information, and correct the agent in our first message - which will trigger the agent to update its own memory with a tool call.
-
-*To run the examples, you'll need to get a `LETTA_API_KEY` from [Letta Cloud](https://app.letta.com/api-keys), or run your own self-hosted server (see [our guide](https://docs.letta.com/guides/selfhosting))*
+Below is a quick example of creating a stateful agent and sending it a message (requires a [Letta API key](https://app.letta.com), or setting `base_url=...` to point at a [Docker server](https://docs.letta.com/guides/docker)).
+See the full [quickstart guide](https://docs.letta.com/quickstart) for complete documentation.
 
 ```python
 from letta_client import Letta
 
 client = Letta(api_key="LETTA_API_KEY")
-# client = Letta(base_url="http://localhost:8283")  # if self-hosting
 
 agent_state = client.agents.create(
     model="openai/gpt-4o-mini",
@@ -78,28 +73,6 @@ Letta is built on the [MemGPT](https://arxiv.org/abs/2310.08560) research paper,
 2. [**Memory Blocks**](https://docs.letta.com/guides/agents/memory-blocks): In-context memory is composed of persistent editable blocks
 3. [**Agentic Context Engineering**](https://docs.letta.com/guides/agents/context-engineering): Agents control their context window using tools to edit, delete, or search memory
 4. [**Perpetual Self-Improving Agents**](https://docs.letta.com/guides/agents/overview): Every agent has a perpetual (infinite) message history
-
-## Local Development
-
-Connect to a local Letta server instead of the cloud:
-
-```python
-from letta_client import Letta
-
-client = Letta(base_url="http://localhost:8283")
-```
-
-Run Letta locally with Docker:
-
-```bash
-docker run \
-  -v ~/.letta/.persist/pgdata:/var/lib/postgresql/data \
-  -p 8283:8283 \
-  -e OPENAI_API_KEY="your_key" \
-  letta/letta:latest
-```
-
-See the [self-hosting guide](https://docs.letta.com/guides/selfhosting) for more options.
 
 ## Key Features
 
