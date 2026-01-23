@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.5 (2026-01-23)
+
+Full Changelog: [v1.7.4...v1.7.5](https://github.com/letta-ai/letta-python/compare/v1.7.4...v1.7.5)
+
+### Bug Fixes
+
+* remove invalid scheduled message schema reference ([9d29c5b](https://github.com/letta-ai/letta-python/commit/9d29c5b9d746a29c93527ee15beee9f9bc659de1))
+
 ## 1.7.4 (2026-01-23)
 
 Full Changelog: [v1.7.3...v1.7.4](https://github.com/letta-ai/letta-python/compare/v1.7.3...v1.7.4)
