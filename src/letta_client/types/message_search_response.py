@@ -40,6 +40,9 @@ class MessageSearchResponseItemSystemMessageListResult(BaseModel):
     agent_id: Optional[str] = None
     """The unique identifier of the agent that owns the message."""
 
+    conversation_id: Optional[str] = None
+    """The unique identifier of the conversation that the message belongs to."""
+
     message_type: Optional[Literal["system_message"]] = None
 
 
@@ -64,6 +67,9 @@ class MessageSearchResponseItemUserMessageListResult(BaseModel):
     agent_id: Optional[str] = None
     """The unique identifier of the agent that owns the message."""
 
+    conversation_id: Optional[str] = None
+    """The unique identifier of the conversation that the message belongs to."""
+
     message_type: Optional[Literal["user_message"]] = None
 
 
@@ -83,6 +89,9 @@ class MessageSearchResponseItemReasoningMessageListResult(BaseModel):
 
     agent_id: Optional[str] = None
     """The unique identifier of the agent that owns the message."""
+
+    conversation_id: Optional[str] = None
+    """The unique identifier of the conversation that the message belongs to."""
 
     message_type: Optional[Literal["reasoning_message"]] = None
 
@@ -107,6 +116,9 @@ class MessageSearchResponseItemAssistantMessageListResult(BaseModel):
 
     agent_id: Optional[str] = None
     """The unique identifier of the agent that owns the message."""
+
+    conversation_id: Optional[str] = None
+    """The unique identifier of the conversation that the message belongs to."""
 
     message_type: Optional[Literal["assistant_message"]] = None
 
