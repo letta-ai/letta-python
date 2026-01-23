@@ -26,6 +26,13 @@ class AgentImportFileParams(TypedDict, total=False):
     Use 'secrets' instead.
     """
 
+    model: Optional[str]
+    """Model handle to override the agent's default model.
+
+    This allows the imported agent to use a different model while keeping other
+    defaults (e.g., context size) from the original configuration.
+    """
+
     name: Optional[str]
     """If provided, overrides the agent name with this value."""
 
@@ -38,6 +45,9 @@ class AgentImportFileParams(TypedDict, total=False):
     uploaded tool definitions. Note that Letta core tools can never be updated
     externally.
     """
+
+    override_model_handle: Optional[str]
+    """Model handle to override the agent's default model. Use 'model' instead."""
 
     override_name: Optional[str]
     """If provided, overrides the agent name with this value. Use 'name' instead."""
