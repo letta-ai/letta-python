@@ -69,8 +69,8 @@ class MessagesResource(SyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
-        stream: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
+        streaming: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -83,8 +83,8 @@ class MessagesResource(SyncAPIResource):
         Send a message to a conversation and get a response.
 
         This endpoint sends a message to an existing conversation. By default
-        (stream=true), returns a streaming response (Server-Sent Events). Set
-        stream=false to get a complete JSON response.
+        (streaming=true), returns a streaming response (Server-Sent Events). Set
+        streaming=false to get a complete JSON response.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
@@ -95,7 +95,8 @@ class MessagesResource(SyncAPIResource):
           assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
               but deprecated for letta_v1_agent onward.
 
-          background: Whether to process the request in the background (only used when stream=true).
+          background: Whether to process the request in the background (only used when
+              streaming=true).
 
           client_tools: Client-side tools that the agent can call. When the agent calls a client-side
               tool, execution pauses and returns control to the client to execute the tool and
@@ -104,7 +105,7 @@ class MessagesResource(SyncAPIResource):
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when stream=true).
+              connection timeouts (only used when streaming=true).
 
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
@@ -121,11 +122,11 @@ class MessagesResource(SyncAPIResource):
               allows sending a message to a different model without changing the agent's
               configuration.
 
-          stream: If True (default), returns a streaming response (Server-Sent Events). If False,
-              returns a complete JSON response.
-
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when stream=true).
+              per step (only used when streaming=true).
+
+          streaming: If True (default), returns a streaming response (Server-Sent Events). If False,
+              returns a complete JSON response.
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -156,8 +157,8 @@ class MessagesResource(SyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "override_model": override_model,
-                    "stream": stream,
                     "stream_tokens": stream_tokens,
+                    "streaming": streaming,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_create_params.MessageCreateParams,
@@ -398,8 +399,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
-        stream: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
+        streaming: bool | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -412,8 +413,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         Send a message to a conversation and get a response.
 
         This endpoint sends a message to an existing conversation. By default
-        (stream=true), returns a streaming response (Server-Sent Events). Set
-        stream=false to get a complete JSON response.
+        (streaming=true), returns a streaming response (Server-Sent Events). Set
+        streaming=false to get a complete JSON response.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
@@ -424,7 +425,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           assistant_message_tool_name: The name of the designated message tool. Still supported for legacy agent types,
               but deprecated for letta_v1_agent onward.
 
-          background: Whether to process the request in the background (only used when stream=true).
+          background: Whether to process the request in the background (only used when
+              streaming=true).
 
           client_tools: Client-side tools that the agent can call. When the agent calls a client-side
               tool, execution pauses and returns control to the client to execute the tool and
@@ -433,7 +435,7 @@ class AsyncMessagesResource(AsyncAPIResource):
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
-              connection timeouts (only used when stream=true).
+              connection timeouts (only used when streaming=true).
 
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
@@ -450,11 +452,11 @@ class AsyncMessagesResource(AsyncAPIResource):
               allows sending a message to a different model without changing the agent's
               configuration.
 
-          stream: If True (default), returns a streaming response (Server-Sent Events). If False,
-              returns a complete JSON response.
-
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
-              per step (only used when stream=true).
+              per step (only used when streaming=true).
+
+          streaming: If True (default), returns a streaming response (Server-Sent Events). If False,
+              returns a complete JSON response.
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -485,8 +487,8 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "override_model": override_model,
-                    "stream": stream,
                     "stream_tokens": stream_tokens,
+                    "streaming": streaming,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_create_params.MessageCreateParams,
