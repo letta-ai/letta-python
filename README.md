@@ -259,12 +259,12 @@ from letta_client import Letta
 from letta_client.types import CreateAgentRequest
 
 # Sync client
-client = Letta(token="LETTA_API_KEY")
+client = Letta(api_key="LETTA_API_KEY")
 
 # Async client
 from letta_client import AsyncLetta
 
-async_client = AsyncLetta(token="LETTA_API_KEY")
+async_client = AsyncLetta(api_key="LETTA_API_KEY")
 agent = await async_client.agents.create(
     model="openai/gpt-4o-mini",
     memory_blocks=[...]
