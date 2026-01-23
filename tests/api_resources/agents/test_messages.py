@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
-from letta_client.types import AgentState, CompactionResponse
+from letta_client.types import AgentState
 from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 from letta_client.types.agents import (
     Run,
@@ -17,6 +17,7 @@ from letta_client.types.agents import (
     LettaResponse,
     MessageCancelResponse,
 )
+from letta_client.types.conversations import CompactionResponse
 
 # pyright: reportDeprecated=false
 

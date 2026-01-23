@@ -20,10 +20,16 @@ from ..._response import (
 from ..._streaming import Stream, AsyncStream
 from ...pagination import SyncArrayPage, AsyncArrayPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.conversations import message_list_params, message_create_params, message_stream_params
+from ...types.conversations import (
+    message_list_params,
+    message_create_params,
+    message_stream_params,
+    message_compact_params,
+)
 from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
+from ...types.conversations.compaction_response import CompactionResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -243,6 +249,54 @@ class MessagesResource(SyncAPIResource):
                 ),
             ),
             model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
+        )
+
+    def compact(
+        self,
+        conversation_id: str,
+        *,
+        compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CompactionResponse:
+        """
+        Compact (summarize) a conversation's message history.
+
+        This endpoint summarizes the in-context messages for a specific conversation,
+        reducing the message count while preserving important context.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._post(
+            f"/v1/conversations/{conversation_id}/compact",
+            body=maybe_transform(
+                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CompactionResponse,
         )
 
     def stream(
@@ -526,6 +580,54 @@ class AsyncMessagesResource(AsyncAPIResource):
             model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
+    async def compact(
+        self,
+        conversation_id: str,
+        *,
+        compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> CompactionResponse:
+        """
+        Compact (summarize) a conversation's message history.
+
+        This endpoint summarizes the in-context messages for a specific conversation,
+        reducing the message count while preserving important context.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              `model` is the only required user-facing field – it specifies the summarizer
+              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
+              tokens, etc.) are derived from the default configuration for that handle.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._post(
+            f"/v1/conversations/{conversation_id}/compact",
+            body=await async_maybe_transform(
+                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=CompactionResponse,
+        )
+
     async def stream(
         self,
         conversation_id: str,
@@ -600,6 +702,9 @@ class MessagesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             messages.list,
         )
+        self.compact = to_raw_response_wrapper(
+            messages.compact,
+        )
         self.stream = to_raw_response_wrapper(
             messages.stream,
         )
@@ -614,6 +719,9 @@ class AsyncMessagesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             messages.list,
+        )
+        self.compact = async_to_raw_response_wrapper(
+            messages.compact,
         )
         self.stream = async_to_raw_response_wrapper(
             messages.stream,
@@ -630,6 +738,9 @@ class MessagesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
+        self.compact = to_streamed_response_wrapper(
+            messages.compact,
+        )
         self.stream = to_streamed_response_wrapper(
             messages.stream,
         )
@@ -644,6 +755,9 @@ class AsyncMessagesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             messages.list,
+        )
+        self.compact = async_to_streamed_response_wrapper(
+            messages.compact,
         )
         self.stream = async_to_streamed_response_wrapper(
             messages.stream,

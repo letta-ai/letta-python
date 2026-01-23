@@ -34,10 +34,10 @@ from ...types.agents.run import Run
 from ...types.agent_state import AgentState
 from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
-from ...types.compaction_response import CompactionResponse
 from ...types.agents.letta_response import LettaResponse
 from ...types.agents.message_cancel_response import MessageCancelResponse
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
+from ...types.conversations.compaction_response import CompactionResponse
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 

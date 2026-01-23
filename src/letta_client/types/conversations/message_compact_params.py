@@ -5,22 +5,22 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .xai_model_settings_param import XaiModelSettingsParam
-from .groq_model_settings_param import GroqModelSettingsParam
-from .azure_model_settings_param import AzureModelSettingsParam
-from .text_response_format_param import TextResponseFormatParam
-from .openai_model_settings_param import OpenAIModelSettingsParam
-from .bedrock_model_settings_param import BedrockModelSettingsParam
-from .deepseek_model_settings_param import DeepseekModelSettingsParam
-from .together_model_settings_param import TogetherModelSettingsParam
-from .anthropic_model_settings_param import AnthropicModelSettingsParam
-from .google_ai_model_settings_param import GoogleAIModelSettingsParam
-from .json_object_response_format_param import JsonObjectResponseFormatParam
-from .json_schema_response_format_param import JsonSchemaResponseFormatParam
-from .google_vertex_model_settings_param import GoogleVertexModelSettingsParam
+from ..xai_model_settings_param import XaiModelSettingsParam
+from ..groq_model_settings_param import GroqModelSettingsParam
+from ..azure_model_settings_param import AzureModelSettingsParam
+from ..text_response_format_param import TextResponseFormatParam
+from ..openai_model_settings_param import OpenAIModelSettingsParam
+from ..bedrock_model_settings_param import BedrockModelSettingsParam
+from ..deepseek_model_settings_param import DeepseekModelSettingsParam
+from ..together_model_settings_param import TogetherModelSettingsParam
+from ..anthropic_model_settings_param import AnthropicModelSettingsParam
+from ..google_ai_model_settings_param import GoogleAIModelSettingsParam
+from ..json_object_response_format_param import JsonObjectResponseFormatParam
+from ..json_schema_response_format_param import JsonSchemaResponseFormatParam
+from ..google_vertex_model_settings_param import GoogleVertexModelSettingsParam
 
 __all__ = [
-    "ConversationCompactParams",
+    "MessageCompactParams",
     "CompactionSettings",
     "CompactionSettingsModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettings",
@@ -30,7 +30,7 @@ __all__ = [
 ]
 
 
-class ConversationCompactParams(TypedDict, total=False):
+class MessageCompactParams(TypedDict, total=False):
     compaction_settings: Optional[CompactionSettings]
     """Configuration for conversation compaction / summarization.
 

@@ -112,7 +112,7 @@ Methods:
 - <code title="post /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">create</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_response.py">LettaResponse</a></code>
 - <code title="get /v1/agents/{agent_id}/messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">list</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncArrayPage[Message]</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/cancel">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">cancel</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_cancel_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message_cancel_response.py">MessageCancelResponse</a></code>
-- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">compact</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_compact_params.py">params</a>) -> <a href="./src/letta_client/types/compaction_response.py">CompactionResponse</a></code>
+- <code title="post /v1/agents/{agent_id}/summarize">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">compact</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_compact_params.py">params</a>) -> <a href="./src/letta_client/types/conversations/compaction_response.py">CompactionResponse</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/async">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">create_async</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_create_async_params.py">params</a>) -> <a href="./src/letta_client/types/agents/run.py">Run</a></code>
 - <code title="patch /v1/agents/{agent_id}/reset-messages">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">reset</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_reset_params.py">params</a>) -> <a href="./src/letta_client/types/agent_state.py">Optional[AgentState]</a></code>
 - <code title="post /v1/agents/{agent_id}/messages/stream">client.agents.messages.<a href="./src/letta_client/resources/agents/messages.py">stream</a>(agent_id, \*\*<a href="src/letta_client/types/agents/message_stream_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_streaming_response.py">LettaStreamingResponse</a></code>
@@ -610,8 +610,6 @@ Types:
 
 ```python
 from letta_client.types import (
-    CompactionRequest,
-    CompactionResponse,
     Conversation,
     CreateConversation,
     UpdateConversation,
@@ -627,14 +625,20 @@ Methods:
 - <code title="patch /v1/conversations/{conversation_id}">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">update</a>(conversation_id, \*\*<a href="src/letta_client/types/conversation_update_params.py">params</a>) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">list</a>(\*\*<a href="src/letta_client/types/conversation_list_params.py">params</a>) -> <a href="./src/letta_client/types/conversation_list_response.py">ConversationListResponse</a></code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">cancel</a>(conversation_id) -> <a href="./src/letta_client/types/conversation_cancel_response.py">ConversationCancelResponse</a></code>
-- <code title="post /v1/conversations/{conversation_id}/compact">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">compact</a>(conversation_id, \*\*<a href="src/letta_client/types/conversation_compact_params.py">params</a>) -> <a href="./src/letta_client/types/compaction_response.py">CompactionResponse</a></code>
 
 ## Messages
+
+Types:
+
+```python
+from letta_client.types.conversations import CompactionRequest, CompactionResponse
+```
 
 Methods:
 
 - <code title="post /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">create</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_create_params.py">params</a>) -> <a href="./src/letta_client/types/agents/letta_streaming_response.py">LettaStreamingResponse</a></code>
 - <code title="get /v1/conversations/{conversation_id}/messages">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">list</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncArrayPage[Message]</a></code>
+- <code title="post /v1/conversations/{conversation_id}/compact">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">compact</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_compact_params.py">params</a>) -> <a href="./src/letta_client/types/conversations/compaction_response.py">CompactionResponse</a></code>
 - <code title="post /v1/conversations/{conversation_id}/stream">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">stream</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_stream_params.py">params</a>) -> object</code>
 
 # AccessTokens
