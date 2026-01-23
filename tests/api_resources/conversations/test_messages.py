@@ -68,8 +68,8 @@ class TestMessages:
                 }
             ],
             override_model="override_model",
-            stream=True,
             stream_tokens=True,
+            streaming=True,
             use_assistant_message=True,
         )
         message_stream.response.close()
@@ -337,8 +337,8 @@ class TestAsyncMessages:
                 }
             ],
             override_model="override_model",
-            stream=True,
             stream_tokens=True,
+            streaming=True,
             use_assistant_message=True,
         )
         await message_stream.response.aclose()
