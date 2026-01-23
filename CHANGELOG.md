@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.6 (2026-01-23)
+
+Full Changelog: [v1.7.5...v1.7.6](https://github.com/letta-ai/letta-python/compare/v1.7.5...v1.7.6)
+
+### Features
+
+* add override_model support for agent file import ([d2bf995](https://github.com/letta-ai/letta-python/commit/d2bf99516325a6c9f2041ff4e229f938c208697e))
+
 ## 1.7.5 (2026-01-23)
 
 Full Changelog: [v1.7.4...v1.7.5](https://github.com/letta-ai/letta-python/compare/v1.7.4...v1.7.5)
