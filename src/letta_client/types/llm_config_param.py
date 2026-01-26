@@ -48,6 +48,7 @@ class LlmConfigParam(TypedDict, total=False):
             "koboldcpp",
             "vllm",
             "hugging-face",
+            "minimax",
             "mistral",
             "together",
             "bedrock",
