@@ -17,6 +17,7 @@ ProviderType: TypeAlias = Literal[
     "hugging-face",
     "letta",
     "lmstudio_openai",
+    "minimax",
     "mistral",
     "ollama",
     "openai",
