@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.8.0 (2026-01-28)
+
+Full Changelog: [v1.7.6...v1.8.0](https://github.com/letta-ai/letta-python/compare/v1.7.6...v1.8.0)
+
+### Features
+
+* add ID format validation to group schemas ([89959b4](https://github.com/letta-ai/letta-python/commit/89959b407ad483dc33c889679bb61b6b2a4bd2cc))
+* add MiniMax provider support ([572aa55](https://github.com/letta-ai/letta-python/commit/572aa558efeccb4e7e71b50ac00908bbc2550ff6))
+* openrouter byok ([d50e90f](https://github.com/letta-ai/letta-python/commit/d50e90fd8a1e43db2daf7320c031b7e6e3b20c32))
+* Release webhook code ([bde7fab](https://github.com/letta-ai/letta-python/commit/bde7fab08e366d20dbef3e3ddc7ed3905601fcbb))
+
+
+### Bug Fixes
+
+* openrouter provider ([dfa9749](https://github.com/letta-ai/letta-python/commit/dfa97496ea80f572ec244b28dd154389f6d051c5))
+* remove deprecation from agent passages endpoints ([e395709](https://github.com/letta-ai/letta-python/commit/e395709f8ba4ace3dd6f9f353f39a410850e96ed))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([1f41fb4](https://github.com/letta-ai/letta-python/commit/1f41fb480f41703b34aa935dce183d99e1ed1e99))
+* rebuild api requests ([4854f25](https://github.com/letta-ai/letta-python/commit/4854f25f615b2d273498bdd569348f1344d6bec0))
+
 ## 1.7.6 (2026-01-23)
 
 Full Changelog: [v1.7.5...v1.7.6](https://github.com/letta-ai/letta-python/compare/v1.7.5...v1.7.6)
