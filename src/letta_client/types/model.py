@@ -51,12 +51,14 @@ class Model(BaseModel):
         "koboldcpp",
         "vllm",
         "hugging-face",
+        "minimax",
         "mistral",
         "together",
         "bedrock",
         "deepseek",
         "xai",
         "zai",
+        "openrouter",
         "chatgpt_oauth",
     ] = FieldInfo(alias="model_endpoint_type")
     """Deprecated: Use 'provider_type' field instead. The endpoint type for the model."""

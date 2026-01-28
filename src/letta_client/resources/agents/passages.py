@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import typing_extensions
 from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
@@ -48,7 +47,6 @@ class PassagesResource(SyncAPIResource):
         """
         return PassagesResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("deprecated")
     def create(
         self,
         agent_id: str,
@@ -101,7 +99,6 @@ class PassagesResource(SyncAPIResource):
             cast_to=PassageCreateResponse,
         )
 
-    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         agent_id: str,
@@ -166,7 +163,6 @@ class PassagesResource(SyncAPIResource):
             cast_to=PassageListResponse,
         )
 
-    @typing_extensions.deprecated("deprecated")
     def delete(
         self,
         memory_id: str,
@@ -205,7 +201,6 @@ class PassagesResource(SyncAPIResource):
             cast_to=object,
         )
 
-    @typing_extensions.deprecated("deprecated")
     def search(
         self,
         agent_id: str,
@@ -301,7 +296,6 @@ class AsyncPassagesResource(AsyncAPIResource):
         """
         return AsyncPassagesResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("deprecated")
     async def create(
         self,
         agent_id: str,
@@ -354,7 +348,6 @@ class AsyncPassagesResource(AsyncAPIResource):
             cast_to=PassageCreateResponse,
         )
 
-    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         agent_id: str,
@@ -419,7 +412,6 @@ class AsyncPassagesResource(AsyncAPIResource):
             cast_to=PassageListResponse,
         )
 
-    @typing_extensions.deprecated("deprecated")
     async def delete(
         self,
         memory_id: str,
@@ -458,7 +450,6 @@ class AsyncPassagesResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    @typing_extensions.deprecated("deprecated")
     async def search(
         self,
         agent_id: str,
@@ -538,25 +529,17 @@ class PassagesResourceWithRawResponse:
     def __init__(self, passages: PassagesResource) -> None:
         self._passages = passages
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                passages.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = to_raw_response_wrapper(
+            passages.create,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                passages.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = to_raw_response_wrapper(
+            passages.list,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                passages.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = to_raw_response_wrapper(
+            passages.delete,
         )
-        self.search = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                passages.search,  # pyright: ignore[reportDeprecated],
-            )
+        self.search = to_raw_response_wrapper(
+            passages.search,
         )
 
 
@@ -564,25 +547,17 @@ class AsyncPassagesResourceWithRawResponse:
     def __init__(self, passages: AsyncPassagesResource) -> None:
         self._passages = passages
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                passages.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = async_to_raw_response_wrapper(
+            passages.create,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                passages.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = async_to_raw_response_wrapper(
+            passages.list,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                passages.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = async_to_raw_response_wrapper(
+            passages.delete,
         )
-        self.search = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                passages.search,  # pyright: ignore[reportDeprecated],
-            )
+        self.search = async_to_raw_response_wrapper(
+            passages.search,
         )
 
 
@@ -590,25 +565,17 @@ class PassagesResourceWithStreamingResponse:
     def __init__(self, passages: PassagesResource) -> None:
         self._passages = passages
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                passages.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = to_streamed_response_wrapper(
+            passages.create,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                passages.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = to_streamed_response_wrapper(
+            passages.list,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                passages.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = to_streamed_response_wrapper(
+            passages.delete,
         )
-        self.search = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                passages.search,  # pyright: ignore[reportDeprecated],
-            )
+        self.search = to_streamed_response_wrapper(
+            passages.search,
         )
 
 
@@ -616,23 +583,15 @@ class AsyncPassagesResourceWithStreamingResponse:
     def __init__(self, passages: AsyncPassagesResource) -> None:
         self._passages = passages
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                passages.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = async_to_streamed_response_wrapper(
+            passages.create,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                passages.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = async_to_streamed_response_wrapper(
+            passages.list,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                passages.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = async_to_streamed_response_wrapper(
+            passages.delete,
         )
-        self.search = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                passages.search,  # pyright: ignore[reportDeprecated],
-            )
+        self.search = async_to_streamed_response_wrapper(
+            passages.search,
         )

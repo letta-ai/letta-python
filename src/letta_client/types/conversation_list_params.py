@@ -17,3 +17,6 @@ class ConversationListParams(TypedDict, total=False):
 
     limit: int
     """Maximum number of conversations to return"""
+
+    summary_search: Optional[str]
+    """Search for text within conversation summaries"""
