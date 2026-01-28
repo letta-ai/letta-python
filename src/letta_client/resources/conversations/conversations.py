@@ -192,6 +192,7 @@ class ConversationsResource(SyncAPIResource):
         agent_id: str,
         after: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -208,6 +209,8 @@ class ConversationsResource(SyncAPIResource):
           after: Cursor for pagination (conversation ID)
 
           limit: Maximum number of conversations to return
+
+          summary_search: Search for text within conversation summaries
 
           extra_headers: Send extra headers
 
@@ -229,6 +232,7 @@ class ConversationsResource(SyncAPIResource):
                         "agent_id": agent_id,
                         "after": after,
                         "limit": limit,
+                        "summary_search": summary_search,
                     },
                     conversation_list_params.ConversationListParams,
                 ),
@@ -436,6 +440,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         agent_id: str,
         after: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -452,6 +457,8 @@ class AsyncConversationsResource(AsyncAPIResource):
           after: Cursor for pagination (conversation ID)
 
           limit: Maximum number of conversations to return
+
+          summary_search: Search for text within conversation summaries
 
           extra_headers: Send extra headers
 
@@ -473,6 +480,7 @@ class AsyncConversationsResource(AsyncAPIResource):
                         "agent_id": agent_id,
                         "after": after,
                         "limit": limit,
+                        "summary_search": summary_search,
                     },
                     conversation_list_params.ConversationListParams,
                 ),
