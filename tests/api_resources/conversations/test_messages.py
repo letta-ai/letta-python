@@ -25,7 +25,7 @@ class TestMessages:
     @parametrize
     def test_method_create(self, client: Letta) -> None:
         message_stream = client.conversations.messages.create(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
         message_stream.response.close()
 
@@ -33,7 +33,7 @@ class TestMessages:
     @parametrize
     def test_method_create_with_all_params(self, client: Letta) -> None:
         message_stream = client.conversations.messages.create(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
@@ -78,7 +78,7 @@ class TestMessages:
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.conversations.messages.with_raw_response.create(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -89,7 +89,7 @@ class TestMessages:
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.conversations.messages.with_streaming_response.create(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -111,7 +111,7 @@ class TestMessages:
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         message = client.conversations.messages.list(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
         assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
@@ -119,7 +119,7 @@ class TestMessages:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         message = client.conversations.messages.list(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
             after="after",
             before="before",
             group_id="group_id",
@@ -134,7 +134,7 @@ class TestMessages:
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.conversations.messages.with_raw_response.list(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.is_closed is True
@@ -146,7 +146,7 @@ class TestMessages:
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.conversations.messages.with_streaming_response.list(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -168,7 +168,7 @@ class TestMessages:
     @parametrize
     def test_method_compact(self, client: Letta) -> None:
         message = client.conversations.messages.compact(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
         assert_matches_type(CompactionResponse, message, path=["response"])
 
@@ -176,7 +176,7 @@ class TestMessages:
     @parametrize
     def test_method_compact_with_all_params(self, client: Letta) -> None:
         message = client.conversations.messages.compact(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
             compaction_settings={
                 "model": "model",
                 "clip_chars": 0,
@@ -201,7 +201,7 @@ class TestMessages:
     @parametrize
     def test_raw_response_compact(self, client: Letta) -> None:
         response = client.conversations.messages.with_raw_response.compact(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.is_closed is True
@@ -213,7 +213,7 @@ class TestMessages:
     @parametrize
     def test_streaming_response_compact(self, client: Letta) -> None:
         with client.conversations.messages.with_streaming_response.compact(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -235,7 +235,7 @@ class TestMessages:
     @parametrize
     def test_method_stream(self, client: Letta) -> None:
         message_stream = client.conversations.messages.stream(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
         message_stream.response.close()
 
@@ -243,7 +243,7 @@ class TestMessages:
     @parametrize
     def test_method_stream_with_all_params(self, client: Letta) -> None:
         message_stream = client.conversations.messages.stream(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
             batch_size=0,
             include_pings=True,
             poll_interval=0,
@@ -255,7 +255,7 @@ class TestMessages:
     @parametrize
     def test_raw_response_stream(self, client: Letta) -> None:
         response = client.conversations.messages.with_raw_response.stream(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -266,7 +266,7 @@ class TestMessages:
     @parametrize
     def test_streaming_response_stream(self, client: Letta) -> None:
         with client.conversations.messages.with_streaming_response.stream(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -294,7 +294,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.conversations.messages.create(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
         await message_stream.response.aclose()
 
@@ -302,7 +302,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.conversations.messages.create(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
@@ -347,7 +347,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.messages.with_raw_response.create(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -358,7 +358,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.messages.with_streaming_response.create(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -380,7 +380,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         message = await async_client.conversations.messages.list(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
         assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
@@ -388,7 +388,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.conversations.messages.list(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
             after="after",
             before="before",
             group_id="group_id",
@@ -403,7 +403,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.messages.with_raw_response.list(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.is_closed is True
@@ -415,7 +415,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.messages.with_streaming_response.list(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -437,7 +437,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_compact(self, async_client: AsyncLetta) -> None:
         message = await async_client.conversations.messages.compact(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
         assert_matches_type(CompactionResponse, message, path=["response"])
 
@@ -445,7 +445,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_compact_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.conversations.messages.compact(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
             compaction_settings={
                 "model": "model",
                 "clip_chars": 0,
@@ -470,7 +470,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_raw_response_compact(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.messages.with_raw_response.compact(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.is_closed is True
@@ -482,7 +482,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_streaming_response_compact(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.messages.with_streaming_response.compact(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -504,7 +504,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_stream(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.conversations.messages.stream(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
         await message_stream.response.aclose()
 
@@ -512,7 +512,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_stream_with_all_params(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.conversations.messages.stream(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
             batch_size=0,
             include_pings=True,
             poll_interval=0,
@@ -524,7 +524,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_raw_response_stream(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.messages.with_raw_response.stream(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -535,7 +535,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_streaming_response_stream(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.messages.with_streaming_response.stream(
-            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
