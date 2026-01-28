@@ -87,7 +87,8 @@ class MessagesResource(SyncAPIResource):
         streaming=false to get a complete JSON response.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
@@ -198,7 +199,8 @@ class MessagesResource(SyncAPIResource):
         messages in the conversation, with support for cursor-based pagination.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           after: Message ID cursor for pagination. Returns messages that come after this message
               ID in the specified sort order
@@ -271,7 +273,8 @@ class MessagesResource(SyncAPIResource):
         reducing the message count while preserving important context.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
@@ -322,7 +325,8 @@ class MessagesResource(SyncAPIResource):
         conversation, enabling recovery from network interruptions.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           batch_size: Number of entries to read per batch.
 
@@ -417,7 +421,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         streaming=false to get a complete JSON response.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
@@ -528,7 +533,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         messages in the conversation, with support for cursor-based pagination.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           after: Message ID cursor for pagination. Returns messages that come after this message
               ID in the specified sort order
@@ -601,7 +607,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         reducing the message count while preserving important context.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
@@ -652,7 +659,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         conversation, enabling recovery from network interruptions.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           batch_size: Number of entries to read per batch.
 

@@ -124,7 +124,8 @@ class ConversationsResource(SyncAPIResource):
         Retrieve a specific conversation.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -156,11 +157,13 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """
-        Update a conversation.
+        """Update a conversation.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier.
+
+        Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           summary: A summary of the conversation.
 
@@ -250,7 +253,8 @@ class ConversationsResource(SyncAPIResource):
         Note: To cancel active runs, Redis is required.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -364,7 +368,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         Retrieve a specific conversation.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -396,11 +401,13 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """
-        Update a conversation.
+        """Update a conversation.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier.
+
+        Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           summary: A summary of the conversation.
 
@@ -490,7 +497,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         Note: To cancel active runs, Redis is required.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
