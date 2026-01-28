@@ -24,6 +24,7 @@ ProviderType: TypeAlias = Literal[
     "together",
     "vllm",
     "sglang",
+    "openrouter",
     "xai",
     "zai",
 ]
