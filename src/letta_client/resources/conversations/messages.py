@@ -28,6 +28,7 @@ from ...types.conversations import (
 )
 from ...types.agents.message import Message
 from ...types.agents.message_type import MessageType
+from ...types.agents.letta_response import LettaResponse
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
 from ...types.conversations.compaction_response import CompactionResponse
 
@@ -167,9 +168,7 @@ class MessagesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(
-                Any, LettaStreamingResponse
-            ),  # Union types cannot be passed in as arguments in the type system
+            cast_to=LettaResponse,
             stream=True,
             stream_cls=Stream[LettaStreamingResponse],
         )
@@ -501,9 +500,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=cast(
-                Any, LettaStreamingResponse
-            ),  # Union types cannot be passed in as arguments in the type system
+            cast_to=LettaResponse,
             stream=True,
             stream_cls=AsyncStream[LettaStreamingResponse],
         )
