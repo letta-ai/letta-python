@@ -93,6 +93,12 @@ class MessagesResource(SyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         The response format is controlled by the `streaming` field in the request body:
 
         - If `streaming=false` (default): Returns a complete LettaResponse with all
@@ -192,6 +198,12 @@ class MessagesResource(SyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         The response format is controlled by the `streaming` field in the request body:
 
         - If `streaming=false` (default): Returns a complete LettaResponse with all
@@ -290,6 +302,12 @@ class MessagesResource(SyncAPIResource):
 
         This endpoint accepts a
         message from a user and processes it through the agent.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -628,6 +646,12 @@ class MessagesResource(SyncAPIResource):
         This is "asynchronous" in the sense that it's a background run and explicitly
         must be fetched by the run ID.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
@@ -770,6 +794,12 @@ class MessagesResource(SyncAPIResource):
 
         Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
         in the request body instead.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         This endpoint accepts a message from a user and processes it through the agent.
         It will stream the steps of the response always, and stream the tokens if
@@ -914,6 +944,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         The response format is controlled by the `streaming` field in the request body:
 
         - If `streaming=false` (default): Returns a complete LettaResponse with all
@@ -1013,6 +1049,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         The response format is controlled by the `streaming` field in the request body:
 
         - If `streaming=false` (default): Returns a complete LettaResponse with all
@@ -1111,6 +1153,12 @@ class AsyncMessagesResource(AsyncAPIResource):
 
         This endpoint accepts a
         message from a user and processes it through the agent.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -1449,6 +1497,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         This is "asynchronous" in the sense that it's a background run and explicitly
         must be fetched by the run ID.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
@@ -1591,6 +1645,12 @@ class AsyncMessagesResource(AsyncAPIResource):
 
         Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
         in the request body instead.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         This endpoint accepts a message from a user and processes it through the agent.
         It will stream the steps of the response always, and stream the tokens if
