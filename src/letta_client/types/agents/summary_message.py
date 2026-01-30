@@ -23,7 +23,7 @@ class SummaryMessage(BaseModel):
 
     is_err: Optional[bool] = None
 
-    message_type: Optional[Literal["summary"]] = None
+    message_type: Optional[Literal["summary_message"]] = None
 
     name: Optional[str] = None
 

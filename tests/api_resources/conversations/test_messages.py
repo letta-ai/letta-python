@@ -45,6 +45,7 @@ class TestMessages:
                 }
             ],
             enable_thinking="enable_thinking",
+            include_compaction_messages=True,
             include_pings=True,
             include_return_message_types=["system_message"],
             input="string",
@@ -314,6 +315,7 @@ class TestAsyncMessages:
                 }
             ],
             enable_thinking="enable_thinking",
+            include_compaction_messages=True,
             include_pings=True,
             include_return_message_types=["system_message"],
             input="string",

@@ -59,6 +59,12 @@ class MessageStreamParams(TypedDict, total=False):
     If set to True, enables reasoning before responses or tool calls from the agent.
     """
 
+    include_compaction_messages: bool
+    """
+    If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+    types. If False (default), compaction messages are not included in the response.
+    """
+
     include_pings: bool
     """
     Whether to include periodic keepalive ping messages in the stream to prevent

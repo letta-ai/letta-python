@@ -72,6 +72,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -129,6 +130,9 @@ class MessagesResource(SyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
 
@@ -178,6 +182,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -237,6 +242,9 @@ class MessagesResource(SyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
 
@@ -283,6 +291,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -342,6 +351,9 @@ class MessagesResource(SyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
 
@@ -386,6 +398,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -413,6 +426,7 @@ class MessagesResource(SyncAPIResource):
                     "background": background,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
@@ -624,6 +638,7 @@ class MessagesResource(SyncAPIResource):
         callback_url: Optional[str] | Omit = omit,
         client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
@@ -669,6 +684,9 @@ class MessagesResource(SyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
 
@@ -707,6 +725,7 @@ class MessagesResource(SyncAPIResource):
                     "callback_url": callback_url,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
                     "max_steps": max_steps,
@@ -773,6 +792,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
@@ -823,6 +843,9 @@ class MessagesResource(SyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
 
@@ -870,6 +893,7 @@ class MessagesResource(SyncAPIResource):
                     "background": background,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
@@ -923,6 +947,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -980,6 +1005,9 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
 
@@ -1029,6 +1057,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -1088,6 +1117,9 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
 
@@ -1134,6 +1166,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -1193,6 +1226,9 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
 
@@ -1237,6 +1273,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -1264,6 +1301,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "background": background,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
@@ -1475,6 +1513,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         callback_url: Optional[str] | Omit = omit,
         client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
@@ -1520,6 +1559,9 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
 
@@ -1558,6 +1600,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "callback_url": callback_url,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
                     "max_steps": max_steps,
@@ -1624,6 +1667,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
@@ -1674,6 +1718,9 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
 
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
+
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
 
@@ -1721,6 +1768,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "background": background,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
