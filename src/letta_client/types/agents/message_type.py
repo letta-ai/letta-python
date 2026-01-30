@@ -14,4 +14,6 @@ MessageType: TypeAlias = Literal[
     "tool_return_message",
     "approval_request_message",
     "approval_response_message",
+    "summary_message",
+    "event_message",
 ]

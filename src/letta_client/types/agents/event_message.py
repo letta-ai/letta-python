@@ -25,7 +25,7 @@ class EventMessage(BaseModel):
 
     is_err: Optional[bool] = None
 
-    message_type: Optional[Literal["event"]] = None
+    message_type: Optional[Literal["event_message"]] = None
 
     name: Optional[str] = None
 

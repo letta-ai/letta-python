@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["MessageRole"]
 
-MessageRole: TypeAlias = Literal["assistant", "user", "tool", "function", "system", "approval"]
+MessageRole: TypeAlias = Literal["assistant", "user", "tool", "function", "system", "approval", "summary"]
