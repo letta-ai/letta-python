@@ -48,12 +48,14 @@ class LlmConfigParam(TypedDict, total=False):
             "koboldcpp",
             "vllm",
             "hugging-face",
+            "minimax",
             "mistral",
             "together",
             "bedrock",
             "deepseek",
             "xai",
             "zai",
+            "openrouter",
             "chatgpt_oauth",
         ]
     ]

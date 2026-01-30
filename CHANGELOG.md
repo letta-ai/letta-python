@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.7.7 (2026-01-30)
+
+Full Changelog: [v1.7.6...v1.7.7](https://github.com/letta-ai/letta-python/compare/v1.7.6...v1.7.7)
+
+### Features
+
+* add compaction stats ([7a08830](https://github.com/letta-ai/letta-python/commit/7a0883099b3dff60783e0acd58e3f22ebdd66d3c))
+* add ID format validation to group schemas ([89959b4](https://github.com/letta-ai/letta-python/commit/89959b407ad483dc33c889679bb61b6b2a4bd2cc))
+* add MiniMax provider support ([572aa55](https://github.com/letta-ai/letta-python/commit/572aa558efeccb4e7e71b50ac00908bbc2550ff6))
+* add summary message and event on compaction ([e992f95](https://github.com/letta-ai/letta-python/commit/e992f95728f537a0f3f98eda2da70603e8c44058))
+* **client:** add custom JSON encoder for extended type support ([17b5e5d](https://github.com/letta-ai/letta-python/commit/17b5e5d2699f99bc46f3ea46844e252d9162ce17))
+* openrouter byok ([d50e90f](https://github.com/letta-ai/letta-python/commit/d50e90fd8a1e43db2daf7320c031b7e6e3b20c32))
+* Release webhook code ([bde7fab](https://github.com/letta-ai/letta-python/commit/bde7fab08e366d20dbef3e3ddc7ed3905601fcbb))
+
+
+### Bug Fixes
+
+* openrouter provider ([dfa9749](https://github.com/letta-ai/letta-python/commit/dfa97496ea80f572ec244b28dd154389f6d051c5))
+* remove deprecation from agent passages endpoints ([e395709](https://github.com/letta-ai/letta-python/commit/e395709f8ba4ace3dd6f9f353f39a410850e96ed))
+* warning ([54fb598](https://github.com/letta-ai/letta-python/commit/54fb598ae63ef80df789c85cd83448d9cf6345f2))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([1f41fb4](https://github.com/letta-ai/letta-python/commit/1f41fb480f41703b34aa935dce183d99e1ed1e99))
+* rebuild api requests ([4854f25](https://github.com/letta-ai/letta-python/commit/4854f25f615b2d273498bdd569348f1344d6bec0))
+
 ## 1.7.6 (2026-01-23)
 
 Full Changelog: [v1.7.5...v1.7.6](https://github.com/letta-ai/letta-python/compare/v1.7.5...v1.7.6)

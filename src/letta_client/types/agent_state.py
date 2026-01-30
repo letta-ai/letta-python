@@ -49,6 +49,8 @@ __all__ = [
     "CompactionSettingsModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsOpenRouterModelSettings",
+    "CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsChatGptoAuthModelSettings",
     "CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning",
     "Identity",
@@ -57,6 +59,8 @@ __all__ = [
     "ModelSettings",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
+    "ModelSettingsOpenRouterModelSettings",
+    "ModelSettingsOpenRouterModelSettingsResponseFormat",
     "ModelSettingsChatGptoAuthModelSettings",
     "ModelSettingsChatGptoAuthModelSettingsReasoning",
     "MultiAgentGroup",
@@ -219,6 +223,31 @@ class CompactionSettingsModelSettingsZaiModelSettings(BaseModel):
     """The temperature of the model."""
 
 
+CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class CompactionSettingsModelSettingsOpenRouterModelSettings(BaseModel):
+    """OpenRouter model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["openrouter"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+
 class CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning(BaseModel):
     """The reasoning configuration for the model."""
 
@@ -258,6 +287,7 @@ CompactionSettingsModelSettings: TypeAlias = Annotated[
         DeepseekModelSettings,
         TogetherModelSettings,
         BedrockModelSettings,
+        CompactionSettingsModelSettingsOpenRouterModelSettings,
         CompactionSettingsModelSettingsChatGptoAuthModelSettings,
         None,
     ],
@@ -423,6 +453,31 @@ class ModelSettingsZaiModelSettings(BaseModel):
     """The temperature of the model."""
 
 
+ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsOpenRouterModelSettings(BaseModel):
+    """OpenRouter model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["openrouter"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsOpenRouterModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+
 class ModelSettingsChatGptoAuthModelSettingsReasoning(BaseModel):
     """The reasoning configuration for the model."""
 
@@ -462,6 +517,7 @@ ModelSettings: TypeAlias = Annotated[
         DeepseekModelSettings,
         TogetherModelSettings,
         BedrockModelSettings,
+        ModelSettingsOpenRouterModelSettings,
         ModelSettingsChatGptoAuthModelSettings,
         None,
     ],

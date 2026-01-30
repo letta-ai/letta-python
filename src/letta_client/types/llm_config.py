@@ -52,12 +52,14 @@ class LlmConfig(BaseModel):
         "koboldcpp",
         "vllm",
         "hugging-face",
+        "minimax",
         "mistral",
         "together",
         "bedrock",
         "deepseek",
         "xai",
         "zai",
+        "openrouter",
         "chatgpt_oauth",
     ] = FieldInfo(alias="model_endpoint_type")
     """The endpoint type for the model."""

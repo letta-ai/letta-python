@@ -72,6 +72,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -92,6 +93,12 @@ class MessagesResource(SyncAPIResource):
 
         This endpoint accepts a
         message from a user and processes it through the agent.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -122,6 +129,9 @@ class MessagesResource(SyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
@@ -172,6 +182,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -191,6 +202,12 @@ class MessagesResource(SyncAPIResource):
 
         This endpoint accepts a
         message from a user and processes it through the agent.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -224,6 +241,9 @@ class MessagesResource(SyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
@@ -271,6 +291,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -290,6 +311,12 @@ class MessagesResource(SyncAPIResource):
 
         This endpoint accepts a
         message from a user and processes it through the agent.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -323,6 +350,9 @@ class MessagesResource(SyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
@@ -368,6 +398,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -395,6 +426,7 @@ class MessagesResource(SyncAPIResource):
                     "background": background,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
@@ -606,6 +638,7 @@ class MessagesResource(SyncAPIResource):
         callback_url: Optional[str] | Omit = omit,
         client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
@@ -628,6 +661,12 @@ class MessagesResource(SyncAPIResource):
         This is "asynchronous" in the sense that it's a background run and explicitly
         must be fetched by the run ID.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
@@ -644,6 +683,9 @@ class MessagesResource(SyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
@@ -683,6 +725,7 @@ class MessagesResource(SyncAPIResource):
                     "callback_url": callback_url,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
                     "max_steps": max_steps,
@@ -749,6 +792,7 @@ class MessagesResource(SyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
@@ -771,6 +815,12 @@ class MessagesResource(SyncAPIResource):
         Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
         in the request body instead.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         This endpoint accepts a message from a user and processes it through the agent.
         It will stream the steps of the response always, and stream the tokens if
         'stream_tokens' is set to True.
@@ -792,6 +842,9 @@ class MessagesResource(SyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
@@ -840,6 +893,7 @@ class MessagesResource(SyncAPIResource):
                     "background": background,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
@@ -893,6 +947,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -913,6 +968,12 @@ class AsyncMessagesResource(AsyncAPIResource):
 
         This endpoint accepts a
         message from a user and processes it through the agent.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -943,6 +1004,9 @@ class AsyncMessagesResource(AsyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
@@ -993,6 +1057,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -1012,6 +1077,12 @@ class AsyncMessagesResource(AsyncAPIResource):
 
         This endpoint accepts a
         message from a user and processes it through the agent.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -1045,6 +1116,9 @@ class AsyncMessagesResource(AsyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
@@ -1092,6 +1166,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -1111,6 +1186,12 @@ class AsyncMessagesResource(AsyncAPIResource):
 
         This endpoint accepts a
         message from a user and processes it through the agent.
+
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -1144,6 +1225,9 @@ class AsyncMessagesResource(AsyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
@@ -1189,6 +1273,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
@@ -1216,6 +1301,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "background": background,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
@@ -1427,6 +1513,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         callback_url: Optional[str] | Omit = omit,
         client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
         max_steps: int | Omit = omit,
@@ -1449,6 +1536,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         This is "asynchronous" in the sense that it's a background run and explicitly
         must be fetched by the run ID.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
@@ -1465,6 +1558,9 @@ class AsyncMessagesResource(AsyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_return_message_types: Only return specified message types in the response. If `None` (default) returns
               all messages.
@@ -1504,6 +1600,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "callback_url": callback_url,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_return_message_types": include_return_message_types,
                     "input": input,
                     "max_steps": max_steps,
@@ -1570,6 +1667,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         background: bool | Omit = omit,
         client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
+        include_compaction_messages: bool | Omit = omit,
         include_pings: bool | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
@@ -1592,6 +1690,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
         in the request body instead.
 
+        **Note:** Sending multiple concurrent requests to the same agent can lead to
+        undefined behavior. Each agent processes messages sequentially, and concurrent
+        requests may interleave in unexpected ways. Wait for each request to complete
+        before sending the next one. Use separate agents or conversations for parallel
+        processing.
+
         This endpoint accepts a message from a user and processes it through the agent.
         It will stream the steps of the response always, and stream the tokens if
         'stream_tokens' is set to True.
@@ -1613,6 +1717,9 @@ class AsyncMessagesResource(AsyncAPIResource):
               provide the result via a ToolReturn.
 
           enable_thinking: If set to True, enables reasoning before responses or tool calls from the agent.
+
+          include_compaction_messages: If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+              types. If False (default), compaction messages are not included in the response.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts (only used when streaming=true).
@@ -1661,6 +1768,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "background": background,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
+                    "include_compaction_messages": include_compaction_messages,
                     "include_pings": include_pings,
                     "include_return_message_types": include_return_message_types,
                     "input": input,

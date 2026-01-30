@@ -42,7 +42,10 @@ class MessageCreateParams(TypedDict, total=False):
     """
 
     background: bool
-    """Whether to process the request in the background (only used when stream=true)."""
+    """
+    Whether to process the request in the background (only used when
+    streaming=true).
+    """
 
     client_tools: Optional[Iterable[ClientTool]]
     """Client-side tools that the agent can call.
@@ -56,10 +59,16 @@ class MessageCreateParams(TypedDict, total=False):
     If set to True, enables reasoning before responses or tool calls from the agent.
     """
 
+    include_compaction_messages: bool
+    """
+    If True, compaction events emit structured `SummaryMessage` and `EventMessage`
+    types. If False (default), compaction messages are not included in the response.
+    """
+
     include_pings: bool
     """
     Whether to include periodic keepalive ping messages in the stream to prevent
-    connection timeouts (only used when stream=true).
+    connection timeouts (only used when streaming=true).
     """
 
     include_return_message_types: Optional[List[MessageType]]
@@ -87,16 +96,16 @@ class MessageCreateParams(TypedDict, total=False):
     configuration.
     """
 
-    stream: bool
-    """If True (default), returns a streaming response (Server-Sent Events).
-
-    If False, returns a complete JSON response.
-    """
-
     stream_tokens: bool
     """
     Flag to determine if individual tokens should be streamed, rather than streaming
-    per step (only used when stream=true).
+    per step (only used when streaming=true).
+    """
+
+    streaming: bool
+    """If True (default), returns a streaming response (Server-Sent Events).
+
+    If False, returns a complete JSON response.
     """
 
     use_assistant_message: bool

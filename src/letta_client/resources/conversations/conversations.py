@@ -124,7 +124,8 @@ class ConversationsResource(SyncAPIResource):
         Retrieve a specific conversation.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -156,11 +157,13 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """
-        Update a conversation.
+        """Update a conversation.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier.
+
+        Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           summary: A summary of the conversation.
 
@@ -189,6 +192,7 @@ class ConversationsResource(SyncAPIResource):
         agent_id: str,
         after: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -205,6 +209,8 @@ class ConversationsResource(SyncAPIResource):
           after: Cursor for pagination (conversation ID)
 
           limit: Maximum number of conversations to return
+
+          summary_search: Search for text within conversation summaries
 
           extra_headers: Send extra headers
 
@@ -226,6 +232,7 @@ class ConversationsResource(SyncAPIResource):
                         "agent_id": agent_id,
                         "after": after,
                         "limit": limit,
+                        "summary_search": summary_search,
                     },
                     conversation_list_params.ConversationListParams,
                 ),
@@ -250,7 +257,8 @@ class ConversationsResource(SyncAPIResource):
         Note: To cancel active runs, Redis is required.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -364,7 +372,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         Retrieve a specific conversation.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -396,11 +405,13 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """
-        Update a conversation.
+        """Update a conversation.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier.
+
+        Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           summary: A summary of the conversation.
 
@@ -429,6 +440,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         agent_id: str,
         after: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -445,6 +457,8 @@ class AsyncConversationsResource(AsyncAPIResource):
           after: Cursor for pagination (conversation ID)
 
           limit: Maximum number of conversations to return
+
+          summary_search: Search for text within conversation summaries
 
           extra_headers: Send extra headers
 
@@ -466,6 +480,7 @@ class AsyncConversationsResource(AsyncAPIResource):
                         "agent_id": agent_id,
                         "after": after,
                         "limit": limit,
+                        "summary_search": summary_search,
                     },
                     conversation_list_params.ConversationListParams,
                 ),
@@ -490,7 +505,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         Note: To cancel active runs, Redis is required.
 
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
