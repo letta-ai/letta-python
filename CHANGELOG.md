@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.8.0 (2026-01-31)
+
+Full Changelog: [v1.7.7...v1.8.0](https://github.com/letta-ai/letta-python/compare/v1.7.7...v1.8.0)
+
+### Features
+
+* add reasoning zai openrouter ([dad90b3](https://github.com/letta-ai/letta-python/commit/dad90b39cd510f0310c3edde22235bff650c700c))
+
 ## 1.7.7 (2026-01-30)
 
 Full Changelog: [v1.7.6...v1.7.7](https://github.com/letta-ai/letta-python/compare/v1.7.6...v1.7.7)
