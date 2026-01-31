@@ -25,6 +25,7 @@ __all__ = [
     "CompactionSettingsModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsZaiModelSettingsThinking",
     "CompactionSettingsModelSettingsOpenRouterModelSettings",
     "CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsChatGptoAuthModelSettings",
@@ -47,6 +48,16 @@ CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union
 ]
 
 
+class CompactionSettingsModelSettingsZaiModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for GLM-4.5+ models."""
+
+    clear_thinking: bool
+    """If False, preserved thinking is used (recommended for agents)."""
+
+    type: Literal["enabled", "disabled"]
+    """Whether thinking is enabled or disabled."""
+
+
 class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
     """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
 
@@ -64,6 +75,9 @@ class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
 
     temperature: float
     """The temperature of the model."""
+
+    thinking: CompactionSettingsModelSettingsZaiModelSettingsThinking
+    """The thinking configuration for GLM-4.5+ models."""
 
 
 CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Union[

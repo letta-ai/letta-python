@@ -49,6 +49,7 @@ __all__ = [
     "CompactionSettingsModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsZaiModelSettingsThinking",
     "CompactionSettingsModelSettingsOpenRouterModelSettings",
     "CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsChatGptoAuthModelSettings",
@@ -59,6 +60,7 @@ __all__ = [
     "ModelSettings",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
+    "ModelSettingsZaiModelSettingsThinking",
     "ModelSettingsOpenRouterModelSettings",
     "ModelSettingsOpenRouterModelSettingsResponseFormat",
     "ModelSettingsChatGptoAuthModelSettings",
@@ -204,6 +206,16 @@ CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annot
 ]
 
 
+class CompactionSettingsModelSettingsZaiModelSettingsThinking(BaseModel):
+    """The thinking configuration for GLM-4.5+ models."""
+
+    clear_thinking: Optional[bool] = None
+    """If False, preserved thinking is used (recommended for agents)."""
+
+    type: Optional[Literal["enabled", "disabled"]] = None
+    """Whether thinking is enabled or disabled."""
+
+
 class CompactionSettingsModelSettingsZaiModelSettings(BaseModel):
     """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
 
@@ -221,6 +233,9 @@ class CompactionSettingsModelSettingsZaiModelSettings(BaseModel):
 
     temperature: Optional[float] = None
     """The temperature of the model."""
+
+    thinking: Optional[CompactionSettingsModelSettingsZaiModelSettingsThinking] = None
+    """The thinking configuration for GLM-4.5+ models."""
 
 
 CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[
@@ -434,6 +449,16 @@ ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
 ]
 
 
+class ModelSettingsZaiModelSettingsThinking(BaseModel):
+    """The thinking configuration for GLM-4.5+ models."""
+
+    clear_thinking: Optional[bool] = None
+    """If False, preserved thinking is used (recommended for agents)."""
+
+    type: Optional[Literal["enabled", "disabled"]] = None
+    """Whether thinking is enabled or disabled."""
+
+
 class ModelSettingsZaiModelSettings(BaseModel):
     """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
 
@@ -451,6 +476,9 @@ class ModelSettingsZaiModelSettings(BaseModel):
 
     temperature: Optional[float] = None
     """The temperature of the model."""
+
+    thinking: Optional[ModelSettingsZaiModelSettingsThinking] = None
+    """The thinking configuration for GLM-4.5+ models."""
 
 
 ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[
