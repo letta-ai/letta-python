@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.7.8 (2026-02-05)
+
+Full Changelog: [v1.7.7...v1.7.8](https://github.com/letta-ai/letta-python/compare/v1.7.7...v1.7.8)
+
+### Features
+
+* add context token estimates to llm usage ([98d28ee](https://github.com/letta-ai/letta-python/commit/98d28ee0d4cf766c64fba78e245a416dc6a1d9f6))
+* add reasoning zai openrouter ([dad90b3](https://github.com/letta-ai/letta-python/commit/dad90b39cd510f0310c3edde22235bff650c700c))
+* add usage columns to steps table ([509892c](https://github.com/letta-ai/letta-python/commit/509892c31f6c2d3486ca8b8d64f26913ca5b0111))
+
 ## 1.7.7 (2026-01-30)
 
 Full Changelog: [v1.7.6...v1.7.7](https://github.com/letta-ai/letta-python/compare/v1.7.6...v1.7.7)
