@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.8.0 (2026-02-07)
+
+Full Changelog: [v1.7.8...v1.8.0](https://github.com/letta-ai/letta-python/compare/v1.7.8...v1.8.0)
+
+### Features
+
+* add Anthropic Opus 4.6 (fka claude-fudge-eap) model support ([f023c77](https://github.com/letta-ai/letta-python/commit/f023c77777f11acf400958c1958559232f7780bb))
+* **core:** structure memory directory and block labels [LET-7336] ([56a57c7](https://github.com/letta-ai/letta-python/commit/56a57c7e8a53df286198d7f4eaf98ea176cbd1d9))
+
 ## 1.7.8 (2026-02-05)
 
 Full Changelog: [v1.7.7...v1.7.8](https://github.com/letta-ai/letta-python/compare/v1.7.7...v1.7.8)
