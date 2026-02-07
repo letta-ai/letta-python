@@ -67,10 +67,11 @@ class LlmConfigParam(TypedDict, total=False):
     display_name: Optional[str]
     """A human-friendly display name for the model."""
 
-    effort: Optional[Literal["low", "medium", "high"]]
-    """The effort level for Anthropic Opus 4.5 model (controls token spending).
+    effort: Optional[Literal["low", "medium", "high", "max"]]
+    """The effort level for Anthropic models that support it (Opus 4.5, Opus 4.6).
 
-    Not setting this gives similar performance to 'high'.
+    Controls token spending and thinking behavior. Not setting this gives similar
+    performance to 'high'.
     """
 
     enable_reasoner: bool

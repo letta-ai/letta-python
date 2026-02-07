@@ -157,6 +157,9 @@ class Memory(BaseModel):
     file_blocks: Optional[List[MemoryFileBlock]] = None
     """Special blocks representing the agent's in-context memory of an attached file"""
 
+    git_enabled: Optional[bool] = None
+    """Whether this agent uses git-backed memory with structured labels."""
+
     prompt_template: Optional[str] = None
     """Deprecated. Ignored for performance."""
 
