@@ -6,6 +6,7 @@ from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .message_type import MessageType
+from .tool_return_param import ToolReturnParam
 from .text_content_param import TextContentParam
 from .image_content_param import ImageContentParam
 from ..message_create_param import MessageCreateParam
@@ -23,6 +24,7 @@ __all__ = [
     "InputUnionMember1SummarizedReasoningContent",
     "InputUnionMember1SummarizedReasoningContentSummary",
     "Message",
+    "MessageToolReturnCreate",
 ]
 
 
@@ -148,4 +150,20 @@ InputUnionMember1: TypeAlias = Union[
     InputUnionMember1SummarizedReasoningContent,
 ]
 
-Message: TypeAlias = Union[MessageCreateParam, ApprovalCreateParam]
+
+class MessageToolReturnCreate(TypedDict, total=False):
+    """Submit tool return(s) from client-side tool execution.
+
+    This is the preferred way to send tool results back to the agent after
+    client-side tool execution. It is equivalent to sending an ApprovalCreate
+    with tool return approvals, but provides a cleaner API for the common case.
+    """
+
+    tool_returns: Required[Iterable[ToolReturnParam]]
+    """List of tool returns from client-side execution"""
+
+    type: Literal["tool_return"]
+    """The message type to be created."""
+
+
+Message: TypeAlias = Union[MessageCreateParam, ApprovalCreateParam, MessageToolReturnCreate]
