@@ -541,6 +541,7 @@ class TestAgents:
             agent_id="agent_id",
             conversation_id="conversation_id",
             max_steps=0,
+            scrub_messages=True,
             use_legacy_format=True,
         )
         assert_matches_type(str, agent, path=["response"])
@@ -1159,6 +1160,7 @@ class TestAsyncAgents:
             agent_id="agent_id",
             conversation_id="conversation_id",
             max_steps=0,
+            scrub_messages=True,
             use_legacy_format=True,
         )
         assert_matches_type(str, agent, path=["response"])

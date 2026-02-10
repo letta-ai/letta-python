@@ -18,6 +18,12 @@ class AgentExportFileParams(TypedDict, total=False):
 
     max_steps: int
 
+    scrub_messages: bool
+    """If True, excludes all messages from the export.
+
+    Useful for sharing agent configs without conversation history.
+    """
+
     use_legacy_format: bool
     """
     If True, exports using the legacy single-agent 'v1' format with inline
