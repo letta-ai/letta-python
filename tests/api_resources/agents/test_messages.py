@@ -75,8 +75,11 @@ class TestMessages:
                 }
             ],
             override_model="override_model",
+            return_logprobs=True,
+            return_token_ids=True,
             stream_tokens=True,
             streaming=False,
+            top_logprobs=0,
             use_assistant_message=True,
         )
         assert_matches_type(LettaResponse, message, path=["response"])
@@ -165,7 +168,10 @@ class TestMessages:
                 }
             ],
             override_model="override_model",
+            return_logprobs=True,
+            return_token_ids=True,
             stream_tokens=True,
+            top_logprobs=0,
             use_assistant_message=True,
         )
         message_stream.response.close()
@@ -432,6 +438,9 @@ class TestMessages:
                 }
             ],
             override_model="override_model",
+            return_logprobs=True,
+            return_token_ids=True,
+            top_logprobs=0,
             use_assistant_message=True,
         )
         assert_matches_type(Run, message, path=["response"])
@@ -572,8 +581,11 @@ class TestMessages:
                     }
                 ],
                 override_model="override_model",
+                return_logprobs=True,
+                return_token_ids=True,
                 stream_tokens=True,
                 streaming=True,
+                top_logprobs=0,
                 use_assistant_message=True,
             )
 
@@ -669,8 +681,11 @@ class TestAsyncMessages:
                 }
             ],
             override_model="override_model",
+            return_logprobs=True,
+            return_token_ids=True,
             stream_tokens=True,
             streaming=False,
+            top_logprobs=0,
             use_assistant_message=True,
         )
         assert_matches_type(LettaResponse, message, path=["response"])
@@ -759,7 +774,10 @@ class TestAsyncMessages:
                 }
             ],
             override_model="override_model",
+            return_logprobs=True,
+            return_token_ids=True,
             stream_tokens=True,
+            top_logprobs=0,
             use_assistant_message=True,
         )
         await message_stream.response.aclose()
@@ -1026,6 +1044,9 @@ class TestAsyncMessages:
                 }
             ],
             override_model="override_model",
+            return_logprobs=True,
+            return_token_ids=True,
+            top_logprobs=0,
             use_assistant_message=True,
         )
         assert_matches_type(Run, message, path=["response"])
@@ -1166,8 +1187,11 @@ class TestAsyncMessages:
                     }
                 ],
                 override_model="override_model",
+                return_logprobs=True,
+                return_token_ids=True,
                 stream_tokens=True,
                 streaming=True,
+                top_logprobs=0,
                 use_assistant_message=True,
             )
 
