@@ -138,6 +138,19 @@ class LlmConfigParam(TypedDict, total=False):
     model_settings.
     """
 
+    return_logprobs: bool
+    """Whether to return log probabilities of the output tokens.
+
+    Useful for RL training.
+    """
+
+    return_token_ids: bool
+    """Whether to return token IDs for all LLM generations via SGLang native endpoint.
+
+    Required for multi-turn RL training with loss masking. Only works with SGLang
+    provider.
+    """
+
     strict: bool
     """Enable strict mode for tool calling.
 
@@ -153,6 +166,12 @@ class LlmConfigParam(TypedDict, total=False):
 
     tier: Optional[str]
     """The cost tier for the model (cloud only)."""
+
+    top_logprobs: Optional[int]
+    """Number of most likely tokens to return at each position (0-20).
+
+    Requires return_logprobs=True.
+    """
 
     verbosity: Optional[Literal["low", "medium", "high"]]
     """Soft control for how verbose model output should be, used for GPT-5 models."""

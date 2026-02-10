@@ -100,10 +100,31 @@ class MessageCreateParamsBase(TypedDict, total=False):
     configuration.
     """
 
+    return_logprobs: bool
+    """If True, returns log probabilities of the output tokens in the response.
+
+    Useful for RL training. Only supported for OpenAI-compatible providers
+    (including SGLang).
+    """
+
+    return_token_ids: bool
+    """
+    If True, returns token IDs and logprobs for ALL LLM generations in the agent
+    step, not just the last one. Uses SGLang native /generate endpoint. Returns
+    'turns' field with TurnTokenData for each assistant/tool turn. Required for
+    proper multi-turn RL training with loss masking.
+    """
+
     stream_tokens: bool
     """
     Flag to determine if individual tokens should be streamed, rather than streaming
     per step (only used when streaming=true).
+    """
+
+    top_logprobs: Optional[int]
+    """Number of most likely tokens to return at each position (0-20).
+
+    Requires return_logprobs=True.
     """
 
     use_assistant_message: bool

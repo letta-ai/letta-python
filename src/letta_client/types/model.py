@@ -134,6 +134,19 @@ class Model(BaseModel):
     model_settings.
     """
 
+    return_logprobs: Optional[bool] = None
+    """Whether to return log probabilities of the output tokens.
+
+    Useful for RL training.
+    """
+
+    return_token_ids: Optional[bool] = None
+    """Whether to return token IDs for all LLM generations via SGLang native endpoint.
+
+    Required for multi-turn RL training with loss masking. Only works with SGLang
+    provider.
+    """
+
     strict: Optional[bool] = None
     """Enable strict mode for tool calling.
 
@@ -146,6 +159,12 @@ class Model(BaseModel):
 
     tier: Optional[str] = None
     """Deprecated: The cost tier for the model (cloud only)."""
+
+    top_logprobs: Optional[int] = None
+    """Number of most likely tokens to return at each position (0-20).
+
+    Requires return_logprobs=True.
+    """
 
     verbosity: Optional[Literal["low", "medium", "high"]] = None
     """Deprecated: Soft control for how verbose model output should be."""
