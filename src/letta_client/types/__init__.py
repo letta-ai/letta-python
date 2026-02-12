@@ -96,6 +96,7 @@ from .mcp_server_list_response import McpServerListResponse as McpServerListResp
 from .mcp_server_update_params import McpServerUpdateParams as McpServerUpdateParams
 from .template_create_response import TemplateCreateResponse as TemplateCreateResponse
 from .template_delete_response import TemplateDeleteResponse as TemplateDeleteResponse
+from .template_rollback_params import TemplateRollbackParams as TemplateRollbackParams
 from .template_update_response import TemplateUpdateResponse as TemplateUpdateResponse
 from .terminal_tool_rule_param import TerminalToolRuleParam as TerminalToolRuleParam
 from .xai_model_settings_param import XaiModelSettingsParam as XaiModelSettingsParam
@@ -115,6 +116,7 @@ from .conversation_update_params import ConversationUpdateParams as Conversation
 from .mcp_server_create_response import McpServerCreateResponse as McpServerCreateResponse
 from .mcp_server_update_response import McpServerUpdateResponse as McpServerUpdateResponse
 from .streamable_http_mcp_server import StreamableHTTPMcpServer as StreamableHTTPMcpServer
+from .template_rollback_response import TemplateRollbackResponse as TemplateRollbackResponse
 from .text_response_format_param import TextResponseFormatParam as TextResponseFormatParam
 from .conditional_tool_rule_param import ConditionalToolRuleParam as ConditionalToolRuleParam
 from .create_sse_mcp_server_param import CreateSseMcpServerParam as CreateSseMcpServerParam
