@@ -337,7 +337,7 @@ class CompactionSettings(BaseModel):
     """Optional model settings used to override defaults for the summarizer model."""
 
     prompt: Optional[str] = None
-    """The prompt to use for summarization."""
+    """The prompt to use for summarization. If None, uses mode-specific default."""
 
     prompt_acknowledgement: Optional[bool] = None
     """

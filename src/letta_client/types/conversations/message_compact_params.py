@@ -170,8 +170,8 @@ class CompactionSettings(TypedDict, total=False):
     model_settings: Optional[CompactionSettingsModelSettings]
     """Optional model settings used to override defaults for the summarizer model."""
 
-    prompt: str
-    """The prompt to use for summarization."""
+    prompt: Optional[str]
+    """The prompt to use for summarization. If None, uses mode-specific default."""
 
     prompt_acknowledgement: bool
     """
