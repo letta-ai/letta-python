@@ -62,6 +62,7 @@ from .folder_create_params import FolderCreateParams as FolderCreateParams
 from .folder_update_params import FolderUpdateParams as FolderUpdateParams
 from .init_tool_rule_param import InitToolRuleParam as InitToolRuleParam
 from .message_create_param import MessageCreateParam as MessageCreateParam
+from .template_save_params import TemplateSaveParams as TemplateSaveParams
 from .text_response_format import TextResponseFormat as TextResponseFormat
 from .tool_search_response import ToolSearchResponse as ToolSearchResponse
 from .agent_retrieve_params import AgentRetrieveParams as AgentRetrieveParams
@@ -79,6 +80,7 @@ from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .parent_tool_rule_param import ParentToolRuleParam as ParentToolRuleParam
 from .template_create_params import TemplateCreateParams as TemplateCreateParams
+from .template_save_response import TemplateSaveResponse as TemplateSaveResponse
 from .template_update_params import TemplateUpdateParams as TemplateUpdateParams
 from .deepseek_model_settings import DeepseekModelSettings as DeepseekModelSettings
 from .message_search_response import MessageSearchResponse as MessageSearchResponse

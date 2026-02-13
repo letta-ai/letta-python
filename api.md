@@ -540,6 +540,7 @@ from letta_client.types import (
     TemplateUpdateResponse,
     TemplateDeleteResponse,
     TemplateRollbackResponse,
+    TemplateSaveResponse,
 )
 ```
 
@@ -549,6 +550,7 @@ Methods:
 - <code title="patch /v1/templates/{template_name}">client.templates.<a href="./src/letta_client/resources/templates/templates.py">update</a>(template_name, \*\*<a href="src/letta_client/types/template_update_params.py">params</a>) -> <a href="./src/letta_client/types/template_update_response.py">TemplateUpdateResponse</a></code>
 - <code title="delete /v1/templates/{template_name}">client.templates.<a href="./src/letta_client/resources/templates/templates.py">delete</a>(template_name) -> <a href="./src/letta_client/types/template_delete_response.py">TemplateDeleteResponse</a></code>
 - <code title="post /v1/templates/{template_name}/rollback">client.templates.<a href="./src/letta_client/resources/templates/templates.py">rollback</a>(template_name, \*\*<a href="src/letta_client/types/template_rollback_params.py">params</a>) -> <a href="./src/letta_client/types/template_rollback_response.py">TemplateRollbackResponse</a></code>
+- <code title="post /v1/templates/{template_name}/save">client.templates.<a href="./src/letta_client/resources/templates/templates.py">save</a>(template_name, \*\*<a href="src/letta_client/types/template_save_params.py">params</a>) -> <a href="./src/letta_client/types/template_save_response.py">TemplateSaveResponse</a></code>
 
 ## Agents
 
