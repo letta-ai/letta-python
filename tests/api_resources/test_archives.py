@@ -20,7 +20,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestArchives:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Letta) -> None:
         archive = client.archives.create(
@@ -28,7 +28,7 @@ class TestArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Letta) -> None:
         archive = client.archives.create(
@@ -50,7 +50,7 @@ class TestArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.archives.with_raw_response.create(
@@ -62,7 +62,7 @@ class TestArchives:
         archive = response.parse()
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.archives.with_streaming_response.create(
@@ -76,7 +76,7 @@ class TestArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         archive = client.archives.retrieve(
@@ -84,7 +84,7 @@ class TestArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.archives.with_raw_response.retrieve(
@@ -96,7 +96,7 @@ class TestArchives:
         archive = response.parse()
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.archives.with_streaming_response.retrieve(
@@ -110,7 +110,7 @@ class TestArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
@@ -118,7 +118,7 @@ class TestArchives:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Letta) -> None:
         archive = client.archives.update(
@@ -126,7 +126,7 @@ class TestArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Letta) -> None:
         archive = client.archives.update(
@@ -136,7 +136,7 @@ class TestArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
         response = client.archives.with_raw_response.update(
@@ -148,7 +148,7 @@ class TestArchives:
         archive = response.parse()
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Letta) -> None:
         with client.archives.with_streaming_response.update(
@@ -162,7 +162,7 @@ class TestArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
@@ -170,13 +170,13 @@ class TestArchives:
                 archive_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         archive = client.archives.list()
         assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         archive = client.archives.list(
@@ -190,7 +190,7 @@ class TestArchives:
         )
         assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.archives.with_raw_response.list()
@@ -200,7 +200,7 @@ class TestArchives:
         archive = response.parse()
         assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.archives.with_streaming_response.list() as response:
@@ -212,7 +212,7 @@ class TestArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         archive = client.archives.delete(
@@ -220,7 +220,7 @@ class TestArchives:
         )
         assert archive is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.archives.with_raw_response.delete(
@@ -232,7 +232,7 @@ class TestArchives:
         archive = response.parse()
         assert archive is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.archives.with_streaming_response.delete(
@@ -246,7 +246,7 @@ class TestArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
@@ -260,7 +260,7 @@ class TestAsyncArchives:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.create(
@@ -268,7 +268,7 @@ class TestAsyncArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.create(
@@ -290,7 +290,7 @@ class TestAsyncArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.archives.with_raw_response.create(
@@ -302,7 +302,7 @@ class TestAsyncArchives:
         archive = await response.parse()
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.create(
@@ -316,7 +316,7 @@ class TestAsyncArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.retrieve(
@@ -324,7 +324,7 @@ class TestAsyncArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.archives.with_raw_response.retrieve(
@@ -336,7 +336,7 @@ class TestAsyncArchives:
         archive = await response.parse()
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.retrieve(
@@ -350,7 +350,7 @@ class TestAsyncArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
@@ -358,7 +358,7 @@ class TestAsyncArchives:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.update(
@@ -366,7 +366,7 @@ class TestAsyncArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.update(
@@ -376,7 +376,7 @@ class TestAsyncArchives:
         )
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
         response = await async_client.archives.with_raw_response.update(
@@ -388,7 +388,7 @@ class TestAsyncArchives:
         archive = await response.parse()
         assert_matches_type(Archive, archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.update(
@@ -402,7 +402,7 @@ class TestAsyncArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
@@ -410,13 +410,13 @@ class TestAsyncArchives:
                 archive_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.list()
         assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.list(
@@ -430,7 +430,7 @@ class TestAsyncArchives:
         )
         assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.archives.with_raw_response.list()
@@ -440,7 +440,7 @@ class TestAsyncArchives:
         archive = await response.parse()
         assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.list() as response:
@@ -452,7 +452,7 @@ class TestAsyncArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.delete(
@@ -460,7 +460,7 @@ class TestAsyncArchives:
         )
         assert archive is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.archives.with_raw_response.delete(
@@ -472,7 +472,7 @@ class TestAsyncArchives:
         archive = await response.parse()
         assert archive is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.delete(
@@ -486,7 +486,7 @@ class TestAsyncArchives:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
