@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
 from .agent_type import AgentType
@@ -377,17 +377,20 @@ class CompactionSettings(TypedDict, total=False):
     max tokens, etc.) are derived from the default configuration for that handle.
     """
 
-    model: Required[str]
-    """Model handle to use for summarization (format: provider/model-name)."""
-
     clip_chars: Optional[int]
     """The maximum length of the summary in characters.
 
     If none, no clipping is performed.
     """
 
-    mode: Literal["all", "sliding_window"]
+    mode: Literal["all", "sliding_window", "self"]
     """The type of summarization technique use."""
+
+    model: Optional[str]
+    """Model handle to use for summarization (format: provider/model-name).
+
+    If None, uses lightweight provider-specific defaults.
+    """
 
     model_settings: Optional[CompactionSettingsModelSettings]
     """Optional model settings used to override defaults for the summarizer model."""

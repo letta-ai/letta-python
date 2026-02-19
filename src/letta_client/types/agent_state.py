@@ -321,17 +321,20 @@ class CompactionSettings(BaseModel):
     max tokens, etc.) are derived from the default configuration for that handle.
     """
 
-    model: str
-    """Model handle to use for summarization (format: provider/model-name)."""
-
     clip_chars: Optional[int] = None
     """The maximum length of the summary in characters.
 
     If none, no clipping is performed.
     """
 
-    mode: Optional[Literal["all", "sliding_window"]] = None
+    mode: Optional[Literal["all", "sliding_window", "self"]] = None
     """The type of summarization technique use."""
+
+    model: Optional[str] = None
+    """Model handle to use for summarization (format: provider/model-name).
+
+    If None, uses lightweight provider-specific defaults.
+    """
 
     api_model_settings: Optional[CompactionSettingsModelSettings] = FieldInfo(alias="model_settings", default=None)
     """Optional model settings used to override defaults for the summarizer model."""
