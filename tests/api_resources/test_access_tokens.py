@@ -20,7 +20,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestAccessTokens:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Letta) -> None:
         access_token = client.access_tokens.create(
@@ -35,7 +35,7 @@ class TestAccessTokens:
         )
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Letta) -> None:
         access_token = client.access_tokens.create(
@@ -51,7 +51,7 @@ class TestAccessTokens:
         )
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
         response = client.access_tokens.with_raw_response.create(
@@ -70,7 +70,7 @@ class TestAccessTokens:
         access_token = response.parse()
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.access_tokens.with_streaming_response.create(
@@ -91,13 +91,13 @@ class TestAccessTokens:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         access_token = client.access_tokens.list()
         assert_matches_type(AccessTokenListResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         access_token = client.access_tokens.list(
@@ -107,7 +107,7 @@ class TestAccessTokens:
         )
         assert_matches_type(AccessTokenListResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.access_tokens.with_raw_response.list()
@@ -117,7 +117,7 @@ class TestAccessTokens:
         access_token = response.parse()
         assert_matches_type(AccessTokenListResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.access_tokens.with_streaming_response.list() as response:
@@ -129,7 +129,7 @@ class TestAccessTokens:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         access_token = client.access_tokens.delete(
@@ -137,7 +137,7 @@ class TestAccessTokens:
         )
         assert_matches_type(object, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete_with_all_params(self, client: Letta) -> None:
         access_token = client.access_tokens.delete(
@@ -146,7 +146,7 @@ class TestAccessTokens:
         )
         assert_matches_type(object, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.access_tokens.with_raw_response.delete(
@@ -158,7 +158,7 @@ class TestAccessTokens:
         access_token = response.parse()
         assert_matches_type(object, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.access_tokens.with_streaming_response.delete(
@@ -172,7 +172,7 @@ class TestAccessTokens:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `token` but received ''"):
@@ -186,7 +186,7 @@ class TestAsyncAccessTokens:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncLetta) -> None:
         access_token = await async_client.access_tokens.create(
@@ -201,7 +201,7 @@ class TestAsyncAccessTokens:
         )
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         access_token = await async_client.access_tokens.create(
@@ -217,7 +217,7 @@ class TestAsyncAccessTokens:
         )
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
         response = await async_client.access_tokens.with_raw_response.create(
@@ -236,7 +236,7 @@ class TestAsyncAccessTokens:
         access_token = await response.parse()
         assert_matches_type(AccessTokenCreateResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.access_tokens.with_streaming_response.create(
@@ -257,13 +257,13 @@ class TestAsyncAccessTokens:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         access_token = await async_client.access_tokens.list()
         assert_matches_type(AccessTokenListResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         access_token = await async_client.access_tokens.list(
@@ -273,7 +273,7 @@ class TestAsyncAccessTokens:
         )
         assert_matches_type(AccessTokenListResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.access_tokens.with_raw_response.list()
@@ -283,7 +283,7 @@ class TestAsyncAccessTokens:
         access_token = await response.parse()
         assert_matches_type(AccessTokenListResponse, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.access_tokens.with_streaming_response.list() as response:
@@ -295,7 +295,7 @@ class TestAsyncAccessTokens:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         access_token = await async_client.access_tokens.delete(
@@ -303,7 +303,7 @@ class TestAsyncAccessTokens:
         )
         assert_matches_type(object, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
         access_token = await async_client.access_tokens.delete(
@@ -312,7 +312,7 @@ class TestAsyncAccessTokens:
         )
         assert_matches_type(object, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.access_tokens.with_raw_response.delete(
@@ -324,7 +324,7 @@ class TestAsyncAccessTokens:
         access_token = await response.parse()
         assert_matches_type(object, access_token, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.access_tokens.with_streaming_response.delete(
@@ -338,7 +338,7 @@ class TestAsyncAccessTokens:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `token` but received ''"):

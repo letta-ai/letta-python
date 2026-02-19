@@ -27,7 +27,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestMessages:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_overload_1(self, client: Letta) -> None:
         message = client.agents.messages.create(
@@ -35,7 +35,7 @@ class TestMessages:
         )
         assert_matches_type(LettaResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: Letta) -> None:
         message = client.agents.messages.create(
@@ -84,7 +84,7 @@ class TestMessages:
         )
         assert_matches_type(LettaResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_overload_1(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.create(
@@ -96,7 +96,7 @@ class TestMessages:
         message = response.parse()
         assert_matches_type(LettaResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_overload_1(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.create(
@@ -110,7 +110,7 @@ class TestMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_create_overload_1(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -118,7 +118,7 @@ class TestMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_overload_2(self, client: Letta) -> None:
         message_stream = client.agents.messages.create(
@@ -127,7 +127,7 @@ class TestMessages:
         )
         message_stream.response.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: Letta) -> None:
         message_stream = client.agents.messages.create(
@@ -176,7 +176,7 @@ class TestMessages:
         )
         message_stream.response.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_overload_2(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.create(
@@ -188,7 +188,7 @@ class TestMessages:
         stream = response.parse()
         stream.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_overload_2(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.create(
@@ -203,7 +203,7 @@ class TestMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_create_overload_2(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -212,7 +212,7 @@ class TestMessages:
                 streaming=True,
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         message = client.agents.messages.list(
@@ -220,7 +220,7 @@ class TestMessages:
         )
         assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.list(
@@ -239,7 +239,7 @@ class TestMessages:
         )
         assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.list(
@@ -251,7 +251,7 @@ class TestMessages:
         message = response.parse()
         assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.list(
@@ -265,7 +265,7 @@ class TestMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -273,7 +273,7 @@ class TestMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_cancel(self, client: Letta) -> None:
         message = client.agents.messages.cancel(
@@ -281,7 +281,7 @@ class TestMessages:
         )
         assert_matches_type(MessageCancelResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_cancel_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.cancel(
@@ -290,7 +290,7 @@ class TestMessages:
         )
         assert_matches_type(MessageCancelResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_cancel(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.cancel(
@@ -302,7 +302,7 @@ class TestMessages:
         message = response.parse()
         assert_matches_type(MessageCancelResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_cancel(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.cancel(
@@ -316,7 +316,7 @@ class TestMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_cancel(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -324,7 +324,7 @@ class TestMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_compact(self, client: Letta) -> None:
         message = client.agents.messages.compact(
@@ -332,7 +332,7 @@ class TestMessages:
         )
         assert_matches_type(CompactionResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_compact_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.compact(
@@ -357,7 +357,7 @@ class TestMessages:
         )
         assert_matches_type(CompactionResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_compact(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.compact(
@@ -369,7 +369,7 @@ class TestMessages:
         message = response.parse()
         assert_matches_type(CompactionResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_compact(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.compact(
@@ -383,7 +383,7 @@ class TestMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_compact(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -391,7 +391,7 @@ class TestMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_async(self, client: Letta) -> None:
         message = client.agents.messages.create_async(
@@ -399,7 +399,7 @@ class TestMessages:
         )
         assert_matches_type(Run, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_async_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.create_async(
@@ -445,7 +445,7 @@ class TestMessages:
         )
         assert_matches_type(Run, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_async(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.create_async(
@@ -457,7 +457,7 @@ class TestMessages:
         message = response.parse()
         assert_matches_type(Run, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_async(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.create_async(
@@ -471,7 +471,7 @@ class TestMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_create_async(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -479,7 +479,7 @@ class TestMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_reset(self, client: Letta) -> None:
         message = client.agents.messages.reset(
@@ -487,7 +487,7 @@ class TestMessages:
         )
         assert_matches_type(Optional[AgentState], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_reset_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.reset(
@@ -496,7 +496,7 @@ class TestMessages:
         )
         assert_matches_type(Optional[AgentState], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_reset(self, client: Letta) -> None:
         response = client.agents.messages.with_raw_response.reset(
@@ -508,7 +508,7 @@ class TestMessages:
         message = response.parse()
         assert_matches_type(Optional[AgentState], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_reset(self, client: Letta) -> None:
         with client.agents.messages.with_streaming_response.reset(
@@ -522,7 +522,7 @@ class TestMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_reset(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -530,7 +530,7 @@ class TestMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_stream(self, client: Letta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -540,7 +540,7 @@ class TestMessages:
 
         message_stream.response.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_stream_with_all_params(self, client: Letta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -591,7 +591,7 @@ class TestMessages:
 
         message_stream.response.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_stream(self, client: Letta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -603,7 +603,7 @@ class TestMessages:
         stream = response.parse()
         stream.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_stream(self, client: Letta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -618,7 +618,7 @@ class TestMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_stream(self, client: Letta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -633,7 +633,7 @@ class TestAsyncMessages:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.create(
@@ -641,7 +641,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(LettaResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.create(
@@ -690,7 +690,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(LettaResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.create(
@@ -702,7 +702,7 @@ class TestAsyncMessages:
         message = await response.parse()
         assert_matches_type(LettaResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.create(
@@ -716,7 +716,7 @@ class TestAsyncMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_create_overload_1(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -724,7 +724,7 @@ class TestAsyncMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.agents.messages.create(
@@ -733,7 +733,7 @@ class TestAsyncMessages:
         )
         await message_stream.response.aclose()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.agents.messages.create(
@@ -782,7 +782,7 @@ class TestAsyncMessages:
         )
         await message_stream.response.aclose()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.create(
@@ -794,7 +794,7 @@ class TestAsyncMessages:
         stream = await response.parse()
         await stream.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.create(
@@ -809,7 +809,7 @@ class TestAsyncMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_create_overload_2(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -818,7 +818,7 @@ class TestAsyncMessages:
                 streaming=True,
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.list(
@@ -826,7 +826,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.list(
@@ -845,7 +845,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.list(
@@ -857,7 +857,7 @@ class TestAsyncMessages:
         message = await response.parse()
         assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.list(
@@ -871,7 +871,7 @@ class TestAsyncMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -879,7 +879,7 @@ class TestAsyncMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_cancel(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.cancel(
@@ -887,7 +887,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(MessageCancelResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_cancel_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.cancel(
@@ -896,7 +896,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(MessageCancelResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_cancel(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.cancel(
@@ -908,7 +908,7 @@ class TestAsyncMessages:
         message = await response.parse()
         assert_matches_type(MessageCancelResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_cancel(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.cancel(
@@ -922,7 +922,7 @@ class TestAsyncMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_cancel(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -930,7 +930,7 @@ class TestAsyncMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_compact(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.compact(
@@ -938,7 +938,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(CompactionResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_compact_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.compact(
@@ -963,7 +963,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(CompactionResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_compact(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.compact(
@@ -975,7 +975,7 @@ class TestAsyncMessages:
         message = await response.parse()
         assert_matches_type(CompactionResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_compact(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.compact(
@@ -989,7 +989,7 @@ class TestAsyncMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_compact(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -997,7 +997,7 @@ class TestAsyncMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_async(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.create_async(
@@ -1005,7 +1005,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(Run, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_async_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.create_async(
@@ -1051,7 +1051,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(Run, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_async(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.create_async(
@@ -1063,7 +1063,7 @@ class TestAsyncMessages:
         message = await response.parse()
         assert_matches_type(Run, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_async(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.create_async(
@@ -1077,7 +1077,7 @@ class TestAsyncMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_create_async(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -1085,7 +1085,7 @@ class TestAsyncMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_reset(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.reset(
@@ -1093,7 +1093,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(Optional[AgentState], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_reset_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.reset(
@@ -1102,7 +1102,7 @@ class TestAsyncMessages:
         )
         assert_matches_type(Optional[AgentState], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_reset(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.messages.with_raw_response.reset(
@@ -1114,7 +1114,7 @@ class TestAsyncMessages:
         message = await response.parse()
         assert_matches_type(Optional[AgentState], message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_reset(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.messages.with_streaming_response.reset(
@@ -1128,7 +1128,7 @@ class TestAsyncMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_reset(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -1136,7 +1136,7 @@ class TestAsyncMessages:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_stream(self, async_client: AsyncLetta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -1146,7 +1146,7 @@ class TestAsyncMessages:
 
         await message_stream.response.aclose()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_stream_with_all_params(self, async_client: AsyncLetta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -1197,7 +1197,7 @@ class TestAsyncMessages:
 
         await message_stream.response.aclose()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_stream(self, async_client: AsyncLetta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -1209,7 +1209,7 @@ class TestAsyncMessages:
         stream = await response.parse()
         await stream.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_stream(self, async_client: AsyncLetta) -> None:
         with pytest.warns(DeprecationWarning):
@@ -1224,7 +1224,7 @@ class TestAsyncMessages:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_stream(self, async_client: AsyncLetta) -> None:
         with pytest.warns(DeprecationWarning):
