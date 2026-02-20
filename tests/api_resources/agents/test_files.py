@@ -18,7 +18,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestFiles:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         file = client.agents.files.list(
@@ -26,7 +26,7 @@ class TestFiles:
         )
         assert_matches_type(SyncNextFilesPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         file = client.agents.files.list(
@@ -41,7 +41,7 @@ class TestFiles:
         )
         assert_matches_type(SyncNextFilesPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.list(
@@ -53,7 +53,7 @@ class TestFiles:
         file = response.parse()
         assert_matches_type(SyncNextFilesPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.list(
@@ -67,7 +67,7 @@ class TestFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -75,7 +75,7 @@ class TestFiles:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_close(self, client: Letta) -> None:
         file = client.agents.files.close(
@@ -84,7 +84,7 @@ class TestFiles:
         )
         assert_matches_type(object, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_close(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.close(
@@ -97,7 +97,7 @@ class TestFiles:
         file = response.parse()
         assert_matches_type(object, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_close(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.close(
@@ -112,7 +112,7 @@ class TestFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_close(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -127,7 +127,7 @@ class TestFiles:
                 agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_close_all(self, client: Letta) -> None:
         file = client.agents.files.close_all(
@@ -135,7 +135,7 @@ class TestFiles:
         )
         assert_matches_type(FileCloseAllResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_close_all(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.close_all(
@@ -147,7 +147,7 @@ class TestFiles:
         file = response.parse()
         assert_matches_type(FileCloseAllResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_close_all(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.close_all(
@@ -161,7 +161,7 @@ class TestFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_close_all(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -169,7 +169,7 @@ class TestFiles:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_open(self, client: Letta) -> None:
         file = client.agents.files.open(
@@ -178,7 +178,7 @@ class TestFiles:
         )
         assert_matches_type(FileOpenResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_open(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.open(
@@ -191,7 +191,7 @@ class TestFiles:
         file = response.parse()
         assert_matches_type(FileOpenResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_open(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.open(
@@ -206,7 +206,7 @@ class TestFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_open(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -227,7 +227,7 @@ class TestAsyncFiles:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.list(
@@ -235,7 +235,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(AsyncNextFilesPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.list(
@@ -250,7 +250,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(AsyncNextFilesPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.list(
@@ -262,7 +262,7 @@ class TestAsyncFiles:
         file = await response.parse()
         assert_matches_type(AsyncNextFilesPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.list(
@@ -276,7 +276,7 @@ class TestAsyncFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -284,7 +284,7 @@ class TestAsyncFiles:
                 agent_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_close(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.close(
@@ -293,7 +293,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(object, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_close(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.close(
@@ -306,7 +306,7 @@ class TestAsyncFiles:
         file = await response.parse()
         assert_matches_type(object, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_close(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.close(
@@ -321,7 +321,7 @@ class TestAsyncFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_close(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -336,7 +336,7 @@ class TestAsyncFiles:
                 agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_close_all(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.close_all(
@@ -344,7 +344,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(FileCloseAllResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_close_all(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.close_all(
@@ -356,7 +356,7 @@ class TestAsyncFiles:
         file = await response.parse()
         assert_matches_type(FileCloseAllResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_close_all(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.close_all(
@@ -370,7 +370,7 @@ class TestAsyncFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_close_all(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
@@ -378,7 +378,7 @@ class TestAsyncFiles:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_open(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.open(
@@ -387,7 +387,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(FileOpenResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_open(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.open(
@@ -400,7 +400,7 @@ class TestAsyncFiles:
         file = await response.parse()
         assert_matches_type(FileOpenResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_open(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.open(
@@ -415,7 +415,7 @@ class TestAsyncFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_open(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):

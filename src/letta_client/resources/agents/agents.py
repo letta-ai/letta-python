@@ -882,6 +882,7 @@ class AgentsResource(SyncAPIResource):
         *,
         conversation_id: Optional[str] | Omit = omit,
         max_steps: int | Omit = omit,
+        scrub_messages: bool | Omit = omit,
         use_legacy_format: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -897,6 +898,9 @@ class AgentsResource(SyncAPIResource):
         Args:
           conversation_id: Conversation ID to export. If provided, uses messages from this conversation
               instead of the agent's global message history.
+
+          scrub_messages: If True, excludes all messages from the export. Useful for sharing agent configs
+              without conversation history.
 
           use_legacy_format: If True, exports using the legacy single-agent 'v1' format with inline
               tools/blocks. If False, exports using the new multi-entity 'v2' format, with
@@ -923,6 +927,7 @@ class AgentsResource(SyncAPIResource):
                     {
                         "conversation_id": conversation_id,
                         "max_steps": max_steps,
+                        "scrub_messages": scrub_messages,
                         "use_legacy_format": use_legacy_format,
                     },
                     agent_export_file_params.AgentExportFileParams,
@@ -1794,6 +1799,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         conversation_id: Optional[str] | Omit = omit,
         max_steps: int | Omit = omit,
+        scrub_messages: bool | Omit = omit,
         use_legacy_format: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1809,6 +1815,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         Args:
           conversation_id: Conversation ID to export. If provided, uses messages from this conversation
               instead of the agent's global message history.
+
+          scrub_messages: If True, excludes all messages from the export. Useful for sharing agent configs
+              without conversation history.
 
           use_legacy_format: If True, exports using the legacy single-agent 'v1' format with inline
               tools/blocks. If False, exports using the new multi-entity 'v2' format, with
@@ -1835,6 +1844,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     {
                         "conversation_id": conversation_id,
                         "max_steps": max_steps,
+                        "scrub_messages": scrub_messages,
                         "use_legacy_format": use_legacy_format,
                     },
                     agent_export_file_params.AgentExportFileParams,

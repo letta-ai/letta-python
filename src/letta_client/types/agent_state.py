@@ -157,6 +157,9 @@ class Memory(BaseModel):
     file_blocks: Optional[List[MemoryFileBlock]] = None
     """Special blocks representing the agent's in-context memory of an attached file"""
 
+    git_enabled: Optional[bool] = None
+    """Whether this agent uses git-backed memory with structured labels."""
+
     prompt_template: Optional[str] = None
     """Deprecated. Ignored for performance."""
 
@@ -318,23 +321,26 @@ class CompactionSettings(BaseModel):
     max tokens, etc.) are derived from the default configuration for that handle.
     """
 
-    model: str
-    """Model handle to use for summarization (format: provider/model-name)."""
-
     clip_chars: Optional[int] = None
     """The maximum length of the summary in characters.
 
     If none, no clipping is performed.
     """
 
-    mode: Optional[Literal["all", "sliding_window"]] = None
+    mode: Optional[Literal["all", "sliding_window", "self"]] = None
     """The type of summarization technique use."""
+
+    model: Optional[str] = None
+    """Model handle to use for summarization (format: provider/model-name).
+
+    If None, uses lightweight provider-specific defaults.
+    """
 
     api_model_settings: Optional[CompactionSettingsModelSettings] = FieldInfo(alias="model_settings", default=None)
     """Optional model settings used to override defaults for the summarizer model."""
 
     prompt: Optional[str] = None
-    """The prompt to use for summarization."""
+    """The prompt to use for summarization. If None, uses mode-specific default."""
 
     prompt_acknowledgement: Optional[bool] = None
     """

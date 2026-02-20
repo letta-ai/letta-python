@@ -189,8 +189,8 @@ class ConversationsResource(SyncAPIResource):
     def list(
         self,
         *,
-        agent_id: str,
         after: Optional[str] | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -201,12 +201,14 @@ class ConversationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationListResponse:
         """
-        List all conversations for an agent.
+        List all conversations for an agent (or all conversations if agent_id not
+        provided).
 
         Args:
-          agent_id: The agent ID to list conversations for
-
           after: Cursor for pagination (conversation ID)
+
+          agent_id: The agent ID to list conversations for (optional - returns all conversations if
+              not provided)
 
           limit: Maximum number of conversations to return
 
@@ -229,8 +231,8 @@ class ConversationsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "agent_id": agent_id,
                         "after": after,
+                        "agent_id": agent_id,
                         "limit": limit,
                         "summary_search": summary_search,
                     },
@@ -238,6 +240,46 @@ class ConversationsResource(SyncAPIResource):
                 ),
             ),
             cast_to=ConversationListResponse,
+        )
+
+    def delete(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Delete a conversation (soft delete).
+
+        This marks the conversation as deleted but does not permanently remove it from
+        the database. The conversation will no longer appear in list operations. Any
+        isolated blocks associated with the conversation will be permanently deleted.
+
+        Args:
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._delete(
+            f"/v1/conversations/{conversation_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
         )
 
     def cancel(
@@ -437,8 +479,8 @@ class AsyncConversationsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        agent_id: str,
         after: Optional[str] | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -449,12 +491,14 @@ class AsyncConversationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationListResponse:
         """
-        List all conversations for an agent.
+        List all conversations for an agent (or all conversations if agent_id not
+        provided).
 
         Args:
-          agent_id: The agent ID to list conversations for
-
           after: Cursor for pagination (conversation ID)
+
+          agent_id: The agent ID to list conversations for (optional - returns all conversations if
+              not provided)
 
           limit: Maximum number of conversations to return
 
@@ -477,8 +521,8 @@ class AsyncConversationsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "agent_id": agent_id,
                         "after": after,
+                        "agent_id": agent_id,
                         "limit": limit,
                         "summary_search": summary_search,
                     },
@@ -486,6 +530,46 @@ class AsyncConversationsResource(AsyncAPIResource):
                 ),
             ),
             cast_to=ConversationListResponse,
+        )
+
+    async def delete(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Delete a conversation (soft delete).
+
+        This marks the conversation as deleted but does not permanently remove it from
+        the database. The conversation will no longer appear in list operations. Any
+        isolated blocks associated with the conversation will be permanently deleted.
+
+        Args:
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._delete(
+            f"/v1/conversations/{conversation_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
         )
 
     async def cancel(
@@ -543,6 +627,9 @@ class ConversationsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             conversations.list,
         )
+        self.delete = to_raw_response_wrapper(
+            conversations.delete,
+        )
         self.cancel = to_raw_response_wrapper(
             conversations.cancel,
         )
@@ -567,6 +654,9 @@ class AsyncConversationsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             conversations.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            conversations.delete,
         )
         self.cancel = async_to_raw_response_wrapper(
             conversations.cancel,
@@ -593,6 +683,9 @@ class ConversationsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             conversations.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            conversations.delete,
+        )
         self.cancel = to_streamed_response_wrapper(
             conversations.cancel,
         )
@@ -617,6 +710,9 @@ class AsyncConversationsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             conversations.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            conversations.delete,
         )
         self.cancel = async_to_streamed_response_wrapper(
             conversations.cancel,

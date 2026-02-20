@@ -62,6 +62,7 @@ from .folder_create_params import FolderCreateParams as FolderCreateParams
 from .folder_update_params import FolderUpdateParams as FolderUpdateParams
 from .init_tool_rule_param import InitToolRuleParam as InitToolRuleParam
 from .message_create_param import MessageCreateParam as MessageCreateParam
+from .template_save_params import TemplateSaveParams as TemplateSaveParams
 from .text_response_format import TextResponseFormat as TextResponseFormat
 from .tool_search_response import ToolSearchResponse as ToolSearchResponse
 from .agent_retrieve_params import AgentRetrieveParams as AgentRetrieveParams
@@ -79,6 +80,7 @@ from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .parent_tool_rule_param import ParentToolRuleParam as ParentToolRuleParam
 from .template_create_params import TemplateCreateParams as TemplateCreateParams
+from .template_save_response import TemplateSaveResponse as TemplateSaveResponse
 from .template_update_params import TemplateUpdateParams as TemplateUpdateParams
 from .deepseek_model_settings import DeepseekModelSettings as DeepseekModelSettings
 from .message_search_response import MessageSearchResponse as MessageSearchResponse
@@ -96,6 +98,7 @@ from .mcp_server_list_response import McpServerListResponse as McpServerListResp
 from .mcp_server_update_params import McpServerUpdateParams as McpServerUpdateParams
 from .template_create_response import TemplateCreateResponse as TemplateCreateResponse
 from .template_delete_response import TemplateDeleteResponse as TemplateDeleteResponse
+from .template_rollback_params import TemplateRollbackParams as TemplateRollbackParams
 from .template_update_response import TemplateUpdateResponse as TemplateUpdateResponse
 from .terminal_tool_rule_param import TerminalToolRuleParam as TerminalToolRuleParam
 from .xai_model_settings_param import XaiModelSettingsParam as XaiModelSettingsParam
@@ -115,6 +118,7 @@ from .conversation_update_params import ConversationUpdateParams as Conversation
 from .mcp_server_create_response import McpServerCreateResponse as McpServerCreateResponse
 from .mcp_server_update_response import McpServerUpdateResponse as McpServerUpdateResponse
 from .streamable_http_mcp_server import StreamableHTTPMcpServer as StreamableHTTPMcpServer
+from .template_rollback_response import TemplateRollbackResponse as TemplateRollbackResponse
 from .text_response_format_param import TextResponseFormatParam as TextResponseFormatParam
 from .conditional_tool_rule_param import ConditionalToolRuleParam as ConditionalToolRuleParam
 from .create_sse_mcp_server_param import CreateSseMcpServerParam as CreateSseMcpServerParam

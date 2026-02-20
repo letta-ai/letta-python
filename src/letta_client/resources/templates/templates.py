@@ -15,7 +15,7 @@ from .agents import (
     AgentsResourceWithStreamingResponse,
     AsyncAgentsResourceWithStreamingResponse,
 )
-from ...types import template_create_params, template_update_params
+from ...types import template_save_params, template_create_params, template_update_params, template_rollback_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -27,9 +27,11 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
+from ...types.template_save_response import TemplateSaveResponse
 from ...types.template_create_response import TemplateCreateResponse
 from ...types.template_delete_response import TemplateDeleteResponse
 from ...types.template_update_response import TemplateUpdateResponse
+from ...types.template_rollback_response import TemplateRollbackResponse
 
 __all__ = ["TemplatesResource", "AsyncTemplatesResource"]
 
@@ -248,6 +250,115 @@ class TemplatesResource(SyncAPIResource):
             cast_to=TemplateDeleteResponse,
         )
 
+    def rollback(
+        self,
+        template_name: str,
+        *,
+        version: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TemplateRollbackResponse:
+        """
+        Rollback the current working version of a template to a previous saved version.
+        If the current version has unsaved changes, they will be automatically saved as
+        a new version before rollback.
+
+        Args:
+          version: The target version to rollback to (e.g., "1", "2", "latest"). Cannot be
+              "current" or "dev".
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not template_name:
+            raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
+        return self._post(
+            f"/v1/templates/{template_name}/rollback",
+            body=maybe_transform({"version": version}, template_rollback_params.TemplateRollbackParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TemplateRollbackResponse,
+        )
+
+    def save(
+        self,
+        template_name: str,
+        *,
+        block_reconciliation_strategy: Literal["reconcile-all", "preserve-deleted"] | Omit = omit,
+        message: str | Omit = omit,
+        migrate_agents: bool | Omit = omit,
+        preserve_core_memories_on_migration: bool | Omit = omit,
+        preserve_environment_variables_on_migration: bool | Omit = omit,
+        preserve_sources_on_migration: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TemplateSaveResponse:
+        """
+        Saves the current version of the template as a new version
+
+        Args:
+          block_reconciliation_strategy: Strategy for reconciling memory blocks during migration: "reconcile-all" deletes
+              blocks not in the template, "preserve-deleted" keeps them. Defaults to
+              "preserve-deleted".
+
+          message: A message to describe the changes made in this template version
+
+          migrate_agents: If true, existing agents attached to this template will be migrated to the new
+              template version
+
+          preserve_core_memories_on_migration: If true, the core memories will be preserved in the template version when
+              migrating agents
+
+          preserve_environment_variables_on_migration: If true, the environment variables will be preserved in the template version
+              when migrating agents
+
+          preserve_sources_on_migration: If true, existing agent folders/sources will be preserved and merged with
+              template sources during migration. If false, agent sources will be replaced with
+              template sources.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not template_name:
+            raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
+        return self._post(
+            f"/v1/templates/{template_name}/save",
+            body=maybe_transform(
+                {
+                    "block_reconciliation_strategy": block_reconciliation_strategy,
+                    "message": message,
+                    "migrate_agents": migrate_agents,
+                    "preserve_core_memories_on_migration": preserve_core_memories_on_migration,
+                    "preserve_environment_variables_on_migration": preserve_environment_variables_on_migration,
+                    "preserve_sources_on_migration": preserve_sources_on_migration,
+                },
+                template_save_params.TemplateSaveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TemplateSaveResponse,
+        )
+
 
 class AsyncTemplatesResource(AsyncAPIResource):
     @cached_property
@@ -463,6 +574,115 @@ class AsyncTemplatesResource(AsyncAPIResource):
             cast_to=TemplateDeleteResponse,
         )
 
+    async def rollback(
+        self,
+        template_name: str,
+        *,
+        version: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TemplateRollbackResponse:
+        """
+        Rollback the current working version of a template to a previous saved version.
+        If the current version has unsaved changes, they will be automatically saved as
+        a new version before rollback.
+
+        Args:
+          version: The target version to rollback to (e.g., "1", "2", "latest"). Cannot be
+              "current" or "dev".
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not template_name:
+            raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
+        return await self._post(
+            f"/v1/templates/{template_name}/rollback",
+            body=await async_maybe_transform({"version": version}, template_rollback_params.TemplateRollbackParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TemplateRollbackResponse,
+        )
+
+    async def save(
+        self,
+        template_name: str,
+        *,
+        block_reconciliation_strategy: Literal["reconcile-all", "preserve-deleted"] | Omit = omit,
+        message: str | Omit = omit,
+        migrate_agents: bool | Omit = omit,
+        preserve_core_memories_on_migration: bool | Omit = omit,
+        preserve_environment_variables_on_migration: bool | Omit = omit,
+        preserve_sources_on_migration: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TemplateSaveResponse:
+        """
+        Saves the current version of the template as a new version
+
+        Args:
+          block_reconciliation_strategy: Strategy for reconciling memory blocks during migration: "reconcile-all" deletes
+              blocks not in the template, "preserve-deleted" keeps them. Defaults to
+              "preserve-deleted".
+
+          message: A message to describe the changes made in this template version
+
+          migrate_agents: If true, existing agents attached to this template will be migrated to the new
+              template version
+
+          preserve_core_memories_on_migration: If true, the core memories will be preserved in the template version when
+              migrating agents
+
+          preserve_environment_variables_on_migration: If true, the environment variables will be preserved in the template version
+              when migrating agents
+
+          preserve_sources_on_migration: If true, existing agent folders/sources will be preserved and merged with
+              template sources during migration. If false, agent sources will be replaced with
+              template sources.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not template_name:
+            raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
+        return await self._post(
+            f"/v1/templates/{template_name}/save",
+            body=await async_maybe_transform(
+                {
+                    "block_reconciliation_strategy": block_reconciliation_strategy,
+                    "message": message,
+                    "migrate_agents": migrate_agents,
+                    "preserve_core_memories_on_migration": preserve_core_memories_on_migration,
+                    "preserve_environment_variables_on_migration": preserve_environment_variables_on_migration,
+                    "preserve_sources_on_migration": preserve_sources_on_migration,
+                },
+                template_save_params.TemplateSaveParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TemplateSaveResponse,
+        )
+
 
 class TemplatesResourceWithRawResponse:
     def __init__(self, templates: TemplatesResource) -> None:
@@ -476,6 +696,12 @@ class TemplatesResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             templates.delete,
+        )
+        self.rollback = to_raw_response_wrapper(
+            templates.rollback,
+        )
+        self.save = to_raw_response_wrapper(
+            templates.save,
         )
 
     @cached_property
@@ -496,6 +722,12 @@ class AsyncTemplatesResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             templates.delete,
         )
+        self.rollback = async_to_raw_response_wrapper(
+            templates.rollback,
+        )
+        self.save = async_to_raw_response_wrapper(
+            templates.save,
+        )
 
     @cached_property
     def agents(self) -> AsyncAgentsResourceWithRawResponse:
@@ -515,6 +747,12 @@ class TemplatesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             templates.delete,
         )
+        self.rollback = to_streamed_response_wrapper(
+            templates.rollback,
+        )
+        self.save = to_streamed_response_wrapper(
+            templates.save,
+        )
 
     @cached_property
     def agents(self) -> AgentsResourceWithStreamingResponse:
@@ -533,6 +771,12 @@ class AsyncTemplatesResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             templates.delete,
+        )
+        self.rollback = async_to_streamed_response_wrapper(
+            templates.rollback,
+        )
+        self.save = async_to_streamed_response_wrapper(
+            templates.save,
         )
 
     @cached_property

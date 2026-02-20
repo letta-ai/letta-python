@@ -75,10 +75,11 @@ class Model(BaseModel):
     display_name: Optional[str] = None
     """A human-friendly display name for the model."""
 
-    effort: Optional[Literal["low", "medium", "high"]] = None
-    """The effort level for Anthropic Opus 4.5 model (controls token spending).
+    effort: Optional[Literal["low", "medium", "high", "max"]] = None
+    """The effort level for Anthropic models that support it (Opus 4.5, Opus 4.6).
 
-    Not setting this gives similar performance to 'high'.
+    Controls token spending and thinking behavior. Not setting this gives similar
+    performance to 'high'.
     """
 
     enable_reasoner: Optional[bool] = None
@@ -133,6 +134,19 @@ class Model(BaseModel):
     model_settings.
     """
 
+    return_logprobs: Optional[bool] = None
+    """Whether to return log probabilities of the output tokens.
+
+    Useful for RL training.
+    """
+
+    return_token_ids: Optional[bool] = None
+    """Whether to return token IDs for all LLM generations via SGLang native endpoint.
+
+    Required for multi-turn RL training with loss masking. Only works with SGLang
+    provider.
+    """
+
     strict: Optional[bool] = None
     """Enable strict mode for tool calling.
 
@@ -145,6 +159,12 @@ class Model(BaseModel):
 
     tier: Optional[str] = None
     """Deprecated: The cost tier for the model (cloud only)."""
+
+    top_logprobs: Optional[int] = None
+    """Number of most likely tokens to return at each position (0-20).
+
+    Requires return_logprobs=True.
+    """
 
     verbosity: Optional[Literal["low", "medium", "high"]] = None
     """Deprecated: Soft control for how verbose model output should be."""

@@ -7,6 +7,7 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from ..agents.message_type import MessageType
 from ..message_create_param import MessageCreateParam
+from ..agents.tool_return_param import ToolReturnParam
 from ..agents.text_content_param import TextContentParam
 from ..agents.image_content_param import ImageContentParam
 from ..agents.approval_create_param import ApprovalCreateParam
@@ -23,6 +24,7 @@ __all__ = [
     "InputUnionMember1SummarizedReasoningContent",
     "InputUnionMember1SummarizedReasoningContentSummary",
     "Message",
+    "MessageToolReturnCreate",
 ]
 
 
@@ -96,6 +98,21 @@ class MessageCreateParams(TypedDict, total=False):
     configuration.
     """
 
+    return_logprobs: bool
+    """If True, returns log probabilities of the output tokens in the response.
+
+    Useful for RL training. Only supported for OpenAI-compatible providers
+    (including SGLang).
+    """
+
+    return_token_ids: bool
+    """
+    If True, returns token IDs and logprobs for ALL LLM generations in the agent
+    step, not just the last one. Uses SGLang native /generate endpoint. Returns
+    'turns' field with TurnTokenData for each assistant/tool turn. Required for
+    proper multi-turn RL training with loss masking.
+    """
+
     stream_tokens: bool
     """
     Flag to determine if individual tokens should be streamed, rather than streaming
@@ -106,6 +123,12 @@ class MessageCreateParams(TypedDict, total=False):
     """If True (default), returns a streaming response (Server-Sent Events).
 
     If False, returns a complete JSON response.
+    """
+
+    top_logprobs: Optional[int]
+    """Number of most likely tokens to return at each position (0-20).
+
+    Requires return_logprobs=True.
     """
 
     use_assistant_message: bool
@@ -169,4 +192,20 @@ InputUnionMember1: TypeAlias = Union[
     InputUnionMember1SummarizedReasoningContent,
 ]
 
-Message: TypeAlias = Union[MessageCreateParam, ApprovalCreateParam]
+
+class MessageToolReturnCreate(TypedDict, total=False):
+    """Submit tool return(s) from client-side tool execution.
+
+    This is the preferred way to send tool results back to the agent after
+    client-side tool execution. It is equivalent to sending an ApprovalCreate
+    with tool return approvals, but provides a cleaner API for the common case.
+    """
+
+    tool_returns: Required[Iterable[ToolReturnParam]]
+    """List of tool returns from client-side execution"""
+
+    type: Literal["tool_return"]
+    """The message type to be created."""
+
+
+Message: TypeAlias = Union[MessageCreateParam, ApprovalCreateParam, MessageToolReturnCreate]
