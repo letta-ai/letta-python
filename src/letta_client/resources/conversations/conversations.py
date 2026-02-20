@@ -242,6 +242,46 @@ class ConversationsResource(SyncAPIResource):
             cast_to=ConversationListResponse,
         )
 
+    def delete(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Delete a conversation (soft delete).
+
+        This marks the conversation as deleted but does not permanently remove it from
+        the database. The conversation will no longer appear in list operations. Any
+        isolated blocks associated with the conversation will be permanently deleted.
+
+        Args:
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._delete(
+            f"/v1/conversations/{conversation_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     def cancel(
         self,
         conversation_id: str,
@@ -492,6 +532,46 @@ class AsyncConversationsResource(AsyncAPIResource):
             cast_to=ConversationListResponse,
         )
 
+    async def delete(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Delete a conversation (soft delete).
+
+        This marks the conversation as deleted but does not permanently remove it from
+        the database. The conversation will no longer appear in list operations. Any
+        isolated blocks associated with the conversation will be permanently deleted.
+
+        Args:
+          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
+              format 'conv-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._delete(
+            f"/v1/conversations/{conversation_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     async def cancel(
         self,
         conversation_id: str,
@@ -547,6 +627,9 @@ class ConversationsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             conversations.list,
         )
+        self.delete = to_raw_response_wrapper(
+            conversations.delete,
+        )
         self.cancel = to_raw_response_wrapper(
             conversations.cancel,
         )
@@ -571,6 +654,9 @@ class AsyncConversationsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             conversations.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            conversations.delete,
         )
         self.cancel = async_to_raw_response_wrapper(
             conversations.cancel,
@@ -597,6 +683,9 @@ class ConversationsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             conversations.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            conversations.delete,
+        )
         self.cancel = to_streamed_response_wrapper(
             conversations.cancel,
         )
@@ -621,6 +710,9 @@ class AsyncConversationsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             conversations.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            conversations.delete,
         )
         self.cancel = async_to_streamed_response_wrapper(
             conversations.cancel,
