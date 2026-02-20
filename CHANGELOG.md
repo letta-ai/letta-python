@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.8.0 (2026-02-20)
+
+Full Changelog: [v1.7.8...v1.8.0](https://github.com/letta-ai/letta-python/compare/v1.7.8...v1.8.0)
+
+### Features
+
+* add Anthropic Opus 4.6 (fka claude-fudge-eap) model support ([f023c77](https://github.com/letta-ai/letta-python/commit/f023c77777f11acf400958c1958559232f7780bb))
+* add conversation deletion endpoint (soft delete) [LET-7286] ([702cdcb](https://github.com/letta-ai/letta-python/commit/702cdcbd5485b7d1823c939115bb110f19b3afc4))
+* add credit verification before agent message endpoints [LET-XXXX] ([69f17af](https://github.com/letta-ai/letta-python/commit/69f17af581f3ea0de3467c37d8540c41b85a98e7))
+* add log probabilities from OpenAI-compatible servers ([4575559](https://github.com/letta-ai/letta-python/commit/4575559e7431ad7e4570daf87f4fae9d98c61cd6))
+* add template rollback endpoint [LET-7423] ([7fbbc3b](https://github.com/letta-ai/letta-python/commit/7fbbc3b876a55de5118d8e553bb0063505611b45))
+* add ToolReturnCreate to MessageCreateParams [LET-7366] ([f870fce](https://github.com/letta-ai/letta-python/commit/f870fce4809ae6129425234bd00f89242ce390fa))
+* allow users to specify via query to stip messages [LET-7392] ([d0bc48a](https://github.com/letta-ai/letta-python/commit/d0bc48afa5cabd5d8855ea95cd5e38402be782f0))
+* **core:** structure memory directory and block labels [LET-7336] ([56a57c7](https://github.com/letta-ai/letta-python/commit/56a57c7e8a53df286198d7f4eaf98ea176cbd1d9))
+* Default to lightweight compaction model instead of agent's model ([6921d55](https://github.com/letta-ai/letta-python/commit/6921d559b08d59cd3ef5327f568b5616b66521f3))
+* make agent_id optional in conversations list endpoint [LET-7612] ([b180f3e](https://github.com/letta-ai/letta-python/commit/b180f3ed0ce865136e0dbd4b8a74bd9eb55dcf4c))
+* New prompts/defaults for `sliding_window` and `all` compaction ([9ac78e2](https://github.com/letta-ai/letta-python/commit/9ac78e2231b243a9bb457f8bd23aa4764e8b55bc))
+
+
+### Chores
+
+* format all `api.md` files ([8f75778](https://github.com/letta-ai/letta-python/commit/8f757780bb97cf73478969f6c822fee09389c8b3))
+* **internal:** bump dependencies ([0416184](https://github.com/letta-ai/letta-python/commit/0416184e5353fd71f5b33765a559093d4a33e645))
+* **internal:** fix lint error on Python 3.14 ([1fa4d75](https://github.com/letta-ai/letta-python/commit/1fa4d75cd52fd0bee413f85cd00a0d416e6a9500))
+* **internal:** remove mock server code ([60c3a35](https://github.com/letta-ai/letta-python/commit/60c3a354881c8ac75c20daa48f6be20ce638d02b))
+* update mock server docs ([ce42220](https://github.com/letta-ai/letta-python/commit/ce4222071cfde938b65cb2cdf81ac20b87af5115))
+
 ## 1.7.8 (2026-02-05)
 
 Full Changelog: [v1.7.7...v1.7.8](https://github.com/letta-ai/letta-python/compare/v1.7.7...v1.7.8)
