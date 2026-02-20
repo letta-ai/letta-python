@@ -189,8 +189,8 @@ class ConversationsResource(SyncAPIResource):
     def list(
         self,
         *,
-        agent_id: str,
         after: Optional[str] | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -201,12 +201,14 @@ class ConversationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationListResponse:
         """
-        List all conversations for an agent.
+        List all conversations for an agent (or all conversations if agent_id not
+        provided).
 
         Args:
-          agent_id: The agent ID to list conversations for
-
           after: Cursor for pagination (conversation ID)
+
+          agent_id: The agent ID to list conversations for (optional - returns all conversations if
+              not provided)
 
           limit: Maximum number of conversations to return
 
@@ -229,8 +231,8 @@ class ConversationsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "agent_id": agent_id,
                         "after": after,
+                        "agent_id": agent_id,
                         "limit": limit,
                         "summary_search": summary_search,
                     },
@@ -437,8 +439,8 @@ class AsyncConversationsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        agent_id: str,
         after: Optional[str] | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -449,12 +451,14 @@ class AsyncConversationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationListResponse:
         """
-        List all conversations for an agent.
+        List all conversations for an agent (or all conversations if agent_id not
+        provided).
 
         Args:
-          agent_id: The agent ID to list conversations for
-
           after: Cursor for pagination (conversation ID)
+
+          agent_id: The agent ID to list conversations for (optional - returns all conversations if
+              not provided)
 
           limit: Maximum number of conversations to return
 
@@ -477,8 +481,8 @@ class AsyncConversationsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "agent_id": agent_id,
                         "after": after,
+                        "agent_id": agent_id,
                         "limit": limit,
                         "summary_search": summary_search,
                     },
