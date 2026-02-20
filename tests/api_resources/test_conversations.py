@@ -161,17 +161,15 @@ class TestConversations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Letta) -> None:
-        conversation = client.conversations.list(
-            agent_id="agent_id",
-        )
+        conversation = client.conversations.list()
         assert_matches_type(ConversationListResponse, conversation, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         conversation = client.conversations.list(
-            agent_id="agent_id",
             after="after",
+            agent_id="agent_id",
             limit=0,
             summary_search="summary_search",
         )
@@ -180,9 +178,7 @@ class TestConversations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
-        response = client.conversations.with_raw_response.list(
-            agent_id="agent_id",
-        )
+        response = client.conversations.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -192,9 +188,7 @@ class TestConversations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
-        with client.conversations.with_streaming_response.list(
-            agent_id="agent_id",
-        ) as response:
+        with client.conversations.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -391,17 +385,15 @@ class TestAsyncConversations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
-        conversation = await async_client.conversations.list(
-            agent_id="agent_id",
-        )
+        conversation = await async_client.conversations.list()
         assert_matches_type(ConversationListResponse, conversation, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.list(
-            agent_id="agent_id",
             after="after",
+            agent_id="agent_id",
             limit=0,
             summary_search="summary_search",
         )
@@ -410,9 +402,7 @@ class TestAsyncConversations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
-        response = await async_client.conversations.with_raw_response.list(
-            agent_id="agent_id",
-        )
+        response = await async_client.conversations.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -422,9 +412,7 @@ class TestAsyncConversations:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
-        async with async_client.conversations.with_streaming_response.list(
-            agent_id="agent_id",
-        ) as response:
+        async with async_client.conversations.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
