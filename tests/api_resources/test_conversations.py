@@ -35,6 +35,16 @@ class TestConversations:
         conversation = client.conversations.create(
             agent_id="agent_id",
             isolated_block_labels=["string"],
+            model="model",
+            model_settings={
+                "max_output_tokens": 0,
+                "parallel_tool_calls": True,
+                "provider_type": "openai",
+                "reasoning": {"reasoning_effort": "none"},
+                "response_format": {"type": "text"},
+                "strict": True,
+                "temperature": 0,
+            },
             summary="summary",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
@@ -120,6 +130,16 @@ class TestConversations:
     def test_method_update_with_all_params(self, client: Letta) -> None:
         conversation = client.conversations.update(
             conversation_id="default",
+            model="model",
+            model_settings={
+                "max_output_tokens": 0,
+                "parallel_tool_calls": True,
+                "provider_type": "openai",
+                "reasoning": {"reasoning_effort": "none"},
+                "response_format": {"type": "text"},
+                "strict": True,
+                "temperature": 0,
+            },
             summary="summary",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
@@ -303,6 +323,16 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.create(
             agent_id="agent_id",
             isolated_block_labels=["string"],
+            model="model",
+            model_settings={
+                "max_output_tokens": 0,
+                "parallel_tool_calls": True,
+                "provider_type": "openai",
+                "reasoning": {"reasoning_effort": "none"},
+                "response_format": {"type": "text"},
+                "strict": True,
+                "temperature": 0,
+            },
             summary="summary",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
@@ -388,6 +418,16 @@ class TestAsyncConversations:
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.update(
             conversation_id="default",
+            model="model",
+            model_settings={
+                "max_output_tokens": 0,
+                "parallel_tool_calls": True,
+                "provider_type": "openai",
+                "reasoning": {"reasoning_effort": "none"},
+                "response_format": {"type": "text"},
+                "strict": True,
+                "temperature": 0,
+            },
             summary="summary",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
