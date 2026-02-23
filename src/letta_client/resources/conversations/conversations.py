@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -192,6 +193,8 @@ class ConversationsResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         agent_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at", "last_run_completion"] | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -211,6 +214,10 @@ class ConversationsResource(SyncAPIResource):
               not provided)
 
           limit: Maximum number of conversations to return
+
+          order: Sort order for conversations. 'asc' for oldest first, 'desc' for newest first
+
+          order_by: Field to sort by
 
           summary_search: Search for text within conversation summaries
 
@@ -234,6 +241,8 @@ class ConversationsResource(SyncAPIResource):
                         "after": after,
                         "agent_id": agent_id,
                         "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
                         "summary_search": summary_search,
                     },
                     conversation_list_params.ConversationListParams,
@@ -482,6 +491,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         agent_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at", "last_run_completion"] | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -501,6 +512,10 @@ class AsyncConversationsResource(AsyncAPIResource):
               not provided)
 
           limit: Maximum number of conversations to return
+
+          order: Sort order for conversations. 'asc' for oldest first, 'desc' for newest first
+
+          order_by: Field to sort by
 
           summary_search: Search for text within conversation summaries
 
@@ -524,6 +539,8 @@ class AsyncConversationsResource(AsyncAPIResource):
                         "after": after,
                         "agent_id": agent_id,
                         "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
                         "summary_search": summary_search,
                     },
                     conversation_list_params.ConversationListParams,

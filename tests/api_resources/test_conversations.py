@@ -171,6 +171,8 @@ class TestConversations:
             after="after",
             agent_id="agent_id",
             limit=0,
+            order="asc",
+            order_by="created_at",
             summary_search="summary_search",
         )
         assert_matches_type(ConversationListResponse, conversation, path=["response"])
@@ -437,6 +439,8 @@ class TestAsyncConversations:
             after="after",
             agent_id="agent_id",
             limit=0,
+            order="asc",
+            order_by="created_at",
             summary_search="summary_search",
         )
         assert_matches_type(ConversationListResponse, conversation, path=["response"])
