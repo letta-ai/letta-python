@@ -63,6 +63,8 @@ class ConversationsResource(SyncAPIResource):
         *,
         agent_id: str,
         isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -81,6 +83,12 @@ class ConversationsResource(SyncAPIResource):
               shared across conversations. New blocks will be created as copies of the agent's
               blocks with these labels.
 
+          model:
+              The model handle for this conversation (overrides agent's model). Format:
+              provider/model-name.
+
+          model_settings: The model settings for this conversation (overrides agent's model settings).
+
           summary: A summary of the conversation.
 
           extra_headers: Send extra headers
@@ -96,6 +104,8 @@ class ConversationsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "isolated_block_labels": isolated_block_labels,
+                    "model": model,
+                    "model_settings": model_settings,
                     "summary": summary,
                 },
                 conversation_create_params.ConversationCreateParams,
@@ -150,6 +160,8 @@ class ConversationsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -166,6 +178,12 @@ class ConversationsResource(SyncAPIResource):
         Either the special value 'default' or an ID in the
               format 'conv-<uuid4>'
 
+          model:
+              The model handle for this conversation (overrides agent's model). Format:
+              provider/model-name.
+
+          model_settings: The model settings for this conversation (overrides agent's model settings).
+
           summary: A summary of the conversation.
 
           extra_headers: Send extra headers
@@ -180,7 +198,14 @@ class ConversationsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._patch(
             f"/v1/conversations/{conversation_id}",
-            body=maybe_transform({"summary": summary}, conversation_update_params.ConversationUpdateParams),
+            body=maybe_transform(
+                {
+                    "model": model,
+                    "model_settings": model_settings,
+                    "summary": summary,
+                },
+                conversation_update_params.ConversationUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -359,6 +384,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         *,
         agent_id: str,
         isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -377,6 +404,12 @@ class AsyncConversationsResource(AsyncAPIResource):
               shared across conversations. New blocks will be created as copies of the agent's
               blocks with these labels.
 
+          model:
+              The model handle for this conversation (overrides agent's model). Format:
+              provider/model-name.
+
+          model_settings: The model settings for this conversation (overrides agent's model settings).
+
           summary: A summary of the conversation.
 
           extra_headers: Send extra headers
@@ -392,6 +425,8 @@ class AsyncConversationsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "isolated_block_labels": isolated_block_labels,
+                    "model": model,
+                    "model_settings": model_settings,
                     "summary": summary,
                 },
                 conversation_create_params.ConversationCreateParams,
@@ -448,6 +483,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -464,6 +501,12 @@ class AsyncConversationsResource(AsyncAPIResource):
         Either the special value 'default' or an ID in the
               format 'conv-<uuid4>'
 
+          model:
+              The model handle for this conversation (overrides agent's model). Format:
+              provider/model-name.
+
+          model_settings: The model settings for this conversation (overrides agent's model settings).
+
           summary: A summary of the conversation.
 
           extra_headers: Send extra headers
@@ -478,7 +521,14 @@ class AsyncConversationsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._patch(
             f"/v1/conversations/{conversation_id}",
-            body=await async_maybe_transform({"summary": summary}, conversation_update_params.ConversationUpdateParams),
+            body=await async_maybe_transform(
+                {
+                    "model": model,
+                    "model_settings": model_settings,
+                    "summary": summary,
+                },
+                conversation_update_params.ConversationUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
