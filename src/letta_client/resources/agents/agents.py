@@ -250,9 +250,8 @@ class AgentsResource(SyncAPIResource):
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
 
           context_window_limit: The context window limit used by the agent.
 
@@ -561,9 +560,8 @@ class AgentsResource(SyncAPIResource):
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
 
           context_window_limit: The context window limit used by the agent.
 
@@ -1167,9 +1165,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
 
           context_window_limit: The context window limit used by the agent.
 
@@ -1478,9 +1475,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
 
           context_window_limit: The context window limit used by the agent.
 
