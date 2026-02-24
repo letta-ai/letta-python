@@ -655,9 +655,8 @@ class MessagesResource(SyncAPIResource):
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
 
           extra_headers: Send extra headers
 
@@ -1617,9 +1616,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
 
           extra_headers: Send extra headers
 
