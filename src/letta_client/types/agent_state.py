@@ -157,6 +157,9 @@ class Memory(BaseModel):
     file_blocks: Optional[List[MemoryFileBlock]] = None
     """Special blocks representing the agent's in-context memory of an attached file"""
 
+    git_enabled: Optional[bool] = None
+    """Whether this agent uses git-backed memory with structured labels."""
+
     prompt_template: Optional[str] = None
     """Deprecated. Ignored for performance."""
 
@@ -313,13 +316,9 @@ CompactionSettingsModelSettings: TypeAlias = Annotated[
 class CompactionSettings(BaseModel):
     """Configuration for conversation compaction / summarization.
 
-    ``model`` is the only required user-facing field – it specifies the summarizer
-    model handle (e.g. ``"openai/gpt-4o-mini"``). Per-model settings (temperature,
+    Per-model settings (temperature,
     max tokens, etc.) are derived from the default configuration for that handle.
     """
-
-    model: str
-    """Model handle to use for summarization (format: provider/model-name)."""
 
     clip_chars: Optional[int] = None
     """The maximum length of the summary in characters.
@@ -327,14 +326,20 @@ class CompactionSettings(BaseModel):
     If none, no clipping is performed.
     """
 
-    mode: Optional[Literal["all", "sliding_window"]] = None
+    mode: Optional[Literal["all", "sliding_window", "self_compact_all", "self_compact_sliding_window"]] = None
     """The type of summarization technique use."""
+
+    model: Optional[str] = None
+    """
+    Model handle to use for sliding_window/all summarization (format:
+    provider/model-name). If None, uses lightweight provider-specific defaults.
+    """
 
     api_model_settings: Optional[CompactionSettingsModelSettings] = FieldInfo(alias="model_settings", default=None)
     """Optional model settings used to override defaults for the summarizer model."""
 
     prompt: Optional[str] = None
-    """The prompt to use for summarization."""
+    """The prompt to use for summarization. If None, uses mode-specific default."""
 
     prompt_acknowledgement: Optional[bool] = None
     """
@@ -345,7 +350,7 @@ class CompactionSettings(BaseModel):
     sliding_window_percentage: Optional[float] = None
     """
     The percentage of the context window to keep post-summarization (only used in
-    sliding window mode).
+    sliding window modes).
     """
 
 
@@ -674,9 +679,8 @@ class AgentState(BaseModel):
     compaction_settings: Optional[CompactionSettings] = None
     """Configuration for conversation compaction / summarization.
 
-    `model` is the only required user-facing field – it specifies the summarizer
-    model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-    tokens, etc.) are derived from the default configuration for that handle.
+    Per-model settings (temperature, max tokens, etc.) are derived from the default
+    configuration for that handle.
     """
 
     created_at: Optional[datetime] = None

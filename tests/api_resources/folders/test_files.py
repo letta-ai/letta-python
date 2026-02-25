@@ -22,7 +22,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestFiles:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         file = client.folders.files.retrieve(
@@ -31,7 +31,7 @@ class TestFiles:
         )
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Letta) -> None:
         file = client.folders.files.retrieve(
@@ -41,7 +41,7 @@ class TestFiles:
         )
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.folders.files.with_raw_response.retrieve(
@@ -54,7 +54,7 @@ class TestFiles:
         file = response.parse()
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.folders.files.with_streaming_response.retrieve(
@@ -69,7 +69,7 @@ class TestFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
@@ -84,7 +84,7 @@ class TestFiles:
                 folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         file = client.folders.files.list(
@@ -92,7 +92,7 @@ class TestFiles:
         )
         assert_matches_type(SyncArrayPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         file = client.folders.files.list(
@@ -106,7 +106,7 @@ class TestFiles:
         )
         assert_matches_type(SyncArrayPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.folders.files.with_raw_response.list(
@@ -118,7 +118,7 @@ class TestFiles:
         file = response.parse()
         assert_matches_type(SyncArrayPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.folders.files.with_streaming_response.list(
@@ -132,7 +132,7 @@ class TestFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
@@ -140,7 +140,7 @@ class TestFiles:
                 folder_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         file = client.folders.files.delete(
@@ -149,7 +149,7 @@ class TestFiles:
         )
         assert file is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.folders.files.with_raw_response.delete(
@@ -162,7 +162,7 @@ class TestFiles:
         file = response.parse()
         assert file is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.folders.files.with_streaming_response.delete(
@@ -177,7 +177,7 @@ class TestFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
@@ -192,7 +192,7 @@ class TestFiles:
                 folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_upload(self, client: Letta) -> None:
         file = client.folders.files.upload(
@@ -201,7 +201,7 @@ class TestFiles:
         )
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_upload_with_all_params(self, client: Letta) -> None:
         file = client.folders.files.upload(
@@ -212,7 +212,7 @@ class TestFiles:
         )
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_upload(self, client: Letta) -> None:
         response = client.folders.files.with_raw_response.upload(
@@ -225,7 +225,7 @@ class TestFiles:
         file = response.parse()
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_upload(self, client: Letta) -> None:
         with client.folders.files.with_streaming_response.upload(
@@ -240,7 +240,7 @@ class TestFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_upload(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
@@ -255,7 +255,7 @@ class TestAsyncFiles:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.retrieve(
@@ -264,7 +264,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.retrieve(
@@ -274,7 +274,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.folders.files.with_raw_response.retrieve(
@@ -287,7 +287,7 @@ class TestAsyncFiles:
         file = await response.parse()
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.folders.files.with_streaming_response.retrieve(
@@ -302,7 +302,7 @@ class TestAsyncFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
@@ -317,7 +317,7 @@ class TestAsyncFiles:
                 folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.list(
@@ -325,7 +325,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(AsyncArrayPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.list(
@@ -339,7 +339,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(AsyncArrayPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.folders.files.with_raw_response.list(
@@ -351,7 +351,7 @@ class TestAsyncFiles:
         file = await response.parse()
         assert_matches_type(AsyncArrayPage[FileListResponse], file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.folders.files.with_streaming_response.list(
@@ -365,7 +365,7 @@ class TestAsyncFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
@@ -373,7 +373,7 @@ class TestAsyncFiles:
                 folder_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.delete(
@@ -382,7 +382,7 @@ class TestAsyncFiles:
         )
         assert file is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.folders.files.with_raw_response.delete(
@@ -395,7 +395,7 @@ class TestAsyncFiles:
         file = await response.parse()
         assert file is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.folders.files.with_streaming_response.delete(
@@ -410,7 +410,7 @@ class TestAsyncFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
@@ -425,7 +425,7 @@ class TestAsyncFiles:
                 folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_upload(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.upload(
@@ -434,7 +434,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_upload_with_all_params(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.upload(
@@ -445,7 +445,7 @@ class TestAsyncFiles:
         )
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncLetta) -> None:
         response = await async_client.folders.files.with_raw_response.upload(
@@ -458,7 +458,7 @@ class TestAsyncFiles:
         file = await response.parse()
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_upload(self, async_client: AsyncLetta) -> None:
         async with async_client.folders.files.with_streaming_response.upload(
@@ -473,7 +473,7 @@ class TestAsyncFiles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_upload(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):

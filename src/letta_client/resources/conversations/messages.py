@@ -71,8 +71,11 @@ class MessagesResource(SyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
+        return_logprobs: bool | Omit = omit,
+        return_token_ids: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
         streaming: bool | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -128,11 +131,23 @@ class MessagesResource(SyncAPIResource):
               allows sending a message to a different model without changing the agent's
               configuration.
 
+          return_logprobs: If True, returns log probabilities of the output tokens in the response. Useful
+              for RL training. Only supported for OpenAI-compatible providers (including
+              SGLang).
+
+          return_token_ids: If True, returns token IDs and logprobs for ALL LLM generations in the agent
+              step, not just the last one. Uses SGLang native /generate endpoint. Returns
+              'turns' field with TurnTokenData for each assistant/tool turn. Required for
+              proper multi-turn RL training with loss masking.
+
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
               per step (only used when streaming=true).
 
           streaming: If True (default), returns a streaming response (Server-Sent Events). If False,
               returns a complete JSON response.
+
+          top_logprobs: Number of most likely tokens to return at each position (0-20). Requires
+              return_logprobs=True.
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -164,8 +179,11 @@ class MessagesResource(SyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "override_model": override_model,
+                    "return_logprobs": return_logprobs,
+                    "return_token_ids": return_token_ids,
                     "stream_tokens": stream_tokens,
                     "streaming": streaming,
+                    "top_logprobs": top_logprobs,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_create_params.MessageCreateParams,
@@ -282,9 +300,8 @@ class MessagesResource(SyncAPIResource):
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
 
           extra_headers: Send extra headers
 
@@ -408,8 +425,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
+        return_logprobs: bool | Omit = omit,
+        return_token_ids: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
         streaming: bool | Omit = omit,
+        top_logprobs: Optional[int] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -465,11 +485,23 @@ class AsyncMessagesResource(AsyncAPIResource):
               allows sending a message to a different model without changing the agent's
               configuration.
 
+          return_logprobs: If True, returns log probabilities of the output tokens in the response. Useful
+              for RL training. Only supported for OpenAI-compatible providers (including
+              SGLang).
+
+          return_token_ids: If True, returns token IDs and logprobs for ALL LLM generations in the agent
+              step, not just the last one. Uses SGLang native /generate endpoint. Returns
+              'turns' field with TurnTokenData for each assistant/tool turn. Required for
+              proper multi-turn RL training with loss masking.
+
           stream_tokens: Flag to determine if individual tokens should be streamed, rather than streaming
               per step (only used when streaming=true).
 
           streaming: If True (default), returns a streaming response (Server-Sent Events). If False,
               returns a complete JSON response.
+
+          top_logprobs: Number of most likely tokens to return at each position (0-20). Requires
+              return_logprobs=True.
 
           use_assistant_message: Whether the server should parse specific tool call arguments (default
               `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
@@ -501,8 +533,11 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "override_model": override_model,
+                    "return_logprobs": return_logprobs,
+                    "return_token_ids": return_token_ids,
                     "stream_tokens": stream_tokens,
                     "streaming": streaming,
+                    "top_logprobs": top_logprobs,
                     "use_assistant_message": use_assistant_message,
                 },
                 message_create_params.MessageCreateParams,
@@ -619,9 +654,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
-              `model` is the only required user-facing field – it specifies the summarizer
-              model handle (e.g. `"openai/gpt-4o-mini"`). Per-model settings (temperature, max
-              tokens, etc.) are derived from the default configuration for that handle.
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
 
           extra_headers: Send extra headers
 

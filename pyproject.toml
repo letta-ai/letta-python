@@ -1,6 +1,6 @@
 [project]
 name = "letta-client"
-version = "1.7.8"
+version = "1.7.9"
 description = "The official Python library for the letta API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -69,7 +69,7 @@ format = { chain = [
   # run formatting again to fix any inconsistencies when imports are stripped
   "format:ruff",
 ]}
-"format:docs" = "python scripts/utils/ruffen-docs.py README.md api.md"
+"format:docs" = "bash -c 'python scripts/utils/ruffen-docs.py README.md $(find . -type f -name api.md)'"
 "format:ruff" = "ruff format"
 
 "lint" = { chain = [
