@@ -91,9 +91,12 @@ class MessagesResource(SyncAPIResource):
         (streaming=true), returns a streaming response (Server-Sent Events). Set
         streaming=false to get a complete JSON response.
 
+        If conversation_id is an agent ID (starts with "agent-"), routes to agent-direct
+        mode with locking but without conversation-specific features.
+
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
@@ -220,9 +223,12 @@ class MessagesResource(SyncAPIResource):
         Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
         messages in the conversation, with support for cursor-based pagination.
 
+        If conversation_id is an agent ID (starts with "agent-"), returns messages from
+        the agent's default conversation (no conversation isolation).
+
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           after: Message ID cursor for pagination. Returns messages that come after this message
               ID in the specified sort order
@@ -295,8 +301,8 @@ class MessagesResource(SyncAPIResource):
         reducing the message count while preserving important context.
 
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
@@ -345,9 +351,12 @@ class MessagesResource(SyncAPIResource):
         This endpoint allows you to reconnect to an active background stream for a
         conversation, enabling recovery from network interruptions.
 
+        If conversation_id is an agent ID (starts with "agent-"), retrieves the stream
+        for the agent's most recent active run.
+
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           batch_size: Number of entries to read per batch.
 
@@ -445,9 +454,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         (streaming=true), returns a streaming response (Server-Sent Events). Set
         streaming=false to get a complete JSON response.
 
+        If conversation_id is an agent ID (starts with "agent-"), routes to agent-direct
+        mode with locking but without conversation-specific features.
+
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
@@ -574,9 +586,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
         messages in the conversation, with support for cursor-based pagination.
 
+        If conversation_id is an agent ID (starts with "agent-"), returns messages from
+        the agent's default conversation (no conversation isolation).
+
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           after: Message ID cursor for pagination. Returns messages that come after this message
               ID in the specified sort order
@@ -649,8 +664,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         reducing the message count while preserving important context.
 
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
@@ -699,9 +714,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         This endpoint allows you to reconnect to an active background stream for a
         conversation, enabling recovery from network interruptions.
 
+        If conversation_id is an agent ID (starts with "agent-"), retrieves the stream
+        for the agent's most recent active run.
+
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           batch_size: Number of entries to read per batch.
 
