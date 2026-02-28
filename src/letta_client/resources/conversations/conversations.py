@@ -135,8 +135,8 @@ class ConversationsResource(SyncAPIResource):
         Retrieve a specific conversation.
 
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           extra_headers: Send extra headers
 
@@ -175,8 +175,8 @@ class ConversationsResource(SyncAPIResource):
         Args:
           conversation_id: The conversation identifier.
 
-        Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+        Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -295,8 +295,8 @@ class ConversationsResource(SyncAPIResource):
         isolated blocks associated with the conversation will be permanently deleted.
 
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           extra_headers: Send extra headers
 
@@ -332,9 +332,12 @@ class ConversationsResource(SyncAPIResource):
 
         Note: To cancel active runs, Redis is required.
 
+        If conversation_id is an agent ID (starts with "agent-"), cancels runs for the
+        agent's default conversation.
+
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           extra_headers: Send extra headers
 
@@ -458,8 +461,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         Retrieve a specific conversation.
 
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           extra_headers: Send extra headers
 
@@ -498,8 +501,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         Args:
           conversation_id: The conversation identifier.
 
-        Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+        Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -618,8 +621,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         isolated blocks associated with the conversation will be permanently deleted.
 
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           extra_headers: Send extra headers
 
@@ -655,9 +658,12 @@ class AsyncConversationsResource(AsyncAPIResource):
 
         Note: To cancel active runs, Redis is required.
 
+        If conversation_id is an agent ID (starts with "agent-"), cancels runs for the
+        agent's default conversation.
+
         Args:
-          conversation_id: The conversation identifier. Either the special value 'default' or an ID in the
-              format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
+              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
 
           extra_headers: Send extra headers
 
