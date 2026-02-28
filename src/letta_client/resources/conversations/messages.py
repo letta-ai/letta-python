@@ -300,6 +300,9 @@ class MessagesResource(SyncAPIResource):
         This endpoint summarizes the in-context messages for a specific conversation,
         reducing the message count while preserving important context.
 
+        If conversation_id is an agent ID (starts with "agent-"), compacts the agent's
+        default conversation messages.
+
         Args:
           conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
               ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
@@ -662,6 +665,9 @@ class AsyncMessagesResource(AsyncAPIResource):
 
         This endpoint summarizes the in-context messages for a specific conversation,
         reducing the message count while preserving important context.
+
+        If conversation_id is an agent ID (starts with "agent-"), compacts the agent's
+        default conversation messages.
 
         Args:
           conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
