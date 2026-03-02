@@ -79,7 +79,7 @@ class AgentListParams(TypedDict, total=False):
     'asc' for oldest first, 'desc' for newest first
     """
 
-    order_by: Literal["created_at", "last_run_completion"]
+    order_by: Literal["created_at", "updated_at", "last_run_completion"]
     """Field to sort by"""
 
     project_id: Optional[str]

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.7.10 (2026-03-02)
+
+Full Changelog: [v1.7.9...v1.7.10](https://github.com/letta-ai/letta-python/compare/v1.7.9...v1.7.10)
+
+### Features
+
+* add debug logs in telem endpoint ([749c2bc](https://github.com/letta-ai/letta-python/commit/749c2bc7566b861baf677d6755b01f77bf1b9902))
+* **core:** sort agents by updated_at ([3a2abbc](https://github.com/letta-ai/letta-python/commit/3a2abbc589982fe07b8ce0860dccfd10ad745f10))
+* support default convo in list and cancel endpoints ([d6b16f1](https://github.com/letta-ai/letta-python/commit/d6b16f1481076026b2d305a326e02dd24c80269a))
+
 ## 1.7.9 (2026-02-24)
 
 Full Changelog: [v1.7.8...v1.7.9](https://github.com/letta-ai/letta-python/compare/v1.7.8...v1.7.9)
