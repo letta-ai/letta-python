@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["TagListParams"]
 
@@ -38,3 +40,9 @@ class TagListParams(TypedDict, total=False):
 
     query_text: Optional[str]
     """Filter tags by text search. Deprecated, please use name field instead"""
+
+    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
+
+    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
+
+    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]

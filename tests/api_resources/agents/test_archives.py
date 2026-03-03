@@ -27,6 +27,18 @@ class TestArchives:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_attach_with_all_params(self, client: Letta) -> None:
+        archive = client.agents.archives.attach(
+            archive_id="archive_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
+        )
+        assert_matches_type(object, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_attach(self, client: Letta) -> None:
         response = client.agents.archives.with_raw_response.attach(
             archive_id="archive_id",
@@ -74,6 +86,18 @@ class TestArchives:
         archive = client.agents.archives.detach(
             archive_id="archive_id",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_detach_with_all_params(self, client: Letta) -> None:
+        archive = client.agents.archives.detach(
+            archive_id="archive_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, archive, path=["response"])
 
@@ -137,6 +161,18 @@ class TestAsyncArchives:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_attach_with_all_params(self, async_client: AsyncLetta) -> None:
+        archive = await async_client.agents.archives.attach(
+            archive_id="archive_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
+        )
+        assert_matches_type(object, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_raw_response_attach(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.archives.with_raw_response.attach(
             archive_id="archive_id",
@@ -184,6 +220,18 @@ class TestAsyncArchives:
         archive = await async_client.agents.archives.detach(
             archive_id="archive_id",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, archive, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_detach_with_all_params(self, async_client: AsyncLetta) -> None:
+        archive = await async_client.agents.archives.detach(
+            archive_id="archive_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, archive, path=["response"])
 

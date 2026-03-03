@@ -29,6 +29,18 @@ class TestBlocks:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
+        block = client.agents.blocks.retrieve(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
+        )
+        assert_matches_type(BlockResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.agents.blocks.with_raw_response.retrieve(
             block_label="block_label",
@@ -101,6 +113,9 @@ class TestBlocks:
             template_id="template_id",
             template_name="template_name",
             value="value",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -165,6 +180,9 @@ class TestBlocks:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
@@ -208,6 +226,18 @@ class TestBlocks:
         block = client.agents.blocks.attach(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_attach_with_all_params(self, client: Letta) -> None:
+        block = client.agents.blocks.attach(
+            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, block, path=["response"])
 
@@ -260,6 +290,18 @@ class TestBlocks:
         block = client.agents.blocks.detach(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_detach_with_all_params(self, client: Letta) -> None:
+        block = client.agents.blocks.detach(
+            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, block, path=["response"])
 
@@ -318,6 +360,18 @@ class TestAsyncBlocks:
         block = await async_client.agents.blocks.retrieve(
             block_label="block_label",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(BlockResponse, block, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
+        block = await async_client.agents.blocks.retrieve(
+            block_label="block_label",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -395,6 +449,9 @@ class TestAsyncBlocks:
             template_id="template_id",
             template_name="template_name",
             value="value",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -459,6 +516,9 @@ class TestAsyncBlocks:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
@@ -502,6 +562,18 @@ class TestAsyncBlocks:
         block = await async_client.agents.blocks.attach(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_attach_with_all_params(self, async_client: AsyncLetta) -> None:
+        block = await async_client.agents.blocks.attach(
+            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, block, path=["response"])
 
@@ -554,6 +626,18 @@ class TestAsyncBlocks:
         block = await async_client.agents.blocks.detach(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(AgentState, block, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_detach_with_all_params(self, async_client: AsyncLetta) -> None:
+        block = await async_client.agents.blocks.detach(
+            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, block, path=["response"])
 

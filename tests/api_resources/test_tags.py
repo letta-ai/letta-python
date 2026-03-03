@@ -34,6 +34,9 @@ class TestTags:
             order="asc",
             order_by="name",
             query_text="query_text",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(TagListResponse, tag, path=["response"])
 
@@ -82,6 +85,9 @@ class TestAsyncTags:
             order="asc",
             order_by="name",
             query_text="query_text",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(TagListResponse, tag, path=["response"])
 

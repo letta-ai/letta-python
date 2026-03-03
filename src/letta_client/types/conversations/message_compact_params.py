@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import Literal, Annotated, TypeAlias, TypedDict
 
+from ..._utils import PropertyInfo
 from ..xai_model_settings_param import XaiModelSettingsParam
 from ..groq_model_settings_param import GroqModelSettingsParam
 from ..azure_model_settings_param import AzureModelSettingsParam
@@ -40,6 +41,12 @@ class MessageCompactParams(TypedDict, total=False):
     Per-model settings (temperature, max tokens, etc.) are derived from the default
     configuration for that handle.
     """
+
+    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
+
+    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
+
+    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]
 
 
 CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[

@@ -32,6 +32,9 @@ class TestFeedback:
             step_id="step-123e4567-e89b-42d3-8456-426614174000",
             feedback="positive",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Step, feedback, path=["response"])
 
@@ -90,6 +93,9 @@ class TestAsyncFeedback:
             step_id="step-123e4567-e89b-42d3-8456-426614174000",
             feedback="positive",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Step, feedback, path=["response"])
 

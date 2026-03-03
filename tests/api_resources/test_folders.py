@@ -48,6 +48,9 @@ class TestFolders:
             },
             instructions="instructions",
             metadata={"foo": "bar"},
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Folder, folder, path=["response"])
 
@@ -81,7 +84,18 @@ class TestFolders:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         folder = client.folders.retrieve(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Folder, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
+        folder = client.folders.retrieve(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Folder, folder, path=["response"])
 
@@ -89,7 +103,7 @@ class TestFolders:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.folders.with_raw_response.retrieve(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -101,7 +115,7 @@ class TestFolders:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.folders.with_streaming_response.retrieve(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -116,7 +130,7 @@ class TestFolders:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
             client.folders.with_raw_response.retrieve(
-                "",
+                folder_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -148,6 +162,9 @@ class TestFolders:
             instructions="instructions",
             metadata={"foo": "bar"},
             name="name",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Folder, folder, path=["response"])
 
@@ -201,6 +218,9 @@ class TestFolders:
             name="name",
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[Folder], folder, path=["response"])
 
@@ -230,7 +250,18 @@ class TestFolders:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         folder = client.folders.delete(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        folder = client.folders.delete(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, folder, path=["response"])
 
@@ -238,7 +269,7 @@ class TestFolders:
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.folders.with_raw_response.delete(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -250,7 +281,7 @@ class TestFolders:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.folders.with_streaming_response.delete(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -265,7 +296,7 @@ class TestFolders:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
             client.folders.with_raw_response.delete(
-                "",
+                folder_id="",
             )
 
 
@@ -304,6 +335,9 @@ class TestAsyncFolders:
             },
             instructions="instructions",
             metadata={"foo": "bar"},
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Folder, folder, path=["response"])
 
@@ -337,7 +371,18 @@ class TestAsyncFolders:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         folder = await async_client.folders.retrieve(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Folder, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
+        folder = await async_client.folders.retrieve(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Folder, folder, path=["response"])
 
@@ -345,7 +390,7 @@ class TestAsyncFolders:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.folders.with_raw_response.retrieve(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -357,7 +402,7 @@ class TestAsyncFolders:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.folders.with_streaming_response.retrieve(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -372,7 +417,7 @@ class TestAsyncFolders:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
             await async_client.folders.with_raw_response.retrieve(
-                "",
+                folder_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -404,6 +449,9 @@ class TestAsyncFolders:
             instructions="instructions",
             metadata={"foo": "bar"},
             name="name",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Folder, folder, path=["response"])
 
@@ -457,6 +505,9 @@ class TestAsyncFolders:
             name="name",
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[Folder], folder, path=["response"])
 
@@ -486,7 +537,18 @@ class TestAsyncFolders:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         folder = await async_client.folders.delete(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, folder, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        folder = await async_client.folders.delete(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, folder, path=["response"])
 
@@ -494,7 +556,7 @@ class TestAsyncFolders:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.folders.with_raw_response.delete(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -506,7 +568,7 @@ class TestAsyncFolders:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.folders.with_streaming_response.delete(
-            "source-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -521,5 +583,5 @@ class TestAsyncFolders:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
             await async_client.folders.with_raw_response.delete(
-                "",
+                folder_id="",
             )

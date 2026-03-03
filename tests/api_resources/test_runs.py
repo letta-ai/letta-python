@@ -22,7 +22,18 @@ class TestRuns:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         run = client.runs.retrieve(
-            "run_id",
+            run_id="run_id",
+        )
+        assert_matches_type(Run, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
+        run = client.runs.retrieve(
+            run_id="run_id",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Run, run, path=["response"])
 
@@ -30,7 +41,7 @@ class TestRuns:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.runs.with_raw_response.retrieve(
-            "run_id",
+            run_id="run_id",
         )
 
         assert response.is_closed is True
@@ -42,7 +53,7 @@ class TestRuns:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.runs.with_streaming_response.retrieve(
-            "run_id",
+            run_id="run_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -57,7 +68,7 @@ class TestRuns:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.runs.with_raw_response.retrieve(
-                "",
+                run_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -83,6 +94,9 @@ class TestRuns:
             order_by="created_at",
             statuses=["string", "string"],
             stop_reason="end_turn",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[Run], run, path=["response"])
 
@@ -118,7 +132,18 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         run = await async_client.runs.retrieve(
-            "run_id",
+            run_id="run_id",
+        )
+        assert_matches_type(Run, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
+        run = await async_client.runs.retrieve(
+            run_id="run_id",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Run, run, path=["response"])
 
@@ -126,7 +151,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.runs.with_raw_response.retrieve(
-            "run_id",
+            run_id="run_id",
         )
 
         assert response.is_closed is True
@@ -138,7 +163,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.runs.with_streaming_response.retrieve(
-            "run_id",
+            run_id="run_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -153,7 +178,7 @@ class TestAsyncRuns:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.runs.with_raw_response.retrieve(
-                "",
+                run_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -179,6 +204,9 @@ class TestAsyncRuns:
             order_by="created_at",
             statuses=["string", "string"],
             stop_reason="end_turn",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[Run], run, path=["response"])
 

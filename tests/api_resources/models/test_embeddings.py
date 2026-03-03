@@ -25,6 +25,16 @@ class TestEmbeddings:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_list_with_all_params(self, client: Letta) -> None:
+        embedding = client.models.embeddings.list(
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
+        )
+        assert_matches_type(EmbeddingListResponse, embedding, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.models.embeddings.with_raw_response.list()
 
@@ -55,6 +65,16 @@ class TestAsyncEmbeddings:
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         embedding = await async_client.models.embeddings.list()
+        assert_matches_type(EmbeddingListResponse, embedding, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
+        embedding = await async_client.models.embeddings.list(
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
+        )
         assert_matches_type(EmbeddingListResponse, embedding, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
