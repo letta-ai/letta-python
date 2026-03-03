@@ -36,6 +36,9 @@ class TestPassages:
             created_at="created_at",
             metadata={"foo": "bar"},
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Passage, passage, path=["response"])
 
@@ -82,6 +85,18 @@ class TestPassages:
         passage = client.archives.passages.delete(
             passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert passage is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        passage = client.archives.passages.delete(
+            passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert passage is None
 
@@ -134,6 +149,25 @@ class TestPassages:
         passage = client.archives.passages.create_many(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             passages=[{"text": "text"}],
+        )
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_many_with_all_params(self, client: Letta) -> None:
+        passage = client.archives.passages.create_many(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            passages=[
+                {
+                    "text": "text",
+                    "created_at": "created_at",
+                    "metadata": {"foo": "bar"},
+                    "tags": ["string"],
+                }
+            ],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
 
@@ -198,6 +232,9 @@ class TestAsyncPassages:
             created_at="created_at",
             metadata={"foo": "bar"},
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Passage, passage, path=["response"])
 
@@ -244,6 +281,18 @@ class TestAsyncPassages:
         passage = await async_client.archives.passages.delete(
             passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert passage is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        passage = await async_client.archives.passages.delete(
+            passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert passage is None
 
@@ -296,6 +345,25 @@ class TestAsyncPassages:
         passage = await async_client.archives.passages.create_many(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             passages=[{"text": "text"}],
+        )
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_many_with_all_params(self, async_client: AsyncLetta) -> None:
+        passage = await async_client.archives.passages.create_many(
+            archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            passages=[
+                {
+                    "text": "text",
+                    "created_at": "created_at",
+                    "metadata": {"foo": "bar"},
+                    "tags": ["string"],
+                }
+            ],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
 

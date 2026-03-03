@@ -19,3 +19,9 @@ class ToolUpdateApprovalParams(TypedDict, total=False):
 
     query_requires_approval: Annotated[Optional[bool], PropertyInfo(alias="requires_approval")]
     """Whether the tool requires approval before execution"""
+
+    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
+
+    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
+
+    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]

@@ -54,6 +54,9 @@ class TestTools:
             return_char_limit=1,
             source_type="source_type",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -87,7 +90,18 @@ class TestTools:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         tool = client.tools.retrieve(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Tool, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
+        tool = client.tools.retrieve(
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -95,7 +109,7 @@ class TestTools:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.tools.with_raw_response.retrieve(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -107,7 +121,7 @@ class TestTools:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.tools.with_streaming_response.retrieve(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -122,7 +136,7 @@ class TestTools:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             client.tools.with_raw_response.retrieve(
-                "",
+                tool_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -160,6 +174,9 @@ class TestTools:
             source_code="source_code",
             source_type="source_type",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -219,6 +236,9 @@ class TestTools:
             search="search",
             tool_ids=["string", "string"],
             tool_types=["string", "string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
@@ -248,7 +268,18 @@ class TestTools:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         tool = client.tools.delete(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        tool = client.tools.delete(
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, tool, path=["response"])
 
@@ -256,7 +287,7 @@ class TestTools:
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.tools.with_raw_response.delete(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -268,7 +299,7 @@ class TestTools:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.tools.with_streaming_response.delete(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -283,7 +314,7 @@ class TestTools:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             client.tools.with_raw_response.delete(
-                "",
+                tool_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -301,6 +332,9 @@ class TestTools:
             search_mode="vector",
             tags=["string"],
             tool_types=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(ToolSearchResponse, tool, path=["response"])
 
@@ -359,6 +393,9 @@ class TestTools:
             return_char_limit=1,
             source_type="source_type",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -427,6 +464,9 @@ class TestAsyncTools:
             return_char_limit=1,
             source_type="source_type",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -460,7 +500,18 @@ class TestAsyncTools:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         tool = await async_client.tools.retrieve(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Tool, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.tools.retrieve(
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -468,7 +519,7 @@ class TestAsyncTools:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.tools.with_raw_response.retrieve(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -480,7 +531,7 @@ class TestAsyncTools:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.tools.with_streaming_response.retrieve(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -495,7 +546,7 @@ class TestAsyncTools:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             await async_client.tools.with_raw_response.retrieve(
-                "",
+                tool_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -533,6 +584,9 @@ class TestAsyncTools:
             source_code="source_code",
             source_type="source_type",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 
@@ -592,6 +646,9 @@ class TestAsyncTools:
             search="search",
             tool_ids=["string", "string"],
             tool_types=["string", "string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
@@ -621,7 +678,18 @@ class TestAsyncTools:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         tool = await async_client.tools.delete(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, tool, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.tools.delete(
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, tool, path=["response"])
 
@@ -629,7 +697,7 @@ class TestAsyncTools:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.tools.with_raw_response.delete(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -641,7 +709,7 @@ class TestAsyncTools:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.tools.with_streaming_response.delete(
-            "tool-123e4567-e89b-42d3-8456-426614174000",
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -656,7 +724,7 @@ class TestAsyncTools:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
             await async_client.tools.with_raw_response.delete(
-                "",
+                tool_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -674,6 +742,9 @@ class TestAsyncTools:
             search_mode="vector",
             tags=["string"],
             tool_types=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(ToolSearchResponse, tool, path=["response"])
 
@@ -732,6 +803,9 @@ class TestAsyncTools:
             return_char_limit=1,
             source_type="source_type",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Tool, tool, path=["response"])
 

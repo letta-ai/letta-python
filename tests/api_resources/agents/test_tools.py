@@ -39,6 +39,9 @@ class TestTools:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
@@ -82,6 +85,18 @@ class TestTools:
         tool = client.agents.tools.attach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_attach_with_all_params(self, client: Letta) -> None:
+        tool = client.agents.tools.attach(
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], tool, path=["response"])
 
@@ -134,6 +149,18 @@ class TestTools:
         tool = client.agents.tools.detach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_detach_with_all_params(self, client: Letta) -> None:
+        tool = client.agents.tools.detach(
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], tool, path=["response"])
 
@@ -196,6 +223,9 @@ class TestTools:
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             args={"foo": "bar"},
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
@@ -260,6 +290,9 @@ class TestTools:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             body_requires_approval=True,
             query_requires_approval=True,
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], tool, path=["response"])
 
@@ -334,6 +367,9 @@ class TestAsyncTools:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
@@ -377,6 +413,18 @@ class TestAsyncTools:
         tool = await async_client.agents.tools.attach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_attach_with_all_params(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.agents.tools.attach(
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], tool, path=["response"])
 
@@ -429,6 +477,18 @@ class TestAsyncTools:
         tool = await async_client.agents.tools.detach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_detach_with_all_params(self, async_client: AsyncLetta) -> None:
+        tool = await async_client.agents.tools.detach(
+            tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], tool, path=["response"])
 
@@ -491,6 +551,9 @@ class TestAsyncTools:
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             args={"foo": "bar"},
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
@@ -555,6 +618,9 @@ class TestAsyncTools:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             body_requires_approval=True,
             query_requires_approval=True,
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], tool, path=["response"])
 

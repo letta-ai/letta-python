@@ -39,6 +39,9 @@ class TestPassages:
             text="text",
             created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
@@ -97,6 +100,9 @@ class TestPassages:
             before="before",
             limit=0,
             search="search",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageListResponse, passage, path=["response"])
 
@@ -140,6 +146,18 @@ class TestPassages:
         passage = client.agents.passages.delete(
             memory_id="memory_id",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, passage, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        passage = client.agents.passages.delete(
+            memory_id="memory_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, passage, path=["response"])
 
@@ -206,6 +224,9 @@ class TestPassages:
             tag_match_mode="any",
             tags=["string", "string"],
             top_k=0,
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageSearchResponse, passage, path=["response"])
 
@@ -269,6 +290,9 @@ class TestAsyncPassages:
             text="text",
             created_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageCreateResponse, passage, path=["response"])
 
@@ -327,6 +351,9 @@ class TestAsyncPassages:
             before="before",
             limit=0,
             search="search",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageListResponse, passage, path=["response"])
 
@@ -370,6 +397,18 @@ class TestAsyncPassages:
         passage = await async_client.agents.passages.delete(
             memory_id="memory_id",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, passage, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        passage = await async_client.agents.passages.delete(
+            memory_id="memory_id",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, passage, path=["response"])
 
@@ -436,6 +475,9 @@ class TestAsyncPassages:
             tag_match_mode="any",
             tags=["string", "string"],
             top_k=0,
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageSearchResponse, passage, path=["response"])
 

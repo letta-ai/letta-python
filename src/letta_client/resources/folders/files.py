@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
-from ..._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from ..._utils import extract_files, maybe_transform, strip_not_given, deepcopy_minimal, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -53,6 +53,9 @@ class FilesResource(SyncAPIResource):
         *,
         folder_id: str,
         include_content: bool | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -82,6 +85,16 @@ class FilesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get(
             f"/v1/folders/{folder_id}/files/{file_id}",
             options=make_request_options(
@@ -104,6 +117,9 @@ class FilesResource(SyncAPIResource):
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -142,6 +158,16 @@ class FilesResource(SyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             f"/v1/folders/{folder_id}/files",
             page=SyncArrayPage[FileListResponse],
@@ -170,6 +196,9 @@ class FilesResource(SyncAPIResource):
         file_id: str,
         *,
         folder_id: str,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -198,6 +227,16 @@ class FilesResource(SyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._delete(
             f"/v1/folders/{folder_id}/{file_id}",
             options=make_request_options(
@@ -213,6 +252,9 @@ class FilesResource(SyncAPIResource):
         file: FileTypes,
         duplicate_handling: Literal["skip", "error", "suffix", "replace"] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -240,6 +282,16 @@ class FilesResource(SyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         body = deepcopy_minimal({"file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
@@ -293,6 +345,9 @@ class AsyncFilesResource(AsyncAPIResource):
         *,
         folder_id: str,
         include_content: bool | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -322,6 +377,16 @@ class AsyncFilesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._get(
             f"/v1/folders/{folder_id}/files/{file_id}",
             options=make_request_options(
@@ -346,6 +411,9 @@ class AsyncFilesResource(AsyncAPIResource):
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -384,6 +452,16 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             f"/v1/folders/{folder_id}/files",
             page=AsyncArrayPage[FileListResponse],
@@ -412,6 +490,9 @@ class AsyncFilesResource(AsyncAPIResource):
         file_id: str,
         *,
         folder_id: str,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -440,6 +521,16 @@ class AsyncFilesResource(AsyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._delete(
             f"/v1/folders/{folder_id}/{file_id}",
             options=make_request_options(
@@ -455,6 +546,9 @@ class AsyncFilesResource(AsyncAPIResource):
         file: FileTypes,
         duplicate_handling: Literal["skip", "error", "suffix", "replace"] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -482,6 +576,16 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         body = deepcopy_minimal({"file": file})
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be

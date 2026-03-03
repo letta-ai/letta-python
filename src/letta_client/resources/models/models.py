@@ -8,7 +8,7 @@ import httpx
 
 from ...types import ProviderType, model_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from .embeddings import (
     EmbeddingsResource,
@@ -63,6 +63,9 @@ class ModelsResource(SyncAPIResource):
         provider_category: Optional[List[ProviderCategory]] | Omit = omit,
         provider_name: Optional[str] | Omit = omit,
         provider_type: Optional[ProviderType] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -87,6 +90,16 @@ class ModelsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get(
             "/v1/models/",
             options=make_request_options(
@@ -137,6 +150,9 @@ class AsyncModelsResource(AsyncAPIResource):
         provider_category: Optional[List[ProviderCategory]] | Omit = omit,
         provider_name: Optional[str] | Omit = omit,
         provider_type: Optional[ProviderType] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -161,6 +177,16 @@ class AsyncModelsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._get(
             "/v1/models/",
             options=make_request_options(

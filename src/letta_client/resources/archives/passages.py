@@ -7,7 +7,7 @@ from typing import Dict, Iterable, Optional
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -52,6 +52,9 @@ class PassagesResource(SyncAPIResource):
         created_at: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -85,6 +88,16 @@ class PassagesResource(SyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             f"/v1/archives/{archive_id}/passages",
             body=maybe_transform(
@@ -107,6 +120,9 @@ class PassagesResource(SyncAPIResource):
         passage_id: str,
         *,
         archive_id: str,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -138,6 +154,16 @@ class PassagesResource(SyncAPIResource):
         if not passage_id:
             raise ValueError(f"Expected a non-empty value for `passage_id` but received {passage_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._delete(
             f"/v1/archives/{archive_id}/passages/{passage_id}",
             options=make_request_options(
@@ -151,6 +177,9 @@ class PassagesResource(SyncAPIResource):
         archive_id: str,
         *,
         passages: Iterable[passage_create_many_params.Passage],
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,6 +207,16 @@ class PassagesResource(SyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             f"/v1/archives/{archive_id}/passages/batch",
             body=maybe_transform({"passages": passages}, passage_create_many_params.PassageCreateManyParams),
@@ -216,6 +255,9 @@ class AsyncPassagesResource(AsyncAPIResource):
         created_at: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -249,6 +291,16 @@ class AsyncPassagesResource(AsyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             f"/v1/archives/{archive_id}/passages",
             body=await async_maybe_transform(
@@ -271,6 +323,9 @@ class AsyncPassagesResource(AsyncAPIResource):
         passage_id: str,
         *,
         archive_id: str,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -302,6 +357,16 @@ class AsyncPassagesResource(AsyncAPIResource):
         if not passage_id:
             raise ValueError(f"Expected a non-empty value for `passage_id` but received {passage_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._delete(
             f"/v1/archives/{archive_id}/passages/{passage_id}",
             options=make_request_options(
@@ -315,6 +380,9 @@ class AsyncPassagesResource(AsyncAPIResource):
         archive_id: str,
         *,
         passages: Iterable[passage_create_many_params.Passage],
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -342,6 +410,16 @@ class AsyncPassagesResource(AsyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             f"/v1/archives/{archive_id}/passages/batch",
             body=await async_maybe_transform(

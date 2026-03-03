@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import maybe_transform, strip_not_given
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -54,6 +54,9 @@ class MessagesResource(SyncAPIResource):
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -90,6 +93,16 @@ class MessagesResource(SyncAPIResource):
         """
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             f"/v1/steps/{step_id}/messages",
             page=SyncArrayPage[MessageListResponse],
@@ -142,6 +155,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,6 +194,16 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             f"/v1/steps/{step_id}/messages",
             page=AsyncArrayPage[MessageListResponse],

@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import strip_not_given
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -43,6 +44,9 @@ class IdentitiesResource(SyncAPIResource):
         identity_id: str,
         *,
         agent_id: str,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,6 +72,16 @@ class IdentitiesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not identity_id:
             raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._patch(
             f"/v1/agents/{agent_id}/identities/attach/{identity_id}",
             options=make_request_options(
@@ -81,6 +95,9 @@ class IdentitiesResource(SyncAPIResource):
         identity_id: str,
         *,
         agent_id: str,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -106,6 +123,16 @@ class IdentitiesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not identity_id:
             raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._patch(
             f"/v1/agents/{agent_id}/identities/detach/{identity_id}",
             options=make_request_options(
@@ -140,6 +167,9 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         identity_id: str,
         *,
         agent_id: str,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -165,6 +195,16 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not identity_id:
             raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._patch(
             f"/v1/agents/{agent_id}/identities/attach/{identity_id}",
             options=make_request_options(
@@ -178,6 +218,9 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         identity_id: str,
         *,
         agent_id: str,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -203,6 +246,16 @@ class AsyncIdentitiesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not identity_id:
             raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._patch(
             f"/v1/agents/{agent_id}/identities/detach/{identity_id}",
             options=make_request_options(

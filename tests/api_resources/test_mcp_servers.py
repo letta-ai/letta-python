@@ -46,6 +46,9 @@ class TestMcpServers:
                 "mcp_server_type": "stdio",
             },
             server_name="server_name",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(McpServerCreateResponse, mcp_server, path=["response"])
 
@@ -89,7 +92,18 @@ class TestMcpServers:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         mcp_server = client.mcp_servers.retrieve(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
+        )
+        assert_matches_type(McpServerRetrieveResponse, mcp_server, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
+        mcp_server = client.mcp_servers.retrieve(
+            mcp_server_id="mcp_server_id",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(McpServerRetrieveResponse, mcp_server, path=["response"])
 
@@ -97,7 +111,7 @@ class TestMcpServers:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.mcp_servers.with_raw_response.retrieve(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
         )
 
         assert response.is_closed is True
@@ -109,7 +123,7 @@ class TestMcpServers:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.mcp_servers.with_streaming_response.retrieve(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -124,7 +138,7 @@ class TestMcpServers:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `mcp_server_id` but received ''"):
             client.mcp_servers.with_raw_response.retrieve(
-                "",
+                mcp_server_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -152,6 +166,9 @@ class TestMcpServers:
                 "mcp_server_type": "stdio",
             },
             server_name="server_name",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(McpServerUpdateResponse, mcp_server, path=["response"])
 
@@ -212,6 +229,16 @@ class TestMcpServers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_list_with_all_params(self, client: Letta) -> None:
+        mcp_server = client.mcp_servers.list(
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
+        )
+        assert_matches_type(McpServerListResponse, mcp_server, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
         response = client.mcp_servers.with_raw_response.list()
 
@@ -236,7 +263,18 @@ class TestMcpServers:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         mcp_server = client.mcp_servers.delete(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
+        )
+        assert mcp_server is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        mcp_server = client.mcp_servers.delete(
+            mcp_server_id="mcp_server_id",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert mcp_server is None
 
@@ -244,7 +282,7 @@ class TestMcpServers:
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.mcp_servers.with_raw_response.delete(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
         )
 
         assert response.is_closed is True
@@ -256,7 +294,7 @@ class TestMcpServers:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.mcp_servers.with_streaming_response.delete(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -271,7 +309,7 @@ class TestMcpServers:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `mcp_server_id` but received ''"):
             client.mcp_servers.with_raw_response.delete(
-                "",
+                mcp_server_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -288,6 +326,9 @@ class TestMcpServers:
         mcp_server = client.mcp_servers.refresh(
             mcp_server_id="mcp_server_id",
             agent_id="agent_id",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, mcp_server, path=["response"])
 
@@ -355,6 +396,9 @@ class TestAsyncMcpServers:
                 "mcp_server_type": "stdio",
             },
             server_name="server_name",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(McpServerCreateResponse, mcp_server, path=["response"])
 
@@ -398,7 +442,18 @@ class TestAsyncMcpServers:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         mcp_server = await async_client.mcp_servers.retrieve(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
+        )
+        assert_matches_type(McpServerRetrieveResponse, mcp_server, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
+        mcp_server = await async_client.mcp_servers.retrieve(
+            mcp_server_id="mcp_server_id",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(McpServerRetrieveResponse, mcp_server, path=["response"])
 
@@ -406,7 +461,7 @@ class TestAsyncMcpServers:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.mcp_servers.with_raw_response.retrieve(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
         )
 
         assert response.is_closed is True
@@ -418,7 +473,7 @@ class TestAsyncMcpServers:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.mcp_servers.with_streaming_response.retrieve(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -433,7 +488,7 @@ class TestAsyncMcpServers:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `mcp_server_id` but received ''"):
             await async_client.mcp_servers.with_raw_response.retrieve(
-                "",
+                mcp_server_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -461,6 +516,9 @@ class TestAsyncMcpServers:
                 "mcp_server_type": "stdio",
             },
             server_name="server_name",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(McpServerUpdateResponse, mcp_server, path=["response"])
 
@@ -521,6 +579,16 @@ class TestAsyncMcpServers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
+        mcp_server = await async_client.mcp_servers.list(
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
+        )
+        assert_matches_type(McpServerListResponse, mcp_server, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
         response = await async_client.mcp_servers.with_raw_response.list()
 
@@ -545,7 +613,18 @@ class TestAsyncMcpServers:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         mcp_server = await async_client.mcp_servers.delete(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
+        )
+        assert mcp_server is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        mcp_server = await async_client.mcp_servers.delete(
+            mcp_server_id="mcp_server_id",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert mcp_server is None
 
@@ -553,7 +632,7 @@ class TestAsyncMcpServers:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.mcp_servers.with_raw_response.delete(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
         )
 
         assert response.is_closed is True
@@ -565,7 +644,7 @@ class TestAsyncMcpServers:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.mcp_servers.with_streaming_response.delete(
-            "mcp_server_id",
+            mcp_server_id="mcp_server_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -580,7 +659,7 @@ class TestAsyncMcpServers:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `mcp_server_id` but received ''"):
             await async_client.mcp_servers.with_raw_response.delete(
-                "",
+                mcp_server_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -597,6 +676,9 @@ class TestAsyncMcpServers:
         mcp_server = await async_client.mcp_servers.refresh(
             mcp_server_id="mcp_server_id",
             agent_id="agent_id",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, mcp_server, path=["response"])
 

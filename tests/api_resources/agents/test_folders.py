@@ -37,6 +37,9 @@ class TestFolders:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[FolderListResponse], folder, path=["response"])
 
@@ -80,6 +83,18 @@ class TestFolders:
         folder = client.agents.folders.attach(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_attach_with_all_params(self, client: Letta) -> None:
+        folder = client.agents.folders.attach(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], folder, path=["response"])
 
@@ -132,6 +147,18 @@ class TestFolders:
         folder = client.agents.folders.detach(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_detach_with_all_params(self, client: Letta) -> None:
+        folder = client.agents.folders.detach(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], folder, path=["response"])
 
@@ -202,6 +229,9 @@ class TestAsyncFolders:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[FolderListResponse], folder, path=["response"])
 
@@ -245,6 +275,18 @@ class TestAsyncFolders:
         folder = await async_client.agents.folders.attach(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_attach_with_all_params(self, async_client: AsyncLetta) -> None:
+        folder = await async_client.agents.folders.attach(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], folder, path=["response"])
 
@@ -297,6 +339,18 @@ class TestAsyncFolders:
         folder = await async_client.agents.folders.detach(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Optional[AgentState], folder, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_detach_with_all_params(self, async_client: AsyncLetta) -> None:
+        folder = await async_client.agents.folders.detach(
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], folder, path=["response"])
 

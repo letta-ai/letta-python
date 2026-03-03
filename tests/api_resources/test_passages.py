@@ -36,6 +36,9 @@ class TestPassages:
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             tag_match_mode="any",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageSearchResponse, passage, path=["response"])
 
@@ -85,6 +88,9 @@ class TestAsyncPassages:
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
             tag_match_mode="any",
             tags=["string"],
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(PassageSearchResponse, passage, path=["response"])
 

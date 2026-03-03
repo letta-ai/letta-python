@@ -231,6 +231,9 @@ class AgentsResource(SyncAPIResource):
         tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | Omit = omit,
         tools: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -372,6 +375,16 @@ class AgentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             "/v1/agents/",
             body=maybe_transform(
@@ -451,6 +464,9 @@ class AgentsResource(SyncAPIResource):
         ]
         | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -482,6 +498,16 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get(
             f"/v1/agents/{agent_id}",
             options=make_request_options(
@@ -541,6 +567,9 @@ class AgentsResource(SyncAPIResource):
         tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
         tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -655,6 +684,16 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._patch(
             f"/v1/agents/{agent_id}",
             body=maybe_transform(
@@ -739,6 +778,9 @@ class AgentsResource(SyncAPIResource):
         sort_by: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -803,6 +845,16 @@ class AgentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             "/v1/agents/",
             page=SyncArrayPage[AgentState],
@@ -843,6 +895,9 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -866,6 +921,16 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._delete(
             f"/v1/agents/{agent_id}",
             options=make_request_options(
@@ -882,6 +947,9 @@ class AgentsResource(SyncAPIResource):
         max_steps: int | Omit = omit,
         scrub_messages: bool | Omit = omit,
         use_legacy_format: bool | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -914,6 +982,16 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get(
             f"/v1/agents/{agent_id}/export",
             options=make_request_options(
@@ -950,6 +1028,9 @@ class AgentsResource(SyncAPIResource):
         project_id: Optional[str] | Omit = omit,
         secrets: Optional[str] | Omit = omit,
         strip_messages: bool | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         x_override_embedding_model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1003,7 +1084,14 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given({"x-override-embedding-model": x_override_embedding_model}),
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                    "x-override-embedding-model": x_override_embedding_model,
+                }
+            ),
             **(extra_headers or {}),
         }
         body = deepcopy_minimal(
@@ -1146,6 +1234,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | Omit = omit,
         tools: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1287,6 +1378,16 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             "/v1/agents/",
             body=await async_maybe_transform(
@@ -1366,6 +1467,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1397,6 +1501,16 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._get(
             f"/v1/agents/{agent_id}",
             options=make_request_options(
@@ -1456,6 +1570,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
         tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1570,6 +1687,16 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._patch(
             f"/v1/agents/{agent_id}",
             body=await async_maybe_transform(
@@ -1654,6 +1781,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         sort_by: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1718,6 +1848,16 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             "/v1/agents/",
             page=AsyncArrayPage[AgentState],
@@ -1758,6 +1898,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1781,6 +1924,16 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._delete(
             f"/v1/agents/{agent_id}",
             options=make_request_options(
@@ -1797,6 +1950,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         max_steps: int | Omit = omit,
         scrub_messages: bool | Omit = omit,
         use_legacy_format: bool | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1829,6 +1985,16 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._get(
             f"/v1/agents/{agent_id}/export",
             options=make_request_options(
@@ -1865,6 +2031,9 @@ class AsyncAgentsResource(AsyncAPIResource):
         project_id: Optional[str] | Omit = omit,
         secrets: Optional[str] | Omit = omit,
         strip_messages: bool | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         x_override_embedding_model: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1918,7 +2087,14 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         extra_headers = {
-            **strip_not_given({"x-override-embedding-model": x_override_embedding_model}),
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                    "x-override-embedding-model": x_override_embedding_model,
+                }
+            ),
             **(extra_headers or {}),
         }
         body = deepcopy_minimal(

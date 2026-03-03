@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 from .xai_model_settings_param import XaiModelSettingsParam
 from .groq_model_settings_param import GroqModelSettingsParam
 from .azure_model_settings_param import AzureModelSettingsParam
@@ -55,6 +56,12 @@ class ConversationCreateParams(TypedDict, total=False):
 
     summary: Optional[str]
     """A summary of the conversation."""
+
+    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
+
+    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
+
+    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]
 
 
 ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[

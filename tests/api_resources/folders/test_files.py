@@ -38,6 +38,9 @@ class TestFiles:
             file_id="file-123e4567-e89b-42d3-8456-426614174000",
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             include_content=True,
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
@@ -103,6 +106,9 @@ class TestFiles:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[FileListResponse], file, path=["response"])
 
@@ -146,6 +152,18 @@ class TestFiles:
         file = client.folders.files.delete(
             file_id="file-123e4567-e89b-42d3-8456-426614174000",
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert file is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: Letta) -> None:
+        file = client.folders.files.delete(
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert file is None
 
@@ -209,6 +227,9 @@ class TestFiles:
             file=b"raw file contents",
             duplicate_handling="skip",
             name="name",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
@@ -271,6 +292,9 @@ class TestAsyncFiles:
             file_id="file-123e4567-e89b-42d3-8456-426614174000",
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
             include_content=True,
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
@@ -336,6 +360,9 @@ class TestAsyncFiles:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[FileListResponse], file, path=["response"])
 
@@ -379,6 +406,18 @@ class TestAsyncFiles:
         file = await async_client.folders.files.delete(
             file_id="file-123e4567-e89b-42d3-8456-426614174000",
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert file is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
+        file = await async_client.folders.files.delete(
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            folder_id="source-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert file is None
 
@@ -442,6 +481,9 @@ class TestAsyncFiles:
             file=b"raw file contents",
             duplicate_handling="skip",
             name="name",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(FileUploadResponse, file, path=["response"])
 

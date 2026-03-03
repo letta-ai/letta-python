@@ -25,7 +25,7 @@ from .metrics import (
     AsyncMetricsResourceWithStreamingResponse,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import maybe_transform, strip_not_given
 from .feedback import (
     FeedbackResource,
     AsyncFeedbackResource,
@@ -97,6 +97,9 @@ class StepsResource(SyncAPIResource):
         self,
         step_id: str,
         *,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -120,6 +123,16 @@ class StepsResource(SyncAPIResource):
         """
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get(
             f"/v1/steps/{step_id}",
             options=make_request_options(
@@ -145,6 +158,9 @@ class StepsResource(SyncAPIResource):
         start_date: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         trace_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -193,6 +209,16 @@ class StepsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             "/v1/steps/",
             page=SyncArrayPage[Step],
@@ -265,6 +291,9 @@ class AsyncStepsResource(AsyncAPIResource):
         self,
         step_id: str,
         *,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -288,6 +317,16 @@ class AsyncStepsResource(AsyncAPIResource):
         """
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._get(
             f"/v1/steps/{step_id}",
             options=make_request_options(
@@ -313,6 +352,9 @@ class AsyncStepsResource(AsyncAPIResource):
         start_date: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         trace_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -361,6 +403,16 @@ class AsyncStepsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             "/v1/steps/",
             page=AsyncArrayPage[Step],

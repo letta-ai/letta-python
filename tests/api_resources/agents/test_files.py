@@ -38,6 +38,9 @@ class TestFiles:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncNextFilesPage[FileListResponse], file, path=["response"])
 
@@ -81,6 +84,18 @@ class TestFiles:
         file = client.agents.files.close(
             file_id="file-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_close_with_all_params(self, client: Letta) -> None:
+        file = client.agents.files.close(
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, file, path=["response"])
 
@@ -131,7 +146,18 @@ class TestFiles:
     @parametrize
     def test_method_close_all(self, client: Letta) -> None:
         file = client.agents.files.close_all(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(FileCloseAllResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_close_all_with_all_params(self, client: Letta) -> None:
+        file = client.agents.files.close_all(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(FileCloseAllResponse, file, path=["response"])
 
@@ -139,7 +165,7 @@ class TestFiles:
     @parametrize
     def test_raw_response_close_all(self, client: Letta) -> None:
         response = client.agents.files.with_raw_response.close_all(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -151,7 +177,7 @@ class TestFiles:
     @parametrize
     def test_streaming_response_close_all(self, client: Letta) -> None:
         with client.agents.files.with_streaming_response.close_all(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -166,7 +192,7 @@ class TestFiles:
     def test_path_params_close_all(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.files.with_raw_response.close_all(
-                "",
+                agent_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -175,6 +201,18 @@ class TestFiles:
         file = client.agents.files.open(
             file_id="file-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(FileOpenResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_open_with_all_params(self, client: Letta) -> None:
+        file = client.agents.files.open(
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(FileOpenResponse, file, path=["response"])
 
@@ -247,6 +285,9 @@ class TestAsyncFiles:
             limit=0,
             order="asc",
             order_by="created_at",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncNextFilesPage[FileListResponse], file, path=["response"])
 
@@ -290,6 +331,18 @@ class TestAsyncFiles:
         file = await async_client.agents.files.close(
             file_id="file-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(object, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_close_with_all_params(self, async_client: AsyncLetta) -> None:
+        file = await async_client.agents.files.close(
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(object, file, path=["response"])
 
@@ -340,7 +393,18 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_close_all(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.close_all(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(FileCloseAllResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_close_all_with_all_params(self, async_client: AsyncLetta) -> None:
+        file = await async_client.agents.files.close_all(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(FileCloseAllResponse, file, path=["response"])
 
@@ -348,7 +412,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_raw_response_close_all(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.files.with_raw_response.close_all(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -360,7 +424,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_streaming_response_close_all(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.files.with_streaming_response.close_all(
-            "agent-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -375,7 +439,7 @@ class TestAsyncFiles:
     async def test_path_params_close_all(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.files.with_raw_response.close_all(
-                "",
+                agent_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -384,6 +448,18 @@ class TestAsyncFiles:
         file = await async_client.agents.files.open(
             file_id="file-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(FileOpenResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_open_with_all_params(self, async_client: AsyncLetta) -> None:
+        file = await async_client.agents.files.open(
+            file_id="file-123e4567-e89b-42d3-8456-426614174000",
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            x_billing_cost_source="x-billing-cost-source",
+            x_billing_customer_id="x-billing-customer-id",
+            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(FileOpenResponse, file, path=["response"])
 

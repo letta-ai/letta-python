@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -77,6 +77,9 @@ class MessagesResource(SyncAPIResource):
         streaming: bool | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,6 +169,16 @@ class MessagesResource(SyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             f"/v1/conversations/{conversation_id}/messages",
             body=maybe_transform(
@@ -210,6 +223,9 @@ class MessagesResource(SyncAPIResource):
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -258,6 +274,16 @@ class MessagesResource(SyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             f"/v1/conversations/{conversation_id}/messages",
             page=SyncArrayPage[Message],
@@ -287,6 +313,9 @@ class MessagesResource(SyncAPIResource):
         conversation_id: str,
         *,
         compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -322,6 +351,16 @@ class MessagesResource(SyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             f"/v1/conversations/{conversation_id}/compact",
             body=maybe_transform(
@@ -341,6 +380,9 @@ class MessagesResource(SyncAPIResource):
         include_pings: Optional[bool] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
         starting_after: int | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -381,6 +423,16 @@ class MessagesResource(SyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             f"/v1/conversations/{conversation_id}/stream",
             body=maybe_transform(
@@ -443,6 +495,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         streaming: bool | Omit = omit,
         top_logprobs: Optional[int] | Omit = omit,
         use_assistant_message: bool | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -532,6 +587,16 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             f"/v1/conversations/{conversation_id}/messages",
             body=await async_maybe_transform(
@@ -576,6 +641,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -624,6 +692,16 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             f"/v1/conversations/{conversation_id}/messages",
             page=AsyncArrayPage[Message],
@@ -653,6 +731,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         conversation_id: str,
         *,
         compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -688,6 +769,16 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             f"/v1/conversations/{conversation_id}/compact",
             body=await async_maybe_transform(
@@ -707,6 +798,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         include_pings: Optional[bool] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
         starting_after: int | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -747,6 +841,16 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         if not conversation_id:
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             f"/v1/conversations/{conversation_id}/stream",
             body=await async_maybe_transform(

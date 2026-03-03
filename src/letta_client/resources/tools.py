@@ -9,7 +9,7 @@ import httpx
 
 from ..types import tool_list_params, tool_create_params, tool_search_params, tool_update_params, tool_upsert_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -62,6 +62,9 @@ class ToolsResource(SyncAPIResource):
         return_char_limit: int | Omit = omit,
         source_type: str | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -105,6 +108,16 @@ class ToolsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             "/v1/tools/",
             body=maybe_transform(
@@ -133,6 +146,9 @@ class ToolsResource(SyncAPIResource):
         self,
         tool_id: str,
         *,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -156,6 +172,16 @@ class ToolsResource(SyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get(
             f"/v1/tools/{tool_id}",
             options=make_request_options(
@@ -180,6 +206,9 @@ class ToolsResource(SyncAPIResource):
         source_code: Optional[str] | Omit = omit,
         source_type: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -229,6 +258,16 @@ class ToolsResource(SyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._patch(
             f"/v1/tools/{tool_id}",
             body=maybe_transform(
@@ -269,6 +308,9 @@ class ToolsResource(SyncAPIResource):
         search: Optional[str] | Omit = omit,
         tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -315,6 +357,16 @@ class ToolsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             "/v1/tools/",
             page=SyncArrayPage[Tool],
@@ -348,6 +400,9 @@ class ToolsResource(SyncAPIResource):
         self,
         tool_id: str,
         *,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -371,6 +426,16 @@ class ToolsResource(SyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._delete(
             f"/v1/tools/{tool_id}",
             options=make_request_options(
@@ -387,6 +452,9 @@ class ToolsResource(SyncAPIResource):
         search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -421,6 +489,16 @@ class ToolsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             "/v1/tools/search",
             body=maybe_transform(
@@ -453,6 +531,9 @@ class ToolsResource(SyncAPIResource):
         return_char_limit: int | Omit = omit,
         source_type: str | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -496,6 +577,16 @@ class ToolsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._put(
             "/v1/tools/",
             body=maybe_transform(
@@ -555,6 +646,9 @@ class AsyncToolsResource(AsyncAPIResource):
         return_char_limit: int | Omit = omit,
         source_type: str | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -598,6 +692,16 @@ class AsyncToolsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             "/v1/tools/",
             body=await async_maybe_transform(
@@ -626,6 +730,9 @@ class AsyncToolsResource(AsyncAPIResource):
         self,
         tool_id: str,
         *,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -649,6 +756,16 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._get(
             f"/v1/tools/{tool_id}",
             options=make_request_options(
@@ -673,6 +790,9 @@ class AsyncToolsResource(AsyncAPIResource):
         source_code: Optional[str] | Omit = omit,
         source_type: Optional[str] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -722,6 +842,16 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._patch(
             f"/v1/tools/{tool_id}",
             body=await async_maybe_transform(
@@ -762,6 +892,9 @@ class AsyncToolsResource(AsyncAPIResource):
         search: Optional[str] | Omit = omit,
         tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -808,6 +941,16 @@ class AsyncToolsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._get_api_list(
             "/v1/tools/",
             page=AsyncArrayPage[Tool],
@@ -841,6 +984,9 @@ class AsyncToolsResource(AsyncAPIResource):
         self,
         tool_id: str,
         *,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -864,6 +1010,16 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._delete(
             f"/v1/tools/{tool_id}",
             options=make_request_options(
@@ -880,6 +1036,9 @@ class AsyncToolsResource(AsyncAPIResource):
         search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         tool_types: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -914,6 +1073,16 @@ class AsyncToolsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             "/v1/tools/search",
             body=await async_maybe_transform(
@@ -946,6 +1115,9 @@ class AsyncToolsResource(AsyncAPIResource):
         return_char_limit: int | Omit = omit,
         source_type: str | Omit = omit,
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        x_billing_cost_source: str | Omit = omit,
+        x_billing_customer_id: str | Omit = omit,
+        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -989,6 +1161,16 @@ class AsyncToolsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "x-billing-cost-source": x_billing_cost_source,
+                    "x-billing-customer-id": x_billing_customer_id,
+                    "x-billing-plan-type": x_billing_plan_type,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._put(
             "/v1/tools/",
             body=await async_maybe_transform(
