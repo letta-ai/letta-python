@@ -86,6 +86,7 @@ class TestMessages:
     def test_method_stream_with_all_params(self, client: Letta) -> None:
         message_stream = client.runs.messages.stream(
             run_id="run_id",
+            agent_id="agent_id",
             batch_size=0,
             include_pings=True,
             poll_interval=0,
@@ -200,6 +201,7 @@ class TestAsyncMessages:
     async def test_method_stream_with_all_params(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.runs.messages.stream(
             run_id="run_id",
+            agent_id="agent_id",
             batch_size=0,
             include_pings=True,
             poll_interval=0,
