@@ -34,6 +34,12 @@ __all__ = [
 
 
 class MessageCompactParams(TypedDict, total=False):
+    agent_id: Optional[str]
+    """Agent ID for agent-direct mode with 'default' conversation.
+
+    Use with conversation_id='default' in the URL path.
+    """
+
     compaction_settings: Optional[CompactionSettings]
     """Configuration for conversation compaction / summarization.
 

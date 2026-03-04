@@ -59,6 +59,7 @@ class MessagesResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
@@ -91,12 +92,19 @@ class MessagesResource(SyncAPIResource):
         (streaming=true), returns a streaming response (Server-Sent Events). Set
         streaming=false to get a complete JSON response.
 
-        If conversation_id is an agent ID (starts with "agent-"), routes to agent-direct
-        mode with locking but without conversation-specific features.
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+        body to send messages to the agent's default conversation with locking.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
 
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
@@ -170,6 +178,7 @@ class MessagesResource(SyncAPIResource):
             f"/v1/conversations/{conversation_id}/messages",
             body=maybe_transform(
                 {
+                    "agent_id": agent_id,
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
@@ -204,6 +213,7 @@ class MessagesResource(SyncAPIResource):
         conversation_id: str,
         *,
         after: Optional[str] | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         group_id: Optional[str] | Omit = omit,
         include_err: Optional[bool] | Omit = omit,
@@ -223,15 +233,21 @@ class MessagesResource(SyncAPIResource):
         Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
         messages in the conversation, with support for cursor-based pagination.
 
-        If conversation_id is an agent ID (starts with "agent-"), returns messages from
-        the agent's default conversation (no conversation isolation).
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id parameter to
+        list messages from the agent's default conversation.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
 
           after: Message ID cursor for pagination. Returns messages that come after this message
               ID in the specified sort order
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation
 
           before: Message ID cursor for pagination. Returns messages that come before this message
               ID in the specified sort order
@@ -269,6 +285,7 @@ class MessagesResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "agent_id": agent_id,
                         "before": before,
                         "group_id": group_id,
                         "include_err": include_err,
@@ -286,6 +303,7 @@ class MessagesResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -300,12 +318,19 @@ class MessagesResource(SyncAPIResource):
         This endpoint summarizes the in-context messages for a specific conversation,
         reducing the message count while preserving important context.
 
-        If conversation_id is an agent ID (starts with "agent-"), compacts the agent's
-        default conversation messages.
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+        body to compact the agent's default conversation messages.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
@@ -325,7 +350,11 @@ class MessagesResource(SyncAPIResource):
         return self._post(
             f"/v1/conversations/{conversation_id}/compact",
             body=maybe_transform(
-                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
+                {
+                    "agent_id": agent_id,
+                    "compaction_settings": compaction_settings,
+                },
+                message_compact_params.MessageCompactParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -337,6 +366,7 @@ class MessagesResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         batch_size: Optional[int] | Omit = omit,
         include_pings: Optional[bool] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
@@ -354,12 +384,19 @@ class MessagesResource(SyncAPIResource):
         This endpoint allows you to reconnect to an active background stream for a
         conversation, enabling recovery from network interruptions.
 
-        If conversation_id is an agent ID (starts with "agent-"), retrieves the stream
-        for the agent's most recent active run.
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+        body to retrieve the stream for the agent's most recent active run.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
 
           batch_size: Number of entries to read per batch.
 
@@ -385,6 +422,7 @@ class MessagesResource(SyncAPIResource):
             f"/v1/conversations/{conversation_id}/stream",
             body=maybe_transform(
                 {
+                    "agent_id": agent_id,
                     "batch_size": batch_size,
                     "include_pings": include_pings,
                     "poll_interval": poll_interval,
@@ -425,6 +463,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
@@ -457,12 +496,19 @@ class AsyncMessagesResource(AsyncAPIResource):
         (streaming=true), returns a streaming response (Server-Sent Events). Set
         streaming=false to get a complete JSON response.
 
-        If conversation_id is an agent ID (starts with "agent-"), routes to agent-direct
-        mode with locking but without conversation-specific features.
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+        body to send messages to the agent's default conversation with locking.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
 
           assistant_message_tool_kwarg: The name of the message argument in the designated message tool. Still supported
               for legacy agent types, but deprecated for letta_v1_agent onward.
@@ -536,6 +582,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             f"/v1/conversations/{conversation_id}/messages",
             body=await async_maybe_transform(
                 {
+                    "agent_id": agent_id,
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
@@ -570,6 +617,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         conversation_id: str,
         *,
         after: Optional[str] | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         group_id: Optional[str] | Omit = omit,
         include_err: Optional[bool] | Omit = omit,
@@ -589,15 +637,21 @@ class AsyncMessagesResource(AsyncAPIResource):
         Returns LettaMessage objects (UserMessage, AssistantMessage, etc.) for all
         messages in the conversation, with support for cursor-based pagination.
 
-        If conversation_id is an agent ID (starts with "agent-"), returns messages from
-        the agent's default conversation (no conversation isolation).
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id parameter to
+        list messages from the agent's default conversation.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
 
           after: Message ID cursor for pagination. Returns messages that come after this message
               ID in the specified sort order
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation
 
           before: Message ID cursor for pagination. Returns messages that come before this message
               ID in the specified sort order
@@ -635,6 +689,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "agent_id": agent_id,
                         "before": before,
                         "group_id": group_id,
                         "include_err": include_err,
@@ -652,6 +707,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -666,12 +722,19 @@ class AsyncMessagesResource(AsyncAPIResource):
         This endpoint summarizes the in-context messages for a specific conversation,
         reducing the message count while preserving important context.
 
-        If conversation_id is an agent ID (starts with "agent-"), compacts the agent's
-        default conversation messages.
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+        body to compact the agent's default conversation messages.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
 
           compaction_settings: Configuration for conversation compaction / summarization.
 
@@ -691,7 +754,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         return await self._post(
             f"/v1/conversations/{conversation_id}/compact",
             body=await async_maybe_transform(
-                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
+                {
+                    "agent_id": agent_id,
+                    "compaction_settings": compaction_settings,
+                },
+                message_compact_params.MessageCompactParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -703,6 +770,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         batch_size: Optional[int] | Omit = omit,
         include_pings: Optional[bool] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
@@ -720,12 +788,19 @@ class AsyncMessagesResource(AsyncAPIResource):
         This endpoint allows you to reconnect to an active background stream for a
         conversation, enabling recovery from network interruptions.
 
-        If conversation_id is an agent ID (starts with "agent-"), retrieves the stream
-        for the agent's most recent active run.
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
+        body to retrieve the stream for the agent's most recent active run.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
 
           batch_size: Number of entries to read per batch.
 
@@ -751,6 +826,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             f"/v1/conversations/{conversation_id}/stream",
             body=await async_maybe_transform(
                 {
+                    "agent_id": agent_id,
                     "batch_size": batch_size,
                     "include_pings": include_pings,
                     "poll_interval": poll_interval,

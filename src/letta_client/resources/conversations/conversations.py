@@ -7,7 +7,12 @@ from typing_extensions import Literal
 
 import httpx
 
-from ...types import conversation_list_params, conversation_create_params, conversation_update_params
+from ...types import (
+    conversation_list_params,
+    conversation_cancel_params,
+    conversation_create_params,
+    conversation_update_params,
+)
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from .messages import (
@@ -135,8 +140,7 @@ class ConversationsResource(SyncAPIResource):
         Retrieve a specific conversation.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -170,13 +174,11 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """Update a conversation.
+        """
+        Update a conversation.
 
         Args:
-          conversation_id: The conversation identifier.
-
-        Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -295,8 +297,7 @@ class ConversationsResource(SyncAPIResource):
         isolated blocks associated with the conversation will be permanently deleted.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -320,6 +321,7 @@ class ConversationsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -332,12 +334,18 @@ class ConversationsResource(SyncAPIResource):
 
         Note: To cancel active runs, Redis is required.
 
-        If conversation_id is an agent ID (starts with "agent-"), cancels runs for the
-        agent's default conversation.
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id query
+        parameter to cancel runs for the agent's default conversation.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation
 
           extra_headers: Send extra headers
 
@@ -352,7 +360,11 @@ class ConversationsResource(SyncAPIResource):
         return self._post(
             f"/v1/conversations/{conversation_id}/cancel",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"agent_id": agent_id}, conversation_cancel_params.ConversationCancelParams),
             ),
             cast_to=ConversationCancelResponse,
         )
@@ -461,8 +473,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         Retrieve a specific conversation.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -496,13 +507,11 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """Update a conversation.
+        """
+        Update a conversation.
 
         Args:
-          conversation_id: The conversation identifier.
-
-        Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -621,8 +630,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         isolated blocks associated with the conversation will be permanently deleted.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -646,6 +654,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -658,12 +667,18 @@ class AsyncConversationsResource(AsyncAPIResource):
 
         Note: To cancel active runs, Redis is required.
 
-        If conversation_id is an agent ID (starts with "agent-"), cancels runs for the
-        agent's default conversation.
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id query
+        parameter to cancel runs for the agent's default conversation.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
 
         Args:
-          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'), an agent
-              ID ('agent-<uuid4>') for agent-direct messaging, or 'default'.
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation
 
           extra_headers: Send extra headers
 
@@ -678,7 +693,13 @@ class AsyncConversationsResource(AsyncAPIResource):
         return await self._post(
             f"/v1/conversations/{conversation_id}/cancel",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"agent_id": agent_id}, conversation_cancel_params.ConversationCancelParams
+                ),
             ),
             cast_to=ConversationCancelResponse,
         )

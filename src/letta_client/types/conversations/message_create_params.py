@@ -29,6 +29,12 @@ __all__ = [
 
 
 class MessageCreateParams(TypedDict, total=False):
+    agent_id: Optional[str]
+    """Agent ID for agent-direct mode with 'default' conversation.
+
+    Use with conversation_id='default' in the URL path.
+    """
+
     assistant_message_tool_kwarg: str
     """The name of the message argument in the designated message tool.
 

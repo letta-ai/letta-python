@@ -9,6 +9,12 @@ __all__ = ["MessageStreamParams"]
 
 
 class MessageStreamParams(TypedDict, total=False):
+    agent_id: Optional[str]
+    """Agent ID for agent-direct mode with 'default' conversation.
+
+    Use with conversation_id='default' in the URL path.
+    """
+
     batch_size: Optional[int]
     """Number of entries to read per batch."""
 
