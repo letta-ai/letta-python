@@ -26,18 +26,7 @@ class TestMessages:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         message = client.messages.retrieve(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
-        message = client.messages.retrieve(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "message-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
@@ -45,7 +34,7 @@ class TestMessages:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.messages.with_raw_response.retrieve(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            "message-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -57,7 +46,7 @@ class TestMessages:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.messages.with_streaming_response.retrieve(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            "message-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -72,7 +61,7 @@ class TestMessages:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.messages.with_raw_response.retrieve(
-                message_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -90,9 +79,6 @@ class TestMessages:
             conversation_id="conversation_id",
             limit=0,
             order="asc",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
@@ -137,9 +123,6 @@ class TestMessages:
             limit=1,
             search_mode="vector",
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(MessageSearchResponse, message, path=["response"])
 
@@ -179,18 +162,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         message = await async_client.messages.retrieve(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(MessageRetrieveResponse, message, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
-        message = await async_client.messages.retrieve(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "message-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
@@ -198,7 +170,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.messages.with_raw_response.retrieve(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            "message-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -210,7 +182,7 @@ class TestAsyncMessages:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.messages.with_streaming_response.retrieve(
-            message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            "message-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -225,7 +197,7 @@ class TestAsyncMessages:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.messages.with_raw_response.retrieve(
-                message_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -243,9 +215,6 @@ class TestAsyncMessages:
             conversation_id="conversation_id",
             limit=0,
             order="asc",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(MessageListResponse, message, path=["response"])
 
@@ -290,9 +259,6 @@ class TestAsyncMessages:
             limit=1,
             search_mode="vector",
             start_date=parse_datetime("2019-12-27T18:11:19.117Z"),
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(MessageSearchResponse, message, path=["response"])
 

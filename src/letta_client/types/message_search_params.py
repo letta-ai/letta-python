@@ -32,9 +32,3 @@ class MessageSearchParams(TypedDict, total=False):
 
     start_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter messages created after this date"""
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]

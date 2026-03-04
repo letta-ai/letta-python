@@ -17,7 +17,7 @@ from .agents import (
 )
 from ...types import block_list_params, block_create_params, block_update_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -76,9 +76,6 @@ class BlocksResource(SyncAPIResource):
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -128,16 +125,6 @@ class BlocksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._post(
             "/v1/blocks/",
             body=maybe_transform(
@@ -171,9 +158,6 @@ class BlocksResource(SyncAPIResource):
         self,
         block_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -197,16 +181,6 @@ class BlocksResource(SyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get(
             f"/v1/blocks/{block_id}",
             options=make_request_options(
@@ -235,9 +209,6 @@ class BlocksResource(SyncAPIResource):
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -293,16 +264,6 @@ class BlocksResource(SyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._patch(
             f"/v1/blocks/{block_id}",
             body=maybe_transform(
@@ -354,9 +315,6 @@ class BlocksResource(SyncAPIResource):
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         templates_only: bool | Omit = omit,
         value_search: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -425,16 +383,6 @@ class BlocksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get_api_list(
             "/v1/blocks/",
             page=SyncArrayPage[BlockResponse],
@@ -475,9 +423,6 @@ class BlocksResource(SyncAPIResource):
         self,
         block_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -501,16 +446,6 @@ class BlocksResource(SyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._delete(
             f"/v1/blocks/{block_id}",
             options=make_request_options(
@@ -563,9 +498,6 @@ class AsyncBlocksResource(AsyncAPIResource):
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -615,16 +547,6 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._post(
             "/v1/blocks/",
             body=await async_maybe_transform(
@@ -658,9 +580,6 @@ class AsyncBlocksResource(AsyncAPIResource):
         self,
         block_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -684,16 +603,6 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._get(
             f"/v1/blocks/{block_id}",
             options=make_request_options(
@@ -722,9 +631,6 @@ class AsyncBlocksResource(AsyncAPIResource):
         template_id: Optional[str] | Omit = omit,
         template_name: Optional[str] | Omit = omit,
         value: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -780,16 +686,6 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._patch(
             f"/v1/blocks/{block_id}",
             body=await async_maybe_transform(
@@ -841,9 +737,6 @@ class AsyncBlocksResource(AsyncAPIResource):
         tags: Optional[SequenceNotStr[str]] | Omit = omit,
         templates_only: bool | Omit = omit,
         value_search: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -912,16 +805,6 @@ class AsyncBlocksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get_api_list(
             "/v1/blocks/",
             page=AsyncArrayPage[BlockResponse],
@@ -962,9 +845,6 @@ class AsyncBlocksResource(AsyncAPIResource):
         self,
         block_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -988,16 +868,6 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._delete(
             f"/v1/blocks/{block_id}",
             options=make_request_options(

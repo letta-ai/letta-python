@@ -46,9 +46,6 @@ class TestConversations:
                 "temperature": 0,
             },
             summary="summary",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -82,18 +79,7 @@ class TestConversations:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         conversation = client.conversations.retrieve(
-            conversation_id="default",
-        )
-        assert_matches_type(Conversation, conversation, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
-        conversation = client.conversations.retrieve(
-            conversation_id="default",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "default",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -101,7 +87,7 @@ class TestConversations:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.conversations.with_raw_response.retrieve(
-            conversation_id="default",
+            "default",
         )
 
         assert response.is_closed is True
@@ -113,7 +99,7 @@ class TestConversations:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.conversations.with_streaming_response.retrieve(
-            conversation_id="default",
+            "default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -128,7 +114,7 @@ class TestConversations:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.retrieve(
-                conversation_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -155,9 +141,6 @@ class TestConversations:
                 "temperature": 0,
             },
             summary="summary",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -211,9 +194,6 @@ class TestConversations:
             order="asc",
             order_by="created_at",
             summary_search="summary_search",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(ConversationListResponse, conversation, path=["response"])
 
@@ -243,18 +223,7 @@ class TestConversations:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         conversation = client.conversations.delete(
-            conversation_id="default",
-        )
-        assert_matches_type(object, conversation, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_delete_with_all_params(self, client: Letta) -> None:
-        conversation = client.conversations.delete(
-            conversation_id="default",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "default",
         )
         assert_matches_type(object, conversation, path=["response"])
 
@@ -262,7 +231,7 @@ class TestConversations:
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.conversations.with_raw_response.delete(
-            conversation_id="default",
+            "default",
         )
 
         assert response.is_closed is True
@@ -274,7 +243,7 @@ class TestConversations:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.conversations.with_streaming_response.delete(
-            conversation_id="default",
+            "default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -289,25 +258,14 @@ class TestConversations:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.delete(
-                conversation_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_cancel(self, client: Letta) -> None:
         conversation = client.conversations.cancel(
-            conversation_id="default",
-        )
-        assert_matches_type(ConversationCancelResponse, conversation, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_cancel_with_all_params(self, client: Letta) -> None:
-        conversation = client.conversations.cancel(
-            conversation_id="default",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "default",
         )
         assert_matches_type(ConversationCancelResponse, conversation, path=["response"])
 
@@ -315,7 +273,7 @@ class TestConversations:
     @parametrize
     def test_raw_response_cancel(self, client: Letta) -> None:
         response = client.conversations.with_raw_response.cancel(
-            conversation_id="default",
+            "default",
         )
 
         assert response.is_closed is True
@@ -327,7 +285,7 @@ class TestConversations:
     @parametrize
     def test_streaming_response_cancel(self, client: Letta) -> None:
         with client.conversations.with_streaming_response.cancel(
-            conversation_id="default",
+            "default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -342,7 +300,7 @@ class TestConversations:
     def test_path_params_cancel(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.cancel(
-                conversation_id="",
+                "",
             )
 
 
@@ -376,9 +334,6 @@ class TestAsyncConversations:
                 "temperature": 0,
             },
             summary="summary",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -412,18 +367,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.retrieve(
-            conversation_id="default",
-        )
-        assert_matches_type(Conversation, conversation, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
-        conversation = await async_client.conversations.retrieve(
-            conversation_id="default",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "default",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -431,7 +375,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.with_raw_response.retrieve(
-            conversation_id="default",
+            "default",
         )
 
         assert response.is_closed is True
@@ -443,7 +387,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.with_streaming_response.retrieve(
-            conversation_id="default",
+            "default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -458,7 +402,7 @@ class TestAsyncConversations:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.retrieve(
-                conversation_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -485,9 +429,6 @@ class TestAsyncConversations:
                 "temperature": 0,
             },
             summary="summary",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -541,9 +482,6 @@ class TestAsyncConversations:
             order="asc",
             order_by="created_at",
             summary_search="summary_search",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(ConversationListResponse, conversation, path=["response"])
 
@@ -573,18 +511,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.delete(
-            conversation_id="default",
-        )
-        assert_matches_type(object, conversation, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
-        conversation = await async_client.conversations.delete(
-            conversation_id="default",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "default",
         )
         assert_matches_type(object, conversation, path=["response"])
 
@@ -592,7 +519,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.with_raw_response.delete(
-            conversation_id="default",
+            "default",
         )
 
         assert response.is_closed is True
@@ -604,7 +531,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.with_streaming_response.delete(
-            conversation_id="default",
+            "default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -619,25 +546,14 @@ class TestAsyncConversations:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.delete(
-                conversation_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_cancel(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.cancel(
-            conversation_id="default",
-        )
-        assert_matches_type(ConversationCancelResponse, conversation, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_cancel_with_all_params(self, async_client: AsyncLetta) -> None:
-        conversation = await async_client.conversations.cancel(
-            conversation_id="default",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "default",
         )
         assert_matches_type(ConversationCancelResponse, conversation, path=["response"])
 
@@ -645,7 +561,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_raw_response_cancel(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.with_raw_response.cancel(
-            conversation_id="default",
+            "default",
         )
 
         assert response.is_closed is True
@@ -657,7 +573,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_streaming_response_cancel(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.with_streaming_response.cancel(
-            conversation_id="default",
+            "default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -672,5 +588,5 @@ class TestAsyncConversations:
     async def test_path_params_cancel(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.cancel(
-                conversation_id="",
+                "",
             )

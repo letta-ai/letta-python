@@ -191,9 +191,6 @@ class TestAgents:
                 }
             ],
             tools=["string"],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -234,9 +231,6 @@ class TestAgents:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             include=["agent.blocks"],
             include_relationships=["string", "string"],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -399,9 +393,6 @@ class TestAgents:
                     "type": "constrain_child_tools",
                 }
             ],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -468,9 +459,6 @@ class TestAgents:
             sort_by="sort_by",
             tags=["string", "string"],
             template_id="template_id",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[AgentState], agent, path=["response"])
 
@@ -500,18 +488,7 @@ class TestAgents:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         agent = client.agents.delete(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(object, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_delete_with_all_params(self, client: Letta) -> None:
-        agent = client.agents.delete(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(object, agent, path=["response"])
 
@@ -519,7 +496,7 @@ class TestAgents:
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.agents.with_raw_response.delete(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -531,7 +508,7 @@ class TestAgents:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.agents.with_streaming_response.delete(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -546,7 +523,7 @@ class TestAgents:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             client.agents.with_raw_response.delete(
-                agent_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -566,9 +543,6 @@ class TestAgents:
             max_steps=0,
             scrub_messages=True,
             use_legacy_format=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(str, agent, path=["response"])
 
@@ -631,9 +605,6 @@ class TestAgents:
             project_id="project_id",
             secrets="secrets",
             strip_messages=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
             x_override_embedding_model="x-override-embedding-model",
         )
         assert_matches_type(AgentImportFileResponse, agent, path=["response"])
@@ -839,9 +810,6 @@ class TestAsyncAgents:
                 }
             ],
             tools=["string"],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -882,9 +850,6 @@ class TestAsyncAgents:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             include=["agent.blocks"],
             include_relationships=["string", "string"],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -1047,9 +1012,6 @@ class TestAsyncAgents:
                     "type": "constrain_child_tools",
                 }
             ],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AgentState, agent, path=["response"])
 
@@ -1116,9 +1078,6 @@ class TestAsyncAgents:
             sort_by="sort_by",
             tags=["string", "string"],
             template_id="template_id",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[AgentState], agent, path=["response"])
 
@@ -1148,18 +1107,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.delete(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(object, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
-        agent = await async_client.agents.delete(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(object, agent, path=["response"])
 
@@ -1167,7 +1115,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.with_raw_response.delete(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -1179,7 +1127,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.with_streaming_response.delete(
-            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            "agent-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1194,7 +1142,7 @@ class TestAsyncAgents:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
             await async_client.agents.with_raw_response.delete(
-                agent_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1214,9 +1162,6 @@ class TestAsyncAgents:
             max_steps=0,
             scrub_messages=True,
             use_legacy_format=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(str, agent, path=["response"])
 
@@ -1279,9 +1224,6 @@ class TestAsyncAgents:
             project_id="project_id",
             secrets="secrets",
             strip_messages=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
             x_override_embedding_model="x-override-embedding-model",
         )
         assert_matches_type(AgentImportFileResponse, agent, path=["response"])

@@ -39,9 +39,3 @@ class PassageSearchParams(TypedDict, total=False):
 
     tags: Optional[SequenceNotStr[str]]
     """Optional list of tags to filter search results"""
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]

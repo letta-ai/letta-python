@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import List, Optional
-from typing_extensions import Literal, Annotated, TypedDict
+from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 
 __all__ = ["AgentRetrieveParams"]
 
@@ -36,9 +35,3 @@ class AgentRetrieveParams(TypedDict, total=False):
     this can optimize performance by reducing unnecessary joins.This is a legacy
     parameter, and no longer supported after 1.0.0 SDK versions.
     """
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]

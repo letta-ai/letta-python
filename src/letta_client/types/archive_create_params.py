@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, TypedDict
 
-from .._utils import PropertyInfo
 from .embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["ArchiveCreateParams"]
@@ -21,9 +20,3 @@ class ArchiveCreateParams(TypedDict, total=False):
 
     embedding_config: Optional[EmbeddingConfigParam]
     """Configuration for embedding model connection and processing parameters."""
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]

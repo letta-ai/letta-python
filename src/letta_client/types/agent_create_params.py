@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 from .agent_type import AgentType
 from .llm_config_param import LlmConfigParam
 from .create_block_param import CreateBlockParam
@@ -263,12 +262,6 @@ class AgentCreateParams(TypedDict, total=False):
 
     tools: Optional[SequenceNotStr[str]]
     """The tools used by the agent."""
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]
 
 
 CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[

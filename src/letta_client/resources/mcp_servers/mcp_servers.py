@@ -16,7 +16,7 @@ from .tools import (
 )
 from ...types import mcp_server_create_params, mcp_server_update_params, mcp_server_refresh_params
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -63,9 +63,6 @@ class McpServersResource(SyncAPIResource):
         *,
         config: mcp_server_create_params.Config,
         server_name: str,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -89,16 +86,6 @@ class McpServersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return cast(
             McpServerCreateResponse,
             self._post(
@@ -123,9 +110,6 @@ class McpServersResource(SyncAPIResource):
         self,
         mcp_server_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -147,16 +131,6 @@ class McpServersResource(SyncAPIResource):
         """
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return cast(
             McpServerRetrieveResponse,
             self._get(
@@ -176,9 +150,6 @@ class McpServersResource(SyncAPIResource):
         *,
         config: mcp_server_update_params.Config,
         server_name: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -204,16 +175,6 @@ class McpServersResource(SyncAPIResource):
         """
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return cast(
             McpServerUpdateResponse,
             self._patch(
@@ -237,9 +198,6 @@ class McpServersResource(SyncAPIResource):
     def list(
         self,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -247,28 +205,7 @@ class McpServersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> McpServerListResponse:
-        """
-        Get a list of all configured MCP servers
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
+        """Get a list of all configured MCP servers"""
         return self._get(
             "/v1/mcp-servers/",
             options=make_request_options(
@@ -281,9 +218,6 @@ class McpServersResource(SyncAPIResource):
         self,
         mcp_server_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -306,16 +240,6 @@ class McpServersResource(SyncAPIResource):
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._delete(
             f"/v1/mcp-servers/{mcp_server_id}",
             options=make_request_options(
@@ -329,9 +253,6 @@ class McpServersResource(SyncAPIResource):
         mcp_server_id: str,
         *,
         agent_id: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -361,16 +282,6 @@ class McpServersResource(SyncAPIResource):
         """
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._patch(
             f"/v1/mcp-servers/{mcp_server_id}/refresh",
             options=make_request_options(
@@ -413,9 +324,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         *,
         config: mcp_server_create_params.Config,
         server_name: str,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -439,16 +347,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return cast(
             McpServerCreateResponse,
             await self._post(
@@ -473,9 +371,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         self,
         mcp_server_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -497,16 +392,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         """
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return cast(
             McpServerRetrieveResponse,
             await self._get(
@@ -526,9 +411,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         *,
         config: mcp_server_update_params.Config,
         server_name: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -554,16 +436,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         """
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return cast(
             McpServerUpdateResponse,
             await self._patch(
@@ -587,9 +459,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -597,28 +466,7 @@ class AsyncMcpServersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> McpServerListResponse:
-        """
-        Get a list of all configured MCP servers
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
+        """Get a list of all configured MCP servers"""
         return await self._get(
             "/v1/mcp-servers/",
             options=make_request_options(
@@ -631,9 +479,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         self,
         mcp_server_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -656,16 +501,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._delete(
             f"/v1/mcp-servers/{mcp_server_id}",
             options=make_request_options(
@@ -679,9 +514,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         mcp_server_id: str,
         *,
         agent_id: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -711,16 +543,6 @@ class AsyncMcpServersResource(AsyncAPIResource):
         """
         if not mcp_server_id:
             raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._patch(
             f"/v1/mcp-servers/{mcp_server_id}/refresh",
             options=make_request_options(
