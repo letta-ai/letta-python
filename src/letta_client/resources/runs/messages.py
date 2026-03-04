@@ -116,6 +116,7 @@ class MessagesResource(SyncAPIResource):
         self,
         run_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         batch_size: Optional[int] | Omit = omit,
         include_pings: Optional[bool] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
@@ -131,6 +132,9 @@ class MessagesResource(SyncAPIResource):
         Retrieve Stream For Run
 
         Args:
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
+
           batch_size: Number of entries to read per batch.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
@@ -155,6 +159,7 @@ class MessagesResource(SyncAPIResource):
             f"/v1/runs/{run_id}/stream",
             body=maybe_transform(
                 {
+                    "agent_id": agent_id,
                     "batch_size": batch_size,
                     "include_pings": include_pings,
                     "poll_interval": poll_interval,
@@ -260,6 +265,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         self,
         run_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         batch_size: Optional[int] | Omit = omit,
         include_pings: Optional[bool] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
@@ -275,6 +281,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         Retrieve Stream For Run
 
         Args:
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
+
           batch_size: Number of entries to read per batch.
 
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
@@ -299,6 +308,7 @@ class AsyncMessagesResource(AsyncAPIResource):
             f"/v1/runs/{run_id}/stream",
             body=await async_maybe_transform(
                 {
+                    "agent_id": agent_id,
                     "batch_size": batch_size,
                     "include_pings": include_pings,
                     "poll_interval": poll_interval,

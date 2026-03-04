@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.7.11 (2026-03-04)
+
+Full Changelog: [v1.7.10...v1.7.11](https://github.com/letta-ai/letta-python/compare/v1.7.10...v1.7.11)
+
+### Features
+
+* Add billing context to LLM telemetry traces ([f44235d](https://github.com/letta-ai/letta-python/commit/f44235d91d4c2b9674745b9bf72ea7ed873511cc))
+* new agent id query param for default convo ([1536a79](https://github.com/letta-ai/letta-python/commit/1536a79a8c56e5cb2b49b5df5f359c42dee0d55f))
+
+
+### Bug Fixes
+
+* add "max" to AnthropicModelSettings effort type ([5bfe437](https://github.com/letta-ai/letta-python/commit/5bfe4374dccd0e988a0e0c68325f70154f631ab8))
+
 ## 1.7.10 (2026-03-02)
 
 Full Changelog: [v1.7.9...v1.7.10](https://github.com/letta-ai/letta-python/compare/v1.7.9...v1.7.10)

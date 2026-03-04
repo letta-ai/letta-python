@@ -15,6 +15,9 @@ class MessageListParams(TypedDict, total=False):
     Returns messages that come after this message ID in the specified sort order
     """
 
+    agent_id: Optional[str]
+    """Agent ID for agent-direct mode with 'default' conversation"""
+
     before: Optional[str]
     """Message ID cursor for pagination.
 

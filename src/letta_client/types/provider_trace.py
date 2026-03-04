@@ -5,7 +5,20 @@ from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["ProviderTrace"]
+__all__ = ["ProviderTrace", "BillingContext"]
+
+
+class BillingContext(BaseModel):
+    """Billing context for LLM request cost tracking."""
+
+    cost_source: Optional[str] = None
+    """Cost source: 'quota' or 'credits'"""
+
+    customer_id: Optional[str] = None
+    """Customer ID for billing records"""
+
+    plan_type: Optional[str] = None
+    """Subscription tier"""
 
 
 class ProviderTrace(BaseModel):
@@ -42,6 +55,9 @@ class ProviderTrace(BaseModel):
 
     agent_tags: Optional[List[str]] = None
     """Tags associated with the agent for filtering"""
+
+    billing_context: Optional[BillingContext] = None
+    """Billing context for LLM request cost tracking."""
 
     call_type: Optional[str] = None
     """Type of call (agent_step, summarization, etc.)"""

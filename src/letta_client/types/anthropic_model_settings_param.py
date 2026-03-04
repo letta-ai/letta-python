@@ -25,10 +25,11 @@ class Thinking(TypedDict, total=False):
 
 
 class AnthropicModelSettingsParam(TypedDict, total=False):
-    effort: Optional[Literal["low", "medium", "high"]]
-    """Effort level for Opus 4.5 model (controls token conservation).
+    effort: Optional[Literal["low", "medium", "high", "max"]]
+    """Effort level for supported Anthropic models (controls token spending).
 
-    Not setting this gives similar performance to 'high'.
+    'max' is only available on Opus 4.6. Not setting this gives similar performance
+    to 'high'.
     """
 
     max_output_tokens: int

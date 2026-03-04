@@ -34,6 +34,7 @@ class TestMessages:
     def test_method_create_with_all_params(self, client: Letta) -> None:
         message_stream = client.conversations.messages.create(
             conversation_id="default",
+            agent_id="agent_id",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
@@ -125,6 +126,7 @@ class TestMessages:
         message = client.conversations.messages.list(
             conversation_id="default",
             after="after",
+            agent_id="agent_id",
             before="before",
             group_id="group_id",
             include_err=True,
@@ -181,6 +183,7 @@ class TestMessages:
     def test_method_compact_with_all_params(self, client: Letta) -> None:
         message = client.conversations.messages.compact(
             conversation_id="default",
+            agent_id="agent_id",
             compaction_settings={
                 "clip_chars": 0,
                 "mode": "all",
@@ -248,6 +251,7 @@ class TestMessages:
     def test_method_stream_with_all_params(self, client: Letta) -> None:
         message_stream = client.conversations.messages.stream(
             conversation_id="default",
+            agent_id="agent_id",
             batch_size=0,
             include_pings=True,
             poll_interval=0,
@@ -307,6 +311,7 @@ class TestAsyncMessages:
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.conversations.messages.create(
             conversation_id="default",
+            agent_id="agent_id",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
@@ -398,6 +403,7 @@ class TestAsyncMessages:
         message = await async_client.conversations.messages.list(
             conversation_id="default",
             after="after",
+            agent_id="agent_id",
             before="before",
             group_id="group_id",
             include_err=True,
@@ -454,6 +460,7 @@ class TestAsyncMessages:
     async def test_method_compact_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.conversations.messages.compact(
             conversation_id="default",
+            agent_id="agent_id",
             compaction_settings={
                 "clip_chars": 0,
                 "mode": "all",
@@ -521,6 +528,7 @@ class TestAsyncMessages:
     async def test_method_stream_with_all_params(self, async_client: AsyncLetta) -> None:
         message_stream = await async_client.conversations.messages.stream(
             conversation_id="default",
+            agent_id="agent_id",
             batch_size=0,
             include_pings=True,
             poll_interval=0,
