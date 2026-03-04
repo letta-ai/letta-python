@@ -25,7 +25,7 @@ from .agents import (
 )
 from ...types import folder_list_params, folder_create_params, folder_update_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -80,9 +80,6 @@ class FoldersResource(SyncAPIResource):
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -116,16 +113,6 @@ class FoldersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._post(
             "/v1/folders/",
             body=maybe_transform(
@@ -150,9 +137,6 @@ class FoldersResource(SyncAPIResource):
         self,
         folder_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -176,16 +160,6 @@ class FoldersResource(SyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get(
             f"/v1/folders/{folder_id}",
             options=make_request_options(
@@ -203,9 +177,6 @@ class FoldersResource(SyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -239,16 +210,6 @@ class FoldersResource(SyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._patch(
             f"/v1/folders/{folder_id}",
             body=maybe_transform(
@@ -276,9 +237,6 @@ class FoldersResource(SyncAPIResource):
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -313,16 +271,6 @@ class FoldersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get_api_list(
             "/v1/folders/",
             page=SyncArrayPage[Folder],
@@ -350,9 +298,6 @@ class FoldersResource(SyncAPIResource):
         self,
         folder_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -376,16 +321,6 @@ class FoldersResource(SyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._delete(
             f"/v1/folders/{folder_id}",
             options=make_request_options(
@@ -433,9 +368,6 @@ class AsyncFoldersResource(AsyncAPIResource):
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         instructions: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -469,16 +401,6 @@ class AsyncFoldersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._post(
             "/v1/folders/",
             body=await async_maybe_transform(
@@ -503,9 +425,6 @@ class AsyncFoldersResource(AsyncAPIResource):
         self,
         folder_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -529,16 +448,6 @@ class AsyncFoldersResource(AsyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._get(
             f"/v1/folders/{folder_id}",
             options=make_request_options(
@@ -556,9 +465,6 @@ class AsyncFoldersResource(AsyncAPIResource):
         instructions: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -592,16 +498,6 @@ class AsyncFoldersResource(AsyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._patch(
             f"/v1/folders/{folder_id}",
             body=await async_maybe_transform(
@@ -629,9 +525,6 @@ class AsyncFoldersResource(AsyncAPIResource):
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -666,16 +559,6 @@ class AsyncFoldersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get_api_list(
             "/v1/folders/",
             page=AsyncArrayPage[Folder],
@@ -703,9 +586,6 @@ class AsyncFoldersResource(AsyncAPIResource):
         self,
         folder_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -729,16 +609,6 @@ class AsyncFoldersResource(AsyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._delete(
             f"/v1/folders/{folder_id}",
             options=make_request_options(

@@ -9,7 +9,7 @@ import httpx
 
 from ...types import archive_list_params, archive_create_params, archive_update_params
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
+from ..._utils import maybe_transform, async_maybe_transform
 from .passages import (
     PassagesResource,
     AsyncPassagesResource,
@@ -65,9 +65,6 @@ class ArchivesResource(SyncAPIResource):
         description: Optional[str] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -91,16 +88,6 @@ class ArchivesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._post(
             "/v1/archives/",
             body=maybe_transform(
@@ -122,9 +109,6 @@ class ArchivesResource(SyncAPIResource):
         self,
         archive_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -148,16 +132,6 @@ class ArchivesResource(SyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get(
             f"/v1/archives/{archive_id}",
             options=make_request_options(
@@ -172,9 +146,6 @@ class ArchivesResource(SyncAPIResource):
         *,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -198,16 +169,6 @@ class ArchivesResource(SyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._patch(
             f"/v1/archives/{archive_id}",
             body=maybe_transform(
@@ -233,9 +194,6 @@ class ArchivesResource(SyncAPIResource):
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -273,16 +231,6 @@ class ArchivesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get_api_list(
             "/v1/archives/",
             page=SyncArrayPage[Archive],
@@ -311,9 +259,6 @@ class ArchivesResource(SyncAPIResource):
         self,
         archive_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -338,16 +283,6 @@ class ArchivesResource(SyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._delete(
             f"/v1/archives/{archive_id}",
             options=make_request_options(
@@ -388,9 +323,6 @@ class AsyncArchivesResource(AsyncAPIResource):
         description: Optional[str] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -414,16 +346,6 @@ class AsyncArchivesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._post(
             "/v1/archives/",
             body=await async_maybe_transform(
@@ -445,9 +367,6 @@ class AsyncArchivesResource(AsyncAPIResource):
         self,
         archive_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -471,16 +390,6 @@ class AsyncArchivesResource(AsyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._get(
             f"/v1/archives/{archive_id}",
             options=make_request_options(
@@ -495,9 +404,6 @@ class AsyncArchivesResource(AsyncAPIResource):
         *,
         description: Optional[str] | Omit = omit,
         name: Optional[str] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -521,16 +427,6 @@ class AsyncArchivesResource(AsyncAPIResource):
         """
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._patch(
             f"/v1/archives/{archive_id}",
             body=await async_maybe_transform(
@@ -556,9 +452,6 @@ class AsyncArchivesResource(AsyncAPIResource):
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -596,16 +489,6 @@ class AsyncArchivesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return self._get_api_list(
             "/v1/archives/",
             page=AsyncArrayPage[Archive],
@@ -634,9 +517,6 @@ class AsyncArchivesResource(AsyncAPIResource):
         self,
         archive_id: str,
         *,
-        x_billing_cost_source: str | Omit = omit,
-        x_billing_customer_id: str | Omit = omit,
-        x_billing_plan_type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -661,16 +541,6 @@ class AsyncArchivesResource(AsyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        extra_headers = {
-            **strip_not_given(
-                {
-                    "x-billing-cost-source": x_billing_cost_source,
-                    "x-billing-customer-id": x_billing_customer_id,
-                    "x-billing-plan-type": x_billing_plan_type,
-                }
-            ),
-            **(extra_headers or {}),
-        }
         return await self._delete(
             f"/v1/archives/{archive_id}",
             options=make_request_options(

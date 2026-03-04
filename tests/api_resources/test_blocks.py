@@ -47,9 +47,6 @@ class TestBlocks:
             tags=["string"],
             template_id="template_id",
             template_name="template_name",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -85,18 +82,7 @@ class TestBlocks:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         block = client.blocks.retrieve(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(BlockResponse, block, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
-        block = client.blocks.retrieve(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -104,7 +90,7 @@ class TestBlocks:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.blocks.with_raw_response.retrieve(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -116,7 +102,7 @@ class TestBlocks:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.retrieve(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -131,7 +117,7 @@ class TestBlocks:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             client.blocks.with_raw_response.retrieve(
-                block_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -163,9 +149,6 @@ class TestBlocks:
             template_id="template_id",
             template_name="template_name",
             value="value",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -232,9 +215,6 @@ class TestBlocks:
             tags=["string", "string"],
             templates_only=True,
             value_search="x",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
@@ -264,18 +244,7 @@ class TestBlocks:
     @parametrize
     def test_method_delete(self, client: Letta) -> None:
         block = client.blocks.delete(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(object, block, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_delete_with_all_params(self, client: Letta) -> None:
-        block = client.blocks.delete(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(object, block, path=["response"])
 
@@ -283,7 +252,7 @@ class TestBlocks:
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
         response = client.blocks.with_raw_response.delete(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -295,7 +264,7 @@ class TestBlocks:
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.delete(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -310,7 +279,7 @@ class TestBlocks:
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             client.blocks.with_raw_response.delete(
-                block_id="",
+                "",
             )
 
 
@@ -348,9 +317,6 @@ class TestAsyncBlocks:
             tags=["string"],
             template_id="template_id",
             template_name="template_name",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -386,18 +352,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.retrieve(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(BlockResponse, block, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
-        block = await async_client.blocks.retrieve(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -405,7 +360,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.blocks.with_raw_response.retrieve(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -417,7 +372,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.retrieve(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -432,7 +387,7 @@ class TestAsyncBlocks:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             await async_client.blocks.with_raw_response.retrieve(
-                block_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -464,9 +419,6 @@ class TestAsyncBlocks:
             template_id="template_id",
             template_name="template_name",
             value="value",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(BlockResponse, block, path=["response"])
 
@@ -533,9 +485,6 @@ class TestAsyncBlocks:
             tags=["string", "string"],
             templates_only=True,
             value_search="x",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
@@ -565,18 +514,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_method_delete(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.delete(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(object, block, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLetta) -> None:
-        block = await async_client.blocks.delete(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(object, block, path=["response"])
 
@@ -584,7 +522,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
         response = await async_client.blocks.with_raw_response.delete(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -596,7 +534,7 @@ class TestAsyncBlocks:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.delete(
-            block_id="block-123e4567-e89b-42d3-8456-426614174000",
+            "block-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -611,5 +549,5 @@ class TestAsyncBlocks:
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
             await async_client.blocks.with_raw_response.delete(
-                block_id="",
+                "",
             )

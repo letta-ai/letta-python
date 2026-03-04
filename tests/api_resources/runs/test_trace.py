@@ -31,9 +31,6 @@ class TestTrace:
         trace = client.runs.trace.retrieve(
             run_id="run_id",
             limit=1,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(TraceRetrieveResponse, trace, path=["response"])
 
@@ -91,9 +88,6 @@ class TestAsyncTrace:
         trace = await async_client.runs.trace.retrieve(
             run_id="run_id",
             limit=1,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(TraceRetrieveResponse, trace, path=["response"])
 

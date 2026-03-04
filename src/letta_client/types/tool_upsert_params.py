@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable, Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
-from .._utils import PropertyInfo
 from .npm_requirement_param import NpmRequirementParam
 from .pip_requirement_param import PipRequirementParam
 
@@ -52,9 +51,3 @@ class ToolUpsertParams(TypedDict, total=False):
 
     tags: Optional[SequenceNotStr[str]]
     """Metadata tags."""
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]

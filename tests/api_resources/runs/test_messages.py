@@ -36,9 +36,6 @@ class TestMessages:
             limit=0,
             order="asc",
             order_by="created_at",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
@@ -93,9 +90,6 @@ class TestMessages:
             include_pings=True,
             poll_interval=0,
             starting_after=0,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         message_stream.response.close()
 
@@ -156,9 +150,6 @@ class TestAsyncMessages:
             limit=0,
             order="asc",
             order_by="created_at",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
@@ -213,9 +204,6 @@ class TestAsyncMessages:
             include_pings=True,
             poll_interval=0,
             starting_after=0,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         await message_stream.response.aclose()
 

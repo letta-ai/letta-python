@@ -81,9 +81,6 @@ class TestMessages:
             streaming=False,
             top_logprobs=0,
             use_assistant_message=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(LettaResponse, message, path=["response"])
 
@@ -176,9 +173,6 @@ class TestMessages:
             stream_tokens=True,
             top_logprobs=0,
             use_assistant_message=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         message_stream.response.close()
 
@@ -242,9 +236,6 @@ class TestMessages:
             order="asc",
             order_by="created_at",
             use_assistant_message=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
@@ -296,9 +287,6 @@ class TestMessages:
         message = client.agents.messages.cancel(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             run_ids=["string"],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(MessageCancelResponse, message, path=["response"])
 
@@ -366,9 +354,6 @@ class TestMessages:
                 "prompt_acknowledgement": True,
                 "sliding_window_percentage": 0,
             },
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(CompactionResponse, message, path=["response"])
 
@@ -457,9 +442,6 @@ class TestMessages:
             return_token_ids=True,
             top_logprobs=0,
             use_assistant_message=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Run, message, path=["response"])
 
@@ -511,9 +493,6 @@ class TestMessages:
         message = client.agents.messages.reset(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             add_default_initial_messages=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], message, path=["response"])
 
@@ -608,9 +587,6 @@ class TestMessages:
                 streaming=True,
                 top_logprobs=0,
                 use_assistant_message=True,
-                x_billing_cost_source="x-billing-cost-source",
-                x_billing_customer_id="x-billing-customer-id",
-                x_billing_plan_type="x-billing-plan-type",
             )
 
         message_stream.response.close()
@@ -711,9 +687,6 @@ class TestAsyncMessages:
             streaming=False,
             top_logprobs=0,
             use_assistant_message=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(LettaResponse, message, path=["response"])
 
@@ -806,9 +779,6 @@ class TestAsyncMessages:
             stream_tokens=True,
             top_logprobs=0,
             use_assistant_message=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         await message_stream.response.aclose()
 
@@ -872,9 +842,6 @@ class TestAsyncMessages:
             order="asc",
             order_by="created_at",
             use_assistant_message=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
@@ -926,9 +893,6 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.cancel(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             run_ids=["string"],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(MessageCancelResponse, message, path=["response"])
 
@@ -996,9 +960,6 @@ class TestAsyncMessages:
                 "prompt_acknowledgement": True,
                 "sliding_window_percentage": 0,
             },
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(CompactionResponse, message, path=["response"])
 
@@ -1087,9 +1048,6 @@ class TestAsyncMessages:
             return_token_ids=True,
             top_logprobs=0,
             use_assistant_message=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Run, message, path=["response"])
 
@@ -1141,9 +1099,6 @@ class TestAsyncMessages:
         message = await async_client.agents.messages.reset(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             add_default_initial_messages=True,
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(Optional[AgentState], message, path=["response"])
 
@@ -1238,9 +1193,6 @@ class TestAsyncMessages:
                 streaming=True,
                 top_logprobs=0,
                 use_assistant_message=True,
-                x_billing_cost_source="x-billing-cost-source",
-                x_billing_customer_id="x-billing-customer-id",
-                x_billing_plan_type="x-billing-plan-type",
             )
 
         await message_stream.response.aclose()

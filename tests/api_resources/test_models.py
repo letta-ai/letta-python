@@ -30,9 +30,6 @@ class TestModels:
             provider_category=["base", "byok"],
             provider_name="provider_name",
             provider_type="anthropic",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(ModelListResponse, model, path=["response"])
 
@@ -77,9 +74,6 @@ class TestAsyncModels:
             provider_category=["base", "byok"],
             provider_name="provider_name",
             provider_type="anthropic",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(ModelListResponse, model, path=["response"])
 

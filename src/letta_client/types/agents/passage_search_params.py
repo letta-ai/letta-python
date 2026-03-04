@@ -33,9 +33,3 @@ class PassageSearchParams(TypedDict, total=False):
 
     top_k: Optional[int]
     """Maximum number of results to return. Uses system default if not specified"""
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]

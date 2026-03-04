@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, TypeAlias, TypedDict
 
-from .._utils import PropertyInfo
 from .update_sse_mcp_server_param import UpdateSseMcpServerParam
 from .update_stdio_mcp_server_param import UpdateStdioMcpServerParam
 from .update_streamable_http_mcp_server_param import UpdateStreamableHTTPMcpServerParam
@@ -19,12 +18,6 @@ class McpServerUpdateParams(TypedDict, total=False):
 
     server_name: Optional[str]
     """The name of the MCP server"""
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]
 
 
 Config: TypeAlias = Union[UpdateStdioMcpServerParam, UpdateSseMcpServerParam, UpdateStreamableHTTPMcpServerParam]

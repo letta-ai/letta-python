@@ -22,18 +22,7 @@ class TestSteps:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         step = client.steps.retrieve(
-            step_id="step-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Step, step, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
-        step = client.steps.retrieve(
-            step_id="step-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "step-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(Step, step, path=["response"])
 
@@ -41,7 +30,7 @@ class TestSteps:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.steps.with_raw_response.retrieve(
-            step_id="step-123e4567-e89b-42d3-8456-426614174000",
+            "step-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -53,7 +42,7 @@ class TestSteps:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.steps.with_streaming_response.retrieve(
-            step_id="step-123e4567-e89b-42d3-8456-426614174000",
+            "step-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -68,7 +57,7 @@ class TestSteps:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `step_id` but received ''"):
             client.steps.with_raw_response.retrieve(
-                step_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -95,9 +84,6 @@ class TestSteps:
             start_date="start_date",
             tags=["string", "string"],
             trace_ids=["string", "string"],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(SyncArrayPage[Step], step, path=["response"])
 
@@ -133,18 +119,7 @@ class TestAsyncSteps:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         step = await async_client.steps.retrieve(
-            step_id="step-123e4567-e89b-42d3-8456-426614174000",
-        )
-        assert_matches_type(Step, step, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
-        step = await async_client.steps.retrieve(
-            step_id="step-123e4567-e89b-42d3-8456-426614174000",
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
+            "step-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(Step, step, path=["response"])
 
@@ -152,7 +127,7 @@ class TestAsyncSteps:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.steps.with_raw_response.retrieve(
-            step_id="step-123e4567-e89b-42d3-8456-426614174000",
+            "step-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -164,7 +139,7 @@ class TestAsyncSteps:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.steps.with_streaming_response.retrieve(
-            step_id="step-123e4567-e89b-42d3-8456-426614174000",
+            "step-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -179,7 +154,7 @@ class TestAsyncSteps:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `step_id` but received ''"):
             await async_client.steps.with_raw_response.retrieve(
-                step_id="",
+                "",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -206,9 +181,6 @@ class TestAsyncSteps:
             start_date="start_date",
             tags=["string", "string"],
             trace_ids=["string", "string"],
-            x_billing_cost_source="x-billing-cost-source",
-            x_billing_customer_id="x-billing-customer-id",
-            x_billing_plan_type="x-billing-plan-type",
         )
         assert_matches_type(AsyncArrayPage[Step], step, path=["response"])
 

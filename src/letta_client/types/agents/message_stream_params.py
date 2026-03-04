@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..._utils import PropertyInfo
 from .message_type import MessageType
 from .tool_return_param import ToolReturnParam
 from .text_content_param import TextContentParam
@@ -138,12 +137,6 @@ class MessageStreamParams(TypedDict, total=False):
     `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
     types, but deprecated for letta_v1_agent onward.
     """
-
-    x_billing_cost_source: Annotated[str, PropertyInfo(alias="x-billing-cost-source")]
-
-    x_billing_customer_id: Annotated[str, PropertyInfo(alias="x-billing-customer-id")]
-
-    x_billing_plan_type: Annotated[str, PropertyInfo(alias="x-billing-plan-type")]
 
 
 class ClientTool(TypedDict, total=False):
