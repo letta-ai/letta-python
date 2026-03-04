@@ -1,4 +1,4 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 __title__ = "letta_client"
-__version__ = "1.7.10"  # x-release-please-version
+__version__ = "1.7.11"  # x-release-please-version
