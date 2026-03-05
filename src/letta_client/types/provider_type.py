@@ -11,6 +11,7 @@ ProviderType: TypeAlias = Literal[
     "cerebras",
     "chatgpt_oauth",
     "deepseek",
+    "fireworks",
     "google_ai",
     "google_vertex",
     "groq",
