@@ -76,6 +76,7 @@ from .npm_requirement_param import NpmRequirementParam as NpmRequirementParam
 from .openai_model_settings import OpenAIModelSettings as OpenAIModelSettings
 from .passage_search_params import PassageSearchParams as PassageSearchParams
 from .pip_requirement_param import PipRequirementParam as PipRequirementParam
+from .agent_recompile_params import AgentRecompileParams as AgentRecompileParams
 from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .parent_tool_rule_param import ParentToolRuleParam as ParentToolRuleParam
@@ -89,6 +90,7 @@ from .together_model_settings import TogetherModelSettings as TogetherModelSetti
 from .access_token_list_params import AccessTokenListParams as AccessTokenListParams
 from .agent_export_file_params import AgentExportFileParams as AgentExportFileParams
 from .agent_import_file_params import AgentImportFileParams as AgentImportFileParams
+from .agent_recompile_response import AgentRecompileResponse as AgentRecompileResponse
 from .anthropic_model_settings import AnthropicModelSettings as AnthropicModelSettings
 from .continue_tool_rule_param import ContinueToolRuleParam as ContinueToolRuleParam
 from .conversation_list_params import ConversationListParams as ConversationListParams
