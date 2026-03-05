@@ -55,6 +55,7 @@ class LlmConfigParam(TypedDict, total=False):
             "deepseek",
             "xai",
             "zai",
+            "fireworks",
             "openrouter",
             "chatgpt_oauth",
         ]

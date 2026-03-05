@@ -59,6 +59,7 @@ class LlmConfig(BaseModel):
         "deepseek",
         "xai",
         "zai",
+        "fireworks",
         "openrouter",
         "chatgpt_oauth",
     ] = FieldInfo(alias="model_endpoint_type")
