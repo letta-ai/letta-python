@@ -45,6 +45,7 @@ from letta_client.types import (
     XaiModelSettings,
     AgentExportFileResponse,
     AgentImportFileResponse,
+    AgentRecompileResponse,
 )
 ```
 
@@ -57,6 +58,7 @@ Methods:
 - <code title="delete /v1/agents/{agent_id}">client.agents.<a href="./src/letta_client/resources/agents/agents.py">delete</a>(agent_id) -> object</code>
 - <code title="get /v1/agents/{agent_id}/export">client.agents.<a href="./src/letta_client/resources/agents/agents.py">export_file</a>(agent_id, \*\*<a href="src/letta_client/types/agent_export_file_params.py">params</a>) -> str</code>
 - <code title="post /v1/agents/import">client.agents.<a href="./src/letta_client/resources/agents/agents.py">import_file</a>(\*\*<a href="src/letta_client/types/agent_import_file_params.py">params</a>) -> <a href="./src/letta_client/types/agent_import_file_response.py">AgentImportFileResponse</a></code>
+- <code title="post /v1/agents/{agent_id}/recompile">client.agents.<a href="./src/letta_client/resources/agents/agents.py">recompile</a>(agent_id, \*\*<a href="src/letta_client/types/agent_recompile_params.py">params</a>) -> str</code>
 
 ## Messages
 

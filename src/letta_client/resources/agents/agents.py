@@ -39,6 +39,7 @@ from ...types import (
     agent_create_params,
     agent_update_params,
     agent_retrieve_params,
+    agent_recompile_params,
     agent_export_file_params,
     agent_import_file_params,
 )
@@ -1038,6 +1039,58 @@ class AgentsResource(SyncAPIResource):
             cast_to=AgentImportFileResponse,
         )
 
+    def recompile(
+        self,
+        agent_id: str,
+        *,
+        dry_run: bool | Omit = omit,
+        update_timestamp: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
+        """
+        Manually trigger system prompt recompilation for an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          dry_run: If True, do not persist changes; still returns the compiled system prompt.
+
+          update_timestamp: If True, update the in-context memory last edit timestamp embedded in the system
+              prompt.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return self._post(
+            f"/v1/agents/{agent_id}/recompile",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dry_run": dry_run,
+                        "update_timestamp": update_timestamp,
+                    },
+                    agent_recompile_params.AgentRecompileParams,
+                ),
+            ),
+            cast_to=str,
+        )
+
 
 class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
@@ -1953,6 +2006,58 @@ class AsyncAgentsResource(AsyncAPIResource):
             cast_to=AgentImportFileResponse,
         )
 
+    async def recompile(
+        self,
+        agent_id: str,
+        *,
+        dry_run: bool | Omit = omit,
+        update_timestamp: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
+        """
+        Manually trigger system prompt recompilation for an agent.
+
+        Args:
+          agent_id: The ID of the agent in the format 'agent-<uuid4>'
+
+          dry_run: If True, do not persist changes; still returns the compiled system prompt.
+
+          update_timestamp: If True, update the in-context memory last edit timestamp embedded in the system
+              prompt.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not agent_id:
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        return await self._post(
+            f"/v1/agents/{agent_id}/recompile",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dry_run": dry_run,
+                        "update_timestamp": update_timestamp,
+                    },
+                    agent_recompile_params.AgentRecompileParams,
+                ),
+            ),
+            cast_to=str,
+        )
+
 
 class AgentsResourceWithRawResponse:
     def __init__(self, agents: AgentsResource) -> None:
@@ -1978,6 +2083,9 @@ class AgentsResourceWithRawResponse:
         )
         self.import_file = to_raw_response_wrapper(
             agents.import_file,
+        )
+        self.recompile = to_raw_response_wrapper(
+            agents.recompile,
         )
 
     @cached_property
@@ -2042,6 +2150,9 @@ class AsyncAgentsResourceWithRawResponse:
         self.import_file = async_to_raw_response_wrapper(
             agents.import_file,
         )
+        self.recompile = async_to_raw_response_wrapper(
+            agents.recompile,
+        )
 
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
@@ -2105,6 +2216,9 @@ class AgentsResourceWithStreamingResponse:
         self.import_file = to_streamed_response_wrapper(
             agents.import_file,
         )
+        self.recompile = to_streamed_response_wrapper(
+            agents.recompile,
+        )
 
     @cached_property
     def messages(self) -> MessagesResourceWithStreamingResponse:
@@ -2167,6 +2281,9 @@ class AsyncAgentsResourceWithStreamingResponse:
         )
         self.import_file = async_to_streamed_response_wrapper(
             agents.import_file,
+        )
+        self.recompile = async_to_streamed_response_wrapper(
+            agents.recompile,
         )
 
     @cached_property
