@@ -59,6 +59,7 @@ class LlmConfig(BaseModel):
         "deepseek",
         "xai",
         "zai",
+        "baseten",
         "fireworks",
         "openrouter",
         "chatgpt_oauth",

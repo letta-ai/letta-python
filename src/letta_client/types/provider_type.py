@@ -7,6 +7,7 @@ __all__ = ["ProviderType"]
 ProviderType: TypeAlias = Literal[
     "anthropic",
     "azure",
+    "baseten",
     "bedrock",
     "cerebras",
     "chatgpt_oauth",
