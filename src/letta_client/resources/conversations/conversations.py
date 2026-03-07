@@ -12,6 +12,7 @@ from ...types import (
     conversation_cancel_params,
     conversation_create_params,
     conversation_update_params,
+    conversation_recompile_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
@@ -369,6 +370,67 @@ class ConversationsResource(SyncAPIResource):
             cast_to=ConversationCancelResponse,
         )
 
+    def recompile(
+        self,
+        conversation_id: str,
+        *,
+        dry_run: bool | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
+        compaction_settings: Optional[conversation_recompile_params.CompactionSettings] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
+        """
+        Manually trigger system prompt recompilation for a conversation.
+
+        Args:
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          dry_run: If True, do not persist changes; still returns the compiled system prompt.
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._post(
+            f"/v1/conversations/{conversation_id}/recompile",
+            body=maybe_transform(
+                {
+                    "agent_id": agent_id,
+                    "compaction_settings": compaction_settings,
+                },
+                conversation_recompile_params.ConversationRecompileParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"dry_run": dry_run}, conversation_recompile_params.ConversationRecompileParams),
+            ),
+            cast_to=str,
+        )
+
 
 class AsyncConversationsResource(AsyncAPIResource):
     @cached_property
@@ -704,6 +766,69 @@ class AsyncConversationsResource(AsyncAPIResource):
             cast_to=ConversationCancelResponse,
         )
 
+    async def recompile(
+        self,
+        conversation_id: str,
+        *,
+        dry_run: bool | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
+        compaction_settings: Optional[conversation_recompile_params.CompactionSettings] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
+        """
+        Manually trigger system prompt recompilation for a conversation.
+
+        Args:
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          dry_run: If True, do not persist changes; still returns the compiled system prompt.
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation. Use with
+              conversation_id='default' in the URL path.
+
+          compaction_settings: Configuration for conversation compaction / summarization.
+
+              Per-model settings (temperature, max tokens, etc.) are derived from the default
+              configuration for that handle.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._post(
+            f"/v1/conversations/{conversation_id}/recompile",
+            body=await async_maybe_transform(
+                {
+                    "agent_id": agent_id,
+                    "compaction_settings": compaction_settings,
+                },
+                conversation_recompile_params.ConversationRecompileParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dry_run": dry_run}, conversation_recompile_params.ConversationRecompileParams
+                ),
+            ),
+            cast_to=str,
+        )
+
 
 class ConversationsResourceWithRawResponse:
     def __init__(self, conversations: ConversationsResource) -> None:
@@ -726,6 +851,9 @@ class ConversationsResourceWithRawResponse:
         )
         self.cancel = to_raw_response_wrapper(
             conversations.cancel,
+        )
+        self.recompile = to_raw_response_wrapper(
+            conversations.recompile,
         )
 
     @cached_property
@@ -755,6 +883,9 @@ class AsyncConversationsResourceWithRawResponse:
         self.cancel = async_to_raw_response_wrapper(
             conversations.cancel,
         )
+        self.recompile = async_to_raw_response_wrapper(
+            conversations.recompile,
+        )
 
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
@@ -783,6 +914,9 @@ class ConversationsResourceWithStreamingResponse:
         self.cancel = to_streamed_response_wrapper(
             conversations.cancel,
         )
+        self.recompile = to_streamed_response_wrapper(
+            conversations.recompile,
+        )
 
     @cached_property
     def messages(self) -> MessagesResourceWithStreamingResponse:
@@ -810,6 +944,9 @@ class AsyncConversationsResourceWithStreamingResponse:
         )
         self.cancel = async_to_streamed_response_wrapper(
             conversations.cancel,
+        )
+        self.recompile = async_to_streamed_response_wrapper(
+            conversations.recompile,
         )
 
     @cached_property

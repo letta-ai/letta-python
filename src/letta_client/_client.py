@@ -367,7 +367,7 @@ class Letta(SyncAPIClient):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HealthResponse:
-        """Async health check endpoint."""
+        """Liveness endpoint; returns 200 when process is responsive."""
         return self.get(
             "/v1/health/",
             options=make_request_options(
@@ -684,7 +684,7 @@ class AsyncLetta(AsyncAPIClient):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> HealthResponse:
-        """Async health check endpoint."""
+        """Liveness endpoint; returns 200 when process is responsive."""
         return await self.get(
             "/v1/health/",
             options=make_request_options(

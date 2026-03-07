@@ -584,7 +584,7 @@ class TestAgents:
     @parametrize
     def test_method_import_file(self, client: Letta) -> None:
         agent = client.agents.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(AgentImportFileResponse, agent, path=["response"])
 
@@ -592,7 +592,7 @@ class TestAgents:
     @parametrize
     def test_method_import_file_with_all_params(self, client: Letta) -> None:
         agent = client.agents.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
             append_copy_suffix=True,
             embedding="embedding",
             env_vars_json="env_vars_json",
@@ -613,7 +613,7 @@ class TestAgents:
     @parametrize
     def test_raw_response_import_file(self, client: Letta) -> None:
         response = client.agents.with_raw_response.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -625,7 +625,7 @@ class TestAgents:
     @parametrize
     def test_streaming_response_import_file(self, client: Letta) -> None:
         with client.agents.with_streaming_response.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -634,6 +634,58 @@ class TestAgents:
             assert_matches_type(AgentImportFileResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_recompile(self, client: Letta) -> None:
+        agent = client.agents.recompile(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(str, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_recompile_with_all_params(self, client: Letta) -> None:
+        agent = client.agents.recompile(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            dry_run=True,
+            update_timestamp=True,
+        )
+        assert_matches_type(str, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_recompile(self, client: Letta) -> None:
+        response = client.agents.with_raw_response.recompile(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = response.parse()
+        assert_matches_type(str, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_recompile(self, client: Letta) -> None:
+        with client.agents.with_streaming_response.recompile(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = response.parse()
+            assert_matches_type(str, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_recompile(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            client.agents.with_raw_response.recompile(
+                agent_id="",
+            )
 
 
 class TestAsyncAgents:
@@ -1203,7 +1255,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_import_file(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(AgentImportFileResponse, agent, path=["response"])
 
@@ -1211,7 +1263,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_import_file_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
             append_copy_suffix=True,
             embedding="embedding",
             env_vars_json="env_vars_json",
@@ -1232,7 +1284,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_raw_response_import_file(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.with_raw_response.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -1244,7 +1296,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_streaming_response_import_file(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.with_streaming_response.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1253,3 +1305,55 @@ class TestAsyncAgents:
             assert_matches_type(AgentImportFileResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_recompile(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.recompile(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(str, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_recompile_with_all_params(self, async_client: AsyncLetta) -> None:
+        agent = await async_client.agents.recompile(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            dry_run=True,
+            update_timestamp=True,
+        )
+        assert_matches_type(str, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_recompile(self, async_client: AsyncLetta) -> None:
+        response = await async_client.agents.with_raw_response.recompile(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = await response.parse()
+        assert_matches_type(str, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_recompile(self, async_client: AsyncLetta) -> None:
+        async with async_client.agents.with_streaming_response.recompile(
+            agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = await response.parse()
+            assert_matches_type(str, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_recompile(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
+            await async_client.agents.with_raw_response.recompile(
+                agent_id="",
+            )

@@ -197,7 +197,7 @@ class TestFiles:
     def test_method_upload(self, client: Letta) -> None:
         file = client.folders.files.upload(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
@@ -206,7 +206,7 @@ class TestFiles:
     def test_method_upload_with_all_params(self, client: Letta) -> None:
         file = client.folders.files.upload(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            file=b"raw file contents",
+            file=b"Example data",
             duplicate_handling="skip",
             name="name",
         )
@@ -217,7 +217,7 @@ class TestFiles:
     def test_raw_response_upload(self, client: Letta) -> None:
         response = client.folders.files.with_raw_response.upload(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -230,7 +230,7 @@ class TestFiles:
     def test_streaming_response_upload(self, client: Letta) -> None:
         with client.folders.files.with_streaming_response.upload(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -246,7 +246,7 @@ class TestFiles:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
             client.folders.files.with_raw_response.upload(
                 folder_id="",
-                file=b"raw file contents",
+                file=b"Example data",
             )
 
 
@@ -430,7 +430,7 @@ class TestAsyncFiles:
     async def test_method_upload(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.upload(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(FileUploadResponse, file, path=["response"])
 
@@ -439,7 +439,7 @@ class TestAsyncFiles:
     async def test_method_upload_with_all_params(self, async_client: AsyncLetta) -> None:
         file = await async_client.folders.files.upload(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            file=b"raw file contents",
+            file=b"Example data",
             duplicate_handling="skip",
             name="name",
         )
@@ -450,7 +450,7 @@ class TestAsyncFiles:
     async def test_raw_response_upload(self, async_client: AsyncLetta) -> None:
         response = await async_client.folders.files.with_raw_response.upload(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -463,7 +463,7 @@ class TestAsyncFiles:
     async def test_streaming_response_upload(self, async_client: AsyncLetta) -> None:
         async with async_client.folders.files.with_streaming_response.upload(
             folder_id="source-123e4567-e89b-42d3-8456-426614174000",
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -479,5 +479,5 @@ class TestAsyncFiles:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `folder_id` but received ''"):
             await async_client.folders.files.with_raw_response.upload(
                 folder_id="",
-                file=b"raw file contents",
+                file=b"Example data",
             )
