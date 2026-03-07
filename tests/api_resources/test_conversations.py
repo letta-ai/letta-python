@@ -312,6 +312,75 @@ class TestConversations:
                 conversation_id="",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_recompile(self, client: Letta) -> None:
+        conversation = client.conversations.recompile(
+            conversation_id="default",
+        )
+        assert_matches_type(str, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_recompile_with_all_params(self, client: Letta) -> None:
+        conversation = client.conversations.recompile(
+            conversation_id="default",
+            dry_run=True,
+            agent_id="agent_id",
+            compaction_settings={
+                "clip_chars": 0,
+                "mode": "all",
+                "model": "model",
+                "model_settings": {
+                    "max_output_tokens": 0,
+                    "parallel_tool_calls": True,
+                    "provider_type": "openai",
+                    "reasoning": {"reasoning_effort": "none"},
+                    "response_format": {"type": "text"},
+                    "strict": True,
+                    "temperature": 0,
+                },
+                "prompt": "prompt",
+                "prompt_acknowledgement": True,
+                "sliding_window_percentage": 0,
+            },
+        )
+        assert_matches_type(str, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_recompile(self, client: Letta) -> None:
+        response = client.conversations.with_raw_response.recompile(
+            conversation_id="default",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        conversation = response.parse()
+        assert_matches_type(str, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_recompile(self, client: Letta) -> None:
+        with client.conversations.with_streaming_response.recompile(
+            conversation_id="default",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            conversation = response.parse()
+            assert_matches_type(str, conversation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_recompile(self, client: Letta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
+            client.conversations.with_raw_response.recompile(
+                conversation_id="",
+            )
+
 
 class TestAsyncConversations:
     parametrize = pytest.mark.parametrize(
@@ -606,5 +675,74 @@ class TestAsyncConversations:
     async def test_path_params_cancel(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.cancel(
+                conversation_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_recompile(self, async_client: AsyncLetta) -> None:
+        conversation = await async_client.conversations.recompile(
+            conversation_id="default",
+        )
+        assert_matches_type(str, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_recompile_with_all_params(self, async_client: AsyncLetta) -> None:
+        conversation = await async_client.conversations.recompile(
+            conversation_id="default",
+            dry_run=True,
+            agent_id="agent_id",
+            compaction_settings={
+                "clip_chars": 0,
+                "mode": "all",
+                "model": "model",
+                "model_settings": {
+                    "max_output_tokens": 0,
+                    "parallel_tool_calls": True,
+                    "provider_type": "openai",
+                    "reasoning": {"reasoning_effort": "none"},
+                    "response_format": {"type": "text"},
+                    "strict": True,
+                    "temperature": 0,
+                },
+                "prompt": "prompt",
+                "prompt_acknowledgement": True,
+                "sliding_window_percentage": 0,
+            },
+        )
+        assert_matches_type(str, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_recompile(self, async_client: AsyncLetta) -> None:
+        response = await async_client.conversations.with_raw_response.recompile(
+            conversation_id="default",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        conversation = await response.parse()
+        assert_matches_type(str, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_recompile(self, async_client: AsyncLetta) -> None:
+        async with async_client.conversations.with_streaming_response.recompile(
+            conversation_id="default",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            conversation = await response.parse()
+            assert_matches_type(str, conversation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_recompile(self, async_client: AsyncLetta) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
+            await async_client.conversations.with_raw_response.recompile(
                 conversation_id="",
             )
