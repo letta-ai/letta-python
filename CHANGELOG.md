@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.8.0 (2026-03-07)
+
+Full Changelog: [v1.7.11...v1.8.0](https://github.com/letta-ai/letta-python/compare/v1.7.11...v1.8.0)
+
+### Features
+
+* add conversation recompile endpoint ([65f0013](https://github.com/letta-ai/letta-python/commit/65f0013b623c195ec21ef627f0f2b68cce0be6ea))
+* add fireworks provider ([8b536c2](https://github.com/letta-ai/letta-python/commit/8b536c2d3709d421a493481b357e8aa254aa0779))
+* add recompile system endpoint to Stainless SDK ([40d9492](https://github.com/letta-ai/letta-python/commit/40d9492580644f1a9b922a0b510c5924a8d01482))
+* **core:** restructure memFS system prompt rendering + add client_skills [LET-7760] ([cc0756b](https://github.com/letta-ai/letta-python/commit/cc0756bfeea232f7d0b94b49e7fe8aa247ed9875))
+* **helm:** M3 multi-signal HPA external metrics + behavior (dev shadow, prod disabled) ([56f66ce](https://github.com/letta-ai/letta-python/commit/56f66cee54e0dfd0cb56156abe7744ee92434336))
+* **readiness:** M2 readiness enforcement scaffold (default OFF) ([5568b66](https://github.com/letta-ai/letta-python/commit/5568b66a784f913408125548fea2b2d9f8445e69))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([c179828](https://github.com/letta-ai/letta-python/commit/c17982832afdfcf0d87f81d151f1f33bb9891dde))
+* update placeholder string ([7142275](https://github.com/letta-ai/letta-python/commit/71422757db6f3f9cd572ec32c27217f5229e1cee))
+
 ## 1.7.11 (2026-03-04)
 
 Full Changelog: [v1.7.10...v1.7.11](https://github.com/letta-ai/letta-python/compare/v1.7.10...v1.7.11)
