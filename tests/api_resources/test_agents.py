@@ -584,7 +584,7 @@ class TestAgents:
     @parametrize
     def test_method_import_file(self, client: Letta) -> None:
         agent = client.agents.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(AgentImportFileResponse, agent, path=["response"])
 
@@ -592,7 +592,7 @@ class TestAgents:
     @parametrize
     def test_method_import_file_with_all_params(self, client: Letta) -> None:
         agent = client.agents.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
             append_copy_suffix=True,
             embedding="embedding",
             env_vars_json="env_vars_json",
@@ -613,7 +613,7 @@ class TestAgents:
     @parametrize
     def test_raw_response_import_file(self, client: Letta) -> None:
         response = client.agents.with_raw_response.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -625,7 +625,7 @@ class TestAgents:
     @parametrize
     def test_streaming_response_import_file(self, client: Letta) -> None:
         with client.agents.with_streaming_response.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1255,7 +1255,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_import_file(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(AgentImportFileResponse, agent, path=["response"])
 
@@ -1263,7 +1263,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_method_import_file_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
             append_copy_suffix=True,
             embedding="embedding",
             env_vars_json="env_vars_json",
@@ -1284,7 +1284,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_raw_response_import_file(self, async_client: AsyncLetta) -> None:
         response = await async_client.agents.with_raw_response.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -1296,7 +1296,7 @@ class TestAsyncAgents:
     @parametrize
     async def test_streaming_response_import_file(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.with_streaming_response.import_file(
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
