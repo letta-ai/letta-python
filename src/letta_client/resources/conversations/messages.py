@@ -63,6 +63,7 @@ class MessagesResource(SyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_compaction_messages: bool | Omit = omit,
@@ -114,6 +115,10 @@ class MessagesResource(SyncAPIResource):
 
           background: Whether to process the request in the background (only used when
               streaming=true).
+
+          client_skills: Client-side skills available in the environment. These are rendered in the
+              system prompt's available skills section alongside agent-scoped skills from
+              MemFS.
 
           client_tools: Client-side tools that the agent can call. When the agent calls a client-side
               tool, execution pauses and returns control to the client to execute the tool and
@@ -182,6 +187,7 @@ class MessagesResource(SyncAPIResource):
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
+                    "client_skills": client_skills,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
                     "include_compaction_messages": include_compaction_messages,
@@ -467,6 +473,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         assistant_message_tool_kwarg: str | Omit = omit,
         assistant_message_tool_name: str | Omit = omit,
         background: bool | Omit = omit,
+        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
         client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
         enable_thinking: str | Omit = omit,
         include_compaction_messages: bool | Omit = omit,
@@ -518,6 +525,10 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           background: Whether to process the request in the background (only used when
               streaming=true).
+
+          client_skills: Client-side skills available in the environment. These are rendered in the
+              system prompt's available skills section alongside agent-scoped skills from
+              MemFS.
 
           client_tools: Client-side tools that the agent can call. When the agent calls a client-side
               tool, execution pauses and returns control to the client to execute the tool and
@@ -586,6 +597,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
                     "assistant_message_tool_name": assistant_message_tool_name,
                     "background": background,
+                    "client_skills": client_skills,
                     "client_tools": client_tools,
                     "enable_thinking": enable_thinking,
                     "include_compaction_messages": include_compaction_messages,

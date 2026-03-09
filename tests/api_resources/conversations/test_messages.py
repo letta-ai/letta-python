@@ -38,6 +38,13 @@ class TestMessages:
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
+            client_skills=[
+                {
+                    "description": "description",
+                    "location": "location",
+                    "name": "name",
+                }
+            ],
             client_tools=[
                 {
                     "name": "name",
@@ -315,6 +322,13 @@ class TestAsyncMessages:
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
+            client_skills=[
+                {
+                    "description": "description",
+                    "location": "location",
+                    "name": "name",
+                }
+            ],
             client_tools=[
                 {
                     "name": "name",

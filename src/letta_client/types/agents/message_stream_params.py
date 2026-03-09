@@ -19,6 +19,7 @@ from .redacted_reasoning_content_param import RedactedReasoningContentParam
 
 __all__ = [
     "MessageStreamParams",
+    "ClientSkill",
     "ClientTool",
     "InputUnionMember1",
     "InputUnionMember1SummarizedReasoningContent",
@@ -47,6 +48,13 @@ class MessageStreamParams(TypedDict, total=False):
     """
     Whether to process the request in the background (only used when
     streaming=true).
+    """
+
+    client_skills: Optional[Iterable[ClientSkill]]
+    """Client-side skills available in the environment.
+
+    These are rendered in the system prompt's available skills section alongside
+    agent-scoped skills from MemFS.
     """
 
     client_tools: Optional[Iterable[ClientTool]]
@@ -137,6 +145,24 @@ class MessageStreamParams(TypedDict, total=False):
     `send_message`) as `AssistantMessage` objects. Still supported for legacy agent
     types, but deprecated for letta_v1_agent onward.
     """
+
+
+class ClientSkill(TypedDict, total=False):
+    """Schema for a client-side skill passed in the request.
+
+    Client-side skills represent environment-provided capabilities (e.g. project-scoped
+    skills) that are not stored in the agent's MemFS but should appear in the system
+    prompt's available skills section.
+    """
+
+    description: Required[str]
+    """Description of what the skill does"""
+
+    location: Required[str]
+    """Path or location hint for the skill (e.g. skills/my-skill/SKILL.md)"""
+
+    name: Required[str]
+    """The name of the skill"""
 
 
 class ClientTool(TypedDict, total=False):
