@@ -23,6 +23,9 @@ __all__ = [
     "MessageCompactParams",
     "CompactionSettings",
     "CompactionSettingsModelSettings",
+    "CompactionSettingsModelSettingsSgLangModelSettings",
+    "CompactionSettingsModelSettingsSgLangModelSettingsReasoning",
+    "CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettingsThinking",
@@ -40,6 +43,51 @@ class MessageCompactParams(TypedDict, total=False):
     Per-model settings (temperature, max tokens, etc.) are derived from the default
     configuration for that handle.
     """
+
+
+class CompactionSettingsModelSettingsSgLangModelSettingsReasoning(TypedDict, total=False):
+    """The reasoning configuration for the model."""
+
+    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh"]
+    """The reasoning effort to use when generating text reasoning models"""
+
+
+CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsSgLangModelSettings(TypedDict, total=False):
+    """
+    SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
+    """
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["sglang"]
+    """The type of the provider."""
+
+    reasoning: CompactionSettingsModelSettingsSgLangModelSettingsReasoning
+    """The reasoning configuration for the model."""
+
+    response_format: Optional[CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+    tool_call_parser: Optional[str]
+    """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
 
 
 CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[
@@ -131,6 +179,7 @@ class CompactionSettingsModelSettingsChatGptoAuthModelSettings(TypedDict, total=
 
 CompactionSettingsModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
+    CompactionSettingsModelSettingsSgLangModelSettings,
     AnthropicModelSettingsParam,
     GoogleAIModelSettingsParam,
     GoogleVertexModelSettingsParam,
