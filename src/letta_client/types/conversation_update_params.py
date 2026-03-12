@@ -22,6 +22,9 @@ from .google_vertex_model_settings_param import GoogleVertexModelSettingsParam
 __all__ = [
     "ConversationUpdateParams",
     "ModelSettings",
+    "ModelSettingsSgLangModelSettings",
+    "ModelSettingsSgLangModelSettingsReasoning",
+    "ModelSettingsSgLangModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettingsThinking",
@@ -44,6 +47,51 @@ class ConversationUpdateParams(TypedDict, total=False):
 
     summary: Optional[str]
     """A summary of the conversation."""
+
+
+class ModelSettingsSgLangModelSettingsReasoning(TypedDict, total=False):
+    """The reasoning configuration for the model."""
+
+    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh"]
+    """The reasoning effort to use when generating text reasoning models"""
+
+
+ModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class ModelSettingsSgLangModelSettings(TypedDict, total=False):
+    """
+    SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
+    """
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["sglang"]
+    """The type of the provider."""
+
+    reasoning: ModelSettingsSgLangModelSettingsReasoning
+    """The reasoning configuration for the model."""
+
+    response_format: Optional[ModelSettingsSgLangModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+    tool_call_parser: Optional[str]
+    """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
 
 
 ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[
@@ -135,6 +183,7 @@ class ModelSettingsChatGptoAuthModelSettings(TypedDict, total=False):
 
 ModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
+    ModelSettingsSgLangModelSettings,
     AnthropicModelSettingsParam,
     GoogleAIModelSettingsParam,
     GoogleVertexModelSettingsParam,

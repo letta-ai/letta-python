@@ -172,6 +172,13 @@ class LlmConfig(BaseModel):
     tier: Optional[str] = None
     """The cost tier for the model (cloud only)."""
 
+    tool_call_parser: Optional[str] = None
+    """SGLang tool call parser name (e.g.
+
+    'glm47', 'qwen25', 'hermes'). Used by the SGLang native adapter to parse tool
+    calls from raw model output.
+    """
+
     top_logprobs: Optional[int] = None
     """Number of most likely tokens to return at each position (0-20).
 
