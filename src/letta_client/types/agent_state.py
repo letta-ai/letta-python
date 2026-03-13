@@ -47,6 +47,9 @@ __all__ = [
     "Source",
     "CompactionSettings",
     "CompactionSettingsModelSettings",
+    "CompactionSettingsModelSettingsSgLangModelSettings",
+    "CompactionSettingsModelSettingsSgLangModelSettingsReasoning",
+    "CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettingsThinking",
@@ -58,6 +61,9 @@ __all__ = [
     "IdentityProperty",
     "ManagedGroup",
     "ModelSettings",
+    "ModelSettingsSgLangModelSettings",
+    "ModelSettingsSgLangModelSettingsReasoning",
+    "ModelSettingsSgLangModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettingsThinking",
@@ -203,6 +209,52 @@ class Source(BaseModel):
     """The vector database provider used for this source's passages"""
 
 
+class CompactionSettingsModelSettingsSgLangModelSettingsReasoning(BaseModel):
+    """The reasoning configuration for the model."""
+
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
+    """The reasoning effort to use when generating text reasoning models"""
+
+
+CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class CompactionSettingsModelSettingsSgLangModelSettings(BaseModel):
+    """
+    SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
+    """
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["sglang"]] = None
+    """The type of the provider."""
+
+    reasoning: Optional[CompactionSettingsModelSettingsSgLangModelSettingsReasoning] = None
+    """The reasoning configuration for the model."""
+
+    response_format: Optional[CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    strict: Optional[bool] = None
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+    tool_call_parser: Optional[str] = None
+    """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
+
+
 CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
     PropertyInfo(discriminator="type"),
@@ -295,6 +347,7 @@ class CompactionSettingsModelSettingsChatGptoAuthModelSettings(BaseModel):
 CompactionSettingsModelSettings: TypeAlias = Annotated[
     Union[
         OpenAIModelSettings,
+        CompactionSettingsModelSettingsSgLangModelSettings,
         AnthropicModelSettings,
         GoogleAIModelSettings,
         GoogleVertexModelSettings,
@@ -448,6 +501,52 @@ class ManagedGroup(BaseModel):
     turns_counter: Optional[int] = None
 
 
+class ModelSettingsSgLangModelSettingsReasoning(BaseModel):
+    """The reasoning configuration for the model."""
+
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
+    """The reasoning effort to use when generating text reasoning models"""
+
+
+ModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsSgLangModelSettings(BaseModel):
+    """
+    SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
+    """
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["sglang"]] = None
+    """The type of the provider."""
+
+    reasoning: Optional[ModelSettingsSgLangModelSettingsReasoning] = None
+    """The reasoning configuration for the model."""
+
+    response_format: Optional[ModelSettingsSgLangModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    strict: Optional[bool] = None
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+    tool_call_parser: Optional[str] = None
+    """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
+
+
 ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
     PropertyInfo(discriminator="type"),
@@ -540,6 +639,7 @@ class ModelSettingsChatGptoAuthModelSettings(BaseModel):
 ModelSettings: TypeAlias = Annotated[
     Union[
         OpenAIModelSettings,
+        ModelSettingsSgLangModelSettings,
         AnthropicModelSettings,
         GoogleAIModelSettings,
         GoogleVertexModelSettings,
