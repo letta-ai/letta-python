@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.13 (2026-03-13)
+
+Full Changelog: [v1.7.12...v1.7.13](https://github.com/letta-ai/letta-python/compare/v1.7.12...v1.7.13)
+
+### Refactors
+
+* **sglang:** use input_ids instead of text in native adapter ([66c6a22](https://github.com/letta-ai/letta-python/commit/66c6a223d1c3aa6b081289401185d528218efdba))
+
 ## 1.7.12 (2026-03-09)
 
 Full Changelog: [v1.7.11...v1.7.12](https://github.com/letta-ai/letta-python/compare/v1.7.11...v1.7.12)
