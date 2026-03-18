@@ -59,6 +59,7 @@ class LlmConfig(BaseModel):
         "deepseek",
         "xai",
         "zai",
+        "zai_coding",
         "baseten",
         "fireworks",
         "openrouter",

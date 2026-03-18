@@ -58,6 +58,7 @@ class Model(BaseModel):
         "deepseek",
         "xai",
         "zai",
+        "zai_coding",
         "openrouter",
         "chatgpt_oauth",
     ] = FieldInfo(alias="model_endpoint_type")
