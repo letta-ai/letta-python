@@ -28,6 +28,9 @@ class ApprovalCreateParam(TypedDict, total=False):
     group_id: Optional[str]
     """The multi-agent group that the message was sent in"""
 
+    otid: Optional[str]
+    """The offline threading id associated with this message"""
+
     reason: Optional[str]
     """An optional explanation for the provided approval status"""
 

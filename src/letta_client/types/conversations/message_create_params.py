@@ -236,6 +236,12 @@ class MessageToolReturnCreate(TypedDict, total=False):
     tool_returns: Required[Iterable[ToolReturnParam]]
     """List of tool returns from client-side execution"""
 
+    group_id: Optional[str]
+    """The multi-agent group that the message was sent in"""
+
+    otid: Optional[str]
+    """The offline threading id associated with this message"""
+
     type: Literal["tool_return"]
     """The message type to be created."""
 
