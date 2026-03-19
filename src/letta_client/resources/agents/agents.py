@@ -62,7 +62,14 @@ from ..._types import (
     omit,
     not_given,
 )
-from ..._utils import extract_files, maybe_transform, strip_not_given, deepcopy_minimal, async_maybe_transform
+from ..._utils import (
+    extract_files,
+    path_template,
+    maybe_transform,
+    strip_not_given,
+    deepcopy_minimal,
+    async_maybe_transform,
+)
 from .archives import (
     ArchivesResource,
     AsyncArchivesResource,
@@ -484,7 +491,7 @@ class AgentsResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}",
+            path_template("/v1/agents/{agent_id}", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -657,7 +664,7 @@ class AgentsResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}",
+            path_template("/v1/agents/{agent_id}", agent_id=agent_id),
             body=maybe_transform(
                 {
                     "base_template_id": base_template_id,
@@ -868,7 +875,7 @@ class AgentsResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._delete(
-            f"/v1/agents/{agent_id}",
+            path_template("/v1/agents/{agent_id}", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -916,7 +923,7 @@ class AgentsResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}/export",
+            path_template("/v1/agents/{agent_id}/export", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1074,7 +1081,7 @@ class AgentsResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/recompile",
+            path_template("/v1/agents/{agent_id}/recompile", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1451,7 +1458,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}",
+            path_template("/v1/agents/{agent_id}", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1624,7 +1631,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}",
+            path_template("/v1/agents/{agent_id}", agent_id=agent_id),
             body=await async_maybe_transform(
                 {
                     "base_template_id": base_template_id,
@@ -1835,7 +1842,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._delete(
-            f"/v1/agents/{agent_id}",
+            path_template("/v1/agents/{agent_id}", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1883,7 +1890,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}/export",
+            path_template("/v1/agents/{agent_id}/export", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -2041,7 +2048,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/recompile",
+            path_template("/v1/agents/{agent_id}/recompile", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

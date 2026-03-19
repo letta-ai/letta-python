@@ -7,7 +7,7 @@ from typing import Dict, Iterable, Optional
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -86,7 +86,7 @@ class PassagesResource(SyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return self._post(
-            f"/v1/archives/{archive_id}/passages",
+            path_template("/v1/archives/{archive_id}/passages", archive_id=archive_id),
             body=maybe_transform(
                 {
                     "text": text,
@@ -139,7 +139,9 @@ class PassagesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `passage_id` but received {passage_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1/archives/{archive_id}/passages/{passage_id}",
+            path_template(
+                "/v1/archives/{archive_id}/passages/{passage_id}", archive_id=archive_id, passage_id=passage_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -179,7 +181,7 @@ class PassagesResource(SyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return self._post(
-            f"/v1/archives/{archive_id}/passages/batch",
+            path_template("/v1/archives/{archive_id}/passages/batch", archive_id=archive_id),
             body=maybe_transform({"passages": passages}, passage_create_many_params.PassageCreateManyParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -250,7 +252,7 @@ class AsyncPassagesResource(AsyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return await self._post(
-            f"/v1/archives/{archive_id}/passages",
+            path_template("/v1/archives/{archive_id}/passages", archive_id=archive_id),
             body=await async_maybe_transform(
                 {
                     "text": text,
@@ -303,7 +305,9 @@ class AsyncPassagesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `passage_id` but received {passage_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1/archives/{archive_id}/passages/{passage_id}",
+            path_template(
+                "/v1/archives/{archive_id}/passages/{passage_id}", archive_id=archive_id, passage_id=passage_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -343,7 +347,7 @@ class AsyncPassagesResource(AsyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return await self._post(
-            f"/v1/archives/{archive_id}/passages/batch",
+            path_template("/v1/archives/{archive_id}/passages/batch", archive_id=archive_id),
             body=await async_maybe_transform(
                 {"passages": passages}, passage_create_many_params.PassageCreateManyParams
             ),

@@ -9,7 +9,7 @@ import httpx
 
 from ...types import archive_list_params, archive_create_params, archive_update_params
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from .passages import (
     PassagesResource,
     AsyncPassagesResource,
@@ -133,7 +133,7 @@ class ArchivesResource(SyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return self._get(
-            f"/v1/archives/{archive_id}",
+            path_template("/v1/archives/{archive_id}", archive_id=archive_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -170,7 +170,7 @@ class ArchivesResource(SyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return self._patch(
-            f"/v1/archives/{archive_id}",
+            path_template("/v1/archives/{archive_id}", archive_id=archive_id),
             body=maybe_transform(
                 {
                     "description": description,
@@ -284,7 +284,7 @@ class ArchivesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            f"/v1/archives/{archive_id}",
+            path_template("/v1/archives/{archive_id}", archive_id=archive_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -391,7 +391,7 @@ class AsyncArchivesResource(AsyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return await self._get(
-            f"/v1/archives/{archive_id}",
+            path_template("/v1/archives/{archive_id}", archive_id=archive_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -428,7 +428,7 @@ class AsyncArchivesResource(AsyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return await self._patch(
-            f"/v1/archives/{archive_id}",
+            path_template("/v1/archives/{archive_id}", archive_id=archive_id),
             body=await async_maybe_transform(
                 {
                     "description": description,
@@ -542,7 +542,7 @@ class AsyncArchivesResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            f"/v1/archives/{archive_id}",
+            path_template("/v1/archives/{archive_id}", archive_id=archive_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

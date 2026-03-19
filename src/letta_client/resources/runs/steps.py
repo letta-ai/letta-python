@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import path_template, maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -87,7 +87,7 @@ class StepsResource(SyncAPIResource):
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get_api_list(
-            f"/v1/runs/{run_id}/steps",
+            path_template("/v1/runs/{run_id}/steps", run_id=run_id),
             page=SyncArrayPage[Step],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -171,7 +171,7 @@ class AsyncStepsResource(AsyncAPIResource):
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get_api_list(
-            f"/v1/runs/{run_id}/steps",
+            path_template("/v1/runs/{run_id}/steps", run_id=run_id),
             page=AsyncArrayPage[Step],
             options=make_request_options(
                 extra_headers=extra_headers,
