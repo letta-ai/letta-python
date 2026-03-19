@@ -7,7 +7,7 @@ from typing import Dict, Iterable
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -89,7 +89,7 @@ class AgentsResource(SyncAPIResource):
         if not template_version:
             raise ValueError(f"Expected a non-empty value for `template_version` but received {template_version!r}")
         return self._post(
-            f"/v1/templates/{template_version}/agents",
+            path_template("/v1/templates/{template_version}/agents", template_version=template_version),
             body=maybe_transform(
                 {
                     "agent_name": agent_name,
@@ -174,7 +174,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         if not template_version:
             raise ValueError(f"Expected a non-empty value for `template_version` but received {template_version!r}")
         return await self._post(
-            f"/v1/templates/{template_version}/agents",
+            path_template("/v1/templates/{template_version}/agents", template_version=template_version),
             body=await async_maybe_transform(
                 {
                     "agent_name": agent_name,

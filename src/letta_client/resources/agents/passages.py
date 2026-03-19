@@ -9,7 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -84,7 +84,7 @@ class PassagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/archival-memory",
+            path_template("/v1/agents/{agent_id}/archival-memory", agent_id=agent_id),
             body=maybe_transform(
                 {
                     "text": text,
@@ -143,7 +143,7 @@ class PassagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}/archival-memory",
+            path_template("/v1/agents/{agent_id}/archival-memory", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -194,7 +194,7 @@ class PassagesResource(SyncAPIResource):
         if not memory_id:
             raise ValueError(f"Expected a non-empty value for `memory_id` but received {memory_id!r}")
         return self._delete(
-            f"/v1/agents/{agent_id}/archival-memory/{memory_id}",
+            path_template("/v1/agents/{agent_id}/archival-memory/{memory_id}", agent_id=agent_id, memory_id=memory_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -254,7 +254,7 @@ class PassagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
-            f"/v1/agents/{agent_id}/archival-memory/search",
+            path_template("/v1/agents/{agent_id}/archival-memory/search", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -333,7 +333,7 @@ class AsyncPassagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/archival-memory",
+            path_template("/v1/agents/{agent_id}/archival-memory", agent_id=agent_id),
             body=await async_maybe_transform(
                 {
                     "text": text,
@@ -392,7 +392,7 @@ class AsyncPassagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}/archival-memory",
+            path_template("/v1/agents/{agent_id}/archival-memory", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -443,7 +443,7 @@ class AsyncPassagesResource(AsyncAPIResource):
         if not memory_id:
             raise ValueError(f"Expected a non-empty value for `memory_id` but received {memory_id!r}")
         return await self._delete(
-            f"/v1/agents/{agent_id}/archival-memory/{memory_id}",
+            path_template("/v1/agents/{agent_id}/archival-memory/{memory_id}", agent_id=agent_id, memory_id=memory_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -503,7 +503,7 @@ class AsyncPassagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
-            f"/v1/agents/{agent_id}/archival-memory/search",
+            path_template("/v1/agents/{agent_id}/archival-memory/search", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

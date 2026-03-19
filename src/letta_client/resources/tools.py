@@ -9,7 +9,7 @@ import httpx
 
 from ..types import tool_list_params, tool_create_params, tool_search_params, tool_update_params, tool_upsert_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -157,7 +157,7 @@ class ToolsResource(SyncAPIResource):
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
         return self._get(
-            f"/v1/tools/{tool_id}",
+            path_template("/v1/tools/{tool_id}", tool_id=tool_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -230,7 +230,7 @@ class ToolsResource(SyncAPIResource):
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
         return self._patch(
-            f"/v1/tools/{tool_id}",
+            path_template("/v1/tools/{tool_id}", tool_id=tool_id),
             body=maybe_transform(
                 {
                     "args_json_schema": args_json_schema,
@@ -372,7 +372,7 @@ class ToolsResource(SyncAPIResource):
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
         return self._delete(
-            f"/v1/tools/{tool_id}",
+            path_template("/v1/tools/{tool_id}", tool_id=tool_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -650,7 +650,7 @@ class AsyncToolsResource(AsyncAPIResource):
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
         return await self._get(
-            f"/v1/tools/{tool_id}",
+            path_template("/v1/tools/{tool_id}", tool_id=tool_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -723,7 +723,7 @@ class AsyncToolsResource(AsyncAPIResource):
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
         return await self._patch(
-            f"/v1/tools/{tool_id}",
+            path_template("/v1/tools/{tool_id}", tool_id=tool_id),
             body=await async_maybe_transform(
                 {
                     "args_json_schema": args_json_schema,
@@ -865,7 +865,7 @@ class AsyncToolsResource(AsyncAPIResource):
         if not tool_id:
             raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
         return await self._delete(
-            f"/v1/tools/{tool_id}",
+            path_template("/v1/tools/{tool_id}", tool_id=tool_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

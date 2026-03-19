@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -78,7 +78,7 @@ class FeedbackResource(SyncAPIResource):
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return self._patch(
-            f"/v1/steps/{step_id}/feedback",
+            path_template("/v1/steps/{step_id}/feedback", step_id=step_id),
             body=maybe_transform(
                 {
                     "feedback": feedback,
@@ -147,7 +147,7 @@ class AsyncFeedbackResource(AsyncAPIResource):
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return await self._patch(
-            f"/v1/steps/{step_id}/feedback",
+            path_template("/v1/steps/{step_id}/feedback", step_id=step_id),
             body=await async_maybe_transform(
                 {
                     "feedback": feedback,

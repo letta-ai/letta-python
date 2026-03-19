@@ -17,7 +17,7 @@ from .agents import (
 )
 from ...types import template_save_params, template_create_params, template_update_params, template_rollback_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import required_args, maybe_transform, async_maybe_transform
+from ..._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -202,7 +202,7 @@ class TemplatesResource(SyncAPIResource):
         if not template_name:
             raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
         return self._patch(
-            f"/v1/templates/{template_name}",
+            path_template("/v1/templates/{template_name}", template_name=template_name),
             body=maybe_transform(
                 {
                     "agent_file_json": agent_file_json,
@@ -243,7 +243,7 @@ class TemplatesResource(SyncAPIResource):
         if not template_name:
             raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
         return self._delete(
-            f"/v1/templates/{template_name}",
+            path_template("/v1/templates/{template_name}", template_name=template_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -282,7 +282,7 @@ class TemplatesResource(SyncAPIResource):
         if not template_name:
             raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
         return self._post(
-            f"/v1/templates/{template_name}/rollback",
+            path_template("/v1/templates/{template_name}/rollback", template_name=template_name),
             body=maybe_transform({"version": version}, template_rollback_params.TemplateRollbackParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -341,7 +341,7 @@ class TemplatesResource(SyncAPIResource):
         if not template_name:
             raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
         return self._post(
-            f"/v1/templates/{template_name}/save",
+            path_template("/v1/templates/{template_name}/save", template_name=template_name),
             body=maybe_transform(
                 {
                     "block_reconciliation_strategy": block_reconciliation_strategy,
@@ -526,7 +526,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         if not template_name:
             raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
         return await self._patch(
-            f"/v1/templates/{template_name}",
+            path_template("/v1/templates/{template_name}", template_name=template_name),
             body=await async_maybe_transform(
                 {
                     "agent_file_json": agent_file_json,
@@ -567,7 +567,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         if not template_name:
             raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
         return await self._delete(
-            f"/v1/templates/{template_name}",
+            path_template("/v1/templates/{template_name}", template_name=template_name),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -606,7 +606,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         if not template_name:
             raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
         return await self._post(
-            f"/v1/templates/{template_name}/rollback",
+            path_template("/v1/templates/{template_name}/rollback", template_name=template_name),
             body=await async_maybe_transform({"version": version}, template_rollback_params.TemplateRollbackParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -665,7 +665,7 @@ class AsyncTemplatesResource(AsyncAPIResource):
         if not template_name:
             raise ValueError(f"Expected a non-empty value for `template_name` but received {template_name!r}")
         return await self._post(
-            f"/v1/templates/{template_name}/save",
+            path_template("/v1/templates/{template_name}/save", template_name=template_name),
             body=await async_maybe_transform(
                 {
                     "block_reconciliation_strategy": block_reconciliation_strategy,
