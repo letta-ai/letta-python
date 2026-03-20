@@ -48,6 +48,12 @@ class ApprovalResponseMessage(BaseModel):
     name: Optional[str] = None
 
     otid: Optional[str] = None
+    """The offline threading id (OTID).
+
+    Set by the client to deduplicate requests. Used for idempotency in background
+    streaming mode — each message in a request must have a unique OTID. Retries of
+    the same request should reuse the same OTIDs.
+    """
 
     reason: Optional[str] = None
     """An optional explanation for the provided approval status"""

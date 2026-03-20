@@ -240,7 +240,12 @@ class MessageToolReturnCreate(TypedDict, total=False):
     """The multi-agent group that the message was sent in"""
 
     otid: Optional[str]
-    """The offline threading id associated with this message"""
+    """The offline threading id (OTID).
+
+    Set by the client to deduplicate requests. Used for idempotency in background
+    streaming mode — each message in a request must have a unique OTID. Retries of
+    the same request should reuse the same OTIDs.
+    """
 
     type: Literal["tool_return"]
     """The message type to be created."""
