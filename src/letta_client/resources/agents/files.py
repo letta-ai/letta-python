@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import path_template, maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -99,7 +99,7 @@ class FilesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
-            f"/v1/agents/{agent_id}/files",
+            path_template("/v1/agents/{agent_id}/files", agent_id=agent_id),
             page=SyncNextFilesPage[FileListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -158,7 +158,7 @@ class FilesResource(SyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}/files/{file_id}/close",
+            path_template("/v1/agents/{agent_id}/files/{file_id}/close", agent_id=agent_id, file_id=file_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -196,7 +196,7 @@ class FilesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}/files/close-all",
+            path_template("/v1/agents/{agent_id}/files/close-all", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -240,7 +240,7 @@ class FilesResource(SyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}/files/{file_id}/open",
+            path_template("/v1/agents/{agent_id}/files/{file_id}/open", agent_id=agent_id, file_id=file_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -320,7 +320,7 @@ class AsyncFilesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
-            f"/v1/agents/{agent_id}/files",
+            path_template("/v1/agents/{agent_id}/files", agent_id=agent_id),
             page=AsyncNextFilesPage[FileListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -379,7 +379,7 @@ class AsyncFilesResource(AsyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}/files/{file_id}/close",
+            path_template("/v1/agents/{agent_id}/files/{file_id}/close", agent_id=agent_id, file_id=file_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -417,7 +417,7 @@ class AsyncFilesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}/files/close-all",
+            path_template("/v1/agents/{agent_id}/files/close-all", agent_id=agent_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -461,7 +461,7 @@ class AsyncFilesResource(AsyncAPIResource):
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}/files/{file_id}/open",
+            path_template("/v1/agents/{agent_id}/files/{file_id}/open", agent_id=agent_id, file_id=file_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

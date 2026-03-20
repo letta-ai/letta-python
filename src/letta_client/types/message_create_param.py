@@ -29,7 +29,12 @@ class MessageCreateParam(TypedDict, total=False):
     """The name of the participant."""
 
     otid: Optional[str]
-    """The offline threading id associated with this message"""
+    """The offline threading id (OTID).
+
+    Set by the client to deduplicate requests. Used for idempotency in background
+    streaming mode — each message in a request must have a unique OTID. Retries of
+    the same request should reuse the same OTIDs.
+    """
 
     sender_id: Optional[str]
     """The id of the sender of the message, can be an identity id or agent id"""

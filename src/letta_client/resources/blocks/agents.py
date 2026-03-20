@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import path_template, maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -115,7 +115,7 @@ class AgentsResource(SyncAPIResource):
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._get_api_list(
-            f"/v1/blocks/{block_id}/agents",
+            path_template("/v1/blocks/{block_id}/agents", block_id=block_id),
             page=SyncArrayPage[AgentState],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -229,7 +229,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         if not block_id:
             raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._get_api_list(
-            f"/v1/blocks/{block_id}/agents",
+            path_template("/v1/blocks/{block_id}/agents", block_id=block_id),
             page=AsyncArrayPage[AgentState],
             options=make_request_options(
                 extra_headers=extra_headers,

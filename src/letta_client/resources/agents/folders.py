@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import path_template, maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -92,7 +92,7 @@ class FoldersResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
-            f"/v1/agents/{agent_id}/folders",
+            path_template("/v1/agents/{agent_id}/folders", agent_id=agent_id),
             page=SyncArrayPage[FolderListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -146,7 +146,7 @@ class FoldersResource(SyncAPIResource):
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}/folders/attach/{folder_id}",
+            path_template("/v1/agents/{agent_id}/folders/attach/{folder_id}", agent_id=agent_id, folder_id=folder_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -186,7 +186,7 @@ class FoldersResource(SyncAPIResource):
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}/folders/detach/{folder_id}",
+            path_template("/v1/agents/{agent_id}/folders/detach/{folder_id}", agent_id=agent_id, folder_id=folder_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -260,7 +260,7 @@ class AsyncFoldersResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
-            f"/v1/agents/{agent_id}/folders",
+            path_template("/v1/agents/{agent_id}/folders", agent_id=agent_id),
             page=AsyncArrayPage[FolderListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -314,7 +314,7 @@ class AsyncFoldersResource(AsyncAPIResource):
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}/folders/attach/{folder_id}",
+            path_template("/v1/agents/{agent_id}/folders/attach/{folder_id}", agent_id=agent_id, folder_id=folder_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -354,7 +354,7 @@ class AsyncFoldersResource(AsyncAPIResource):
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}/folders/detach/{folder_id}",
+            path_template("/v1/agents/{agent_id}/folders/detach/{folder_id}", agent_id=agent_id, folder_id=folder_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

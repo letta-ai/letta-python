@@ -9,7 +9,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -482,7 +482,7 @@ class MessagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/messages",
+            path_template("/v1/agents/{agent_id}/messages", agent_id=agent_id),
             body=maybe_transform(
                 {
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -582,7 +582,7 @@ class MessagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
-            f"/v1/agents/{agent_id}/messages",
+            path_template("/v1/agents/{agent_id}/messages", agent_id=agent_id),
             page=SyncArrayPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -644,7 +644,7 @@ class MessagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/messages/cancel",
+            path_template("/v1/agents/{agent_id}/messages/cancel", agent_id=agent_id),
             body=maybe_transform({"run_ids": run_ids}, message_cancel_params.MessageCancelParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -686,7 +686,7 @@ class MessagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/summarize",
+            path_template("/v1/agents/{agent_id}/summarize", agent_id=agent_id),
             body=maybe_transform(
                 {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
             ),
@@ -804,7 +804,7 @@ class MessagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/messages/async",
+            path_template("/v1/agents/{agent_id}/messages/async", agent_id=agent_id),
             body=maybe_transform(
                 {
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -863,7 +863,7 @@ class MessagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}/reset-messages",
+            path_template("/v1/agents/{agent_id}/reset-messages", agent_id=agent_id),
             body=maybe_transform(
                 {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
             ),
@@ -996,7 +996,7 @@ class MessagesResource(SyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
-            f"/v1/agents/{agent_id}/messages/stream",
+            path_template("/v1/agents/{agent_id}/messages/stream", agent_id=agent_id),
             body=maybe_transform(
                 {
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -1472,7 +1472,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/messages",
+            path_template("/v1/agents/{agent_id}/messages", agent_id=agent_id),
             body=await async_maybe_transform(
                 {
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -1572,7 +1572,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
-            f"/v1/agents/{agent_id}/messages",
+            path_template("/v1/agents/{agent_id}/messages", agent_id=agent_id),
             page=AsyncArrayPage[Message],
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -1634,7 +1634,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/messages/cancel",
+            path_template("/v1/agents/{agent_id}/messages/cancel", agent_id=agent_id),
             body=await async_maybe_transform({"run_ids": run_ids}, message_cancel_params.MessageCancelParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -1676,7 +1676,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/summarize",
+            path_template("/v1/agents/{agent_id}/summarize", agent_id=agent_id),
             body=await async_maybe_transform(
                 {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
             ),
@@ -1794,7 +1794,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/messages/async",
+            path_template("/v1/agents/{agent_id}/messages/async", agent_id=agent_id),
             body=await async_maybe_transform(
                 {
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
@@ -1853,7 +1853,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}/reset-messages",
+            path_template("/v1/agents/{agent_id}/reset-messages", agent_id=agent_id),
             body=await async_maybe_transform(
                 {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
             ),
@@ -1986,7 +1986,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
-            f"/v1/agents/{agent_id}/messages/stream",
+            path_template("/v1/agents/{agent_id}/messages/stream", agent_id=agent_id),
             body=await async_maybe_transform(
                 {
                     "assistant_message_tool_kwarg": assistant_message_tool_kwarg,

@@ -33,7 +33,7 @@ from .usage import (
 )
 from ...types import StopReasonType, run_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import maybe_transform
+from ..._utils import path_template, maybe_transform
 from .messages import (
     MessagesResource,
     AsyncMessagesResource,
@@ -120,7 +120,7 @@ class RunsResource(SyncAPIResource):
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get(
-            f"/v1/runs/{run_id}",
+            path_template("/v1/runs/{run_id}", run_id=run_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -286,7 +286,7 @@ class AsyncRunsResource(AsyncAPIResource):
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return await self._get(
-            f"/v1/runs/{run_id}",
+            path_template("/v1/runs/{run_id}", run_id=run_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

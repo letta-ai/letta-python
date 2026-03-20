@@ -5,6 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._utils import path_template
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -69,7 +70,9 @@ class ArchivesResource(SyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}/archives/attach/{archive_id}",
+            path_template(
+                "/v1/agents/{agent_id}/archives/attach/{archive_id}", agent_id=agent_id, archive_id=archive_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -107,7 +110,9 @@ class ArchivesResource(SyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return self._patch(
-            f"/v1/agents/{agent_id}/archives/detach/{archive_id}",
+            path_template(
+                "/v1/agents/{agent_id}/archives/detach/{archive_id}", agent_id=agent_id, archive_id=archive_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -166,7 +171,9 @@ class AsyncArchivesResource(AsyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}/archives/attach/{archive_id}",
+            path_template(
+                "/v1/agents/{agent_id}/archives/attach/{archive_id}", agent_id=agent_id, archive_id=archive_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -204,7 +211,9 @@ class AsyncArchivesResource(AsyncAPIResource):
         if not archive_id:
             raise ValueError(f"Expected a non-empty value for `archive_id` but received {archive_id!r}")
         return await self._patch(
-            f"/v1/agents/{agent_id}/archives/detach/{archive_id}",
+            path_template(
+                "/v1/agents/{agent_id}/archives/detach/{archive_id}", agent_id=agent_id, archive_id=archive_id
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

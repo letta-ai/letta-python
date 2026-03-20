@@ -8,7 +8,7 @@ import httpx
 
 from ..types import access_token_list_params, access_token_create_params, access_token_delete_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -171,7 +171,7 @@ class AccessTokensResource(SyncAPIResource):
         if not token:
             raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
         return self._delete(
-            f"/v1/client-side-access-tokens/{token}",
+            path_template("/v1/client-side-access-tokens/{token}", token=token),
             body=maybe_transform(body, access_token_delete_params.AccessTokenDeleteParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -327,7 +327,7 @@ class AsyncAccessTokensResource(AsyncAPIResource):
         if not token:
             raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
         return await self._delete(
-            f"/v1/client-side-access-tokens/{token}",
+            path_template("/v1/client-side-access-tokens/{token}", token=token),
             body=await async_maybe_transform(body, access_token_delete_params.AccessTokenDeleteParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout

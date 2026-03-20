@@ -28,6 +28,14 @@ class ApprovalCreateParam(TypedDict, total=False):
     group_id: Optional[str]
     """The multi-agent group that the message was sent in"""
 
+    otid: Optional[str]
+    """The offline threading id (OTID).
+
+    Set by the client to deduplicate requests. Used for idempotency in background
+    streaming mode — each message in a request must have a unique OTID. Retries of
+    the same request should reuse the same OTIDs.
+    """
+
     reason: Optional[str]
     """An optional explanation for the provided approval status"""
 

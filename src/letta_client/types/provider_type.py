@@ -29,4 +29,5 @@ ProviderType: TypeAlias = Literal[
     "openrouter",
     "xai",
     "zai",
+    "zai_coding",
 ]
