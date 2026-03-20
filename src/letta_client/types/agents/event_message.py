@@ -21,7 +21,7 @@ class EventMessage(BaseModel):
 
     event_data: Dict[str, object]
 
-    event_type: Literal["compaction", "context_warning"]
+    event_type: Literal["compaction"]
 
     is_err: Optional[bool] = None
 
