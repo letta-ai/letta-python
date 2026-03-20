@@ -1,5 +1,37 @@
 # Changelog
 
+## 1.8.0 (2026-03-20)
+
+Full Changelog: [v1.7.12...v1.8.0](https://github.com/letta-ai/letta-python/compare/v1.7.12...v1.8.0)
+
+### Features
+
+* add zai coding provider ([192fc35](https://github.com/letta-ai/letta-python/commit/192fc354c262fca4e4562816198006e92da1b1b4))
+* always create otid for request ([f208278](https://github.com/letta-ai/letta-python/commit/f20827887378a6a0525d02731436c820e3c6ee06))
+
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([fcebea1](https://github.com/letta-ai/letta-python/commit/fcebea132a9cfa2f4d87ab298ccdc32cf58f6884))
+* **pydantic:** do not pass `by_alias` unless set ([6fd6fc5](https://github.com/letta-ai/letta-python/commit/6fd6fc5ab183d7a0eef902bb07f3ea4801b1e247))
+* sanitize endpoint path params ([bc0615a](https://github.com/letta-ai/letta-python/commit/bc0615aa724b78328ceb554685fd5c47457e3633))
+* surface error when system prompt is large during compaction ([98b3055](https://github.com/letta-ai/letta-python/commit/98b305552edf427932f23f199f9f636f6b0b770f))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([0591087](https://github.com/letta-ai/letta-python/commit/05910876a703bbd272924a3c54d9a8fe2c993c94))
+
+
+### Documentation
+
+* add OTID field description for idempotency context ([0f327cc](https://github.com/letta-ai/letta-python/commit/0f327cc7b547c67b2e989f052ce68e652873daaf))
+
+
+### Refactors
+
+* **sglang:** use input_ids instead of text in native adapter ([66c6a22](https://github.com/letta-ai/letta-python/commit/66c6a223d1c3aa6b081289401185d528218efdba))
+
 ## 1.7.12 (2026-03-09)
 
 Full Changelog: [v1.7.11...v1.7.12](https://github.com/letta-ai/letta-python/compare/v1.7.11...v1.7.12)
