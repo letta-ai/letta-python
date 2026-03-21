@@ -114,12 +114,14 @@ class MessagesResource(SyncAPIResource):
 
     def stream(
         self,
-        run_id: str,
+        path_run_id: str,
         *,
         agent_id: Optional[str] | Omit = omit,
         batch_size: Optional[int] | Omit = omit,
         include_pings: Optional[bool] | Omit = omit,
+        otid: Optional[str] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
+        body_run_id: Optional[str] | Omit = omit,
         starting_after: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -140,7 +142,13 @@ class MessagesResource(SyncAPIResource):
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts.
 
+          otid: Offline threading ID to look up the run_id. Bypasses active run lookup if run_id
+              not provided.
+
           poll_interval: Seconds to wait between polls when no new data.
+
+          body_run_id: Run ID to stream directly, bypassing run lookup. Use for recovery from duplicate
+              requests.
 
           starting_after: Sequence id to use as a cursor for pagination. Response will start streaming
               after this chunk sequence id
@@ -153,16 +161,18 @@ class MessagesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not run_id:
-            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+        if not path_run_id:
+            raise ValueError(f"Expected a non-empty value for `path_run_id` but received {path_run_id!r}")
         return self._post(
-            path_template("/v1/runs/{run_id}/stream", run_id=run_id),
+            path_template("/v1/runs/{path_run_id}/stream", path_run_id=path_run_id),
             body=maybe_transform(
                 {
                     "agent_id": agent_id,
                     "batch_size": batch_size,
                     "include_pings": include_pings,
+                    "otid": otid,
                     "poll_interval": poll_interval,
+                    "body_run_id": body_run_id,
                     "starting_after": starting_after,
                 },
                 message_stream_params.MessageStreamParams,
@@ -263,12 +273,14 @@ class AsyncMessagesResource(AsyncAPIResource):
 
     async def stream(
         self,
-        run_id: str,
+        path_run_id: str,
         *,
         agent_id: Optional[str] | Omit = omit,
         batch_size: Optional[int] | Omit = omit,
         include_pings: Optional[bool] | Omit = omit,
+        otid: Optional[str] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
+        body_run_id: Optional[str] | Omit = omit,
         starting_after: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -289,7 +301,13 @@ class AsyncMessagesResource(AsyncAPIResource):
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts.
 
+          otid: Offline threading ID to look up the run_id. Bypasses active run lookup if run_id
+              not provided.
+
           poll_interval: Seconds to wait between polls when no new data.
+
+          body_run_id: Run ID to stream directly, bypassing run lookup. Use for recovery from duplicate
+              requests.
 
           starting_after: Sequence id to use as a cursor for pagination. Response will start streaming
               after this chunk sequence id
@@ -302,16 +320,18 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not run_id:
-            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+        if not path_run_id:
+            raise ValueError(f"Expected a non-empty value for `path_run_id` but received {path_run_id!r}")
         return await self._post(
-            path_template("/v1/runs/{run_id}/stream", run_id=run_id),
+            path_template("/v1/runs/{path_run_id}/stream", path_run_id=path_run_id),
             body=await async_maybe_transform(
                 {
                     "agent_id": agent_id,
                     "batch_size": batch_size,
                     "include_pings": include_pings,
+                    "otid": otid,
                     "poll_interval": poll_interval,
+                    "body_run_id": body_run_id,
                     "starting_after": starting_after,
                 },
                 message_stream_params.MessageStreamParams,

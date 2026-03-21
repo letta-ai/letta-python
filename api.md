@@ -451,7 +451,7 @@ Methods:
 Methods:
 
 - <code title="get /v1/runs/{run_id}/messages">client.runs.messages.<a href="./src/letta_client/resources/runs/messages.py">list</a>(run_id, \*\*<a href="src/letta_client/types/runs/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/agents/message.py">SyncArrayPage[Message]</a></code>
-- <code title="post /v1/runs/{run_id}/stream">client.runs.messages.<a href="./src/letta_client/resources/runs/messages.py">stream</a>(run_id, \*\*<a href="src/letta_client/types/runs/message_stream_params.py">params</a>) -> object</code>
+- <code title="post /v1/runs/{run_id}/stream">client.runs.messages.<a href="./src/letta_client/resources/runs/messages.py">stream</a>(path_run_id, \*\*<a href="src/letta_client/types/runs/message_stream_params.py">params</a>) -> object</code>
 
 ## Usage
 

@@ -24,8 +24,20 @@ class MessageStreamParams(TypedDict, total=False):
     connection timeouts.
     """
 
+    otid: Optional[str]
+    """Offline threading ID to look up the run_id.
+
+    Bypasses active run lookup if run_id not provided.
+    """
+
     poll_interval: Optional[float]
     """Seconds to wait between polls when no new data."""
+
+    run_id: Optional[str]
+    """Run ID to stream directly, bypassing run lookup.
+
+    Use for recovery from duplicate requests.
+    """
 
     starting_after: int
     """Sequence id to use as a cursor for pagination.

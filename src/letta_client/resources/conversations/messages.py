@@ -375,7 +375,9 @@ class MessagesResource(SyncAPIResource):
         agent_id: Optional[str] | Omit = omit,
         batch_size: Optional[int] | Omit = omit,
         include_pings: Optional[bool] | Omit = omit,
+        otid: Optional[str] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
+        run_id: Optional[str] | Omit = omit,
         starting_after: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -393,6 +395,12 @@ class MessagesResource(SyncAPIResource):
         **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
         body to retrieve the stream for the agent's most recent active run.
 
+        **Direct run access**: Pass run_id directly to skip run lookup entirely. Useful
+        for recovery from duplicate request 409 errors.
+
+        **OTID lookup**: Pass otid to look up the run_id from Redis. Useful when you
+        have the otid from a 409 error response.
+
         **Deprecated**: Passing an agent ID as conversation_id still works but will be
         removed.
 
@@ -409,7 +417,13 @@ class MessagesResource(SyncAPIResource):
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts.
 
+          otid: Offline threading ID to look up the run_id. Bypasses active run lookup if run_id
+              not provided.
+
           poll_interval: Seconds to wait between polls when no new data.
+
+          run_id: Run ID to stream directly, bypassing run lookup. Use for recovery from duplicate
+              requests.
 
           starting_after: Sequence id to use as a cursor for pagination. Response will start streaming
               after this chunk sequence id
@@ -431,7 +445,9 @@ class MessagesResource(SyncAPIResource):
                     "agent_id": agent_id,
                     "batch_size": batch_size,
                     "include_pings": include_pings,
+                    "otid": otid,
                     "poll_interval": poll_interval,
+                    "run_id": run_id,
                     "starting_after": starting_after,
                 },
                 message_stream_params.MessageStreamParams,
@@ -785,7 +801,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         agent_id: Optional[str] | Omit = omit,
         batch_size: Optional[int] | Omit = omit,
         include_pings: Optional[bool] | Omit = omit,
+        otid: Optional[str] | Omit = omit,
         poll_interval: Optional[float] | Omit = omit,
+        run_id: Optional[str] | Omit = omit,
         starting_after: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -803,6 +821,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         **Agent-direct mode**: Pass conversation_id="default" with agent_id in request
         body to retrieve the stream for the agent's most recent active run.
 
+        **Direct run access**: Pass run_id directly to skip run lookup entirely. Useful
+        for recovery from duplicate request 409 errors.
+
+        **OTID lookup**: Pass otid to look up the run_id from Redis. Useful when you
+        have the otid from a 409 error response.
+
         **Deprecated**: Passing an agent ID as conversation_id still works but will be
         removed.
 
@@ -819,7 +843,13 @@ class AsyncMessagesResource(AsyncAPIResource):
           include_pings: Whether to include periodic keepalive ping messages in the stream to prevent
               connection timeouts.
 
+          otid: Offline threading ID to look up the run_id. Bypasses active run lookup if run_id
+              not provided.
+
           poll_interval: Seconds to wait between polls when no new data.
+
+          run_id: Run ID to stream directly, bypassing run lookup. Use for recovery from duplicate
+              requests.
 
           starting_after: Sequence id to use as a cursor for pagination. Response will start streaming
               after this chunk sequence id
@@ -841,7 +871,9 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "agent_id": agent_id,
                     "batch_size": batch_size,
                     "include_pings": include_pings,
+                    "otid": otid,
                     "poll_interval": poll_interval,
+                    "run_id": run_id,
                     "starting_after": starting_after,
                 },
                 message_stream_params.MessageStreamParams,
