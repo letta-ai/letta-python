@@ -720,6 +720,7 @@ class AgentsResource(SyncAPIResource):
         ascending: bool | Omit = omit,
         base_template_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_by_id: Optional[str] | Omit = omit,
         identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
         identity_id: Optional[str] | Omit = omit,
         include: List[
@@ -766,6 +767,8 @@ class AgentsResource(SyncAPIResource):
           base_template_id: Search agents by base template ID
 
           before: Cursor for pagination
+
+          created_by_id: Filter agents by the user who created them.
 
           identifier_keys: Search agents by identifier keys
 
@@ -825,6 +828,7 @@ class AgentsResource(SyncAPIResource):
                         "ascending": ascending,
                         "base_template_id": base_template_id,
                         "before": before,
+                        "created_by_id": created_by_id,
                         "identifier_keys": identifier_keys,
                         "identity_id": identity_id,
                         "include": include,
@@ -1687,6 +1691,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         ascending: bool | Omit = omit,
         base_template_id: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
+        created_by_id: Optional[str] | Omit = omit,
         identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
         identity_id: Optional[str] | Omit = omit,
         include: List[
@@ -1733,6 +1738,8 @@ class AsyncAgentsResource(AsyncAPIResource):
           base_template_id: Search agents by base template ID
 
           before: Cursor for pagination
+
+          created_by_id: Filter agents by the user who created them.
 
           identifier_keys: Search agents by identifier keys
 
@@ -1792,6 +1799,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                         "ascending": ascending,
                         "base_template_id": base_template_id,
                         "before": before,
+                        "created_by_id": created_by_id,
                         "identifier_keys": identifier_keys,
                         "identity_id": identity_id,
                         "include": include,
