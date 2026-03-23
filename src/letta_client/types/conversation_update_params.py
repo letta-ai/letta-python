@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from datetime import datetime
+from typing_extensions import Literal, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
 from .xai_model_settings_param import XaiModelSettingsParam
 from .groq_model_settings_param import GroqModelSettingsParam
 from .azure_model_settings_param import AzureModelSettingsParam
@@ -36,6 +38,9 @@ __all__ = [
 
 
 class ConversationUpdateParams(TypedDict, total=False):
+    last_message_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """Timestamp of the most recent message request sent to this conversation."""
+
     model: Optional[str]
     """The model handle for this conversation (overrides agent's model).
 
