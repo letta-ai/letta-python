@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -165,6 +166,7 @@ class ConversationsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
@@ -180,6 +182,8 @@ class ConversationsResource(SyncAPIResource):
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          last_message_at: Timestamp of the most recent message request sent to this conversation.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -203,6 +207,7 @@ class ConversationsResource(SyncAPIResource):
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
             body=maybe_transform(
                 {
+                    "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
                     "summary": summary,
@@ -222,7 +227,7 @@ class ConversationsResource(SyncAPIResource):
         agent_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at", "last_run_completion"] | Omit = omit,
+        order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -559,6 +564,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
@@ -574,6 +580,8 @@ class AsyncConversationsResource(AsyncAPIResource):
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          last_message_at: Timestamp of the most recent message request sent to this conversation.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -597,6 +605,7 @@ class AsyncConversationsResource(AsyncAPIResource):
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
             body=await async_maybe_transform(
                 {
+                    "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
                     "summary": summary,
@@ -616,7 +625,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         agent_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at", "last_run_completion"] | Omit = omit,
+        order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
