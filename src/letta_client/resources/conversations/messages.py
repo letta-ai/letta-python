@@ -73,6 +73,7 @@ class MessagesResource(SyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
+        override_system: Optional[str] | Omit = omit,
         return_logprobs: bool | Omit = omit,
         return_token_ids: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
@@ -147,6 +148,10 @@ class MessagesResource(SyncAPIResource):
               allows sending a message to a different model without changing the agent's
               configuration.
 
+          override_system: Optional per-request system prompt override. When set, this is passed directly
+              to the underlying LLM request and bypasses the persisted/compiled system message
+              for that request.
+
           return_logprobs: If True, returns log probabilities of the output tokens in the response. Useful
               for RL training. Only supported for OpenAI-compatible providers (including
               SGLang).
@@ -197,6 +202,7 @@ class MessagesResource(SyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "override_model": override_model,
+                    "override_system": override_system,
                     "return_logprobs": return_logprobs,
                     "return_token_ids": return_token_ids,
                     "stream_tokens": stream_tokens,
@@ -499,6 +505,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         max_steps: int | Omit = omit,
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
+        override_system: Optional[str] | Omit = omit,
         return_logprobs: bool | Omit = omit,
         return_token_ids: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
@@ -573,6 +580,10 @@ class AsyncMessagesResource(AsyncAPIResource):
               allows sending a message to a different model without changing the agent's
               configuration.
 
+          override_system: Optional per-request system prompt override. When set, this is passed directly
+              to the underlying LLM request and bypasses the persisted/compiled system message
+              for that request.
+
           return_logprobs: If True, returns log probabilities of the output tokens in the response. Useful
               for RL training. Only supported for OpenAI-compatible providers (including
               SGLang).
@@ -623,6 +634,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "max_steps": max_steps,
                     "messages": messages,
                     "override_model": override_model,
+                    "override_system": override_system,
                     "return_logprobs": return_logprobs,
                     "return_token_ids": return_token_ids,
                     "stream_tokens": stream_tokens,
