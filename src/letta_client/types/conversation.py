@@ -219,6 +219,9 @@ class Conversation(BaseModel):
     defaults).
     """
 
+    last_message_at: Optional[datetime] = None
+    """Timestamp of the most recent message request sent to this conversation."""
+
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
 

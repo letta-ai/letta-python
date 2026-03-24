@@ -261,7 +261,9 @@ class TestMessages:
             agent_id="agent_id",
             batch_size=0,
             include_pings=True,
+            otid="otid",
             poll_interval=0,
+            run_id="run_id",
             starting_after=0,
         )
         message_stream.response.close()
@@ -545,7 +547,9 @@ class TestAsyncMessages:
             agent_id="agent_id",
             batch_size=0,
             include_pings=True,
+            otid="otid",
             poll_interval=0,
+            run_id="run_id",
             starting_after=0,
         )
         await message_stream.response.aclose()

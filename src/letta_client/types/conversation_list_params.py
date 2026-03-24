@@ -24,7 +24,7 @@ class ConversationListParams(TypedDict, total=False):
     order: Literal["asc", "desc"]
     """Sort order for conversations. 'asc' for oldest first, 'desc' for newest first"""
 
-    order_by: Literal["created_at", "last_run_completion"]
+    order_by: Literal["created_at", "last_run_completion", "last_message_at"]
     """Field to sort by"""
 
     summary_search: Optional[str]

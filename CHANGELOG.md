@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.8.1 (2026-03-24)
+
+Full Changelog: [v1.8.0...v1.8.1](https://github.com/letta-ai/letta-python/compare/v1.8.0...v1.8.1)
+
+### Features
+
+* add idempotency for conversation streaming ([1398653](https://github.com/letta-ai/letta-python/commit/1398653a97199963898d379c68ad74f0c79aa35c))
+* **core:** add created_by_id and last_updated_by_id filters to list/count agents ([dc45581](https://github.com/letta-ai/letta-python/commit/dc45581da0ec5e7d911aaccf4c40639f09a68f36))
+* **core:** sort conversations by last_message_at ([2d2a0fe](https://github.com/letta-ai/letta-python/commit/2d2a0feb414c6eca9b72a782051673f7b7238eb2))
+
+
+### Reverts
+
+* undo PR [#10058](https://github.com/letta-ai/letta-python/issues/10058) system-prompt warning changes ([05cdb2d](https://github.com/letta-ai/letta-python/commit/05cdb2d275d6a8be6c02f46ef10378e6ff14c95c))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([1089986](https://github.com/letta-ai/letta-python/commit/10899867d9468f4d45eccb6f1f5033d70be22519))
+* **internal:** update gitignore ([3d4023a](https://github.com/letta-ai/letta-python/commit/3d4023a088f6c9daf801d55dc0c3099ef1a58978))
+
 ## 1.8.0 (2026-03-20)
 
 Full Changelog: [v1.7.12...v1.8.0](https://github.com/letta-ai/letta-python/compare/v1.7.12...v1.8.0)

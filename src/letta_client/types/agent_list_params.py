@@ -27,6 +27,9 @@ class AgentListParams(TypedDict, total=False):
     before: Optional[str]
     """Cursor for pagination"""
 
+    created_by_id: Optional[str]
+    """Filter agents by the user who created them."""
+
     identifier_keys: Optional[SequenceNotStr[str]]
     """Search agents by identifier keys"""
 

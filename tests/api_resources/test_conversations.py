@@ -14,6 +14,7 @@ from letta_client.types import (
     ConversationListResponse,
     ConversationCancelResponse,
 )
+from letta_client._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -130,6 +131,7 @@ class TestConversations:
     def test_method_update_with_all_params(self, client: Letta) -> None:
         conversation = client.conversations.update(
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
                 "max_output_tokens": 0,
@@ -496,6 +498,7 @@ class TestAsyncConversations:
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.update(
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
                 "max_output_tokens": 0,
