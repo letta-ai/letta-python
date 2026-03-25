@@ -375,6 +375,46 @@ class ConversationsResource(SyncAPIResource):
             cast_to=ConversationCancelResponse,
         )
 
+    def fork(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
+        """
+        Fork an existing conversation.
+
+        Creates a new conversation that shares the same in-context messages as the
+        source conversation, but with a newly compiled system message reflecting the
+        latest memory block values. The forked conversation belongs to the same agent as
+        the source.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return self._post(
+            path_template("/v1/conversations/{conversation_id}/fork", conversation_id=conversation_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Conversation,
+        )
+
     def recompile(
         self,
         conversation_id: str,
@@ -775,6 +815,46 @@ class AsyncConversationsResource(AsyncAPIResource):
             cast_to=ConversationCancelResponse,
         )
 
+    async def fork(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
+        """
+        Fork an existing conversation.
+
+        Creates a new conversation that shares the same in-context messages as the
+        source conversation, but with a newly compiled system message reflecting the
+        latest memory block values. The forked conversation belongs to the same agent as
+        the source.
+
+        Args:
+          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
+        return await self._post(
+            path_template("/v1/conversations/{conversation_id}/fork", conversation_id=conversation_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=Conversation,
+        )
+
     async def recompile(
         self,
         conversation_id: str,
@@ -861,6 +941,9 @@ class ConversationsResourceWithRawResponse:
         self.cancel = to_raw_response_wrapper(
             conversations.cancel,
         )
+        self.fork = to_raw_response_wrapper(
+            conversations.fork,
+        )
         self.recompile = to_raw_response_wrapper(
             conversations.recompile,
         )
@@ -891,6 +974,9 @@ class AsyncConversationsResourceWithRawResponse:
         )
         self.cancel = async_to_raw_response_wrapper(
             conversations.cancel,
+        )
+        self.fork = async_to_raw_response_wrapper(
+            conversations.fork,
         )
         self.recompile = async_to_raw_response_wrapper(
             conversations.recompile,
@@ -923,6 +1009,9 @@ class ConversationsResourceWithStreamingResponse:
         self.cancel = to_streamed_response_wrapper(
             conversations.cancel,
         )
+        self.fork = to_streamed_response_wrapper(
+            conversations.fork,
+        )
         self.recompile = to_streamed_response_wrapper(
             conversations.recompile,
         )
@@ -953,6 +1042,9 @@ class AsyncConversationsResourceWithStreamingResponse:
         )
         self.cancel = async_to_streamed_response_wrapper(
             conversations.cancel,
+        )
+        self.fork = async_to_streamed_response_wrapper(
+            conversations.fork,
         )
         self.recompile = async_to_streamed_response_wrapper(
             conversations.recompile,
