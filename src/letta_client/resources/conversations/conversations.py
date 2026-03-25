@@ -9,6 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ...types import (
+    conversation_fork_params,
     conversation_list_params,
     conversation_cancel_params,
     conversation_create_params,
@@ -379,6 +380,7 @@ class ConversationsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -394,8 +396,19 @@ class ConversationsResource(SyncAPIResource):
         latest memory block values. The forked conversation belongs to the same agent as
         the source.
 
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id query
+        parameter to fork the agent's default (agent-direct) message history into a new
+        conversation.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
+
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation
 
           extra_headers: Send extra headers
 
@@ -410,7 +423,11 @@ class ConversationsResource(SyncAPIResource):
         return self._post(
             path_template("/v1/conversations/{conversation_id}/fork", conversation_id=conversation_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"agent_id": agent_id}, conversation_fork_params.ConversationForkParams),
             ),
             cast_to=Conversation,
         )
@@ -819,6 +836,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        agent_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -834,8 +852,19 @@ class AsyncConversationsResource(AsyncAPIResource):
         latest memory block values. The forked conversation belongs to the same agent as
         the source.
 
+        **Agent-direct mode**: Pass conversation_id="default" with agent_id query
+        parameter to fork the agent's default (agent-direct) message history into a new
+        conversation.
+
+        **Deprecated**: Passing an agent ID as conversation_id still works but will be
+        removed.
+
         Args:
-          conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+          conversation_id: The conversation identifier. Can be a conversation ID ('conv-<uuid4>'),
+              'default' for agent-direct mode (with agent_id parameter), or an agent ID
+              ('agent-<uuid4>') for backwards compatibility (deprecated).
+
+          agent_id: Agent ID for agent-direct mode with 'default' conversation
 
           extra_headers: Send extra headers
 
@@ -850,7 +879,13 @@ class AsyncConversationsResource(AsyncAPIResource):
         return await self._post(
             path_template("/v1/conversations/{conversation_id}/fork", conversation_id=conversation_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"agent_id": agent_id}, conversation_fork_params.ConversationForkParams
+                ),
             ),
             cast_to=Conversation,
         )

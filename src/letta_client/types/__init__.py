@@ -93,6 +93,7 @@ from .agent_import_file_params import AgentImportFileParams as AgentImportFilePa
 from .agent_recompile_response import AgentRecompileResponse as AgentRecompileResponse
 from .anthropic_model_settings import AnthropicModelSettings as AnthropicModelSettings
 from .continue_tool_rule_param import ContinueToolRuleParam as ContinueToolRuleParam
+from .conversation_fork_params import ConversationForkParams as ConversationForkParams
 from .conversation_list_params import ConversationListParams as ConversationListParams
 from .google_ai_model_settings import GoogleAIModelSettings as GoogleAIModelSettings
 from .mcp_server_create_params import McpServerCreateParams as McpServerCreateParams

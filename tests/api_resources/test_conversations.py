@@ -318,7 +318,16 @@ class TestConversations:
     @parametrize
     def test_method_fork(self, client: Letta) -> None:
         conversation = client.conversations.fork(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
+        )
+        assert_matches_type(Conversation, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_fork_with_all_params(self, client: Letta) -> None:
+        conversation = client.conversations.fork(
+            conversation_id="default",
+            agent_id="agent_id",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -326,7 +335,7 @@ class TestConversations:
     @parametrize
     def test_raw_response_fork(self, client: Letta) -> None:
         response = client.conversations.with_raw_response.fork(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.is_closed is True
@@ -338,7 +347,7 @@ class TestConversations:
     @parametrize
     def test_streaming_response_fork(self, client: Letta) -> None:
         with client.conversations.with_streaming_response.fork(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -353,7 +362,7 @@ class TestConversations:
     def test_path_params_fork(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.fork(
-                "",
+                conversation_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -727,7 +736,16 @@ class TestAsyncConversations:
     @parametrize
     async def test_method_fork(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.fork(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
+        )
+        assert_matches_type(Conversation, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_fork_with_all_params(self, async_client: AsyncLetta) -> None:
+        conversation = await async_client.conversations.fork(
+            conversation_id="default",
+            agent_id="agent_id",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -735,7 +753,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_raw_response_fork(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.with_raw_response.fork(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         )
 
         assert response.is_closed is True
@@ -747,7 +765,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_streaming_response_fork(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.with_streaming_response.fork(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="default",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -762,7 +780,7 @@ class TestAsyncConversations:
     async def test_path_params_fork(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.fork(
-                "",
+                conversation_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
