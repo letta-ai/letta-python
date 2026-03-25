@@ -77,6 +77,7 @@ class TestMessages:
             after="after",
             before="before",
             conversation_id="conversation_id",
+            include_return_message_types=["system_message", "user_message"],
             limit=0,
             order="asc",
         )
@@ -213,6 +214,7 @@ class TestAsyncMessages:
             after="after",
             before="before",
             conversation_id="conversation_id",
+            include_return_message_types=["system_message", "user_message"],
             limit=0,
             order="asc",
         )
