@@ -229,6 +229,7 @@ class MessagesResource(SyncAPIResource):
         before: Optional[str] | Omit = omit,
         group_id: Optional[str] | Omit = omit,
         include_err: Optional[bool] | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
@@ -269,6 +270,8 @@ class MessagesResource(SyncAPIResource):
           include_err: Whether to include error messages and error statuses. For debugging purposes
               only.
 
+          include_return_message_types: Message types to include in response. When null, all message types are returned.
+
           limit: Maximum number of messages to return
 
           order: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
@@ -301,6 +304,7 @@ class MessagesResource(SyncAPIResource):
                         "before": before,
                         "group_id": group_id,
                         "include_err": include_err,
+                        "include_return_message_types": include_return_message_types,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,
@@ -661,6 +665,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         before: Optional[str] | Omit = omit,
         group_id: Optional[str] | Omit = omit,
         include_err: Optional[bool] | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
@@ -701,6 +706,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           include_err: Whether to include error messages and error statuses. For debugging purposes
               only.
 
+          include_return_message_types: Message types to include in response. When null, all message types are returned.
+
           limit: Maximum number of messages to return
 
           order: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
@@ -733,6 +740,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                         "before": before,
                         "group_id": group_id,
                         "include_err": include_err,
+                        "include_return_message_types": include_return_message_types,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,

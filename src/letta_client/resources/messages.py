@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -20,6 +20,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.agents.message_type import MessageType
 from ..types.message_list_response import MessageListResponse
 from ..types.message_search_response import MessageSearchResponse
 from ..types.message_retrieve_response import MessageRetrieveResponse
@@ -88,6 +89,7 @@ class MessagesResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -108,6 +110,8 @@ class MessagesResource(SyncAPIResource):
               ID in the specified sort order
 
           conversation_id: Conversation ID to filter messages by
+
+          include_return_message_types: Message types to include in response. When null, all message types are returned.
 
           limit: Maximum number of messages to return
 
@@ -134,6 +138,7 @@ class MessagesResource(SyncAPIResource):
                         "after": after,
                         "before": before,
                         "conversation_id": conversation_id,
+                        "include_return_message_types": include_return_message_types,
                         "limit": limit,
                         "order": order,
                     },
@@ -272,6 +277,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
+        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -292,6 +298,8 @@ class AsyncMessagesResource(AsyncAPIResource):
               ID in the specified sort order
 
           conversation_id: Conversation ID to filter messages by
+
+          include_return_message_types: Message types to include in response. When null, all message types are returned.
 
           limit: Maximum number of messages to return
 
@@ -318,6 +326,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                         "after": after,
                         "before": before,
                         "conversation_id": conversation_id,
+                        "include_return_message_types": include_return_message_types,
                         "limit": limit,
                         "order": order,
                     },

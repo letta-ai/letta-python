@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal, TypedDict
+
+from ..agents.message_type import MessageType
 
 __all__ = ["MessageListParams"]
 
@@ -31,6 +33,12 @@ class MessageListParams(TypedDict, total=False):
     """Whether to include error messages and error statuses.
 
     For debugging purposes only.
+    """
+
+    include_return_message_types: Optional[List[MessageType]]
+    """Message types to include in response.
+
+    When null, all message types are returned.
     """
 
     limit: Optional[int]
