@@ -108,6 +108,13 @@ class MessageCreateParamsBase(TypedDict, total=False):
     configuration.
     """
 
+    override_system: Optional[str]
+    """Optional per-request system prompt override.
+
+    When set, this is passed directly to the underlying LLM request and bypasses the
+    persisted/compiled system message for that request.
+    """
+
     return_logprobs: bool
     """If True, returns log probabilities of the output tokens in the response.
 

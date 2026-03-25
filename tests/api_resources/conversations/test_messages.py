@@ -77,6 +77,7 @@ class TestMessages:
                 }
             ],
             override_model="override_model",
+            override_system="override_system",
             return_logprobs=True,
             return_token_ids=True,
             stream_tokens=True,
@@ -363,6 +364,7 @@ class TestAsyncMessages:
                 }
             ],
             override_model="override_model",
+            override_system="override_system",
             return_logprobs=True,
             return_token_ids=True,
             stream_tokens=True,

@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.9.1 (2026-03-25)
+
+Full Changelog: [v1.8.1...v1.9.1](https://github.com/letta-ai/letta-python/compare/v1.8.1...v1.9.1)
+
+### Features
+
+* **core:** add request-scoped system override for conversation messages ([751739d](https://github.com/letta-ai/letta-python/commit/751739d4165e5634a901eb6afc1adb35a514e6d2))
+* **core:** support forking the default (agent-direct) conversation ([1f38887](https://github.com/letta-ai/letta-python/commit/1f388871bdd89f963c02914f28ac7708033863b9))
+* expose conversation fork endpoint in Stainless SDK ([6900b7a](https://github.com/letta-ai/letta-python/commit/6900b7a0386a09f52bb6fc1e0d0aa8631743fbc0))
+
 ## 1.8.1 (2026-03-24)
 
 Full Changelog: [v1.8.0...v1.8.1](https://github.com/letta-ai/letta-python/compare/v1.8.0...v1.8.1)
