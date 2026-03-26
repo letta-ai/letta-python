@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal, TypedDict
+
+from .agents.message_type import MessageType
 
 __all__ = ["MessageListParams"]
 
@@ -23,6 +25,12 @@ class MessageListParams(TypedDict, total=False):
 
     conversation_id: Optional[str]
     """Conversation ID to filter messages by"""
+
+    include_return_message_types: Optional[List[MessageType]]
+    """Message types to include in response.
+
+    When null, all message types are returned.
+    """
 
     limit: Optional[int]
     """Maximum number of messages to return"""
