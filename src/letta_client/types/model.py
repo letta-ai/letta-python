@@ -51,6 +51,7 @@ class Model(BaseModel):
         "koboldcpp",
         "vllm",
         "hugging-face",
+        "baseten",
         "minimax",
         "mistral",
         "together",

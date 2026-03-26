@@ -44,6 +44,7 @@ __all__ = [
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettingsThinking",
+    "CompactionSettingsModelSettingsBasetenModelSettings",
     "CompactionSettingsModelSettingsOpenRouterModelSettings",
     "CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsChatGptoAuthModelSettings",
@@ -55,6 +56,7 @@ __all__ = [
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettingsThinking",
+    "ModelSettingsBasetenModelSettings",
     "ModelSettingsOpenRouterModelSettings",
     "ModelSettingsOpenRouterModelSettingsResponseFormat",
     "ModelSettingsChatGptoAuthModelSettings",
@@ -352,6 +354,22 @@ class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
     """The thinking configuration for GLM-4.5+ models."""
 
 
+class CompactionSettingsModelSettingsBasetenModelSettings(TypedDict, total=False):
+    """Baseten model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["baseten"]
+    """The type of the provider."""
+
+    temperature: float
+    """The temperature of the model."""
+
+
 CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
@@ -415,6 +433,7 @@ CompactionSettingsModelSettings: TypeAlias = Union[
     DeepseekModelSettingsParam,
     TogetherModelSettingsParam,
     BedrockModelSettingsParam,
+    CompactionSettingsModelSettingsBasetenModelSettings,
     CompactionSettingsModelSettingsOpenRouterModelSettings,
     CompactionSettingsModelSettingsChatGptoAuthModelSettings,
 ]
@@ -543,6 +562,22 @@ class ModelSettingsZaiModelSettings(TypedDict, total=False):
     """The thinking configuration for GLM-4.5+ models."""
 
 
+class ModelSettingsBasetenModelSettings(TypedDict, total=False):
+    """Baseten model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["baseten"]
+    """The type of the provider."""
+
+    temperature: float
+    """The temperature of the model."""
+
+
 ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
@@ -606,6 +641,7 @@ ModelSettings: TypeAlias = Union[
     DeepseekModelSettingsParam,
     TogetherModelSettingsParam,
     BedrockModelSettingsParam,
+    ModelSettingsBasetenModelSettings,
     ModelSettingsOpenRouterModelSettings,
     ModelSettingsChatGptoAuthModelSettings,
 ]
