@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.10.1 (2026-03-26)
+
+Full Changelog: [v1.9.1...v1.10.1](https://github.com/letta-ai/letta-python/compare/v1.9.1...v1.10.1)
+
+### Features
+
+* **core:** add include_tool_calls param to message list endpoints ([b7ed9c7](https://github.com/letta-ai/letta-python/commit/b7ed9c7ffac2b4516a2f9401594e78789ad478b6))
+* **core:** add tpuf cache warming for message search ([a2d3bc3](https://github.com/letta-ai/letta-python/commit/a2d3bc3c16b17ef248dee2a9beafb21285332e9e))
+
 ## 1.9.1 (2026-03-25)
 
 Full Changelog: [v1.8.1...v1.9.1](https://github.com/letta-ai/letta-python/compare/v1.8.1...v1.9.1)
