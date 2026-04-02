@@ -39,6 +39,9 @@ __all__ = [
 
 
 class ConversationUpdateParams(TypedDict, total=False):
+    archived: Optional[bool]
+    """Whether the conversation is archived."""
+
     last_message_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Timestamp of the most recent message request sent to this conversation."""
 

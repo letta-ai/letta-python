@@ -18,6 +18,12 @@ class ConversationListParams(TypedDict, total=False):
     not provided)
     """
 
+    archive_status: Literal["unarchived", "archived", "all"]
+    """
+    Whether to return unarchived conversations only, archived conversations only, or
+    all conversations
+    """
+
     limit: int
     """Maximum number of conversations to return"""
 
