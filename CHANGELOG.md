@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.10.2 (2026-04-02)
+
+Full Changelog: [v1.10.1...v1.10.2](https://github.com/letta-ai/letta-python/compare/v1.10.1...v1.10.2)
+
+### Features
+
+* **core:** add conversation archive fields and filtering ([d589286](https://github.com/letta-ai/letta-python/commit/d589286a9d635b5e5e9744f2be15cd11790af29f))
+* **internal:** implement indices array format for query and form serialization ([c4a27c7](https://github.com/letta-ai/letta-python/commit/c4a27c7c600fa67620347c910ed9f9f448993647))
+
 ## 1.10.1 (2026-03-26)
 
 Full Changelog: [v1.9.1...v1.10.1](https://github.com/letta-ai/letta-python/compare/v1.9.1...v1.10.1)
