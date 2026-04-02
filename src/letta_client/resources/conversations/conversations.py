@@ -167,6 +167,7 @@ class ConversationsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        archived: Optional[bool] | Omit = omit,
         last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
@@ -183,6 +184,8 @@ class ConversationsResource(SyncAPIResource):
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          archived: Whether the conversation is archived.
 
           last_message_at: Timestamp of the most recent message request sent to this conversation.
 
@@ -208,6 +211,7 @@ class ConversationsResource(SyncAPIResource):
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
             body=maybe_transform(
                 {
+                    "archived": archived,
                     "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
@@ -226,6 +230,7 @@ class ConversationsResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         agent_id: Optional[str] | Omit = omit,
+        archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
         limit: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
@@ -246,6 +251,9 @@ class ConversationsResource(SyncAPIResource):
 
           agent_id: The agent ID to list conversations for (optional - returns all conversations if
               not provided)
+
+          archive_status: Whether to return unarchived conversations only, archived conversations only, or
+              all conversations
 
           limit: Maximum number of conversations to return
 
@@ -274,6 +282,7 @@ class ConversationsResource(SyncAPIResource):
                     {
                         "after": after,
                         "agent_id": agent_id,
+                        "archive_status": archive_status,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,
@@ -621,6 +630,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        archived: Optional[bool] | Omit = omit,
         last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
@@ -637,6 +647,8 @@ class AsyncConversationsResource(AsyncAPIResource):
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          archived: Whether the conversation is archived.
 
           last_message_at: Timestamp of the most recent message request sent to this conversation.
 
@@ -662,6 +674,7 @@ class AsyncConversationsResource(AsyncAPIResource):
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
             body=await async_maybe_transform(
                 {
+                    "archived": archived,
                     "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
@@ -680,6 +693,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         agent_id: Optional[str] | Omit = omit,
+        archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
         limit: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
@@ -700,6 +714,9 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           agent_id: The agent ID to list conversations for (optional - returns all conversations if
               not provided)
+
+          archive_status: Whether to return unarchived conversations only, archived conversations only, or
+              all conversations
 
           limit: Maximum number of conversations to return
 
@@ -728,6 +745,7 @@ class AsyncConversationsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "agent_id": agent_id,
+                        "archive_status": archive_status,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,
