@@ -131,6 +131,7 @@ class TestConversations:
     def test_method_update_with_all_params(self, client: Letta) -> None:
         conversation = client.conversations.update(
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            archived=True,
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -192,6 +193,7 @@ class TestConversations:
         conversation = client.conversations.list(
             after="after",
             agent_id="agent_id",
+            archive_status="unarchived",
             limit=0,
             order="asc",
             order_by="created_at",
@@ -549,6 +551,7 @@ class TestAsyncConversations:
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.update(
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            archived=True,
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -610,6 +613,7 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.list(
             after="after",
             agent_id="agent_id",
+            archive_status="unarchived",
             limit=0,
             order="asc",
             order_by="created_at",

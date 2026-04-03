@@ -222,6 +222,12 @@ class Conversation(BaseModel):
     agent_id: str
     """The ID of the agent this conversation belongs to."""
 
+    archived: Optional[bool] = None
+    """Whether the conversation is archived."""
+
+    archived_at: Optional[datetime] = None
+    """Timestamp of when the conversation was archived."""
+
     created_at: Optional[datetime] = None
     """The timestamp when the object was created."""
 
