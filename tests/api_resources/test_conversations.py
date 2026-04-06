@@ -35,6 +35,7 @@ class TestConversations:
     def test_method_create_with_all_params(self, client: Letta) -> None:
         conversation = client.conversations.create(
             agent_id="agent_id",
+            context_window_limit=0,
             isolated_block_labels=["string"],
             model="model",
             model_settings={
@@ -132,6 +133,7 @@ class TestConversations:
         conversation = client.conversations.update(
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
             archived=True,
+            context_window_limit=0,
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -455,6 +457,7 @@ class TestAsyncConversations:
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.create(
             agent_id="agent_id",
+            context_window_limit=0,
             isolated_block_labels=["string"],
             model="model",
             model_settings={
@@ -552,6 +555,7 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.update(
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
             archived=True,
+            context_window_limit=0,
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
