@@ -41,6 +41,12 @@ class ConversationCreateParams(TypedDict, total=False):
     agent_id: Required[str]
     """The agent ID to create a conversation for"""
 
+    context_window_limit: Optional[int]
+    """
+    The context window limit for this conversation (overrides agent's context
+    window).
+    """
+
     isolated_block_labels: Optional[SequenceNotStr[str]]
     """
     List of block labels that should be isolated (conversation-specific) rather than

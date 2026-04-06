@@ -42,6 +42,12 @@ class ConversationUpdateParams(TypedDict, total=False):
     archived: Optional[bool]
     """Whether the conversation is archived."""
 
+    context_window_limit: Optional[int]
+    """
+    The context window limit for this conversation (overrides agent's context
+    window).
+    """
+
     last_message_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Timestamp of the most recent message request sent to this conversation."""
 
