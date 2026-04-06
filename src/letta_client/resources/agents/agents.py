@@ -209,7 +209,6 @@ class AgentsResource(SyncAPIResource):
         include_base_tool_rules: Optional[bool] | Omit = omit,
         include_base_tools: bool | Omit = omit,
         include_default_source: bool | Omit = omit,
-        include_multi_agent_tools: bool | Omit = omit,
         initial_message_sequence: Optional[Iterable[MessageCreateParam]] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
@@ -291,9 +290,6 @@ class AgentsResource(SyncAPIResource):
 
           include_default_source: If true, automatically creates and attaches a default data source for this
               agent.
-
-          include_multi_agent_tools: If true, attaches the Letta multi-agent tools (e.g. sending a message to another
-              agent).
 
           initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
 
@@ -402,7 +398,6 @@ class AgentsResource(SyncAPIResource):
                     "include_base_tool_rules": include_base_tool_rules,
                     "include_base_tools": include_base_tools,
                     "include_default_source": include_default_source,
-                    "include_multi_agent_tools": include_multi_agent_tools,
                     "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
@@ -1180,7 +1175,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         include_base_tool_rules: Optional[bool] | Omit = omit,
         include_base_tools: bool | Omit = omit,
         include_default_source: bool | Omit = omit,
-        include_multi_agent_tools: bool | Omit = omit,
         initial_message_sequence: Optional[Iterable[MessageCreateParam]] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
@@ -1262,9 +1256,6 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           include_default_source: If true, automatically creates and attaches a default data source for this
               agent.
-
-          include_multi_agent_tools: If true, attaches the Letta multi-agent tools (e.g. sending a message to another
-              agent).
 
           initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
 
@@ -1373,7 +1364,6 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "include_base_tool_rules": include_base_tool_rules,
                     "include_base_tools": include_base_tools,
                     "include_default_source": include_default_source,
-                    "include_multi_agent_tools": include_multi_agent_tools,
                     "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,

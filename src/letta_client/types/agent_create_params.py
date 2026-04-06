@@ -134,12 +134,6 @@ class AgentCreateParams(TypedDict, total=False):
     agent.
     """
 
-    include_multi_agent_tools: bool
-    """If true, attaches the Letta multi-agent tools (e.g.
-
-    sending a message to another agent).
-    """
-
     initial_message_sequence: Optional[Iterable[MessageCreateParam]]
     """The initial set of messages to put in the agent's in-context memory."""
 

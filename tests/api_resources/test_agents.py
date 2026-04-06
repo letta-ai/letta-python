@@ -77,7 +77,6 @@ class TestAgents:
             include_base_tool_rules=True,
             include_base_tools=True,
             include_default_source=True,
-            include_multi_agent_tools=True,
             initial_message_sequence=[
                 {
                     "content": [
@@ -751,7 +750,6 @@ class TestAsyncAgents:
             include_base_tool_rules=True,
             include_base_tools=True,
             include_default_source=True,
-            include_multi_agent_tools=True,
             initial_message_sequence=[
                 {
                     "content": [
