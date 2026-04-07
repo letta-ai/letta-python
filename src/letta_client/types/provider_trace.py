@@ -74,6 +74,9 @@ class ProviderTrace(BaseModel):
     last_updated_by_id: Optional[str] = None
     """The id of the user that made this object."""
 
+    latency_ms: Optional[int] = None
+    """LLM request latency in milliseconds"""
+
     llm_config: Optional[Dict[str, object]] = None
     """LLM configuration used for this call (non-summarization calls only)"""
 
