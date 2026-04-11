@@ -229,7 +229,7 @@ class TestAgents:
     def test_method_retrieve_with_all_params(self, client: Letta) -> None:
         agent = client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            include=["agent.blocks"],
+            include=["agent.blocks", "agent.identities"],
             include_relationships=["string", "string"],
         )
         assert_matches_type(AgentState, agent, path=["response"])
@@ -448,7 +448,7 @@ class TestAgents:
             created_by_id="created_by_id",
             identifier_keys=["string", "string"],
             identity_id="identity_id",
-            include=["agent.blocks"],
+            include=["agent.blocks", "agent.identities"],
             include_relationships=["string", "string"],
             last_stop_reason="end_turn",
             limit=0,
@@ -902,7 +902,7 @@ class TestAsyncAgents:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            include=["agent.blocks"],
+            include=["agent.blocks", "agent.identities"],
             include_relationships=["string", "string"],
         )
         assert_matches_type(AgentState, agent, path=["response"])
@@ -1121,7 +1121,7 @@ class TestAsyncAgents:
             created_by_id="created_by_id",
             identifier_keys=["string", "string"],
             identity_id="identity_id",
-            include=["agent.blocks"],
+            include=["agent.blocks", "agent.identities"],
             include_relationships=["string", "string"],
             last_stop_reason="end_turn",
             limit=0,

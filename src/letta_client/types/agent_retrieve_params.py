@@ -11,16 +11,18 @@ __all__ = ["AgentRetrieveParams"]
 
 
 class AgentRetrieveParams(TypedDict, total=False):
-    include: List[
-        Literal[
-            "agent.blocks",
-            "agent.identities",
-            "agent.managed_group",
-            "agent.pending_approval",
-            "agent.secrets",
-            "agent.sources",
-            "agent.tags",
-            "agent.tools",
+    include: Optional[
+        List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.pending_approval",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
         ]
     ]
     """Specify which relational fields to include in the response.
