@@ -440,16 +440,18 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -718,16 +720,18 @@ class AgentsResource(SyncAPIResource):
         created_by_id: Optional[str] | Omit = omit,
         identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
         identity_id: Optional[str] | Omit = omit,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -1406,16 +1410,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -1684,16 +1690,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         created_by_id: Optional[str] | Omit = omit,
         identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
         identity_id: Optional[str] | Omit = omit,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
