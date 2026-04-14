@@ -11,3 +11,6 @@ __all__ = ["ConversationForkParams"]
 class ConversationForkParams(TypedDict, total=False):
     agent_id: Optional[str]
     """Agent ID for agent-direct mode with 'default' conversation"""
+
+    hidden: bool
+    """Whether the forked conversation should be hidden from listings"""
