@@ -332,6 +332,7 @@ class TestConversations:
         conversation = client.conversations.fork(
             conversation_id="default",
             agent_id="agent_id",
+            hidden=True,
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -754,6 +755,7 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.fork(
             conversation_id="default",
             agent_id="agent_id",
+            hidden=True,
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 

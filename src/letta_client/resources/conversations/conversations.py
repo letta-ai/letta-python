@@ -400,6 +400,7 @@ class ConversationsResource(SyncAPIResource):
         conversation_id: str,
         *,
         agent_id: Optional[str] | Omit = omit,
+        hidden: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -429,6 +430,8 @@ class ConversationsResource(SyncAPIResource):
 
           agent_id: Agent ID for agent-direct mode with 'default' conversation
 
+          hidden: Whether the forked conversation should be hidden from listings
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -446,7 +449,13 @@ class ConversationsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"agent_id": agent_id}, conversation_fork_params.ConversationForkParams),
+                query=maybe_transform(
+                    {
+                        "agent_id": agent_id,
+                        "hidden": hidden,
+                    },
+                    conversation_fork_params.ConversationForkParams,
+                ),
             ),
             cast_to=Conversation,
         )
@@ -875,6 +884,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         conversation_id: str,
         *,
         agent_id: Optional[str] | Omit = omit,
+        hidden: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -904,6 +914,8 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           agent_id: Agent ID for agent-direct mode with 'default' conversation
 
+          hidden: Whether the forked conversation should be hidden from listings
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -922,7 +934,11 @@ class AsyncConversationsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"agent_id": agent_id}, conversation_fork_params.ConversationForkParams
+                    {
+                        "agent_id": agent_id,
+                        "hidden": hidden,
+                    },
+                    conversation_fork_params.ConversationForkParams,
                 ),
             ),
             cast_to=Conversation,
