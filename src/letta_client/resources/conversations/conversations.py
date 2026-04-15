@@ -257,7 +257,8 @@ class ConversationsResource(SyncAPIResource):
         provided).
 
         Args:
-          after: Cursor for pagination (conversation ID)
+          after: Cursor for pagination (conv ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'conv-<uuid4>'
 
           agent_id: The agent ID to list conversations for (optional - returns all conversations if
               not provided)
@@ -739,7 +740,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         provided).
 
         Args:
-          after: Cursor for pagination (conversation ID)
+          after: Cursor for pagination (conv ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'conv-<uuid4>'
 
           agent_id: The agent ID to list conversations for (optional - returns all conversations if
               not provided)

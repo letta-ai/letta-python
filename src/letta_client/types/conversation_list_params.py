@@ -10,7 +10,11 @@ __all__ = ["ConversationListParams"]
 
 class ConversationListParams(TypedDict, total=False):
     after: Optional[str]
-    """Cursor for pagination (conversation ID)"""
+    """Cursor for pagination (conv ID).
+
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'conv-<uuid4>'
+    """
 
     agent_id: Optional[str]
     """

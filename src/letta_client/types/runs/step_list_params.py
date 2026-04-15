@@ -10,10 +10,18 @@ __all__ = ["StepListParams"]
 
 class StepListParams(TypedDict, total=False):
     after: Optional[str]
-    """Cursor for pagination"""
+    """Cursor for pagination (step ID).
+
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'step-<uuid4>'
+    """
 
     before: Optional[str]
-    """Cursor for pagination"""
+    """Cursor for pagination (step ID).
+
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'step-<uuid4>'
+    """
 
     limit: Optional[int]
     """Maximum number of messages to return"""

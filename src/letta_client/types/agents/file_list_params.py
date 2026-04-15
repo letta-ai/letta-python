@@ -10,15 +10,17 @@ __all__ = ["FileListParams"]
 
 class FileListParams(TypedDict, total=False):
     after: Optional[str]
-    """File ID cursor for pagination.
+    """Cursor for pagination (file ID).
 
-    Returns files that come after this file ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'file-<uuid4>'
     """
 
     before: Optional[str]
-    """File ID cursor for pagination.
+    """Cursor for pagination (file ID).
 
-    Returns files that come before this file ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'file-<uuid4>'
     """
 
     cursor: Optional[str]

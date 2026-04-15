@@ -12,15 +12,17 @@ __all__ = ["AgentListParams"]
 
 class AgentListParams(TypedDict, total=False):
     after: Optional[str]
-    """Agent ID cursor for pagination.
+    """Cursor for pagination (agent ID).
 
-    Returns agents that come after this agent ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'agent-<uuid4>'
     """
 
     before: Optional[str]
-    """Agent ID cursor for pagination.
+    """Cursor for pagination (agent ID).
 
-    Returns agents that come before this agent ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'agent-<uuid4>'
     """
 
     include: Optional[

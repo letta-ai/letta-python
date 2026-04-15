@@ -32,8 +32,8 @@ class TestFolders:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         folder = client.agents.folders.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            after="after",
-            before="before",
+            after="source-123e4567-e89b-42d3-8456-426614174000",
+            before="source-123e4567-e89b-42d3-8456-426614174000",
             limit=0,
             order="asc",
             order_by="created_at",
@@ -197,8 +197,8 @@ class TestAsyncFolders:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         folder = await async_client.agents.folders.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            after="after",
-            before="before",
+            after="source-123e4567-e89b-42d3-8456-426614174000",
+            before="source-123e4567-e89b-42d3-8456-426614174000",
             limit=0,
             order="asc",
             order_by="created_at",

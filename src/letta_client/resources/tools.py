@@ -284,11 +284,11 @@ class ToolsResource(SyncAPIResource):
         Get a list of all tools available to agents.
 
         Args:
-          after: Tool ID cursor for pagination. Returns tools that come after this tool ID in the
-              specified sort order
+          after: Cursor for pagination (tool ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'tool-<uuid4>'
 
-          before: Tool ID cursor for pagination. Returns tools that come before this tool ID in
-              the specified sort order
+          before: Cursor for pagination (tool ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'tool-<uuid4>'
 
           exclude_tool_types: Tool type(s) to exclude - accepts repeated params or comma-separated values
 
@@ -1074,11 +1074,11 @@ class AsyncToolsResource(AsyncAPIResource):
         Get a list of all tools available to agents.
 
         Args:
-          after: Tool ID cursor for pagination. Returns tools that come after this tool ID in the
-              specified sort order
+          after: Cursor for pagination (tool ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'tool-<uuid4>'
 
-          before: Tool ID cursor for pagination. Returns tools that come before this tool ID in
-              the specified sort order
+          before: Cursor for pagination (tool ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'tool-<uuid4>'
 
           exclude_tool_types: Tool type(s) to exclude - accepts repeated params or comma-separated values
 

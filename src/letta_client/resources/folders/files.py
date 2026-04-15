@@ -117,11 +117,11 @@ class FilesResource(SyncAPIResource):
         Args:
           folder_id: The ID of the source in the format 'source-<uuid4>'
 
-          after: File ID cursor for pagination. Returns files that come after this file ID in the
-              specified sort order
+          after: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
-          before: File ID cursor for pagination. Returns files that come before this file ID in
-              the specified sort order
+          before: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
           include_content: Whether to include full file content
 
@@ -359,11 +359,11 @@ class AsyncFilesResource(AsyncAPIResource):
         Args:
           folder_id: The ID of the source in the format 'source-<uuid4>'
 
-          after: File ID cursor for pagination. Returns files that come after this file ID in the
-              specified sort order
+          after: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
-          before: File ID cursor for pagination. Returns files that come before this file ID in
-              the specified sort order
+          before: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
           include_content: Whether to include full file content
 

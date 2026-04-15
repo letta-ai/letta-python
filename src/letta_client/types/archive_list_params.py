@@ -10,18 +10,20 @@ __all__ = ["ArchiveListParams"]
 
 class ArchiveListParams(TypedDict, total=False):
     after: Optional[str]
-    """Archive ID cursor for pagination.
+    """Cursor for pagination (archive ID).
 
-    Returns archives that come after this archive ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'archive-<uuid4>'
     """
 
     agent_id: Optional[str]
     """Only archives attached to this agent ID"""
 
     before: Optional[str]
-    """Archive ID cursor for pagination.
+    """Cursor for pagination (archive ID).
 
-    Returns archives that come before this archive ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'archive-<uuid4>'
     """
 
     limit: Optional[int]

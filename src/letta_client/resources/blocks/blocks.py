@@ -325,13 +325,13 @@ class BlocksResource(SyncAPIResource):
         """List Blocks
 
         Args:
-          after: Block ID cursor for pagination.
+          after: Cursor for pagination (block ID).
 
-        Returns blocks that come after this block ID in
-              the specified sort order
+        Returns results relative to this ID in the
+              specified sort order. Expected format: 'block-<uuid4>'
 
-          before: Block ID cursor for pagination. Returns blocks that come before this block ID in
-              the specified sort order
+          before: Cursor for pagination (block ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'block-<uuid4>'
 
           connected_to_agents_count_eq: Filter blocks by the exact number of connected agents. If provided, returns
               blocks that have exactly this number of connected agents.
@@ -747,13 +747,13 @@ class AsyncBlocksResource(AsyncAPIResource):
         """List Blocks
 
         Args:
-          after: Block ID cursor for pagination.
+          after: Cursor for pagination (block ID).
 
-        Returns blocks that come after this block ID in
-              the specified sort order
+        Returns results relative to this ID in the
+              specified sort order. Expected format: 'block-<uuid4>'
 
-          before: Block ID cursor for pagination. Returns blocks that come before this block ID in
-              the specified sort order
+          before: Cursor for pagination (block ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'block-<uuid4>'
 
           connected_to_agents_count_eq: Filter blocks by the exact number of connected agents. If provided, returns
               blocks that have exactly this number of connected agents.

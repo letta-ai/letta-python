@@ -257,13 +257,13 @@ class MessagesResource(SyncAPIResource):
               'default' for agent-direct mode (with agent_id parameter), or an agent ID
               ('agent-<uuid4>') for backwards compatibility (deprecated).
 
-          after: Message ID cursor for pagination. Returns messages that come after this message
-              ID in the specified sort order
+          after: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           agent_id: Agent ID for agent-direct mode with 'default' conversation
 
-          before: Message ID cursor for pagination. Returns messages that come before this message
-              ID in the specified sort order
+          before: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           group_id: Group ID to filter messages by.
 
@@ -693,13 +693,13 @@ class AsyncMessagesResource(AsyncAPIResource):
               'default' for agent-direct mode (with agent_id parameter), or an agent ID
               ('agent-<uuid4>') for backwards compatibility (deprecated).
 
-          after: Message ID cursor for pagination. Returns messages that come after this message
-              ID in the specified sort order
+          after: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           agent_id: Agent ID for agent-direct mode with 'default' conversation
 
-          before: Message ID cursor for pagination. Returns messages that come before this message
-              ID in the specified sort order
+          before: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           group_id: Group ID to filter messages by.
 
