@@ -85,11 +85,11 @@ class AgentsResource(SyncAPIResource):
         Args:
           block_id: The ID of the block in the format 'block-<uuid4>'
 
-          after: Agent ID cursor for pagination. Returns agents that come after this agent ID in
-              the specified sort order
+          after: Cursor for pagination (agent ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'agent-<uuid4>'
 
-          before: Agent ID cursor for pagination. Returns agents that come before this agent ID in
-              the specified sort order
+          before: Cursor for pagination (agent ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'agent-<uuid4>'
 
           include: Specify which relational fields to include in the response. No relationships are
               included by default.
@@ -201,11 +201,11 @@ class AsyncAgentsResource(AsyncAPIResource):
         Args:
           block_id: The ID of the block in the format 'block-<uuid4>'
 
-          after: Agent ID cursor for pagination. Returns agents that come after this agent ID in
-              the specified sort order
+          after: Cursor for pagination (agent ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'agent-<uuid4>'
 
-          before: Agent ID cursor for pagination. Returns agents that come before this agent ID in
-              the specified sort order
+          before: Cursor for pagination (agent ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'agent-<uuid4>'
 
           include: Specify which relational fields to include in the response. No relationships are
               included by default.

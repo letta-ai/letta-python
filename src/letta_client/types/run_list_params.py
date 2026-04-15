@@ -16,9 +16,10 @@ class RunListParams(TypedDict, total=False):
     """Filter for active runs."""
 
     after: Optional[str]
-    """Run ID cursor for pagination.
+    """Cursor for pagination (run ID).
 
-    Returns runs that come after this run ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'run-<uuid4>'
     """
 
     agent_id: Optional[str]
@@ -40,9 +41,10 @@ class RunListParams(TypedDict, total=False):
     """If True, filters for runs that were created in background mode."""
 
     before: Optional[str]
-    """Run ID cursor for pagination.
+    """Cursor for pagination (run ID).
 
-    Returns runs that come before this run ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'run-<uuid4>'
     """
 
     conversation_id: Optional[str]

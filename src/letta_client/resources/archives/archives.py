@@ -206,13 +206,13 @@ class ArchivesResource(SyncAPIResource):
         and pagination.
 
         Args:
-          after: Archive ID cursor for pagination. Returns archives that come after this archive
-              ID in the specified sort order
+          after: Cursor for pagination (archive ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'archive-<uuid4>'
 
           agent_id: Only archives attached to this agent ID
 
-          before: Archive ID cursor for pagination. Returns archives that come before this archive
-              ID in the specified sort order
+          before: Cursor for pagination (archive ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'archive-<uuid4>'
 
           limit: Maximum number of archives to return
 
@@ -464,13 +464,13 @@ class AsyncArchivesResource(AsyncAPIResource):
         and pagination.
 
         Args:
-          after: Archive ID cursor for pagination. Returns archives that come after this archive
-              ID in the specified sort order
+          after: Cursor for pagination (archive ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'archive-<uuid4>'
 
           agent_id: Only archives attached to this agent ID
 
-          before: Archive ID cursor for pagination. Returns archives that come before this archive
-              ID in the specified sort order
+          before: Cursor for pagination (archive ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'archive-<uuid4>'
 
           limit: Maximum number of archives to return
 

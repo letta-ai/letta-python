@@ -563,15 +563,15 @@ class MessagesResource(SyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: Message ID cursor for pagination. Returns messages that come after this message
-              ID in the specified sort order
+          after: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           assistant_message_tool_kwarg: The name of the message argument.
 
           assistant_message_tool_name: The name of the designated message tool.
 
-          before: Message ID cursor for pagination. Returns messages that come before this message
-              ID in the specified sort order
+          before: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           conversation_id: Conversation ID to filter messages by.
 
@@ -1586,15 +1586,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: Message ID cursor for pagination. Returns messages that come after this message
-              ID in the specified sort order
+          after: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           assistant_message_tool_kwarg: The name of the message argument.
 
           assistant_message_tool_name: The name of the designated message tool.
 
-          before: Message ID cursor for pagination. Returns messages that come before this message
-              ID in the specified sort order
+          before: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           conversation_id: Conversation ID to filter messages by.
 

@@ -65,9 +65,11 @@ class StepsResource(SyncAPIResource):
         Get steps associated with a run with filtering options.
 
         Args:
-          after: Cursor for pagination
+          after: Cursor for pagination (step ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'step-<uuid4>'
 
-          before: Cursor for pagination
+          before: Cursor for pagination (step ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'step-<uuid4>'
 
           limit: Maximum number of messages to return
 
@@ -149,9 +151,11 @@ class AsyncStepsResource(AsyncAPIResource):
         Get steps associated with a run with filtering options.
 
         Args:
-          after: Cursor for pagination
+          after: Cursor for pagination (step ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'step-<uuid4>'
 
-          before: Cursor for pagination
+          before: Cursor for pagination (step ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'step-<uuid4>'
 
           limit: Maximum number of messages to return
 

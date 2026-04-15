@@ -217,11 +217,11 @@ class BlocksResource(SyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: Block ID cursor for pagination. Returns blocks that come after this block ID in
-              the specified sort order
+          after: Cursor for pagination (block ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'block-<uuid4>'
 
-          before: Block ID cursor for pagination. Returns blocks that come before this block ID in
-              the specified sort order
+          before: Cursor for pagination (block ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'block-<uuid4>'
 
           limit: Maximum number of blocks to return
 
@@ -538,11 +538,11 @@ class AsyncBlocksResource(AsyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: Block ID cursor for pagination. Returns blocks that come after this block ID in
-              the specified sort order
+          after: Cursor for pagination (block ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'block-<uuid4>'
 
-          before: Block ID cursor for pagination. Returns blocks that come before this block ID in
-              the specified sort order
+          before: Cursor for pagination (block ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'block-<uuid4>'
 
           limit: Maximum number of blocks to return
 

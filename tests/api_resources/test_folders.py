@@ -195,8 +195,8 @@ class TestFolders:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         folder = client.folders.list(
-            after="after",
-            before="before",
+            after="source-123e4567-e89b-42d3-8456-426614174000",
+            before="source-123e4567-e89b-42d3-8456-426614174000",
             limit=0,
             name="name",
             order="asc",
@@ -451,8 +451,8 @@ class TestAsyncFolders:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         folder = await async_client.folders.list(
-            after="after",
-            before="before",
+            after="source-123e4567-e89b-42d3-8456-426614174000",
+            before="source-123e4567-e89b-42d3-8456-426614174000",
             limit=0,
             name="name",
             order="asc",

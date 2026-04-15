@@ -248,11 +248,11 @@ class FoldersResource(SyncAPIResource):
         List all data folders created by a user.
 
         Args:
-          after: Folder ID cursor for pagination. Returns folders that come after this folder ID
-              in the specified sort order
+          after: Cursor for pagination (source ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'source-<uuid4>'
 
-          before: Folder ID cursor for pagination. Returns folders that come before this folder ID
-              in the specified sort order
+          before: Cursor for pagination (source ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'source-<uuid4>'
 
           limit: Maximum number of folders to return
 
@@ -536,11 +536,11 @@ class AsyncFoldersResource(AsyncAPIResource):
         List all data folders created by a user.
 
         Args:
-          after: Folder ID cursor for pagination. Returns folders that come after this folder ID
-              in the specified sort order
+          after: Cursor for pagination (source ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'source-<uuid4>'
 
-          before: Folder ID cursor for pagination. Returns folders that come before this folder ID
-              in the specified sort order
+          before: Cursor for pagination (source ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'source-<uuid4>'
 
           limit: Maximum number of folders to return
 

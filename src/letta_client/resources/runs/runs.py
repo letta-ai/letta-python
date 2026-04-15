@@ -156,8 +156,8 @@ class RunsResource(SyncAPIResource):
         Args:
           active: Filter for active runs.
 
-          after: Run ID cursor for pagination. Returns runs that come after this run ID in the
-              specified sort order
+          after: Cursor for pagination (run ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'run-<uuid4>'
 
           agent_id: The unique identifier of the agent associated with the run.
 
@@ -169,8 +169,8 @@ class RunsResource(SyncAPIResource):
 
           background: If True, filters for runs that were created in background mode.
 
-          before: Run ID cursor for pagination. Returns runs that come before this run ID in the
-              specified sort order
+          before: Cursor for pagination (run ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'run-<uuid4>'
 
           conversation_id: Filter runs by conversation ID.
 
@@ -322,8 +322,8 @@ class AsyncRunsResource(AsyncAPIResource):
         Args:
           active: Filter for active runs.
 
-          after: Run ID cursor for pagination. Returns runs that come after this run ID in the
-              specified sort order
+          after: Cursor for pagination (run ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'run-<uuid4>'
 
           agent_id: The unique identifier of the agent associated with the run.
 
@@ -335,8 +335,8 @@ class AsyncRunsResource(AsyncAPIResource):
 
           background: If True, filters for runs that were created in background mode.
 
-          before: Run ID cursor for pagination. Returns runs that come before this run ID in the
-              specified sort order
+          before: Cursor for pagination (run ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'run-<uuid4>'
 
           conversation_id: Filter runs by conversation ID.
 

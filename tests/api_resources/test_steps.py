@@ -70,9 +70,9 @@ class TestSteps:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         step = client.steps.list(
-            after="after",
+            after="step-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
-            before="before",
+            before="step-123e4567-e89b-42d3-8456-426614174000",
             end_date="end_date",
             feedback="positive",
             has_feedback=True,
@@ -167,9 +167,9 @@ class TestAsyncSteps:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         step = await async_client.steps.list(
-            after="after",
+            after="step-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
-            before="before",
+            before="step-123e4567-e89b-42d3-8456-426614174000",
             end_date="end_date",
             feedback="positive",
             has_feedback=True,

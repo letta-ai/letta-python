@@ -12,18 +12,20 @@ __all__ = ["MessageListParams"]
 
 class MessageListParams(TypedDict, total=False):
     after: Optional[str]
-    """Message ID cursor for pagination.
+    """Cursor for pagination (message ID).
 
-    Returns messages that come after this message ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'message-<uuid4>'
     """
 
     agent_id: Optional[str]
     """Agent ID for agent-direct mode with 'default' conversation"""
 
     before: Optional[str]
-    """Message ID cursor for pagination.
+    """Cursor for pagination (message ID).
 
-    Returns messages that come before this message ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'message-<uuid4>'
     """
 
     group_id: Optional[str]

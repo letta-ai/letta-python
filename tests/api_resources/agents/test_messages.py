@@ -241,10 +241,10 @@ class TestMessages:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         message = client.agents.messages.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            after="after",
+            after="message-123e4567-e89b-42d3-8456-426614174000",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
-            before="before",
+            before="message-123e4567-e89b-42d3-8456-426614174000",
             conversation_id="conversation_id",
             group_id="group_id",
             include_err=True,
@@ -880,10 +880,10 @@ class TestAsyncMessages:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.agents.messages.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            after="after",
+            after="message-123e4567-e89b-42d3-8456-426614174000",
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
-            before="before",
+            before="message-123e4567-e89b-42d3-8456-426614174000",
             conversation_id="conversation_id",
             group_id="group_id",
             include_err=True,

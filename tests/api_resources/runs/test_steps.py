@@ -31,8 +31,8 @@ class TestSteps:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         step = client.runs.steps.list(
             run_id="run_id",
-            after="after",
-            before="before",
+            after="step-123e4567-e89b-42d3-8456-426614174000",
+            before="step-123e4567-e89b-42d3-8456-426614174000",
             limit=0,
             order="asc",
             order_by="created_at",
@@ -92,8 +92,8 @@ class TestAsyncSteps:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         step = await async_client.runs.steps.list(
             run_id="run_id",
-            after="after",
-            before="before",
+            after="step-123e4567-e89b-42d3-8456-426614174000",
+            before="step-123e4567-e89b-42d3-8456-426614174000",
             limit=0,
             order="asc",
             order_by="created_at",

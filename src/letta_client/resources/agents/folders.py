@@ -68,11 +68,11 @@ class FoldersResource(SyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: Source ID cursor for pagination. Returns sources that come after this source ID
-              in the specified sort order
+          after: Cursor for pagination (source ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'source-<uuid4>'
 
-          before: Source ID cursor for pagination. Returns sources that come before this source ID
-              in the specified sort order
+          before: Cursor for pagination (source ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'source-<uuid4>'
 
           limit: Maximum number of sources to return
 
@@ -236,11 +236,11 @@ class AsyncFoldersResource(AsyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: Source ID cursor for pagination. Returns sources that come after this source ID
-              in the specified sort order
+          after: Cursor for pagination (source ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'source-<uuid4>'
 
-          before: Source ID cursor for pagination. Returns sources that come before this source ID
-              in the specified sort order
+          before: Cursor for pagination (source ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'source-<uuid4>'
 
           limit: Maximum number of sources to return
 

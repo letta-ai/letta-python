@@ -71,12 +71,12 @@ class TestRuns:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         run = client.runs.list(
             active=True,
-            after="after",
+            after="run-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
             agent_ids=["string", "string"],
             ascending=True,
             background=True,
-            before="before",
+            before="run-123e4567-e89b-42d3-8456-426614174000",
             conversation_id="conversation_id",
             limit=1,
             order="asc",
@@ -167,12 +167,12 @@ class TestAsyncRuns:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         run = await async_client.runs.list(
             active=True,
-            after="after",
+            after="run-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
             agent_ids=["string", "string"],
             ascending=True,
             background=True,
-            before="before",
+            before="run-123e4567-e89b-42d3-8456-426614174000",
             conversation_id="conversation_id",
             limit=1,
             order="asc",

@@ -156,11 +156,13 @@ class StepsResource(SyncAPIResource):
         List steps with optional pagination and date filters.
 
         Args:
-          after: Return steps after this step ID
+          after: Cursor for pagination (step ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'step-<uuid4>'
 
           agent_id: Filter by the ID of the agent that performed the step
 
-          before: Return steps before this step ID
+          before: Cursor for pagination (step ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'step-<uuid4>'
 
           end_date: Return steps before this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
 
@@ -324,11 +326,13 @@ class AsyncStepsResource(AsyncAPIResource):
         List steps with optional pagination and date filters.
 
         Args:
-          after: Return steps after this step ID
+          after: Cursor for pagination (step ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'step-<uuid4>'
 
           agent_id: Filter by the ID of the agent that performed the step
 
-          before: Return steps before this step ID
+          before: Cursor for pagination (step ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'step-<uuid4>'
 
           end_date: Return steps before this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")
 
