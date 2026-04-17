@@ -51,6 +51,7 @@ from .folders import (
     FoldersResourceWithStreamingResponse,
     AsyncFoldersResourceWithStreamingResponse,
 )
+from ..._files import deepcopy_with_paths
 from ..._types import (
     Body,
     Omit,
@@ -62,14 +63,7 @@ from ..._types import (
     omit,
     not_given,
 )
-from ..._utils import (
-    extract_files,
-    path_template,
-    maybe_transform,
-    strip_not_given,
-    deepcopy_minimal,
-    async_maybe_transform,
-)
+from ..._utils import extract_files, path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .archives import (
     ArchivesResource,
     AsyncArchivesResource,
@@ -1017,7 +1011,7 @@ class AgentsResource(SyncAPIResource):
             **strip_not_given({"x-override-embedding-model": x_override_embedding_model}),
             **(extra_headers or {}),
         }
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "file": file,
                 "append_copy_suffix": append_copy_suffix,
@@ -1032,7 +1026,8 @@ class AgentsResource(SyncAPIResource):
                 "project_id": project_id,
                 "secrets": secrets,
                 "strip_messages": strip_messages,
-            }
+            },
+            [["file"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
@@ -1987,7 +1982,7 @@ class AsyncAgentsResource(AsyncAPIResource):
             **strip_not_given({"x-override-embedding-model": x_override_embedding_model}),
             **(extra_headers or {}),
         }
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "file": file,
                 "append_copy_suffix": append_copy_suffix,
@@ -2002,7 +1997,8 @@ class AsyncAgentsResource(AsyncAPIResource):
                 "project_id": project_id,
                 "secrets": secrets,
                 "strip_messages": strip_messages,
-            }
+            },
+            [["file"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
