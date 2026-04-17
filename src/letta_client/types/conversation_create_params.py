@@ -47,6 +47,9 @@ class ConversationCreateParams(TypedDict, total=False):
     window).
     """
 
+    hidden: bool
+    """Whether the new conversation should be hidden from listings."""
+
     isolated_block_labels: Optional[SequenceNotStr[str]]
     """
     List of block labels that should be isolated (conversation-specific) rather than
