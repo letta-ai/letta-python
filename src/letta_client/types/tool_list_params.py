@@ -12,15 +12,17 @@ __all__ = ["ToolListParams"]
 
 class ToolListParams(TypedDict, total=False):
     after: Optional[str]
-    """Tool ID cursor for pagination.
+    """Cursor for pagination (tool ID).
 
-    Returns tools that come after this tool ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'tool-<uuid4>'
     """
 
     before: Optional[str]
-    """Tool ID cursor for pagination.
+    """Cursor for pagination (tool ID).
 
-    Returns tools that come before this tool ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'tool-<uuid4>'
     """
 
     exclude_tool_types: Optional[SequenceNotStr[str]]

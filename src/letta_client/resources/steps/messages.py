@@ -67,11 +67,11 @@ class MessagesResource(SyncAPIResource):
         Args:
           step_id: The ID of the step in the format 'step-<uuid4>'
 
-          after: Message ID cursor for pagination. Returns messages that come after this message
-              ID in the specified sort order
+          after: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
-          before: Message ID cursor for pagination. Returns messages that come before this message
-              ID in the specified sort order
+          before: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           limit: Maximum number of messages to return
 
@@ -155,11 +155,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         Args:
           step_id: The ID of the step in the format 'step-<uuid4>'
 
-          after: Message ID cursor for pagination. Returns messages that come after this message
-              ID in the specified sort order
+          after: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
-          before: Message ID cursor for pagination. Returns messages that come before this message
-              ID in the specified sort order
+          before: Cursor for pagination (message ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'message-<uuid4>'
 
           limit: Maximum number of messages to return
 

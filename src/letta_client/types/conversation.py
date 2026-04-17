@@ -228,6 +228,12 @@ class Conversation(BaseModel):
     archived_at: Optional[datetime] = None
     """Timestamp of when the conversation was archived."""
 
+    context_window_limit: Optional[int] = None
+    """
+    The context window limit for this conversation (overrides agent's context
+    window).
+    """
+
     created_at: Optional[datetime] = None
     """The timestamp when the object was created."""
 

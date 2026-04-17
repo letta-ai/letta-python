@@ -12,15 +12,17 @@ __all__ = ["BlockListParams"]
 
 class BlockListParams(TypedDict, total=False):
     after: Optional[str]
-    """Block ID cursor for pagination.
+    """Cursor for pagination (block ID).
 
-    Returns blocks that come after this block ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'block-<uuid4>'
     """
 
     before: Optional[str]
-    """Block ID cursor for pagination.
+    """Cursor for pagination (block ID).
 
-    Returns blocks that come before this block ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'block-<uuid4>'
     """
 
     connected_to_agents_count_eq: Optional[Iterable[int]]

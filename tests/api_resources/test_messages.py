@@ -74,8 +74,8 @@ class TestMessages:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         message = client.messages.list(
-            after="after",
-            before="before",
+            after="message-123e4567-e89b-42d3-8456-426614174000",
+            before="message-123e4567-e89b-42d3-8456-426614174000",
             conversation_id="conversation_id",
             include_return_message_types=["system_message", "user_message"],
             limit=0,
@@ -211,8 +211,8 @@ class TestAsyncMessages:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         message = await async_client.messages.list(
-            after="after",
-            before="before",
+            after="message-123e4567-e89b-42d3-8456-426614174000",
+            before="message-123e4567-e89b-42d3-8456-426614174000",
             conversation_id="conversation_id",
             include_return_message_types=["system_message", "user_message"],
             limit=0,

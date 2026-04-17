@@ -71,11 +71,11 @@ class FilesResource(SyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: File ID cursor for pagination. Returns files that come after this file ID in the
-              specified sort order
+          after: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
-          before: File ID cursor for pagination. Returns files that come before this file ID in
-              the specified sort order
+          before: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
           cursor: Pagination cursor from previous response (deprecated, use before/after)
 
@@ -292,11 +292,11 @@ class AsyncFilesResource(AsyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: File ID cursor for pagination. Returns files that come after this file ID in the
-              specified sort order
+          after: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
-          before: File ID cursor for pagination. Returns files that come before this file ID in
-              the specified sort order
+          before: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
           cursor: Pagination cursor from previous response (deprecated, use before/after)
 

@@ -7,8 +7,9 @@ from typing_extensions import Literal
 
 import httpx
 
+from ..._files import deepcopy_with_paths
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
-from ..._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
+from ..._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -117,11 +118,11 @@ class FilesResource(SyncAPIResource):
         Args:
           folder_id: The ID of the source in the format 'source-<uuid4>'
 
-          after: File ID cursor for pagination. Returns files that come after this file ID in the
-              specified sort order
+          after: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
-          before: File ID cursor for pagination. Returns files that come before this file ID in
-              the specified sort order
+          before: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
           include_content: Whether to include full file content
 
@@ -240,7 +241,7 @@ class FilesResource(SyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -359,11 +360,11 @@ class AsyncFilesResource(AsyncAPIResource):
         Args:
           folder_id: The ID of the source in the format 'source-<uuid4>'
 
-          after: File ID cursor for pagination. Returns files that come after this file ID in the
-              specified sort order
+          after: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
-          before: File ID cursor for pagination. Returns files that come before this file ID in
-              the specified sort order
+          before: Cursor for pagination (file ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'file-<uuid4>'
 
           include_content: Whether to include full file content
 
@@ -482,7 +483,7 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         if not folder_id:
             raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.

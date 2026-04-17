@@ -28,11 +28,11 @@ class Thinking(BaseModel):
 
 
 class AnthropicModelSettings(BaseModel):
-    effort: Optional[Literal["low", "medium", "high", "max"]] = None
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]] = None
     """Effort level for supported Anthropic models (controls token spending).
 
-    'max' is only available on Opus 4.6. Not setting this gives similar performance
-    to 'high'.
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
     """
 
     max_output_tokens: Optional[int] = None

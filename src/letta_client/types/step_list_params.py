@@ -12,13 +12,21 @@ __all__ = ["StepListParams"]
 
 class StepListParams(TypedDict, total=False):
     after: Optional[str]
-    """Return steps after this step ID"""
+    """Cursor for pagination (step ID).
+
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'step-<uuid4>'
+    """
 
     agent_id: Optional[str]
     """Filter by the ID of the agent that performed the step"""
 
     before: Optional[str]
-    """Return steps before this step ID"""
+    """Cursor for pagination (step ID).
+
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'step-<uuid4>'
+    """
 
     end_date: Optional[str]
     """Return steps before this ISO datetime (e.g. "2025-01-29T15:01:19-08:00")"""

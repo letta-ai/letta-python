@@ -12,27 +12,31 @@ __all__ = ["AgentListParams"]
 
 class AgentListParams(TypedDict, total=False):
     after: Optional[str]
-    """Agent ID cursor for pagination.
+    """Cursor for pagination (agent ID).
 
-    Returns agents that come after this agent ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'agent-<uuid4>'
     """
 
     before: Optional[str]
-    """Agent ID cursor for pagination.
+    """Cursor for pagination (agent ID).
 
-    Returns agents that come before this agent ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'agent-<uuid4>'
     """
 
-    include: List[
-        Literal[
-            "agent.blocks",
-            "agent.identities",
-            "agent.managed_group",
-            "agent.pending_approval",
-            "agent.secrets",
-            "agent.sources",
-            "agent.tags",
-            "agent.tools",
+    include: Optional[
+        List[
+            Literal[
+                "agent.blocks",
+                "agent.identities",
+                "agent.managed_group",
+                "agent.pending_approval",
+                "agent.secrets",
+                "agent.sources",
+                "agent.tags",
+                "agent.tools",
+            ]
         ]
     ]
     """Specify which relational fields to include in the response.

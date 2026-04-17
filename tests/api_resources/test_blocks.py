@@ -196,8 +196,8 @@ class TestBlocks:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         block = client.blocks.list(
-            after="after",
-            before="before",
+            after="block-123e4567-e89b-42d3-8456-426614174000",
+            before="block-123e4567-e89b-42d3-8456-426614174000",
             connected_to_agents_count_eq=[0, 0],
             connected_to_agents_count_gt=0,
             connected_to_agents_count_lt=0,
@@ -466,8 +466,8 @@ class TestAsyncBlocks:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.list(
-            after="after",
-            before="before",
+            after="block-123e4567-e89b-42d3-8456-426614174000",
+            before="block-123e4567-e89b-42d3-8456-426614174000",
             connected_to_agents_count_eq=[0, 0],
             connected_to_agents_count_gt=0,
             connected_to_agents_count_lt=0,

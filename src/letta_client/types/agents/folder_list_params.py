@@ -10,15 +10,17 @@ __all__ = ["FolderListParams"]
 
 class FolderListParams(TypedDict, total=False):
     after: Optional[str]
-    """Source ID cursor for pagination.
+    """Cursor for pagination (source ID).
 
-    Returns sources that come after this source ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'source-<uuid4>'
     """
 
     before: Optional[str]
-    """Source ID cursor for pagination.
+    """Cursor for pagination (source ID).
 
-    Returns sources that come before this source ID in the specified sort order
+    Returns results relative to this ID in the specified sort order. Expected
+    format: 'source-<uuid4>'
     """
 
     limit: Optional[int]

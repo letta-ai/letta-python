@@ -51,16 +51,18 @@ class AgentsResource(SyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -83,11 +85,11 @@ class AgentsResource(SyncAPIResource):
         Args:
           block_id: The ID of the block in the format 'block-<uuid4>'
 
-          after: Agent ID cursor for pagination. Returns agents that come after this agent ID in
-              the specified sort order
+          after: Cursor for pagination (agent ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'agent-<uuid4>'
 
-          before: Agent ID cursor for pagination. Returns agents that come before this agent ID in
-              the specified sort order
+          before: Cursor for pagination (agent ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'agent-<uuid4>'
 
           include: Specify which relational fields to include in the response. No relationships are
               included by default.
@@ -165,16 +167,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         *,
         after: Optional[str] | Omit = omit,
         before: Optional[str] | Omit = omit,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -197,11 +201,11 @@ class AsyncAgentsResource(AsyncAPIResource):
         Args:
           block_id: The ID of the block in the format 'block-<uuid4>'
 
-          after: Agent ID cursor for pagination. Returns agents that come after this agent ID in
-              the specified sort order
+          after: Cursor for pagination (agent ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'agent-<uuid4>'
 
-          before: Agent ID cursor for pagination. Returns agents that come before this agent ID in
-              the specified sort order
+          before: Cursor for pagination (agent ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'agent-<uuid4>'
 
           include: Specify which relational fields to include in the response. No relationships are
               included by default.

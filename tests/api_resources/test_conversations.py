@@ -35,6 +35,8 @@ class TestConversations:
     def test_method_create_with_all_params(self, client: Letta) -> None:
         conversation = client.conversations.create(
             agent_id="agent_id",
+            context_window_limit=0,
+            hidden=True,
             isolated_block_labels=["string"],
             model="model",
             model_settings={
@@ -132,6 +134,7 @@ class TestConversations:
         conversation = client.conversations.update(
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
             archived=True,
+            context_window_limit=0,
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -191,7 +194,7 @@ class TestConversations:
     @parametrize
     def test_method_list_with_all_params(self, client: Letta) -> None:
         conversation = client.conversations.list(
-            after="after",
+            after="conv-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
             archive_status="unarchived",
             limit=0,
@@ -330,6 +333,7 @@ class TestConversations:
         conversation = client.conversations.fork(
             conversation_id="default",
             agent_id="agent_id",
+            hidden=True,
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -455,6 +459,8 @@ class TestAsyncConversations:
     async def test_method_create_with_all_params(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.create(
             agent_id="agent_id",
+            context_window_limit=0,
+            hidden=True,
             isolated_block_labels=["string"],
             model="model",
             model_settings={
@@ -552,6 +558,7 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.update(
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
             archived=True,
+            context_window_limit=0,
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -611,7 +618,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.list(
-            after="after",
+            after="conv-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
             archive_status="unarchived",
             limit=0,
@@ -750,6 +757,7 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.fork(
             conversation_id="default",
             agent_id="agent_id",
+            hidden=True,
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 

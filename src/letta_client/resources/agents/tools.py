@@ -69,11 +69,11 @@ class ToolsResource(SyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: Tool ID cursor for pagination. Returns tools that come after this tool ID in the
-              specified sort order
+          after: Cursor for pagination (tool ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'tool-<uuid4>'
 
-          before: Tool ID cursor for pagination. Returns tools that come before this tool ID in
-              the specified sort order
+          before: Cursor for pagination (tool ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'tool-<uuid4>'
 
           limit: Maximum number of tools to return
 
@@ -339,11 +339,11 @@ class AsyncToolsResource(AsyncAPIResource):
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
 
-          after: Tool ID cursor for pagination. Returns tools that come after this tool ID in the
-              specified sort order
+          after: Cursor for pagination (tool ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'tool-<uuid4>'
 
-          before: Tool ID cursor for pagination. Returns tools that come before this tool ID in
-              the specified sort order
+          before: Cursor for pagination (tool ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'tool-<uuid4>'
 
           limit: Maximum number of tools to return
 

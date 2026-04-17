@@ -31,8 +31,8 @@ class TestFiles:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         file = client.agents.files.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            after="after",
-            before="before",
+            after="file-123e4567-e89b-42d3-8456-426614174000",
+            before="file-123e4567-e89b-42d3-8456-426614174000",
             cursor="cursor",
             is_open=True,
             limit=0,
@@ -240,8 +240,8 @@ class TestAsyncFiles:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         file = await async_client.agents.files.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            after="after",
-            before="before",
+            after="file-123e4567-e89b-42d3-8456-426614174000",
+            before="file-123e4567-e89b-42d3-8456-426614174000",
             cursor="cursor",
             is_open=True,
             limit=0,

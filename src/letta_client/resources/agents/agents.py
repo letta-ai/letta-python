@@ -51,6 +51,7 @@ from .folders import (
     FoldersResourceWithStreamingResponse,
     AsyncFoldersResourceWithStreamingResponse,
 )
+from ..._files import deepcopy_with_paths
 from ..._types import (
     Body,
     Omit,
@@ -62,14 +63,7 @@ from ..._types import (
     omit,
     not_given,
 )
-from ..._utils import (
-    extract_files,
-    path_template,
-    maybe_transform,
-    strip_not_given,
-    deepcopy_minimal,
-    async_maybe_transform,
-)
+from ..._utils import extract_files, path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .archives import (
     ArchivesResource,
     AsyncArchivesResource,
@@ -209,7 +203,6 @@ class AgentsResource(SyncAPIResource):
         include_base_tool_rules: Optional[bool] | Omit = omit,
         include_base_tools: bool | Omit = omit,
         include_default_source: bool | Omit = omit,
-        include_multi_agent_tools: bool | Omit = omit,
         initial_message_sequence: Optional[Iterable[MessageCreateParam]] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
@@ -291,9 +284,6 @@ class AgentsResource(SyncAPIResource):
 
           include_default_source: If true, automatically creates and attaches a default data source for this
               agent.
-
-          include_multi_agent_tools: If true, attaches the Letta multi-agent tools (e.g. sending a message to another
-              agent).
 
           initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
 
@@ -402,7 +392,6 @@ class AgentsResource(SyncAPIResource):
                     "include_base_tool_rules": include_base_tool_rules,
                     "include_base_tools": include_base_tools,
                     "include_default_source": include_default_source,
-                    "include_multi_agent_tools": include_multi_agent_tools,
                     "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
@@ -445,16 +434,18 @@ class AgentsResource(SyncAPIResource):
         self,
         agent_id: str,
         *,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -723,16 +714,18 @@ class AgentsResource(SyncAPIResource):
         created_by_id: Optional[str] | Omit = omit,
         identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
         identity_id: Optional[str] | Omit = omit,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -1018,7 +1011,7 @@ class AgentsResource(SyncAPIResource):
             **strip_not_given({"x-override-embedding-model": x_override_embedding_model}),
             **(extra_headers or {}),
         }
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "file": file,
                 "append_copy_suffix": append_copy_suffix,
@@ -1033,7 +1026,8 @@ class AgentsResource(SyncAPIResource):
                 "project_id": project_id,
                 "secrets": secrets,
                 "strip_messages": strip_messages,
-            }
+            },
+            [["file"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
@@ -1180,7 +1174,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         include_base_tool_rules: Optional[bool] | Omit = omit,
         include_base_tools: bool | Omit = omit,
         include_default_source: bool | Omit = omit,
-        include_multi_agent_tools: bool | Omit = omit,
         initial_message_sequence: Optional[Iterable[MessageCreateParam]] | Omit = omit,
         llm_config: Optional[LlmConfigParam] | Omit = omit,
         max_files_open: Optional[int] | Omit = omit,
@@ -1262,9 +1255,6 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           include_default_source: If true, automatically creates and attaches a default data source for this
               agent.
-
-          include_multi_agent_tools: If true, attaches the Letta multi-agent tools (e.g. sending a message to another
-              agent).
 
           initial_message_sequence: The initial set of messages to put in the agent's in-context memory.
 
@@ -1373,7 +1363,6 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "include_base_tool_rules": include_base_tool_rules,
                     "include_base_tools": include_base_tools,
                     "include_default_source": include_default_source,
-                    "include_multi_agent_tools": include_multi_agent_tools,
                     "initial_message_sequence": initial_message_sequence,
                     "llm_config": llm_config,
                     "max_files_open": max_files_open,
@@ -1416,16 +1405,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         self,
         agent_id: str,
         *,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -1694,16 +1685,18 @@ class AsyncAgentsResource(AsyncAPIResource):
         created_by_id: Optional[str] | Omit = omit,
         identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
         identity_id: Optional[str] | Omit = omit,
-        include: List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
             ]
         ]
         | Omit = omit,
@@ -1989,7 +1982,7 @@ class AsyncAgentsResource(AsyncAPIResource):
             **strip_not_given({"x-override-embedding-model": x_override_embedding_model}),
             **(extra_headers or {}),
         }
-        body = deepcopy_minimal(
+        body = deepcopy_with_paths(
             {
                 "file": file,
                 "append_copy_suffix": append_copy_suffix,
@@ -2004,7 +1997,8 @@ class AsyncAgentsResource(AsyncAPIResource):
                 "project_id": project_id,
                 "secrets": secrets,
                 "strip_messages": strip_messages,
-            }
+            },
+            [["file"]],
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be

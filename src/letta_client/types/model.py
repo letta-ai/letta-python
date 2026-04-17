@@ -77,8 +77,8 @@ class Model(BaseModel):
     display_name: Optional[str] = None
     """A human-friendly display name for the model."""
 
-    effort: Optional[Literal["low", "medium", "high", "max"]] = None
-    """The effort level for Anthropic models that support it (Opus 4.5, Opus 4.6).
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]] = None
+    """The effort level for Anthropic models that support it (Opus 4.5+).
 
     Controls token spending and thinking behavior. Not setting this gives similar
     performance to 'high'.

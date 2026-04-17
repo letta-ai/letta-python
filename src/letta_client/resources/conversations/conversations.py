@@ -70,6 +70,8 @@ class ConversationsResource(SyncAPIResource):
         self,
         *,
         agent_id: str,
+        context_window_limit: Optional[int] | Omit = omit,
+        hidden: bool | Omit = omit,
         isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
@@ -86,6 +88,11 @@ class ConversationsResource(SyncAPIResource):
 
         Args:
           agent_id: The agent ID to create a conversation for
+
+          context_window_limit: The context window limit for this conversation (overrides agent's context
+              window).
+
+          hidden: Whether the new conversation should be hidden from listings.
 
           isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
               shared across conversations. New blocks will be created as copies of the agent's
@@ -111,6 +118,8 @@ class ConversationsResource(SyncAPIResource):
             "/v1/conversations/",
             body=maybe_transform(
                 {
+                    "context_window_limit": context_window_limit,
+                    "hidden": hidden,
                     "isolated_block_labels": isolated_block_labels,
                     "model": model,
                     "model_settings": model_settings,
@@ -168,6 +177,7 @@ class ConversationsResource(SyncAPIResource):
         conversation_id: str,
         *,
         archived: Optional[bool] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
         last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
@@ -186,6 +196,9 @@ class ConversationsResource(SyncAPIResource):
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           archived: Whether the conversation is archived.
+
+          context_window_limit: The context window limit for this conversation (overrides agent's context
+              window).
 
           last_message_at: Timestamp of the most recent message request sent to this conversation.
 
@@ -212,6 +225,7 @@ class ConversationsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "archived": archived,
+                    "context_window_limit": context_window_limit,
                     "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
@@ -247,7 +261,8 @@ class ConversationsResource(SyncAPIResource):
         provided).
 
         Args:
-          after: Cursor for pagination (conversation ID)
+          after: Cursor for pagination (conv ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'conv-<uuid4>'
 
           agent_id: The agent ID to list conversations for (optional - returns all conversations if
               not provided)
@@ -390,6 +405,7 @@ class ConversationsResource(SyncAPIResource):
         conversation_id: str,
         *,
         agent_id: Optional[str] | Omit = omit,
+        hidden: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -419,6 +435,8 @@ class ConversationsResource(SyncAPIResource):
 
           agent_id: Agent ID for agent-direct mode with 'default' conversation
 
+          hidden: Whether the forked conversation should be hidden from listings
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -436,7 +454,13 @@ class ConversationsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"agent_id": agent_id}, conversation_fork_params.ConversationForkParams),
+                query=maybe_transform(
+                    {
+                        "agent_id": agent_id,
+                        "hidden": hidden,
+                    },
+                    conversation_fork_params.ConversationForkParams,
+                ),
             ),
             cast_to=Conversation,
         )
@@ -531,6 +555,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         *,
         agent_id: str,
+        context_window_limit: Optional[int] | Omit = omit,
+        hidden: bool | Omit = omit,
         isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
@@ -547,6 +573,11 @@ class AsyncConversationsResource(AsyncAPIResource):
 
         Args:
           agent_id: The agent ID to create a conversation for
+
+          context_window_limit: The context window limit for this conversation (overrides agent's context
+              window).
+
+          hidden: Whether the new conversation should be hidden from listings.
 
           isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
               shared across conversations. New blocks will be created as copies of the agent's
@@ -572,6 +603,8 @@ class AsyncConversationsResource(AsyncAPIResource):
             "/v1/conversations/",
             body=await async_maybe_transform(
                 {
+                    "context_window_limit": context_window_limit,
+                    "hidden": hidden,
                     "isolated_block_labels": isolated_block_labels,
                     "model": model,
                     "model_settings": model_settings,
@@ -631,6 +664,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         conversation_id: str,
         *,
         archived: Optional[bool] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
         last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
@@ -649,6 +683,9 @@ class AsyncConversationsResource(AsyncAPIResource):
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
 
           archived: Whether the conversation is archived.
+
+          context_window_limit: The context window limit for this conversation (overrides agent's context
+              window).
 
           last_message_at: Timestamp of the most recent message request sent to this conversation.
 
@@ -675,6 +712,7 @@ class AsyncConversationsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "archived": archived,
+                    "context_window_limit": context_window_limit,
                     "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
@@ -710,7 +748,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         provided).
 
         Args:
-          after: Cursor for pagination (conversation ID)
+          after: Cursor for pagination (conv ID). Returns results relative to this ID in the
+              specified sort order. Expected format: 'conv-<uuid4>'
 
           agent_id: The agent ID to list conversations for (optional - returns all conversations if
               not provided)
@@ -855,6 +894,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         conversation_id: str,
         *,
         agent_id: Optional[str] | Omit = omit,
+        hidden: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -884,6 +924,8 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           agent_id: Agent ID for agent-direct mode with 'default' conversation
 
+          hidden: Whether the forked conversation should be hidden from listings
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -902,7 +944,11 @@ class AsyncConversationsResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"agent_id": agent_id}, conversation_fork_params.ConversationForkParams
+                    {
+                        "agent_id": agent_id,
+                        "hidden": hidden,
+                    },
+                    conversation_fork_params.ConversationForkParams,
                 ),
             ),
             cast_to=Conversation,

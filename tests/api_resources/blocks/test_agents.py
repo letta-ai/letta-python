@@ -31,9 +31,9 @@ class TestAgents:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         agent = client.blocks.agents.list(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
-            after="after",
-            before="before",
-            include=["agent.blocks"],
+            after="agent-123e4567-e89b-42d3-8456-426614174000",
+            before="agent-123e4567-e89b-42d3-8456-426614174000",
+            include=["agent.blocks", "agent.identities"],
             include_relationships=["string", "string"],
             limit=0,
             order="asc",
@@ -94,9 +94,9 @@ class TestAsyncAgents:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         agent = await async_client.blocks.agents.list(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
-            after="after",
-            before="before",
-            include=["agent.blocks"],
+            after="agent-123e4567-e89b-42d3-8456-426614174000",
+            before="agent-123e4567-e89b-42d3-8456-426614174000",
+            include=["agent.blocks", "agent.identities"],
             include_relationships=["string", "string"],
             limit=0,
             order="asc",
