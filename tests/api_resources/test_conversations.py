@@ -36,6 +36,7 @@ class TestConversations:
         conversation = client.conversations.create(
             agent_id="agent_id",
             context_window_limit=0,
+            hidden=True,
             isolated_block_labels=["string"],
             model="model",
             model_settings={
@@ -459,6 +460,7 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.create(
             agent_id="agent_id",
             context_window_limit=0,
+            hidden=True,
             isolated_block_labels=["string"],
             model="model",
             model_settings={

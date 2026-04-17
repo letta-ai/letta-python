@@ -71,6 +71,7 @@ class ConversationsResource(SyncAPIResource):
         *,
         agent_id: str,
         context_window_limit: Optional[int] | Omit = omit,
+        hidden: bool | Omit = omit,
         isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
@@ -90,6 +91,8 @@ class ConversationsResource(SyncAPIResource):
 
           context_window_limit: The context window limit for this conversation (overrides agent's context
               window).
+
+          hidden: Whether the new conversation should be hidden from listings.
 
           isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
               shared across conversations. New blocks will be created as copies of the agent's
@@ -116,6 +119,7 @@ class ConversationsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "context_window_limit": context_window_limit,
+                    "hidden": hidden,
                     "isolated_block_labels": isolated_block_labels,
                     "model": model,
                     "model_settings": model_settings,
@@ -552,6 +556,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         *,
         agent_id: str,
         context_window_limit: Optional[int] | Omit = omit,
+        hidden: bool | Omit = omit,
         isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
@@ -571,6 +576,8 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           context_window_limit: The context window limit for this conversation (overrides agent's context
               window).
+
+          hidden: Whether the new conversation should be hidden from listings.
 
           isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
               shared across conversations. New blocks will be created as copies of the agent's
@@ -597,6 +604,7 @@ class AsyncConversationsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "context_window_limit": context_window_limit,
+                    "hidden": hidden,
                     "isolated_block_labels": isolated_block_labels,
                     "model": model,
                     "model_settings": model_settings,
