@@ -241,7 +241,10 @@ class Conversation(BaseModel):
     """The id of the user that made this object."""
 
     in_context_message_ids: Optional[List[str]] = None
-    """The IDs of in-context messages for the conversation."""
+    """The IDs of in-context messages for the conversation.
+
+    Null means this field was not retrieved/hydrated for this response.
+    """
 
     isolated_block_ids: Optional[List[str]] = None
     """
