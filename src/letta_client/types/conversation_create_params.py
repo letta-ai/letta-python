@@ -51,10 +51,9 @@ class ConversationCreateParams(TypedDict, total=False):
     """Whether the new conversation should be hidden from listings."""
 
     isolated_block_labels: Optional[SequenceNotStr[str]]
-    """
-    List of block labels that should be isolated (conversation-specific) rather than
-    shared across conversations. New blocks will be created as copies of the agent's
-    blocks with these labels.
+    """Deprecated legacy field for isolated blocks.
+
+    Accepted for compatibility but ignored when creating new conversations.
     """
 
     model: Optional[str]

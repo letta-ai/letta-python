@@ -83,8 +83,10 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """
-        Create a new conversation for an agent.
+        """Create a new conversation for an agent.
+
+        Deprecated isolated block inputs are
+        ignored.
 
         Args:
           agent_id: The agent ID to create a conversation for
@@ -94,9 +96,8 @@ class ConversationsResource(SyncAPIResource):
 
           hidden: Whether the new conversation should be hidden from listings.
 
-          isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
-              shared across conversations. New blocks will be created as copies of the agent's
-              blocks with these labels.
+          isolated_block_labels: Deprecated legacy field for isolated blocks. Accepted for compatibility but
+              ignored when creating new conversations.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -321,11 +322,9 @@ class ConversationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Delete a conversation (soft delete).
+        Delete a conversation.
 
-        This marks the conversation as deleted but does not permanently remove it from
-        the database. The conversation will no longer appear in list operations. Any
-        isolated blocks associated with the conversation will be permanently deleted.
+        The conversation will no longer appear in list operations.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
@@ -568,8 +567,10 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """
-        Create a new conversation for an agent.
+        """Create a new conversation for an agent.
+
+        Deprecated isolated block inputs are
+        ignored.
 
         Args:
           agent_id: The agent ID to create a conversation for
@@ -579,9 +580,8 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           hidden: Whether the new conversation should be hidden from listings.
 
-          isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
-              shared across conversations. New blocks will be created as copies of the agent's
-              blocks with these labels.
+          isolated_block_labels: Deprecated legacy field for isolated blocks. Accepted for compatibility but
+              ignored when creating new conversations.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -808,11 +808,9 @@ class AsyncConversationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Delete a conversation (soft delete).
+        Delete a conversation.
 
-        This marks the conversation as deleted but does not permanently remove it from
-        the database. The conversation will no longer appear in list operations. Any
-        isolated blocks associated with the conversation will be permanently deleted.
+        The conversation will no longer appear in list operations.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'

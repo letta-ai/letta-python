@@ -247,9 +247,9 @@ class Conversation(BaseModel):
     """
 
     isolated_block_ids: Optional[List[str]] = None
-    """
-    IDs of blocks that are isolated (specific to this conversation, overriding agent
-    defaults).
+    """Deprecated legacy field for conversation-specific block overrides.
+
+    New conversations will always return an empty list.
     """
 
     last_message_at: Optional[datetime] = None
