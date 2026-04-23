@@ -16,7 +16,7 @@ from ...types import (
     conversation_update_params,
     conversation_recompile_params,
 )
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from .messages import (
     MessagesResource,
@@ -72,7 +72,6 @@ class ConversationsResource(SyncAPIResource):
         agent_id: str,
         context_window_limit: Optional[int] | Omit = omit,
         hidden: bool | Omit = omit,
-        isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
@@ -83,10 +82,8 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """Create a new conversation for an agent.
-
-        Deprecated isolated block inputs are
-        ignored.
+        """
+        Create a new conversation for an agent.
 
         Args:
           agent_id: The agent ID to create a conversation for
@@ -95,9 +92,6 @@ class ConversationsResource(SyncAPIResource):
               window).
 
           hidden: Whether the new conversation should be hidden from listings.
-
-          isolated_block_labels: Deprecated legacy field for isolated blocks. Accepted for compatibility but
-              ignored when creating new conversations.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -121,7 +115,6 @@ class ConversationsResource(SyncAPIResource):
                 {
                     "context_window_limit": context_window_limit,
                     "hidden": hidden,
-                    "isolated_block_labels": isolated_block_labels,
                     "model": model,
                     "model_settings": model_settings,
                     "summary": summary,
@@ -556,7 +549,6 @@ class AsyncConversationsResource(AsyncAPIResource):
         agent_id: str,
         context_window_limit: Optional[int] | Omit = omit,
         hidden: bool | Omit = omit,
-        isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
@@ -567,10 +559,8 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Conversation:
-        """Create a new conversation for an agent.
-
-        Deprecated isolated block inputs are
-        ignored.
+        """
+        Create a new conversation for an agent.
 
         Args:
           agent_id: The agent ID to create a conversation for
@@ -579,9 +569,6 @@ class AsyncConversationsResource(AsyncAPIResource):
               window).
 
           hidden: Whether the new conversation should be hidden from listings.
-
-          isolated_block_labels: Deprecated legacy field for isolated blocks. Accepted for compatibility but
-              ignored when creating new conversations.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -605,7 +592,6 @@ class AsyncConversationsResource(AsyncAPIResource):
                 {
                     "context_window_limit": context_window_limit,
                     "hidden": hidden,
-                    "isolated_block_labels": isolated_block_labels,
                     "model": model,
                     "model_settings": model_settings,
                     "summary": summary,

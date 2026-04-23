@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .._types import SequenceNotStr
 from .xai_model_settings_param import XaiModelSettingsParam
 from .groq_model_settings_param import GroqModelSettingsParam
 from .azure_model_settings_param import AzureModelSettingsParam
@@ -49,12 +48,6 @@ class ConversationCreateParams(TypedDict, total=False):
 
     hidden: bool
     """Whether the new conversation should be hidden from listings."""
-
-    isolated_block_labels: Optional[SequenceNotStr[str]]
-    """Deprecated legacy field for isolated blocks.
-
-    Accepted for compatibility but ignored when creating new conversations.
-    """
 
     model: Optional[str]
     """The model handle for this conversation (overrides agent's model).
