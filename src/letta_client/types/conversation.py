@@ -246,12 +246,6 @@ class Conversation(BaseModel):
     Null means this field was not retrieved/hydrated for this response.
     """
 
-    isolated_block_ids: Optional[List[str]] = None
-    """Deprecated legacy field for conversation-specific block overrides.
-
-    New conversations will always return an empty list.
-    """
-
     last_message_at: Optional[datetime] = None
     """Timestamp of the most recent message request sent to this conversation."""
 
