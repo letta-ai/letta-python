@@ -53,6 +53,8 @@ class LlmConfig(BaseModel):
         "vllm",
         "hugging-face",
         "minimax",
+        "moonshot",
+        "moonshot_coding",
         "mistral",
         "together",
         "bedrock",

@@ -49,6 +49,8 @@ class LlmConfigParam(TypedDict, total=False):
             "vllm",
             "hugging-face",
             "minimax",
+            "moonshot",
+            "moonshot_coding",
             "mistral",
             "together",
             "bedrock",

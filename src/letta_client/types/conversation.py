@@ -28,9 +28,14 @@ __all__ = [
     "ModelSettingsSgLangModelSettings",
     "ModelSettingsSgLangModelSettingsReasoning",
     "ModelSettingsSgLangModelSettingsResponseFormat",
+    "ModelSettingsMoonshotModelSettings",
+    "ModelSettingsMoonshotModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettingsThinking",
+    "ModelSettingsMoonshotCodingModelSettings",
+    "ModelSettingsMoonshotCodingModelSettingsResponseFormat",
+    "ModelSettingsMoonshotCodingModelSettingsThinking",
     "ModelSettingsBasetenModelSettings",
     "ModelSettingsOpenRouterModelSettings",
     "ModelSettingsOpenRouterModelSettingsResponseFormat",
@@ -85,6 +90,37 @@ class ModelSettingsSgLangModelSettings(BaseModel):
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
 
 
+ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsMoonshotModelSettings(BaseModel):
+    """Moonshot/Kimi model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["moonshot"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsMoonshotModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    strict: Optional[bool] = None
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+
 ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
     PropertyInfo(discriminator="type"),
@@ -121,6 +157,60 @@ class ModelSettingsZaiModelSettings(BaseModel):
 
     thinking: Optional[ModelSettingsZaiModelSettingsThinking] = None
     """The thinking configuration for GLM-4.5+ models."""
+
+
+ModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsMoonshotCodingModelSettingsThinking(BaseModel):
+    """The thinking configuration for the model."""
+
+    budget_tokens: Optional[int] = None
+    """The maximum number of tokens the model can use for extended thinking."""
+
+    type: Optional[Literal["enabled", "disabled"]] = None
+    """The type of thinking to use."""
+
+
+class ModelSettingsMoonshotCodingModelSettings(BaseModel):
+    """Kimi Code model configuration (Anthropic-compatible)."""
+
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]] = None
+    """Effort level for supported Anthropic models (controls token spending).
+
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
+    """
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["moonshot_coding"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsMoonshotCodingModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    strict: Optional[bool] = None
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+    thinking: Optional[ModelSettingsMoonshotCodingModelSettingsThinking] = None
+    """The thinking configuration for the model."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]] = None
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
 class ModelSettingsBasetenModelSettings(BaseModel):
@@ -199,7 +289,9 @@ ModelSettings: TypeAlias = Annotated[
         GoogleVertexModelSettings,
         AzureModelSettings,
         XaiModelSettings,
+        ModelSettingsMoonshotModelSettings,
         ModelSettingsZaiModelSettings,
+        ModelSettingsMoonshotCodingModelSettings,
         GroqModelSettings,
         DeepseekModelSettings,
         TogetherModelSettings,
