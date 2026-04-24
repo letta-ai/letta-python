@@ -20,6 +20,8 @@ ProviderType: TypeAlias = Literal[
     "letta",
     "lmstudio_openai",
     "minimax",
+    "moonshot",
+    "moonshot_coding",
     "mistral",
     "ollama",
     "openai",
