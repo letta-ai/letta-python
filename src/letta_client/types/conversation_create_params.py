@@ -5,7 +5,6 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .._types import SequenceNotStr
 from .xai_model_settings_param import XaiModelSettingsParam
 from .groq_model_settings_param import GroqModelSettingsParam
 from .azure_model_settings_param import AzureModelSettingsParam
@@ -26,9 +25,14 @@ __all__ = [
     "ModelSettingsSgLangModelSettings",
     "ModelSettingsSgLangModelSettingsReasoning",
     "ModelSettingsSgLangModelSettingsResponseFormat",
+    "ModelSettingsMoonshotModelSettings",
+    "ModelSettingsMoonshotModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettingsThinking",
+    "ModelSettingsMoonshotCodingModelSettings",
+    "ModelSettingsMoonshotCodingModelSettingsResponseFormat",
+    "ModelSettingsMoonshotCodingModelSettingsThinking",
     "ModelSettingsBasetenModelSettings",
     "ModelSettingsOpenRouterModelSettings",
     "ModelSettingsOpenRouterModelSettingsResponseFormat",
@@ -49,13 +53,6 @@ class ConversationCreateParams(TypedDict, total=False):
 
     hidden: bool
     """Whether the new conversation should be hidden from listings."""
-
-    isolated_block_labels: Optional[SequenceNotStr[str]]
-    """
-    List of block labels that should be isolated (conversation-specific) rather than
-    shared across conversations. New blocks will be created as copies of the agent's
-    blocks with these labels.
-    """
 
     model: Optional[str]
     """The model handle for this conversation (overrides agent's model).
@@ -115,6 +112,36 @@ class ModelSettingsSgLangModelSettings(TypedDict, total=False):
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
 
 
+ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class ModelSettingsMoonshotModelSettings(TypedDict, total=False):
+    """Moonshot/Kimi model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["moonshot"]
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsMoonshotModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+
 ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
@@ -150,6 +177,59 @@ class ModelSettingsZaiModelSettings(TypedDict, total=False):
 
     thinking: ModelSettingsZaiModelSettingsThinking
     """The thinking configuration for GLM-4.5+ models."""
+
+
+ModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class ModelSettingsMoonshotCodingModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for the model."""
+
+    budget_tokens: int
+    """The maximum number of tokens the model can use for extended thinking."""
+
+    type: Literal["enabled", "disabled"]
+    """The type of thinking to use."""
+
+
+class ModelSettingsMoonshotCodingModelSettings(TypedDict, total=False):
+    """Kimi Code model configuration (Anthropic-compatible)."""
+
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]]
+    """Effort level for supported Anthropic models (controls token spending).
+
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
+    """
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["moonshot_coding"]
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsMoonshotCodingModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+    thinking: ModelSettingsMoonshotCodingModelSettingsThinking
+    """The thinking configuration for the model."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]]
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
 class ModelSettingsBasetenModelSettings(TypedDict, total=False):
@@ -226,7 +306,9 @@ ModelSettings: TypeAlias = Union[
     GoogleVertexModelSettingsParam,
     AzureModelSettingsParam,
     XaiModelSettingsParam,
+    ModelSettingsMoonshotModelSettings,
     ModelSettingsZaiModelSettings,
+    ModelSettingsMoonshotCodingModelSettings,
     GroqModelSettingsParam,
     DeepseekModelSettingsParam,
     TogetherModelSettingsParam,

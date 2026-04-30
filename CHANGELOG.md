@@ -1,5 +1,36 @@
 # Changelog
 
+## 1.11.0 (2026-04-30)
+
+Full Changelog: [v1.10.3...v1.11.0](https://github.com/letta-ai/letta-python/compare/v1.10.3...v1.11.0)
+
+### Features
+
+* **core:** add moonshot and kimi code BYOK providers ([0b0940b](https://github.com/letta-ai/letta-python/commit/0b0940b2ae070319c6a0f2cc4114a4d2b09d2b5a))
+* support setting headers via env ([f0c2ba8](https://github.com/letta-ai/letta-python/commit/f0c2ba89ef56ee33ff8137eee8c3a78c3b3ec689))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([1039e5a](https://github.com/letta-ai/letta-python/commit/1039e5a7bb425f445ec815d15fcead06e2801a36))
+
+
+### Performance Improvements
+
+* **core:** reduce conversation send hot-path reads ([8a7b06e](https://github.com/letta-ai/letta-python/commit/8a7b06eee9b4d0ad28fe1016de5237797dfb01eb))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([074fe85](https://github.com/letta-ai/letta-python/commit/074fe8585483c25a8c2cee48e3324db034901b47))
+* **internal:** reformat pyproject.toml ([d9a6109](https://github.com/letta-ai/letta-python/commit/d9a6109c3a68c5ad4bb2980ea5b53e3fc7a0e96b))
+
+
+### Refactors
+
+* hard-deprecate isolated conversation blocks ([ed0a3d4](https://github.com/letta-ai/letta-python/commit/ed0a3d42fcbc0b9b4af4a3fe63e2dff5bb0161f0))
+* stop creating new isolated conversation blocks ([aa75f2a](https://github.com/letta-ai/letta-python/commit/aa75f2af909e91d5a30e81ec2ac6cde27193a074))
+
 ## 1.10.3 (2026-04-17)
 
 Full Changelog: [v1.10.2...v1.10.3](https://github.com/letta-ai/letta-python/compare/v1.10.2...v1.10.3)

@@ -26,9 +26,14 @@ __all__ = [
     "CompactionSettingsModelSettingsSgLangModelSettings",
     "CompactionSettingsModelSettingsSgLangModelSettingsReasoning",
     "CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsMoonshotModelSettings",
+    "CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettingsThinking",
+    "CompactionSettingsModelSettingsMoonshotCodingModelSettings",
+    "CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsMoonshotCodingModelSettingsThinking",
     "CompactionSettingsModelSettingsBasetenModelSettings",
     "CompactionSettingsModelSettingsOpenRouterModelSettings",
     "CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat",
@@ -100,6 +105,36 @@ class CompactionSettingsModelSettingsSgLangModelSettings(TypedDict, total=False)
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
 
 
+CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsMoonshotModelSettings(TypedDict, total=False):
+    """Moonshot/Kimi model configuration (OpenAI-compatible)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["moonshot"]
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+
 CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
@@ -135,6 +170,59 @@ class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
 
     thinking: CompactionSettingsModelSettingsZaiModelSettingsThinking
     """The thinking configuration for GLM-4.5+ models."""
+
+
+CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsMoonshotCodingModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for the model."""
+
+    budget_tokens: int
+    """The maximum number of tokens the model can use for extended thinking."""
+
+    type: Literal["enabled", "disabled"]
+    """The type of thinking to use."""
+
+
+class CompactionSettingsModelSettingsMoonshotCodingModelSettings(TypedDict, total=False):
+    """Kimi Code model configuration (Anthropic-compatible)."""
+
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]]
+    """Effort level for supported Anthropic models (controls token spending).
+
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
+    """
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["moonshot_coding"]
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+    thinking: CompactionSettingsModelSettingsMoonshotCodingModelSettingsThinking
+    """The thinking configuration for the model."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]]
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
 class CompactionSettingsModelSettingsBasetenModelSettings(TypedDict, total=False):
@@ -211,7 +299,9 @@ CompactionSettingsModelSettings: TypeAlias = Union[
     GoogleVertexModelSettingsParam,
     AzureModelSettingsParam,
     XaiModelSettingsParam,
+    CompactionSettingsModelSettingsMoonshotModelSettings,
     CompactionSettingsModelSettingsZaiModelSettings,
+    CompactionSettingsModelSettingsMoonshotCodingModelSettings,
     GroqModelSettingsParam,
     DeepseekModelSettingsParam,
     TogetherModelSettingsParam,
