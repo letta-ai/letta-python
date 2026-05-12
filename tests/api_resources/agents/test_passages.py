@@ -95,7 +95,7 @@ class TestPassages:
             after="after",
             ascending=True,
             before="before",
-            limit=0,
+            limit=200,
             search="search",
         )
         assert_matches_type(PassageListResponse, passage, path=["response"])
@@ -325,7 +325,7 @@ class TestAsyncPassages:
             after="after",
             ascending=True,
             before="before",
-            limit=0,
+            limit=200,
             search="search",
         )
         assert_matches_type(PassageListResponse, passage, path=["response"])
