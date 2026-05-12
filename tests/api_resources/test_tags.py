@@ -29,7 +29,7 @@ class TestTags:
         tag = client.tags.list(
             after="after",
             before="before",
-            limit=0,
+            limit=200,
             name="name",
             order="asc",
             order_by="name",
@@ -77,7 +77,7 @@ class TestAsyncTags:
         tag = await async_client.tags.list(
             after="after",
             before="before",
-            limit=0,
+            limit=200,
             name="name",
             order="asc",
             order_by="name",

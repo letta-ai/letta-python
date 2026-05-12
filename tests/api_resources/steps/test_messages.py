@@ -33,7 +33,7 @@ class TestMessages:
             step_id="step-123e4567-e89b-42d3-8456-426614174000",
             after="message-123e4567-e89b-42d3-8456-426614174000",
             before="message-123e4567-e89b-42d3-8456-426614174000",
-            limit=0,
+            limit=200,
             order="asc",
             order_by="created_at",
         )
@@ -94,7 +94,7 @@ class TestAsyncMessages:
             step_id="step-123e4567-e89b-42d3-8456-426614174000",
             after="message-123e4567-e89b-42d3-8456-426614174000",
             before="message-123e4567-e89b-42d3-8456-426614174000",
-            limit=0,
+            limit=200,
             order="asc",
             order_by="created_at",
         )

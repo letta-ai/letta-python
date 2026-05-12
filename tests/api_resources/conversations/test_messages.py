@@ -139,7 +139,7 @@ class TestMessages:
             group_id="group_id",
             include_err=True,
             include_return_message_types=["system_message", "user_message"],
-            limit=0,
+            limit=200,
             order="asc",
             order_by="created_at",
         )
@@ -427,7 +427,7 @@ class TestAsyncMessages:
             group_id="group_id",
             include_err=True,
             include_return_message_types=["system_message", "user_message"],
-            limit=0,
+            limit=200,
             order="asc",
             order_by="created_at",
         )
