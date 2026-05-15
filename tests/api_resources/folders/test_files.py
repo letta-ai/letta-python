@@ -100,7 +100,7 @@ class TestFiles:
             after="file-123e4567-e89b-42d3-8456-426614174000",
             before="file-123e4567-e89b-42d3-8456-426614174000",
             include_content=True,
-            limit=0,
+            limit=1000,
             order="asc",
             order_by="created_at",
         )
@@ -333,7 +333,7 @@ class TestAsyncFiles:
             after="file-123e4567-e89b-42d3-8456-426614174000",
             before="file-123e4567-e89b-42d3-8456-426614174000",
             include_content=True,
-            limit=0,
+            limit=1000,
             order="asc",
             order_by="created_at",
         )

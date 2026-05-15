@@ -53,6 +53,8 @@ class Model(BaseModel):
         "hugging-face",
         "baseten",
         "minimax",
+        "moonshot",
+        "moonshot_coding",
         "mistral",
         "together",
         "bedrock",

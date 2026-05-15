@@ -37,7 +37,6 @@ class TestConversations:
             agent_id="agent_id",
             context_window_limit=0,
             hidden=True,
-            isolated_block_labels=["string"],
             model="model",
             model_settings={
                 "max_output_tokens": 0,
@@ -197,7 +196,7 @@ class TestConversations:
             after="conv-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
             archive_status="unarchived",
-            limit=0,
+            limit=200,
             order="asc",
             order_by="created_at",
             summary_search="summary_search",
@@ -461,7 +460,6 @@ class TestAsyncConversations:
             agent_id="agent_id",
             context_window_limit=0,
             hidden=True,
-            isolated_block_labels=["string"],
             model="model",
             model_settings={
                 "max_output_tokens": 0,
@@ -621,7 +619,7 @@ class TestAsyncConversations:
             after="conv-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
             archive_status="unarchived",
-            limit=0,
+            limit=200,
             order="asc",
             order_by="created_at",
             summary_search="summary_search",

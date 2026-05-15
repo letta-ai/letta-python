@@ -16,7 +16,7 @@ from ...types import (
     conversation_update_params,
     conversation_recompile_params,
 )
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from .messages import (
     MessagesResource,
@@ -72,7 +72,6 @@ class ConversationsResource(SyncAPIResource):
         agent_id: str,
         context_window_limit: Optional[int] | Omit = omit,
         hidden: bool | Omit = omit,
-        isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
@@ -93,10 +92,6 @@ class ConversationsResource(SyncAPIResource):
               window).
 
           hidden: Whether the new conversation should be hidden from listings.
-
-          isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
-              shared across conversations. New blocks will be created as copies of the agent's
-              blocks with these labels.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -120,7 +115,6 @@ class ConversationsResource(SyncAPIResource):
                 {
                     "context_window_limit": context_window_limit,
                     "hidden": hidden,
-                    "isolated_block_labels": isolated_block_labels,
                     "model": model,
                     "model_settings": model_settings,
                     "summary": summary,
@@ -321,11 +315,9 @@ class ConversationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Delete a conversation (soft delete).
+        Delete a conversation.
 
-        This marks the conversation as deleted but does not permanently remove it from
-        the database. The conversation will no longer appear in list operations. Any
-        isolated blocks associated with the conversation will be permanently deleted.
+        The conversation will no longer appear in list operations.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
@@ -557,7 +549,6 @@ class AsyncConversationsResource(AsyncAPIResource):
         agent_id: str,
         context_window_limit: Optional[int] | Omit = omit,
         hidden: bool | Omit = omit,
-        isolated_block_labels: Optional[SequenceNotStr[str]] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
         summary: Optional[str] | Omit = omit,
@@ -578,10 +569,6 @@ class AsyncConversationsResource(AsyncAPIResource):
               window).
 
           hidden: Whether the new conversation should be hidden from listings.
-
-          isolated_block_labels: List of block labels that should be isolated (conversation-specific) rather than
-              shared across conversations. New blocks will be created as copies of the agent's
-              blocks with these labels.
 
           model:
               The model handle for this conversation (overrides agent's model). Format:
@@ -605,7 +592,6 @@ class AsyncConversationsResource(AsyncAPIResource):
                 {
                     "context_window_limit": context_window_limit,
                     "hidden": hidden,
-                    "isolated_block_labels": isolated_block_labels,
                     "model": model,
                     "model_settings": model_settings,
                     "summary": summary,
@@ -808,11 +794,9 @@ class AsyncConversationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Delete a conversation (soft delete).
+        Delete a conversation.
 
-        This marks the conversation as deleted but does not permanently remove it from
-        the database. The conversation will no longer appear in list operations. Any
-        isolated blocks associated with the conversation will be permanently deleted.
+        The conversation will no longer appear in list operations.
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'

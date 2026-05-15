@@ -1,6 +1,6 @@
 [project]
 name = "letta-client"
-version = "1.10.3"
+version = "1.11.0"
 description = "The official Python library for the letta API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -168,7 +168,7 @@ show_error_codes = true
 #
 # We also exclude our `tests` as mypy doesn't always infer
 # types correctly and Pyright will still catch any type errors.
-exclude = ['src/letta_client/_files.py', '_dev/.*.py', 'tests/.*']
+exclude = ["src/letta_client/_files.py", "_dev/.*.py", "tests/.*"]
 
 strict_equality = true
 implicit_reexport = true

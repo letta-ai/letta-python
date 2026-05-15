@@ -36,7 +36,7 @@ class TestTools:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             after="tool-123e4567-e89b-42d3-8456-426614174000",
             before="tool-123e4567-e89b-42d3-8456-426614174000",
-            limit=0,
+            limit=200,
             order="asc",
             order_by="created_at",
         )
@@ -331,7 +331,7 @@ class TestAsyncTools:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             after="tool-123e4567-e89b-42d3-8456-426614174000",
             before="tool-123e4567-e89b-42d3-8456-426614174000",
-            limit=0,
+            limit=200,
             order="asc",
             order_by="created_at",
         )
