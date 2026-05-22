@@ -2,19 +2,17 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypeAliasType, TypeAlias, TypedDict, Required
-
 from typing import Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from ..._types import SequenceNotStr
-
 from .text_content_param import TextContentParam
-
 from .image_content_param import ImageContentParam
 
 __all__ = ["ToolReturnParam", "ToolReturnUnionMember0"]
 
 ToolReturnUnionMember0: TypeAlias = Union[TextContentParam, ImageContentParam]
+
 
 class ToolReturnParam(TypedDict, total=False):
     status: Required[Literal["success", "error"]]

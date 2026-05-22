@@ -21,7 +21,7 @@ from typing_extensions import TypeGuard, get_args
 
 import sniffio
 
-from .._types import ArrayFormat, NotGiven, FileTypes, HeadersLike, Omit
+from .._types import Omit, NotGiven, FileTypes, ArrayFormat, HeadersLike
 
 _T = TypeVar("_T")
 _TupleT = TypeVar("_TupleT", bound=Tuple[object, ...])
@@ -54,9 +54,7 @@ def extract_files(
     """
     files: list[tuple[str, FileTypes]] = []
     for path in paths:
-        files.extend(
-            _extract_items(query, path, index=0, flattened_key=None, array_format=array_format)
-        )
+        files.extend(_extract_items(query, path, index=0, flattened_key=None, array_format=array_format))
     return files
 
 
@@ -143,8 +141,7 @@ def _extract_items(
                     path,
                     index=index,
                     flattened_key=(
-                        (flattened_key if flattened_key is not None else "")
-                        + _array_suffix(array_format, array_index)
+                        (flattened_key if flattened_key is not None else "") + _array_suffix(array_format, array_index)
                     ),
                     array_format=array_format,
                 )

@@ -2,29 +2,21 @@
 
 from __future__ import annotations
 
-from letta_client import Letta, AsyncLetta
-
-from letta_client.types import Passage
-
-from typing import cast, Any
-
-from letta_client.types.archives import PassageCreateManyResponse
-
 import os
+from typing import Any, cast
+
 import pytest
-import httpx
-from typing_extensions import get_args
-from respx import MockRouter
-from letta_client import Letta, AsyncLetta
+
 from tests.utils import assert_matches_type
-from letta_client.types.archives import passage_create_params
-from letta_client.types.archives import passage_create_many_params
+from letta_client import Letta, AsyncLetta
+from letta_client.types import Passage
+from letta_client.types.archives import PassageCreateManyResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-class TestPassages:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
 
+class TestPassages:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -33,7 +25,7 @@ class TestPassages:
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
         )
-        assert_matches_type(Passage, passage, path=['response'])
+        assert_matches_type(Passage, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -42,26 +34,23 @@ class TestPassages:
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
             created_at="created_at",
-            metadata={
-                "foo": "bar"
-            },
+            metadata={"foo": "bar"},
             tags=["string"],
         )
-        assert_matches_type(Passage, passage, path=['response'])
+        assert_matches_type(Passage, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
-
         response = client.archives.passages.with_raw_response.create(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         passage = response.parse()
-        assert_matches_type(Passage, passage, path=['response'])
+        assert_matches_type(Passage, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -69,12 +58,12 @@ class TestPassages:
         with client.archives.passages.with_streaming_response.create(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             passage = response.parse()
-            assert_matches_type(Passage, passage, path=['response'])
+            assert_matches_type(Passage, passage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -82,10 +71,10 @@ class TestPassages:
     @parametrize
     def test_path_params_create(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          client.archives.passages.with_raw_response.create(
-              archive_id="",
-              text="text",
-          )
+            client.archives.passages.with_raw_response.create(
+                archive_id="",
+                text="text",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -99,14 +88,13 @@ class TestPassages:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
-
         response = client.archives.passages.with_raw_response.delete(
             passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         passage = response.parse()
         assert passage is None
 
@@ -116,9 +104,9 @@ class TestPassages:
         with client.archives.passages.with_streaming_response.delete(
             passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             passage = response.parse()
             assert passage is None
@@ -129,58 +117,51 @@ class TestPassages:
     @parametrize
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          client.archives.passages.with_raw_response.delete(
-              passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
-              archive_id="",
-          )
+            client.archives.passages.with_raw_response.delete(
+                passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
+                archive_id="",
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `passage_id` but received ''"):
-          client.archives.passages.with_raw_response.delete(
-              passage_id="",
-              archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-          )
+            client.archives.passages.with_raw_response.delete(
+                passage_id="",
+                archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_many(self, client: Letta) -> None:
         passage = client.archives.passages.create_many(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-            passages=[{
-                "text": "text"
-            }],
+            passages=[{"text": "text"}],
         )
-        assert_matches_type(PassageCreateManyResponse, passage, path=['response'])
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_many(self, client: Letta) -> None:
-
         response = client.archives.passages.with_raw_response.create_many(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-            passages=[{
-                "text": "text"
-            }],
+            passages=[{"text": "text"}],
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         passage = response.parse()
-        assert_matches_type(PassageCreateManyResponse, passage, path=['response'])
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_many(self, client: Letta) -> None:
         with client.archives.passages.with_streaming_response.create_many(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-            passages=[{
-                "text": "text"
-            }],
-        ) as response :
+            passages=[{"text": "text"}],
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             passage = response.parse()
-            assert_matches_type(PassageCreateManyResponse, passage, path=['response'])
+            assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -188,15 +169,16 @@ class TestPassages:
     @parametrize
     def test_path_params_create_many(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          client.archives.passages.with_raw_response.create_many(
-              archive_id="",
-              passages=[{
-                  "text": "text"
-              }],
-          )
-class TestAsyncPassages:
-    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+            client.archives.passages.with_raw_response.create_many(
+                archive_id="",
+                passages=[{"text": "text"}],
+            )
 
+
+class TestAsyncPassages:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -205,7 +187,7 @@ class TestAsyncPassages:
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
         )
-        assert_matches_type(Passage, passage, path=['response'])
+        assert_matches_type(Passage, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -214,26 +196,23 @@ class TestAsyncPassages:
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
             created_at="created_at",
-            metadata={
-                "foo": "bar"
-            },
+            metadata={"foo": "bar"},
             tags=["string"],
         )
-        assert_matches_type(Passage, passage, path=['response'])
+        assert_matches_type(Passage, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.archives.passages.with_raw_response.create(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         passage = await response.parse()
-        assert_matches_type(Passage, passage, path=['response'])
+        assert_matches_type(Passage, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -241,12 +220,12 @@ class TestAsyncPassages:
         async with async_client.archives.passages.with_streaming_response.create(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
             text="text",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             passage = await response.parse()
-            assert_matches_type(Passage, passage, path=['response'])
+            assert_matches_type(Passage, passage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -254,10 +233,10 @@ class TestAsyncPassages:
     @parametrize
     async def test_path_params_create(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          await async_client.archives.passages.with_raw_response.create(
-              archive_id="",
-              text="text",
-          )
+            await async_client.archives.passages.with_raw_response.create(
+                archive_id="",
+                text="text",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -271,14 +250,13 @@ class TestAsyncPassages:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.archives.passages.with_raw_response.delete(
             passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         passage = await response.parse()
         assert passage is None
 
@@ -288,9 +266,9 @@ class TestAsyncPassages:
         async with async_client.archives.passages.with_streaming_response.delete(
             passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             passage = await response.parse()
             assert passage is None
@@ -301,58 +279,51 @@ class TestAsyncPassages:
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          await async_client.archives.passages.with_raw_response.delete(
-              passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
-              archive_id="",
-          )
+            await async_client.archives.passages.with_raw_response.delete(
+                passage_id="passage-123e4567-e89b-42d3-8456-426614174000",
+                archive_id="",
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `passage_id` but received ''"):
-          await async_client.archives.passages.with_raw_response.delete(
-              passage_id="",
-              archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-          )
+            await async_client.archives.passages.with_raw_response.delete(
+                passage_id="",
+                archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_many(self, async_client: AsyncLetta) -> None:
         passage = await async_client.archives.passages.create_many(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-            passages=[{
-                "text": "text"
-            }],
+            passages=[{"text": "text"}],
         )
-        assert_matches_type(PassageCreateManyResponse, passage, path=['response'])
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_many(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.archives.passages.with_raw_response.create_many(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-            passages=[{
-                "text": "text"
-            }],
+            passages=[{"text": "text"}],
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         passage = await response.parse()
-        assert_matches_type(PassageCreateManyResponse, passage, path=['response'])
+        assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_many(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.passages.with_streaming_response.create_many(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-            passages=[{
-                "text": "text"
-            }],
-        ) as response :
+            passages=[{"text": "text"}],
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             passage = await response.parse()
-            assert_matches_type(PassageCreateManyResponse, passage, path=['response'])
+            assert_matches_type(PassageCreateManyResponse, passage, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -360,9 +331,7 @@ class TestAsyncPassages:
     @parametrize
     async def test_path_params_create_many(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          await async_client.archives.passages.with_raw_response.create_many(
-              archive_id="",
-              passages=[{
-                  "text": "text"
-              }],
-          )
+            await async_client.archives.passages.with_raw_response.create_many(
+                archive_id="",
+                passages=[{"text": "text"}],
+            )

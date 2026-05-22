@@ -2,41 +2,37 @@
 
 from __future__ import annotations
 
+from typing import Any, Optional, cast
+
 import httpx
 
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from .tools import ToolsResource, AsyncToolsResource, ToolsResourceWithRawResponse, AsyncToolsResourceWithRawResponse, ToolsResourceWithStreamingResponse, AsyncToolsResourceWithStreamingResponse
-
+from .tools import (
+    ToolsResource,
+    AsyncToolsResource,
+    ToolsResourceWithRawResponse,
+    AsyncToolsResourceWithRawResponse,
+    ToolsResourceWithStreamingResponse,
+    AsyncToolsResourceWithStreamingResponse,
+)
+from ...types import mcp_server_create_params, mcp_server_update_params, mcp_server_refresh_params
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
-
-from ...types.mcp_server_create_response import McpServerCreateResponse
-
-from ..._utils import maybe_transform, path_template, async_maybe_transform
-
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from ..._base_client import make_request_options
-
-from typing import Any, cast, Optional
-
-from ..._types import NotGiven, Omit, omit
-
+from ...types.mcp_server_list_response import McpServerListResponse
+from ...types.mcp_server_create_response import McpServerCreateResponse
+from ...types.mcp_server_update_response import McpServerUpdateResponse
 from ...types.mcp_server_retrieve_response import McpServerRetrieveResponse
 
-from ...types.mcp_server_update_response import McpServerUpdateResponse
-
-from ...types.mcp_server_list_response import McpServerListResponse
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types import mcp_server_create_params, mcp_server_update_params
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types import mcp_server_create_params
-from ...types import mcp_server_update_params
-from ...types import mcp_server_refresh_params
-
 __all__ = ["McpServersResource", "AsyncMcpServersResource"]
+
 
 class McpServersResource(SyncAPIResource):
     @cached_property
@@ -62,16 +58,18 @@ class McpServersResource(SyncAPIResource):
         """
         return McpServersResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    config: mcp_server_create_params.Config,
-    server_name: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> McpServerCreateResponse:
+    def create(
+        self,
+        *,
+        config: mcp_server_create_params.Config,
+        server_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> McpServerCreateResponse:
         """
         Add a new MCP server to the Letta MCP server config
 
@@ -88,25 +86,37 @@ class McpServersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return cast(McpServerCreateResponse, self._post(
-            "/v1/mcp-servers/",
-            body=maybe_transform({
-                "config": config,
-                "server_name": server_name,
-            }, mcp_server_create_params.McpServerCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
-            cast_to=cast(Any, McpServerCreateResponse),  # Union types cannot be passed in as arguments in the type system
-        ))
+        return cast(
+            McpServerCreateResponse,
+            self._post(
+                "/v1/mcp-servers/",
+                body=maybe_transform(
+                    {
+                        "config": config,
+                        "server_name": server_name,
+                    },
+                    mcp_server_create_params.McpServerCreateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, McpServerCreateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
 
-    def retrieve(self,
-    mcp_server_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> McpServerRetrieveResponse:
+    def retrieve(
+        self,
+        mcp_server_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> McpServerRetrieveResponse:
         """
         Get a specific MCP server
 
@@ -120,26 +130,33 @@ class McpServersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-          raise ValueError(
-            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
-          )
-        return cast(McpServerRetrieveResponse, self._get(
-            path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
-            cast_to=cast(Any, McpServerRetrieveResponse),  # Union types cannot be passed in as arguments in the type system
-        ))
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+        return cast(
+            McpServerRetrieveResponse,
+            self._get(
+                path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, McpServerRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
 
-    def update(self,
-    mcp_server_id: str,
-    *,
-    config: mcp_server_update_params.Config,
-    server_name: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> McpServerUpdateResponse:
+    def update(
+        self,
+        mcp_server_id: str,
+        *,
+        config: mcp_server_update_params.Config,
+        server_name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> McpServerUpdateResponse:
         """
         Update an existing MCP server configuration
 
@@ -157,43 +174,57 @@ class McpServersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-          raise ValueError(
-            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
-          )
-        return cast(McpServerUpdateResponse, self._patch(
-            path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
-            body=maybe_transform({
-                "config": config,
-                "server_name": server_name,
-            }, mcp_server_update_params.McpServerUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
-            cast_to=cast(Any, McpServerUpdateResponse),  # Union types cannot be passed in as arguments in the type system
-        ))
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+        return cast(
+            McpServerUpdateResponse,
+            self._patch(
+                path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
+                body=maybe_transform(
+                    {
+                        "config": config,
+                        "server_name": server_name,
+                    },
+                    mcp_server_update_params.McpServerUpdateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, McpServerUpdateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
 
-    def list(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> McpServerListResponse:
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> McpServerListResponse:
         """Get a list of all configured MCP servers"""
         return self._get(
             "/v1/mcp-servers/",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=McpServerListResponse,
         )
 
-    def delete(self,
-    mcp_server_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
+    def delete(
+        self,
+        mcp_server_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
         """
         Delete an MCP server by its ID
 
@@ -207,26 +238,28 @@ class McpServersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-          raise ValueError(
-            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
 
-    def refresh(self,
-    mcp_server_id: str,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    def refresh(
+        self,
+        mcp_server_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """Refresh tools for an MCP server by:
 
         1.
@@ -248,16 +281,19 @@ class McpServersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-          raise ValueError(
-            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
         return self._patch(
             path_template("/v1/mcp-servers/{mcp_server_id}/refresh", mcp_server_id=mcp_server_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "agent_id": agent_id
-            }, mcp_server_refresh_params.McpServerRefreshParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"agent_id": agent_id}, mcp_server_refresh_params.McpServerRefreshParams),
+            ),
             cast_to=object,
         )
+
 
 class AsyncMcpServersResource(AsyncAPIResource):
     @cached_property
@@ -283,16 +319,18 @@ class AsyncMcpServersResource(AsyncAPIResource):
         """
         return AsyncMcpServersResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    config: mcp_server_create_params.Config,
-    server_name: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> McpServerCreateResponse:
+    async def create(
+        self,
+        *,
+        config: mcp_server_create_params.Config,
+        server_name: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> McpServerCreateResponse:
         """
         Add a new MCP server to the Letta MCP server config
 
@@ -309,25 +347,37 @@ class AsyncMcpServersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return cast(McpServerCreateResponse, await self._post(
-            "/v1/mcp-servers/",
-            body=await async_maybe_transform({
-                "config": config,
-                "server_name": server_name,
-            }, mcp_server_create_params.McpServerCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
-            cast_to=cast(Any, McpServerCreateResponse),  # Union types cannot be passed in as arguments in the type system
-        ))
+        return cast(
+            McpServerCreateResponse,
+            await self._post(
+                "/v1/mcp-servers/",
+                body=await async_maybe_transform(
+                    {
+                        "config": config,
+                        "server_name": server_name,
+                    },
+                    mcp_server_create_params.McpServerCreateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, McpServerCreateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
 
-    async def retrieve(self,
-    mcp_server_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> McpServerRetrieveResponse:
+    async def retrieve(
+        self,
+        mcp_server_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> McpServerRetrieveResponse:
         """
         Get a specific MCP server
 
@@ -341,26 +391,33 @@ class AsyncMcpServersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-          raise ValueError(
-            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
-          )
-        return cast(McpServerRetrieveResponse, await self._get(
-            path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
-            cast_to=cast(Any, McpServerRetrieveResponse),  # Union types cannot be passed in as arguments in the type system
-        ))
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+        return cast(
+            McpServerRetrieveResponse,
+            await self._get(
+                path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, McpServerRetrieveResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
 
-    async def update(self,
-    mcp_server_id: str,
-    *,
-    config: mcp_server_update_params.Config,
-    server_name: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> McpServerUpdateResponse:
+    async def update(
+        self,
+        mcp_server_id: str,
+        *,
+        config: mcp_server_update_params.Config,
+        server_name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> McpServerUpdateResponse:
         """
         Update an existing MCP server configuration
 
@@ -378,43 +435,57 @@ class AsyncMcpServersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-          raise ValueError(
-            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
-          )
-        return cast(McpServerUpdateResponse, await self._patch(
-            path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
-            body=await async_maybe_transform({
-                "config": config,
-                "server_name": server_name,
-            }, mcp_server_update_params.McpServerUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
-            cast_to=cast(Any, McpServerUpdateResponse),  # Union types cannot be passed in as arguments in the type system
-        ))
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+        return cast(
+            McpServerUpdateResponse,
+            await self._patch(
+                path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
+                body=await async_maybe_transform(
+                    {
+                        "config": config,
+                        "server_name": server_name,
+                    },
+                    mcp_server_update_params.McpServerUpdateParams,
+                ),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, McpServerUpdateResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
 
-    async def list(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> McpServerListResponse:
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> McpServerListResponse:
         """Get a list of all configured MCP servers"""
         return await self._get(
             "/v1/mcp-servers/",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=McpServerListResponse,
         )
 
-    async def delete(self,
-    mcp_server_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
+    async def delete(
+        self,
+        mcp_server_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
         """
         Delete an MCP server by its ID
 
@@ -428,26 +499,28 @@ class AsyncMcpServersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-          raise ValueError(
-            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/v1/mcp-servers/{mcp_server_id}", mcp_server_id=mcp_server_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
 
-    async def refresh(self,
-    mcp_server_id: str,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    async def refresh(
+        self,
+        mcp_server_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """Refresh tools for an MCP server by:
 
         1.
@@ -469,16 +542,21 @@ class AsyncMcpServersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-          raise ValueError(
-            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
         return await self._patch(
             path_template("/v1/mcp-servers/{mcp_server_id}/refresh", mcp_server_id=mcp_server_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "agent_id": agent_id
-            }, mcp_server_refresh_params.McpServerRefreshParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"agent_id": agent_id}, mcp_server_refresh_params.McpServerRefreshParams
+                ),
+            ),
             cast_to=object,
         )
+
 
 class McpServersResourceWithRawResponse:
     def __init__(self, mcp_servers: McpServersResource) -> None:
@@ -507,6 +585,7 @@ class McpServersResourceWithRawResponse:
     def tools(self) -> ToolsResourceWithRawResponse:
         return ToolsResourceWithRawResponse(self._mcp_servers.tools)
 
+
 class AsyncMcpServersResourceWithRawResponse:
     def __init__(self, mcp_servers: AsyncMcpServersResource) -> None:
         self._mcp_servers = mcp_servers
@@ -534,6 +613,7 @@ class AsyncMcpServersResourceWithRawResponse:
     def tools(self) -> AsyncToolsResourceWithRawResponse:
         return AsyncToolsResourceWithRawResponse(self._mcp_servers.tools)
 
+
 class McpServersResourceWithStreamingResponse:
     def __init__(self, mcp_servers: McpServersResource) -> None:
         self._mcp_servers = mcp_servers
@@ -560,6 +640,7 @@ class McpServersResourceWithStreamingResponse:
     @cached_property
     def tools(self) -> ToolsResourceWithStreamingResponse:
         return ToolsResourceWithStreamingResponse(self._mcp_servers.tools)
+
 
 class AsyncMcpServersResourceWithStreamingResponse:
     def __init__(self, mcp_servers: AsyncMcpServersResource) -> None:

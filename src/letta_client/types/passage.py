@@ -1,17 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
-from typing import Optional, List, Dict
-
-from .embedding_config import EmbeddingConfig
-
+from typing import Dict, List, Optional
 from datetime import datetime
+
+from .._models import BaseModel
+from .embedding_config import EmbeddingConfig
 
 __all__ = ["Passage"]
 
+
 class Passage(BaseModel):
     """Representation of a passage, which is stored in archival memory."""
+
     embedding: Optional[List[float]] = None
     """The embedding of the passage."""
 

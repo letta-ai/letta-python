@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required
-
 from typing import Dict, Optional
+from typing_extensions import Required, TypedDict
 
 __all__ = ["TemplateUpdateParams"]
+
 
 class TemplateUpdateParams(TypedDict, total=False):
     agent_file_json: Required[Dict[str, Optional[object]]]

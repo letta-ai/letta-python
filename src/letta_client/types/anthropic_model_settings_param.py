@@ -2,27 +2,27 @@
 
 from __future__ import annotations
 
-from typing import Optional, Union
-
-from typing_extensions import Literal, TypeAliasType, TypeAlias, TypedDict
+from typing import Union, Optional
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .text_response_format_param import TextResponseFormatParam
-
-from .json_schema_response_format_param import JsonSchemaResponseFormatParam
-
 from .json_object_response_format_param import JsonObjectResponseFormatParam
+from .json_schema_response_format_param import JsonSchemaResponseFormatParam
 
 __all__ = ["AnthropicModelSettingsParam", "ResponseFormat", "Thinking"]
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
+
 class Thinking(TypedDict, total=False):
     """The thinking configuration for the model."""
+
     budget_tokens: int
     """The maximum number of tokens the model can use for extended thinking."""
 
     type: Literal["enabled", "disabled"]
     """The type of thinking to use."""
+
 
 class AnthropicModelSettingsParam(TypedDict, total=False):
     effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]]

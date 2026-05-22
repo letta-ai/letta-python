@@ -2,33 +2,28 @@
 
 from __future__ import annotations
 
-import httpx
-
-from .._resource import SyncAPIResource, AsyncAPIResource
-
-from .._compat import cached_property
-
-from ..types.passage_search_response import PassageSearchResponse
-
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options
-
-from typing import Optional, Union
-
-from .._types import Omit, omit, SequenceNotStr, NotGiven
-
+from typing import Union, Optional
 from datetime import datetime
-
 from typing_extensions import Literal
 
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+import httpx
 
-from typing_extensions import Literal, overload
-from .._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
 from ..types import passage_search_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from .._base_client import make_request_options
+from ..types.passage_search_response import PassageSearchResponse
 
 __all__ = ["PassagesResource", "AsyncPassagesResource"]
+
 
 class PassagesResource(SyncAPIResource):
     @cached_property
@@ -50,22 +45,24 @@ class PassagesResource(SyncAPIResource):
         """
         return PassagesResourceWithStreamingResponse(self)
 
-    def search(self,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    archive_id: Optional[str] | Omit = omit,
-    end_date: Union[str, datetime, None] | Omit = omit,
-    limit: int | Omit = omit,
-    query: Optional[str] | Omit = omit,
-    start_date: Union[str, datetime, None] | Omit = omit,
-    tag_match_mode: Literal["any", "all"] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PassageSearchResponse:
+    def search(
+        self,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        archive_id: Optional[str] | Omit = omit,
+        end_date: Union[str, datetime, None] | Omit = omit,
+        limit: int | Omit = omit,
+        query: Optional[str] | Omit = omit,
+        start_date: Union[str, datetime, None] | Omit = omit,
+        tag_match_mode: Literal["any", "all"] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageSearchResponse:
         """
         Search passages across the organization with optional agent and archive
         filtering. Returns passages with relevance scores.
@@ -107,19 +104,25 @@ class PassagesResource(SyncAPIResource):
         """
         return self._post(
             "/v1/passages/search",
-            body=maybe_transform({
-                "agent_id": agent_id,
-                "archive_id": archive_id,
-                "end_date": end_date,
-                "limit": limit,
-                "query": query,
-                "start_date": start_date,
-                "tag_match_mode": tag_match_mode,
-                "tags": tags,
-            }, passage_search_params.PassageSearchParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "agent_id": agent_id,
+                    "archive_id": archive_id,
+                    "end_date": end_date,
+                    "limit": limit,
+                    "query": query,
+                    "start_date": start_date,
+                    "tag_match_mode": tag_match_mode,
+                    "tags": tags,
+                },
+                passage_search_params.PassageSearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=PassageSearchResponse,
         )
+
 
 class AsyncPassagesResource(AsyncAPIResource):
     @cached_property
@@ -141,22 +144,24 @@ class AsyncPassagesResource(AsyncAPIResource):
         """
         return AsyncPassagesResourceWithStreamingResponse(self)
 
-    async def search(self,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    archive_id: Optional[str] | Omit = omit,
-    end_date: Union[str, datetime, None] | Omit = omit,
-    limit: int | Omit = omit,
-    query: Optional[str] | Omit = omit,
-    start_date: Union[str, datetime, None] | Omit = omit,
-    tag_match_mode: Literal["any", "all"] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PassageSearchResponse:
+    async def search(
+        self,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        archive_id: Optional[str] | Omit = omit,
+        end_date: Union[str, datetime, None] | Omit = omit,
+        limit: int | Omit = omit,
+        query: Optional[str] | Omit = omit,
+        start_date: Union[str, datetime, None] | Omit = omit,
+        tag_match_mode: Literal["any", "all"] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageSearchResponse:
         """
         Search passages across the organization with optional agent and archive
         filtering. Returns passages with relevance scores.
@@ -198,19 +203,25 @@ class AsyncPassagesResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/passages/search",
-            body=await async_maybe_transform({
-                "agent_id": agent_id,
-                "archive_id": archive_id,
-                "end_date": end_date,
-                "limit": limit,
-                "query": query,
-                "start_date": start_date,
-                "tag_match_mode": tag_match_mode,
-                "tags": tags,
-            }, passage_search_params.PassageSearchParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "agent_id": agent_id,
+                    "archive_id": archive_id,
+                    "end_date": end_date,
+                    "limit": limit,
+                    "query": query,
+                    "start_date": start_date,
+                    "tag_match_mode": tag_match_mode,
+                    "tags": tags,
+                },
+                passage_search_params.PassageSearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=PassageSearchResponse,
         )
+
 
 class PassagesResourceWithRawResponse:
     def __init__(self, passages: PassagesResource) -> None:
@@ -220,6 +231,7 @@ class PassagesResourceWithRawResponse:
             passages.search,
         )
 
+
 class AsyncPassagesResourceWithRawResponse:
     def __init__(self, passages: AsyncPassagesResource) -> None:
         self._passages = passages
@@ -228,6 +240,7 @@ class AsyncPassagesResourceWithRawResponse:
             passages.search,
         )
 
+
 class PassagesResourceWithStreamingResponse:
     def __init__(self, passages: PassagesResource) -> None:
         self._passages = passages
@@ -235,6 +248,7 @@ class PassagesResourceWithStreamingResponse:
         self.search = to_streamed_response_wrapper(
             passages.search,
         )
+
 
 class AsyncPassagesResourceWithStreamingResponse:
     def __init__(self, passages: AsyncPassagesResource) -> None:

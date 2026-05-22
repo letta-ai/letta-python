@@ -2,28 +2,21 @@
 
 from __future__ import annotations
 
-from letta_client import Letta, AsyncLetta
-
-from letta_client.types import Step
-
-from letta_client.pagination import SyncArrayPage, AsyncArrayPage
-
-from typing import cast, Any
-
 import os
+from typing import Any, cast
+
 import pytest
-import httpx
-from typing_extensions import get_args
-from respx import MockRouter
-from letta_client import Letta, AsyncLetta
+
 from tests.utils import assert_matches_type
-from letta_client.types.runs import step_list_params
+from letta_client import Letta, AsyncLetta
+from letta_client.types import Step
+from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-class TestSteps:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
 
+class TestSteps:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -31,7 +24,7 @@ class TestSteps:
         step = client.runs.steps.list(
             run_id="run_id",
         )
-        assert_matches_type(SyncArrayPage[Step], step, path=['response'])
+        assert_matches_type(SyncArrayPage[Step], step, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -44,32 +37,31 @@ class TestSteps:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(SyncArrayPage[Step], step, path=['response'])
+        assert_matches_type(SyncArrayPage[Step], step, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
-
         response = client.runs.steps.with_raw_response.list(
             run_id="run_id",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         step = response.parse()
-        assert_matches_type(SyncArrayPage[Step], step, path=['response'])
+        assert_matches_type(SyncArrayPage[Step], step, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.runs.steps.with_streaming_response.list(
             run_id="run_id",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             step = response.parse()
-            assert_matches_type(SyncArrayPage[Step], step, path=['response'])
+            assert_matches_type(SyncArrayPage[Step], step, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -77,12 +69,15 @@ class TestSteps:
     @parametrize
     def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-          client.runs.steps.with_raw_response.list(
-              run_id="",
-          )
-class TestAsyncSteps:
-    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+            client.runs.steps.with_raw_response.list(
+                run_id="",
+            )
 
+
+class TestAsyncSteps:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -90,7 +85,7 @@ class TestAsyncSteps:
         step = await async_client.runs.steps.list(
             run_id="run_id",
         )
-        assert_matches_type(AsyncArrayPage[Step], step, path=['response'])
+        assert_matches_type(AsyncArrayPage[Step], step, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -103,32 +98,31 @@ class TestAsyncSteps:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(AsyncArrayPage[Step], step, path=['response'])
+        assert_matches_type(AsyncArrayPage[Step], step, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.runs.steps.with_raw_response.list(
             run_id="run_id",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         step = await response.parse()
-        assert_matches_type(AsyncArrayPage[Step], step, path=['response'])
+        assert_matches_type(AsyncArrayPage[Step], step, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.runs.steps.with_streaming_response.list(
             run_id="run_id",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             step = await response.parse()
-            assert_matches_type(AsyncArrayPage[Step], step, path=['response'])
+            assert_matches_type(AsyncArrayPage[Step], step, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -136,6 +130,6 @@ class TestAsyncSteps:
     @parametrize
     async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-          await async_client.runs.steps.with_raw_response.list(
-              run_id="",
-          )
+            await async_client.runs.steps.with_raw_response.list(
+                run_id="",
+            )

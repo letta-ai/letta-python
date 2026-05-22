@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required
-
-from typing import Optional, Dict, Iterable
-
-from .npm_requirement_param import NpmRequirementParam
-
-from .pip_requirement_param import PipRequirementParam
+from typing import Dict, Iterable, Optional
+from typing_extensions import Required, TypedDict
 
 from .._types import SequenceNotStr
+from .npm_requirement_param import NpmRequirementParam
+from .pip_requirement_param import PipRequirementParam
 
 __all__ = ["ToolCreateParams"]
+
 
 class ToolCreateParams(TypedDict, total=False):
     source_code: Required[str]

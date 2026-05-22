@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 from typing import Dict
-
-from typing_extensions import Literal, TypedDict, Required
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["JsonSchemaResponseFormatParam"]
 
+
 class JsonSchemaResponseFormatParam(TypedDict, total=False):
     """Response format for JSON schema-based responses."""
+
     json_schema: Required[Dict[str, object]]
     """The JSON schema of the response."""
 

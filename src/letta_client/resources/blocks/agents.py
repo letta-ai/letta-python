@@ -2,33 +2,28 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform
-
-from ...types.agent_state import AgentState
-
-from ...pagination import SyncArrayPage, AsyncArrayPage
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, List
-
-from ..._types import Omit, omit, SequenceNotStr, NotGiven
-
+from typing import List, Optional
 from typing_extensions import Literal
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+import httpx
 
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.blocks import agent_list_params
+from ...types.agent_state import AgentState
 
 __all__ = ["AgentsResource", "AsyncAgentsResource"]
+
 
 class AgentsResource(SyncAPIResource):
     @cached_property
@@ -50,22 +45,38 @@ class AgentsResource(SyncAPIResource):
         """
         return AgentsResourceWithStreamingResponse(self)
 
-    def list(self,
-    block_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    include: Optional[List[Literal["agent.blocks", "agent.identities", "agent.managed_group", "agent.pending_approval", "agent.secrets", "agent.sources", "agent.tags", "agent.tools"]]] | Omit = omit,
-    include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[AgentState]:
+    def list(
+        self,
+        block_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
+            ]
+        ]
+        | Omit = omit,
+        include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncArrayPage[AgentState]:
         """Retrieves all agents associated with the specified block.
 
         Raises a 404 if the
@@ -104,23 +115,31 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._get_api_list(
             path_template("/v1/blocks/{block_id}/agents", block_id=block_id),
-            page = SyncArrayPage[AgentState],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "include": include,
-                "include_relationships": include_relationships,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, agent_list_params.AgentListParams)),
+            page=SyncArrayPage[AgentState],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "include": include,
+                        "include_relationships": include_relationships,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
+            ),
             model=AgentState,
         )
+
 
 class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
@@ -142,22 +161,38 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         return AsyncAgentsResourceWithStreamingResponse(self)
 
-    def list(self,
-    block_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    include: Optional[List[Literal["agent.blocks", "agent.identities", "agent.managed_group", "agent.pending_approval", "agent.secrets", "agent.sources", "agent.tags", "agent.tools"]]] | Omit = omit,
-    include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[AgentState, AsyncArrayPage[AgentState]]:
+    def list(
+        self,
+        block_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
+            ]
+        ]
+        | Omit = omit,
+        include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[AgentState, AsyncArrayPage[AgentState]]:
         """Retrieves all agents associated with the specified block.
 
         Raises a 404 if the
@@ -196,23 +231,31 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._get_api_list(
             path_template("/v1/blocks/{block_id}/agents", block_id=block_id),
-            page = AsyncArrayPage[AgentState],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "include": include,
-                "include_relationships": include_relationships,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, agent_list_params.AgentListParams)),
+            page=AsyncArrayPage[AgentState],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "include": include,
+                        "include_relationships": include_relationships,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
+            ),
             model=AgentState,
         )
+
 
 class AgentsResourceWithRawResponse:
     def __init__(self, agents: AgentsResource) -> None:
@@ -222,6 +265,7 @@ class AgentsResourceWithRawResponse:
             agents.list,
         )
 
+
 class AsyncAgentsResourceWithRawResponse:
     def __init__(self, agents: AsyncAgentsResource) -> None:
         self._agents = agents
@@ -230,6 +274,7 @@ class AsyncAgentsResourceWithRawResponse:
             agents.list,
         )
 
+
 class AgentsResourceWithStreamingResponse:
     def __init__(self, agents: AgentsResource) -> None:
         self._agents = agents
@@ -237,6 +282,7 @@ class AgentsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             agents.list,
         )
+
 
 class AsyncAgentsResourceWithStreamingResponse:
     def __init__(self, agents: AsyncAgentsResource) -> None:

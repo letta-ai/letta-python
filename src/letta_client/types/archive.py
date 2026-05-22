@@ -1,21 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
+from typing import Dict, Optional
 from datetime import datetime
 
-from typing import Optional, Dict
-
+from .._models import BaseModel
 from .embedding_config import EmbeddingConfig
-
 from .vector_db_provider import VectorDBProvider
 
 __all__ = ["Archive"]
+
 
 class Archive(BaseModel):
     """
     Representation of an archive - a collection of archival passages that can be shared between agents.
     """
+
     id: str
     """The human-friendly ID of the Archive"""
 

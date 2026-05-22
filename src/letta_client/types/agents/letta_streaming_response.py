@@ -1,36 +1,24 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional, List
-
-from .system_message import SystemMessage
-
-from .user_message import UserMessage
-
-from .reasoning_message import ReasoningMessage
-
-from .hidden_reasoning_message import HiddenReasoningMessage
-
-from .tool_call_message import ToolCallMessage
-
-from ..tool_return_message import ToolReturnMessage
-
-from .assistant_message import AssistantMessage
-
-from .approval_request_message import ApprovalRequestMessage
-
-from .approval_response_message import ApprovalResponseMessage
-
-from ..._models import BaseModel
-
+from typing import List, Union, Optional
 from datetime import datetime
-
-from typing_extensions import Literal, Annotated, TypeAliasType, TypeAlias
-
-from ..stop_reason_type import StopReasonType
+from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
+from ..._models import BaseModel
+from .user_message import UserMessage
+from .system_message import SystemMessage
+from ..stop_reason_type import StopReasonType
+from .assistant_message import AssistantMessage
+from .reasoning_message import ReasoningMessage
+from .tool_call_message import ToolCallMessage
+from ..tool_return_message import ToolReturnMessage
+from .approval_request_message import ApprovalRequestMessage
+from .hidden_reasoning_message import HiddenReasoningMessage
+from .approval_response_message import ApprovalResponseMessage
 
 __all__ = ["LettaStreamingResponse", "LettaPing", "LettaErrorMessage", "LettaStopReason", "LettaUsageStatistics"]
+
 
 class LettaPing(BaseModel):
     """
@@ -40,6 +28,7 @@ class LettaPing(BaseModel):
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
     """
+
     id: str
 
     date: datetime
@@ -71,10 +60,12 @@ class LettaPing(BaseModel):
 
     step_id: Optional[str] = None
 
+
 class LettaErrorMessage(BaseModel):
     """
     Error messages are used to notify the client of an error that occurred during the agent's execution.
     """
+
     error_type: str
     """The type of error."""
 
@@ -93,13 +84,16 @@ class LettaErrorMessage(BaseModel):
     seq_id: Optional[int] = None
     """The sequence ID for cursor-based pagination."""
 
+
 class LettaStopReason(BaseModel):
     """The stop reason from Letta indicating why agent loop stopped execution."""
+
     stop_reason: StopReasonType
     """The reason why execution stopped."""
 
     message_type: Optional[Literal["stop_reason"]] = None
     """The type of the message."""
+
 
 class LettaUsageStatistics(BaseModel):
     """Usage statistics for the agent interaction.
@@ -113,6 +107,7 @@ class LettaUsageStatistics(BaseModel):
         cache_write_tokens (Optional[int]): The number of input tokens written to cache. None if not reported.
         reasoning_tokens (Optional[int]): The number of reasoning/thinking tokens generated. None if not reported.
     """
+
     cache_write_tokens: Optional[int] = None
     """The number of input tokens written to cache (Anthropic only).
 
@@ -148,4 +143,22 @@ class LettaUsageStatistics(BaseModel):
     total_tokens: Optional[int] = None
     """The total number of tokens processed by the agent."""
 
-LettaStreamingResponse: TypeAlias = Annotated[Union[SystemMessage, UserMessage, ReasoningMessage, HiddenReasoningMessage, ToolCallMessage, ToolReturnMessage, AssistantMessage, ApprovalRequestMessage, ApprovalResponseMessage, LettaPing, LettaErrorMessage, LettaStopReason, LettaUsageStatistics], PropertyInfo(discriminator="message_type")]
+
+LettaStreamingResponse: TypeAlias = Annotated[
+    Union[
+        SystemMessage,
+        UserMessage,
+        ReasoningMessage,
+        HiddenReasoningMessage,
+        ToolCallMessage,
+        ToolReturnMessage,
+        AssistantMessage,
+        ApprovalRequestMessage,
+        ApprovalResponseMessage,
+        LettaPing,
+        LettaErrorMessage,
+        LettaStopReason,
+        LettaUsageStatistics,
+    ],
+    PropertyInfo(discriminator="message_type"),
+]

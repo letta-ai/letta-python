@@ -1,28 +1,25 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union, Optional
-
-from .text_response_format import TextResponseFormat
-
-from .json_schema_response_format import JsonSchemaResponseFormat
-
-from .json_object_response_format import JsonObjectResponseFormat
-
-from .._utils import PropertyInfo
-
-from typing_extensions import Annotated, TypeAliasType, TypeAlias, Literal
-
-from .._models import BaseModel
+from typing_extensions import Literal, Annotated, TypeAlias
 
 from pydantic import Field as FieldInfo
 
+from .._utils import PropertyInfo
+from .._models import BaseModel
 from .provider_type import ProviderType
-
 from .provider_category import ProviderCategory
+from .text_response_format import TextResponseFormat
+from .json_object_response_format import JsonObjectResponseFormat
+from .json_schema_response_format import JsonSchemaResponseFormat
 
 __all__ = ["Model", "ResponseFormat"]
 
-ResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
+ResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
 
 class Model(BaseModel):
     context_window: int
@@ -37,7 +34,37 @@ class Model(BaseModel):
     model: str
     """Deprecated: Use 'name' field instead. LLM model name."""
 
-    api_model_endpoint_type: Literal["openai", "anthropic", "google_ai", "google_vertex", "azure", "groq", "ollama", "webui", "webui-legacy", "lmstudio", "lmstudio-legacy", "lmstudio-chatcompletions", "llamacpp", "koboldcpp", "vllm", "hugging-face", "baseten", "minimax", "moonshot", "moonshot_coding", "mistral", "together", "bedrock", "deepseek", "xai", "zai", "zai_coding", "openrouter", "chatgpt_oauth"] = FieldInfo(alias = "model_endpoint_type")
+    api_model_endpoint_type: Literal[
+        "openai",
+        "anthropic",
+        "google_ai",
+        "google_vertex",
+        "azure",
+        "groq",
+        "ollama",
+        "webui",
+        "webui-legacy",
+        "lmstudio",
+        "lmstudio-legacy",
+        "lmstudio-chatcompletions",
+        "llamacpp",
+        "koboldcpp",
+        "vllm",
+        "hugging-face",
+        "baseten",
+        "minimax",
+        "moonshot",
+        "moonshot_coding",
+        "mistral",
+        "together",
+        "bedrock",
+        "deepseek",
+        "xai",
+        "zai",
+        "zai_coding",
+        "openrouter",
+        "chatgpt_oauth",
+    ] = FieldInfo(alias="model_endpoint_type")
     """Deprecated: Use 'provider_type' field instead. The endpoint type for the model."""
 
     name: str
@@ -80,13 +107,13 @@ class Model(BaseModel):
     max_tokens: Optional[int] = None
     """Deprecated: The maximum number of tokens to generate."""
 
-    api_model_endpoint: Optional[str] = FieldInfo(alias = "model_endpoint", default = None)
+    api_model_endpoint: Optional[str] = FieldInfo(alias="model_endpoint", default=None)
     """Deprecated: The endpoint for the model."""
 
-    api_model_type: Optional[Literal["llm"]] = FieldInfo(alias = "model_type", default = None)
+    api_model_type: Optional[Literal["llm"]] = FieldInfo(alias="model_type", default=None)
     """Type of model (llm or embedding)"""
 
-    api_model_wrapper: Optional[str] = FieldInfo(alias = "model_wrapper", default = None)
+    api_model_wrapper: Optional[str] = FieldInfo(alias="model_wrapper", default=None)
     """Deprecated: The wrapper for the model."""
 
     parallel_tool_calls: Optional[bool] = None

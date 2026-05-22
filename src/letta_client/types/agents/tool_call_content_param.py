@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
-
-from typing_extensions import Literal, TypedDict, Required
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["ToolCallContentParam"]
+
 
 class ToolCallContentParam(TypedDict, total=False):
     id: Required[str]

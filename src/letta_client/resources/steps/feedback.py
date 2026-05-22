@@ -2,31 +2,27 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-
-from ...types.step import Step
-
-from ..._base_client import make_request_options
-
 from typing import Optional
-
 from typing_extensions import Literal
 
-from ..._types import Omit, omit, SequenceNotStr, NotGiven
+import httpx
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...types.step import Step
 from ...types.steps import feedback_create_params
+from ..._base_client import make_request_options
 
 __all__ = ["FeedbackResource", "AsyncFeedbackResource"]
+
 
 class FeedbackResource(SyncAPIResource):
     @cached_property
@@ -48,17 +44,19 @@ class FeedbackResource(SyncAPIResource):
         """
         return FeedbackResourceWithStreamingResponse(self)
 
-    def create(self,
-    step_id: str,
-    *,
-    feedback: Optional[Literal["positive", "negative"]] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Step:
+    def create(
+        self,
+        step_id: str,
+        *,
+        feedback: Optional[Literal["positive", "negative"]] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Step:
         """
         Modify feedback for a given step.
 
@@ -78,18 +76,22 @@ class FeedbackResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not step_id:
-          raise ValueError(
-            f'Expected a non-empty value for `step_id` but received {step_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return self._patch(
             path_template("/v1/steps/{step_id}/feedback", step_id=step_id),
-            body=maybe_transform({
-                "feedback": feedback,
-                "tags": tags,
-            }, feedback_create_params.FeedbackCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "feedback": feedback,
+                    "tags": tags,
+                },
+                feedback_create_params.FeedbackCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Step,
         )
+
 
 class AsyncFeedbackResource(AsyncAPIResource):
     @cached_property
@@ -111,17 +113,19 @@ class AsyncFeedbackResource(AsyncAPIResource):
         """
         return AsyncFeedbackResourceWithStreamingResponse(self)
 
-    async def create(self,
-    step_id: str,
-    *,
-    feedback: Optional[Literal["positive", "negative"]] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Step:
+    async def create(
+        self,
+        step_id: str,
+        *,
+        feedback: Optional[Literal["positive", "negative"]] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Step:
         """
         Modify feedback for a given step.
 
@@ -141,18 +145,22 @@ class AsyncFeedbackResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not step_id:
-          raise ValueError(
-            f'Expected a non-empty value for `step_id` but received {step_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
         return await self._patch(
             path_template("/v1/steps/{step_id}/feedback", step_id=step_id),
-            body=await async_maybe_transform({
-                "feedback": feedback,
-                "tags": tags,
-            }, feedback_create_params.FeedbackCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "feedback": feedback,
+                    "tags": tags,
+                },
+                feedback_create_params.FeedbackCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Step,
         )
+
 
 class FeedbackResourceWithRawResponse:
     def __init__(self, feedback: FeedbackResource) -> None:
@@ -162,6 +170,7 @@ class FeedbackResourceWithRawResponse:
             feedback.create,
         )
 
+
 class AsyncFeedbackResourceWithRawResponse:
     def __init__(self, feedback: AsyncFeedbackResource) -> None:
         self._feedback = feedback
@@ -170,6 +179,7 @@ class AsyncFeedbackResourceWithRawResponse:
             feedback.create,
         )
 
+
 class FeedbackResourceWithStreamingResponse:
     def __init__(self, feedback: FeedbackResource) -> None:
         self._feedback = feedback
@@ -177,6 +187,7 @@ class FeedbackResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             feedback.create,
         )
+
 
 class AsyncFeedbackResourceWithStreamingResponse:
     def __init__(self, feedback: AsyncFeedbackResource) -> None:

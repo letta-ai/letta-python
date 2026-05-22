@@ -1,19 +1,40 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
+from typing import Optional
 from typing_extensions import Literal
 
-from typing import Optional
+from .._models import BaseModel
 
 __all__ = ["EmbeddingConfig"]
 
+
 class EmbeddingConfig(BaseModel):
     """Configuration for embedding model connection and processing parameters."""
+
     embedding_dim: int
     """The dimension of the embedding."""
 
-    embedding_endpoint_type: Literal["openai", "anthropic", "bedrock", "google_ai", "google_vertex", "azure", "groq", "ollama", "webui", "webui-legacy", "lmstudio", "lmstudio-legacy", "llamacpp", "koboldcpp", "vllm", "hugging-face", "mistral", "together", "pinecone"]
+    embedding_endpoint_type: Literal[
+        "openai",
+        "anthropic",
+        "bedrock",
+        "google_ai",
+        "google_vertex",
+        "azure",
+        "groq",
+        "ollama",
+        "webui",
+        "webui-legacy",
+        "lmstudio",
+        "lmstudio-legacy",
+        "llamacpp",
+        "koboldcpp",
+        "vllm",
+        "hugging-face",
+        "mistral",
+        "together",
+        "pinecone",
+    ]
     """The endpoint type for the model."""
 
     embedding_model: str

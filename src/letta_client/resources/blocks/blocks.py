@@ -2,37 +2,36 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from .agents import AgentsResource, AsyncAgentsResource, AgentsResourceWithRawResponse, AsyncAgentsResourceWithRawResponse, AgentsResourceWithStreamingResponse, AsyncAgentsResourceWithStreamingResponse
-
-from ..._compat import cached_property
-
-from ...types.block_response import BlockResponse
-
-from ..._utils import maybe_transform, path_template, async_maybe_transform
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Dict, Iterable
-
-from ..._types import Omit, omit, SequenceNotStr, NotGiven
-
-from ...pagination import SyncArrayPage, AsyncArrayPage
-
+from typing import Dict, Iterable, Optional
 from typing_extensions import Literal
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+import httpx
 
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types import block_create_params
-from ...types import block_update_params
-from ...types import block_list_params
+from .agents import (
+    AgentsResource,
+    AsyncAgentsResource,
+    AgentsResourceWithRawResponse,
+    AsyncAgentsResourceWithRawResponse,
+    AgentsResourceWithStreamingResponse,
+    AsyncAgentsResourceWithStreamingResponse,
+)
+from ...types import block_list_params, block_create_params, block_update_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.block_response import BlockResponse
 
 __all__ = ["BlocksResource", "AsyncBlocksResource"]
+
 
 class BlocksResource(SyncAPIResource):
     @cached_property
@@ -58,30 +57,32 @@ class BlocksResource(SyncAPIResource):
         """
         return BlocksResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    label: str,
-    value: str,
-    base_template_id: Optional[str] | Omit = omit,
-    deployment_id: Optional[str] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    entity_id: Optional[str] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    is_template: bool | Omit = omit,
-    limit: int | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    preserve_on_migration: Optional[bool] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    read_only: bool | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    template_name: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    def create(
+        self,
+        *,
+        label: str,
+        value: str,
+        base_template_id: Optional[str] | Omit = omit,
+        deployment_id: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        entity_id: Optional[str] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        is_template: bool | Omit = omit,
+        limit: int | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        preserve_on_migration: Optional[bool] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Create Block
 
@@ -126,37 +127,44 @@ class BlocksResource(SyncAPIResource):
         """
         return self._post(
             "/v1/blocks/",
-            body=maybe_transform({
-                "label": label,
-                "value": value,
-                "base_template_id": base_template_id,
-                "deployment_id": deployment_id,
-                "description": description,
-                "entity_id": entity_id,
-                "hidden": hidden,
-                "is_template": is_template,
-                "limit": limit,
-                "metadata": metadata,
-                "preserve_on_migration": preserve_on_migration,
-                "project_id": project_id,
-                "read_only": read_only,
-                "tags": tags,
-                "template_id": template_id,
-                "template_name": template_name,
-            }, block_create_params.BlockCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "label": label,
+                    "value": value,
+                    "base_template_id": base_template_id,
+                    "deployment_id": deployment_id,
+                    "description": description,
+                    "entity_id": entity_id,
+                    "hidden": hidden,
+                    "is_template": is_template,
+                    "limit": limit,
+                    "metadata": metadata,
+                    "preserve_on_migration": preserve_on_migration,
+                    "project_id": project_id,
+                    "read_only": read_only,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "template_name": template_name,
+                },
+                block_create_params.BlockCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    def retrieve(self,
-    block_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    def retrieve(
+        self,
+        block_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Retrieve Block
 
@@ -172,40 +180,42 @@ class BlocksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._get(
             path_template("/v1/blocks/{block_id}", block_id=block_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    def update(self,
-    block_id: str,
-    *,
-    base_template_id: Optional[str] | Omit = omit,
-    deployment_id: Optional[str] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    entity_id: Optional[str] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    is_template: bool | Omit = omit,
-    label: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    preserve_on_migration: Optional[bool] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    read_only: bool | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    template_name: Optional[str] | Omit = omit,
-    value: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    def update(
+        self,
+        block_id: str,
+        *,
+        base_template_id: Optional[str] | Omit = omit,
+        deployment_id: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        entity_id: Optional[str] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        is_template: bool | Omit = omit,
+        label: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        preserve_on_migration: Optional[bool] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
+        value: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Update Block
 
@@ -253,60 +263,65 @@ class BlocksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._patch(
             path_template("/v1/blocks/{block_id}", block_id=block_id),
-            body=maybe_transform({
-                "base_template_id": base_template_id,
-                "deployment_id": deployment_id,
-                "description": description,
-                "entity_id": entity_id,
-                "hidden": hidden,
-                "is_template": is_template,
-                "label": label,
-                "limit": limit,
-                "metadata": metadata,
-                "preserve_on_migration": preserve_on_migration,
-                "project_id": project_id,
-                "read_only": read_only,
-                "tags": tags,
-                "template_id": template_id,
-                "template_name": template_name,
-                "value": value,
-            }, block_update_params.BlockUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "base_template_id": base_template_id,
+                    "deployment_id": deployment_id,
+                    "description": description,
+                    "entity_id": entity_id,
+                    "hidden": hidden,
+                    "is_template": is_template,
+                    "label": label,
+                    "limit": limit,
+                    "metadata": metadata,
+                    "preserve_on_migration": preserve_on_migration,
+                    "project_id": project_id,
+                    "read_only": read_only,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "template_name": template_name,
+                    "value": value,
+                },
+                block_update_params.BlockUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    def list(self,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    connected_to_agents_count_eq: Optional[Iterable[int]] | Omit = omit,
-    connected_to_agents_count_gt: Optional[int] | Omit = omit,
-    connected_to_agents_count_lt: Optional[int] | Omit = omit,
-    description_search: Optional[str] | Omit = omit,
-    identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
-    identity_id: Optional[str] | Omit = omit,
-    label: Optional[str] | Omit = omit,
-    label_search: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    match_all_tags: bool | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    templates_only: bool | Omit = omit,
-    value_search: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[BlockResponse]:
+    def list(
+        self,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        connected_to_agents_count_eq: Optional[Iterable[int]] | Omit = omit,
+        connected_to_agents_count_gt: Optional[int] | Omit = omit,
+        connected_to_agents_count_lt: Optional[int] | Omit = omit,
+        description_search: Optional[str] | Omit = omit,
+        identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
+        identity_id: Optional[str] | Omit = omit,
+        label: Optional[str] | Omit = omit,
+        label_search: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        match_all_tags: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        templates_only: bool | Omit = omit,
+        value_search: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncArrayPage[BlockResponse]:
         """List Blocks
 
         Args:
@@ -370,40 +385,51 @@ class BlocksResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/blocks/",
-            page = SyncArrayPage[BlockResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "connected_to_agents_count_eq": connected_to_agents_count_eq,
-                "connected_to_agents_count_gt": connected_to_agents_count_gt,
-                "connected_to_agents_count_lt": connected_to_agents_count_lt,
-                "description_search": description_search,
-                "identifier_keys": identifier_keys,
-                "identity_id": identity_id,
-                "label": label,
-                "label_search": label_search,
-                "limit": limit,
-                "match_all_tags": match_all_tags,
-                "name": name,
-                "order": order,
-                "order_by": order_by,
-                "project_id": project_id,
-                "tags": tags,
-                "templates_only": templates_only,
-                "value_search": value_search,
-            }, block_list_params.BlockListParams)),
+            page=SyncArrayPage[BlockResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "connected_to_agents_count_eq": connected_to_agents_count_eq,
+                        "connected_to_agents_count_gt": connected_to_agents_count_gt,
+                        "connected_to_agents_count_lt": connected_to_agents_count_lt,
+                        "description_search": description_search,
+                        "identifier_keys": identifier_keys,
+                        "identity_id": identity_id,
+                        "label": label,
+                        "label_search": label_search,
+                        "limit": limit,
+                        "match_all_tags": match_all_tags,
+                        "name": name,
+                        "order": order,
+                        "order_by": order_by,
+                        "project_id": project_id,
+                        "tags": tags,
+                        "templates_only": templates_only,
+                        "value_search": value_search,
+                    },
+                    block_list_params.BlockListParams,
+                ),
+            ),
             model=BlockResponse,
         )
 
-    def delete(self,
-    block_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    def delete(
+        self,
+        block_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete Block
 
@@ -419,14 +445,15 @@ class BlocksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._delete(
             path_template("/v1/blocks/{block_id}", block_id=block_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
+
 
 class AsyncBlocksResource(AsyncAPIResource):
     @cached_property
@@ -452,30 +479,32 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         return AsyncBlocksResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    label: str,
-    value: str,
-    base_template_id: Optional[str] | Omit = omit,
-    deployment_id: Optional[str] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    entity_id: Optional[str] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    is_template: bool | Omit = omit,
-    limit: int | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    preserve_on_migration: Optional[bool] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    read_only: bool | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    template_name: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    async def create(
+        self,
+        *,
+        label: str,
+        value: str,
+        base_template_id: Optional[str] | Omit = omit,
+        deployment_id: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        entity_id: Optional[str] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        is_template: bool | Omit = omit,
+        limit: int | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        preserve_on_migration: Optional[bool] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Create Block
 
@@ -520,37 +549,44 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/blocks/",
-            body=await async_maybe_transform({
-                "label": label,
-                "value": value,
-                "base_template_id": base_template_id,
-                "deployment_id": deployment_id,
-                "description": description,
-                "entity_id": entity_id,
-                "hidden": hidden,
-                "is_template": is_template,
-                "limit": limit,
-                "metadata": metadata,
-                "preserve_on_migration": preserve_on_migration,
-                "project_id": project_id,
-                "read_only": read_only,
-                "tags": tags,
-                "template_id": template_id,
-                "template_name": template_name,
-            }, block_create_params.BlockCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "label": label,
+                    "value": value,
+                    "base_template_id": base_template_id,
+                    "deployment_id": deployment_id,
+                    "description": description,
+                    "entity_id": entity_id,
+                    "hidden": hidden,
+                    "is_template": is_template,
+                    "limit": limit,
+                    "metadata": metadata,
+                    "preserve_on_migration": preserve_on_migration,
+                    "project_id": project_id,
+                    "read_only": read_only,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "template_name": template_name,
+                },
+                block_create_params.BlockCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    async def retrieve(self,
-    block_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    async def retrieve(
+        self,
+        block_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Retrieve Block
 
@@ -566,40 +602,42 @@ class AsyncBlocksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return await self._get(
             path_template("/v1/blocks/{block_id}", block_id=block_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    async def update(self,
-    block_id: str,
-    *,
-    base_template_id: Optional[str] | Omit = omit,
-    deployment_id: Optional[str] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    entity_id: Optional[str] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    is_template: bool | Omit = omit,
-    label: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    preserve_on_migration: Optional[bool] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    read_only: bool | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    template_name: Optional[str] | Omit = omit,
-    value: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    async def update(
+        self,
+        block_id: str,
+        *,
+        base_template_id: Optional[str] | Omit = omit,
+        deployment_id: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        entity_id: Optional[str] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        is_template: bool | Omit = omit,
+        label: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        preserve_on_migration: Optional[bool] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
+        value: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Update Block
 
@@ -647,60 +685,65 @@ class AsyncBlocksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return await self._patch(
             path_template("/v1/blocks/{block_id}", block_id=block_id),
-            body=await async_maybe_transform({
-                "base_template_id": base_template_id,
-                "deployment_id": deployment_id,
-                "description": description,
-                "entity_id": entity_id,
-                "hidden": hidden,
-                "is_template": is_template,
-                "label": label,
-                "limit": limit,
-                "metadata": metadata,
-                "preserve_on_migration": preserve_on_migration,
-                "project_id": project_id,
-                "read_only": read_only,
-                "tags": tags,
-                "template_id": template_id,
-                "template_name": template_name,
-                "value": value,
-            }, block_update_params.BlockUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "base_template_id": base_template_id,
+                    "deployment_id": deployment_id,
+                    "description": description,
+                    "entity_id": entity_id,
+                    "hidden": hidden,
+                    "is_template": is_template,
+                    "label": label,
+                    "limit": limit,
+                    "metadata": metadata,
+                    "preserve_on_migration": preserve_on_migration,
+                    "project_id": project_id,
+                    "read_only": read_only,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "template_name": template_name,
+                    "value": value,
+                },
+                block_update_params.BlockUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    def list(self,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    connected_to_agents_count_eq: Optional[Iterable[int]] | Omit = omit,
-    connected_to_agents_count_gt: Optional[int] | Omit = omit,
-    connected_to_agents_count_lt: Optional[int] | Omit = omit,
-    description_search: Optional[str] | Omit = omit,
-    identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
-    identity_id: Optional[str] | Omit = omit,
-    label: Optional[str] | Omit = omit,
-    label_search: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    match_all_tags: bool | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    templates_only: bool | Omit = omit,
-    value_search: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[BlockResponse, AsyncArrayPage[BlockResponse]]:
+    def list(
+        self,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        connected_to_agents_count_eq: Optional[Iterable[int]] | Omit = omit,
+        connected_to_agents_count_gt: Optional[int] | Omit = omit,
+        connected_to_agents_count_lt: Optional[int] | Omit = omit,
+        description_search: Optional[str] | Omit = omit,
+        identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
+        identity_id: Optional[str] | Omit = omit,
+        label: Optional[str] | Omit = omit,
+        label_search: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        match_all_tags: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        templates_only: bool | Omit = omit,
+        value_search: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[BlockResponse, AsyncArrayPage[BlockResponse]]:
         """List Blocks
 
         Args:
@@ -764,40 +807,51 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/blocks/",
-            page = AsyncArrayPage[BlockResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "connected_to_agents_count_eq": connected_to_agents_count_eq,
-                "connected_to_agents_count_gt": connected_to_agents_count_gt,
-                "connected_to_agents_count_lt": connected_to_agents_count_lt,
-                "description_search": description_search,
-                "identifier_keys": identifier_keys,
-                "identity_id": identity_id,
-                "label": label,
-                "label_search": label_search,
-                "limit": limit,
-                "match_all_tags": match_all_tags,
-                "name": name,
-                "order": order,
-                "order_by": order_by,
-                "project_id": project_id,
-                "tags": tags,
-                "templates_only": templates_only,
-                "value_search": value_search,
-            }, block_list_params.BlockListParams)),
+            page=AsyncArrayPage[BlockResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "connected_to_agents_count_eq": connected_to_agents_count_eq,
+                        "connected_to_agents_count_gt": connected_to_agents_count_gt,
+                        "connected_to_agents_count_lt": connected_to_agents_count_lt,
+                        "description_search": description_search,
+                        "identifier_keys": identifier_keys,
+                        "identity_id": identity_id,
+                        "label": label,
+                        "label_search": label_search,
+                        "limit": limit,
+                        "match_all_tags": match_all_tags,
+                        "name": name,
+                        "order": order,
+                        "order_by": order_by,
+                        "project_id": project_id,
+                        "tags": tags,
+                        "templates_only": templates_only,
+                        "value_search": value_search,
+                    },
+                    block_list_params.BlockListParams,
+                ),
+            ),
             model=BlockResponse,
         )
 
-    async def delete(self,
-    block_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    async def delete(
+        self,
+        block_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete Block
 
@@ -813,14 +867,15 @@ class AsyncBlocksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return await self._delete(
             path_template("/v1/blocks/{block_id}", block_id=block_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
+
 
 class BlocksResourceWithRawResponse:
     def __init__(self, blocks: BlocksResource) -> None:
@@ -846,6 +901,7 @@ class BlocksResourceWithRawResponse:
     def agents(self) -> AgentsResourceWithRawResponse:
         return AgentsResourceWithRawResponse(self._blocks.agents)
 
+
 class AsyncBlocksResourceWithRawResponse:
     def __init__(self, blocks: AsyncBlocksResource) -> None:
         self._blocks = blocks
@@ -870,6 +926,7 @@ class AsyncBlocksResourceWithRawResponse:
     def agents(self) -> AsyncAgentsResourceWithRawResponse:
         return AsyncAgentsResourceWithRawResponse(self._blocks.agents)
 
+
 class BlocksResourceWithStreamingResponse:
     def __init__(self, blocks: BlocksResource) -> None:
         self._blocks = blocks
@@ -893,6 +950,7 @@ class BlocksResourceWithStreamingResponse:
     @cached_property
     def agents(self) -> AgentsResourceWithStreamingResponse:
         return AgentsResourceWithStreamingResponse(self._blocks.agents)
+
 
 class AsyncBlocksResourceWithStreamingResponse:
     def __init__(self, blocks: AsyncBlocksResource) -> None:

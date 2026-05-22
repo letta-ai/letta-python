@@ -2,40 +2,30 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-
-from ...types.agents.schedule_create_response import ScheduleCreateResponse
-
-from ..._base_client import make_request_options
-
-from typing import Iterable, List
-
-from ..._types import Omit, omit, NotGiven
-
+from typing import List, Iterable
 from typing_extensions import Literal
 
+import httpx
+
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.agents import schedule_list_params, schedule_create_params
+from ...types.agents.schedule_list_response import ScheduleListResponse
+from ...types.agents.schedule_create_response import ScheduleCreateResponse
+from ...types.agents.schedule_delete_response import ScheduleDeleteResponse
 from ...types.agents.schedule_retrieve_response import ScheduleRetrieveResponse
 
-from ...types.agents.schedule_list_response import ScheduleListResponse
-
-from ...types.agents.schedule_delete_response import ScheduleDeleteResponse
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types.agents import schedule_create_params
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types.agents import schedule_create_params
-from ...types.agents import schedule_list_params
-
 __all__ = ["ScheduleResource", "AsyncScheduleResource"]
+
 
 class ScheduleResource(SyncAPIResource):
     @cached_property
@@ -57,20 +47,35 @@ class ScheduleResource(SyncAPIResource):
         """
         return ScheduleResourceWithStreamingResponse(self)
 
-    def create(self,
-    agent_id: str,
-    *,
-    messages: Iterable[schedule_create_params.Message],
-    schedule: schedule_create_params.Schedule,
-    callback_url: str | Omit = omit,
-    include_return_message_types: List[Literal["system_message", "user_message", "assistant_message", "reasoning_message", "hidden_reasoning_message", "tool_call_message", "tool_return_message", "approval_request_message", "approval_response_message"]] | Omit = omit,
-    max_steps: float | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ScheduleCreateResponse:
+    def create(
+        self,
+        agent_id: str,
+        *,
+        messages: Iterable[schedule_create_params.Message],
+        schedule: schedule_create_params.Schedule,
+        callback_url: str | Omit = omit,
+        include_return_message_types: List[
+            Literal[
+                "system_message",
+                "user_message",
+                "assistant_message",
+                "reasoning_message",
+                "hidden_reasoning_message",
+                "tool_call_message",
+                "tool_return_message",
+                "approval_request_message",
+                "approval_response_message",
+            ]
+        ]
+        | Omit = omit,
+        max_steps: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ScheduleCreateResponse:
         """
         Schedule a message to be sent by the agent at a specified time or on a recurring
         basis.
@@ -85,32 +90,37 @@ class ScheduleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
             path_template("/v1/agents/{agent_id}/schedule", agent_id=agent_id),
-            body=maybe_transform({
-                "messages": messages,
-                "schedule": schedule,
-                "callback_url": callback_url,
-                "include_return_message_types": include_return_message_types,
-                "max_steps": max_steps,
-            }, schedule_create_params.ScheduleCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "messages": messages,
+                    "schedule": schedule,
+                    "callback_url": callback_url,
+                    "include_return_message_types": include_return_message_types,
+                    "max_steps": max_steps,
+                },
+                schedule_create_params.ScheduleCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ScheduleCreateResponse,
         )
 
-    def retrieve(self,
-    scheduled_message_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ScheduleRetrieveResponse:
+    def retrieve(
+        self,
+        scheduled_message_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ScheduleRetrieveResponse:
         """
         Retrieve a scheduled message by its ID for a specific agent.
 
@@ -124,30 +134,36 @@ class ScheduleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not scheduled_message_id:
-          raise ValueError(
-            f'Expected a non-empty value for `scheduled_message_id` but received {scheduled_message_id!r}'
-          )
+            raise ValueError(
+                f"Expected a non-empty value for `scheduled_message_id` but received {scheduled_message_id!r}"
+            )
         return self._get(
-            path_template("/v1/agents/{agent_id}/schedule/{scheduled_message_id}", agent_id=agent_id, scheduled_message_id=scheduled_message_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/schedule/{scheduled_message_id}",
+                agent_id=agent_id,
+                scheduled_message_id=scheduled_message_id,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ScheduleRetrieveResponse,
         )
 
-    def list(self,
-    agent_id: str,
-    *,
-    after: str | Omit = omit,
-    limit: str | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ScheduleListResponse:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        after: str | Omit = omit,
+        limit: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ScheduleListResponse:
         """
         List all scheduled messages for a specific agent.
 
@@ -161,28 +177,37 @@ class ScheduleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
             path_template("/v1/agents/{agent_id}/schedule", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "limit": limit,
-            }, schedule_list_params.ScheduleListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "limit": limit,
+                    },
+                    schedule_list_params.ScheduleListParams,
+                ),
+            ),
             cast_to=ScheduleListResponse,
         )
 
-    def delete(self,
-    scheduled_message_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ScheduleDeleteResponse:
+    def delete(
+        self,
+        scheduled_message_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ScheduleDeleteResponse:
         """
         Delete a scheduled message by its ID for a specific agent.
 
@@ -196,18 +221,23 @@ class ScheduleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not scheduled_message_id:
-          raise ValueError(
-            f'Expected a non-empty value for `scheduled_message_id` but received {scheduled_message_id!r}'
-          )
+            raise ValueError(
+                f"Expected a non-empty value for `scheduled_message_id` but received {scheduled_message_id!r}"
+            )
         return self._delete(
-            path_template("/v1/agents/{agent_id}/schedule/{scheduled_message_id}", agent_id=agent_id, scheduled_message_id=scheduled_message_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/schedule/{scheduled_message_id}",
+                agent_id=agent_id,
+                scheduled_message_id=scheduled_message_id,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ScheduleDeleteResponse,
         )
+
 
 class AsyncScheduleResource(AsyncAPIResource):
     @cached_property
@@ -229,20 +259,35 @@ class AsyncScheduleResource(AsyncAPIResource):
         """
         return AsyncScheduleResourceWithStreamingResponse(self)
 
-    async def create(self,
-    agent_id: str,
-    *,
-    messages: Iterable[schedule_create_params.Message],
-    schedule: schedule_create_params.Schedule,
-    callback_url: str | Omit = omit,
-    include_return_message_types: List[Literal["system_message", "user_message", "assistant_message", "reasoning_message", "hidden_reasoning_message", "tool_call_message", "tool_return_message", "approval_request_message", "approval_response_message"]] | Omit = omit,
-    max_steps: float | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ScheduleCreateResponse:
+    async def create(
+        self,
+        agent_id: str,
+        *,
+        messages: Iterable[schedule_create_params.Message],
+        schedule: schedule_create_params.Schedule,
+        callback_url: str | Omit = omit,
+        include_return_message_types: List[
+            Literal[
+                "system_message",
+                "user_message",
+                "assistant_message",
+                "reasoning_message",
+                "hidden_reasoning_message",
+                "tool_call_message",
+                "tool_return_message",
+                "approval_request_message",
+                "approval_response_message",
+            ]
+        ]
+        | Omit = omit,
+        max_steps: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ScheduleCreateResponse:
         """
         Schedule a message to be sent by the agent at a specified time or on a recurring
         basis.
@@ -257,32 +302,37 @@ class AsyncScheduleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
             path_template("/v1/agents/{agent_id}/schedule", agent_id=agent_id),
-            body=await async_maybe_transform({
-                "messages": messages,
-                "schedule": schedule,
-                "callback_url": callback_url,
-                "include_return_message_types": include_return_message_types,
-                "max_steps": max_steps,
-            }, schedule_create_params.ScheduleCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "messages": messages,
+                    "schedule": schedule,
+                    "callback_url": callback_url,
+                    "include_return_message_types": include_return_message_types,
+                    "max_steps": max_steps,
+                },
+                schedule_create_params.ScheduleCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ScheduleCreateResponse,
         )
 
-    async def retrieve(self,
-    scheduled_message_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ScheduleRetrieveResponse:
+    async def retrieve(
+        self,
+        scheduled_message_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ScheduleRetrieveResponse:
         """
         Retrieve a scheduled message by its ID for a specific agent.
 
@@ -296,30 +346,36 @@ class AsyncScheduleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not scheduled_message_id:
-          raise ValueError(
-            f'Expected a non-empty value for `scheduled_message_id` but received {scheduled_message_id!r}'
-          )
+            raise ValueError(
+                f"Expected a non-empty value for `scheduled_message_id` but received {scheduled_message_id!r}"
+            )
         return await self._get(
-            path_template("/v1/agents/{agent_id}/schedule/{scheduled_message_id}", agent_id=agent_id, scheduled_message_id=scheduled_message_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/schedule/{scheduled_message_id}",
+                agent_id=agent_id,
+                scheduled_message_id=scheduled_message_id,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ScheduleRetrieveResponse,
         )
 
-    async def list(self,
-    agent_id: str,
-    *,
-    after: str | Omit = omit,
-    limit: str | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ScheduleListResponse:
+    async def list(
+        self,
+        agent_id: str,
+        *,
+        after: str | Omit = omit,
+        limit: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ScheduleListResponse:
         """
         List all scheduled messages for a specific agent.
 
@@ -333,28 +389,37 @@ class AsyncScheduleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
             path_template("/v1/agents/{agent_id}/schedule", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "after": after,
-                "limit": limit,
-            }, schedule_list_params.ScheduleListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "after": after,
+                        "limit": limit,
+                    },
+                    schedule_list_params.ScheduleListParams,
+                ),
+            ),
             cast_to=ScheduleListResponse,
         )
 
-    async def delete(self,
-    scheduled_message_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ScheduleDeleteResponse:
+    async def delete(
+        self,
+        scheduled_message_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ScheduleDeleteResponse:
         """
         Delete a scheduled message by its ID for a specific agent.
 
@@ -368,18 +433,23 @@ class AsyncScheduleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not scheduled_message_id:
-          raise ValueError(
-            f'Expected a non-empty value for `scheduled_message_id` but received {scheduled_message_id!r}'
-          )
+            raise ValueError(
+                f"Expected a non-empty value for `scheduled_message_id` but received {scheduled_message_id!r}"
+            )
         return await self._delete(
-            path_template("/v1/agents/{agent_id}/schedule/{scheduled_message_id}", agent_id=agent_id, scheduled_message_id=scheduled_message_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/schedule/{scheduled_message_id}",
+                agent_id=agent_id,
+                scheduled_message_id=scheduled_message_id,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ScheduleDeleteResponse,
         )
+
 
 class ScheduleResourceWithRawResponse:
     def __init__(self, schedule: ScheduleResource) -> None:
@@ -398,6 +468,7 @@ class ScheduleResourceWithRawResponse:
             schedule.delete,
         )
 
+
 class AsyncScheduleResourceWithRawResponse:
     def __init__(self, schedule: AsyncScheduleResource) -> None:
         self._schedule = schedule
@@ -415,6 +486,7 @@ class AsyncScheduleResourceWithRawResponse:
             schedule.delete,
         )
 
+
 class ScheduleResourceWithStreamingResponse:
     def __init__(self, schedule: ScheduleResource) -> None:
         self._schedule = schedule
@@ -431,6 +503,7 @@ class ScheduleResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             schedule.delete,
         )
+
 
 class AsyncScheduleResourceWithStreamingResponse:
     def __init__(self, schedule: AsyncScheduleResource) -> None:

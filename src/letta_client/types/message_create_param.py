@@ -3,15 +3,16 @@
 from __future__ import annotations
 
 from typing import Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 from .letta_message_content_union_param import LettaMessageContentUnionParam
 
-from typing_extensions import Literal, TypedDict, Required
-
 __all__ = ["MessageCreateParam"]
+
 
 class MessageCreateParam(TypedDict, total=False):
     """Request to create a message"""
+
     content: Required[Union[Iterable[LettaMessageContentUnionParam], str]]
     """The content of the message."""
 

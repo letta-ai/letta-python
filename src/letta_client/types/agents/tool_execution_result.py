@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import List, Optional
 from typing_extensions import Literal
 
-from typing import Optional, List
-
+from ..._models import BaseModel
 from ..agent_state import AgentState
 
 __all__ = ["ToolExecutionResult"]
+
 
 class ToolExecutionResult(BaseModel):
     status: Literal["success", "error"]

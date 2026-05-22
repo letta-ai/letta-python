@@ -2,39 +2,30 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-
-from ...types.agents.passage_create_response import PassageCreateResponse
-
-from ..._base_client import make_request_options
-
 from typing import Union, Optional
-
 from datetime import datetime
-
-from ..._types import Omit, omit, SequenceNotStr, NotGiven
-
-from ...types.agents.passage_list_response import PassageListResponse
-
-from ...types.agents.passage_search_response import PassageSearchResponse
-
 from typing_extensions import Literal
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+import httpx
 
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types.agents import passage_create_params
-from ...types.agents import passage_list_params
-from ...types.agents import passage_search_params
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.agents import passage_list_params, passage_create_params, passage_search_params
+from ...types.agents.passage_list_response import PassageListResponse
+from ...types.agents.passage_create_response import PassageCreateResponse
+from ...types.agents.passage_search_response import PassageSearchResponse
 
 __all__ = ["PassagesResource", "AsyncPassagesResource"]
+
 
 class PassagesResource(SyncAPIResource):
     @cached_property
@@ -56,18 +47,20 @@ class PassagesResource(SyncAPIResource):
         """
         return PassagesResourceWithStreamingResponse(self)
 
-    def create(self,
-    agent_id: str,
-    *,
-    text: str,
-    created_at: Union[str, datetime, None] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PassageCreateResponse:
+    def create(
+        self,
+        agent_id: str,
+        *,
+        text: str,
+        created_at: Union[str, datetime, None] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageCreateResponse:
         """
         Insert a memory into an agent's archival memory store.
 
@@ -89,34 +82,39 @@ class PassagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
             path_template("/v1/agents/{agent_id}/archival-memory", agent_id=agent_id),
-            body=maybe_transform({
-                "text": text,
-                "created_at": created_at,
-                "tags": tags,
-            }, passage_create_params.PassageCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "text": text,
+                    "created_at": created_at,
+                    "tags": tags,
+                },
+                passage_create_params.PassageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=PassageCreateResponse,
         )
 
-    def list(self,
-    agent_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    ascending: Optional[bool] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    search: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PassageListResponse:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        ascending: Optional[bool] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        search: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageListResponse:
         """
         Retrieve the memories in an agent's archival memory store (paginated query).
 
@@ -143,31 +141,40 @@ class PassagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
             path_template("/v1/agents/{agent_id}/archival-memory", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "ascending": ascending,
-                "before": before,
-                "limit": limit,
-                "search": search,
-            }, passage_list_params.PassageListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "ascending": ascending,
+                        "before": before,
+                        "limit": limit,
+                        "search": search,
+                    },
+                    passage_list_params.PassageListParams,
+                ),
+            ),
             cast_to=PassageListResponse,
         )
 
-    def delete(self,
-    memory_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    def delete(
+        self,
+        memory_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete a memory from an agent's archival memory store.
 
@@ -183,34 +190,34 @@ class PassagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not memory_id:
-          raise ValueError(
-            f'Expected a non-empty value for `memory_id` but received {memory_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `memory_id` but received {memory_id!r}")
         return self._delete(
             path_template("/v1/agents/{agent_id}/archival-memory/{memory_id}", agent_id=agent_id, memory_id=memory_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
 
-    def search(self,
-    agent_id: str,
-    *,
-    query: str,
-    end_datetime: Union[str, datetime, None] | Omit = omit,
-    start_datetime: Union[str, datetime, None] | Omit = omit,
-    tag_match_mode: Literal["any", "all"] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    top_k: Optional[int] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PassageSearchResponse:
+    def search(
+        self,
+        agent_id: str,
+        *,
+        query: str,
+        end_datetime: Union[str, datetime, None] | Omit = omit,
+        start_datetime: Union[str, datetime, None] | Omit = omit,
+        tag_match_mode: Literal["any", "all"] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        top_k: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageSearchResponse:
         """
         Search archival memory using semantic (embedding-based) search with optional
         temporal filtering.
@@ -245,21 +252,29 @@ class PassagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
             path_template("/v1/agents/{agent_id}/archival-memory/search", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "query": query,
-                "end_datetime": end_datetime,
-                "start_datetime": start_datetime,
-                "tag_match_mode": tag_match_mode,
-                "tags": tags,
-                "top_k": top_k,
-            }, passage_search_params.PassageSearchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "query": query,
+                        "end_datetime": end_datetime,
+                        "start_datetime": start_datetime,
+                        "tag_match_mode": tag_match_mode,
+                        "tags": tags,
+                        "top_k": top_k,
+                    },
+                    passage_search_params.PassageSearchParams,
+                ),
+            ),
             cast_to=PassageSearchResponse,
         )
+
 
 class AsyncPassagesResource(AsyncAPIResource):
     @cached_property
@@ -281,18 +296,20 @@ class AsyncPassagesResource(AsyncAPIResource):
         """
         return AsyncPassagesResourceWithStreamingResponse(self)
 
-    async def create(self,
-    agent_id: str,
-    *,
-    text: str,
-    created_at: Union[str, datetime, None] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PassageCreateResponse:
+    async def create(
+        self,
+        agent_id: str,
+        *,
+        text: str,
+        created_at: Union[str, datetime, None] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageCreateResponse:
         """
         Insert a memory into an agent's archival memory store.
 
@@ -314,34 +331,39 @@ class AsyncPassagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
             path_template("/v1/agents/{agent_id}/archival-memory", agent_id=agent_id),
-            body=await async_maybe_transform({
-                "text": text,
-                "created_at": created_at,
-                "tags": tags,
-            }, passage_create_params.PassageCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "text": text,
+                    "created_at": created_at,
+                    "tags": tags,
+                },
+                passage_create_params.PassageCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=PassageCreateResponse,
         )
 
-    async def list(self,
-    agent_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    ascending: Optional[bool] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    search: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PassageListResponse:
+    async def list(
+        self,
+        agent_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        ascending: Optional[bool] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        search: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageListResponse:
         """
         Retrieve the memories in an agent's archival memory store (paginated query).
 
@@ -368,31 +390,40 @@ class AsyncPassagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
             path_template("/v1/agents/{agent_id}/archival-memory", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "after": after,
-                "ascending": ascending,
-                "before": before,
-                "limit": limit,
-                "search": search,
-            }, passage_list_params.PassageListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "after": after,
+                        "ascending": ascending,
+                        "before": before,
+                        "limit": limit,
+                        "search": search,
+                    },
+                    passage_list_params.PassageListParams,
+                ),
+            ),
             cast_to=PassageListResponse,
         )
 
-    async def delete(self,
-    memory_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    async def delete(
+        self,
+        memory_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete a memory from an agent's archival memory store.
 
@@ -408,34 +439,34 @@ class AsyncPassagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not memory_id:
-          raise ValueError(
-            f'Expected a non-empty value for `memory_id` but received {memory_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `memory_id` but received {memory_id!r}")
         return await self._delete(
             path_template("/v1/agents/{agent_id}/archival-memory/{memory_id}", agent_id=agent_id, memory_id=memory_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
 
-    async def search(self,
-    agent_id: str,
-    *,
-    query: str,
-    end_datetime: Union[str, datetime, None] | Omit = omit,
-    start_datetime: Union[str, datetime, None] | Omit = omit,
-    tag_match_mode: Literal["any", "all"] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    top_k: Optional[int] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> PassageSearchResponse:
+    async def search(
+        self,
+        agent_id: str,
+        *,
+        query: str,
+        end_datetime: Union[str, datetime, None] | Omit = omit,
+        start_datetime: Union[str, datetime, None] | Omit = omit,
+        tag_match_mode: Literal["any", "all"] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        top_k: Optional[int] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PassageSearchResponse:
         """
         Search archival memory using semantic (embedding-based) search with optional
         temporal filtering.
@@ -470,21 +501,29 @@ class AsyncPassagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
             path_template("/v1/agents/{agent_id}/archival-memory/search", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "query": query,
-                "end_datetime": end_datetime,
-                "start_datetime": start_datetime,
-                "tag_match_mode": tag_match_mode,
-                "tags": tags,
-                "top_k": top_k,
-            }, passage_search_params.PassageSearchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "query": query,
+                        "end_datetime": end_datetime,
+                        "start_datetime": start_datetime,
+                        "tag_match_mode": tag_match_mode,
+                        "tags": tags,
+                        "top_k": top_k,
+                    },
+                    passage_search_params.PassageSearchParams,
+                ),
+            ),
             cast_to=PassageSearchResponse,
         )
+
 
 class PassagesResourceWithRawResponse:
     def __init__(self, passages: PassagesResource) -> None:
@@ -503,6 +542,7 @@ class PassagesResourceWithRawResponse:
             passages.search,
         )
 
+
 class AsyncPassagesResourceWithRawResponse:
     def __init__(self, passages: AsyncPassagesResource) -> None:
         self._passages = passages
@@ -520,6 +560,7 @@ class AsyncPassagesResourceWithRawResponse:
             passages.search,
         )
 
+
 class PassagesResourceWithStreamingResponse:
     def __init__(self, passages: PassagesResource) -> None:
         self._passages = passages
@@ -536,6 +577,7 @@ class PassagesResourceWithStreamingResponse:
         self.search = to_streamed_response_wrapper(
             passages.search,
         )
+
 
 class AsyncPassagesResourceWithStreamingResponse:
     def __init__(self, passages: AsyncPassagesResource) -> None:

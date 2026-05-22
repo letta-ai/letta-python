@@ -4,7 +4,7 @@ from typing import Sequence
 
 import pytest
 
-from letta_client._types import ArrayFormat, FileTypes
+from letta_client._types import FileTypes, ArrayFormat
 from letta_client._utils import extract_files
 
 
@@ -28,7 +28,10 @@ def test_removes_files_from_input() -> None:
 
 def test_multiple_files() -> None:
     query = {"documents": [{"file": b"My first file"}, {"file": b"My second file"}]}
-    assert extract_files(query, paths=[["documents", "<array>", "file"]]) == [("documents[][file]", b"My first file"), ("documents[][file]", b"My second file")]
+    assert extract_files(query, paths=[["documents", "<array>", "file"]]) == [
+        ("documents[][file]", b"My first file"),
+        ("documents[][file]", b"My second file"),
+    ]
     assert query == {"documents": [{}, {}]}
 
 
@@ -82,13 +85,7 @@ def test_array_format_controls_file_field_names(
     expected_nested: list[tuple[str, FileTypes]],
 ) -> None:
     top_level = {"files": [b"a", b"b"]}
-    assert (
-        extract_files(top_level, paths=[["files", "<array>"]], array_format=array_format)
-        == expected_top_level
-    )
+    assert extract_files(top_level, paths=[["files", "<array>"]], array_format=array_format) == expected_top_level
 
     nested = {"items": [{"file": b"a"}, {"file": b"b"}]}
-    assert (
-        extract_files(nested, paths=[["items", "<array>", "file"]], array_format=array_format)
-        == expected_nested
-    )
+    assert extract_files(nested, paths=[["items", "<array>", "file"]], array_format=array_format) == expected_nested

@@ -1,15 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
 from typing import Optional
-
 from datetime import datetime
+
+from ..._models import BaseModel
 
 __all__ = ["FileListResponse"]
 
+
 class FileListResponse(BaseModel):
     """Response model for agent file attachments showing file status in agent context"""
+
     id: str
     """Unique identifier of the file-agent relationship"""
 

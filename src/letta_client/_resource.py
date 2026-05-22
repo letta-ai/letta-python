@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 import time
+from typing import TYPE_CHECKING
 
 import anyio
 
-from typing import TYPE_CHECKING
-
 if TYPE_CHECKING:
-  from ._client import Letta, AsyncLetta
+    from ._client import Letta, AsyncLetta
+
 
 class SyncAPIResource:
     _client: Letta
@@ -24,7 +24,8 @@ class SyncAPIResource:
         self._get_api_list = client.get_api_list
 
     def _sleep(self, seconds: float) -> None:
-      time.sleep(seconds)
+        time.sleep(seconds)
+
 
 class AsyncAPIResource:
     _client: AsyncLetta
@@ -39,4 +40,4 @@ class AsyncAPIResource:
         self._get_api_list = client.get_api_list
 
     async def _sleep(self, seconds: float) -> None:
-      await anyio.sleep(seconds)
+        await anyio.sleep(seconds)

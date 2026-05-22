@@ -2,30 +2,24 @@
 
 from __future__ import annotations
 
+import os
 import logging
+from typing import TYPE_CHECKING, Iterator, AsyncIterator
 
 import httpx
-
-from letta_client import Letta, DefaultAioHttpClient, AsyncLetta
-
-from letta_client._utils import is_dict
-
-import logging
-from typing import Iterator
-
 import pytest
 from pytest_asyncio import is_async_test
-import os
-from typing import TYPE_CHECKING, AsyncIterator
 
-from letta_client import Letta, AsyncLetta
+from letta_client import Letta, AsyncLetta, DefaultAioHttpClient
+from letta_client._utils import is_dict
 
 if TYPE_CHECKING:
-  from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
+    from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
 
 pytest.register_assert_rewrite("tests.utils")
 
 logging.getLogger("letta_client").setLevel(logging.DEBUG)
+
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
 # so we don't have to add that boilerplate everywhere
@@ -41,25 +35,28 @@ def pytest_collection_modifyitems(items: list[pytest.Function]) -> None:
         if "async_client" not in item.fixturenames or "respx_mock" not in item.fixturenames:
             continue
 
-        if not hasattr(item, 'callspec'):
-          continue
+        if not hasattr(item, "callspec"):
+            continue
 
         async_client_param = item.callspec.params.get("async_client")
         if is_dict(async_client_param) and async_client_param.get("http_client") == "aiohttp":
             item.add_marker(pytest.mark.skip(reason="aiohttp client is not compatible with respx_mock"))
 
+
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 api_key = "My API Key"
 
+
 @pytest.fixture(scope="session")
 def client(request: FixtureRequest) -> Iterator[Letta]:
-    strict = getattr(request, 'param', True)
+    strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
-      raise TypeError(f'Unexpected fixture parameter type {type(strict)}, expected {bool}')
+        raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with Letta(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client :
+    with Letta(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client
+
 
 @pytest.fixture(scope="session")
 async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLetta]:
@@ -81,5 +78,7 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLetta]:
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
 
-    async with AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=strict, http_client=http_client) as client :
+    async with AsyncLetta(
+        base_url=base_url, api_key=api_key, _strict_response_validation=strict, http_client=http_client
+    ) as client:
         yield client

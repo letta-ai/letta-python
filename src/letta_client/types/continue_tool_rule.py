@@ -1,17 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
 from typing import Optional
-
 from typing_extensions import Literal
 
+from .._models import BaseModel
+
 __all__ = ["ContinueToolRule"]
+
 
 class ContinueToolRule(BaseModel):
     """
     Represents a tool rule configuration where if this tool gets called, it must continue the agent loop.
     """
+
     tool_name: str
     """The name of the tool. Must exist in the database for the user's organization."""
 

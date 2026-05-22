@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
-
 from typing import Optional
+from typing_extensions import TypedDict
 
 from ..._types import SequenceNotStr
 
 __all__ = ["MessageCancelParams"]
+
 
 class MessageCancelParams(TypedDict, total=False):
     run_ids: Optional[SequenceNotStr[str]]

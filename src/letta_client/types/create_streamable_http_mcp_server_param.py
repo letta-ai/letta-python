@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Optional, Dict
-
-from typing_extensions import Literal, TypedDict, Required
+from typing import Dict, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["CreateStreamableHTTPMcpServerParam"]
 
+
 class CreateStreamableHTTPMcpServerParam(TypedDict, total=False):
     """Create a new Streamable HTTP MCP server"""
+
     server_url: Required[str]
     """The URL of the server"""
 

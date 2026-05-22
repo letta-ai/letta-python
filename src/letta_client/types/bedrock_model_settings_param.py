@@ -2,22 +2,21 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypeAliasType, TypeAlias, TypedDict
-
-from typing import Optional, Union
+from typing import Union, Optional
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .text_response_format_param import TextResponseFormatParam
-
-from .json_schema_response_format_param import JsonSchemaResponseFormatParam
-
 from .json_object_response_format_param import JsonObjectResponseFormatParam
+from .json_schema_response_format_param import JsonSchemaResponseFormatParam
 
 __all__ = ["BedrockModelSettingsParam", "ResponseFormat"]
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
+
 class BedrockModelSettingsParam(TypedDict, total=False):
     """AWS Bedrock model configuration."""
+
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 

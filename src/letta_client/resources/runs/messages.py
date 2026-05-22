@@ -2,38 +2,30 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-
-from ...types.agents.message import Message
-
-from ...pagination import SyncArrayPage, AsyncArrayPage
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from typing import Any, cast, Optional
-
-from ..._types import Omit, omit, NotGiven
-
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 
-from ..._streaming import Stream, AsyncStream
+import httpx
 
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._streaming import Stream, AsyncStream
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ...types.runs import message_list_params, message_stream_params
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.agents.message import Message
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types.runs import message_list_params
-from ...types.runs import message_stream_params
-
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
+
 
 class MessagesResource(SyncAPIResource):
     @cached_property
@@ -55,20 +47,22 @@ class MessagesResource(SyncAPIResource):
         """
         return MessagesResourceWithStreamingResponse(self)
 
-    def list(self,
-    run_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[Message]:
+    def list(
+        self,
+        run_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncArrayPage[Message]:
         """
         Get response messages associated with a run.
 
@@ -95,38 +89,47 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get_api_list(
             path_template("/v1/runs/{run_id}/messages", run_id=run_id),
-            page = SyncArrayPage[Message],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, message_list_params.MessageListParams)),
+            page=SyncArrayPage[Message],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    message_list_params.MessageListParams,
+                ),
+            ),
             model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
-    def stream(self,
-    path_run_id: str,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    batch_size: Optional[int] | Omit = omit,
-    include_pings: Optional[bool] | Omit = omit,
-    otid: Optional[str] | Omit = omit,
-    poll_interval: Optional[float] | Omit = omit,
-    body_run_id: Optional[str] | Omit = omit,
-    starting_after: int | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Stream[LettaStreamingResponse]:
+    def stream(
+        self,
+        path_run_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        batch_size: Optional[int] | Omit = omit,
+        include_pings: Optional[bool] | Omit = omit,
+        otid: Optional[str] | Omit = omit,
+        poll_interval: Optional[float] | Omit = omit,
+        body_run_id: Optional[str] | Omit = omit,
+        starting_after: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Stream[LettaStreamingResponse]:
         """
         Retrieve Stream For Run
 
@@ -159,25 +162,29 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not path_run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `path_run_id` but received {path_run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `path_run_id` but received {path_run_id!r}")
         return self._post(
             path_template("/v1/runs/{path_run_id}/stream", path_run_id=path_run_id),
-            body=maybe_transform({
-                "agent_id": agent_id,
-                "batch_size": batch_size,
-                "include_pings": include_pings,
-                "otid": otid,
-                "poll_interval": poll_interval,
-                "body_run_id": body_run_id,
-                "starting_after": starting_after,
-            }, message_stream_params.MessageStreamParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "agent_id": agent_id,
+                    "batch_size": batch_size,
+                    "include_pings": include_pings,
+                    "otid": otid,
+                    "poll_interval": poll_interval,
+                    "body_run_id": body_run_id,
+                    "starting_after": starting_after,
+                },
+                message_stream_params.MessageStreamParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
-            stream = True,
+            stream=True,
             stream_cls=Stream[LettaStreamingResponse],
         )
+
 
 class AsyncMessagesResource(AsyncAPIResource):
     @cached_property
@@ -199,20 +206,22 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
-    def list(self,
-    run_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[Message, AsyncArrayPage[Message]]:
+    def list(
+        self,
+        run_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[Message, AsyncArrayPage[Message]]:
         """
         Get response messages associated with a run.
 
@@ -239,38 +248,47 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get_api_list(
             path_template("/v1/runs/{run_id}/messages", run_id=run_id),
-            page = AsyncArrayPage[Message],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, message_list_params.MessageListParams)),
+            page=AsyncArrayPage[Message],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    message_list_params.MessageListParams,
+                ),
+            ),
             model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
-    async def stream(self,
-    path_run_id: str,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    batch_size: Optional[int] | Omit = omit,
-    include_pings: Optional[bool] | Omit = omit,
-    otid: Optional[str] | Omit = omit,
-    poll_interval: Optional[float] | Omit = omit,
-    body_run_id: Optional[str] | Omit = omit,
-    starting_after: int | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncStream[LettaStreamingResponse]:
+    async def stream(
+        self,
+        path_run_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        batch_size: Optional[int] | Omit = omit,
+        include_pings: Optional[bool] | Omit = omit,
+        otid: Optional[str] | Omit = omit,
+        poll_interval: Optional[float] | Omit = omit,
+        body_run_id: Optional[str] | Omit = omit,
+        starting_after: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncStream[LettaStreamingResponse]:
         """
         Retrieve Stream For Run
 
@@ -303,25 +321,29 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not path_run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `path_run_id` but received {path_run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `path_run_id` but received {path_run_id!r}")
         return await self._post(
             path_template("/v1/runs/{path_run_id}/stream", path_run_id=path_run_id),
-            body=await async_maybe_transform({
-                "agent_id": agent_id,
-                "batch_size": batch_size,
-                "include_pings": include_pings,
-                "otid": otid,
-                "poll_interval": poll_interval,
-                "body_run_id": body_run_id,
-                "starting_after": starting_after,
-            }, message_stream_params.MessageStreamParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "agent_id": agent_id,
+                    "batch_size": batch_size,
+                    "include_pings": include_pings,
+                    "otid": otid,
+                    "poll_interval": poll_interval,
+                    "body_run_id": body_run_id,
+                    "starting_after": starting_after,
+                },
+                message_stream_params.MessageStreamParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
-            stream = True,
+            stream=True,
             stream_cls=AsyncStream[LettaStreamingResponse],
         )
+
 
 class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
@@ -334,6 +356,7 @@ class MessagesResourceWithRawResponse:
             messages.stream,
         )
 
+
 class AsyncMessagesResourceWithRawResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
@@ -345,6 +368,7 @@ class AsyncMessagesResourceWithRawResponse:
             messages.stream,
         )
 
+
 class MessagesResourceWithStreamingResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
@@ -355,6 +379,7 @@ class MessagesResourceWithStreamingResponse:
         self.stream = to_streamed_response_wrapper(
             messages.stream,
         )
+
 
 class AsyncMessagesResourceWithStreamingResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:

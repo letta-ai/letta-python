@@ -2,24 +2,25 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict, TypeAliasType, TypeAlias
-
-from typing import Optional, Union
+from typing import Union, Optional
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .text_response_format_param import TextResponseFormatParam
-
-from .json_schema_response_format_param import JsonSchemaResponseFormatParam
-
 from .json_object_response_format_param import JsonObjectResponseFormatParam
+from .json_schema_response_format_param import JsonSchemaResponseFormatParam
 
 __all__ = ["OpenAIModelSettingsParam", "Reasoning", "ResponseFormat"]
 
+
 class Reasoning(TypedDict, total=False):
     """The reasoning configuration for the model."""
+
     reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh"]
     """The reasoning effort to use when generating text reasoning models"""
 
+
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
+
 
 class OpenAIModelSettingsParam(TypedDict, total=False):
     max_output_tokens: int

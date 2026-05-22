@@ -2,29 +2,26 @@
 
 from __future__ import annotations
 
-from letta_client import Letta, AsyncLetta
-
-from letta_client.types import TemplateCreateResponse, TemplateUpdateResponse, TemplateDeleteResponse, TemplateRollbackResponse, TemplateSaveResponse
-
-from typing import cast, Any
-
 import os
+from typing import Any, cast
+
 import pytest
-import httpx
-from typing_extensions import get_args
-from respx import MockRouter
-from letta_client import Letta, AsyncLetta
+
 from tests.utils import assert_matches_type
-from letta_client.types import template_create_params
-from letta_client.types import template_update_params
-from letta_client.types import template_rollback_params
-from letta_client.types import template_save_params
+from letta_client import Letta, AsyncLetta
+from letta_client.types import (
+    TemplateSaveResponse,
+    TemplateCreateResponse,
+    TemplateDeleteResponse,
+    TemplateUpdateResponse,
+    TemplateRollbackResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-class TestTemplates:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
 
+class TestTemplates:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -33,7 +30,7 @@ class TestTemplates:
             agent_id="agent_id",
             type="agent",
         )
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -43,21 +40,20 @@ class TestTemplates:
             type="agent",
             name="name",
         )
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_overload_1(self, client: Letta) -> None:
-
         response = client.templates.with_raw_response.create(
             agent_id="agent_id",
             type="agent",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = response.parse()
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -65,12 +61,12 @@ class TestTemplates:
         with client.templates.with_streaming_response.create(
             agent_id="agent_id",
             type="agent",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = response.parse()
-            assert_matches_type(TemplateCreateResponse, template, path=['response'])
+            assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -78,56 +74,47 @@ class TestTemplates:
     @parametrize
     def test_method_create_overload_2(self, client: Letta) -> None:
         template = client.templates.create(
-            agent_file={
-                "foo": "bar"
-            },
+            agent_file={"foo": "bar"},
             type="agent_file",
         )
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: Letta) -> None:
         template = client.templates.create(
-            agent_file={
-                "foo": "bar"
-            },
+            agent_file={"foo": "bar"},
             type="agent_file",
             name="name",
             update_existing_tools=True,
         )
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create_overload_2(self, client: Letta) -> None:
-
         response = client.templates.with_raw_response.create(
-            agent_file={
-                "foo": "bar"
-            },
+            agent_file={"foo": "bar"},
             type="agent_file",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = response.parse()
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create_overload_2(self, client: Letta) -> None:
         with client.templates.with_streaming_response.create(
-            agent_file={
-                "foo": "bar"
-            },
+            agent_file={"foo": "bar"},
             type="agent_file",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = response.parse()
-            assert_matches_type(TemplateCreateResponse, template, path=['response'])
+            assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -136,55 +123,46 @@ class TestTemplates:
     def test_method_update(self, client: Letta) -> None:
         template = client.templates.update(
             template_name="template_name",
-            agent_file_json={
-                "foo": "bar"
-            },
+            agent_file_json={"foo": "bar"},
         )
-        assert_matches_type(TemplateUpdateResponse, template, path=['response'])
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: Letta) -> None:
         template = client.templates.update(
             template_name="template_name",
-            agent_file_json={
-                "foo": "bar"
-            },
+            agent_file_json={"foo": "bar"},
             save_existing_changes=True,
             update_existing_tools=True,
         )
-        assert_matches_type(TemplateUpdateResponse, template, path=['response'])
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
-
         response = client.templates.with_raw_response.update(
             template_name="template_name",
-            agent_file_json={
-                "foo": "bar"
-            },
+            agent_file_json={"foo": "bar"},
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = response.parse()
-        assert_matches_type(TemplateUpdateResponse, template, path=['response'])
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Letta) -> None:
         with client.templates.with_streaming_response.update(
             template_name="template_name",
-            agent_file_json={
-                "foo": "bar"
-            },
-        ) as response :
+            agent_file_json={"foo": "bar"},
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = response.parse()
-            assert_matches_type(TemplateUpdateResponse, template, path=['response'])
+            assert_matches_type(TemplateUpdateResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -192,12 +170,10 @@ class TestTemplates:
     @parametrize
     def test_path_params_update(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
-          client.templates.with_raw_response.update(
-              template_name="",
-              agent_file_json={
-                  "foo": "bar"
-              },
-          )
+            client.templates.with_raw_response.update(
+                template_name="",
+                agent_file_json={"foo": "bar"},
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -205,32 +181,31 @@ class TestTemplates:
         template = client.templates.delete(
             "template_name",
         )
-        assert_matches_type(TemplateDeleteResponse, template, path=['response'])
+        assert_matches_type(TemplateDeleteResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
-
         response = client.templates.with_raw_response.delete(
             "template_name",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = response.parse()
-        assert_matches_type(TemplateDeleteResponse, template, path=['response'])
+        assert_matches_type(TemplateDeleteResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.templates.with_streaming_response.delete(
             "template_name",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = response.parse()
-            assert_matches_type(TemplateDeleteResponse, template, path=['response'])
+            assert_matches_type(TemplateDeleteResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -238,9 +213,9 @@ class TestTemplates:
     @parametrize
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
-          client.templates.with_raw_response.delete(
-              "",
-          )
+            client.templates.with_raw_response.delete(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -249,21 +224,20 @@ class TestTemplates:
             template_name="template_name",
             version="version",
         )
-        assert_matches_type(TemplateRollbackResponse, template, path=['response'])
+        assert_matches_type(TemplateRollbackResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_rollback(self, client: Letta) -> None:
-
         response = client.templates.with_raw_response.rollback(
             template_name="template_name",
             version="version",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = response.parse()
-        assert_matches_type(TemplateRollbackResponse, template, path=['response'])
+        assert_matches_type(TemplateRollbackResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -271,12 +245,12 @@ class TestTemplates:
         with client.templates.with_streaming_response.rollback(
             template_name="template_name",
             version="version",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = response.parse()
-            assert_matches_type(TemplateRollbackResponse, template, path=['response'])
+            assert_matches_type(TemplateRollbackResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -284,10 +258,10 @@ class TestTemplates:
     @parametrize
     def test_path_params_rollback(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
-          client.templates.with_raw_response.rollback(
-              template_name="",
-              version="version",
-          )
+            client.templates.with_raw_response.rollback(
+                template_name="",
+                version="version",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -295,7 +269,7 @@ class TestTemplates:
         template = client.templates.save(
             template_name="template_name",
         )
-        assert_matches_type(TemplateSaveResponse, template, path=['response'])
+        assert_matches_type(TemplateSaveResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -309,32 +283,31 @@ class TestTemplates:
             preserve_environment_variables_on_migration=True,
             preserve_sources_on_migration=True,
         )
-        assert_matches_type(TemplateSaveResponse, template, path=['response'])
+        assert_matches_type(TemplateSaveResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_save(self, client: Letta) -> None:
-
         response = client.templates.with_raw_response.save(
             template_name="template_name",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = response.parse()
-        assert_matches_type(TemplateSaveResponse, template, path=['response'])
+        assert_matches_type(TemplateSaveResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_save(self, client: Letta) -> None:
         with client.templates.with_streaming_response.save(
             template_name="template_name",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = response.parse()
-            assert_matches_type(TemplateSaveResponse, template, path=['response'])
+            assert_matches_type(TemplateSaveResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -342,12 +315,15 @@ class TestTemplates:
     @parametrize
     def test_path_params_save(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
-          client.templates.with_raw_response.save(
-              template_name="",
-          )
-class TestAsyncTemplates:
-    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+            client.templates.with_raw_response.save(
+                template_name="",
+            )
 
+
+class TestAsyncTemplates:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -356,7 +332,7 @@ class TestAsyncTemplates:
             agent_id="agent_id",
             type="agent",
         )
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -366,21 +342,20 @@ class TestAsyncTemplates:
             type="agent",
             name="name",
         )
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.templates.with_raw_response.create(
             agent_id="agent_id",
             type="agent",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = await response.parse()
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -388,12 +363,12 @@ class TestAsyncTemplates:
         async with async_client.templates.with_streaming_response.create(
             agent_id="agent_id",
             type="agent",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = await response.parse()
-            assert_matches_type(TemplateCreateResponse, template, path=['response'])
+            assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -401,56 +376,47 @@ class TestAsyncTemplates:
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncLetta) -> None:
         template = await async_client.templates.create(
-            agent_file={
-                "foo": "bar"
-            },
+            agent_file={"foo": "bar"},
             type="agent_file",
         )
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLetta) -> None:
         template = await async_client.templates.create(
-            agent_file={
-                "foo": "bar"
-            },
+            agent_file={"foo": "bar"},
             type="agent_file",
             name="name",
             update_existing_tools=True,
         )
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.templates.with_raw_response.create(
-            agent_file={
-                "foo": "bar"
-            },
+            agent_file={"foo": "bar"},
             type="agent_file",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = await response.parse()
-        assert_matches_type(TemplateCreateResponse, template, path=['response'])
+        assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncLetta) -> None:
         async with async_client.templates.with_streaming_response.create(
-            agent_file={
-                "foo": "bar"
-            },
+            agent_file={"foo": "bar"},
             type="agent_file",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = await response.parse()
-            assert_matches_type(TemplateCreateResponse, template, path=['response'])
+            assert_matches_type(TemplateCreateResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -459,55 +425,46 @@ class TestAsyncTemplates:
     async def test_method_update(self, async_client: AsyncLetta) -> None:
         template = await async_client.templates.update(
             template_name="template_name",
-            agent_file_json={
-                "foo": "bar"
-            },
+            agent_file_json={"foo": "bar"},
         )
-        assert_matches_type(TemplateUpdateResponse, template, path=['response'])
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncLetta) -> None:
         template = await async_client.templates.update(
             template_name="template_name",
-            agent_file_json={
-                "foo": "bar"
-            },
+            agent_file_json={"foo": "bar"},
             save_existing_changes=True,
             update_existing_tools=True,
         )
-        assert_matches_type(TemplateUpdateResponse, template, path=['response'])
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.templates.with_raw_response.update(
             template_name="template_name",
-            agent_file_json={
-                "foo": "bar"
-            },
+            agent_file_json={"foo": "bar"},
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = await response.parse()
-        assert_matches_type(TemplateUpdateResponse, template, path=['response'])
+        assert_matches_type(TemplateUpdateResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
         async with async_client.templates.with_streaming_response.update(
             template_name="template_name",
-            agent_file_json={
-                "foo": "bar"
-            },
-        ) as response :
+            agent_file_json={"foo": "bar"},
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = await response.parse()
-            assert_matches_type(TemplateUpdateResponse, template, path=['response'])
+            assert_matches_type(TemplateUpdateResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -515,12 +472,10 @@ class TestAsyncTemplates:
     @parametrize
     async def test_path_params_update(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
-          await async_client.templates.with_raw_response.update(
-              template_name="",
-              agent_file_json={
-                  "foo": "bar"
-              },
-          )
+            await async_client.templates.with_raw_response.update(
+                template_name="",
+                agent_file_json={"foo": "bar"},
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -528,32 +483,31 @@ class TestAsyncTemplates:
         template = await async_client.templates.delete(
             "template_name",
         )
-        assert_matches_type(TemplateDeleteResponse, template, path=['response'])
+        assert_matches_type(TemplateDeleteResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.templates.with_raw_response.delete(
             "template_name",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = await response.parse()
-        assert_matches_type(TemplateDeleteResponse, template, path=['response'])
+        assert_matches_type(TemplateDeleteResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.templates.with_streaming_response.delete(
             "template_name",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = await response.parse()
-            assert_matches_type(TemplateDeleteResponse, template, path=['response'])
+            assert_matches_type(TemplateDeleteResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -561,9 +515,9 @@ class TestAsyncTemplates:
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
-          await async_client.templates.with_raw_response.delete(
-              "",
-          )
+            await async_client.templates.with_raw_response.delete(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -572,21 +526,20 @@ class TestAsyncTemplates:
             template_name="template_name",
             version="version",
         )
-        assert_matches_type(TemplateRollbackResponse, template, path=['response'])
+        assert_matches_type(TemplateRollbackResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_rollback(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.templates.with_raw_response.rollback(
             template_name="template_name",
             version="version",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = await response.parse()
-        assert_matches_type(TemplateRollbackResponse, template, path=['response'])
+        assert_matches_type(TemplateRollbackResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -594,12 +547,12 @@ class TestAsyncTemplates:
         async with async_client.templates.with_streaming_response.rollback(
             template_name="template_name",
             version="version",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = await response.parse()
-            assert_matches_type(TemplateRollbackResponse, template, path=['response'])
+            assert_matches_type(TemplateRollbackResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -607,10 +560,10 @@ class TestAsyncTemplates:
     @parametrize
     async def test_path_params_rollback(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
-          await async_client.templates.with_raw_response.rollback(
-              template_name="",
-              version="version",
-          )
+            await async_client.templates.with_raw_response.rollback(
+                template_name="",
+                version="version",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -618,7 +571,7 @@ class TestAsyncTemplates:
         template = await async_client.templates.save(
             template_name="template_name",
         )
-        assert_matches_type(TemplateSaveResponse, template, path=['response'])
+        assert_matches_type(TemplateSaveResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -632,32 +585,31 @@ class TestAsyncTemplates:
             preserve_environment_variables_on_migration=True,
             preserve_sources_on_migration=True,
         )
-        assert_matches_type(TemplateSaveResponse, template, path=['response'])
+        assert_matches_type(TemplateSaveResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_save(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.templates.with_raw_response.save(
             template_name="template_name",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         template = await response.parse()
-        assert_matches_type(TemplateSaveResponse, template, path=['response'])
+        assert_matches_type(TemplateSaveResponse, template, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_save(self, async_client: AsyncLetta) -> None:
         async with async_client.templates.with_streaming_response.save(
             template_name="template_name",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             template = await response.parse()
-            assert_matches_type(TemplateSaveResponse, template, path=['response'])
+            assert_matches_type(TemplateSaveResponse, template, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -665,6 +617,6 @@ class TestAsyncTemplates:
     @parametrize
     async def test_path_params_save(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_name` but received ''"):
-          await async_client.templates.with_raw_response.save(
-              template_name="",
-          )
+            await async_client.templates.with_raw_response.save(
+                template_name="",
+            )

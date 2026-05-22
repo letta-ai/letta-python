@@ -2,36 +2,29 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-
-from ...types.block_response import BlockResponse
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from ..._types import NotGiven, Omit, omit, SequenceNotStr
-
-from typing import Optional, Dict
-
-from ...pagination import SyncArrayPage, AsyncArrayPage
-
+from typing import Dict, Optional
 from typing_extensions import Literal
 
+import httpx
+
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.agents import block_list_params, block_update_params
 from ...types.agent_state import AgentState
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types.agents import block_update_params
-from ...types.agents import block_list_params
+from ...types.block_response import BlockResponse
 
 __all__ = ["BlocksResource", "AsyncBlocksResource"]
+
 
 class BlocksResource(SyncAPIResource):
     @cached_property
@@ -53,16 +46,18 @@ class BlocksResource(SyncAPIResource):
         """
         return BlocksResourceWithStreamingResponse(self)
 
-    def retrieve(self,
-    block_label: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    def retrieve(
+        self,
+        block_label: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Retrieve a core memory block from an agent.
 
@@ -78,45 +73,47 @@ class BlocksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_label:
-          raise ValueError(
-            f'Expected a non-empty value for `block_label` but received {block_label!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_label` but received {block_label!r}")
         return self._get(
-            path_template("/v1/agents/{agent_id}/core-memory/blocks/{block_label}", agent_id=agent_id, block_label=block_label),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/core-memory/blocks/{block_label}", agent_id=agent_id, block_label=block_label
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    def update(self,
-    block_label: str,
-    *,
-    agent_id: str,
-    base_template_id: Optional[str] | Omit = omit,
-    deployment_id: Optional[str] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    entity_id: Optional[str] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    is_template: bool | Omit = omit,
-    label: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    preserve_on_migration: Optional[bool] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    read_only: bool | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    template_name: Optional[str] | Omit = omit,
-    value: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    def update(
+        self,
+        block_label: str,
+        *,
+        agent_id: str,
+        base_template_id: Optional[str] | Omit = omit,
+        deployment_id: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        entity_id: Optional[str] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        is_template: bool | Omit = omit,
+        label: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        preserve_on_migration: Optional[bool] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
+        value: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Updates a core memory block of an agent.
 
@@ -164,51 +161,56 @@ class BlocksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_label:
-          raise ValueError(
-            f'Expected a non-empty value for `block_label` but received {block_label!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_label` but received {block_label!r}")
         return self._patch(
-            path_template("/v1/agents/{agent_id}/core-memory/blocks/{block_label}", agent_id=agent_id, block_label=block_label),
-            body=maybe_transform({
-                "base_template_id": base_template_id,
-                "deployment_id": deployment_id,
-                "description": description,
-                "entity_id": entity_id,
-                "hidden": hidden,
-                "is_template": is_template,
-                "label": label,
-                "limit": limit,
-                "metadata": metadata,
-                "preserve_on_migration": preserve_on_migration,
-                "project_id": project_id,
-                "read_only": read_only,
-                "tags": tags,
-                "template_id": template_id,
-                "template_name": template_name,
-                "value": value,
-            }, block_update_params.BlockUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/core-memory/blocks/{block_label}", agent_id=agent_id, block_label=block_label
+            ),
+            body=maybe_transform(
+                {
+                    "base_template_id": base_template_id,
+                    "deployment_id": deployment_id,
+                    "description": description,
+                    "entity_id": entity_id,
+                    "hidden": hidden,
+                    "is_template": is_template,
+                    "label": label,
+                    "limit": limit,
+                    "metadata": metadata,
+                    "preserve_on_migration": preserve_on_migration,
+                    "project_id": project_id,
+                    "read_only": read_only,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "template_name": template_name,
+                    "value": value,
+                },
+                block_update_params.BlockUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    def list(self,
-    agent_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[BlockResponse]:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncArrayPage[BlockResponse]:
         """
         Retrieve the core memory blocks of a specific agent.
 
@@ -237,32 +239,41 @@ class BlocksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
             path_template("/v1/agents/{agent_id}/core-memory/blocks", agent_id=agent_id),
-            page = SyncArrayPage[BlockResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, block_list_params.BlockListParams)),
+            page=SyncArrayPage[BlockResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    block_list_params.BlockListParams,
+                ),
+            ),
             model=BlockResponse,
         )
 
-    def attach(self,
-    block_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    def attach(
+        self,
+        block_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Attach a core memory block to an agent.
 
@@ -280,29 +291,31 @@ class BlocksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._patch(
-            path_template("/v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}", agent_id=agent_id, block_id=block_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}", agent_id=agent_id, block_id=block_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentState,
         )
 
-    def detach(self,
-    block_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    def detach(
+        self,
+        block_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Detach a core memory block from an agent.
 
@@ -320,18 +333,19 @@ class BlocksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return self._patch(
-            path_template("/v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}", agent_id=agent_id, block_id=block_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}", agent_id=agent_id, block_id=block_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentState,
         )
+
 
 class AsyncBlocksResource(AsyncAPIResource):
     @cached_property
@@ -353,16 +367,18 @@ class AsyncBlocksResource(AsyncAPIResource):
         """
         return AsyncBlocksResourceWithStreamingResponse(self)
 
-    async def retrieve(self,
-    block_label: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    async def retrieve(
+        self,
+        block_label: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Retrieve a core memory block from an agent.
 
@@ -378,45 +394,47 @@ class AsyncBlocksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_label:
-          raise ValueError(
-            f'Expected a non-empty value for `block_label` but received {block_label!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_label` but received {block_label!r}")
         return await self._get(
-            path_template("/v1/agents/{agent_id}/core-memory/blocks/{block_label}", agent_id=agent_id, block_label=block_label),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/core-memory/blocks/{block_label}", agent_id=agent_id, block_label=block_label
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    async def update(self,
-    block_label: str,
-    *,
-    agent_id: str,
-    base_template_id: Optional[str] | Omit = omit,
-    deployment_id: Optional[str] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    entity_id: Optional[str] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    is_template: bool | Omit = omit,
-    label: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    preserve_on_migration: Optional[bool] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    read_only: bool | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    template_name: Optional[str] | Omit = omit,
-    value: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> BlockResponse:
+    async def update(
+        self,
+        block_label: str,
+        *,
+        agent_id: str,
+        base_template_id: Optional[str] | Omit = omit,
+        deployment_id: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        entity_id: Optional[str] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        is_template: bool | Omit = omit,
+        label: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        preserve_on_migration: Optional[bool] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        read_only: bool | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        template_name: Optional[str] | Omit = omit,
+        value: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BlockResponse:
         """
         Updates a core memory block of an agent.
 
@@ -464,51 +482,56 @@ class AsyncBlocksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_label:
-          raise ValueError(
-            f'Expected a non-empty value for `block_label` but received {block_label!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_label` but received {block_label!r}")
         return await self._patch(
-            path_template("/v1/agents/{agent_id}/core-memory/blocks/{block_label}", agent_id=agent_id, block_label=block_label),
-            body=await async_maybe_transform({
-                "base_template_id": base_template_id,
-                "deployment_id": deployment_id,
-                "description": description,
-                "entity_id": entity_id,
-                "hidden": hidden,
-                "is_template": is_template,
-                "label": label,
-                "limit": limit,
-                "metadata": metadata,
-                "preserve_on_migration": preserve_on_migration,
-                "project_id": project_id,
-                "read_only": read_only,
-                "tags": tags,
-                "template_id": template_id,
-                "template_name": template_name,
-                "value": value,
-            }, block_update_params.BlockUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/core-memory/blocks/{block_label}", agent_id=agent_id, block_label=block_label
+            ),
+            body=await async_maybe_transform(
+                {
+                    "base_template_id": base_template_id,
+                    "deployment_id": deployment_id,
+                    "description": description,
+                    "entity_id": entity_id,
+                    "hidden": hidden,
+                    "is_template": is_template,
+                    "label": label,
+                    "limit": limit,
+                    "metadata": metadata,
+                    "preserve_on_migration": preserve_on_migration,
+                    "project_id": project_id,
+                    "read_only": read_only,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "template_name": template_name,
+                    "value": value,
+                },
+                block_update_params.BlockUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=BlockResponse,
         )
 
-    def list(self,
-    agent_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[BlockResponse, AsyncArrayPage[BlockResponse]]:
+    def list(
+        self,
+        agent_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[BlockResponse, AsyncArrayPage[BlockResponse]]:
         """
         Retrieve the core memory blocks of a specific agent.
 
@@ -537,32 +560,41 @@ class AsyncBlocksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get_api_list(
             path_template("/v1/agents/{agent_id}/core-memory/blocks", agent_id=agent_id),
-            page = AsyncArrayPage[BlockResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, block_list_params.BlockListParams)),
+            page=AsyncArrayPage[BlockResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    block_list_params.BlockListParams,
+                ),
+            ),
             model=BlockResponse,
         )
 
-    async def attach(self,
-    block_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    async def attach(
+        self,
+        block_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Attach a core memory block to an agent.
 
@@ -580,29 +612,31 @@ class AsyncBlocksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return await self._patch(
-            path_template("/v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}", agent_id=agent_id, block_id=block_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/core-memory/blocks/attach/{block_id}", agent_id=agent_id, block_id=block_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentState,
         )
 
-    async def detach(self,
-    block_id: str,
-    *,
-    agent_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    async def detach(
+        self,
+        block_id: str,
+        *,
+        agent_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Detach a core memory block from an agent.
 
@@ -620,18 +654,19 @@ class AsyncBlocksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         if not block_id:
-          raise ValueError(
-            f'Expected a non-empty value for `block_id` but received {block_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `block_id` but received {block_id!r}")
         return await self._patch(
-            path_template("/v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}", agent_id=agent_id, block_id=block_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            path_template(
+                "/v1/agents/{agent_id}/core-memory/blocks/detach/{block_id}", agent_id=agent_id, block_id=block_id
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentState,
         )
+
 
 class BlocksResourceWithRawResponse:
     def __init__(self, blocks: BlocksResource) -> None:
@@ -653,6 +688,7 @@ class BlocksResourceWithRawResponse:
             blocks.detach,
         )
 
+
 class AsyncBlocksResourceWithRawResponse:
     def __init__(self, blocks: AsyncBlocksResource) -> None:
         self._blocks = blocks
@@ -673,6 +709,7 @@ class AsyncBlocksResourceWithRawResponse:
             blocks.detach,
         )
 
+
 class BlocksResourceWithStreamingResponse:
     def __init__(self, blocks: BlocksResource) -> None:
         self._blocks = blocks
@@ -692,6 +729,7 @@ class BlocksResourceWithStreamingResponse:
         self.detach = to_streamed_response_wrapper(
             blocks.detach,
         )
+
 
 class AsyncBlocksResourceWithStreamingResponse:
     def __init__(self, blocks: AsyncBlocksResource) -> None:

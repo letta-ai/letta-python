@@ -2,33 +2,28 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform
-
-from ...types.step import Step
-
-from ...pagination import SyncArrayPage, AsyncArrayPage
-
-from ..._base_client import make_request_options, AsyncPaginator
-
 from typing import Optional
-
-from ..._types import Omit, omit, NotGiven
-
 from typing_extensions import Literal
 
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+import httpx
 
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncArrayPage, AsyncArrayPage
 from ...types.runs import step_list_params
+from ...types.step import Step
+from ..._base_client import AsyncPaginator, make_request_options
 
 __all__ = ["StepsResource", "AsyncStepsResource"]
+
 
 class StepsResource(SyncAPIResource):
     @cached_property
@@ -50,20 +45,22 @@ class StepsResource(SyncAPIResource):
         """
         return StepsResourceWithStreamingResponse(self)
 
-    def list(self,
-    run_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[Step]:
+    def list(
+        self,
+        run_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncArrayPage[Step]:
         """
         Get steps associated with a run with filtering options.
 
@@ -90,21 +87,29 @@ class StepsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get_api_list(
             path_template("/v1/runs/{run_id}/steps", run_id=run_id),
-            page = SyncArrayPage[Step],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, step_list_params.StepListParams)),
+            page=SyncArrayPage[Step],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    step_list_params.StepListParams,
+                ),
+            ),
             model=Step,
         )
+
 
 class AsyncStepsResource(AsyncAPIResource):
     @cached_property
@@ -126,20 +131,22 @@ class AsyncStepsResource(AsyncAPIResource):
         """
         return AsyncStepsResourceWithStreamingResponse(self)
 
-    def list(self,
-    run_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[Step, AsyncArrayPage[Step]]:
+    def list(
+        self,
+        run_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[Step, AsyncArrayPage[Step]]:
         """
         Get steps associated with a run with filtering options.
 
@@ -166,21 +173,29 @@ class AsyncStepsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get_api_list(
             path_template("/v1/runs/{run_id}/steps", run_id=run_id),
-            page = AsyncArrayPage[Step],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, step_list_params.StepListParams)),
+            page=AsyncArrayPage[Step],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    step_list_params.StepListParams,
+                ),
+            ),
             model=Step,
         )
+
 
 class StepsResourceWithRawResponse:
     def __init__(self, steps: StepsResource) -> None:
@@ -190,6 +205,7 @@ class StepsResourceWithRawResponse:
             steps.list,
         )
 
+
 class AsyncStepsResourceWithRawResponse:
     def __init__(self, steps: AsyncStepsResource) -> None:
         self._steps = steps
@@ -198,6 +214,7 @@ class AsyncStepsResourceWithRawResponse:
             steps.list,
         )
 
+
 class StepsResourceWithStreamingResponse:
     def __init__(self, steps: StepsResource) -> None:
         self._steps = steps
@@ -205,6 +222,7 @@ class StepsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             steps.list,
         )
+
 
 class AsyncStepsResourceWithStreamingResponse:
     def __init__(self, steps: AsyncStepsResource) -> None:

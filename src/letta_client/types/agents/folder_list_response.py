@@ -1,21 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from ..embedding_config import EmbeddingConfig
-
-from typing import Optional, Dict
-
+from typing import Dict, Optional
 from datetime import datetime
 
+from ..._models import BaseModel
+from ..embedding_config import EmbeddingConfig
 from ..vector_db_provider import VectorDBProvider
 
 __all__ = ["FolderListResponse"]
+
 
 class FolderListResponse(BaseModel):
     """
     (Deprecated: Use Folder) Representation of a source, which is a collection of files and passages.
     """
+
     id: str
     """The human-friendly ID of the Source"""
 

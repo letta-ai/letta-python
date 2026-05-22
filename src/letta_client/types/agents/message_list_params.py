@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal
-
-from typing import Optional, List
+from typing import List, Optional
+from typing_extensions import Literal, TypedDict
 
 from .message_type import MessageType
 
 __all__ = ["MessageListParams"]
+
 
 class MessageListParams(TypedDict, total=False):
     after: Optional[str]

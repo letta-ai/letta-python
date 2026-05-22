@@ -2,48 +2,45 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from .messages import MessagesResource, AsyncMessagesResource, MessagesResourceWithRawResponse, AsyncMessagesResourceWithRawResponse, MessagesResourceWithStreamingResponse, AsyncMessagesResourceWithStreamingResponse
-
-from ..._compat import cached_property
-
-from ...types.conversation import Conversation
-
-from ..._utils import maybe_transform, path_template, async_maybe_transform
-
-from ..._base_client import make_request_options
-
-from typing import Optional, Union
-
-from ..._types import Omit, omit, NotGiven
-
+from typing import Union, Optional
 from datetime import datetime
-
-from ...types.conversation_list_response import ConversationListResponse
-
 from typing_extensions import Literal
 
+import httpx
+
+from ...types import (
+    conversation_fork_params,
+    conversation_list_params,
+    conversation_cancel_params,
+    conversation_create_params,
+    conversation_update_params,
+    conversation_recompile_params,
+)
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from .messages import (
+    MessagesResource,
+    AsyncMessagesResource,
+    MessagesResourceWithRawResponse,
+    AsyncMessagesResourceWithRawResponse,
+    MessagesResourceWithStreamingResponse,
+    AsyncMessagesResourceWithStreamingResponse,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.conversation import Conversation
+from ...types.conversation_list_response import ConversationListResponse
 from ...types.conversation_cancel_response import ConversationCancelResponse
 
-from ...types.conversation_recompile_response import ConversationRecompileResponse
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types import conversation_create_params, conversation_update_params, conversation_recompile_params
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types import conversation_create_params
-from ...types import conversation_update_params
-from ...types import conversation_list_params
-from ...types import conversation_cancel_params
-from ...types import conversation_fork_params
-from ...types import conversation_recompile_params
-
 __all__ = ["ConversationsResource", "AsyncConversationsResource"]
+
 
 class ConversationsResource(SyncAPIResource):
     @cached_property
@@ -69,20 +66,22 @@ class ConversationsResource(SyncAPIResource):
         """
         return ConversationsResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    agent_id: str,
-    context_window_limit: Optional[int] | Omit = omit,
-    hidden: bool | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
-    summary: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Conversation:
+    def create(
+        self,
+        *,
+        agent_id: str,
+        context_window_limit: Optional[int] | Omit = omit,
+        hidden: bool | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
+        summary: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
         """
         Create a new conversation for an agent.
 
@@ -112,28 +111,37 @@ class ConversationsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/conversations/",
-            body=maybe_transform({
-                "context_window_limit": context_window_limit,
-                "hidden": hidden,
-                "model": model,
-                "model_settings": model_settings,
-                "summary": summary,
-            }, conversation_create_params.ConversationCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "agent_id": agent_id
-            }, conversation_create_params.ConversationCreateParams)),
+            body=maybe_transform(
+                {
+                    "context_window_limit": context_window_limit,
+                    "hidden": hidden,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "summary": summary,
+                },
+                conversation_create_params.ConversationCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"agent_id": agent_id}, conversation_create_params.ConversationCreateParams),
+            ),
             cast_to=Conversation,
         )
 
-    def retrieve(self,
-    conversation_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Conversation:
+    def retrieve(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
         """
         Retrieve a specific conversation.
 
@@ -149,30 +157,32 @@ class ConversationsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._get(
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Conversation,
         )
 
-    def update(self,
-    conversation_id: str,
-    *,
-    archived: Optional[bool] | Omit = omit,
-    context_window_limit: Optional[int] | Omit = omit,
-    last_message_at: Union[str, datetime, None] | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
-    summary: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Conversation:
+    def update(
+        self,
+        conversation_id: str,
+        *,
+        archived: Optional[bool] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        last_message_at: Union[str, datetime, None] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
+        summary: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
         """
         Update a conversation.
 
@@ -203,38 +213,43 @@ class ConversationsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._patch(
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
-            body=maybe_transform({
-                "archived": archived,
-                "context_window_limit": context_window_limit,
-                "last_message_at": last_message_at,
-                "model": model,
-                "model_settings": model_settings,
-                "summary": summary,
-            }, conversation_update_params.ConversationUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "archived": archived,
+                    "context_window_limit": context_window_limit,
+                    "last_message_at": last_message_at,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "summary": summary,
+                },
+                conversation_update_params.ConversationUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Conversation,
         )
 
-    def list(self,
-    *,
-    after: Optional[str] | Omit = omit,
-    agent_id: Optional[str] | Omit = omit,
-    archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
-    limit: int | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
-    summary_search: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ConversationListResponse:
+    def list(
+        self,
+        *,
+        after: Optional[str] | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
+        archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
+        limit: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
+        summary_search: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConversationListResponse:
         """
         List all conversations for an agent (or all conversations if agent_id not
         provided).
@@ -267,27 +282,38 @@ class ConversationsResource(SyncAPIResource):
         """
         return self._get(
             "/v1/conversations/",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "agent_id": agent_id,
-                "archive_status": archive_status,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-                "summary_search": summary_search,
-            }, conversation_list_params.ConversationListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "agent_id": agent_id,
+                        "archive_status": archive_status,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                        "summary_search": summary_search,
+                    },
+                    conversation_list_params.ConversationListParams,
+                ),
+            ),
             cast_to=ConversationListResponse,
         )
 
-    def delete(self,
-    conversation_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    def delete(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete a conversation.
 
@@ -305,25 +331,27 @@ class ConversationsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._delete(
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
 
-    def cancel(self,
-    conversation_id: str,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ConversationCancelResponse:
+    def cancel(
+        self,
+        conversation_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConversationCancelResponse:
         """
         Cancel runs associated with a conversation.
 
@@ -351,28 +379,32 @@ class ConversationsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._post(
             path_template("/v1/conversations/{conversation_id}/cancel", conversation_id=conversation_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "agent_id": agent_id
-            }, conversation_cancel_params.ConversationCancelParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"agent_id": agent_id}, conversation_cancel_params.ConversationCancelParams),
+            ),
             cast_to=ConversationCancelResponse,
         )
 
-    def fork(self,
-    conversation_id: str,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    hidden: bool | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Conversation:
+    def fork(
+        self,
+        conversation_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        hidden: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
         """
         Fork an existing conversation.
 
@@ -406,30 +438,39 @@ class ConversationsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._post(
             path_template("/v1/conversations/{conversation_id}/fork", conversation_id=conversation_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "agent_id": agent_id,
-                "hidden": hidden,
-            }, conversation_fork_params.ConversationForkParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "agent_id": agent_id,
+                        "hidden": hidden,
+                    },
+                    conversation_fork_params.ConversationForkParams,
+                ),
+            ),
             cast_to=Conversation,
         )
 
-    def recompile(self,
-    conversation_id: str,
-    *,
-    dry_run: bool | Omit = omit,
-    agent_id: Optional[str] | Omit = omit,
-    compaction_settings: Optional[conversation_recompile_params.CompactionSettings] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> str:
+    def recompile(
+        self,
+        conversation_id: str,
+        *,
+        dry_run: bool | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
+        compaction_settings: Optional[conversation_recompile_params.CompactionSettings] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
         """
         Manually trigger system prompt recompilation for a conversation.
 
@@ -457,20 +498,26 @@ class ConversationsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._post(
             path_template("/v1/conversations/{conversation_id}/recompile", conversation_id=conversation_id),
-            body=maybe_transform({
-                "agent_id": agent_id,
-                "compaction_settings": compaction_settings,
-            }, conversation_recompile_params.ConversationRecompileParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "dry_run": dry_run
-            }, conversation_recompile_params.ConversationRecompileParams)),
+            body=maybe_transform(
+                {
+                    "agent_id": agent_id,
+                    "compaction_settings": compaction_settings,
+                },
+                conversation_recompile_params.ConversationRecompileParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"dry_run": dry_run}, conversation_recompile_params.ConversationRecompileParams),
+            ),
             cast_to=str,
         )
+
 
 class AsyncConversationsResource(AsyncAPIResource):
     @cached_property
@@ -496,20 +543,22 @@ class AsyncConversationsResource(AsyncAPIResource):
         """
         return AsyncConversationsResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    agent_id: str,
-    context_window_limit: Optional[int] | Omit = omit,
-    hidden: bool | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
-    summary: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Conversation:
+    async def create(
+        self,
+        *,
+        agent_id: str,
+        context_window_limit: Optional[int] | Omit = omit,
+        hidden: bool | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
+        summary: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
         """
         Create a new conversation for an agent.
 
@@ -539,28 +588,39 @@ class AsyncConversationsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/conversations/",
-            body=await async_maybe_transform({
-                "context_window_limit": context_window_limit,
-                "hidden": hidden,
-                "model": model,
-                "model_settings": model_settings,
-                "summary": summary,
-            }, conversation_create_params.ConversationCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "agent_id": agent_id
-            }, conversation_create_params.ConversationCreateParams)),
+            body=await async_maybe_transform(
+                {
+                    "context_window_limit": context_window_limit,
+                    "hidden": hidden,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "summary": summary,
+                },
+                conversation_create_params.ConversationCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"agent_id": agent_id}, conversation_create_params.ConversationCreateParams
+                ),
+            ),
             cast_to=Conversation,
         )
 
-    async def retrieve(self,
-    conversation_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Conversation:
+    async def retrieve(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
         """
         Retrieve a specific conversation.
 
@@ -576,30 +636,32 @@ class AsyncConversationsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._get(
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Conversation,
         )
 
-    async def update(self,
-    conversation_id: str,
-    *,
-    archived: Optional[bool] | Omit = omit,
-    context_window_limit: Optional[int] | Omit = omit,
-    last_message_at: Union[str, datetime, None] | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
-    summary: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Conversation:
+    async def update(
+        self,
+        conversation_id: str,
+        *,
+        archived: Optional[bool] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        last_message_at: Union[str, datetime, None] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
+        summary: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
         """
         Update a conversation.
 
@@ -630,38 +692,43 @@ class AsyncConversationsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._patch(
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
-            body=await async_maybe_transform({
-                "archived": archived,
-                "context_window_limit": context_window_limit,
-                "last_message_at": last_message_at,
-                "model": model,
-                "model_settings": model_settings,
-                "summary": summary,
-            }, conversation_update_params.ConversationUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "archived": archived,
+                    "context_window_limit": context_window_limit,
+                    "last_message_at": last_message_at,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "summary": summary,
+                },
+                conversation_update_params.ConversationUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Conversation,
         )
 
-    async def list(self,
-    *,
-    after: Optional[str] | Omit = omit,
-    agent_id: Optional[str] | Omit = omit,
-    archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
-    limit: int | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
-    summary_search: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ConversationListResponse:
+    async def list(
+        self,
+        *,
+        after: Optional[str] | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
+        archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
+        limit: int | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
+        summary_search: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConversationListResponse:
         """
         List all conversations for an agent (or all conversations if agent_id not
         provided).
@@ -694,27 +761,38 @@ class AsyncConversationsResource(AsyncAPIResource):
         """
         return await self._get(
             "/v1/conversations/",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "after": after,
-                "agent_id": agent_id,
-                "archive_status": archive_status,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-                "summary_search": summary_search,
-            }, conversation_list_params.ConversationListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "after": after,
+                        "agent_id": agent_id,
+                        "archive_status": archive_status,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                        "summary_search": summary_search,
+                    },
+                    conversation_list_params.ConversationListParams,
+                ),
+            ),
             cast_to=ConversationListResponse,
         )
 
-    async def delete(self,
-    conversation_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    async def delete(
+        self,
+        conversation_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete a conversation.
 
@@ -732,25 +810,27 @@ class AsyncConversationsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._delete(
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
 
-    async def cancel(self,
-    conversation_id: str,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ConversationCancelResponse:
+    async def cancel(
+        self,
+        conversation_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConversationCancelResponse:
         """
         Cancel runs associated with a conversation.
 
@@ -778,28 +858,34 @@ class AsyncConversationsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._post(
             path_template("/v1/conversations/{conversation_id}/cancel", conversation_id=conversation_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "agent_id": agent_id
-            }, conversation_cancel_params.ConversationCancelParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"agent_id": agent_id}, conversation_cancel_params.ConversationCancelParams
+                ),
+            ),
             cast_to=ConversationCancelResponse,
         )
 
-    async def fork(self,
-    conversation_id: str,
-    *,
-    agent_id: Optional[str] | Omit = omit,
-    hidden: bool | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Conversation:
+    async def fork(
+        self,
+        conversation_id: str,
+        *,
+        agent_id: Optional[str] | Omit = omit,
+        hidden: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Conversation:
         """
         Fork an existing conversation.
 
@@ -833,30 +919,39 @@ class AsyncConversationsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._post(
             path_template("/v1/conversations/{conversation_id}/fork", conversation_id=conversation_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "agent_id": agent_id,
-                "hidden": hidden,
-            }, conversation_fork_params.ConversationForkParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "agent_id": agent_id,
+                        "hidden": hidden,
+                    },
+                    conversation_fork_params.ConversationForkParams,
+                ),
+            ),
             cast_to=Conversation,
         )
 
-    async def recompile(self,
-    conversation_id: str,
-    *,
-    dry_run: bool | Omit = omit,
-    agent_id: Optional[str] | Omit = omit,
-    compaction_settings: Optional[conversation_recompile_params.CompactionSettings] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> str:
+    async def recompile(
+        self,
+        conversation_id: str,
+        *,
+        dry_run: bool | Omit = omit,
+        agent_id: Optional[str] | Omit = omit,
+        compaction_settings: Optional[conversation_recompile_params.CompactionSettings] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
         """
         Manually trigger system prompt recompilation for a conversation.
 
@@ -884,20 +979,28 @@ class AsyncConversationsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not conversation_id:
-          raise ValueError(
-            f'Expected a non-empty value for `conversation_id` but received {conversation_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._post(
             path_template("/v1/conversations/{conversation_id}/recompile", conversation_id=conversation_id),
-            body=await async_maybe_transform({
-                "agent_id": agent_id,
-                "compaction_settings": compaction_settings,
-            }, conversation_recompile_params.ConversationRecompileParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "dry_run": dry_run
-            }, conversation_recompile_params.ConversationRecompileParams)),
+            body=await async_maybe_transform(
+                {
+                    "agent_id": agent_id,
+                    "compaction_settings": compaction_settings,
+                },
+                conversation_recompile_params.ConversationRecompileParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"dry_run": dry_run}, conversation_recompile_params.ConversationRecompileParams
+                ),
+            ),
             cast_to=str,
         )
+
 
 class ConversationsResourceWithRawResponse:
     def __init__(self, conversations: ConversationsResource) -> None:
@@ -932,6 +1035,7 @@ class ConversationsResourceWithRawResponse:
     def messages(self) -> MessagesResourceWithRawResponse:
         return MessagesResourceWithRawResponse(self._conversations.messages)
 
+
 class AsyncConversationsResourceWithRawResponse:
     def __init__(self, conversations: AsyncConversationsResource) -> None:
         self._conversations = conversations
@@ -965,6 +1069,7 @@ class AsyncConversationsResourceWithRawResponse:
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
         return AsyncMessagesResourceWithRawResponse(self._conversations.messages)
 
+
 class ConversationsResourceWithStreamingResponse:
     def __init__(self, conversations: ConversationsResource) -> None:
         self._conversations = conversations
@@ -997,6 +1102,7 @@ class ConversationsResourceWithStreamingResponse:
     @cached_property
     def messages(self) -> MessagesResourceWithStreamingResponse:
         return MessagesResourceWithStreamingResponse(self._conversations.messages)
+
 
 class AsyncConversationsResourceWithStreamingResponse:
     def __init__(self, conversations: AsyncConversationsResource) -> None:

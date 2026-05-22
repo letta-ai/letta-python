@@ -5,9 +5,7 @@ from typing import (
     IO,
     TYPE_CHECKING,
     Any,
-    AsyncIterable,
     Dict,
-    Iterable,
     List,
     Type,
     Tuple,
@@ -15,21 +13,31 @@ from typing import (
     Mapping,
     TypeVar,
     Callable,
+    Iterable,
     Iterator,
     Optional,
     Sequence,
-
+    AsyncIterable,
 )
-from typing_extensions import Set, SupportsIndex, Literal, Protocol, TypeAlias, TypedDict, overload, override, runtime_checkable
+from typing_extensions import (
+    Set,
+    Literal,
+    Protocol,
+    TypeAlias,
+    TypedDict,
+    SupportsIndex,
+    overload,
+    override,
+    runtime_checkable,
+)
 
 import httpx
 import pydantic
 from httpx import URL, Proxy, Timeout, Response, BaseTransport, AsyncBaseTransport
 
 if TYPE_CHECKING:
-    from ._models import BaseModel, SecurityOptions
+    from ._models import BaseModel
     from ._response import APIResponse, AsyncAPIResponse
-    from ._legacy_response import HttpxBinaryResponseContent
 
 Transport = BaseTransport
 AsyncTransport = AsyncBaseTransport
@@ -116,7 +124,6 @@ class RequestOptions(TypedDict, total=False):
     extra_json: AnyMapping
     idempotency_key: str
     follow_redirects: bool
-    
 
 
 # Sentinel class used until PEP 0661 is accepted
@@ -132,6 +139,7 @@ class NotGiven:
 
     ```py
     def create(timeout: Timeout | None | NotGiven = not_given): ...
+
 
     create(timeout=1)  # 1s timeout
     create(timeout=None)  # No timeout

@@ -1,16 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Union, List, Optional
-
-from .letta_user_message_content_union import LettaUserMessageContentUnion
-
+from typing import List, Union, Optional
 from datetime import datetime
-
 from typing_extensions import Literal
 
+from ..._models import BaseModel
+from .letta_user_message_content_union import LettaUserMessageContentUnion
+
 __all__ = ["UserMessage"]
+
 
 class UserMessage(BaseModel):
     """A message sent by the user.
@@ -23,6 +21,7 @@ class UserMessage(BaseModel):
         name (Optional[str]): The name of the sender of the message
         content (Union[str, List[LettaUserMessageContentUnion]]): The message content sent by the user (can be a string or an array of multi-modal content parts)
     """
+
     id: str
 
     content: Union[List[LettaUserMessageContentUnion], str]

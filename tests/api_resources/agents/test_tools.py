@@ -2,32 +2,24 @@
 
 from __future__ import annotations
 
-from letta_client import Letta, AsyncLetta
-
-from letta_client.types import Tool, AgentState
-
-from letta_client.pagination import SyncArrayPage, AsyncArrayPage
-
-from typing import cast, Any, Optional
-
-from letta_client.types.agents import ToolExecutionResult
-
 import os
+from typing import Any, Optional, cast
+
 import pytest
-import httpx
-from typing_extensions import get_args
-from respx import MockRouter
-from letta_client import Letta, AsyncLetta
+
 from tests.utils import assert_matches_type
-from letta_client.types.agents import tool_list_params
-from letta_client.types.agents import tool_run_params
-from letta_client.types.agents import tool_update_approval_params
+from letta_client import Letta, AsyncLetta
+from letta_client.types import Tool, AgentState
+from letta_client.pagination import SyncArrayPage, AsyncArrayPage
+from letta_client.types.agents import (
+    ToolExecutionResult,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-class TestTools:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
 
+class TestTools:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -35,7 +27,7 @@ class TestTools:
         tool = client.agents.tools.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(SyncArrayPage[Tool], tool, path=['response'])
+        assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -48,32 +40,31 @@ class TestTools:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(SyncArrayPage[Tool], tool, path=['response'])
+        assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
-
         response = client.agents.tools.with_raw_response.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(SyncArrayPage[Tool], tool, path=['response'])
+        assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.agents.tools.with_streaming_response.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(SyncArrayPage[Tool], tool, path=['response'])
+            assert_matches_type(SyncArrayPage[Tool], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -81,9 +72,9 @@ class TestTools:
     @parametrize
     def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          client.agents.tools.with_raw_response.list(
-              agent_id="",
-          )
+            client.agents.tools.with_raw_response.list(
+                agent_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -92,21 +83,20 @@ class TestTools:
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_attach(self, client: Letta) -> None:
-
         response = client.agents.tools.with_raw_response.attach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -114,12 +104,12 @@ class TestTools:
         with client.agents.tools.with_streaming_response.attach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(Optional[AgentState], tool, path=['response'])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -127,16 +117,16 @@ class TestTools:
     @parametrize
     def test_path_params_attach(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          client.agents.tools.with_raw_response.attach(
-              tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
-              agent_id="",
-          )
+            client.agents.tools.with_raw_response.attach(
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+                agent_id="",
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
-          client.agents.tools.with_raw_response.attach(
-              tool_id="",
-              agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-          )
+            client.agents.tools.with_raw_response.attach(
+                tool_id="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -145,21 +135,20 @@ class TestTools:
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_detach(self, client: Letta) -> None:
-
         response = client.agents.tools.with_raw_response.detach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -167,12 +156,12 @@ class TestTools:
         with client.agents.tools.with_streaming_response.detach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(Optional[AgentState], tool, path=['response'])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -180,16 +169,16 @@ class TestTools:
     @parametrize
     def test_path_params_detach(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          client.agents.tools.with_raw_response.detach(
-              tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
-              agent_id="",
-          )
+            client.agents.tools.with_raw_response.detach(
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+                agent_id="",
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
-          client.agents.tools.with_raw_response.detach(
-              tool_id="",
-              agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-          )
+            client.agents.tools.with_raw_response.detach(
+                tool_id="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -198,7 +187,7 @@ class TestTools:
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(ToolExecutionResult, tool, path=['response'])
+        assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -206,25 +195,22 @@ class TestTools:
         tool = client.agents.tools.run(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            args={
-                "foo": "bar"
-            },
+            args={"foo": "bar"},
         )
-        assert_matches_type(ToolExecutionResult, tool, path=['response'])
+        assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_run(self, client: Letta) -> None:
-
         response = client.agents.tools.with_raw_response.run(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(ToolExecutionResult, tool, path=['response'])
+        assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -232,12 +218,12 @@ class TestTools:
         with client.agents.tools.with_streaming_response.run(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(ToolExecutionResult, tool, path=['response'])
+            assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -245,16 +231,16 @@ class TestTools:
     @parametrize
     def test_path_params_run(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          client.agents.tools.with_raw_response.run(
-              tool_name="tool_name",
-              agent_id="",
-          )
+            client.agents.tools.with_raw_response.run(
+                tool_name="tool_name",
+                agent_id="",
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
-          client.agents.tools.with_raw_response.run(
-              tool_name="",
-              agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-          )
+            client.agents.tools.with_raw_response.run(
+                tool_name="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -264,7 +250,7 @@ class TestTools:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             body_requires_approval=True,
         )
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -275,12 +261,11 @@ class TestTools:
             body_requires_approval=True,
             query_requires_approval=True,
         )
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update_approval(self, client: Letta) -> None:
-
         response = client.agents.tools.with_raw_response.update_approval(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
@@ -288,9 +273,9 @@ class TestTools:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = response.parse()
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -299,12 +284,12 @@ class TestTools:
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             body_requires_approval=True,
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = response.parse()
-            assert_matches_type(Optional[AgentState], tool, path=['response'])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -312,21 +297,24 @@ class TestTools:
     @parametrize
     def test_path_params_update_approval(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          client.agents.tools.with_raw_response.update_approval(
-              tool_name="tool_name",
-              agent_id="",
-              body_requires_approval=True,
-          )
+            client.agents.tools.with_raw_response.update_approval(
+                tool_name="tool_name",
+                agent_id="",
+                body_requires_approval=True,
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
-          client.agents.tools.with_raw_response.update_approval(
-              tool_name="",
-              agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-              body_requires_approval=True,
-          )
-class TestAsyncTools:
-    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+            client.agents.tools.with_raw_response.update_approval(
+                tool_name="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                body_requires_approval=True,
+            )
 
+
+class TestAsyncTools:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -334,7 +322,7 @@ class TestAsyncTools:
         tool = await async_client.agents.tools.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AsyncArrayPage[Tool], tool, path=['response'])
+        assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -347,32 +335,31 @@ class TestAsyncTools:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(AsyncArrayPage[Tool], tool, path=['response'])
+        assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.agents.tools.with_raw_response.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(AsyncArrayPage[Tool], tool, path=['response'])
+        assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.agents.tools.with_streaming_response.list(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(AsyncArrayPage[Tool], tool, path=['response'])
+            assert_matches_type(AsyncArrayPage[Tool], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -380,9 +367,9 @@ class TestAsyncTools:
     @parametrize
     async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          await async_client.agents.tools.with_raw_response.list(
-              agent_id="",
-          )
+            await async_client.agents.tools.with_raw_response.list(
+                agent_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -391,21 +378,20 @@ class TestAsyncTools:
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_attach(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.agents.tools.with_raw_response.attach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -413,12 +399,12 @@ class TestAsyncTools:
         async with async_client.agents.tools.with_streaming_response.attach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(Optional[AgentState], tool, path=['response'])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -426,16 +412,16 @@ class TestAsyncTools:
     @parametrize
     async def test_path_params_attach(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          await async_client.agents.tools.with_raw_response.attach(
-              tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
-              agent_id="",
-          )
+            await async_client.agents.tools.with_raw_response.attach(
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+                agent_id="",
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
-          await async_client.agents.tools.with_raw_response.attach(
-              tool_id="",
-              agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-          )
+            await async_client.agents.tools.with_raw_response.attach(
+                tool_id="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -444,21 +430,20 @@ class TestAsyncTools:
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_detach(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.agents.tools.with_raw_response.detach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -466,12 +451,12 @@ class TestAsyncTools:
         async with async_client.agents.tools.with_streaming_response.detach(
             tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(Optional[AgentState], tool, path=['response'])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -479,16 +464,16 @@ class TestAsyncTools:
     @parametrize
     async def test_path_params_detach(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          await async_client.agents.tools.with_raw_response.detach(
-              tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
-              agent_id="",
-          )
+            await async_client.agents.tools.with_raw_response.detach(
+                tool_id="tool-123e4567-e89b-42d3-8456-426614174000",
+                agent_id="",
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_id` but received ''"):
-          await async_client.agents.tools.with_raw_response.detach(
-              tool_id="",
-              agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-          )
+            await async_client.agents.tools.with_raw_response.detach(
+                tool_id="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -497,7 +482,7 @@ class TestAsyncTools:
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(ToolExecutionResult, tool, path=['response'])
+        assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -505,25 +490,22 @@ class TestAsyncTools:
         tool = await async_client.agents.tools.run(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-            args={
-                "foo": "bar"
-            },
+            args={"foo": "bar"},
         )
-        assert_matches_type(ToolExecutionResult, tool, path=['response'])
+        assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.agents.tools.with_raw_response.run(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(ToolExecutionResult, tool, path=['response'])
+        assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -531,12 +513,12 @@ class TestAsyncTools:
         async with async_client.agents.tools.with_streaming_response.run(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(ToolExecutionResult, tool, path=['response'])
+            assert_matches_type(ToolExecutionResult, tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -544,16 +526,16 @@ class TestAsyncTools:
     @parametrize
     async def test_path_params_run(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          await async_client.agents.tools.with_raw_response.run(
-              tool_name="tool_name",
-              agent_id="",
-          )
+            await async_client.agents.tools.with_raw_response.run(
+                tool_name="tool_name",
+                agent_id="",
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
-          await async_client.agents.tools.with_raw_response.run(
-              tool_name="",
-              agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-          )
+            await async_client.agents.tools.with_raw_response.run(
+                tool_name="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -563,7 +545,7 @@ class TestAsyncTools:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             body_requires_approval=True,
         )
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -574,12 +556,11 @@ class TestAsyncTools:
             body_requires_approval=True,
             query_requires_approval=True,
         )
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update_approval(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.agents.tools.with_raw_response.update_approval(
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
@@ -587,9 +568,9 @@ class TestAsyncTools:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tool = await response.parse()
-        assert_matches_type(Optional[AgentState], tool, path=['response'])
+        assert_matches_type(Optional[AgentState], tool, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -598,12 +579,12 @@ class TestAsyncTools:
             tool_name="tool_name",
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             body_requires_approval=True,
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tool = await response.parse()
-            assert_matches_type(Optional[AgentState], tool, path=['response'])
+            assert_matches_type(Optional[AgentState], tool, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -611,15 +592,15 @@ class TestAsyncTools:
     @parametrize
     async def test_path_params_update_approval(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `agent_id` but received ''"):
-          await async_client.agents.tools.with_raw_response.update_approval(
-              tool_name="tool_name",
-              agent_id="",
-              body_requires_approval=True,
-          )
+            await async_client.agents.tools.with_raw_response.update_approval(
+                tool_name="tool_name",
+                agent_id="",
+                body_requires_approval=True,
+            )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `tool_name` but received ''"):
-          await async_client.agents.tools.with_raw_response.update_approval(
-              tool_name="",
-              agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
-              body_requires_approval=True,
-          )
+            await async_client.agents.tools.with_raw_response.update_approval(
+                tool_name="",
+                agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
+                body_requires_approval=True,
+            )

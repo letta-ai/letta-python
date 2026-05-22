@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 __all__ = ["ScheduleListParams"]
 
+
 class ScheduleListParams(TypedDict, total=False):
     after: str
 

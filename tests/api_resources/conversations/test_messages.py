@@ -2,33 +2,24 @@
 
 from __future__ import annotations
 
-from letta_client import Letta, AsyncLetta
-
-from typing import cast, Any
-
-from letta_client.types.agents import Message
-
-from letta_client.pagination import SyncArrayPage, AsyncArrayPage
-
-from letta_client.types.conversations import CompactionResponse
-
 import os
+from typing import Any, cast
+
 import pytest
-import httpx
-from typing_extensions import get_args
-from respx import MockRouter
-from letta_client import Letta, AsyncLetta
+
 from tests.utils import assert_matches_type
-from letta_client.types.conversations import message_create_params
-from letta_client.types.conversations import message_list_params
-from letta_client.types.conversations import message_compact_params
-from letta_client.types.conversations import message_stream_params
+from letta_client import Letta, AsyncLetta
+from letta_client.pagination import SyncArrayPage, AsyncArrayPage
+from letta_client.types.agents import Message
+from letta_client.types.conversations import (
+    CompactionResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-class TestMessages:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
 
+class TestMessages:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -47,38 +38,44 @@ class TestMessages:
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
-            client_skills=[{
-                "description": "description",
-                "location": "location",
-                "name": "name",
-            }],
-            client_tools=[{
-                "name": "name",
-                "description": "description",
-                "parameters": {
-                    "foo": "bar"
-                },
-            }],
+            client_skills=[
+                {
+                    "description": "description",
+                    "location": "location",
+                    "name": "name",
+                }
+            ],
+            client_tools=[
+                {
+                    "name": "name",
+                    "description": "description",
+                    "parameters": {"foo": "bar"},
+                }
+            ],
             enable_thinking="enable_thinking",
             include_compaction_messages=True,
             include_pings=True,
             include_return_message_types=["system_message"],
             input="string",
             max_steps=0,
-            messages=[{
-                "content": [{
-                    "text": "text",
-                    "signature": "signature",
-                    "type": "text",
-                }],
-                "role": "user",
-                "batch_item_id": "batch_item_id",
-                "group_id": "group_id",
-                "name": "name",
-                "otid": "otid",
-                "sender_id": "sender_id",
-                "type": "message",
-            }],
+            messages=[
+                {
+                    "content": [
+                        {
+                            "text": "text",
+                            "signature": "signature",
+                            "type": "text",
+                        }
+                    ],
+                    "role": "user",
+                    "batch_item_id": "batch_item_id",
+                    "group_id": "group_id",
+                    "name": "name",
+                    "otid": "otid",
+                    "sender_id": "sender_id",
+                    "type": "message",
+                }
+            ],
             override_model="override_model",
             override_system="override_system",
             return_logprobs=True,
@@ -93,12 +90,11 @@ class TestMessages:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
-
         response = client.conversations.messages.with_raw_response.create(
             conversation_id="default",
         )
 
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         stream = response.parse()
         stream.close()
 
@@ -107,9 +103,9 @@ class TestMessages:
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.conversations.messages.with_streaming_response.create(
             conversation_id="default",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             stream = response.parse()
             stream.close()
@@ -120,9 +116,9 @@ class TestMessages:
     @parametrize
     def test_path_params_create(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
-          client.conversations.messages.with_raw_response.create(
-              conversation_id="",
-          )
+            client.conversations.messages.with_raw_response.create(
+                conversation_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -130,7 +126,7 @@ class TestMessages:
         message = client.conversations.messages.list(
             conversation_id="default",
         )
-        assert_matches_type(SyncArrayPage[Message], message, path=['response'])
+        assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -147,32 +143,31 @@ class TestMessages:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(SyncArrayPage[Message], message, path=['response'])
+        assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
-
         response = client.conversations.messages.with_raw_response.list(
             conversation_id="default",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(SyncArrayPage[Message], message, path=['response'])
+        assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
         with client.conversations.messages.with_streaming_response.list(
             conversation_id="default",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(SyncArrayPage[Message], message, path=['response'])
+            assert_matches_type(SyncArrayPage[Message], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -180,9 +175,9 @@ class TestMessages:
     @parametrize
     def test_path_params_list(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
-          client.conversations.messages.with_raw_response.list(
-              conversation_id="",
-          )
+            client.conversations.messages.with_raw_response.list(
+                conversation_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -190,7 +185,7 @@ class TestMessages:
         message = client.conversations.messages.compact(
             conversation_id="default",
         )
-        assert_matches_type(CompactionResponse, message, path=['response'])
+        assert_matches_type(CompactionResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -206,12 +201,8 @@ class TestMessages:
                     "max_output_tokens": 0,
                     "parallel_tool_calls": True,
                     "provider_type": "openai",
-                    "reasoning": {
-                        "reasoning_effort": "none"
-                    },
-                    "response_format": {
-                        "type": "text"
-                    },
+                    "reasoning": {"reasoning_effort": "none"},
+                    "response_format": {"type": "text"},
                     "strict": True,
                     "temperature": 0,
                 },
@@ -220,32 +211,31 @@ class TestMessages:
                 "sliding_window_percentage": 0,
             },
         )
-        assert_matches_type(CompactionResponse, message, path=['response'])
+        assert_matches_type(CompactionResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_compact(self, client: Letta) -> None:
-
         response = client.conversations.messages.with_raw_response.compact(
             conversation_id="default",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = response.parse()
-        assert_matches_type(CompactionResponse, message, path=['response'])
+        assert_matches_type(CompactionResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_compact(self, client: Letta) -> None:
         with client.conversations.messages.with_streaming_response.compact(
             conversation_id="default",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = response.parse()
-            assert_matches_type(CompactionResponse, message, path=['response'])
+            assert_matches_type(CompactionResponse, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -253,9 +243,9 @@ class TestMessages:
     @parametrize
     def test_path_params_compact(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
-          client.conversations.messages.with_raw_response.compact(
-              conversation_id="",
-          )
+            client.conversations.messages.with_raw_response.compact(
+                conversation_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -283,12 +273,11 @@ class TestMessages:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_stream(self, client: Letta) -> None:
-
         response = client.conversations.messages.with_raw_response.stream(
             conversation_id="default",
         )
 
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         stream = response.parse()
         stream.close()
 
@@ -297,9 +286,9 @@ class TestMessages:
     def test_streaming_response_stream(self, client: Letta) -> None:
         with client.conversations.messages.with_streaming_response.stream(
             conversation_id="default",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             stream = response.parse()
             stream.close()
@@ -310,12 +299,15 @@ class TestMessages:
     @parametrize
     def test_path_params_stream(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
-          client.conversations.messages.with_raw_response.stream(
-              conversation_id="",
-          )
-class TestAsyncMessages:
-    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+            client.conversations.messages.with_raw_response.stream(
+                conversation_id="",
+            )
 
+
+class TestAsyncMessages:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -334,38 +326,44 @@ class TestAsyncMessages:
             assistant_message_tool_kwarg="assistant_message_tool_kwarg",
             assistant_message_tool_name="assistant_message_tool_name",
             background=True,
-            client_skills=[{
-                "description": "description",
-                "location": "location",
-                "name": "name",
-            }],
-            client_tools=[{
-                "name": "name",
-                "description": "description",
-                "parameters": {
-                    "foo": "bar"
-                },
-            }],
+            client_skills=[
+                {
+                    "description": "description",
+                    "location": "location",
+                    "name": "name",
+                }
+            ],
+            client_tools=[
+                {
+                    "name": "name",
+                    "description": "description",
+                    "parameters": {"foo": "bar"},
+                }
+            ],
             enable_thinking="enable_thinking",
             include_compaction_messages=True,
             include_pings=True,
             include_return_message_types=["system_message"],
             input="string",
             max_steps=0,
-            messages=[{
-                "content": [{
-                    "text": "text",
-                    "signature": "signature",
-                    "type": "text",
-                }],
-                "role": "user",
-                "batch_item_id": "batch_item_id",
-                "group_id": "group_id",
-                "name": "name",
-                "otid": "otid",
-                "sender_id": "sender_id",
-                "type": "message",
-            }],
+            messages=[
+                {
+                    "content": [
+                        {
+                            "text": "text",
+                            "signature": "signature",
+                            "type": "text",
+                        }
+                    ],
+                    "role": "user",
+                    "batch_item_id": "batch_item_id",
+                    "group_id": "group_id",
+                    "name": "name",
+                    "otid": "otid",
+                    "sender_id": "sender_id",
+                    "type": "message",
+                }
+            ],
             override_model="override_model",
             override_system="override_system",
             return_logprobs=True,
@@ -380,12 +378,11 @@ class TestAsyncMessages:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.conversations.messages.with_raw_response.create(
             conversation_id="default",
         )
 
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         stream = await response.parse()
         await stream.close()
 
@@ -394,9 +391,9 @@ class TestAsyncMessages:
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.messages.with_streaming_response.create(
             conversation_id="default",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             stream = await response.parse()
             await stream.close()
@@ -407,9 +404,9 @@ class TestAsyncMessages:
     @parametrize
     async def test_path_params_create(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
-          await async_client.conversations.messages.with_raw_response.create(
-              conversation_id="",
-          )
+            await async_client.conversations.messages.with_raw_response.create(
+                conversation_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -417,7 +414,7 @@ class TestAsyncMessages:
         message = await async_client.conversations.messages.list(
             conversation_id="default",
         )
-        assert_matches_type(AsyncArrayPage[Message], message, path=['response'])
+        assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -434,32 +431,31 @@ class TestAsyncMessages:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(AsyncArrayPage[Message], message, path=['response'])
+        assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.conversations.messages.with_raw_response.list(
             conversation_id="default",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(AsyncArrayPage[Message], message, path=['response'])
+        assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.messages.with_streaming_response.list(
             conversation_id="default",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(AsyncArrayPage[Message], message, path=['response'])
+            assert_matches_type(AsyncArrayPage[Message], message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -467,9 +463,9 @@ class TestAsyncMessages:
     @parametrize
     async def test_path_params_list(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
-          await async_client.conversations.messages.with_raw_response.list(
-              conversation_id="",
-          )
+            await async_client.conversations.messages.with_raw_response.list(
+                conversation_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -477,7 +473,7 @@ class TestAsyncMessages:
         message = await async_client.conversations.messages.compact(
             conversation_id="default",
         )
-        assert_matches_type(CompactionResponse, message, path=['response'])
+        assert_matches_type(CompactionResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -493,12 +489,8 @@ class TestAsyncMessages:
                     "max_output_tokens": 0,
                     "parallel_tool_calls": True,
                     "provider_type": "openai",
-                    "reasoning": {
-                        "reasoning_effort": "none"
-                    },
-                    "response_format": {
-                        "type": "text"
-                    },
+                    "reasoning": {"reasoning_effort": "none"},
+                    "response_format": {"type": "text"},
                     "strict": True,
                     "temperature": 0,
                 },
@@ -507,32 +499,31 @@ class TestAsyncMessages:
                 "sliding_window_percentage": 0,
             },
         )
-        assert_matches_type(CompactionResponse, message, path=['response'])
+        assert_matches_type(CompactionResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_compact(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.conversations.messages.with_raw_response.compact(
             conversation_id="default",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         message = await response.parse()
-        assert_matches_type(CompactionResponse, message, path=['response'])
+        assert_matches_type(CompactionResponse, message, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_compact(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.messages.with_streaming_response.compact(
             conversation_id="default",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             message = await response.parse()
-            assert_matches_type(CompactionResponse, message, path=['response'])
+            assert_matches_type(CompactionResponse, message, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -540,9 +531,9 @@ class TestAsyncMessages:
     @parametrize
     async def test_path_params_compact(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
-          await async_client.conversations.messages.with_raw_response.compact(
-              conversation_id="",
-          )
+            await async_client.conversations.messages.with_raw_response.compact(
+                conversation_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -570,12 +561,11 @@ class TestAsyncMessages:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_stream(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.conversations.messages.with_raw_response.stream(
             conversation_id="default",
         )
 
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         stream = await response.parse()
         await stream.close()
 
@@ -584,9 +574,9 @@ class TestAsyncMessages:
     async def test_streaming_response_stream(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.messages.with_streaming_response.stream(
             conversation_id="default",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             stream = await response.parse()
             await stream.close()
@@ -597,6 +587,6 @@ class TestAsyncMessages:
     @parametrize
     async def test_path_params_stream(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
-          await async_client.conversations.messages.with_raw_response.stream(
-              conversation_id="",
-          )
+            await async_client.conversations.messages.with_raw_response.stream(
+                conversation_id="",
+            )

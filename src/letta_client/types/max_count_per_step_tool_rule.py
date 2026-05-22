@@ -1,17 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
 from typing import Optional
-
 from typing_extensions import Literal
 
+from .._models import BaseModel
+
 __all__ = ["MaxCountPerStepToolRule"]
+
 
 class MaxCountPerStepToolRule(BaseModel):
     """
     Represents a tool rule configuration which constrains the total number of times this tool can be invoked in a single step.
     """
+
     max_count_limit: int
     """
     The max limit for the total number of times this tool can be invoked in a single

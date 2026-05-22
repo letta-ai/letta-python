@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Annotated, Literal
-
-from typing import Optional, Union
-
+from typing import Union, Optional
 from datetime import datetime
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
 __all__ = ["PassageSearchParams"]
+
 
 class PassageSearchParams(TypedDict, total=False):
     agent_id: Optional[str]
@@ -21,7 +19,7 @@ class PassageSearchParams(TypedDict, total=False):
     archive_id: Optional[str]
     """Filter passages by archive ID"""
 
-    end_date: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    end_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter results to passages created before this datetime"""
 
     limit: int
@@ -30,7 +28,7 @@ class PassageSearchParams(TypedDict, total=False):
     query: Optional[str]
     """Text query for semantic search"""
 
-    start_date: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    start_date: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Filter results to passages created after this datetime"""
 
     tag_match_mode: Literal["any", "all"]

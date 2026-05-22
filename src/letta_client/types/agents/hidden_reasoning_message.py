@@ -1,14 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import Optional
 from datetime import datetime
-
 from typing_extensions import Literal
 
-from typing import Optional
+from ..._models import BaseModel
 
 __all__ = ["HiddenReasoningMessage"]
+
 
 class HiddenReasoningMessage(BaseModel):
     """
@@ -23,6 +22,7 @@ class HiddenReasoningMessage(BaseModel):
             content was redacted by the provider or simply omitted by the API
         hidden_reasoning (Optional[str]): The internal reasoning of the agent
     """
+
     id: str
 
     date: datetime

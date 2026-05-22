@@ -1,22 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional, List
-
-from .approval_return import ApprovalReturn
-
-from .tool_return import ToolReturn
+from typing import List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
-
-from typing_extensions import Annotated, TypeAliasType, TypeAlias, Literal
-
 from ..._models import BaseModel
-
-from datetime import datetime
+from .tool_return import ToolReturn
+from .approval_return import ApprovalReturn
 
 __all__ = ["ApprovalResponseMessage", "Approval"]
 
 Approval: TypeAlias = Annotated[Union[ApprovalReturn, ToolReturn], PropertyInfo(discriminator="type")]
+
 
 class ApprovalResponseMessage(BaseModel):
     """
@@ -30,6 +26,7 @@ class ApprovalResponseMessage(BaseModel):
         approval_request_id: The ID of the approval request
         reason: (Optional[str]) An optional explanation for the provided approval status
     """
+
     id: str
 
     date: datetime

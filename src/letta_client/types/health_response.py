@@ -4,8 +4,10 @@ from .._models import BaseModel
 
 __all__ = ["HealthResponse"]
 
+
 class HealthResponse(BaseModel):
     """Health check response body"""
+
     status: str
 
     version: str

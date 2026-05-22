@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, TypeAliasType, TypeAlias
-
-from typing import Dict, Optional, Union
+from typing import Dict, Union, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = ["TemplateCreateParams", "Variant0", "Variant1"]
+
 
 class Variant0(TypedDict, total=False):
     agent_id: Required[str]
@@ -19,6 +19,7 @@ class Variant0(TypedDict, total=False):
 
     If not provided, a random name will be generated.
     """
+
 
 class Variant1(TypedDict, total=False):
     agent_file: Required[Dict[str, Optional[object]]]
@@ -40,5 +41,6 @@ class Variant1(TypedDict, total=False):
     If true, update existing custom tools source_code and json_schema (source_type
     cannot be changed)
     """
+
 
 TemplateCreateParams: TypeAlias = Union[Variant0, Variant1]

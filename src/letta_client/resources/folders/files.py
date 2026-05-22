@@ -2,41 +2,31 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform, extract_files, async_maybe_transform
-
-from ...types.folders.file_retrieve_response import FileRetrieveResponse
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from ..._types import Omit, omit, NotGiven, FileTypes
-
-from ...types.folders.file_list_response import FileListResponse
-
-from ...pagination import SyncArrayPage, AsyncArrayPage
-
-from typing import Optional, cast, Mapping
-
+from typing import Mapping, Optional, cast
 from typing_extensions import Literal
 
-from ...types.folders.file_upload_response import FileUploadResponse
+import httpx
 
 from ..._files import deepcopy_with_paths
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types.folders import file_retrieve_params
-from ...types.folders import file_list_params
-from ...types.folders import file_upload_params
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
+from ..._utils import extract_files, path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncArrayPage, AsyncArrayPage
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.folders import file_list_params, file_upload_params, file_retrieve_params
+from ...types.folders.file_list_response import FileListResponse
+from ...types.folders.file_upload_response import FileUploadResponse
+from ...types.folders.file_retrieve_response import FileRetrieveResponse
 
 __all__ = ["FilesResource", "AsyncFilesResource"]
+
 
 class FilesResource(SyncAPIResource):
     @cached_property
@@ -58,17 +48,19 @@ class FilesResource(SyncAPIResource):
         """
         return FilesResourceWithStreamingResponse(self)
 
-    def retrieve(self,
-    file_id: str,
-    *,
-    folder_id: str,
-    include_content: bool | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> FileRetrieveResponse:
+    def retrieve(
+        self,
+        file_id: str,
+        *,
+        folder_id: str,
+        include_content: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileRetrieveResponse:
         """
         Retrieve a file from a folder by ID.
 
@@ -88,36 +80,38 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-          raise ValueError(
-            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         if not file_id:
-          raise ValueError(
-            f'Expected a non-empty value for `file_id` but received {file_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return self._get(
             path_template("/v1/folders/{folder_id}/files/{file_id}", folder_id=folder_id, file_id=file_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "include_content": include_content
-            }, file_retrieve_params.FileRetrieveParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"include_content": include_content}, file_retrieve_params.FileRetrieveParams),
+            ),
             cast_to=FileRetrieveResponse,
         )
 
-    def list(self,
-    folder_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    include_content: bool | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[FileListResponse]:
+    def list(
+        self,
+        folder_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        include_content: bool | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncArrayPage[FileListResponse]:
         """
         List paginated files associated with a data folder.
 
@@ -148,33 +142,42 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-          raise ValueError(
-            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         return self._get_api_list(
             path_template("/v1/folders/{folder_id}/files", folder_id=folder_id),
-            page = SyncArrayPage[FileListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "include_content": include_content,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, file_list_params.FileListParams)),
+            page=SyncArrayPage[FileListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "include_content": include_content,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    file_list_params.FileListParams,
+                ),
+            ),
             model=FileListResponse,
         )
 
-    def delete(self,
-    file_id: str,
-    *,
-    folder_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
+    def delete(
+        self,
+        file_id: str,
+        *,
+        folder_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
         """
         Delete a file from a folder.
 
@@ -192,32 +195,32 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-          raise ValueError(
-            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         if not file_id:
-          raise ValueError(
-            f'Expected a non-empty value for `file_id` but received {file_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/v1/folders/{folder_id}/{file_id}", folder_id=folder_id, file_id=file_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
 
-    def upload(self,
-    folder_id: str,
-    *,
-    file: FileTypes,
-    duplicate_handling: Literal["skip", "error", "suffix", "replace"] | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> FileUploadResponse:
+    def upload(
+        self,
+        folder_id: str,
+        *,
+        file: FileTypes,
+        duplicate_handling: Literal["skip", "error", "suffix", "replace"] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileUploadResponse:
         """
         Upload a file to a data folder.
 
@@ -237,16 +240,9 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-          raise ValueError(
-            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
-          )
-        body = deepcopy_with_paths({
-            "file": file
-        }, [["file"]])
-        files = extract_files(
-          cast(Mapping[str, object], body),
-          paths=[["file"]]
-        )
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        body = deepcopy_with_paths({"file": file}, [["file"]])
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -255,12 +251,22 @@ class FilesResource(SyncAPIResource):
             path_template("/v1/folders/{folder_id}/upload", folder_id=folder_id),
             body=maybe_transform(body, file_upload_params.FileUploadParams),
             files=files,
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "duplicate_handling": duplicate_handling,
-                "name": name,
-            }, file_upload_params.FileUploadParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "duplicate_handling": duplicate_handling,
+                        "name": name,
+                    },
+                    file_upload_params.FileUploadParams,
+                ),
+            ),
             cast_to=FileUploadResponse,
         )
+
 
 class AsyncFilesResource(AsyncAPIResource):
     @cached_property
@@ -282,17 +288,19 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         return AsyncFilesResourceWithStreamingResponse(self)
 
-    async def retrieve(self,
-    file_id: str,
-    *,
-    folder_id: str,
-    include_content: bool | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> FileRetrieveResponse:
+    async def retrieve(
+        self,
+        file_id: str,
+        *,
+        folder_id: str,
+        include_content: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileRetrieveResponse:
         """
         Retrieve a file from a folder by ID.
 
@@ -312,36 +320,40 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-          raise ValueError(
-            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         if not file_id:
-          raise ValueError(
-            f'Expected a non-empty value for `file_id` but received {file_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         return await self._get(
             path_template("/v1/folders/{folder_id}/files/{file_id}", folder_id=folder_id, file_id=file_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "include_content": include_content
-            }, file_retrieve_params.FileRetrieveParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"include_content": include_content}, file_retrieve_params.FileRetrieveParams
+                ),
+            ),
             cast_to=FileRetrieveResponse,
         )
 
-    def list(self,
-    folder_id: str,
-    *,
-    after: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    include_content: bool | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[FileListResponse, AsyncArrayPage[FileListResponse]]:
+    def list(
+        self,
+        folder_id: str,
+        *,
+        after: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        include_content: bool | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[FileListResponse, AsyncArrayPage[FileListResponse]]:
         """
         List paginated files associated with a data folder.
 
@@ -372,33 +384,42 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-          raise ValueError(
-            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         return self._get_api_list(
             path_template("/v1/folders/{folder_id}/files", folder_id=folder_id),
-            page = AsyncArrayPage[FileListResponse],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "before": before,
-                "include_content": include_content,
-                "limit": limit,
-                "order": order,
-                "order_by": order_by,
-            }, file_list_params.FileListParams)),
+            page=AsyncArrayPage[FileListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "before": before,
+                        "include_content": include_content,
+                        "limit": limit,
+                        "order": order,
+                        "order_by": order_by,
+                    },
+                    file_list_params.FileListParams,
+                ),
+            ),
             model=FileListResponse,
         )
 
-    async def delete(self,
-    file_id: str,
-    *,
-    folder_id: str,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
+    async def delete(
+        self,
+        file_id: str,
+        *,
+        folder_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
         """
         Delete a file from a folder.
 
@@ -416,32 +437,32 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-          raise ValueError(
-            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
         if not file_id:
-          raise ValueError(
-            f'Expected a non-empty value for `file_id` but received {file_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/v1/folders/{folder_id}/{file_id}", folder_id=folder_id, file_id=file_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=NoneType,
         )
 
-    async def upload(self,
-    folder_id: str,
-    *,
-    file: FileTypes,
-    duplicate_handling: Literal["skip", "error", "suffix", "replace"] | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> FileUploadResponse:
+    async def upload(
+        self,
+        folder_id: str,
+        *,
+        file: FileTypes,
+        duplicate_handling: Literal["skip", "error", "suffix", "replace"] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> FileUploadResponse:
         """
         Upload a file to a data folder.
 
@@ -461,16 +482,9 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-          raise ValueError(
-            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
-          )
-        body = deepcopy_with_paths({
-            "file": file
-        }, [["file"]])
-        files = extract_files(
-          cast(Mapping[str, object], body),
-          paths=[["file"]]
-        )
+            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+        body = deepcopy_with_paths({"file": file}, [["file"]])
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -479,12 +493,22 @@ class AsyncFilesResource(AsyncAPIResource):
             path_template("/v1/folders/{folder_id}/upload", folder_id=folder_id),
             body=await async_maybe_transform(body, file_upload_params.FileUploadParams),
             files=files,
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "duplicate_handling": duplicate_handling,
-                "name": name,
-            }, file_upload_params.FileUploadParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "duplicate_handling": duplicate_handling,
+                        "name": name,
+                    },
+                    file_upload_params.FileUploadParams,
+                ),
+            ),
             cast_to=FileUploadResponse,
         )
+
 
 class FilesResourceWithRawResponse:
     def __init__(self, files: FilesResource) -> None:
@@ -503,6 +527,7 @@ class FilesResourceWithRawResponse:
             files.upload,
         )
 
+
 class AsyncFilesResourceWithRawResponse:
     def __init__(self, files: AsyncFilesResource) -> None:
         self._files = files
@@ -520,6 +545,7 @@ class AsyncFilesResourceWithRawResponse:
             files.upload,
         )
 
+
 class FilesResourceWithStreamingResponse:
     def __init__(self, files: FilesResource) -> None:
         self._files = files
@@ -536,6 +562,7 @@ class FilesResourceWithStreamingResponse:
         self.upload = to_streamed_response_wrapper(
             files.upload,
         )
+
 
 class AsyncFilesResourceWithStreamingResponse:
     def __init__(self, files: AsyncFilesResource) -> None:

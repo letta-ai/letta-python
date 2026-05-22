@@ -2,27 +2,27 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypeAliasType, TypeAlias, TypedDict
-
-from typing import Optional, Union
+from typing import Union, Optional
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .text_response_format_param import TextResponseFormatParam
-
-from .json_schema_response_format_param import JsonSchemaResponseFormatParam
-
 from .json_object_response_format_param import JsonObjectResponseFormatParam
+from .json_schema_response_format_param import JsonSchemaResponseFormatParam
 
 __all__ = ["GoogleVertexModelSettingsParam", "ResponseSchema", "ThinkingConfig"]
 
 ResponseSchema: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
+
 class ThinkingConfig(TypedDict, total=False):
     """The thinking configuration for the model."""
+
     include_thoughts: bool
     """Whether to include thoughts in the model's response."""
 
     thinking_budget: int
     """The thinking budget for the model."""
+
 
 class GoogleVertexModelSettingsParam(TypedDict, total=False):
     max_output_tokens: int

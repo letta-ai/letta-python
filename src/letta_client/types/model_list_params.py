@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List, Optional
 from typing_extensions import TypedDict
 
-from typing import Optional, List
-
+from .provider_type import ProviderType
 from .provider_category import ProviderCategory
 
-from .provider_type import ProviderType
-
 __all__ = ["ModelListParams"]
+
 
 class ModelListParams(TypedDict, total=False):
     provider_category: Optional[List[ProviderCategory]]

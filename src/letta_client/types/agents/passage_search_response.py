@@ -1,10 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import List, Optional
+
 from ..._models import BaseModel
 
-from typing import Optional, List
-
 __all__ = ["PassageSearchResponse", "Result"]
+
 
 class Result(BaseModel):
     id: str
@@ -18,6 +19,7 @@ class Result(BaseModel):
 
     tags: Optional[List[str]] = None
     """List of tags associated with this memory"""
+
 
 class PassageSearchResponse(BaseModel):
     count: int

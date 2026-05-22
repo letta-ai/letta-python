@@ -1,19 +1,215 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .agents import AgentsResource, AsyncAgentsResource, AgentsResourceWithRawResponse, AsyncAgentsResourceWithRawResponse, AgentsResourceWithStreamingResponse, AsyncAgentsResourceWithStreamingResponse
-from .tools import ToolsResource, AsyncToolsResource, ToolsResourceWithRawResponse, AsyncToolsResourceWithRawResponse, ToolsResourceWithStreamingResponse, AsyncToolsResourceWithStreamingResponse
-from .blocks import BlocksResource, AsyncBlocksResource, BlocksResourceWithRawResponse, AsyncBlocksResourceWithRawResponse, BlocksResourceWithStreamingResponse, AsyncBlocksResourceWithStreamingResponse
-from .archives import ArchivesResource, AsyncArchivesResource, ArchivesResourceWithRawResponse, AsyncArchivesResourceWithRawResponse, ArchivesResourceWithStreamingResponse, AsyncArchivesResourceWithStreamingResponse
-from .folders import FoldersResource, AsyncFoldersResource, FoldersResourceWithRawResponse, AsyncFoldersResourceWithRawResponse, FoldersResourceWithStreamingResponse, AsyncFoldersResourceWithStreamingResponse
-from .models import ModelsResource, AsyncModelsResource, ModelsResourceWithRawResponse, AsyncModelsResourceWithRawResponse, ModelsResourceWithStreamingResponse, AsyncModelsResourceWithStreamingResponse
-from .mcp_servers import McpServersResource, AsyncMcpServersResource, McpServersResourceWithRawResponse, AsyncMcpServersResourceWithRawResponse, McpServersResourceWithStreamingResponse, AsyncMcpServersResourceWithStreamingResponse
-from .runs import RunsResource, AsyncRunsResource, RunsResourceWithRawResponse, AsyncRunsResourceWithRawResponse, RunsResourceWithStreamingResponse, AsyncRunsResourceWithStreamingResponse
-from .steps import StepsResource, AsyncStepsResource, StepsResourceWithRawResponse, AsyncStepsResourceWithRawResponse, StepsResourceWithStreamingResponse, AsyncStepsResourceWithStreamingResponse
-from .templates import TemplatesResource, AsyncTemplatesResource, TemplatesResourceWithRawResponse, AsyncTemplatesResourceWithRawResponse, TemplatesResourceWithStreamingResponse, AsyncTemplatesResourceWithStreamingResponse
-from .tags import TagsResource, AsyncTagsResource, TagsResourceWithRawResponse, AsyncTagsResourceWithRawResponse, TagsResourceWithStreamingResponse, AsyncTagsResourceWithStreamingResponse
-from .messages import MessagesResource, AsyncMessagesResource, MessagesResourceWithRawResponse, AsyncMessagesResourceWithRawResponse, MessagesResourceWithStreamingResponse, AsyncMessagesResourceWithStreamingResponse
-from .passages import PassagesResource, AsyncPassagesResource, PassagesResourceWithRawResponse, AsyncPassagesResourceWithRawResponse, PassagesResourceWithStreamingResponse, AsyncPassagesResourceWithStreamingResponse
-from .conversations import ConversationsResource, AsyncConversationsResource, ConversationsResourceWithRawResponse, AsyncConversationsResourceWithRawResponse, ConversationsResourceWithStreamingResponse, AsyncConversationsResourceWithStreamingResponse
-from .access_tokens import AccessTokensResource, AsyncAccessTokensResource, AccessTokensResourceWithRawResponse, AsyncAccessTokensResourceWithRawResponse, AccessTokensResourceWithStreamingResponse, AsyncAccessTokensResourceWithStreamingResponse
+from .runs import (
+    RunsResource,
+    AsyncRunsResource,
+    RunsResourceWithRawResponse,
+    AsyncRunsResourceWithRawResponse,
+    RunsResourceWithStreamingResponse,
+    AsyncRunsResourceWithStreamingResponse,
+)
+from .tags import (
+    TagsResource,
+    AsyncTagsResource,
+    TagsResourceWithRawResponse,
+    AsyncTagsResourceWithRawResponse,
+    TagsResourceWithStreamingResponse,
+    AsyncTagsResourceWithStreamingResponse,
+)
+from .steps import (
+    StepsResource,
+    AsyncStepsResource,
+    StepsResourceWithRawResponse,
+    AsyncStepsResourceWithRawResponse,
+    StepsResourceWithStreamingResponse,
+    AsyncStepsResourceWithStreamingResponse,
+)
+from .tools import (
+    ToolsResource,
+    AsyncToolsResource,
+    ToolsResourceWithRawResponse,
+    AsyncToolsResourceWithRawResponse,
+    ToolsResourceWithStreamingResponse,
+    AsyncToolsResourceWithStreamingResponse,
+)
+from .agents import (
+    AgentsResource,
+    AsyncAgentsResource,
+    AgentsResourceWithRawResponse,
+    AsyncAgentsResourceWithRawResponse,
+    AgentsResourceWithStreamingResponse,
+    AsyncAgentsResourceWithStreamingResponse,
+)
+from .blocks import (
+    BlocksResource,
+    AsyncBlocksResource,
+    BlocksResourceWithRawResponse,
+    AsyncBlocksResourceWithRawResponse,
+    BlocksResourceWithStreamingResponse,
+    AsyncBlocksResourceWithStreamingResponse,
+)
+from .models import (
+    ModelsResource,
+    AsyncModelsResource,
+    ModelsResourceWithRawResponse,
+    AsyncModelsResourceWithRawResponse,
+    ModelsResourceWithStreamingResponse,
+    AsyncModelsResourceWithStreamingResponse,
+)
+from .folders import (
+    FoldersResource,
+    AsyncFoldersResource,
+    FoldersResourceWithRawResponse,
+    AsyncFoldersResourceWithRawResponse,
+    FoldersResourceWithStreamingResponse,
+    AsyncFoldersResourceWithStreamingResponse,
+)
+from .archives import (
+    ArchivesResource,
+    AsyncArchivesResource,
+    ArchivesResourceWithRawResponse,
+    AsyncArchivesResourceWithRawResponse,
+    ArchivesResourceWithStreamingResponse,
+    AsyncArchivesResourceWithStreamingResponse,
+)
+from .messages import (
+    MessagesResource,
+    AsyncMessagesResource,
+    MessagesResourceWithRawResponse,
+    AsyncMessagesResourceWithRawResponse,
+    MessagesResourceWithStreamingResponse,
+    AsyncMessagesResourceWithStreamingResponse,
+)
+from .passages import (
+    PassagesResource,
+    AsyncPassagesResource,
+    PassagesResourceWithRawResponse,
+    AsyncPassagesResourceWithRawResponse,
+    PassagesResourceWithStreamingResponse,
+    AsyncPassagesResourceWithStreamingResponse,
+)
+from .templates import (
+    TemplatesResource,
+    AsyncTemplatesResource,
+    TemplatesResourceWithRawResponse,
+    AsyncTemplatesResourceWithRawResponse,
+    TemplatesResourceWithStreamingResponse,
+    AsyncTemplatesResourceWithStreamingResponse,
+)
+from .mcp_servers import (
+    McpServersResource,
+    AsyncMcpServersResource,
+    McpServersResourceWithRawResponse,
+    AsyncMcpServersResourceWithRawResponse,
+    McpServersResourceWithStreamingResponse,
+    AsyncMcpServersResourceWithStreamingResponse,
+)
+from .access_tokens import (
+    AccessTokensResource,
+    AsyncAccessTokensResource,
+    AccessTokensResourceWithRawResponse,
+    AsyncAccessTokensResourceWithRawResponse,
+    AccessTokensResourceWithStreamingResponse,
+    AsyncAccessTokensResourceWithStreamingResponse,
+)
+from .conversations import (
+    ConversationsResource,
+    AsyncConversationsResource,
+    ConversationsResourceWithRawResponse,
+    AsyncConversationsResourceWithRawResponse,
+    ConversationsResourceWithStreamingResponse,
+    AsyncConversationsResourceWithStreamingResponse,
+)
 
-__all__ = ["AgentsResource", "AsyncAgentsResource", "AgentsResourceWithRawResponse", "AsyncAgentsResourceWithRawResponse", "AgentsResourceWithStreamingResponse", "AsyncAgentsResourceWithStreamingResponse", "ToolsResource", "AsyncToolsResource", "ToolsResourceWithRawResponse", "AsyncToolsResourceWithRawResponse", "ToolsResourceWithStreamingResponse", "AsyncToolsResourceWithStreamingResponse", "BlocksResource", "AsyncBlocksResource", "BlocksResourceWithRawResponse", "AsyncBlocksResourceWithRawResponse", "BlocksResourceWithStreamingResponse", "AsyncBlocksResourceWithStreamingResponse", "ArchivesResource", "AsyncArchivesResource", "ArchivesResourceWithRawResponse", "AsyncArchivesResourceWithRawResponse", "ArchivesResourceWithStreamingResponse", "AsyncArchivesResourceWithStreamingResponse", "FoldersResource", "AsyncFoldersResource", "FoldersResourceWithRawResponse", "AsyncFoldersResourceWithRawResponse", "FoldersResourceWithStreamingResponse", "AsyncFoldersResourceWithStreamingResponse", "ModelsResource", "AsyncModelsResource", "ModelsResourceWithRawResponse", "AsyncModelsResourceWithRawResponse", "ModelsResourceWithStreamingResponse", "AsyncModelsResourceWithStreamingResponse", "McpServersResource", "AsyncMcpServersResource", "McpServersResourceWithRawResponse", "AsyncMcpServersResourceWithRawResponse", "McpServersResourceWithStreamingResponse", "AsyncMcpServersResourceWithStreamingResponse", "RunsResource", "AsyncRunsResource", "RunsResourceWithRawResponse", "AsyncRunsResourceWithRawResponse", "RunsResourceWithStreamingResponse", "AsyncRunsResourceWithStreamingResponse", "StepsResource", "AsyncStepsResource", "StepsResourceWithRawResponse", "AsyncStepsResourceWithRawResponse", "StepsResourceWithStreamingResponse", "AsyncStepsResourceWithStreamingResponse", "TemplatesResource", "AsyncTemplatesResource", "TemplatesResourceWithRawResponse", "AsyncTemplatesResourceWithRawResponse", "TemplatesResourceWithStreamingResponse", "AsyncTemplatesResourceWithStreamingResponse", "TagsResource", "AsyncTagsResource", "TagsResourceWithRawResponse", "AsyncTagsResourceWithRawResponse", "TagsResourceWithStreamingResponse", "AsyncTagsResourceWithStreamingResponse", "MessagesResource", "AsyncMessagesResource", "MessagesResourceWithRawResponse", "AsyncMessagesResourceWithRawResponse", "MessagesResourceWithStreamingResponse", "AsyncMessagesResourceWithStreamingResponse", "PassagesResource", "AsyncPassagesResource", "PassagesResourceWithRawResponse", "AsyncPassagesResourceWithRawResponse", "PassagesResourceWithStreamingResponse", "AsyncPassagesResourceWithStreamingResponse", "ConversationsResource", "AsyncConversationsResource", "ConversationsResourceWithRawResponse", "AsyncConversationsResourceWithRawResponse", "ConversationsResourceWithStreamingResponse", "AsyncConversationsResourceWithStreamingResponse", "AccessTokensResource", "AsyncAccessTokensResource", "AccessTokensResourceWithRawResponse", "AsyncAccessTokensResourceWithRawResponse", "AccessTokensResourceWithStreamingResponse", "AsyncAccessTokensResourceWithStreamingResponse"]
+__all__ = [
+    "AgentsResource",
+    "AsyncAgentsResource",
+    "AgentsResourceWithRawResponse",
+    "AsyncAgentsResourceWithRawResponse",
+    "AgentsResourceWithStreamingResponse",
+    "AsyncAgentsResourceWithStreamingResponse",
+    "ToolsResource",
+    "AsyncToolsResource",
+    "ToolsResourceWithRawResponse",
+    "AsyncToolsResourceWithRawResponse",
+    "ToolsResourceWithStreamingResponse",
+    "AsyncToolsResourceWithStreamingResponse",
+    "BlocksResource",
+    "AsyncBlocksResource",
+    "BlocksResourceWithRawResponse",
+    "AsyncBlocksResourceWithRawResponse",
+    "BlocksResourceWithStreamingResponse",
+    "AsyncBlocksResourceWithStreamingResponse",
+    "ArchivesResource",
+    "AsyncArchivesResource",
+    "ArchivesResourceWithRawResponse",
+    "AsyncArchivesResourceWithRawResponse",
+    "ArchivesResourceWithStreamingResponse",
+    "AsyncArchivesResourceWithStreamingResponse",
+    "FoldersResource",
+    "AsyncFoldersResource",
+    "FoldersResourceWithRawResponse",
+    "AsyncFoldersResourceWithRawResponse",
+    "FoldersResourceWithStreamingResponse",
+    "AsyncFoldersResourceWithStreamingResponse",
+    "ModelsResource",
+    "AsyncModelsResource",
+    "ModelsResourceWithRawResponse",
+    "AsyncModelsResourceWithRawResponse",
+    "ModelsResourceWithStreamingResponse",
+    "AsyncModelsResourceWithStreamingResponse",
+    "McpServersResource",
+    "AsyncMcpServersResource",
+    "McpServersResourceWithRawResponse",
+    "AsyncMcpServersResourceWithRawResponse",
+    "McpServersResourceWithStreamingResponse",
+    "AsyncMcpServersResourceWithStreamingResponse",
+    "RunsResource",
+    "AsyncRunsResource",
+    "RunsResourceWithRawResponse",
+    "AsyncRunsResourceWithRawResponse",
+    "RunsResourceWithStreamingResponse",
+    "AsyncRunsResourceWithStreamingResponse",
+    "StepsResource",
+    "AsyncStepsResource",
+    "StepsResourceWithRawResponse",
+    "AsyncStepsResourceWithRawResponse",
+    "StepsResourceWithStreamingResponse",
+    "AsyncStepsResourceWithStreamingResponse",
+    "TemplatesResource",
+    "AsyncTemplatesResource",
+    "TemplatesResourceWithRawResponse",
+    "AsyncTemplatesResourceWithRawResponse",
+    "TemplatesResourceWithStreamingResponse",
+    "AsyncTemplatesResourceWithStreamingResponse",
+    "TagsResource",
+    "AsyncTagsResource",
+    "TagsResourceWithRawResponse",
+    "AsyncTagsResourceWithRawResponse",
+    "TagsResourceWithStreamingResponse",
+    "AsyncTagsResourceWithStreamingResponse",
+    "MessagesResource",
+    "AsyncMessagesResource",
+    "MessagesResourceWithRawResponse",
+    "AsyncMessagesResourceWithRawResponse",
+    "MessagesResourceWithStreamingResponse",
+    "AsyncMessagesResourceWithStreamingResponse",
+    "PassagesResource",
+    "AsyncPassagesResource",
+    "PassagesResourceWithRawResponse",
+    "AsyncPassagesResourceWithRawResponse",
+    "PassagesResourceWithStreamingResponse",
+    "AsyncPassagesResourceWithStreamingResponse",
+    "ConversationsResource",
+    "AsyncConversationsResource",
+    "ConversationsResourceWithRawResponse",
+    "AsyncConversationsResourceWithRawResponse",
+    "ConversationsResourceWithStreamingResponse",
+    "AsyncConversationsResourceWithStreamingResponse",
+    "AccessTokensResource",
+    "AsyncAccessTokensResource",
+    "AccessTokensResourceWithRawResponse",
+    "AsyncAccessTokensResourceWithRawResponse",
+    "AccessTokensResourceWithStreamingResponse",
+    "AsyncAccessTokensResourceWithStreamingResponse",
+]

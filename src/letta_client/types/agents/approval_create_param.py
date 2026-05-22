@@ -2,20 +2,20 @@
 
 from __future__ import annotations
 
-from typing import Optional, Iterable, Union
-
-from typing_extensions import Literal, TypeAliasType, TypeAlias, TypedDict
-
-from .approval_return_param import ApprovalReturnParam
+from typing import Union, Iterable, Optional
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .tool_return_param import ToolReturnParam
+from .approval_return_param import ApprovalReturnParam
 
 __all__ = ["ApprovalCreateParam", "Approval"]
 
 Approval: TypeAlias = Union[ApprovalReturnParam, ToolReturnParam]
 
+
 class ApprovalCreateParam(TypedDict, total=False):
     """Input to approve or deny a tool call request"""
+
     approval_request_id: Optional[str]
     """The message ID of the approval request"""
 

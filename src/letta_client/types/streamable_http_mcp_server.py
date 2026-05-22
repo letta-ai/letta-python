@@ -1,15 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
-from typing import Optional, Dict
-
+from typing import Dict, Optional
 from typing_extensions import Literal
+
+from .._models import BaseModel
 
 __all__ = ["StreamableHTTPMcpServer"]
 
+
 class StreamableHTTPMcpServer(BaseModel):
     """A Streamable HTTP MCP server"""
+
     server_name: str
     """The name of the MCP server"""
 

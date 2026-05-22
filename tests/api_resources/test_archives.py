@@ -2,31 +2,23 @@
 
 from __future__ import annotations
 
-from letta_client import Letta, AsyncLetta
-
-from letta_client.types import Archive
-
-from typing import cast, Any
-
-from letta_client.pagination import SyncArrayPage, AsyncArrayPage
-
 import os
+from typing import Any, cast
+
 import pytest
-import httpx
-from typing_extensions import get_args
-from respx import MockRouter
-from letta_client import Letta, AsyncLetta
+
 from tests.utils import assert_matches_type
-from letta_client.types import archive_create_params
-from letta_client.types import archive_update_params
-from letta_client.types import archive_list_params
-from letta_client.types import EmbeddingConfig
+from letta_client import Letta, AsyncLetta
+from letta_client.types import (
+    Archive,
+)
+from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-class TestArchives:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
 
+class TestArchives:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -34,7 +26,7 @@ class TestArchives:
         archive = client.archives.create(
             name="name",
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -56,32 +48,31 @@ class TestArchives:
                 "handle": "handle",
             },
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
-
         response = client.archives.with_raw_response.create(
             name="name",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = response.parse()
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.archives.with_streaming_response.create(
             name="name",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = response.parse()
-            assert_matches_type(Archive, archive, path=['response'])
+            assert_matches_type(Archive, archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -91,32 +82,31 @@ class TestArchives:
         archive = client.archives.retrieve(
             "archive-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
-
         response = client.archives.with_raw_response.retrieve(
             "archive-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = response.parse()
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.archives.with_streaming_response.retrieve(
             "archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = response.parse()
-            assert_matches_type(Archive, archive, path=['response'])
+            assert_matches_type(Archive, archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -124,9 +114,9 @@ class TestArchives:
     @parametrize
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          client.archives.with_raw_response.retrieve(
-              "",
-          )
+            client.archives.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -134,7 +124,7 @@ class TestArchives:
         archive = client.archives.update(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -144,32 +134,31 @@ class TestArchives:
             description="description",
             name="name",
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
-
         response = client.archives.with_raw_response.update(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = response.parse()
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Letta) -> None:
         with client.archives.with_streaming_response.update(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = response.parse()
-            assert_matches_type(Archive, archive, path=['response'])
+            assert_matches_type(Archive, archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -177,15 +166,15 @@ class TestArchives:
     @parametrize
     def test_path_params_update(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          client.archives.with_raw_response.update(
-              archive_id="",
-          )
+            client.archives.with_raw_response.update(
+                archive_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         archive = client.archives.list()
-        assert_matches_type(SyncArrayPage[Archive], archive, path=['response'])
+        assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -199,28 +188,27 @@ class TestArchives:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(SyncArrayPage[Archive], archive, path=['response'])
+        assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
-
         response = client.archives.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = response.parse()
-        assert_matches_type(SyncArrayPage[Archive], archive, path=['response'])
+        assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
-        with client.archives.with_streaming_response.list() as response :
+        with client.archives.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = response.parse()
-            assert_matches_type(SyncArrayPage[Archive], archive, path=['response'])
+            assert_matches_type(SyncArrayPage[Archive], archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -235,13 +223,12 @@ class TestArchives:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
-
         response = client.archives.with_raw_response.delete(
             "archive-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = response.parse()
         assert archive is None
 
@@ -250,9 +237,9 @@ class TestArchives:
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.archives.with_streaming_response.delete(
             "archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = response.parse()
             assert archive is None
@@ -263,12 +250,15 @@ class TestArchives:
     @parametrize
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          client.archives.with_raw_response.delete(
-              "",
-          )
-class TestAsyncArchives:
-    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+            client.archives.with_raw_response.delete(
+                "",
+            )
 
+
+class TestAsyncArchives:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -276,7 +266,7 @@ class TestAsyncArchives:
         archive = await async_client.archives.create(
             name="name",
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -298,32 +288,31 @@ class TestAsyncArchives:
                 "handle": "handle",
             },
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.archives.with_raw_response.create(
             name="name",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = await response.parse()
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.create(
             name="name",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = await response.parse()
-            assert_matches_type(Archive, archive, path=['response'])
+            assert_matches_type(Archive, archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -333,32 +322,31 @@ class TestAsyncArchives:
         archive = await async_client.archives.retrieve(
             "archive-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.archives.with_raw_response.retrieve(
             "archive-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = await response.parse()
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.retrieve(
             "archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = await response.parse()
-            assert_matches_type(Archive, archive, path=['response'])
+            assert_matches_type(Archive, archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -366,9 +354,9 @@ class TestAsyncArchives:
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          await async_client.archives.with_raw_response.retrieve(
-              "",
-          )
+            await async_client.archives.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -376,7 +364,7 @@ class TestAsyncArchives:
         archive = await async_client.archives.update(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -386,32 +374,31 @@ class TestAsyncArchives:
             description="description",
             name="name",
         )
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.archives.with_raw_response.update(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = await response.parse()
-        assert_matches_type(Archive, archive, path=['response'])
+        assert_matches_type(Archive, archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.update(
             archive_id="archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = await response.parse()
-            assert_matches_type(Archive, archive, path=['response'])
+            assert_matches_type(Archive, archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -419,15 +406,15 @@ class TestAsyncArchives:
     @parametrize
     async def test_path_params_update(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          await async_client.archives.with_raw_response.update(
-              archive_id="",
-          )
+            await async_client.archives.with_raw_response.update(
+                archive_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         archive = await async_client.archives.list()
-        assert_matches_type(AsyncArrayPage[Archive], archive, path=['response'])
+        assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -441,28 +428,27 @@ class TestAsyncArchives:
             order="asc",
             order_by="created_at",
         )
-        assert_matches_type(AsyncArrayPage[Archive], archive, path=['response'])
+        assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.archives.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = await response.parse()
-        assert_matches_type(AsyncArrayPage[Archive], archive, path=['response'])
+        assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
-        async with async_client.archives.with_streaming_response.list() as response :
+        async with async_client.archives.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = await response.parse()
-            assert_matches_type(AsyncArrayPage[Archive], archive, path=['response'])
+            assert_matches_type(AsyncArrayPage[Archive], archive, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -477,13 +463,12 @@ class TestAsyncArchives:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.archives.with_raw_response.delete(
             "archive-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         archive = await response.parse()
         assert archive is None
 
@@ -492,9 +477,9 @@ class TestAsyncArchives:
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.archives.with_streaming_response.delete(
             "archive-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             archive = await response.parse()
             assert archive is None
@@ -505,6 +490,6 @@ class TestAsyncArchives:
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `archive_id` but received ''"):
-          await async_client.archives.with_raw_response.delete(
-              "",
-          )
+            await async_client.archives.with_raw_response.delete(
+                "",
+            )

@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 __all__ = ["AgentRecompileParams"]
 
+
 class AgentRecompileParams(TypedDict, total=False):
     dry_run: bool
     """If True, do not persist changes; still returns the compiled system prompt."""

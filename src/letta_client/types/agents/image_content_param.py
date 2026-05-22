@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict, Required, TypeAliasType, TypeAlias
-
-from typing import Optional, Union
+from typing import Union, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = ["ImageContentParam", "Source", "SourceURLImage", "SourceBase64Image", "SourceLettaImage"]
+
 
 class SourceURLImage(TypedDict, total=False):
     url: Required[str]
@@ -14,6 +14,7 @@ class SourceURLImage(TypedDict, total=False):
 
     type: Literal["url"]
     """The source type for the image."""
+
 
 class SourceBase64Image(TypedDict, total=False):
     data: Required[str]
@@ -30,6 +31,7 @@ class SourceBase64Image(TypedDict, total=False):
 
     type: Literal["base64"]
     """The source type for the image."""
+
 
 class SourceLettaImage(TypedDict, total=False):
     file_id: Required[str]
@@ -50,7 +52,9 @@ class SourceLettaImage(TypedDict, total=False):
     type: Literal["letta"]
     """The source type for the image."""
 
+
 Source: TypeAlias = Union[SourceURLImage, SourceBase64Image, SourceLettaImage]
+
 
 class ImageContentParam(TypedDict, total=False):
     source: Required[Source]

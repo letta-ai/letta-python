@@ -2,88 +2,129 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from .messages import MessagesResource, AsyncMessagesResource, MessagesResourceWithRawResponse, AsyncMessagesResourceWithRawResponse, MessagesResourceWithStreamingResponse, AsyncMessagesResourceWithStreamingResponse
-
-from ..._compat import cached_property
-
-from .schedule import ScheduleResource, AsyncScheduleResource, ScheduleResourceWithRawResponse, AsyncScheduleResourceWithRawResponse, ScheduleResourceWithStreamingResponse, AsyncScheduleResourceWithStreamingResponse
-
-from .blocks import BlocksResource, AsyncBlocksResource, BlocksResourceWithRawResponse, AsyncBlocksResourceWithRawResponse, BlocksResourceWithStreamingResponse, AsyncBlocksResourceWithStreamingResponse
-
-from .tools import ToolsResource, AsyncToolsResource, ToolsResourceWithRawResponse, AsyncToolsResourceWithRawResponse, ToolsResourceWithStreamingResponse, AsyncToolsResourceWithStreamingResponse
-
-from .folders import FoldersResource, AsyncFoldersResource, FoldersResourceWithRawResponse, AsyncFoldersResourceWithRawResponse, FoldersResourceWithStreamingResponse, AsyncFoldersResourceWithStreamingResponse
-
-from .files import FilesResource, AsyncFilesResource, FilesResourceWithRawResponse, AsyncFilesResourceWithRawResponse, FilesResourceWithStreamingResponse, AsyncFilesResourceWithStreamingResponse
-
-from .archives import ArchivesResource, AsyncArchivesResource, ArchivesResourceWithRawResponse, AsyncArchivesResourceWithRawResponse, ArchivesResourceWithStreamingResponse, AsyncArchivesResourceWithStreamingResponse
-
-from .passages import PassagesResource, AsyncPassagesResource, PassagesResourceWithRawResponse, AsyncPassagesResourceWithRawResponse, PassagesResourceWithStreamingResponse, AsyncPassagesResourceWithStreamingResponse
-
-from .identities import IdentitiesResource, AsyncIdentitiesResource, IdentitiesResourceWithRawResponse, AsyncIdentitiesResourceWithRawResponse, IdentitiesResourceWithStreamingResponse, AsyncIdentitiesResourceWithStreamingResponse
-
-from ...types.agent_state import AgentState
-
-from ..._utils import maybe_transform, path_template, strip_not_given, is_given, extract_files, async_maybe_transform
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from ...types.agent_type import AgentType
-
-from ..._types import Omit, omit, SequenceNotStr, NotGiven, FileTypes
-
-from typing import Optional, Iterable, Dict, List, Union, cast, Mapping
-
-from ...types.embedding_config_param import EmbeddingConfigParam
-
-from ...types.message_create_param import MessageCreateParam
-
-from ...types.llm_config_param import LlmConfigParam
-
-from ...types.create_block_param import CreateBlockParam
-
+from typing import Dict, List, Union, Mapping, Iterable, Optional, cast
+from datetime import datetime
 from typing_extensions import Literal
 
-from datetime import datetime
+import httpx
 
-from ...types.stop_reason_type import StopReasonType
-
+from .files import (
+    FilesResource,
+    AsyncFilesResource,
+    FilesResourceWithRawResponse,
+    AsyncFilesResourceWithRawResponse,
+    FilesResourceWithStreamingResponse,
+    AsyncFilesResourceWithStreamingResponse,
+)
+from .tools import (
+    ToolsResource,
+    AsyncToolsResource,
+    ToolsResourceWithRawResponse,
+    AsyncToolsResourceWithRawResponse,
+    ToolsResourceWithStreamingResponse,
+    AsyncToolsResourceWithStreamingResponse,
+)
+from .blocks import (
+    BlocksResource,
+    AsyncBlocksResource,
+    BlocksResourceWithRawResponse,
+    AsyncBlocksResourceWithRawResponse,
+    BlocksResourceWithStreamingResponse,
+    AsyncBlocksResourceWithStreamingResponse,
+)
+from ...types import (
+    AgentType,
+    StopReasonType,
+    agent_list_params,
+    agent_create_params,
+    agent_update_params,
+    agent_retrieve_params,
+    agent_recompile_params,
+    agent_export_file_params,
+    agent_import_file_params,
+)
+from .folders import (
+    FoldersResource,
+    AsyncFoldersResource,
+    FoldersResourceWithRawResponse,
+    AsyncFoldersResourceWithRawResponse,
+    FoldersResourceWithStreamingResponse,
+    AsyncFoldersResourceWithStreamingResponse,
+)
+from ..._files import deepcopy_with_paths
+from ..._types import (
+    Body,
+    Omit,
+    Query,
+    Headers,
+    NotGiven,
+    FileTypes,
+    SequenceNotStr,
+    omit,
+    not_given,
+)
+from ..._utils import extract_files, path_template, maybe_transform, strip_not_given, async_maybe_transform
+from .archives import (
+    ArchivesResource,
+    AsyncArchivesResource,
+    ArchivesResourceWithRawResponse,
+    AsyncArchivesResourceWithRawResponse,
+    ArchivesResourceWithStreamingResponse,
+    AsyncArchivesResourceWithStreamingResponse,
+)
+from .messages import (
+    MessagesResource,
+    AsyncMessagesResource,
+    MessagesResourceWithRawResponse,
+    AsyncMessagesResourceWithRawResponse,
+    MessagesResourceWithStreamingResponse,
+    AsyncMessagesResourceWithStreamingResponse,
+)
+from .passages import (
+    PassagesResource,
+    AsyncPassagesResource,
+    PassagesResourceWithRawResponse,
+    AsyncPassagesResourceWithRawResponse,
+    PassagesResourceWithStreamingResponse,
+    AsyncPassagesResourceWithStreamingResponse,
+)
+from .schedule import (
+    ScheduleResource,
+    AsyncScheduleResource,
+    ScheduleResourceWithRawResponse,
+    AsyncScheduleResourceWithRawResponse,
+    ScheduleResourceWithStreamingResponse,
+    AsyncScheduleResourceWithStreamingResponse,
+)
+from ..._compat import cached_property
+from .identities import (
+    IdentitiesResource,
+    AsyncIdentitiesResource,
+    IdentitiesResourceWithRawResponse,
+    AsyncIdentitiesResourceWithRawResponse,
+    IdentitiesResourceWithStreamingResponse,
+    AsyncIdentitiesResourceWithStreamingResponse,
+)
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from ...pagination import SyncArrayPage, AsyncArrayPage
-
-from ...types.agent_export_file_response import AgentExportFileResponse
-
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.agent_type import AgentType
+from ...types.agent_state import AgentState
+from ...types.llm_config_param import LlmConfigParam
+from ...types.stop_reason_type import StopReasonType
+from ...types.create_block_param import CreateBlockParam
+from ...types.message_create_param import MessageCreateParam
+from ...types.embedding_config_param import EmbeddingConfigParam
 from ...types.agent_import_file_response import AgentImportFileResponse
 
-from ..._files import deepcopy_with_paths
-
-from ...types.agent_recompile_response import AgentRecompileResponse
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types import agent_create_params, agent_update_params
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types import agent_create_params
-from ...types import agent_retrieve_params
-from ...types import agent_update_params
-from ...types import agent_list_params
-from ...types import agent_export_file_params
-from ...types import agent_import_file_params
-from ...types import agent_recompile_params
-from ...types import AgentType
-from ...types import EmbeddingConfig
-from ...types import LlmConfig
-from ...types import EmbeddingConfig
-from ...types import StopReasonType
-from ...types import LlmConfig
-from ...types import StopReasonType
-
 __all__ = ["AgentsResource", "AsyncAgentsResource"]
+
 
 class AgentsResource(SyncAPIResource):
     @cached_property
@@ -141,61 +182,63 @@ class AgentsResource(SyncAPIResource):
         """
         return AgentsResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    agent_type: AgentType | Omit = omit,
-    base_template_id: Optional[str] | Omit = omit,
-    block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    compaction_settings: Optional[agent_create_params.CompactionSettings] | Omit = omit,
-    context_window_limit: Optional[int] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    embedding: Optional[str] | Omit = omit,
-    embedding_chunk_size: Optional[int] | Omit = omit,
-    embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-    enable_reasoner: Optional[bool] | Omit = omit,
-    enable_sleeptime: Optional[bool] | Omit = omit,
-    folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    from_template: Optional[str] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    include_base_tool_rules: Optional[bool] | Omit = omit,
-    include_base_tools: bool | Omit = omit,
-    include_default_source: bool | Omit = omit,
-    initial_message_sequence: Optional[Iterable[MessageCreateParam]] | Omit = omit,
-    llm_config: Optional[LlmConfigParam] | Omit = omit,
-    max_files_open: Optional[int] | Omit = omit,
-    max_reasoning_tokens: Optional[int] | Omit = omit,
-    max_tokens: Optional[int] | Omit = omit,
-    memory_blocks: Optional[Iterable[CreateBlockParam]] | Omit = omit,
-    memory_variables: Optional[Dict[str, str]] | Omit = omit,
-    message_buffer_autoclear: bool | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    model_settings: Optional[agent_create_params.ModelSettings] | Omit = omit,
-    name: str | Omit = omit,
-    parallel_tool_calls: Optional[bool] | Omit = omit,
-    per_file_view_window_char_limit: Optional[int] | Omit = omit,
-    project: Optional[str] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    reasoning: Optional[bool] | Omit = omit,
-    response_format: Optional[agent_create_params.ResponseFormat] | Omit = omit,
-    secrets: Optional[Dict[str, str]] | Omit = omit,
-    source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    system: Optional[str] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template: bool | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    timezone: Optional[str] | Omit = omit,
-    tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
-    tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | Omit = omit,
-    tools: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    def create(
+        self,
+        *,
+        agent_type: AgentType | Omit = omit,
+        base_template_id: Optional[str] | Omit = omit,
+        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        compaction_settings: Optional[agent_create_params.CompactionSettings] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_chunk_size: Optional[int] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+        enable_reasoner: Optional[bool] | Omit = omit,
+        enable_sleeptime: Optional[bool] | Omit = omit,
+        folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        from_template: Optional[str] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        include_base_tool_rules: Optional[bool] | Omit = omit,
+        include_base_tools: bool | Omit = omit,
+        include_default_source: bool | Omit = omit,
+        initial_message_sequence: Optional[Iterable[MessageCreateParam]] | Omit = omit,
+        llm_config: Optional[LlmConfigParam] | Omit = omit,
+        max_files_open: Optional[int] | Omit = omit,
+        max_reasoning_tokens: Optional[int] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        memory_blocks: Optional[Iterable[CreateBlockParam]] | Omit = omit,
+        memory_variables: Optional[Dict[str, str]] | Omit = omit,
+        message_buffer_autoclear: bool | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_create_params.ModelSettings] | Omit = omit,
+        name: str | Omit = omit,
+        parallel_tool_calls: Optional[bool] | Omit = omit,
+        per_file_view_window_char_limit: Optional[int] | Omit = omit,
+        project: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        reasoning: Optional[bool] | Omit = omit,
+        response_format: Optional[agent_create_params.ResponseFormat] | Omit = omit,
+        secrets: Optional[Dict[str, str]] | Omit = omit,
+        source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        system: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template: bool | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        timezone: Optional[str] | Omit = omit,
+        tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
+        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | Omit = omit,
+        tools: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Create an agent.
 
@@ -329,70 +372,91 @@ class AgentsResource(SyncAPIResource):
         """
         return self._post(
             "/v1/agents/",
-            body=maybe_transform({
-                "agent_type": agent_type,
-                "base_template_id": base_template_id,
-                "block_ids": block_ids,
-                "compaction_settings": compaction_settings,
-                "context_window_limit": context_window_limit,
-                "description": description,
-                "embedding": embedding,
-                "embedding_chunk_size": embedding_chunk_size,
-                "embedding_config": embedding_config,
-                "enable_reasoner": enable_reasoner,
-                "enable_sleeptime": enable_sleeptime,
-                "folder_ids": folder_ids,
-                "from_template": from_template,
-                "hidden": hidden,
-                "identity_ids": identity_ids,
-                "include_base_tool_rules": include_base_tool_rules,
-                "include_base_tools": include_base_tools,
-                "include_default_source": include_default_source,
-                "initial_message_sequence": initial_message_sequence,
-                "llm_config": llm_config,
-                "max_files_open": max_files_open,
-                "max_reasoning_tokens": max_reasoning_tokens,
-                "max_tokens": max_tokens,
-                "memory_blocks": memory_blocks,
-                "memory_variables": memory_variables,
-                "message_buffer_autoclear": message_buffer_autoclear,
-                "metadata": metadata,
-                "model": model,
-                "model_settings": model_settings,
-                "name": name,
-                "parallel_tool_calls": parallel_tool_calls,
-                "per_file_view_window_char_limit": per_file_view_window_char_limit,
-                "project": project,
-                "project_id": project_id,
-                "reasoning": reasoning,
-                "response_format": response_format,
-                "secrets": secrets,
-                "source_ids": source_ids,
-                "system": system,
-                "tags": tags,
-                "template": template,
-                "template_id": template_id,
-                "timezone": timezone,
-                "tool_exec_environment_variables": tool_exec_environment_variables,
-                "tool_ids": tool_ids,
-                "tool_rules": tool_rules,
-                "tools": tools,
-            }, agent_create_params.AgentCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "agent_type": agent_type,
+                    "base_template_id": base_template_id,
+                    "block_ids": block_ids,
+                    "compaction_settings": compaction_settings,
+                    "context_window_limit": context_window_limit,
+                    "description": description,
+                    "embedding": embedding,
+                    "embedding_chunk_size": embedding_chunk_size,
+                    "embedding_config": embedding_config,
+                    "enable_reasoner": enable_reasoner,
+                    "enable_sleeptime": enable_sleeptime,
+                    "folder_ids": folder_ids,
+                    "from_template": from_template,
+                    "hidden": hidden,
+                    "identity_ids": identity_ids,
+                    "include_base_tool_rules": include_base_tool_rules,
+                    "include_base_tools": include_base_tools,
+                    "include_default_source": include_default_source,
+                    "initial_message_sequence": initial_message_sequence,
+                    "llm_config": llm_config,
+                    "max_files_open": max_files_open,
+                    "max_reasoning_tokens": max_reasoning_tokens,
+                    "max_tokens": max_tokens,
+                    "memory_blocks": memory_blocks,
+                    "memory_variables": memory_variables,
+                    "message_buffer_autoclear": message_buffer_autoclear,
+                    "metadata": metadata,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "name": name,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                    "project": project,
+                    "project_id": project_id,
+                    "reasoning": reasoning,
+                    "response_format": response_format,
+                    "secrets": secrets,
+                    "source_ids": source_ids,
+                    "system": system,
+                    "tags": tags,
+                    "template": template,
+                    "template_id": template_id,
+                    "timezone": timezone,
+                    "tool_exec_environment_variables": tool_exec_environment_variables,
+                    "tool_ids": tool_ids,
+                    "tool_rules": tool_rules,
+                    "tools": tools,
+                },
+                agent_create_params.AgentCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentState,
         )
 
-    def retrieve(self,
-    agent_id: str,
-    *,
-    include: Optional[List[Literal["agent.blocks", "agent.identities", "agent.managed_group", "agent.pending_approval", "agent.secrets", "agent.sources", "agent.tags", "agent.tools"]]] | Omit = omit,
-    include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    def retrieve(
+        self,
+        agent_id: str,
+        *,
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
+            ]
+        ]
+        | Omit = omit,
+        include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Get the state of the agent.
 
@@ -416,64 +480,73 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
             path_template("/v1/agents/{agent_id}", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "include": include,
-                "include_relationships": include_relationships,
-            }, agent_retrieve_params.AgentRetrieveParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include": include,
+                        "include_relationships": include_relationships,
+                    },
+                    agent_retrieve_params.AgentRetrieveParams,
+                ),
+            ),
             cast_to=AgentState,
         )
 
-    def update(self,
-    agent_id: str,
-    *,
-    base_template_id: Optional[str] | Omit = omit,
-    block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    compaction_settings: Optional[agent_update_params.CompactionSettings] | Omit = omit,
-    context_window_limit: Optional[int] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    embedding: Optional[str] | Omit = omit,
-    embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-    enable_sleeptime: Optional[bool] | Omit = omit,
-    folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    last_run_completion: Union[str, datetime, None] | Omit = omit,
-    last_run_duration_ms: Optional[int] | Omit = omit,
-    last_stop_reason: Optional[StopReasonType] | Omit = omit,
-    llm_config: Optional[LlmConfigParam] | Omit = omit,
-    max_files_open: Optional[int] | Omit = omit,
-    max_tokens: Optional[int] | Omit = omit,
-    message_buffer_autoclear: Optional[bool] | Omit = omit,
-    message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    model_settings: Optional[agent_update_params.ModelSettings] | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    parallel_tool_calls: Optional[bool] | Omit = omit,
-    per_file_view_window_char_limit: Optional[int] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    reasoning: Optional[bool] | Omit = omit,
-    response_format: Optional[agent_update_params.ResponseFormat] | Omit = omit,
-    secrets: Optional[Dict[str, str]] | Omit = omit,
-    source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    system: Optional[str] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    timezone: Optional[str] | Omit = omit,
-    tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
-    tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    def update(
+        self,
+        agent_id: str,
+        *,
+        base_template_id: Optional[str] | Omit = omit,
+        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        compaction_settings: Optional[agent_update_params.CompactionSettings] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+        enable_sleeptime: Optional[bool] | Omit = omit,
+        folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_run_completion: Union[str, datetime, None] | Omit = omit,
+        last_run_duration_ms: Optional[int] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
+        llm_config: Optional[LlmConfigParam] | Omit = omit,
+        max_files_open: Optional[int] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        message_buffer_autoclear: Optional[bool] | Omit = omit,
+        message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_update_params.ModelSettings] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        parallel_tool_calls: Optional[bool] | Omit = omit,
+        per_file_view_window_char_limit: Optional[int] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        reasoning: Optional[bool] | Omit = omit,
+        response_format: Optional[agent_update_params.ResponseFormat] | Omit = omit,
+        secrets: Optional[Dict[str, str]] | Omit = omit,
+        source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        system: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        timezone: Optional[str] | Omit = omit,
+        tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
+        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Update an existing agent.
 
@@ -580,82 +653,101 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._patch(
             path_template("/v1/agents/{agent_id}", agent_id=agent_id),
-            body=maybe_transform({
-                "base_template_id": base_template_id,
-                "block_ids": block_ids,
-                "compaction_settings": compaction_settings,
-                "context_window_limit": context_window_limit,
-                "description": description,
-                "embedding": embedding,
-                "embedding_config": embedding_config,
-                "enable_sleeptime": enable_sleeptime,
-                "folder_ids": folder_ids,
-                "hidden": hidden,
-                "identity_ids": identity_ids,
-                "last_run_completion": last_run_completion,
-                "last_run_duration_ms": last_run_duration_ms,
-                "last_stop_reason": last_stop_reason,
-                "llm_config": llm_config,
-                "max_files_open": max_files_open,
-                "max_tokens": max_tokens,
-                "message_buffer_autoclear": message_buffer_autoclear,
-                "message_ids": message_ids,
-                "metadata": metadata,
-                "model": model,
-                "model_settings": model_settings,
-                "name": name,
-                "parallel_tool_calls": parallel_tool_calls,
-                "per_file_view_window_char_limit": per_file_view_window_char_limit,
-                "project_id": project_id,
-                "reasoning": reasoning,
-                "response_format": response_format,
-                "secrets": secrets,
-                "source_ids": source_ids,
-                "system": system,
-                "tags": tags,
-                "template_id": template_id,
-                "timezone": timezone,
-                "tool_exec_environment_variables": tool_exec_environment_variables,
-                "tool_ids": tool_ids,
-                "tool_rules": tool_rules,
-            }, agent_update_params.AgentUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "base_template_id": base_template_id,
+                    "block_ids": block_ids,
+                    "compaction_settings": compaction_settings,
+                    "context_window_limit": context_window_limit,
+                    "description": description,
+                    "embedding": embedding,
+                    "embedding_config": embedding_config,
+                    "enable_sleeptime": enable_sleeptime,
+                    "folder_ids": folder_ids,
+                    "hidden": hidden,
+                    "identity_ids": identity_ids,
+                    "last_run_completion": last_run_completion,
+                    "last_run_duration_ms": last_run_duration_ms,
+                    "last_stop_reason": last_stop_reason,
+                    "llm_config": llm_config,
+                    "max_files_open": max_files_open,
+                    "max_tokens": max_tokens,
+                    "message_buffer_autoclear": message_buffer_autoclear,
+                    "message_ids": message_ids,
+                    "metadata": metadata,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "name": name,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                    "project_id": project_id,
+                    "reasoning": reasoning,
+                    "response_format": response_format,
+                    "secrets": secrets,
+                    "source_ids": source_ids,
+                    "system": system,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "timezone": timezone,
+                    "tool_exec_environment_variables": tool_exec_environment_variables,
+                    "tool_ids": tool_ids,
+                    "tool_rules": tool_rules,
+                },
+                agent_update_params.AgentUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentState,
         )
 
-    def list(self,
-    *,
-    after: Optional[str] | Omit = omit,
-    ascending: bool | Omit = omit,
-    base_template_id: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    created_by_id: Optional[str] | Omit = omit,
-    identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
-    identity_id: Optional[str] | Omit = omit,
-    include: Optional[List[Literal["agent.blocks", "agent.identities", "agent.managed_group", "agent.pending_approval", "agent.secrets", "agent.sources", "agent.tags", "agent.tools"]]] | Omit = omit,
-    include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
-    last_stop_reason: Optional[StopReasonType] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    match_all_tags: bool | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at", "updated_at", "last_run_completion"] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    query_text: Optional[str] | Omit = omit,
-    sort_by: Optional[str] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[AgentState]:
+    def list(
+        self,
+        *,
+        after: Optional[str] | Omit = omit,
+        ascending: bool | Omit = omit,
+        base_template_id: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        created_by_id: Optional[str] | Omit = omit,
+        identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
+        identity_id: Optional[str] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
+            ]
+        ]
+        | Omit = omit,
+        include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        match_all_tags: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at", "updated_at", "last_run_completion"] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        query_text: Optional[str] | Omit = omit,
+        sort_by: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncArrayPage[AgentState]:
         """
         Get a list of all agents.
 
@@ -717,41 +809,52 @@ class AgentsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/agents/",
-            page = SyncArrayPage[AgentState],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "ascending": ascending,
-                "base_template_id": base_template_id,
-                "before": before,
-                "created_by_id": created_by_id,
-                "identifier_keys": identifier_keys,
-                "identity_id": identity_id,
-                "include": include,
-                "include_relationships": include_relationships,
-                "last_stop_reason": last_stop_reason,
-                "limit": limit,
-                "match_all_tags": match_all_tags,
-                "name": name,
-                "order": order,
-                "order_by": order_by,
-                "project_id": project_id,
-                "query_text": query_text,
-                "sort_by": sort_by,
-                "tags": tags,
-                "template_id": template_id,
-            }, agent_list_params.AgentListParams)),
+            page=SyncArrayPage[AgentState],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "ascending": ascending,
+                        "base_template_id": base_template_id,
+                        "before": before,
+                        "created_by_id": created_by_id,
+                        "identifier_keys": identifier_keys,
+                        "identity_id": identity_id,
+                        "include": include,
+                        "include_relationships": include_relationships,
+                        "last_stop_reason": last_stop_reason,
+                        "limit": limit,
+                        "match_all_tags": match_all_tags,
+                        "name": name,
+                        "order": order,
+                        "order_by": order_by,
+                        "project_id": project_id,
+                        "query_text": query_text,
+                        "sort_by": sort_by,
+                        "tags": tags,
+                        "template_id": template_id,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
+            ),
             model=AgentState,
         )
 
-    def delete(self,
-    agent_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    def delete(
+        self,
+        agent_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete an agent.
 
@@ -767,28 +870,30 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._delete(
             path_template("/v1/agents/{agent_id}", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
 
-    def export_file(self,
-    agent_id: str,
-    *,
-    conversation_id: Optional[str] | Omit = omit,
-    max_steps: int | Omit = omit,
-    scrub_messages: bool | Omit = omit,
-    use_legacy_format: bool | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> str:
+    def export_file(
+        self,
+        agent_id: str,
+        *,
+        conversation_id: Optional[str] | Omit = omit,
+        max_steps: int | Omit = omit,
+        scrub_messages: bool | Omit = omit,
+        use_legacy_format: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with
         indentation.
@@ -813,42 +918,51 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._get(
             path_template("/v1/agents/{agent_id}/export", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "conversation_id": conversation_id,
-                "max_steps": max_steps,
-                "scrub_messages": scrub_messages,
-                "use_legacy_format": use_legacy_format,
-            }, agent_export_file_params.AgentExportFileParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "conversation_id": conversation_id,
+                        "max_steps": max_steps,
+                        "scrub_messages": scrub_messages,
+                        "use_legacy_format": use_legacy_format,
+                    },
+                    agent_export_file_params.AgentExportFileParams,
+                ),
+            ),
             cast_to=str,
         )
 
-    def import_file(self,
-    *,
-    file: FileTypes,
-    append_copy_suffix: bool | Omit = omit,
-    embedding: Optional[str] | Omit = omit,
-    env_vars_json: Optional[str] | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    override_embedding_handle: Optional[str] | Omit = omit,
-    override_existing_tools: bool | Omit = omit,
-    override_model_handle: Optional[str] | Omit = omit,
-    override_name: Optional[str] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    secrets: Optional[str] | Omit = omit,
-    strip_messages: bool | Omit = omit,
-    x_override_embedding_model: str | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentImportFileResponse:
+    def import_file(
+        self,
+        *,
+        file: FileTypes,
+        append_copy_suffix: bool | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        env_vars_json: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        override_embedding_handle: Optional[str] | Omit = omit,
+        override_existing_tools: bool | Omit = omit,
+        override_model_handle: Optional[str] | Omit = omit,
+        override_name: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        secrets: Optional[str] | Omit = omit,
+        strip_messages: bool | Omit = omit,
+        x_override_embedding_model: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentImportFileResponse:
         """Import a serialized agent file and recreate the agent(s) in the system.
 
         Returns
@@ -893,28 +1007,29 @@ class AgentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = { **strip_not_given({
-            "x-override-embedding-model": x_override_embedding_model
-        }), **(extra_headers or {}) }
-        body = deepcopy_with_paths({
-            "file": file,
-            "append_copy_suffix": append_copy_suffix,
-            "embedding": embedding,
-            "env_vars_json": env_vars_json,
-            "model": model,
-            "name": name,
-            "override_embedding_handle": override_embedding_handle,
-            "override_existing_tools": override_existing_tools,
-            "override_model_handle": override_model_handle,
-            "override_name": override_name,
-            "project_id": project_id,
-            "secrets": secrets,
-            "strip_messages": strip_messages,
-        }, [["file"]])
-        files = extract_files(
-          cast(Mapping[str, object], body),
-          paths=[["file"]]
+        extra_headers = {
+            **strip_not_given({"x-override-embedding-model": x_override_embedding_model}),
+            **(extra_headers or {}),
+        }
+        body = deepcopy_with_paths(
+            {
+                "file": file,
+                "append_copy_suffix": append_copy_suffix,
+                "embedding": embedding,
+                "env_vars_json": env_vars_json,
+                "model": model,
+                "name": name,
+                "override_embedding_handle": override_embedding_handle,
+                "override_existing_tools": override_existing_tools,
+                "override_model_handle": override_model_handle,
+                "override_name": override_name,
+                "project_id": project_id,
+                "secrets": secrets,
+                "strip_messages": strip_messages,
+            },
+            [["file"]],
         )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -923,21 +1038,25 @@ class AgentsResource(SyncAPIResource):
             "/v1/agents/import",
             body=maybe_transform(body, agent_import_file_params.AgentImportFileParams),
             files=files,
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentImportFileResponse,
         )
 
-    def recompile(self,
-    agent_id: str,
-    *,
-    dry_run: bool | Omit = omit,
-    update_timestamp: bool | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> str:
+    def recompile(
+        self,
+        agent_id: str,
+        *,
+        dry_run: bool | Omit = omit,
+        update_timestamp: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
         """
         Manually trigger system prompt recompilation for an agent.
 
@@ -958,17 +1077,25 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return self._post(
             path_template("/v1/agents/{agent_id}/recompile", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "dry_run": dry_run,
-                "update_timestamp": update_timestamp,
-            }, agent_recompile_params.AgentRecompileParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dry_run": dry_run,
+                        "update_timestamp": update_timestamp,
+                    },
+                    agent_recompile_params.AgentRecompileParams,
+                ),
+            ),
             cast_to=str,
         )
+
 
 class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
@@ -1026,61 +1153,63 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         return AsyncAgentsResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    agent_type: AgentType | Omit = omit,
-    base_template_id: Optional[str] | Omit = omit,
-    block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    compaction_settings: Optional[agent_create_params.CompactionSettings] | Omit = omit,
-    context_window_limit: Optional[int] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    embedding: Optional[str] | Omit = omit,
-    embedding_chunk_size: Optional[int] | Omit = omit,
-    embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-    enable_reasoner: Optional[bool] | Omit = omit,
-    enable_sleeptime: Optional[bool] | Omit = omit,
-    folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    from_template: Optional[str] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    include_base_tool_rules: Optional[bool] | Omit = omit,
-    include_base_tools: bool | Omit = omit,
-    include_default_source: bool | Omit = omit,
-    initial_message_sequence: Optional[Iterable[MessageCreateParam]] | Omit = omit,
-    llm_config: Optional[LlmConfigParam] | Omit = omit,
-    max_files_open: Optional[int] | Omit = omit,
-    max_reasoning_tokens: Optional[int] | Omit = omit,
-    max_tokens: Optional[int] | Omit = omit,
-    memory_blocks: Optional[Iterable[CreateBlockParam]] | Omit = omit,
-    memory_variables: Optional[Dict[str, str]] | Omit = omit,
-    message_buffer_autoclear: bool | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    model_settings: Optional[agent_create_params.ModelSettings] | Omit = omit,
-    name: str | Omit = omit,
-    parallel_tool_calls: Optional[bool] | Omit = omit,
-    per_file_view_window_char_limit: Optional[int] | Omit = omit,
-    project: Optional[str] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    reasoning: Optional[bool] | Omit = omit,
-    response_format: Optional[agent_create_params.ResponseFormat] | Omit = omit,
-    secrets: Optional[Dict[str, str]] | Omit = omit,
-    source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    system: Optional[str] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template: bool | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    timezone: Optional[str] | Omit = omit,
-    tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
-    tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | Omit = omit,
-    tools: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    async def create(
+        self,
+        *,
+        agent_type: AgentType | Omit = omit,
+        base_template_id: Optional[str] | Omit = omit,
+        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        compaction_settings: Optional[agent_create_params.CompactionSettings] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_chunk_size: Optional[int] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+        enable_reasoner: Optional[bool] | Omit = omit,
+        enable_sleeptime: Optional[bool] | Omit = omit,
+        folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        from_template: Optional[str] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        include_base_tool_rules: Optional[bool] | Omit = omit,
+        include_base_tools: bool | Omit = omit,
+        include_default_source: bool | Omit = omit,
+        initial_message_sequence: Optional[Iterable[MessageCreateParam]] | Omit = omit,
+        llm_config: Optional[LlmConfigParam] | Omit = omit,
+        max_files_open: Optional[int] | Omit = omit,
+        max_reasoning_tokens: Optional[int] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        memory_blocks: Optional[Iterable[CreateBlockParam]] | Omit = omit,
+        memory_variables: Optional[Dict[str, str]] | Omit = omit,
+        message_buffer_autoclear: bool | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_create_params.ModelSettings] | Omit = omit,
+        name: str | Omit = omit,
+        parallel_tool_calls: Optional[bool] | Omit = omit,
+        per_file_view_window_char_limit: Optional[int] | Omit = omit,
+        project: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        reasoning: Optional[bool] | Omit = omit,
+        response_format: Optional[agent_create_params.ResponseFormat] | Omit = omit,
+        secrets: Optional[Dict[str, str]] | Omit = omit,
+        source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        system: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template: bool | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        timezone: Optional[str] | Omit = omit,
+        tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
+        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        tool_rules: Optional[Iterable[agent_create_params.ToolRule]] | Omit = omit,
+        tools: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Create an agent.
 
@@ -1214,70 +1343,91 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/agents/",
-            body=await async_maybe_transform({
-                "agent_type": agent_type,
-                "base_template_id": base_template_id,
-                "block_ids": block_ids,
-                "compaction_settings": compaction_settings,
-                "context_window_limit": context_window_limit,
-                "description": description,
-                "embedding": embedding,
-                "embedding_chunk_size": embedding_chunk_size,
-                "embedding_config": embedding_config,
-                "enable_reasoner": enable_reasoner,
-                "enable_sleeptime": enable_sleeptime,
-                "folder_ids": folder_ids,
-                "from_template": from_template,
-                "hidden": hidden,
-                "identity_ids": identity_ids,
-                "include_base_tool_rules": include_base_tool_rules,
-                "include_base_tools": include_base_tools,
-                "include_default_source": include_default_source,
-                "initial_message_sequence": initial_message_sequence,
-                "llm_config": llm_config,
-                "max_files_open": max_files_open,
-                "max_reasoning_tokens": max_reasoning_tokens,
-                "max_tokens": max_tokens,
-                "memory_blocks": memory_blocks,
-                "memory_variables": memory_variables,
-                "message_buffer_autoclear": message_buffer_autoclear,
-                "metadata": metadata,
-                "model": model,
-                "model_settings": model_settings,
-                "name": name,
-                "parallel_tool_calls": parallel_tool_calls,
-                "per_file_view_window_char_limit": per_file_view_window_char_limit,
-                "project": project,
-                "project_id": project_id,
-                "reasoning": reasoning,
-                "response_format": response_format,
-                "secrets": secrets,
-                "source_ids": source_ids,
-                "system": system,
-                "tags": tags,
-                "template": template,
-                "template_id": template_id,
-                "timezone": timezone,
-                "tool_exec_environment_variables": tool_exec_environment_variables,
-                "tool_ids": tool_ids,
-                "tool_rules": tool_rules,
-                "tools": tools,
-            }, agent_create_params.AgentCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "agent_type": agent_type,
+                    "base_template_id": base_template_id,
+                    "block_ids": block_ids,
+                    "compaction_settings": compaction_settings,
+                    "context_window_limit": context_window_limit,
+                    "description": description,
+                    "embedding": embedding,
+                    "embedding_chunk_size": embedding_chunk_size,
+                    "embedding_config": embedding_config,
+                    "enable_reasoner": enable_reasoner,
+                    "enable_sleeptime": enable_sleeptime,
+                    "folder_ids": folder_ids,
+                    "from_template": from_template,
+                    "hidden": hidden,
+                    "identity_ids": identity_ids,
+                    "include_base_tool_rules": include_base_tool_rules,
+                    "include_base_tools": include_base_tools,
+                    "include_default_source": include_default_source,
+                    "initial_message_sequence": initial_message_sequence,
+                    "llm_config": llm_config,
+                    "max_files_open": max_files_open,
+                    "max_reasoning_tokens": max_reasoning_tokens,
+                    "max_tokens": max_tokens,
+                    "memory_blocks": memory_blocks,
+                    "memory_variables": memory_variables,
+                    "message_buffer_autoclear": message_buffer_autoclear,
+                    "metadata": metadata,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "name": name,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                    "project": project,
+                    "project_id": project_id,
+                    "reasoning": reasoning,
+                    "response_format": response_format,
+                    "secrets": secrets,
+                    "source_ids": source_ids,
+                    "system": system,
+                    "tags": tags,
+                    "template": template,
+                    "template_id": template_id,
+                    "timezone": timezone,
+                    "tool_exec_environment_variables": tool_exec_environment_variables,
+                    "tool_ids": tool_ids,
+                    "tool_rules": tool_rules,
+                    "tools": tools,
+                },
+                agent_create_params.AgentCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentState,
         )
 
-    async def retrieve(self,
-    agent_id: str,
-    *,
-    include: Optional[List[Literal["agent.blocks", "agent.identities", "agent.managed_group", "agent.pending_approval", "agent.secrets", "agent.sources", "agent.tags", "agent.tools"]]] | Omit = omit,
-    include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    async def retrieve(
+        self,
+        agent_id: str,
+        *,
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
+            ]
+        ]
+        | Omit = omit,
+        include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Get the state of the agent.
 
@@ -1301,64 +1451,73 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
             path_template("/v1/agents/{agent_id}", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "include": include,
-                "include_relationships": include_relationships,
-            }, agent_retrieve_params.AgentRetrieveParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "include": include,
+                        "include_relationships": include_relationships,
+                    },
+                    agent_retrieve_params.AgentRetrieveParams,
+                ),
+            ),
             cast_to=AgentState,
         )
 
-    async def update(self,
-    agent_id: str,
-    *,
-    base_template_id: Optional[str] | Omit = omit,
-    block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    compaction_settings: Optional[agent_update_params.CompactionSettings] | Omit = omit,
-    context_window_limit: Optional[int] | Omit = omit,
-    description: Optional[str] | Omit = omit,
-    embedding: Optional[str] | Omit = omit,
-    embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-    enable_sleeptime: Optional[bool] | Omit = omit,
-    folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    hidden: Optional[bool] | Omit = omit,
-    identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    last_run_completion: Union[str, datetime, None] | Omit = omit,
-    last_run_duration_ms: Optional[int] | Omit = omit,
-    last_stop_reason: Optional[StopReasonType] | Omit = omit,
-    llm_config: Optional[LlmConfigParam] | Omit = omit,
-    max_files_open: Optional[int] | Omit = omit,
-    max_tokens: Optional[int] | Omit = omit,
-    message_buffer_autoclear: Optional[bool] | Omit = omit,
-    message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    metadata: Optional[Dict[str, object]] | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    model_settings: Optional[agent_update_params.ModelSettings] | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    parallel_tool_calls: Optional[bool] | Omit = omit,
-    per_file_view_window_char_limit: Optional[int] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    reasoning: Optional[bool] | Omit = omit,
-    response_format: Optional[agent_update_params.ResponseFormat] | Omit = omit,
-    secrets: Optional[Dict[str, str]] | Omit = omit,
-    source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    system: Optional[str] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    timezone: Optional[str] | Omit = omit,
-    tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
-    tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-    tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentState:
+    async def update(
+        self,
+        agent_id: str,
+        *,
+        base_template_id: Optional[str] | Omit = omit,
+        block_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        compaction_settings: Optional[agent_update_params.CompactionSettings] | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+        enable_sleeptime: Optional[bool] | Omit = omit,
+        folder_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        hidden: Optional[bool] | Omit = omit,
+        identity_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_run_completion: Union[str, datetime, None] | Omit = omit,
+        last_run_duration_ms: Optional[int] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
+        llm_config: Optional[LlmConfigParam] | Omit = omit,
+        max_files_open: Optional[int] | Omit = omit,
+        max_tokens: Optional[int] | Omit = omit,
+        message_buffer_autoclear: Optional[bool] | Omit = omit,
+        message_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: Optional[agent_update_params.ModelSettings] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        parallel_tool_calls: Optional[bool] | Omit = omit,
+        per_file_view_window_char_limit: Optional[int] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        reasoning: Optional[bool] | Omit = omit,
+        response_format: Optional[agent_update_params.ResponseFormat] | Omit = omit,
+        secrets: Optional[Dict[str, str]] | Omit = omit,
+        source_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        system: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        timezone: Optional[str] | Omit = omit,
+        tool_exec_environment_variables: Optional[Dict[str, str]] | Omit = omit,
+        tool_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        tool_rules: Optional[Iterable[agent_update_params.ToolRule]] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentState:
         """
         Update an existing agent.
 
@@ -1465,82 +1624,101 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._patch(
             path_template("/v1/agents/{agent_id}", agent_id=agent_id),
-            body=await async_maybe_transform({
-                "base_template_id": base_template_id,
-                "block_ids": block_ids,
-                "compaction_settings": compaction_settings,
-                "context_window_limit": context_window_limit,
-                "description": description,
-                "embedding": embedding,
-                "embedding_config": embedding_config,
-                "enable_sleeptime": enable_sleeptime,
-                "folder_ids": folder_ids,
-                "hidden": hidden,
-                "identity_ids": identity_ids,
-                "last_run_completion": last_run_completion,
-                "last_run_duration_ms": last_run_duration_ms,
-                "last_stop_reason": last_stop_reason,
-                "llm_config": llm_config,
-                "max_files_open": max_files_open,
-                "max_tokens": max_tokens,
-                "message_buffer_autoclear": message_buffer_autoclear,
-                "message_ids": message_ids,
-                "metadata": metadata,
-                "model": model,
-                "model_settings": model_settings,
-                "name": name,
-                "parallel_tool_calls": parallel_tool_calls,
-                "per_file_view_window_char_limit": per_file_view_window_char_limit,
-                "project_id": project_id,
-                "reasoning": reasoning,
-                "response_format": response_format,
-                "secrets": secrets,
-                "source_ids": source_ids,
-                "system": system,
-                "tags": tags,
-                "template_id": template_id,
-                "timezone": timezone,
-                "tool_exec_environment_variables": tool_exec_environment_variables,
-                "tool_ids": tool_ids,
-                "tool_rules": tool_rules,
-            }, agent_update_params.AgentUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "base_template_id": base_template_id,
+                    "block_ids": block_ids,
+                    "compaction_settings": compaction_settings,
+                    "context_window_limit": context_window_limit,
+                    "description": description,
+                    "embedding": embedding,
+                    "embedding_config": embedding_config,
+                    "enable_sleeptime": enable_sleeptime,
+                    "folder_ids": folder_ids,
+                    "hidden": hidden,
+                    "identity_ids": identity_ids,
+                    "last_run_completion": last_run_completion,
+                    "last_run_duration_ms": last_run_duration_ms,
+                    "last_stop_reason": last_stop_reason,
+                    "llm_config": llm_config,
+                    "max_files_open": max_files_open,
+                    "max_tokens": max_tokens,
+                    "message_buffer_autoclear": message_buffer_autoclear,
+                    "message_ids": message_ids,
+                    "metadata": metadata,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "name": name,
+                    "parallel_tool_calls": parallel_tool_calls,
+                    "per_file_view_window_char_limit": per_file_view_window_char_limit,
+                    "project_id": project_id,
+                    "reasoning": reasoning,
+                    "response_format": response_format,
+                    "secrets": secrets,
+                    "source_ids": source_ids,
+                    "system": system,
+                    "tags": tags,
+                    "template_id": template_id,
+                    "timezone": timezone,
+                    "tool_exec_environment_variables": tool_exec_environment_variables,
+                    "tool_ids": tool_ids,
+                    "tool_rules": tool_rules,
+                },
+                agent_update_params.AgentUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentState,
         )
 
-    def list(self,
-    *,
-    after: Optional[str] | Omit = omit,
-    ascending: bool | Omit = omit,
-    base_template_id: Optional[str] | Omit = omit,
-    before: Optional[str] | Omit = omit,
-    created_by_id: Optional[str] | Omit = omit,
-    identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
-    identity_id: Optional[str] | Omit = omit,
-    include: Optional[List[Literal["agent.blocks", "agent.identities", "agent.managed_group", "agent.pending_approval", "agent.secrets", "agent.sources", "agent.tags", "agent.tools"]]] | Omit = omit,
-    include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
-    last_stop_reason: Optional[StopReasonType] | Omit = omit,
-    limit: Optional[int] | Omit = omit,
-    match_all_tags: bool | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    order: Literal["asc", "desc"] | Omit = omit,
-    order_by: Literal["created_at", "updated_at", "last_run_completion"] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    query_text: Optional[str] | Omit = omit,
-    sort_by: Optional[str] | Omit = omit,
-    tags: Optional[SequenceNotStr[str]] | Omit = omit,
-    template_id: Optional[str] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[AgentState, AsyncArrayPage[AgentState]]:
+    def list(
+        self,
+        *,
+        after: Optional[str] | Omit = omit,
+        ascending: bool | Omit = omit,
+        base_template_id: Optional[str] | Omit = omit,
+        before: Optional[str] | Omit = omit,
+        created_by_id: Optional[str] | Omit = omit,
+        identifier_keys: Optional[SequenceNotStr[str]] | Omit = omit,
+        identity_id: Optional[str] | Omit = omit,
+        include: Optional[
+            List[
+                Literal[
+                    "agent.blocks",
+                    "agent.identities",
+                    "agent.managed_group",
+                    "agent.pending_approval",
+                    "agent.secrets",
+                    "agent.sources",
+                    "agent.tags",
+                    "agent.tools",
+                ]
+            ]
+        ]
+        | Omit = omit,
+        include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        last_stop_reason: Optional[StopReasonType] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        match_all_tags: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        order: Literal["asc", "desc"] | Omit = omit,
+        order_by: Literal["created_at", "updated_at", "last_run_completion"] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        query_text: Optional[str] | Omit = omit,
+        sort_by: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
+        template_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[AgentState, AsyncArrayPage[AgentState]]:
         """
         Get a list of all agents.
 
@@ -1602,41 +1780,52 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/agents/",
-            page = AsyncArrayPage[AgentState],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "after": after,
-                "ascending": ascending,
-                "base_template_id": base_template_id,
-                "before": before,
-                "created_by_id": created_by_id,
-                "identifier_keys": identifier_keys,
-                "identity_id": identity_id,
-                "include": include,
-                "include_relationships": include_relationships,
-                "last_stop_reason": last_stop_reason,
-                "limit": limit,
-                "match_all_tags": match_all_tags,
-                "name": name,
-                "order": order,
-                "order_by": order_by,
-                "project_id": project_id,
-                "query_text": query_text,
-                "sort_by": sort_by,
-                "tags": tags,
-                "template_id": template_id,
-            }, agent_list_params.AgentListParams)),
+            page=AsyncArrayPage[AgentState],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "ascending": ascending,
+                        "base_template_id": base_template_id,
+                        "before": before,
+                        "created_by_id": created_by_id,
+                        "identifier_keys": identifier_keys,
+                        "identity_id": identity_id,
+                        "include": include,
+                        "include_relationships": include_relationships,
+                        "last_stop_reason": last_stop_reason,
+                        "limit": limit,
+                        "match_all_tags": match_all_tags,
+                        "name": name,
+                        "order": order,
+                        "order_by": order_by,
+                        "project_id": project_id,
+                        "query_text": query_text,
+                        "sort_by": sort_by,
+                        "tags": tags,
+                        "template_id": template_id,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
+            ),
             model=AgentState,
         )
 
-    async def delete(self,
-    agent_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    async def delete(
+        self,
+        agent_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete an agent.
 
@@ -1652,28 +1841,30 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._delete(
             path_template("/v1/agents/{agent_id}", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
 
-    async def export_file(self,
-    agent_id: str,
-    *,
-    conversation_id: Optional[str] | Omit = omit,
-    max_steps: int | Omit = omit,
-    scrub_messages: bool | Omit = omit,
-    use_legacy_format: bool | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> str:
+    async def export_file(
+        self,
+        agent_id: str,
+        *,
+        conversation_id: Optional[str] | Omit = omit,
+        max_steps: int | Omit = omit,
+        scrub_messages: bool | Omit = omit,
+        use_legacy_format: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
         """
         Export the serialized JSON representation of an agent, formatted with
         indentation.
@@ -1698,42 +1889,51 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._get(
             path_template("/v1/agents/{agent_id}/export", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "conversation_id": conversation_id,
-                "max_steps": max_steps,
-                "scrub_messages": scrub_messages,
-                "use_legacy_format": use_legacy_format,
-            }, agent_export_file_params.AgentExportFileParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "conversation_id": conversation_id,
+                        "max_steps": max_steps,
+                        "scrub_messages": scrub_messages,
+                        "use_legacy_format": use_legacy_format,
+                    },
+                    agent_export_file_params.AgentExportFileParams,
+                ),
+            ),
             cast_to=str,
         )
 
-    async def import_file(self,
-    *,
-    file: FileTypes,
-    append_copy_suffix: bool | Omit = omit,
-    embedding: Optional[str] | Omit = omit,
-    env_vars_json: Optional[str] | Omit = omit,
-    model: Optional[str] | Omit = omit,
-    name: Optional[str] | Omit = omit,
-    override_embedding_handle: Optional[str] | Omit = omit,
-    override_existing_tools: bool | Omit = omit,
-    override_model_handle: Optional[str] | Omit = omit,
-    override_name: Optional[str] | Omit = omit,
-    project_id: Optional[str] | Omit = omit,
-    secrets: Optional[str] | Omit = omit,
-    strip_messages: bool | Omit = omit,
-    x_override_embedding_model: str | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentImportFileResponse:
+    async def import_file(
+        self,
+        *,
+        file: FileTypes,
+        append_copy_suffix: bool | Omit = omit,
+        embedding: Optional[str] | Omit = omit,
+        env_vars_json: Optional[str] | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        override_embedding_handle: Optional[str] | Omit = omit,
+        override_existing_tools: bool | Omit = omit,
+        override_model_handle: Optional[str] | Omit = omit,
+        override_name: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        secrets: Optional[str] | Omit = omit,
+        strip_messages: bool | Omit = omit,
+        x_override_embedding_model: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentImportFileResponse:
         """Import a serialized agent file and recreate the agent(s) in the system.
 
         Returns
@@ -1778,28 +1978,29 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = { **strip_not_given({
-            "x-override-embedding-model": x_override_embedding_model
-        }), **(extra_headers or {}) }
-        body = deepcopy_with_paths({
-            "file": file,
-            "append_copy_suffix": append_copy_suffix,
-            "embedding": embedding,
-            "env_vars_json": env_vars_json,
-            "model": model,
-            "name": name,
-            "override_embedding_handle": override_embedding_handle,
-            "override_existing_tools": override_existing_tools,
-            "override_model_handle": override_model_handle,
-            "override_name": override_name,
-            "project_id": project_id,
-            "secrets": secrets,
-            "strip_messages": strip_messages,
-        }, [["file"]])
-        files = extract_files(
-          cast(Mapping[str, object], body),
-          paths=[["file"]]
+        extra_headers = {
+            **strip_not_given({"x-override-embedding-model": x_override_embedding_model}),
+            **(extra_headers or {}),
+        }
+        body = deepcopy_with_paths(
+            {
+                "file": file,
+                "append_copy_suffix": append_copy_suffix,
+                "embedding": embedding,
+                "env_vars_json": env_vars_json,
+                "model": model,
+                "name": name,
+                "override_embedding_handle": override_embedding_handle,
+                "override_existing_tools": override_existing_tools,
+                "override_model_handle": override_model_handle,
+                "override_name": override_name,
+                "project_id": project_id,
+                "secrets": secrets,
+                "strip_messages": strip_messages,
+            },
+            [["file"]],
         )
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
         # multipart/form-data; boundary=---abc--
@@ -1808,21 +2009,25 @@ class AsyncAgentsResource(AsyncAPIResource):
             "/v1/agents/import",
             body=await async_maybe_transform(body, agent_import_file_params.AgentImportFileParams),
             files=files,
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AgentImportFileResponse,
         )
 
-    async def recompile(self,
-    agent_id: str,
-    *,
-    dry_run: bool | Omit = omit,
-    update_timestamp: bool | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> str:
+    async def recompile(
+        self,
+        agent_id: str,
+        *,
+        dry_run: bool | Omit = omit,
+        update_timestamp: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
         """
         Manually trigger system prompt recompilation for an agent.
 
@@ -1843,17 +2048,25 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-          raise ValueError(
-            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
         return await self._post(
             path_template("/v1/agents/{agent_id}/recompile", agent_id=agent_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "dry_run": dry_run,
-                "update_timestamp": update_timestamp,
-            }, agent_recompile_params.AgentRecompileParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "dry_run": dry_run,
+                        "update_timestamp": update_timestamp,
+                    },
+                    agent_recompile_params.AgentRecompileParams,
+                ),
+            ),
             cast_to=str,
         )
+
 
 class AgentsResourceWithRawResponse:
     def __init__(self, agents: AgentsResource) -> None:
@@ -1920,6 +2133,7 @@ class AgentsResourceWithRawResponse:
     def identities(self) -> IdentitiesResourceWithRawResponse:
         return IdentitiesResourceWithRawResponse(self._agents.identities)
 
+
 class AsyncAgentsResourceWithRawResponse:
     def __init__(self, agents: AsyncAgentsResource) -> None:
         self._agents = agents
@@ -1985,6 +2199,7 @@ class AsyncAgentsResourceWithRawResponse:
     def identities(self) -> AsyncIdentitiesResourceWithRawResponse:
         return AsyncIdentitiesResourceWithRawResponse(self._agents.identities)
 
+
 class AgentsResourceWithStreamingResponse:
     def __init__(self, agents: AgentsResource) -> None:
         self._agents = agents
@@ -2049,6 +2264,7 @@ class AgentsResourceWithStreamingResponse:
     @cached_property
     def identities(self) -> IdentitiesResourceWithStreamingResponse:
         return IdentitiesResourceWithStreamingResponse(self._agents.identities)
+
 
 class AsyncAgentsResourceWithStreamingResponse:
     def __init__(self, agents: AsyncAgentsResource) -> None:

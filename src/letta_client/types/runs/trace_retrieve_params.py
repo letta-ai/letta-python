@@ -6,6 +6,7 @@ from typing_extensions import TypedDict
 
 __all__ = ["TraceRetrieveParams"]
 
+
 class TraceRetrieveParams(TypedDict, total=False):
     limit: int
     """Maximum number of spans to return"""

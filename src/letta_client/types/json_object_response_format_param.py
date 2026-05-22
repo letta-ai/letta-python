@@ -6,7 +6,9 @@ from typing_extensions import Literal, TypedDict
 
 __all__ = ["JsonObjectResponseFormatParam"]
 
+
 class JsonObjectResponseFormatParam(TypedDict, total=False):
     """Response format for JSON object responses."""
+
     type: Literal["json_object"]
     """The type of the response format."""

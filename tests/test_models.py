@@ -1,7 +1,7 @@
 import json
-from collections import deque
 from typing import TYPE_CHECKING, Any, Dict, List, Union, Iterable, Optional, cast
 from datetime import datetime, timezone
+from collections import deque
 from typing_extensions import Literal, Annotated, TypedDict, TypeAliasType
 
 import pytest

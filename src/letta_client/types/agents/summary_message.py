@@ -1,17 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
 from typing import Optional
-
 from datetime import datetime
-
 from typing_extensions import Literal
+
+from ..._models import BaseModel
 
 __all__ = ["SummaryMessage", "CompactionStats"]
 
+
 class CompactionStats(BaseModel):
     """Statistics about a memory compaction operation."""
+
     context_window: int
     """The model's context window size"""
 
@@ -39,11 +39,13 @@ class CompactionStats(BaseModel):
     to LLM)
     """
 
+
 class SummaryMessage(BaseModel):
     """A message representing a summary of the conversation.
 
     Sent to the LLM as a user or system message depending on the provider.
     """
+
     id: str
 
     date: datetime

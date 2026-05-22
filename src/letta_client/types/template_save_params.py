@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["TemplateSaveParams"]
+
 
 class TemplateSaveParams(TypedDict, total=False):
     block_reconciliation_strategy: Literal["reconcile-all", "preserve-deleted"]

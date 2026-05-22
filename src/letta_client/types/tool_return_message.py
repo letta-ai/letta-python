@@ -1,16 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
+from typing import List, Optional
 from datetime import datetime
-
 from typing_extensions import Literal
 
-from typing import Optional, List
-
+from .._models import BaseModel
 from .agents.tool_return import ToolReturn
 
 __all__ = ["ToolReturnMessage"]
+
 
 class ToolReturnMessage(BaseModel):
     """
@@ -27,6 +25,7 @@ class ToolReturnMessage(BaseModel):
         stderr (Optional[List(str)]): Captured stderr from the tool invocation (deprecated, use tool_returns)
         tool_returns (Optional[List[ToolReturn]]): List of tool returns for multi-tool support
     """
+
     id: str
 
     date: datetime

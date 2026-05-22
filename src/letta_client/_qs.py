@@ -4,7 +4,7 @@ from typing import Any, List, Tuple, Union, Mapping, TypeVar
 from urllib.parse import parse_qs, urlencode
 from typing_extensions import get_args
 
-from ._types import ArrayFormat, NestedFormat, not_given, NotGiven
+from ._types import NotGiven, ArrayFormat, NestedFormat, not_given
 from ._utils import flatten
 
 _T = TypeVar("_T")

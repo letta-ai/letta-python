@@ -6,5 +6,6 @@ from typing_extensions import TypedDict
 
 __all__ = ["AccessTokenDeleteParams"]
 
+
 class AccessTokenDeleteParams(TypedDict, total=False):
     body: object

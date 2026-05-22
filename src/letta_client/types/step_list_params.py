@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal
-
 from typing import Optional
+from typing_extensions import Literal, TypedDict
 
 from .._types import SequenceNotStr
 
 __all__ = ["StepListParams"]
+
 
 class StepListParams(TypedDict, total=False):
     after: Optional[str]

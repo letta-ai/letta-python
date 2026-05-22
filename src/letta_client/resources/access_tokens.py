@@ -2,35 +2,27 @@
 
 from __future__ import annotations
 
-import httpx
-
-from .._resource import SyncAPIResource, AsyncAPIResource
-
-from .._compat import cached_property
-
-from ..types.access_token_create_response import AccessTokenCreateResponse
-
-from .._utils import maybe_transform, path_template, async_maybe_transform
-
-from .._base_client import make_request_options
-
 from typing import Iterable
 
-from .._types import Omit, omit, NotGiven
+import httpx
 
+from ..types import access_token_list_params, access_token_create_params, access_token_delete_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from .._base_client import make_request_options
 from ..types.access_token_list_response import AccessTokenListResponse
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ..types import access_token_create_params
-
-from typing_extensions import Literal, overload
-from .._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ..types import access_token_create_params
-from ..types import access_token_list_params
-from ..types import access_token_delete_params
+from ..types.access_token_create_response import AccessTokenCreateResponse
 
 __all__ = ["AccessTokensResource", "AsyncAccessTokensResource"]
+
 
 class AccessTokensResource(SyncAPIResource):
     @cached_property
@@ -52,17 +44,19 @@ class AccessTokensResource(SyncAPIResource):
         """
         return AccessTokensResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    hostname: str,
-    policy: Iterable[access_token_create_params.Policy],
-    expires_at: str | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AccessTokenCreateResponse:
+    def create(
+        self,
+        *,
+        hostname: str,
+        policy: Iterable[access_token_create_params.Policy],
+        expires_at: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccessTokenCreateResponse:
         """
         Create a new client side access token with the specified configuration.
 
@@ -83,26 +77,33 @@ class AccessTokensResource(SyncAPIResource):
         """
         return self._post(
             "/v1/client-side-access-tokens",
-            body=maybe_transform({
-                "hostname": hostname,
-                "policy": policy,
-                "expires_at": expires_at,
-            }, access_token_create_params.AccessTokenCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "hostname": hostname,
+                    "policy": policy,
+                    "expires_at": expires_at,
+                },
+                access_token_create_params.AccessTokenCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AccessTokenCreateResponse,
         )
 
-    def list(self,
-    *,
-    agent_id: str | Omit = omit,
-    limit: float | Omit = omit,
-    offset: float | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AccessTokenListResponse:
+    def list(
+        self,
+        *,
+        agent_id: str | Omit = omit,
+        limit: float | Omit = omit,
+        offset: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccessTokenListResponse:
         """List all client side access tokens for the current account.
 
         This is only
@@ -126,24 +127,35 @@ class AccessTokensResource(SyncAPIResource):
         """
         return self._get(
             "/v1/client-side-access-tokens",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "agent_id": agent_id,
-                "limit": limit,
-                "offset": offset,
-            }, access_token_list_params.AccessTokenListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "agent_id": agent_id,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    access_token_list_params.AccessTokenListParams,
+                ),
+            ),
             cast_to=AccessTokenListResponse,
         )
 
-    def delete(self,
-    token: str,
-    *,
-    body: object | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    def delete(
+        self,
+        token: str,
+        *,
+        body: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete a client side access token.
 
@@ -157,15 +169,16 @@ class AccessTokensResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not token:
-          raise ValueError(
-            f'Expected a non-empty value for `token` but received {token!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
         return self._delete(
             path_template("/v1/client-side-access-tokens/{token}", token=token),
             body=maybe_transform(body, access_token_delete_params.AccessTokenDeleteParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
+
 
 class AsyncAccessTokensResource(AsyncAPIResource):
     @cached_property
@@ -187,17 +200,19 @@ class AsyncAccessTokensResource(AsyncAPIResource):
         """
         return AsyncAccessTokensResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    hostname: str,
-    policy: Iterable[access_token_create_params.Policy],
-    expires_at: str | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AccessTokenCreateResponse:
+    async def create(
+        self,
+        *,
+        hostname: str,
+        policy: Iterable[access_token_create_params.Policy],
+        expires_at: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccessTokenCreateResponse:
         """
         Create a new client side access token with the specified configuration.
 
@@ -218,26 +233,33 @@ class AsyncAccessTokensResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/client-side-access-tokens",
-            body=await async_maybe_transform({
-                "hostname": hostname,
-                "policy": policy,
-                "expires_at": expires_at,
-            }, access_token_create_params.AccessTokenCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "hostname": hostname,
+                    "policy": policy,
+                    "expires_at": expires_at,
+                },
+                access_token_create_params.AccessTokenCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=AccessTokenCreateResponse,
         )
 
-    async def list(self,
-    *,
-    agent_id: str | Omit = omit,
-    limit: float | Omit = omit,
-    offset: float | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AccessTokenListResponse:
+    async def list(
+        self,
+        *,
+        agent_id: str | Omit = omit,
+        limit: float | Omit = omit,
+        offset: float | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AccessTokenListResponse:
         """List all client side access tokens for the current account.
 
         This is only
@@ -261,24 +283,35 @@ class AsyncAccessTokensResource(AsyncAPIResource):
         """
         return await self._get(
             "/v1/client-side-access-tokens",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "agent_id": agent_id,
-                "limit": limit,
-                "offset": offset,
-            }, access_token_list_params.AccessTokenListParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "agent_id": agent_id,
+                        "limit": limit,
+                        "offset": offset,
+                    },
+                    access_token_list_params.AccessTokenListParams,
+                ),
+            ),
             cast_to=AccessTokenListResponse,
         )
 
-    async def delete(self,
-    token: str,
-    *,
-    body: object | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    async def delete(
+        self,
+        token: str,
+        *,
+        body: object | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """
         Delete a client side access token.
 
@@ -292,15 +325,16 @@ class AsyncAccessTokensResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not token:
-          raise ValueError(
-            f'Expected a non-empty value for `token` but received {token!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `token` but received {token!r}")
         return await self._delete(
             path_template("/v1/client-side-access-tokens/{token}", token=token),
             body=await async_maybe_transform(body, access_token_delete_params.AccessTokenDeleteParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
+
 
 class AccessTokensResourceWithRawResponse:
     def __init__(self, access_tokens: AccessTokensResource) -> None:
@@ -316,6 +350,7 @@ class AccessTokensResourceWithRawResponse:
             access_tokens.delete,
         )
 
+
 class AsyncAccessTokensResourceWithRawResponse:
     def __init__(self, access_tokens: AsyncAccessTokensResource) -> None:
         self._access_tokens = access_tokens
@@ -330,6 +365,7 @@ class AsyncAccessTokensResourceWithRawResponse:
             access_tokens.delete,
         )
 
+
 class AccessTokensResourceWithStreamingResponse:
     def __init__(self, access_tokens: AccessTokensResource) -> None:
         self._access_tokens = access_tokens
@@ -343,6 +379,7 @@ class AccessTokensResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             access_tokens.delete,
         )
+
 
 class AsyncAccessTokensResourceWithStreamingResponse:
     def __init__(self, access_tokens: AsyncAccessTokensResource) -> None:

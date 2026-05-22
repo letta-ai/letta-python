@@ -2,30 +2,21 @@
 
 from __future__ import annotations
 
-from letta_client import Letta, AsyncLetta
-
-from letta_client.types import BlockResponse
-
-from typing import cast, Any
-
-from letta_client.pagination import SyncArrayPage, AsyncArrayPage
-
 import os
+from typing import Any, cast
+
 import pytest
-import httpx
-from typing_extensions import get_args
-from respx import MockRouter
-from letta_client import Letta, AsyncLetta
+
 from tests.utils import assert_matches_type
-from letta_client.types import block_create_params
-from letta_client.types import block_update_params
-from letta_client.types import block_list_params
+from letta_client import Letta, AsyncLetta
+from letta_client.types import BlockResponse
+from letta_client.pagination import SyncArrayPage, AsyncArrayPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-class TestBlocks:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
 
+class TestBlocks:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -34,7 +25,7 @@ class TestBlocks:
             label="label",
             value="value",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -49,9 +40,7 @@ class TestBlocks:
             hidden=True,
             is_template=True,
             limit=0,
-            metadata={
-                "foo": "bar"
-            },
+            metadata={"foo": "bar"},
             preserve_on_migration=True,
             project_id="project_id",
             read_only=True,
@@ -59,21 +48,20 @@ class TestBlocks:
             template_id="template_id",
             template_name="template_name",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
-
         response = client.blocks.with_raw_response.create(
             label="label",
             value="value",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -81,12 +69,12 @@ class TestBlocks:
         with client.blocks.with_streaming_response.create(
             label="label",
             value="value",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(BlockResponse, block, path=['response'])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -96,32 +84,31 @@ class TestBlocks:
         block = client.blocks.retrieve(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
-
         response = client.blocks.with_raw_response.retrieve(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.retrieve(
             "block-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(BlockResponse, block, path=['response'])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -129,9 +116,9 @@ class TestBlocks:
     @parametrize
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
-          client.blocks.with_raw_response.retrieve(
-              "",
-          )
+            client.blocks.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -139,7 +126,7 @@ class TestBlocks:
         block = client.blocks.update(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -154,9 +141,7 @@ class TestBlocks:
             is_template=True,
             label="label",
             limit=0,
-            metadata={
-                "foo": "bar"
-            },
+            metadata={"foo": "bar"},
             preserve_on_migration=True,
             project_id="project_id",
             read_only=True,
@@ -165,32 +150,31 @@ class TestBlocks:
             template_name="template_name",
             value="value",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Letta) -> None:
-
         response = client.blocks.with_raw_response.update(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.update(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(BlockResponse, block, path=['response'])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -198,15 +182,15 @@ class TestBlocks:
     @parametrize
     def test_path_params_update(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
-          client.blocks.with_raw_response.update(
-              block_id="",
-          )
+            client.blocks.with_raw_response.update(
+                block_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Letta) -> None:
         block = client.blocks.list()
-        assert_matches_type(SyncArrayPage[BlockResponse], block, path=['response'])
+        assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -232,28 +216,27 @@ class TestBlocks:
             templates_only=True,
             value_search="x",
         )
-        assert_matches_type(SyncArrayPage[BlockResponse], block, path=['response'])
+        assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Letta) -> None:
-
         response = client.blocks.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(SyncArrayPage[BlockResponse], block, path=['response'])
+        assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Letta) -> None:
-        with client.blocks.with_streaming_response.list() as response :
+        with client.blocks.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(SyncArrayPage[BlockResponse], block, path=['response'])
+            assert_matches_type(SyncArrayPage[BlockResponse], block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -263,32 +246,31 @@ class TestBlocks:
         block = client.blocks.delete(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(object, block, path=['response'])
+        assert_matches_type(object, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: Letta) -> None:
-
         response = client.blocks.with_raw_response.delete(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = response.parse()
-        assert_matches_type(object, block, path=['response'])
+        assert_matches_type(object, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: Letta) -> None:
         with client.blocks.with_streaming_response.delete(
             "block-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = response.parse()
-            assert_matches_type(object, block, path=['response'])
+            assert_matches_type(object, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -296,12 +278,15 @@ class TestBlocks:
     @parametrize
     def test_path_params_delete(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
-          client.blocks.with_raw_response.delete(
-              "",
-          )
-class TestAsyncBlocks:
-    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+            client.blocks.with_raw_response.delete(
+                "",
+            )
 
+
+class TestAsyncBlocks:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -310,7 +295,7 @@ class TestAsyncBlocks:
             label="label",
             value="value",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -325,9 +310,7 @@ class TestAsyncBlocks:
             hidden=True,
             is_template=True,
             limit=0,
-            metadata={
-                "foo": "bar"
-            },
+            metadata={"foo": "bar"},
             preserve_on_migration=True,
             project_id="project_id",
             read_only=True,
@@ -335,21 +318,20 @@ class TestAsyncBlocks:
             template_id="template_id",
             template_name="template_name",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.blocks.with_raw_response.create(
             label="label",
             value="value",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -357,12 +339,12 @@ class TestAsyncBlocks:
         async with async_client.blocks.with_streaming_response.create(
             label="label",
             value="value",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(BlockResponse, block, path=['response'])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -372,32 +354,31 @@ class TestAsyncBlocks:
         block = await async_client.blocks.retrieve(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.blocks.with_raw_response.retrieve(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.retrieve(
             "block-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(BlockResponse, block, path=['response'])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -405,9 +386,9 @@ class TestAsyncBlocks:
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
-          await async_client.blocks.with_raw_response.retrieve(
-              "",
-          )
+            await async_client.blocks.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -415,7 +396,7 @@ class TestAsyncBlocks:
         block = await async_client.blocks.update(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -430,9 +411,7 @@ class TestAsyncBlocks:
             is_template=True,
             label="label",
             limit=0,
-            metadata={
-                "foo": "bar"
-            },
+            metadata={"foo": "bar"},
             preserve_on_migration=True,
             project_id="project_id",
             read_only=True,
@@ -441,32 +420,31 @@ class TestAsyncBlocks:
             template_name="template_name",
             value="value",
         )
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.blocks.with_raw_response.update(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(BlockResponse, block, path=['response'])
+        assert_matches_type(BlockResponse, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.update(
             block_id="block-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(BlockResponse, block, path=['response'])
+            assert_matches_type(BlockResponse, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -474,15 +452,15 @@ class TestAsyncBlocks:
     @parametrize
     async def test_path_params_update(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
-          await async_client.blocks.with_raw_response.update(
-              block_id="",
-          )
+            await async_client.blocks.with_raw_response.update(
+                block_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLetta) -> None:
         block = await async_client.blocks.list()
-        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=['response'])
+        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -508,28 +486,27 @@ class TestAsyncBlocks:
             templates_only=True,
             value_search="x",
         )
-        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=['response'])
+        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.blocks.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=['response'])
+        assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLetta) -> None:
-        async with async_client.blocks.with_streaming_response.list() as response :
+        async with async_client.blocks.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(AsyncArrayPage[BlockResponse], block, path=['response'])
+            assert_matches_type(AsyncArrayPage[BlockResponse], block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -539,32 +516,31 @@ class TestAsyncBlocks:
         block = await async_client.blocks.delete(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(object, block, path=['response'])
+        assert_matches_type(object, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLetta) -> None:
-
         response = await async_client.blocks.with_raw_response.delete(
             "block-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         block = await response.parse()
-        assert_matches_type(object, block, path=['response'])
+        assert_matches_type(object, block, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLetta) -> None:
         async with async_client.blocks.with_streaming_response.delete(
             "block-123e4567-e89b-42d3-8456-426614174000",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             block = await response.parse()
-            assert_matches_type(object, block, path=['response'])
+            assert_matches_type(object, block, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -572,6 +548,6 @@ class TestAsyncBlocks:
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `block_id` but received ''"):
-          await async_client.blocks.with_raw_response.delete(
-              "",
-          )
+            await async_client.blocks.with_raw_response.delete(
+                "",
+            )

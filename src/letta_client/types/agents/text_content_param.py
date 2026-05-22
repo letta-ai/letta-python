@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from typing import Optional
-
-from typing_extensions import Literal, TypedDict, Required
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["TextContentParam"]
+
 
 class TextContentParam(TypedDict, total=False):
     text: Required[str]

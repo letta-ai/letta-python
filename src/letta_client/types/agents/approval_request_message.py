@@ -1,22 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, List, Optional
-
-from .tool_call_delta import ToolCallDelta
-
-from typing_extensions import TypeAliasType, TypeAlias, Literal
-
-from ..._models import BaseModel
-
+from typing import List, Union, Optional
 from datetime import datetime
+from typing_extensions import Literal, TypeAlias
 
 from . import tool_call
+from ..._models import BaseModel
+from .tool_call_delta import ToolCallDelta
 
 __all__ = ["ApprovalRequestMessage", "ToolCall", "ToolCalls"]
 
 ToolCall: TypeAlias = Union[tool_call.ToolCall, ToolCallDelta]
 
 ToolCalls: TypeAlias = Union[List[tool_call.ToolCall], ToolCallDelta, None]
+
 
 class ApprovalRequestMessage(BaseModel):
     """
@@ -28,6 +25,7 @@ class ApprovalRequestMessage(BaseModel):
         name (Optional[str]): The name of the sender of the message
         tool_call (ToolCall): The tool call
     """
+
     id: str
 
     date: datetime

@@ -1,13 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
+from typing import Dict, List, Optional
 
-from typing import Optional, Dict, List
+from ..._models import BaseModel
 
 __all__ = ["Block"]
 
+
 class Block(BaseModel):
     """A Block represents a reserved section of the LLM's context window."""
+
     value: str
     """Value of the block."""
 
