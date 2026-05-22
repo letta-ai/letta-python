@@ -2,17 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import Literal, Required, TypedDict
-
 from .._types import SequenceNotStr
+
+from typing import Optional, Dict
+
+from typing_extensions import Literal, TypedDict, Required
 
 __all__ = ["CreateStdioMcpServerParam"]
 
-
 class CreateStdioMcpServerParam(TypedDict, total=False):
     """Create a new Stdio MCP server"""
-
     args: Required[SequenceNotStr[str]]
     """The arguments to pass to the command"""
 

@@ -1,16 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
-
 from .._models import BaseModel
+
+from typing import Optional, Dict, List
+
+from datetime import datetime
 
 __all__ = ["ProviderTrace", "BillingContext"]
 
-
 class BillingContext(BaseModel):
     """Billing context for LLM request cost tracking."""
-
     cost_source: Optional[str] = None
     """Cost source: 'quota' or 'credits'"""
 
@@ -19,7 +18,6 @@ class BillingContext(BaseModel):
 
     plan_type: Optional[str] = None
     """Subscription tier"""
-
 
 class ProviderTrace(BaseModel):
     """Letta's internal representation of a provider trace.
@@ -40,7 +38,6 @@ class ProviderTrace(BaseModel):
         llm_config (Dict[str, Any]): LLM configuration used for this call (only for non-summarization calls).
         created_at (datetime): The timestamp when the object was created.
     """
-
     request_json: Dict[str, object]
     """JSON content of the provider request"""
 

@@ -1,24 +1,26 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union, Optional
-from typing_extensions import Literal, Annotated, TypeAlias
+
+from .text_response_format import TextResponseFormat
+
+from .json_schema_response_format import JsonSchemaResponseFormat
+
+from .json_object_response_format import JsonObjectResponseFormat
+
+from .._utils import PropertyInfo
+
+from typing_extensions import Annotated, TypeAliasType, TypeAlias, Literal
+
+from .._models import BaseModel
 
 from pydantic import Field as FieldInfo
 
-from .._utils import PropertyInfo
-from .._models import BaseModel
 from .provider_category import ProviderCategory
-from .text_response_format import TextResponseFormat
-from .json_object_response_format import JsonObjectResponseFormat
-from .json_schema_response_format import JsonSchemaResponseFormat
 
 __all__ = ["LlmConfig", "ResponseFormat"]
 
-ResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+ResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class LlmConfig(BaseModel):
     """Configuration for Language Model (LLM) connection and generation parameters.
@@ -28,45 +30,13 @@ class LlmConfig(BaseModel):
         Use the schemas in letta.schemas.model (ModelSettings, OpenAIModelSettings, etc.) instead.
         For conversion, use the _to_model() method or Model._from_llm_config() method.
     """
-
     context_window: int
     """The context window size for the model."""
 
     model: str
     """LLM model name."""
 
-    api_model_endpoint_type: Literal[
-        "openai",
-        "anthropic",
-        "google_ai",
-        "google_vertex",
-        "azure",
-        "groq",
-        "ollama",
-        "webui",
-        "webui-legacy",
-        "lmstudio",
-        "lmstudio-legacy",
-        "lmstudio-chatcompletions",
-        "llamacpp",
-        "koboldcpp",
-        "vllm",
-        "hugging-face",
-        "minimax",
-        "moonshot",
-        "moonshot_coding",
-        "mistral",
-        "together",
-        "bedrock",
-        "deepseek",
-        "xai",
-        "zai",
-        "zai_coding",
-        "baseten",
-        "fireworks",
-        "openrouter",
-        "chatgpt_oauth",
-    ] = FieldInfo(alias="model_endpoint_type")
+    api_model_endpoint_type: Literal["openai", "anthropic", "google_ai", "google_vertex", "azure", "groq", "ollama", "webui", "webui-legacy", "lmstudio", "lmstudio-legacy", "lmstudio-chatcompletions", "llamacpp", "koboldcpp", "vllm", "hugging-face", "minimax", "moonshot", "moonshot_coding", "mistral", "together", "bedrock", "deepseek", "xai", "zai", "zai_coding", "baseten", "fireworks", "openrouter", "chatgpt_oauth"] = FieldInfo(alias = "model_endpoint_type")
     """The endpoint type for the model."""
 
     compatibility_type: Optional[Literal["gguf", "mlx"]] = None
@@ -111,10 +81,10 @@ class LlmConfig(BaseModel):
     If not set, the model will use its default value.
     """
 
-    api_model_endpoint: Optional[str] = FieldInfo(alias="model_endpoint", default=None)
+    api_model_endpoint: Optional[str] = FieldInfo(alias = "model_endpoint", default = None)
     """The endpoint for the model."""
 
-    api_model_wrapper: Optional[str] = FieldInfo(alias="model_wrapper", default=None)
+    api_model_wrapper: Optional[str] = FieldInfo(alias = "model_wrapper", default = None)
     """The wrapper for the model."""
 
     parallel_tool_calls: Optional[bool] = None

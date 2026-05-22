@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
+
+from typing_extensions import TypedDict, Required
 
 __all__ = ["PipRequirementParam"]
-
 
 class PipRequirementParam(TypedDict, total=False):
     name: Required[str]

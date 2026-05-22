@@ -2,17 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import Required, TypedDict
+from typing import Optional, Dict
 
 from .._types import SequenceNotStr
 
-__all__ = ["CreateBlockParam"]
+from typing_extensions import TypedDict, Required
 
+__all__ = ["CreateBlockParam"]
 
 class CreateBlockParam(TypedDict, total=False):
     """Create a block"""
-
     label: Required[str]
     """Label of the block."""
 

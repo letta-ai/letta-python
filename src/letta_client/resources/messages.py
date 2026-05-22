@@ -2,31 +2,40 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal
-
 import httpx
 
-from ..types import message_list_params, message_search_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from .._base_client import make_request_options
-from ..types.agents.message_type import MessageType
-from ..types.message_list_response import MessageListResponse
-from ..types.message_search_response import MessageSearchResponse
+
+from .._compat import cached_property
+
+from .._utils import path_template, maybe_transform, async_maybe_transform
+
 from ..types.message_retrieve_response import MessageRetrieveResponse
 
-__all__ = ["MessagesResource", "AsyncMessagesResource"]
+from .._base_client import make_request_options
 
+from .._types import NotGiven, Omit, omit
+
+from ..types.message_list_response import MessageListResponse
+
+from typing import Optional, List, Union
+
+from ..types.agents.message_type import MessageType
+
+from typing_extensions import Literal
+
+from ..types.message_search_response import MessageSearchResponse
+
+from datetime import datetime
+
+from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from .._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ..types import message_list_params
+from ..types import message_search_params
+
+__all__ = ["MessagesResource", "AsyncMessagesResource"]
 
 class MessagesResource(SyncAPIResource):
     @cached_property
@@ -48,17 +57,15 @@ class MessagesResource(SyncAPIResource):
         """
         return MessagesResourceWithStreamingResponse(self)
 
-    def retrieve(
-        self,
-        message_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageRetrieveResponse:
+    def retrieve(self,
+    message_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MessageRetrieveResponse:
         """
         Retrieve a message by ID.
 
@@ -74,31 +81,29 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not message_id:
-            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `message_id` but received {message_id!r}'
+          )
         return self._get(
             path_template("/v1/messages/{message_id}", message_id=message_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=MessageRetrieveResponse,
         )
 
-    def list(
-        self,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        conversation_id: Optional[str] | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageListResponse:
+    def list(self,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    conversation_id: Optional[str] | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MessageListResponse:
         """
         List messages across all agents for the current user.
 
@@ -128,43 +133,32 @@ class MessagesResource(SyncAPIResource):
         """
         return self._get(
             "/v1/messages/",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "conversation_id": conversation_id,
-                        "include_return_message_types": include_return_message_types,
-                        "limit": limit,
-                        "order": order,
-                    },
-                    message_list_params.MessageListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "conversation_id": conversation_id,
+                "include_return_message_types": include_return_message_types,
+                "limit": limit,
+                "order": order,
+            }, message_list_params.MessageListParams)),
             cast_to=MessageListResponse,
         )
 
-    def search(
-        self,
-        *,
-        query: str,
-        agent_id: Optional[str] | Omit = omit,
-        conversation_id: Optional[str] | Omit = omit,
-        end_date: Union[str, datetime, None] | Omit = omit,
-        limit: int | Omit = omit,
-        search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
-        start_date: Union[str, datetime, None] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageSearchResponse:
+    def search(self,
+    *,
+    query: str,
+    agent_id: Optional[str] | Omit = omit,
+    conversation_id: Optional[str] | Omit = omit,
+    end_date: Union[str, datetime, None] | Omit = omit,
+    limit: int | Omit = omit,
+    search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
+    start_date: Union[str, datetime, None] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MessageSearchResponse:
         """Search messages across the organization with optional agent filtering.
 
         Returns
@@ -197,24 +191,18 @@ class MessagesResource(SyncAPIResource):
         """
         return self._post(
             "/v1/messages/search",
-            body=maybe_transform(
-                {
-                    "query": query,
-                    "agent_id": agent_id,
-                    "conversation_id": conversation_id,
-                    "end_date": end_date,
-                    "limit": limit,
-                    "search_mode": search_mode,
-                    "start_date": start_date,
-                },
-                message_search_params.MessageSearchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "query": query,
+                "agent_id": agent_id,
+                "conversation_id": conversation_id,
+                "end_date": end_date,
+                "limit": limit,
+                "search_mode": search_mode,
+                "start_date": start_date,
+            }, message_search_params.MessageSearchParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=MessageSearchResponse,
         )
-
 
 class AsyncMessagesResource(AsyncAPIResource):
     @cached_property
@@ -236,17 +224,15 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
-    async def retrieve(
-        self,
-        message_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageRetrieveResponse:
+    async def retrieve(self,
+    message_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MessageRetrieveResponse:
         """
         Retrieve a message by ID.
 
@@ -262,31 +248,29 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not message_id:
-            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `message_id` but received {message_id!r}'
+          )
         return await self._get(
             path_template("/v1/messages/{message_id}", message_id=message_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=MessageRetrieveResponse,
         )
 
-    async def list(
-        self,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        conversation_id: Optional[str] | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageListResponse:
+    async def list(self,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    conversation_id: Optional[str] | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MessageListResponse:
         """
         List messages across all agents for the current user.
 
@@ -316,43 +300,32 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return await self._get(
             "/v1/messages/",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "conversation_id": conversation_id,
-                        "include_return_message_types": include_return_message_types,
-                        "limit": limit,
-                        "order": order,
-                    },
-                    message_list_params.MessageListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "after": after,
+                "before": before,
+                "conversation_id": conversation_id,
+                "include_return_message_types": include_return_message_types,
+                "limit": limit,
+                "order": order,
+            }, message_list_params.MessageListParams)),
             cast_to=MessageListResponse,
         )
 
-    async def search(
-        self,
-        *,
-        query: str,
-        agent_id: Optional[str] | Omit = omit,
-        conversation_id: Optional[str] | Omit = omit,
-        end_date: Union[str, datetime, None] | Omit = omit,
-        limit: int | Omit = omit,
-        search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
-        start_date: Union[str, datetime, None] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageSearchResponse:
+    async def search(self,
+    *,
+    query: str,
+    agent_id: Optional[str] | Omit = omit,
+    conversation_id: Optional[str] | Omit = omit,
+    end_date: Union[str, datetime, None] | Omit = omit,
+    limit: int | Omit = omit,
+    search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
+    start_date: Union[str, datetime, None] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MessageSearchResponse:
         """Search messages across the organization with optional agent filtering.
 
         Returns
@@ -385,24 +358,18 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/messages/search",
-            body=await async_maybe_transform(
-                {
-                    "query": query,
-                    "agent_id": agent_id,
-                    "conversation_id": conversation_id,
-                    "end_date": end_date,
-                    "limit": limit,
-                    "search_mode": search_mode,
-                    "start_date": start_date,
-                },
-                message_search_params.MessageSearchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "query": query,
+                "agent_id": agent_id,
+                "conversation_id": conversation_id,
+                "end_date": end_date,
+                "limit": limit,
+                "search_mode": search_mode,
+                "start_date": start_date,
+            }, message_search_params.MessageSearchParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=MessageSearchResponse,
         )
-
 
 class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
@@ -418,7 +385,6 @@ class MessagesResourceWithRawResponse:
             messages.search,
         )
 
-
 class AsyncMessagesResourceWithRawResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
@@ -433,7 +399,6 @@ class AsyncMessagesResourceWithRawResponse:
             messages.search,
         )
 
-
 class MessagesResourceWithStreamingResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
@@ -447,7 +412,6 @@ class MessagesResourceWithStreamingResponse:
         self.search = to_streamed_response_wrapper(
             messages.search,
         )
-
 
 class AsyncMessagesResourceWithStreamingResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:

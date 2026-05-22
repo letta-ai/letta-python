@@ -2,25 +2,28 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
-from ..._types import Body, Query, Headers, NotGiven, not_given
-from ..._utils import path_template
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
+
+from ..._compat import cached_property
+
+from ..._utils import path_template
+
 from ...types.provider_trace import ProviderTrace
 
-__all__ = ["TraceResource", "AsyncTraceResource"]
+from ..._base_client import make_request_options
 
+from ..._types import NotGiven
+
+from typing import Optional
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+
+__all__ = ["TraceResource", "AsyncTraceResource"]
 
 class TraceResource(SyncAPIResource):
     @cached_property
@@ -42,17 +45,15 @@ class TraceResource(SyncAPIResource):
         """
         return TraceResourceWithStreamingResponse(self)
 
-    def retrieve(
-        self,
-        step_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[ProviderTrace]:
+    def retrieve(self,
+    step_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Optional[ProviderTrace]:
         """
         Retrieve Trace For Step
 
@@ -68,15 +69,14 @@ class TraceResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not step_id:
-            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `step_id` but received {step_id!r}'
+          )
         return self._get(
             path_template("/v1/steps/{step_id}/trace", step_id=step_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProviderTrace,
         )
-
 
 class AsyncTraceResource(AsyncAPIResource):
     @cached_property
@@ -98,17 +98,15 @@ class AsyncTraceResource(AsyncAPIResource):
         """
         return AsyncTraceResourceWithStreamingResponse(self)
 
-    async def retrieve(
-        self,
-        step_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[ProviderTrace]:
+    async def retrieve(self,
+    step_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Optional[ProviderTrace]:
         """
         Retrieve Trace For Step
 
@@ -124,15 +122,14 @@ class AsyncTraceResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not step_id:
-            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `step_id` but received {step_id!r}'
+          )
         return await self._get(
             path_template("/v1/steps/{step_id}/trace", step_id=step_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ProviderTrace,
         )
-
 
 class TraceResourceWithRawResponse:
     def __init__(self, trace: TraceResource) -> None:
@@ -142,7 +139,6 @@ class TraceResourceWithRawResponse:
             trace.retrieve,
         )
 
-
 class AsyncTraceResourceWithRawResponse:
     def __init__(self, trace: AsyncTraceResource) -> None:
         self._trace = trace
@@ -151,7 +147,6 @@ class AsyncTraceResourceWithRawResponse:
             trace.retrieve,
         )
 
-
 class TraceResourceWithStreamingResponse:
     def __init__(self, trace: TraceResource) -> None:
         self._trace = trace
@@ -159,7 +154,6 @@ class TraceResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             trace.retrieve,
         )
-
 
 class AsyncTraceResourceWithStreamingResponse:
     def __init__(self, trace: AsyncTraceResource) -> None:

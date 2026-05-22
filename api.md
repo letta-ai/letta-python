@@ -15,38 +15,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import (
-    AgentEnvironmentVariable,
-    AgentState,
-    AgentType,
-    AnthropicModelSettings,
-    AzureModelSettings,
-    BedrockModelSettings,
-    ChildToolRule,
-    ConditionalToolRule,
-    ContinueToolRule,
-    DeepseekModelSettings,
-    GoogleAIModelSettings,
-    GoogleVertexModelSettings,
-    GroqModelSettings,
-    InitToolRule,
-    JsonObjectResponseFormat,
-    JsonSchemaResponseFormat,
-    LettaMessageContentUnion,
-    MaxCountPerStepToolRule,
-    MessageCreate,
-    OpenAIModelSettings,
-    ParentToolRule,
-    RequiredBeforeExitToolRule,
-    RequiresApprovalToolRule,
-    TerminalToolRule,
-    TextResponseFormat,
-    TogetherModelSettings,
-    XaiModelSettings,
-    AgentExportFileResponse,
-    AgentImportFileResponse,
-    AgentRecompileResponse,
-)
+from letta_client.types import AgentEnvironmentVariable, AgentState, AgentType, AnthropicModelSettings, AzureModelSettings, BedrockModelSettings, ChildToolRule, ConditionalToolRule, ContinueToolRule, DeepseekModelSettings, GoogleAIModelSettings, GoogleVertexModelSettings, GroqModelSettings, InitToolRule, JsonObjectResponseFormat, JsonSchemaResponseFormat, LettaMessageContentUnion, MaxCountPerStepToolRule, MessageCreate, OpenAIModelSettings, ParentToolRule, RequiredBeforeExitToolRule, RequiresApprovalToolRule, TerminalToolRule, TextResponseFormat, TogetherModelSettings, XaiModelSettings, AgentExportFileResponse, AgentImportFileResponse, AgentRecompileResponse
 ```
 
 Methods:
@@ -65,48 +34,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types.agents import (
-    ApprovalCreate,
-    ApprovalRequestMessage,
-    ApprovalResponseMessage,
-    ApprovalReturn,
-    AssistantMessage,
-    EventMessage,
-    HiddenReasoningMessage,
-    ImageContent,
-    InternalMessage,
-    JobStatus,
-    JobType,
-    LettaAssistantMessageContentUnion,
-    LettaRequest,
-    LettaResponse,
-    LettaStreamingRequest,
-    LettaStreamingResponse,
-    LettaUserMessageContentUnion,
-    Message,
-    MessageRole,
-    MessageType,
-    OmittedReasoningContent,
-    ReasoningContent,
-    ReasoningMessage,
-    RedactedReasoningContent,
-    Run,
-    SummaryMessage,
-    SystemMessage,
-    TextContent,
-    ToolCall,
-    ToolCallContent,
-    ToolCallDelta,
-    ToolCallMessage,
-    ToolReturn,
-    ToolReturnContent,
-    UpdateAssistantMessage,
-    UpdateReasoningMessage,
-    UpdateSystemMessage,
-    UpdateUserMessage,
-    UserMessage,
-    MessageCancelResponse,
-)
+from letta_client.types.agents import ApprovalCreate, ApprovalRequestMessage, ApprovalResponseMessage, ApprovalReturn, AssistantMessage, EventMessage, HiddenReasoningMessage, ImageContent, InternalMessage, JobStatus, JobType, LettaAssistantMessageContentUnion, LettaRequest, LettaResponse, LettaStreamingRequest, LettaStreamingResponse, LettaUserMessageContentUnion, Message, MessageRole, MessageType, OmittedReasoningContent, ReasoningContent, ReasoningMessage, RedactedReasoningContent, Run, SummaryMessage, SystemMessage, TextContent, ToolCall, ToolCallContent, ToolCallDelta, ToolCallMessage, ToolReturn, ToolReturnContent, UpdateAssistantMessage, UpdateReasoningMessage, UpdateSystemMessage, UpdateUserMessage, UserMessage, MessageCancelResponse
 ```
 
 Methods:
@@ -124,12 +52,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types.agents import (
-    ScheduleCreateResponse,
-    ScheduleRetrieveResponse,
-    ScheduleListResponse,
-    ScheduleDeleteResponse,
-)
+from letta_client.types.agents import ScheduleCreateResponse, ScheduleRetrieveResponse, ScheduleListResponse, ScheduleDeleteResponse
 ```
 
 Methods:
@@ -212,11 +135,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types.agents import (
-    PassageCreateResponse,
-    PassageListResponse,
-    PassageSearchResponse,
-)
+from letta_client.types.agents import PassageCreateResponse, PassageListResponse, PassageSearchResponse
 ```
 
 Methods:
@@ -238,17 +157,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import (
-    NpmRequirement,
-    PipRequirement,
-    Tool,
-    ToolCreate,
-    ToolReturnMessage,
-    ToolSearchRequest,
-    ToolSearchResult,
-    ToolType,
-    ToolSearchResponse,
-)
+from letta_client.types import NpmRequirement, PipRequirement, Tool, ToolCreate, ToolReturnMessage, ToolSearchRequest, ToolSearchResult, ToolType, ToolSearchResponse
 ```
 
 Methods:
@@ -361,15 +270,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import (
-    EmbeddingConfig,
-    EmbeddingModel,
-    LlmConfig,
-    Model,
-    ProviderCategory,
-    ProviderType,
-    ModelListResponse,
-)
+from letta_client.types import EmbeddingConfig, EmbeddingModel, LlmConfig, Model, ProviderCategory, ProviderType, ModelListResponse
 ```
 
 Methods:
@@ -393,21 +294,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import (
-    CreateSseMcpServer,
-    CreateStdioMcpServer,
-    CreateStreamableHTTPMcpServer,
-    SseMcpServer,
-    StdioMcpServer,
-    StreamableHTTPMcpServer,
-    UpdateSseMcpServer,
-    UpdateStdioMcpServer,
-    UpdateStreamableHTTPMcpServer,
-    McpServerCreateResponse,
-    McpServerRetrieveResponse,
-    McpServerUpdateResponse,
-    McpServerListResponse,
-)
+from letta_client.types import CreateSseMcpServer, CreateStdioMcpServer, CreateStreamableHTTPMcpServer, SseMcpServer, StdioMcpServer, StreamableHTTPMcpServer, UpdateSseMcpServer, UpdateStdioMcpServer, UpdateStreamableHTTPMcpServer, McpServerCreateResponse, McpServerRetrieveResponse, McpServerUpdateResponse, McpServerListResponse
 ```
 
 Methods:
@@ -537,13 +424,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import (
-    TemplateCreateResponse,
-    TemplateUpdateResponse,
-    TemplateDeleteResponse,
-    TemplateRollbackResponse,
-    TemplateSaveResponse,
-)
+from letta_client.types import TemplateCreateResponse, TemplateUpdateResponse, TemplateDeleteResponse, TemplateRollbackResponse, TemplateSaveResponse
 ```
 
 Methods:
@@ -583,13 +464,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import (
-    MessageSearchRequest,
-    MessageSearchResult,
-    MessageRetrieveResponse,
-    MessageListResponse,
-    MessageSearchResponse,
-)
+from letta_client.types import MessageSearchRequest, MessageSearchResult, MessageRetrieveResponse, MessageListResponse, MessageSearchResponse
 ```
 
 Methods:
@@ -615,14 +490,7 @@ Methods:
 Types:
 
 ```python
-from letta_client.types import (
-    Conversation,
-    CreateConversation,
-    UpdateConversation,
-    ConversationListResponse,
-    ConversationCancelResponse,
-    ConversationRecompileResponse,
-)
+from letta_client.types import Conversation, CreateConversation, UpdateConversation, ConversationListResponse, ConversationCancelResponse, ConversationRecompileResponse
 ```
 
 Methods:

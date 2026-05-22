@@ -1,16 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from typing_extensions import Literal
-
 from .._models import BaseModel
+
+from typing import List, Optional, Dict
+
+from typing_extensions import Literal
 
 __all__ = ["StdioMcpServer"]
 
-
 class StdioMcpServer(BaseModel):
     """A Stdio MCP server"""
-
     args: List[str]
     """The arguments to pass to the command"""
 

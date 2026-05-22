@@ -2,46 +2,41 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing_extensions import TypedDict, Annotated, Literal, TypeAliasType, TypeAlias
+
+from typing import Optional, Union
+
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
-from .xai_model_settings_param import XaiModelSettingsParam
-from .groq_model_settings_param import GroqModelSettingsParam
-from .azure_model_settings_param import AzureModelSettingsParam
+
 from .text_response_format_param import TextResponseFormatParam
-from .openai_model_settings_param import OpenAIModelSettingsParam
-from .bedrock_model_settings_param import BedrockModelSettingsParam
-from .deepseek_model_settings_param import DeepseekModelSettingsParam
-from .together_model_settings_param import TogetherModelSettingsParam
-from .anthropic_model_settings_param import AnthropicModelSettingsParam
-from .google_ai_model_settings_param import GoogleAIModelSettingsParam
-from .json_object_response_format_param import JsonObjectResponseFormatParam
+
 from .json_schema_response_format_param import JsonSchemaResponseFormatParam
+
+from .json_object_response_format_param import JsonObjectResponseFormatParam
+
+from .openai_model_settings_param import OpenAIModelSettingsParam
+
+from .anthropic_model_settings_param import AnthropicModelSettingsParam
+
+from .google_ai_model_settings_param import GoogleAIModelSettingsParam
+
 from .google_vertex_model_settings_param import GoogleVertexModelSettingsParam
 
-__all__ = [
-    "ConversationUpdateParams",
-    "ModelSettings",
-    "ModelSettingsSgLangModelSettings",
-    "ModelSettingsSgLangModelSettingsReasoning",
-    "ModelSettingsSgLangModelSettingsResponseFormat",
-    "ModelSettingsMoonshotModelSettings",
-    "ModelSettingsMoonshotModelSettingsResponseFormat",
-    "ModelSettingsZaiModelSettings",
-    "ModelSettingsZaiModelSettingsResponseFormat",
-    "ModelSettingsZaiModelSettingsThinking",
-    "ModelSettingsMoonshotCodingModelSettings",
-    "ModelSettingsMoonshotCodingModelSettingsResponseFormat",
-    "ModelSettingsMoonshotCodingModelSettingsThinking",
-    "ModelSettingsBasetenModelSettings",
-    "ModelSettingsOpenRouterModelSettings",
-    "ModelSettingsOpenRouterModelSettingsResponseFormat",
-    "ModelSettingsChatGptoAuthModelSettings",
-    "ModelSettingsChatGptoAuthModelSettingsReasoning",
-]
+from .azure_model_settings_param import AzureModelSettingsParam
 
+from .xai_model_settings_param import XaiModelSettingsParam
+
+from .groq_model_settings_param import GroqModelSettingsParam
+
+from .deepseek_model_settings_param import DeepseekModelSettingsParam
+
+from .together_model_settings_param import TogetherModelSettingsParam
+
+from .bedrock_model_settings_param import BedrockModelSettingsParam
+
+__all__ = ["ConversationUpdateParams", "ModelSettings", "ModelSettingsSgLangModelSettings", "ModelSettingsSgLangModelSettingsReasoning", "ModelSettingsSgLangModelSettingsResponseFormat", "ModelSettingsMoonshotModelSettings", "ModelSettingsMoonshotModelSettingsResponseFormat", "ModelSettingsZaiModelSettings", "ModelSettingsZaiModelSettingsResponseFormat", "ModelSettingsZaiModelSettingsThinking", "ModelSettingsMoonshotCodingModelSettings", "ModelSettingsMoonshotCodingModelSettingsResponseFormat", "ModelSettingsMoonshotCodingModelSettingsThinking", "ModelSettingsBasetenModelSettings", "ModelSettingsOpenRouterModelSettings", "ModelSettingsOpenRouterModelSettingsResponseFormat", "ModelSettingsChatGptoAuthModelSettings", "ModelSettingsChatGptoAuthModelSettingsReasoning"]
 
 class ConversationUpdateParams(TypedDict, total=False):
     archived: Optional[bool]
@@ -53,7 +48,7 @@ class ConversationUpdateParams(TypedDict, total=False):
     window).
     """
 
-    last_message_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    last_message_at: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
     """Timestamp of the most recent message request sent to this conversation."""
 
     model: Optional[str]
@@ -68,24 +63,17 @@ class ConversationUpdateParams(TypedDict, total=False):
     summary: Optional[str]
     """A summary of the conversation."""
 
-
 class ModelSettingsSgLangModelSettingsReasoning(TypedDict, total=False):
     """The reasoning configuration for the model."""
-
     reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh"]
     """The reasoning effort to use when generating text reasoning models"""
 
-
-ModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Union[
-    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
-]
-
+ModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
 class ModelSettingsSgLangModelSettings(TypedDict, total=False):
     """
     SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
     """
-
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -113,15 +101,10 @@ class ModelSettingsSgLangModelSettings(TypedDict, total=False):
     tool_call_parser: Optional[str]
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
 
-
-ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Union[
-    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
-]
-
+ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
 class ModelSettingsMoonshotModelSettings(TypedDict, total=False):
     """Moonshot/Kimi model configuration (OpenAI-compatible)."""
-
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -143,25 +126,18 @@ class ModelSettingsMoonshotModelSettings(TypedDict, total=False):
     temperature: float
     """The temperature of the model."""
 
-
-ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[
-    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
-]
-
+ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
 class ModelSettingsZaiModelSettingsThinking(TypedDict, total=False):
     """The thinking configuration for GLM-4.5+ models."""
-
     clear_thinking: bool
     """If False, preserved thinking is used (recommended for agents)."""
 
     type: Literal["enabled", "disabled"]
     """Whether thinking is enabled or disabled."""
 
-
 class ModelSettingsZaiModelSettings(TypedDict, total=False):
     """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
-
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -180,25 +156,18 @@ class ModelSettingsZaiModelSettings(TypedDict, total=False):
     thinking: ModelSettingsZaiModelSettingsThinking
     """The thinking configuration for GLM-4.5+ models."""
 
-
-ModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Union[
-    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
-]
-
+ModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
 class ModelSettingsMoonshotCodingModelSettingsThinking(TypedDict, total=False):
     """The thinking configuration for the model."""
-
     budget_tokens: int
     """The maximum number of tokens the model can use for extended thinking."""
 
     type: Literal["enabled", "disabled"]
     """The type of thinking to use."""
 
-
 class ModelSettingsMoonshotCodingModelSettings(TypedDict, total=False):
     """Kimi Code model configuration (Anthropic-compatible)."""
-
     effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]]
     """Effort level for supported Anthropic models (controls token spending).
 
@@ -233,10 +202,8 @@ class ModelSettingsMoonshotCodingModelSettings(TypedDict, total=False):
     verbosity: Optional[Literal["low", "medium", "high"]]
     """Soft control for how verbose model output should be, used for GPT-5 models."""
 
-
 class ModelSettingsBasetenModelSettings(TypedDict, total=False):
     """Baseten model configuration (OpenAI-compatible)."""
-
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -249,15 +216,10 @@ class ModelSettingsBasetenModelSettings(TypedDict, total=False):
     temperature: float
     """The temperature of the model."""
 
-
-ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Union[
-    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
-]
-
+ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
 class ModelSettingsOpenRouterModelSettings(TypedDict, total=False):
     """OpenRouter model configuration (OpenAI-compatible)."""
-
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -273,17 +235,13 @@ class ModelSettingsOpenRouterModelSettings(TypedDict, total=False):
     temperature: float
     """The temperature of the model."""
 
-
 class ModelSettingsChatGptoAuthModelSettingsReasoning(TypedDict, total=False):
     """The reasoning configuration for the model."""
-
     reasoning_effort: Literal["none", "low", "medium", "high", "xhigh"]
     """The reasoning effort level for GPT-5.x and o-series models."""
 
-
 class ModelSettingsChatGptoAuthModelSettings(TypedDict, total=False):
     """ChatGPT OAuth model configuration (uses ChatGPT backend API)."""
-
     max_output_tokens: int
     """The maximum number of tokens the model can generate."""
 
@@ -299,23 +257,4 @@ class ModelSettingsChatGptoAuthModelSettings(TypedDict, total=False):
     temperature: float
     """The temperature of the model."""
 
-
-ModelSettings: TypeAlias = Union[
-    OpenAIModelSettingsParam,
-    ModelSettingsSgLangModelSettings,
-    AnthropicModelSettingsParam,
-    GoogleAIModelSettingsParam,
-    GoogleVertexModelSettingsParam,
-    AzureModelSettingsParam,
-    XaiModelSettingsParam,
-    ModelSettingsMoonshotModelSettings,
-    ModelSettingsZaiModelSettings,
-    ModelSettingsMoonshotCodingModelSettings,
-    GroqModelSettingsParam,
-    DeepseekModelSettingsParam,
-    TogetherModelSettingsParam,
-    BedrockModelSettingsParam,
-    ModelSettingsBasetenModelSettings,
-    ModelSettingsOpenRouterModelSettings,
-    ModelSettingsChatGptoAuthModelSettings,
-]
+ModelSettings: TypeAlias = Union[OpenAIModelSettingsParam, ModelSettingsSgLangModelSettings, AnthropicModelSettingsParam, GoogleAIModelSettingsParam, GoogleVertexModelSettingsParam, AzureModelSettingsParam, XaiModelSettingsParam, ModelSettingsMoonshotModelSettings, ModelSettingsZaiModelSettings, ModelSettingsMoonshotCodingModelSettings, GroqModelSettingsParam, DeepseekModelSettingsParam, TogetherModelSettingsParam, BedrockModelSettingsParam, ModelSettingsBasetenModelSettings, ModelSettingsOpenRouterModelSettings, ModelSettingsChatGptoAuthModelSettings]

@@ -1,16 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from .._models import BaseModel
 
 from .tool import Tool
-from .._models import BaseModel
+
+from typing import Optional
 
 __all__ = ["ToolSearchResult"]
 
-
 class ToolSearchResult(BaseModel):
     """Result from a tool search operation."""
-
     combined_score: float
     """Combined relevance score (RRF for hybrid mode)."""
 

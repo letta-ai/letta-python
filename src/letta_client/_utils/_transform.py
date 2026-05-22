@@ -12,21 +12,21 @@ import pydantic
 
 from ._utils import (
     is_list,
+    is_sequence,
     is_given,
     lru_cache,
     is_mapping,
     is_iterable,
-    is_sequence,
 )
 from .._files import is_base64_file_input
 from ._compat import get_origin, is_typeddict
 from ._typing import (
     is_list_type,
+    is_sequence_type,
     is_union_type,
     extract_type_arg,
     is_iterable_type,
     is_required_type,
-    is_sequence_type,
     is_annotated_type,
     strip_annotated_type,
 )

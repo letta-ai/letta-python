@@ -2,19 +2,18 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
-
 from .._types import SequenceNotStr
 
-__all__ = ["ParentToolRuleParam"]
+from typing import Optional
 
+from typing_extensions import Literal, TypedDict, Required
+
+__all__ = ["ParentToolRuleParam"]
 
 class ParentToolRuleParam(TypedDict, total=False):
     """
     A ToolRule that only allows a child tool to be called if the parent has been called.
     """
-
     children: Required[SequenceNotStr[str]]
     """The children tools that can be invoked."""
 

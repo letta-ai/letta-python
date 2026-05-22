@@ -2,27 +2,31 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
-from ...types.folders import agent_list_params
+
+from ..._compat import cached_property
+
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+
 from ...types.folders.agent_list_response import AgentListResponse
 
-__all__ = ["AgentsResource", "AsyncAgentsResource"]
+from ..._base_client import make_request_options
 
+from typing import Optional
+
+from ..._types import Omit, omit, NotGiven
+
+from typing_extensions import Literal
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.folders import agent_list_params
+
+__all__ = ["AgentsResource", "AsyncAgentsResource"]
 
 class AgentsResource(SyncAPIResource):
     @cached_property
@@ -44,22 +48,20 @@ class AgentsResource(SyncAPIResource):
         """
         return AgentsResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        folder_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListResponse:
+    def list(self,
+    folder_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentListResponse:
         """
         Get all agent IDs that have the specified folder attached.
 
@@ -88,28 +90,20 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return self._get(
             path_template("/v1/folders/{folder_id}/agents", folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    agent_list_params.AgentListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            }, agent_list_params.AgentListParams)),
             cast_to=AgentListResponse,
         )
-
 
 class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
@@ -131,22 +125,20 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         return AsyncAgentsResourceWithStreamingResponse(self)
 
-    async def list(
-        self,
-        folder_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListResponse:
+    async def list(self,
+    folder_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentListResponse:
         """
         Get all agent IDs that have the specified folder attached.
 
@@ -175,28 +167,20 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return await self._get(
             path_template("/v1/folders/{folder_id}/agents", folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    agent_list_params.AgentListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "after": after,
+                "before": before,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            }, agent_list_params.AgentListParams)),
             cast_to=AgentListResponse,
         )
-
 
 class AgentsResourceWithRawResponse:
     def __init__(self, agents: AgentsResource) -> None:
@@ -206,7 +190,6 @@ class AgentsResourceWithRawResponse:
             agents.list,
         )
 
-
 class AsyncAgentsResourceWithRawResponse:
     def __init__(self, agents: AsyncAgentsResource) -> None:
         self._agents = agents
@@ -215,7 +198,6 @@ class AsyncAgentsResourceWithRawResponse:
             agents.list,
         )
 
-
 class AgentsResourceWithStreamingResponse:
     def __init__(self, agents: AgentsResource) -> None:
         self._agents = agents
@@ -223,7 +205,6 @@ class AgentsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             agents.list,
         )
-
 
 class AsyncAgentsResourceWithStreamingResponse:
     def __init__(self, agents: AsyncAgentsResource) -> None:

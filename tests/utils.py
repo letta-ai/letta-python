@@ -4,7 +4,7 @@ import os
 import inspect
 import traceback
 import contextlib
-from typing import Any, TypeVar, Iterator, Sequence, cast
+from typing import Any, Sequence, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
@@ -13,9 +13,9 @@ from letta_client._utils import (
     is_dict,
     is_list,
     is_list_type,
+    is_sequence_type,
     is_union_type,
     extract_type_arg,
-    is_sequence_type,
     is_annotated_type,
     is_type_alias_type,
 )

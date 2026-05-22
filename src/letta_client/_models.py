@@ -3,31 +3,19 @@ from __future__ import annotations
 import os
 import inspect
 import weakref
-from typing import (
-    IO,
-    TYPE_CHECKING,
-    Any,
-    Type,
-    Union,
-    Generic,
-    TypeVar,
-    Callable,
-    Iterable,
-    Optional,
-    AsyncIterable,
-    cast,
-)
+from typing import IO, TYPE_CHECKING, Any, AsyncIterable, AsyncIterable, Iterable, Type, Union, Generic, TypeVar, Callable, Optional, cast
 from datetime import date, datetime
 from typing_extensions import (
+    Annotated,
+    TypeAlias,
+    Self,
     List,
     Unpack,
     Literal,
     ClassVar,
     Protocol,
     Required,
-    Annotated,
     ParamSpec,
-    TypeAlias,
     TypedDict,
     TypeGuard,
     final,
@@ -98,11 +86,9 @@ _BaseModelT = TypeVar("_BaseModelT", bound="BaseModel")
 
 P = ParamSpec("P")
 
-
 @runtime_checkable
 class _ConfigProtocol(Protocol):
     allow_population_by_field_name: bool
-
 
 class BaseModel(pydantic.BaseModel):
     if PYDANTIC_V1:
@@ -405,7 +391,6 @@ class BaseModel(pydantic.BaseModel):
                 exclude_none=exclude_none,
             )
 
-
 class _EagerIterable(list[_T], Generic[_T]):
     """
     Accepts any Iterable[T] input (including generators), consumes it
@@ -472,9 +457,7 @@ class _EagerIterable(list[_T], Generic[_T]):
             return v
         return list(v)
 
-
 EagerIterable: TypeAlias = Annotated[Iterable[_T], _EagerIterable]
-
 
 def _construct_field(value: object, field: FieldInfo, key: str) -> object:
     if value is None:
@@ -489,7 +472,6 @@ def _construct_field(value: object, field: FieldInfo, key: str) -> object:
         raise RuntimeError(f"Unexpected field type is None for {key}")
 
     return construct_type(value=value, type_=type_, metadata=getattr(field, "metadata", None))
-
 
 def _get_extra_fields_type(cls: type[pydantic.BaseModel]) -> type | None:
     if PYDANTIC_V1:
@@ -507,7 +489,6 @@ def _get_extra_fields_type(cls: type[pydantic.BaseModel]) -> type | None:
 
     return None
 
-
 def is_basemodel(type_: type) -> bool:
     """Returns whether or not the given type is either a `BaseModel` or a union of `BaseModel`"""
     if is_union(type_):
@@ -519,13 +500,11 @@ def is_basemodel(type_: type) -> bool:
 
     return is_basemodel_type(type_)
 
-
 def is_basemodel_type(type_: type) -> TypeGuard[type[BaseModel] | type[GenericModel]]:
     origin = get_origin(type_) or type_
     if not inspect.isclass(origin):
         return False
     return issubclass(origin, BaseModel) or issubclass(origin, GenericModel)
-
 
 def build(
     base_model_cls: Callable[P, _BaseModelT],
@@ -549,7 +528,6 @@ def build(
 
     return cast(_BaseModelT, construct_type(type_=base_model_cls, value=kwargs))
 
-
 def construct_type_unchecked(*, value: object, type_: type[_T]) -> _T:
     """Loose coercion to the expected type with construction of nested values.
 
@@ -557,7 +535,6 @@ def construct_type_unchecked(*, value: object, type_: type[_T]) -> _T:
     given type.
     """
     return cast(_T, construct_type(value=value, type_=type_))
-
 
 def construct_type(*, value: object, type_: object, metadata: Optional[List[Any]] = None) -> object:
     """Loose coercion to the expected type with construction of nested values.
@@ -678,14 +655,11 @@ def construct_type(*, value: object, type_: object, metadata: Optional[List[Any]
 
     return value
 
-
 @runtime_checkable
 class CachedDiscriminatorType(Protocol):
     __discriminator__: DiscriminatorDetails
 
-
 DISCRIMINATOR_CACHE: weakref.WeakKeyDictionary[type, DiscriminatorDetails] = weakref.WeakKeyDictionary()
-
 
 class DiscriminatorDetails:
     field_name: str
@@ -726,7 +700,6 @@ class DiscriminatorDetails:
         self.mapping = mapping
         self.field_name = discriminator_field
         self.field_alias_from = discriminator_alias
-
 
 def _build_discriminated_union_meta(*, union: type, meta_annotations: tuple[Any, ...]) -> DiscriminatorDetails | None:
     cached = DISCRIMINATOR_CACHE.get(union)
@@ -787,7 +760,6 @@ def _build_discriminated_union_meta(*, union: type, meta_annotations: tuple[Any,
     DISCRIMINATOR_CACHE.setdefault(union, details)
     return details
 
-
 def _extract_field_schema_pv2(model: type[BaseModel], field_name: str) -> ModelField | None:
     schema = model.__pydantic_core_schema__
     if schema["type"] == "definitions":
@@ -808,7 +780,6 @@ def _extract_field_schema_pv2(model: type[BaseModel], field_name: str) -> ModelF
 
     return cast("ModelField", field)  # pyright: ignore[reportUnnecessaryCast]
 
-
 def validate_type(*, type_: type[_T], value: object) -> _T:
     """Strict validation that the given value matches the expected type"""
     if inspect.isclass(type_) and issubclass(type_, pydantic.BaseModel):
@@ -816,14 +787,12 @@ def validate_type(*, type_: type[_T], value: object) -> _T:
 
     return cast(_T, _validate_non_model_type(type_=type_, value=value))
 
-
 def set_pydantic_config(typ: Any, config: pydantic.ConfigDict) -> None:
     """Add a pydantic config for the given type.
 
     Note: this is a no-op on Pydantic v1.
     """
     setattr(typ, "__pydantic_config__", config)  # noqa: B010
-
 
 # our use of subclassing here causes weirdness for type checkers,
 # so we just pretend that we don't subclass
@@ -833,7 +802,6 @@ else:
 
     class GenericModel(BaseGenericModel, BaseModel):
         pass
-
 
 if not PYDANTIC_V1:
     from pydantic import TypeAdapter as _TypeAdapter
@@ -870,7 +838,6 @@ elif not TYPE_CHECKING:  # TODO: condition is weird
     def _create_pydantic_model(type_: _T) -> Type[RootModel[_T]]:
         return RootModel[type_]  # type: ignore
 
-
 class FinalRequestOptionsInput(TypedDict, total=False):
     method: Required[str]
     url: Required[str]
@@ -884,7 +851,6 @@ class FinalRequestOptionsInput(TypedDict, total=False):
     json_data: Body
     extra_json: AnyMapping
     follow_redirects: bool
-
 
 @final
 class FinalRequestOptions(pydantic.BaseModel):

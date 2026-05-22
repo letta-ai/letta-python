@@ -1,29 +1,27 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
-from typing_extensions import Literal, Annotated, TypeAlias
+from .._models import BaseModel
+
+from typing import Optional, Union
+
+from typing_extensions import Literal, Annotated, TypeAliasType, TypeAlias
+
+from .text_response_format import TextResponseFormat
+
+from .json_schema_response_format import JsonSchemaResponseFormat
+
+from .json_object_response_format import JsonObjectResponseFormat
 
 from .._utils import PropertyInfo
-from .._models import BaseModel
-from .text_response_format import TextResponseFormat
-from .json_object_response_format import JsonObjectResponseFormat
-from .json_schema_response_format import JsonSchemaResponseFormat
 
 __all__ = ["OpenAIModelSettings", "Reasoning", "ResponseFormat"]
 
-
 class Reasoning(BaseModel):
     """The reasoning configuration for the model."""
-
     reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
     """The reasoning effort to use when generating text reasoning models"""
 
-
-ResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+ResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class OpenAIModelSettings(BaseModel):
     max_output_tokens: Optional[int] = None

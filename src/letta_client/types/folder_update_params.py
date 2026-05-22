@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
 from typing_extensions import TypedDict
+
+from typing import Optional, Dict
 
 from .embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["FolderUpdateParams"]
-
 
 class FolderUpdateParams(TypedDict, total=False):
     description: Optional[str]

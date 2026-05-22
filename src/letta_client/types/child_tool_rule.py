@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from typing_extensions import Literal
-
 from .._models import BaseModel
 
-__all__ = ["ChildToolRule", "ChildArgNode"]
+from typing import Optional, Dict, List
 
+from typing_extensions import Literal
+
+__all__ = ["ChildToolRule", "ChildArgNode"]
 
 class ChildArgNode(BaseModel):
     """Typed child override for prefilled arguments.
@@ -14,7 +14,6 @@ class ChildArgNode(BaseModel):
     When used in a ChildToolRule, if this child is selected next, its `args` will be
     applied as prefilled arguments (overriding overlapping LLM-provided values).
     """
-
     name: str
     """The name of the child tool to invoke next."""
 
@@ -26,10 +25,8 @@ class ChildArgNode(BaseModel):
     the model.
     """
 
-
 class ChildToolRule(BaseModel):
     """A ToolRule represents a tool that can be invoked by the agent."""
-
     children: List[str]
     """The children tools that can be invoked."""
 

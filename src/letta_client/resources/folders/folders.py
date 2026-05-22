@@ -2,45 +2,43 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import Literal
-
 import httpx
 
-from .files import (
-    FilesResource,
-    AsyncFilesResource,
-    FilesResourceWithRawResponse,
-    AsyncFilesResourceWithRawResponse,
-    FilesResourceWithStreamingResponse,
-    AsyncFilesResourceWithStreamingResponse,
-)
-from .agents import (
-    AgentsResource,
-    AsyncAgentsResource,
-    AgentsResourceWithRawResponse,
-    AsyncAgentsResourceWithRawResponse,
-    AgentsResourceWithStreamingResponse,
-    AsyncAgentsResourceWithStreamingResponse,
-)
-from ...types import folder_list_params, folder_create_params, folder_update_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ..._base_client import AsyncPaginator, make_request_options
+
+from .files import FilesResource, AsyncFilesResource, FilesResourceWithRawResponse, AsyncFilesResourceWithRawResponse, FilesResourceWithStreamingResponse, AsyncFilesResourceWithStreamingResponse
+
+from ..._compat import cached_property
+
+from .agents import AgentsResource, AsyncAgentsResource, AgentsResourceWithRawResponse, AsyncAgentsResourceWithRawResponse, AgentsResourceWithStreamingResponse, AsyncAgentsResourceWithStreamingResponse
+
 from ...types.folder import Folder
+
+from ..._utils import maybe_transform, path_template, async_maybe_transform
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing import Optional, Dict
+
+from ..._types import Omit, omit, NotGiven
+
 from ...types.embedding_config_param import EmbeddingConfigParam
 
-__all__ = ["FoldersResource", "AsyncFoldersResource"]
+from ...pagination import SyncArrayPage, AsyncArrayPage
 
+from typing_extensions import Literal
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types import folder_create_params
+from ...types import folder_update_params
+from ...types import folder_list_params
+from ...types import EmbeddingConfig
+from ...types import EmbeddingConfig
+
+__all__ = ["FoldersResource", "AsyncFoldersResource"]
 
 class FoldersResource(SyncAPIResource):
     @cached_property
@@ -70,23 +68,21 @@ class FoldersResource(SyncAPIResource):
         """
         return FoldersResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        name: str,
-        description: Optional[str] | Omit = omit,
-        embedding: Optional[str] | Omit = omit,
-        embedding_chunk_size: Optional[int] | Omit = omit,
-        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        instructions: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Folder:
+    def create(self,
+    *,
+    name: str,
+    description: Optional[str] | Omit = omit,
+    embedding: Optional[str] | Omit = omit,
+    embedding_chunk_size: Optional[int] | Omit = omit,
+    embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+    instructions: Optional[str] | Omit = omit,
+    metadata: Optional[Dict[str, object]] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Folder:
         """
         Create a new data folder.
 
@@ -115,35 +111,28 @@ class FoldersResource(SyncAPIResource):
         """
         return self._post(
             "/v1/folders/",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "description": description,
-                    "embedding": embedding,
-                    "embedding_chunk_size": embedding_chunk_size,
-                    "embedding_config": embedding_config,
-                    "instructions": instructions,
-                    "metadata": metadata,
-                },
-                folder_create_params.FolderCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "name": name,
+                "description": description,
+                "embedding": embedding,
+                "embedding_chunk_size": embedding_chunk_size,
+                "embedding_config": embedding_config,
+                "instructions": instructions,
+                "metadata": metadata,
+            }, folder_create_params.FolderCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Folder,
         )
 
-    def retrieve(
-        self,
-        folder_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Folder:
+    def retrieve(self,
+    folder_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Folder:
         """
         Get a folder by ID
 
@@ -159,31 +148,29 @@ class FoldersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return self._get(
             path_template("/v1/folders/{folder_id}", folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Folder,
         )
 
-    def update(
-        self,
-        folder_id: str,
-        *,
-        description: Optional[str] | Omit = omit,
-        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        instructions: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Folder:
+    def update(self,
+    folder_id: str,
+    *,
+    description: Optional[str] | Omit = omit,
+    embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+    instructions: Optional[str] | Omit = omit,
+    metadata: Optional[Dict[str, object]] | Omit = omit,
+    name: Optional[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Folder:
         """
         Update the name or documentation of an existing data folder.
 
@@ -209,41 +196,36 @@ class FoldersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return self._patch(
             path_template("/v1/folders/{folder_id}", folder_id=folder_id),
-            body=maybe_transform(
-                {
-                    "description": description,
-                    "embedding_config": embedding_config,
-                    "instructions": instructions,
-                    "metadata": metadata,
-                    "name": name,
-                },
-                folder_update_params.FolderUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "description": description,
+                "embedding_config": embedding_config,
+                "instructions": instructions,
+                "metadata": metadata,
+                "name": name,
+            }, folder_update_params.FolderUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Folder,
         )
 
-    def list(
-        self,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[Folder]:
+    def list(self,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    name: Optional[str] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[Folder]:
         """
         List all data folders created by a user.
 
@@ -273,38 +255,27 @@ class FoldersResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/folders/",
-            page=SyncArrayPage[Folder],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "limit": limit,
-                        "name": name,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    folder_list_params.FolderListParams,
-                ),
-            ),
+            page = SyncArrayPage[Folder],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "limit": limit,
+                "name": name,
+                "order": order,
+                "order_by": order_by,
+            }, folder_list_params.FolderListParams)),
             model=Folder,
         )
 
-    def delete(
-        self,
-        folder_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    def delete(self,
+    folder_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
         """
         Delete a data folder.
 
@@ -320,15 +291,14 @@ class FoldersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return self._delete(
             path_template("/v1/folders/{folder_id}", folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=object,
         )
-
 
 class AsyncFoldersResource(AsyncAPIResource):
     @cached_property
@@ -358,23 +328,21 @@ class AsyncFoldersResource(AsyncAPIResource):
         """
         return AsyncFoldersResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        name: str,
-        description: Optional[str] | Omit = omit,
-        embedding: Optional[str] | Omit = omit,
-        embedding_chunk_size: Optional[int] | Omit = omit,
-        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        instructions: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Folder:
+    async def create(self,
+    *,
+    name: str,
+    description: Optional[str] | Omit = omit,
+    embedding: Optional[str] | Omit = omit,
+    embedding_chunk_size: Optional[int] | Omit = omit,
+    embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+    instructions: Optional[str] | Omit = omit,
+    metadata: Optional[Dict[str, object]] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Folder:
         """
         Create a new data folder.
 
@@ -403,35 +371,28 @@ class AsyncFoldersResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/folders/",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "description": description,
-                    "embedding": embedding,
-                    "embedding_chunk_size": embedding_chunk_size,
-                    "embedding_config": embedding_config,
-                    "instructions": instructions,
-                    "metadata": metadata,
-                },
-                folder_create_params.FolderCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "name": name,
+                "description": description,
+                "embedding": embedding,
+                "embedding_chunk_size": embedding_chunk_size,
+                "embedding_config": embedding_config,
+                "instructions": instructions,
+                "metadata": metadata,
+            }, folder_create_params.FolderCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Folder,
         )
 
-    async def retrieve(
-        self,
-        folder_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Folder:
+    async def retrieve(self,
+    folder_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Folder:
         """
         Get a folder by ID
 
@@ -447,31 +408,29 @@ class AsyncFoldersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return await self._get(
             path_template("/v1/folders/{folder_id}", folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Folder,
         )
 
-    async def update(
-        self,
-        folder_id: str,
-        *,
-        description: Optional[str] | Omit = omit,
-        embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
-        instructions: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Folder:
+    async def update(self,
+    folder_id: str,
+    *,
+    description: Optional[str] | Omit = omit,
+    embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
+    instructions: Optional[str] | Omit = omit,
+    metadata: Optional[Dict[str, object]] | Omit = omit,
+    name: Optional[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Folder:
         """
         Update the name or documentation of an existing data folder.
 
@@ -497,41 +456,36 @@ class AsyncFoldersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return await self._patch(
             path_template("/v1/folders/{folder_id}", folder_id=folder_id),
-            body=await async_maybe_transform(
-                {
-                    "description": description,
-                    "embedding_config": embedding_config,
-                    "instructions": instructions,
-                    "metadata": metadata,
-                    "name": name,
-                },
-                folder_update_params.FolderUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "description": description,
+                "embedding_config": embedding_config,
+                "instructions": instructions,
+                "metadata": metadata,
+                "name": name,
+            }, folder_update_params.FolderUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Folder,
         )
 
-    def list(
-        self,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Folder, AsyncArrayPage[Folder]]:
+    def list(self,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    name: Optional[str] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[Folder, AsyncArrayPage[Folder]]:
         """
         List all data folders created by a user.
 
@@ -561,38 +515,27 @@ class AsyncFoldersResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/folders/",
-            page=AsyncArrayPage[Folder],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "limit": limit,
-                        "name": name,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    folder_list_params.FolderListParams,
-                ),
-            ),
+            page = AsyncArrayPage[Folder],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "limit": limit,
+                "name": name,
+                "order": order,
+                "order_by": order_by,
+            }, folder_list_params.FolderListParams)),
             model=Folder,
         )
 
-    async def delete(
-        self,
-        folder_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    async def delete(self,
+    folder_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
         """
         Delete a data folder.
 
@@ -608,15 +551,14 @@ class AsyncFoldersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return await self._delete(
             path_template("/v1/folders/{folder_id}", folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=object,
         )
-
 
 class FoldersResourceWithRawResponse:
     def __init__(self, folders: FoldersResource) -> None:
@@ -646,7 +588,6 @@ class FoldersResourceWithRawResponse:
     def agents(self) -> AgentsResourceWithRawResponse:
         return AgentsResourceWithRawResponse(self._folders.agents)
 
-
 class AsyncFoldersResourceWithRawResponse:
     def __init__(self, folders: AsyncFoldersResource) -> None:
         self._folders = folders
@@ -675,7 +616,6 @@ class AsyncFoldersResourceWithRawResponse:
     def agents(self) -> AsyncAgentsResourceWithRawResponse:
         return AsyncAgentsResourceWithRawResponse(self._folders.agents)
 
-
 class FoldersResourceWithStreamingResponse:
     def __init__(self, folders: FoldersResource) -> None:
         self._folders = folders
@@ -703,7 +643,6 @@ class FoldersResourceWithStreamingResponse:
     @cached_property
     def agents(self) -> AgentsResourceWithStreamingResponse:
         return AgentsResourceWithStreamingResponse(self._folders.agents)
-
 
 class AsyncFoldersResourceWithStreamingResponse:
     def __init__(self, folders: AsyncFoldersResource) -> None:

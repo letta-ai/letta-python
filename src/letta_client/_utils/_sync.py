@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import sys
 import asyncio
 import functools
-from typing import TypeVar, Callable, Awaitable
+import contextvars
+from typing import Any, TypeVar, Callable, Awaitable
 from typing_extensions import ParamSpec
 
 import anyio

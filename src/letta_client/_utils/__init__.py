@@ -1,4 +1,3 @@
-from ._path import path_template as path_template
 from ._sync import asyncify as asyncify
 from ._proxy import LazyProxy as LazyProxy
 from ._utils import (
@@ -62,3 +61,4 @@ from ._reflection import (
     assert_signatures_in_sync as assert_signatures_in_sync,
 )
 from ._datetime_parse import parse_date as parse_date, parse_datetime as parse_datetime
+from ._path import path_template as path_template

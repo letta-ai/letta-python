@@ -2,45 +2,59 @@
 
 from __future__ import annotations
 
-import typing_extensions
-from typing import Any, List, Union, Iterable, Optional, cast
-from typing_extensions import Literal, overload
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
+import typing_extensions
+
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._streaming import Stream, AsyncStream
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.agents import (
-    message_list_params,
-    message_reset_params,
-    message_cancel_params,
-    message_create_params,
-    message_stream_params,
-    message_compact_params,
-    message_create_async_params,
-)
-from ...types.agents.run import Run
-from ...types.agent_state import AgentState
-from ...types.agents.message import Message
+
+from ..._compat import cached_property
+
+from typing_extensions import overload, Literal
+
+from ..._types import Omit, omit, NotGiven, SequenceNotStr
+
+from typing import Optional, Iterable, List, Union, Any, cast
+
 from ...types.agents.message_type import MessageType
+
 from ...types.agents.letta_response import LettaResponse
-from ...types.agents.message_cancel_response import MessageCancelResponse
+
+from ..._streaming import Stream, AsyncStream
+
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
+
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from ...types.agents.message import Message
+
+from ...pagination import SyncArrayPage, AsyncArrayPage
+
+from ...types.agents.message_cancel_response import MessageCancelResponse
+
 from ...types.conversations.compaction_response import CompactionResponse
 
-__all__ = ["MessagesResource", "AsyncMessagesResource"]
+from ...types.agents.run import Run
 
+from ...types.agent_state import AgentState
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ...types.agents import message_create_params, message_compact_params, message_create_async_params, message_stream_params
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.agents import message_create_params
+from ...types.agents import message_list_params
+from ...types.agents import message_cancel_params
+from ...types.agents import message_compact_params
+from ...types.agents import message_create_async_params
+from ...types.agents import message_reset_params
+from ...types.agents import message_stream_params
+
+__all__ = ["MessagesResource", "AsyncMessagesResource"]
 
 class MessagesResource(SyncAPIResource):
     @cached_property
@@ -63,37 +77,35 @@ class MessagesResource(SyncAPIResource):
         return MessagesResourceWithStreamingResponse(self)
 
     @overload
-    def create(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: Literal[False] | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse:
+    def create(self,
+    agent_id: str,
+    *,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    streaming: Literal[False] | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> LettaResponse:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -195,39 +207,36 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         ...
-
     @overload
-    def create(
-        self,
-        agent_id: str,
-        *,
-        streaming: Literal[True],
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Stream[LettaStreamingResponse]:
+    def create(self,
+    agent_id: str,
+    *,
+    streaming: Literal[True],
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Stream[LettaStreamingResponse]:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -329,39 +338,36 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         ...
-
     @overload
-    def create(
-        self,
-        agent_id: str,
-        *,
-        streaming: bool,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse | Stream[LettaStreamingResponse]:
+    def create(self,
+    agent_id: str,
+    *,
+    streaming: bool,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> LettaResponse | Stream[LettaStreamingResponse]:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -463,100 +469,90 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         ...
-
-    def create(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: Literal[False] | Literal[True] | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse | Stream[LettaStreamingResponse]:
+    def create(self,
+    agent_id: str,
+    *,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    streaming: Literal[False] | Literal[True] | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> LettaResponse | Stream[LettaStreamingResponse]:
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._post(
             path_template("/v1/agents/{agent_id}/messages", agent_id=agent_id),
-            body=maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "background": background,
-                    "client_skills": client_skills,
-                    "client_tools": client_tools,
-                    "enable_thinking": enable_thinking,
-                    "include_compaction_messages": include_compaction_messages,
-                    "include_pings": include_pings,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "override_model": override_model,
-                    "override_system": override_system,
-                    "return_logprobs": return_logprobs,
-                    "return_token_ids": return_token_ids,
-                    "stream_tokens": stream_tokens,
-                    "streaming": streaming,
-                    "top_logprobs": top_logprobs,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_create_params.MessageCreateParamsStreaming
-                if streaming
-                else message_create_params.MessageCreateParamsNonStreaming,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "background": background,
+                "client_skills": client_skills,
+                "client_tools": client_tools,
+                "enable_thinking": enable_thinking,
+                "include_compaction_messages": include_compaction_messages,
+                "include_pings": include_pings,
+                "include_return_message_types": include_return_message_types,
+                "input": input,
+                "max_steps": max_steps,
+                "messages": messages,
+                "override_model": override_model,
+                "override_system": override_system,
+                "return_logprobs": return_logprobs,
+                "return_token_ids": return_token_ids,
+                "stream_tokens": stream_tokens,
+                "streaming": streaming,
+                "top_logprobs": top_logprobs,
+                "use_assistant_message": use_assistant_message,
+            }, message_create_params.MessageCreateParamsStreaming if streaming else message_create_params.MessageCreateParamsNonStreaming),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=LettaResponse,
-            stream=streaming or False,
+            stream = streaming or False,
             stream_cls=Stream[LettaStreamingResponse],
         )
 
-    def list(
-        self,
-        agent_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        conversation_id: Optional[str] | Omit = omit,
-        group_id: Optional[str] | Omit = omit,
-        include_err: Optional[bool] | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[Message]:
+    def list(self,
+    agent_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    conversation_id: Optional[str] | Omit = omit,
+    group_id: Optional[str] | Omit = omit,
+    include_err: Optional[bool] | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[Message]:
         """
         Retrieve message history for an agent.
 
@@ -600,48 +596,39 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._get_api_list(
             path_template("/v1/agents/{agent_id}/messages", agent_id=agent_id),
-            page=SyncArrayPage[Message],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                        "assistant_message_tool_name": assistant_message_tool_name,
-                        "before": before,
-                        "conversation_id": conversation_id,
-                        "group_id": group_id,
-                        "include_err": include_err,
-                        "include_return_message_types": include_return_message_types,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                        "use_assistant_message": use_assistant_message,
-                    },
-                    message_list_params.MessageListParams,
-                ),
-            ),
+            page = SyncArrayPage[Message],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "before": before,
+                "conversation_id": conversation_id,
+                "group_id": group_id,
+                "include_err": include_err,
+                "include_return_message_types": include_return_message_types,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+                "use_assistant_message": use_assistant_message,
+            }, message_list_params.MessageListParams)),
             model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
-    def cancel(
-        self,
-        agent_id: str,
-        *,
-        run_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageCancelResponse:
+    def cancel(self,
+    agent_id: str,
+    *,
+    run_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MessageCancelResponse:
         """Cancel runs associated with an agent.
 
         If run_ids are passed in, cancel those in
@@ -663,28 +650,28 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._post(
             path_template("/v1/agents/{agent_id}/messages/cancel", agent_id=agent_id),
-            body=maybe_transform({"run_ids": run_ids}, message_cancel_params.MessageCancelParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "run_ids": run_ids
+            }, message_cancel_params.MessageCancelParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=MessageCancelResponse,
         )
 
-    def compact(
-        self,
-        agent_id: str,
-        *,
-        compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompactionResponse:
+    def compact(self,
+    agent_id: str,
+    *,
+    compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CompactionResponse:
         """
         Summarize an agent's conversation history.
 
@@ -705,46 +692,44 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._post(
             path_template("/v1/agents/{agent_id}/summarize", agent_id=agent_id),
-            body=maybe_transform(
-                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "compaction_settings": compaction_settings
+            }, message_compact_params.MessageCompactParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CompactionResponse,
         )
 
-    def create_async(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        callback_url: Optional[str] | Omit = omit,
-        client_skills: Optional[Iterable[message_create_async_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_async_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Run:
+    def create_async(self,
+    agent_id: str,
+    *,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    callback_url: Optional[str] | Omit = omit,
+    client_skills: Optional[Iterable[message_create_async_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_async_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Run:
         """Asynchronously process a user message and return a run object.
 
         The actual
@@ -828,49 +813,44 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._post(
             path_template("/v1/agents/{agent_id}/messages/async", agent_id=agent_id),
-            body=maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "callback_url": callback_url,
-                    "client_skills": client_skills,
-                    "client_tools": client_tools,
-                    "enable_thinking": enable_thinking,
-                    "include_compaction_messages": include_compaction_messages,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "override_model": override_model,
-                    "override_system": override_system,
-                    "return_logprobs": return_logprobs,
-                    "return_token_ids": return_token_ids,
-                    "top_logprobs": top_logprobs,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_create_async_params.MessageCreateAsyncParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "callback_url": callback_url,
+                "client_skills": client_skills,
+                "client_tools": client_tools,
+                "enable_thinking": enable_thinking,
+                "include_compaction_messages": include_compaction_messages,
+                "include_return_message_types": include_return_message_types,
+                "input": input,
+                "max_steps": max_steps,
+                "messages": messages,
+                "override_model": override_model,
+                "override_system": override_system,
+                "return_logprobs": return_logprobs,
+                "return_token_ids": return_token_ids,
+                "top_logprobs": top_logprobs,
+                "use_assistant_message": use_assistant_message,
+            }, message_create_async_params.MessageCreateAsyncParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Run,
         )
 
-    def reset(
-        self,
-        agent_id: str,
-        *,
-        add_default_initial_messages: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    def reset(self,
+    agent_id: str,
+    *,
+    add_default_initial_messages: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Optional[AgentState]:
         """
         Resets the messages for an agent
 
@@ -888,50 +868,48 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._patch(
             path_template("/v1/agents/{agent_id}/reset-messages", agent_id=agent_id),
-            body=maybe_transform(
-                {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "add_default_initial_messages": add_default_initial_messages
+            }, message_reset_params.MessageResetParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentState,
         )
 
     @typing_extensions.deprecated("deprecated")
-    def stream(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_stream_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_stream_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: bool | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Stream[LettaStreamingResponse]:
+    def stream(self,
+    agent_id: str,
+    *,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_stream_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_stream_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    streaming: bool | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Stream[LettaStreamingResponse]:
         """
         Process a user message and return the agent's response.
 
@@ -1026,44 +1004,38 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._post(
             path_template("/v1/agents/{agent_id}/messages/stream", agent_id=agent_id),
-            body=maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "background": background,
-                    "client_skills": client_skills,
-                    "client_tools": client_tools,
-                    "enable_thinking": enable_thinking,
-                    "include_compaction_messages": include_compaction_messages,
-                    "include_pings": include_pings,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "override_model": override_model,
-                    "override_system": override_system,
-                    "return_logprobs": return_logprobs,
-                    "return_token_ids": return_token_ids,
-                    "stream_tokens": stream_tokens,
-                    "streaming": streaming,
-                    "top_logprobs": top_logprobs,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_stream_params.MessageStreamParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=cast(
-                Any, LettaStreamingResponse
-            ),  # Union types cannot be passed in as arguments in the type system
-            stream=True,
+            body=maybe_transform({
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "background": background,
+                "client_skills": client_skills,
+                "client_tools": client_tools,
+                "enable_thinking": enable_thinking,
+                "include_compaction_messages": include_compaction_messages,
+                "include_pings": include_pings,
+                "include_return_message_types": include_return_message_types,
+                "input": input,
+                "max_steps": max_steps,
+                "messages": messages,
+                "override_model": override_model,
+                "override_system": override_system,
+                "return_logprobs": return_logprobs,
+                "return_token_ids": return_token_ids,
+                "stream_tokens": stream_tokens,
+                "streaming": streaming,
+                "top_logprobs": top_logprobs,
+                "use_assistant_message": use_assistant_message,
+            }, message_stream_params.MessageStreamParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            cast_to=cast(Any, LettaStreamingResponse),  # Union types cannot be passed in as arguments in the type system
+            stream = True,
             stream_cls=Stream[LettaStreamingResponse],
         )
-
 
 class AsyncMessagesResource(AsyncAPIResource):
     @cached_property
@@ -1086,37 +1058,35 @@ class AsyncMessagesResource(AsyncAPIResource):
         return AsyncMessagesResourceWithStreamingResponse(self)
 
     @overload
-    async def create(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: Literal[False] | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse:
+    async def create(self,
+    agent_id: str,
+    *,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    streaming: Literal[False] | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> LettaResponse:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -1218,39 +1188,36 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         ...
-
     @overload
-    async def create(
-        self,
-        agent_id: str,
-        *,
-        streaming: Literal[True],
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncStream[LettaStreamingResponse]:
+    async def create(self,
+    agent_id: str,
+    *,
+    streaming: Literal[True],
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncStream[LettaStreamingResponse]:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -1352,39 +1319,36 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         ...
-
     @overload
-    async def create(
-        self,
-        agent_id: str,
-        *,
-        streaming: bool,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse | AsyncStream[LettaStreamingResponse]:
+    async def create(self,
+    agent_id: str,
+    *,
+    streaming: bool,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> LettaResponse | AsyncStream[LettaStreamingResponse]:
         """Process a user message and return the agent's response.
 
         This endpoint accepts a
@@ -1486,100 +1450,90 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         ...
-
-    async def create(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: Literal[False] | Literal[True] | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> LettaResponse | AsyncStream[LettaStreamingResponse]:
+    async def create(self,
+    agent_id: str,
+    *,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_create_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    streaming: Literal[False] | Literal[True] | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> LettaResponse | AsyncStream[LettaStreamingResponse]:
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return await self._post(
             path_template("/v1/agents/{agent_id}/messages", agent_id=agent_id),
-            body=await async_maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "background": background,
-                    "client_skills": client_skills,
-                    "client_tools": client_tools,
-                    "enable_thinking": enable_thinking,
-                    "include_compaction_messages": include_compaction_messages,
-                    "include_pings": include_pings,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "override_model": override_model,
-                    "override_system": override_system,
-                    "return_logprobs": return_logprobs,
-                    "return_token_ids": return_token_ids,
-                    "stream_tokens": stream_tokens,
-                    "streaming": streaming,
-                    "top_logprobs": top_logprobs,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_create_params.MessageCreateParamsStreaming
-                if streaming
-                else message_create_params.MessageCreateParamsNonStreaming,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "background": background,
+                "client_skills": client_skills,
+                "client_tools": client_tools,
+                "enable_thinking": enable_thinking,
+                "include_compaction_messages": include_compaction_messages,
+                "include_pings": include_pings,
+                "include_return_message_types": include_return_message_types,
+                "input": input,
+                "max_steps": max_steps,
+                "messages": messages,
+                "override_model": override_model,
+                "override_system": override_system,
+                "return_logprobs": return_logprobs,
+                "return_token_ids": return_token_ids,
+                "stream_tokens": stream_tokens,
+                "streaming": streaming,
+                "top_logprobs": top_logprobs,
+                "use_assistant_message": use_assistant_message,
+            }, message_create_params.MessageCreateParamsStreaming if streaming else message_create_params.MessageCreateParamsNonStreaming),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=LettaResponse,
-            stream=streaming or False,
+            stream = streaming or False,
             stream_cls=AsyncStream[LettaStreamingResponse],
         )
 
-    def list(
-        self,
-        agent_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        conversation_id: Optional[str] | Omit = omit,
-        group_id: Optional[str] | Omit = omit,
-        include_err: Optional[bool] | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Message, AsyncArrayPage[Message]]:
+    def list(self,
+    agent_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    conversation_id: Optional[str] | Omit = omit,
+    group_id: Optional[str] | Omit = omit,
+    include_err: Optional[bool] | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[Message, AsyncArrayPage[Message]]:
         """
         Retrieve message history for an agent.
 
@@ -1623,48 +1577,39 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._get_api_list(
             path_template("/v1/agents/{agent_id}/messages", agent_id=agent_id),
-            page=AsyncArrayPage[Message],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                        "assistant_message_tool_name": assistant_message_tool_name,
-                        "before": before,
-                        "conversation_id": conversation_id,
-                        "group_id": group_id,
-                        "include_err": include_err,
-                        "include_return_message_types": include_return_message_types,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                        "use_assistant_message": use_assistant_message,
-                    },
-                    message_list_params.MessageListParams,
-                ),
-            ),
+            page = AsyncArrayPage[Message],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "before": before,
+                "conversation_id": conversation_id,
+                "group_id": group_id,
+                "include_err": include_err,
+                "include_return_message_types": include_return_message_types,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+                "use_assistant_message": use_assistant_message,
+            }, message_list_params.MessageListParams)),
             model=cast(Any, Message),  # Union types cannot be passed in as arguments in the type system
         )
 
-    async def cancel(
-        self,
-        agent_id: str,
-        *,
-        run_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MessageCancelResponse:
+    async def cancel(self,
+    agent_id: str,
+    *,
+    run_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MessageCancelResponse:
         """Cancel runs associated with an agent.
 
         If run_ids are passed in, cancel those in
@@ -1686,28 +1631,28 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return await self._post(
             path_template("/v1/agents/{agent_id}/messages/cancel", agent_id=agent_id),
-            body=await async_maybe_transform({"run_ids": run_ids}, message_cancel_params.MessageCancelParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "run_ids": run_ids
+            }, message_cancel_params.MessageCancelParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=MessageCancelResponse,
         )
 
-    async def compact(
-        self,
-        agent_id: str,
-        *,
-        compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CompactionResponse:
+    async def compact(self,
+    agent_id: str,
+    *,
+    compaction_settings: Optional[message_compact_params.CompactionSettings] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> CompactionResponse:
         """
         Summarize an agent's conversation history.
 
@@ -1728,46 +1673,44 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return await self._post(
             path_template("/v1/agents/{agent_id}/summarize", agent_id=agent_id),
-            body=await async_maybe_transform(
-                {"compaction_settings": compaction_settings}, message_compact_params.MessageCompactParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "compaction_settings": compaction_settings
+            }, message_compact_params.MessageCompactParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=CompactionResponse,
         )
 
-    async def create_async(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        callback_url: Optional[str] | Omit = omit,
-        client_skills: Optional[Iterable[message_create_async_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_create_async_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Run:
+    async def create_async(self,
+    agent_id: str,
+    *,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    callback_url: Optional[str] | Omit = omit,
+    client_skills: Optional[Iterable[message_create_async_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_create_async_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_create_async_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_create_async_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Run:
         """Asynchronously process a user message and return a run object.
 
         The actual
@@ -1851,49 +1794,44 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return await self._post(
             path_template("/v1/agents/{agent_id}/messages/async", agent_id=agent_id),
-            body=await async_maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "callback_url": callback_url,
-                    "client_skills": client_skills,
-                    "client_tools": client_tools,
-                    "enable_thinking": enable_thinking,
-                    "include_compaction_messages": include_compaction_messages,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "override_model": override_model,
-                    "override_system": override_system,
-                    "return_logprobs": return_logprobs,
-                    "return_token_ids": return_token_ids,
-                    "top_logprobs": top_logprobs,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_create_async_params.MessageCreateAsyncParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "callback_url": callback_url,
+                "client_skills": client_skills,
+                "client_tools": client_tools,
+                "enable_thinking": enable_thinking,
+                "include_compaction_messages": include_compaction_messages,
+                "include_return_message_types": include_return_message_types,
+                "input": input,
+                "max_steps": max_steps,
+                "messages": messages,
+                "override_model": override_model,
+                "override_system": override_system,
+                "return_logprobs": return_logprobs,
+                "return_token_ids": return_token_ids,
+                "top_logprobs": top_logprobs,
+                "use_assistant_message": use_assistant_message,
+            }, message_create_async_params.MessageCreateAsyncParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Run,
         )
 
-    async def reset(
-        self,
-        agent_id: str,
-        *,
-        add_default_initial_messages: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    async def reset(self,
+    agent_id: str,
+    *,
+    add_default_initial_messages: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Optional[AgentState]:
         """
         Resets the messages for an agent
 
@@ -1911,50 +1849,48 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return await self._patch(
             path_template("/v1/agents/{agent_id}/reset-messages", agent_id=agent_id),
-            body=await async_maybe_transform(
-                {"add_default_initial_messages": add_default_initial_messages}, message_reset_params.MessageResetParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "add_default_initial_messages": add_default_initial_messages
+            }, message_reset_params.MessageResetParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentState,
         )
 
     @typing_extensions.deprecated("deprecated")
-    async def stream(
-        self,
-        agent_id: str,
-        *,
-        assistant_message_tool_kwarg: str | Omit = omit,
-        assistant_message_tool_name: str | Omit = omit,
-        background: bool | Omit = omit,
-        client_skills: Optional[Iterable[message_stream_params.ClientSkill]] | Omit = omit,
-        client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
-        enable_thinking: str | Omit = omit,
-        include_compaction_messages: bool | Omit = omit,
-        include_pings: bool | Omit = omit,
-        include_return_message_types: Optional[List[MessageType]] | Omit = omit,
-        input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
-        max_steps: int | Omit = omit,
-        messages: Optional[Iterable[message_stream_params.Message]] | Omit = omit,
-        override_model: Optional[str] | Omit = omit,
-        override_system: Optional[str] | Omit = omit,
-        return_logprobs: bool | Omit = omit,
-        return_token_ids: bool | Omit = omit,
-        stream_tokens: bool | Omit = omit,
-        streaming: bool | Omit = omit,
-        top_logprobs: Optional[int] | Omit = omit,
-        use_assistant_message: bool | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncStream[LettaStreamingResponse]:
+    async def stream(self,
+    agent_id: str,
+    *,
+    assistant_message_tool_kwarg: str | Omit = omit,
+    assistant_message_tool_name: str | Omit = omit,
+    background: bool | Omit = omit,
+    client_skills: Optional[Iterable[message_stream_params.ClientSkill]] | Omit = omit,
+    client_tools: Optional[Iterable[message_stream_params.ClientTool]] | Omit = omit,
+    enable_thinking: str | Omit = omit,
+    include_compaction_messages: bool | Omit = omit,
+    include_pings: bool | Omit = omit,
+    include_return_message_types: Optional[List[MessageType]] | Omit = omit,
+    input: Union[str, Iterable[message_stream_params.InputUnionMember1], None] | Omit = omit,
+    max_steps: int | Omit = omit,
+    messages: Optional[Iterable[message_stream_params.Message]] | Omit = omit,
+    override_model: Optional[str] | Omit = omit,
+    override_system: Optional[str] | Omit = omit,
+    return_logprobs: bool | Omit = omit,
+    return_token_ids: bool | Omit = omit,
+    stream_tokens: bool | Omit = omit,
+    streaming: bool | Omit = omit,
+    top_logprobs: Optional[int] | Omit = omit,
+    use_assistant_message: bool | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncStream[LettaStreamingResponse]:
         """
         Process a user message and return the agent's response.
 
@@ -2049,44 +1985,38 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return await self._post(
             path_template("/v1/agents/{agent_id}/messages/stream", agent_id=agent_id),
-            body=await async_maybe_transform(
-                {
-                    "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
-                    "assistant_message_tool_name": assistant_message_tool_name,
-                    "background": background,
-                    "client_skills": client_skills,
-                    "client_tools": client_tools,
-                    "enable_thinking": enable_thinking,
-                    "include_compaction_messages": include_compaction_messages,
-                    "include_pings": include_pings,
-                    "include_return_message_types": include_return_message_types,
-                    "input": input,
-                    "max_steps": max_steps,
-                    "messages": messages,
-                    "override_model": override_model,
-                    "override_system": override_system,
-                    "return_logprobs": return_logprobs,
-                    "return_token_ids": return_token_ids,
-                    "stream_tokens": stream_tokens,
-                    "streaming": streaming,
-                    "top_logprobs": top_logprobs,
-                    "use_assistant_message": use_assistant_message,
-                },
-                message_stream_params.MessageStreamParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=cast(
-                Any, LettaStreamingResponse
-            ),  # Union types cannot be passed in as arguments in the type system
-            stream=True,
+            body=await async_maybe_transform({
+                "assistant_message_tool_kwarg": assistant_message_tool_kwarg,
+                "assistant_message_tool_name": assistant_message_tool_name,
+                "background": background,
+                "client_skills": client_skills,
+                "client_tools": client_tools,
+                "enable_thinking": enable_thinking,
+                "include_compaction_messages": include_compaction_messages,
+                "include_pings": include_pings,
+                "include_return_message_types": include_return_message_types,
+                "input": input,
+                "max_steps": max_steps,
+                "messages": messages,
+                "override_model": override_model,
+                "override_system": override_system,
+                "return_logprobs": return_logprobs,
+                "return_token_ids": return_token_ids,
+                "stream_tokens": stream_tokens,
+                "streaming": streaming,
+                "top_logprobs": top_logprobs,
+                "use_assistant_message": use_assistant_message,
+            }, message_stream_params.MessageStreamParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            cast_to=cast(Any, LettaStreamingResponse),  # Union types cannot be passed in as arguments in the type system
+            stream = True,
             stream_cls=AsyncStream[LettaStreamingResponse],
         )
-
 
 class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
@@ -2111,11 +2041,10 @@ class MessagesResourceWithRawResponse:
             messages.reset,
         )
         self.stream = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                messages.stream,  # pyright: ignore[reportDeprecated],
-            )
+        to_raw_response_wrapper(
+            messages.stream , # pyright: ignore[reportDeprecated],
         )
-
+        )
 
 class AsyncMessagesResourceWithRawResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
@@ -2140,11 +2069,10 @@ class AsyncMessagesResourceWithRawResponse:
             messages.reset,
         )
         self.stream = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                messages.stream,  # pyright: ignore[reportDeprecated],
-            )
+        async_to_raw_response_wrapper(
+            messages.stream , # pyright: ignore[reportDeprecated],
         )
-
+        )
 
 class MessagesResourceWithStreamingResponse:
     def __init__(self, messages: MessagesResource) -> None:
@@ -2169,11 +2097,10 @@ class MessagesResourceWithStreamingResponse:
             messages.reset,
         )
         self.stream = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                messages.stream,  # pyright: ignore[reportDeprecated],
-            )
+        to_streamed_response_wrapper(
+            messages.stream , # pyright: ignore[reportDeprecated],
         )
-
+        )
 
 class AsyncMessagesResourceWithStreamingResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
@@ -2198,7 +2125,7 @@ class AsyncMessagesResourceWithStreamingResponse:
             messages.reset,
         )
         self.stream = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                messages.stream,  # pyright: ignore[reportDeprecated],
-            )
+        async_to_streamed_response_wrapper(
+            messages.stream , # pyright: ignore[reportDeprecated],
+        )
         )

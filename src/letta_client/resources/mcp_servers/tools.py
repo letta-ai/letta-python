@@ -2,28 +2,33 @@
 
 from __future__ import annotations
 
-from typing import Dict
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
+
+from ..._compat import cached_property
+
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+
 from ...types.tool import Tool
+
 from ..._base_client import make_request_options
-from ...types.mcp_servers import tool_run_params
-from ...types.agents.tool_execution_result import ToolExecutionResult
+
+from ..._types import NotGiven, Omit, omit
+
 from ...types.mcp_servers.tool_list_response import ToolListResponse
 
-__all__ = ["ToolsResource", "AsyncToolsResource"]
+from ...types.agents.tool_execution_result import ToolExecutionResult
 
+from typing import Dict
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.mcp_servers import tool_run_params
+
+__all__ = ["ToolsResource", "AsyncToolsResource"]
 
 class ToolsResource(SyncAPIResource):
     @cached_property
@@ -45,18 +50,16 @@ class ToolsResource(SyncAPIResource):
         """
         return ToolsResourceWithStreamingResponse(self)
 
-    def retrieve(
-        self,
-        tool_id: str,
-        *,
-        mcp_server_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Tool:
+    def retrieve(self,
+    tool_id: str,
+    *,
+    mcp_server_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Tool:
         """
         Get a specific MCP tool by its ID
 
@@ -70,30 +73,28 @@ class ToolsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
+          )
         if not tool_id:
-            raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `tool_id` but received {tool_id!r}'
+          )
         return self._get(
-            path_template(
-                "/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}", mcp_server_id=mcp_server_id, tool_id=tool_id
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            path_template("/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}", mcp_server_id=mcp_server_id, tool_id=tool_id),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Tool,
         )
 
-    def list(
-        self,
-        mcp_server_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolListResponse:
+    def list(self,
+    mcp_server_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ToolListResponse:
         """
         Get a list of all tools for a specific MCP server
 
@@ -107,28 +108,26 @@ class ToolsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
+          )
         return self._get(
             path_template("/v1/mcp-servers/{mcp_server_id}/tools", mcp_server_id=mcp_server_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ToolListResponse,
         )
 
-    def run(
-        self,
-        tool_id: str,
-        *,
-        mcp_server_id: str,
-        args: Dict[str, object] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolExecutionResult:
+    def run(self,
+    tool_id: str,
+    *,
+    mcp_server_id: str,
+    args: Dict[str, object] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ToolExecutionResult:
         """
         Execute a specific MCP tool
 
@@ -147,20 +146,21 @@ class ToolsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
+          )
         if not tool_id:
-            raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `tool_id` but received {tool_id!r}'
+          )
         return self._post(
-            path_template(
-                "/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run", mcp_server_id=mcp_server_id, tool_id=tool_id
-            ),
-            body=maybe_transform({"args": args}, tool_run_params.ToolRunParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            path_template("/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run", mcp_server_id=mcp_server_id, tool_id=tool_id),
+            body=maybe_transform({
+                "args": args
+            }, tool_run_params.ToolRunParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ToolExecutionResult,
         )
-
 
 class AsyncToolsResource(AsyncAPIResource):
     @cached_property
@@ -182,18 +182,16 @@ class AsyncToolsResource(AsyncAPIResource):
         """
         return AsyncToolsResourceWithStreamingResponse(self)
 
-    async def retrieve(
-        self,
-        tool_id: str,
-        *,
-        mcp_server_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Tool:
+    async def retrieve(self,
+    tool_id: str,
+    *,
+    mcp_server_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Tool:
         """
         Get a specific MCP tool by its ID
 
@@ -207,30 +205,28 @@ class AsyncToolsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
+          )
         if not tool_id:
-            raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `tool_id` but received {tool_id!r}'
+          )
         return await self._get(
-            path_template(
-                "/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}", mcp_server_id=mcp_server_id, tool_id=tool_id
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            path_template("/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}", mcp_server_id=mcp_server_id, tool_id=tool_id),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Tool,
         )
 
-    async def list(
-        self,
-        mcp_server_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolListResponse:
+    async def list(self,
+    mcp_server_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ToolListResponse:
         """
         Get a list of all tools for a specific MCP server
 
@@ -244,28 +240,26 @@ class AsyncToolsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
+          )
         return await self._get(
             path_template("/v1/mcp-servers/{mcp_server_id}/tools", mcp_server_id=mcp_server_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ToolListResponse,
         )
 
-    async def run(
-        self,
-        tool_id: str,
-        *,
-        mcp_server_id: str,
-        args: Dict[str, object] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ToolExecutionResult:
+    async def run(self,
+    tool_id: str,
+    *,
+    mcp_server_id: str,
+    args: Dict[str, object] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ToolExecutionResult:
         """
         Execute a specific MCP tool
 
@@ -284,20 +278,21 @@ class AsyncToolsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not mcp_server_id:
-            raise ValueError(f"Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `mcp_server_id` but received {mcp_server_id!r}'
+          )
         if not tool_id:
-            raise ValueError(f"Expected a non-empty value for `tool_id` but received {tool_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `tool_id` but received {tool_id!r}'
+          )
         return await self._post(
-            path_template(
-                "/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run", mcp_server_id=mcp_server_id, tool_id=tool_id
-            ),
-            body=await async_maybe_transform({"args": args}, tool_run_params.ToolRunParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            path_template("/v1/mcp-servers/{mcp_server_id}/tools/{tool_id}/run", mcp_server_id=mcp_server_id, tool_id=tool_id),
+            body=await async_maybe_transform({
+                "args": args
+            }, tool_run_params.ToolRunParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ToolExecutionResult,
         )
-
 
 class ToolsResourceWithRawResponse:
     def __init__(self, tools: ToolsResource) -> None:
@@ -313,7 +308,6 @@ class ToolsResourceWithRawResponse:
             tools.run,
         )
 
-
 class AsyncToolsResourceWithRawResponse:
     def __init__(self, tools: AsyncToolsResource) -> None:
         self._tools = tools
@@ -328,7 +322,6 @@ class AsyncToolsResourceWithRawResponse:
             tools.run,
         )
 
-
 class ToolsResourceWithStreamingResponse:
     def __init__(self, tools: ToolsResource) -> None:
         self._tools = tools
@@ -342,7 +335,6 @@ class ToolsResourceWithStreamingResponse:
         self.run = to_streamed_response_wrapper(
             tools.run,
         )
-
 
 class AsyncToolsResourceWithStreamingResponse:
     def __init__(self, tools: AsyncToolsResource) -> None:

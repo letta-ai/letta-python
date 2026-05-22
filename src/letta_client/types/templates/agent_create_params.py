@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import TypedDict, Literal, Required
 
 from ..._types import SequenceNotStr
 
-__all__ = ["AgentCreateParams", "InitialMessageSequence"]
+from typing import Iterable, Dict, Optional
 
+__all__ = ["AgentCreateParams", "InitialMessageSequence"]
 
 class AgentCreateParams(TypedDict, total=False):
     agent_name: str
@@ -32,7 +32,6 @@ class AgentCreateParams(TypedDict, total=False):
 
     tool_variables: Dict[str, str]
     """The tool variables to assign to the agent"""
-
 
 class InitialMessageSequence(TypedDict, total=False):
     content: Required[str]

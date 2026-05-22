@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Literal
+
 from typing import Optional
-from typing_extensions import Literal, TypedDict
 
 __all__ = ["FileListParams"]
-
 
 class FileListParams(TypedDict, total=False):
     after: Optional[str]

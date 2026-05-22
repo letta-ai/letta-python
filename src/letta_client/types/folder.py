@@ -1,17 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
-from datetime import datetime
-
 from .._models import BaseModel
+
 from .embedding_config import EmbeddingConfig
+
+from typing import Optional, Dict
+
+from datetime import datetime
 
 __all__ = ["Folder"]
 
-
 class Folder(BaseModel):
     """Representation of a folder, which is a collection of files and passages."""
-
     id: str
     """The human-friendly ID of the Source"""
 

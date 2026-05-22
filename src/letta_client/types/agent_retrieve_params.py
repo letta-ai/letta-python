@@ -2,29 +2,16 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict, Literal
+
+from typing import Optional, List
 
 from .._types import SequenceNotStr
 
 __all__ = ["AgentRetrieveParams"]
 
-
 class AgentRetrieveParams(TypedDict, total=False):
-    include: Optional[
-        List[
-            Literal[
-                "agent.blocks",
-                "agent.identities",
-                "agent.managed_group",
-                "agent.pending_approval",
-                "agent.secrets",
-                "agent.sources",
-                "agent.tags",
-                "agent.tools",
-            ]
-        ]
-    ]
+    include: Optional[List[Literal["agent.blocks", "agent.identities", "agent.managed_group", "agent.pending_approval", "agent.secrets", "agent.sources", "agent.tags", "agent.tools"]]]
     """Specify which relational fields to include in the response.
 
     No relationships are included by default.

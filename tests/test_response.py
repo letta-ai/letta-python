@@ -6,7 +6,7 @@ import httpx
 import pytest
 import pydantic
 
-from letta_client import Letta, BaseModel, AsyncLetta
+from letta_client import BaseModel, Letta, AsyncLetta
 from letta_client._response import (
     APIResponse,
     BaseAPIResponse,

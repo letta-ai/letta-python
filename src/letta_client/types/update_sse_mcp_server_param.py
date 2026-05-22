@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Optional, Dict
+
+from typing_extensions import Literal, TypedDict, Required
 
 __all__ = ["UpdateSseMcpServerParam"]
 
-
 class UpdateSseMcpServerParam(TypedDict, total=False):
     """Update schema for SSE MCP server - all fields optional"""
-
     server_url: Required[Optional[str]]
     """The URL of the server"""
 

@@ -1,41 +1,38 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import TYPE_CHECKING, Dict, List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal, Annotated, TypeAlias
+from typing import Union, List, Optional, TYPE_CHECKING, Dict
+
+from .approval_return import ApprovalReturn
+
+from .text_content import TextContent
+
+from .image_content import ImageContent
+
+from ..._utils import PropertyInfo
+
+from typing_extensions import Annotated, TypeAliasType, TypeAlias, Literal
+
+from ..._models import BaseModel
+
+from .tool_call_content import ToolCallContent
+
+from .tool_return_content import ToolReturnContent
+
+from .reasoning_content import ReasoningContent
+
+from .redacted_reasoning_content import RedactedReasoningContent
+
+from .omitted_reasoning_content import OmittedReasoningContent
 
 from pydantic import Field as FieldInfo
 
-from ..._utils import PropertyInfo
-from ..._models import BaseModel
 from .message_role import MessageRole
-from .text_content import TextContent
-from .image_content import ImageContent
-from .approval_return import ApprovalReturn
-from .reasoning_content import ReasoningContent
-from .tool_call_content import ToolCallContent
-from .tool_return_content import ToolReturnContent
-from .omitted_reasoning_content import OmittedReasoningContent
-from .redacted_reasoning_content import RedactedReasoningContent
 
-__all__ = [
-    "InternalMessage",
-    "Approval",
-    "ApprovalLettaSchemasMessageToolReturnOutput",
-    "ApprovalLettaSchemasMessageToolReturnOutputFuncResponseUnionMember1",
-    "Content",
-    "ContentSummarizedReasoningContent",
-    "ContentSummarizedReasoningContentSummary",
-    "ToolCall",
-    "ToolCallFunction",
-    "ToolReturn",
-    "ToolReturnFuncResponseUnionMember1",
-]
+from datetime import datetime
 
-ApprovalLettaSchemasMessageToolReturnOutputFuncResponseUnionMember1: TypeAlias = Annotated[
-    Union[TextContent, ImageContent], PropertyInfo(discriminator="type")
-]
+__all__ = ["InternalMessage", "Approval", "ApprovalLettaSchemasMessageToolReturnOutput", "ApprovalLettaSchemasMessageToolReturnOutputFuncResponseUnionMember1", "Content", "ContentSummarizedReasoningContent", "ContentSummarizedReasoningContentSummary", "ToolCall", "ToolCallFunction", "ToolReturn", "ToolReturnFuncResponseUnionMember1"]
 
+ApprovalLettaSchemasMessageToolReturnOutputFuncResponseUnionMember1: TypeAlias = Annotated[Union[TextContent, ImageContent], PropertyInfo(discriminator="type")]
 
 class ApprovalLettaSchemasMessageToolReturnOutput(BaseModel):
     status: Literal["success", "error"]
@@ -53,9 +50,7 @@ class ApprovalLettaSchemasMessageToolReturnOutput(BaseModel):
     tool_call_id: Optional[object] = None
     """The ID for the tool call"""
 
-
 Approval: TypeAlias = Union[ApprovalReturn, ApprovalLettaSchemasMessageToolReturnOutput]
-
 
 class ContentSummarizedReasoningContentSummary(BaseModel):
     index: int
@@ -64,10 +59,8 @@ class ContentSummarizedReasoningContentSummary(BaseModel):
     text: str
     """The text of the summary part."""
 
-
 class ContentSummarizedReasoningContent(BaseModel):
     """The style of reasoning content returned by the OpenAI Responses API"""
-
     id: str
     """The unique identifier for this reasoning step."""
 
@@ -80,25 +73,10 @@ class ContentSummarizedReasoningContent(BaseModel):
     type: Optional[Literal["summarized_reasoning"]] = None
     """Indicates this is a summarized reasoning step."""
 
-
-Content: TypeAlias = Annotated[
-    Union[
-        TextContent,
-        ImageContent,
-        ToolCallContent,
-        ToolReturnContent,
-        ReasoningContent,
-        RedactedReasoningContent,
-        OmittedReasoningContent,
-        ContentSummarizedReasoningContent,
-    ],
-    PropertyInfo(discriminator="type"),
-]
-
+Content: TypeAlias = Annotated[Union[TextContent, ImageContent, ToolCallContent, ToolReturnContent, ReasoningContent, RedactedReasoningContent, OmittedReasoningContent, ContentSummarizedReasoningContent], PropertyInfo(discriminator="type")]
 
 class ToolCallFunction(BaseModel):
     """The function that the model called."""
-
     arguments: str
 
     name: str
@@ -106,19 +84,16 @@ class ToolCallFunction(BaseModel):
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
-        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
-
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)# pyright: ignore[reportIncompatibleVariableOverride]
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object: ...
+        def __getattr__(self, attr: str) -> object:    ...
     else:
         __pydantic_extra__: Dict[str, object]
 
-
 class ToolCall(BaseModel):
     """A call to a function tool created by the model."""
-
     id: str
 
     function: ToolCallFunction
@@ -129,20 +104,15 @@ class ToolCall(BaseModel):
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
-        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
-
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)# pyright: ignore[reportIncompatibleVariableOverride]
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object: ...
+        def __getattr__(self, attr: str) -> object:    ...
     else:
         __pydantic_extra__: Dict[str, object]
 
-
-ToolReturnFuncResponseUnionMember1: TypeAlias = Annotated[
-    Union[TextContent, ImageContent], PropertyInfo(discriminator="type")
-]
-
+ToolReturnFuncResponseUnionMember1: TypeAlias = Annotated[Union[TextContent, ImageContent], PropertyInfo(discriminator="type")]
 
 class ToolReturn(BaseModel):
     status: Literal["success", "error"]
@@ -159,7 +129,6 @@ class ToolReturn(BaseModel):
 
     tool_call_id: Optional[object] = None
     """The ID for the tool call"""
-
 
 class InternalMessage(BaseModel):
     """Letta's internal representation of a message.
@@ -185,7 +154,6 @@ class InternalMessage(BaseModel):
             conversation_id (str): The conversation this message belongs to.
     t
     """
-
     id: str
     """The human-friendly ID of the Message"""
 

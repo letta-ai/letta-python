@@ -1,14 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .._models import BaseModel
+
 from typing import List
+
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
-from .._models import BaseModel
-
 __all__ = ["AccessTokenCreateResponse", "Policy", "PolicyData"]
-
 
 class PolicyData(BaseModel):
     id: str
@@ -17,17 +17,15 @@ class PolicyData(BaseModel):
 
     type: Literal["agent"]
 
-
 class Policy(BaseModel):
     data: List[PolicyData]
 
     version: Literal["1"]
 
-
 class AccessTokenCreateResponse(BaseModel):
     token: str
 
-    expires_at: str = FieldInfo(alias="expiresAt")
+    expires_at: str = FieldInfo(alias = "expiresAt")
 
     hostname: str
 

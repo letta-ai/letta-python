@@ -2,21 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import TypedDict, Required, Literal, TypeAliasType, TypeAlias
 
-__all__ = [
-    "ScheduleCreateParams",
-    "Message",
-    "MessageContentUnionMember0",
-    "MessageContentUnionMember0UnionMember0",
-    "MessageContentUnionMember0UnionMember1",
-    "MessageContentUnionMember0UnionMember1Source",
-    "Schedule",
-    "ScheduleUnionMember0",
-    "ScheduleUnionMember1",
-]
+from typing import Iterable, List, Union, Optional
 
+__all__ = ["ScheduleCreateParams", "Message", "MessageContentUnionMember0", "MessageContentUnionMember0UnionMember0", "MessageContentUnionMember0UnionMember1", "MessageContentUnionMember0UnionMember1Source", "Schedule", "ScheduleUnionMember0", "ScheduleUnionMember1"]
 
 class ScheduleCreateParams(TypedDict, total=False):
     messages: Required[Iterable[Message]]
@@ -25,22 +15,9 @@ class ScheduleCreateParams(TypedDict, total=False):
 
     callback_url: str
 
-    include_return_message_types: List[
-        Literal[
-            "system_message",
-            "user_message",
-            "assistant_message",
-            "reasoning_message",
-            "hidden_reasoning_message",
-            "tool_call_message",
-            "tool_return_message",
-            "approval_request_message",
-            "approval_response_message",
-        ]
-    ]
+    include_return_message_types: List[Literal["system_message", "user_message", "assistant_message", "reasoning_message", "hidden_reasoning_message", "tool_call_message", "tool_return_message", "approval_request_message", "approval_response_message"]]
 
     max_steps: float
-
 
 class MessageContentUnionMember0UnionMember0(TypedDict, total=False):
     text: Required[str]
@@ -48,7 +25,6 @@ class MessageContentUnionMember0UnionMember0(TypedDict, total=False):
     signature: Optional[str]
 
     type: Literal["text"]
-
 
 class MessageContentUnionMember0UnionMember1Source(TypedDict, total=False):
     data: Required[str]
@@ -59,17 +35,12 @@ class MessageContentUnionMember0UnionMember1Source(TypedDict, total=False):
 
     type: Literal["base64"]
 
-
 class MessageContentUnionMember0UnionMember1(TypedDict, total=False):
     source: Required[MessageContentUnionMember0UnionMember1Source]
 
     type: Required[Literal["image"]]
 
-
-MessageContentUnionMember0: TypeAlias = Union[
-    MessageContentUnionMember0UnionMember0, MessageContentUnionMember0UnionMember1
-]
-
+MessageContentUnionMember0: TypeAlias = Union[MessageContentUnionMember0UnionMember0, MessageContentUnionMember0UnionMember1]
 
 class Message(TypedDict, total=False):
     content: Required[Union[Iterable[MessageContentUnionMember0], str]]
@@ -84,17 +55,14 @@ class Message(TypedDict, total=False):
 
     type: Literal["message"]
 
-
 class ScheduleUnionMember0(TypedDict, total=False):
     scheduled_at: Required[float]
 
     type: Literal["one-time"]
 
-
 class ScheduleUnionMember1(TypedDict, total=False):
     cron_expression: Required[str]
 
     type: Required[Literal["recurring"]]
-
 
 Schedule: TypeAlias = Union[ScheduleUnionMember0, ScheduleUnionMember1]

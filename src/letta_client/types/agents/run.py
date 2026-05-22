@@ -1,19 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from ..._models import BaseModel
+
+from typing import Optional, List, Dict
+
+from .message_type import MessageType
+
 from datetime import datetime
+
 from typing_extensions import Literal
 
-from ..._models import BaseModel
-from .message_type import MessageType
 from ..stop_reason_type import StopReasonType
 
 __all__ = ["Run", "RequestConfig"]
 
-
 class RequestConfig(BaseModel):
     """The request configuration for the run."""
-
     assistant_message_tool_kwarg: Optional[str] = None
     """The name of the message argument in the designated message tool."""
 
@@ -32,13 +34,11 @@ class RequestConfig(BaseModel):
     `send_message`) as `AssistantMessage` objects.
     """
 
-
 class Run(BaseModel):
     """Representation of a run - a conversation or processing session for an agent.
 
     Runs track when agents process messages and maintain the relationship between agents, steps, and messages.
     """
-
     id: str
     """The human-friendly ID of the Run"""
 

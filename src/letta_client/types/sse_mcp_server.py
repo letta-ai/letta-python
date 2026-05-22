@@ -1,16 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
-from typing_extensions import Literal
-
 from .._models import BaseModel
+
+from typing import Optional, Dict
+
+from typing_extensions import Literal
 
 __all__ = ["SseMcpServer"]
 
-
 class SseMcpServer(BaseModel):
     """An SSE MCP server"""
-
     server_name: str
     """The name of the MCP server"""
 

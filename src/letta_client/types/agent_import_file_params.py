@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Annotated
 
 from .._types import FileTypes
+
+from typing import Optional
+
 from .._utils import PropertyInfo
 
 __all__ = ["AgentImportFileParams"]
-
 
 class AgentImportFileParams(TypedDict, total=False):
     file: Required[FileTypes]

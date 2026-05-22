@@ -156,12 +156,15 @@ def model_dump(
             exclude_defaults=exclude_defaults,
             # warnings are not supported in Pydantic v1
             warnings=True if PYDANTIC_V1 else warnings,
-            **kwargs,
+            **kwargs
         )
     return cast(
         "dict[str, Any]",
         model.dict(  # pyright: ignore[reportDeprecated, reportUnnecessaryCast]
-            exclude=exclude, exclude_unset=exclude_unset, exclude_defaults=exclude_defaults, by_alias=bool(by_alias)
+            exclude=exclude,
+            exclude_unset=exclude_unset,
+            exclude_defaults=exclude_defaults,
+            by_alias=bool(by_alias)
         ),
     )
 

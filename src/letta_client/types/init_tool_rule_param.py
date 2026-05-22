@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Optional, Dict
+
+from typing_extensions import Literal, TypedDict, Required
 
 __all__ = ["InitToolRuleParam"]
 
-
 class InitToolRuleParam(TypedDict, total=False):
     """Represents the initial tool rule configuration."""
-
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 

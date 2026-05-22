@@ -2,30 +2,37 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncNextFilesPage, AsyncNextFilesPage
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.agents import file_list_params
+
+from ..._compat import cached_property
+
+from ..._utils import path_template, maybe_transform
+
 from ...types.agents.file_list_response import FileListResponse
-from ...types.agents.file_open_response import FileOpenResponse
+
+from ...pagination import SyncNextFilesPage, AsyncNextFilesPage
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing import Optional
+
+from ..._types import Omit, omit, NotGiven
+
+from typing_extensions import Literal
+
 from ...types.agents.file_close_all_response import FileCloseAllResponse
 
-__all__ = ["FilesResource", "AsyncFilesResource"]
+from ...types.agents.file_open_response import FileOpenResponse
 
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.agents import file_list_params
+
+__all__ = ["FilesResource", "AsyncFilesResource"]
 
 class FilesResource(SyncAPIResource):
     @cached_property
@@ -47,24 +54,22 @@ class FilesResource(SyncAPIResource):
         """
         return FilesResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        agent_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        cursor: Optional[str] | Omit = omit,
-        is_open: Optional[bool] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncNextFilesPage[FileListResponse]:
+    def list(self,
+    agent_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    cursor: Optional[str] | Omit = omit,
+    is_open: Optional[bool] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncNextFilesPage[FileListResponse]:
         """
         Get the files attached to an agent with their open/closed status.
 
@@ -97,43 +102,34 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._get_api_list(
             path_template("/v1/agents/{agent_id}/files", agent_id=agent_id),
-            page=SyncNextFilesPage[FileListResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "cursor": cursor,
-                        "is_open": is_open,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    file_list_params.FileListParams,
-                ),
-            ),
+            page = SyncNextFilesPage[FileListResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "cursor": cursor,
+                "is_open": is_open,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            }, file_list_params.FileListParams)),
             model=FileListResponse,
         )
 
-    def close(
-        self,
-        file_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    def close(self,
+    file_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
         """
         Closes a specific file for a given agent.
 
@@ -154,28 +150,28 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not file_id:
-            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `file_id` but received {file_id!r}'
+          )
         return self._patch(
             path_template("/v1/agents/{agent_id}/files/{file_id}/close", agent_id=agent_id, file_id=file_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=object,
         )
 
-    def close_all(
-        self,
-        agent_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FileCloseAllResponse:
+    def close_all(self,
+    agent_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> FileCloseAllResponse:
         """
         Closes all currently open files for a given agent.
 
@@ -194,27 +190,25 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._patch(
             path_template("/v1/agents/{agent_id}/files/close-all", agent_id=agent_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=FileCloseAllResponse,
         )
 
-    def open(
-        self,
-        file_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FileOpenResponse:
+    def open(self,
+    file_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> FileOpenResponse:
         """
         Opens a specific file for a given agent.
 
@@ -236,17 +230,18 @@ class FilesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not file_id:
-            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `file_id` but received {file_id!r}'
+          )
         return self._patch(
             path_template("/v1/agents/{agent_id}/files/{file_id}/open", agent_id=agent_id, file_id=file_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=FileOpenResponse,
         )
-
 
 class AsyncFilesResource(AsyncAPIResource):
     @cached_property
@@ -268,24 +263,22 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         return AsyncFilesResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        agent_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        cursor: Optional[str] | Omit = omit,
-        is_open: Optional[bool] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[FileListResponse, AsyncNextFilesPage[FileListResponse]]:
+    def list(self,
+    agent_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    cursor: Optional[str] | Omit = omit,
+    is_open: Optional[bool] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[FileListResponse, AsyncNextFilesPage[FileListResponse]]:
         """
         Get the files attached to an agent with their open/closed status.
 
@@ -318,43 +311,34 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._get_api_list(
             path_template("/v1/agents/{agent_id}/files", agent_id=agent_id),
-            page=AsyncNextFilesPage[FileListResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "cursor": cursor,
-                        "is_open": is_open,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    file_list_params.FileListParams,
-                ),
-            ),
+            page = AsyncNextFilesPage[FileListResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "cursor": cursor,
+                "is_open": is_open,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            }, file_list_params.FileListParams)),
             model=FileListResponse,
         )
 
-    async def close(
-        self,
-        file_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    async def close(self,
+    file_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
         """
         Closes a specific file for a given agent.
 
@@ -375,28 +359,28 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not file_id:
-            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `file_id` but received {file_id!r}'
+          )
         return await self._patch(
             path_template("/v1/agents/{agent_id}/files/{file_id}/close", agent_id=agent_id, file_id=file_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=object,
         )
 
-    async def close_all(
-        self,
-        agent_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FileCloseAllResponse:
+    async def close_all(self,
+    agent_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> FileCloseAllResponse:
         """
         Closes all currently open files for a given agent.
 
@@ -415,27 +399,25 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return await self._patch(
             path_template("/v1/agents/{agent_id}/files/close-all", agent_id=agent_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=FileCloseAllResponse,
         )
 
-    async def open(
-        self,
-        file_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FileOpenResponse:
+    async def open(self,
+    file_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> FileOpenResponse:
         """
         Opens a specific file for a given agent.
 
@@ -457,17 +439,18 @@ class AsyncFilesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not file_id:
-            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `file_id` but received {file_id!r}'
+          )
         return await self._patch(
             path_template("/v1/agents/{agent_id}/files/{file_id}/open", agent_id=agent_id, file_id=file_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=FileOpenResponse,
         )
-
 
 class FilesResourceWithRawResponse:
     def __init__(self, files: FilesResource) -> None:
@@ -486,7 +469,6 @@ class FilesResourceWithRawResponse:
             files.open,
         )
 
-
 class AsyncFilesResourceWithRawResponse:
     def __init__(self, files: AsyncFilesResource) -> None:
         self._files = files
@@ -504,7 +486,6 @@ class AsyncFilesResourceWithRawResponse:
             files.open,
         )
 
-
 class FilesResourceWithStreamingResponse:
     def __init__(self, files: FilesResource) -> None:
         self._files = files
@@ -521,7 +502,6 @@ class FilesResourceWithStreamingResponse:
         self.open = to_streamed_response_wrapper(
             files.open,
         )
-
 
 class AsyncFilesResourceWithStreamingResponse:
     def __init__(self, files: AsyncFilesResource) -> None:

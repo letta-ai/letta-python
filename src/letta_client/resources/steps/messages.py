@@ -2,28 +2,33 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional, cast
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ...types.steps import message_list_params
-from ..._base_client import AsyncPaginator, make_request_options
+
+from ..._compat import cached_property
+
+from ..._utils import path_template, maybe_transform
+
 from ...types.steps.message_list_response import MessageListResponse
 
-__all__ = ["MessagesResource", "AsyncMessagesResource"]
+from ...pagination import SyncArrayPage, AsyncArrayPage
 
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing import Any, cast, Optional
+
+from ..._types import Omit, omit, NotGiven
+
+from typing_extensions import Literal
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.steps import message_list_params
+
+__all__ = ["MessagesResource", "AsyncMessagesResource"]
 
 class MessagesResource(SyncAPIResource):
     @cached_property
@@ -45,22 +50,20 @@ class MessagesResource(SyncAPIResource):
         """
         return MessagesResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        step_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[MessageListResponse]:
+    def list(self,
+    step_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[MessageListResponse]:
         """
         List messages for a given step.
 
@@ -89,29 +92,21 @@ class MessagesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not step_id:
-            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `step_id` but received {step_id!r}'
+          )
         return self._get_api_list(
             path_template("/v1/steps/{step_id}/messages", step_id=step_id),
-            page=SyncArrayPage[MessageListResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    message_list_params.MessageListParams,
-                ),
-            ),
+            page = SyncArrayPage[MessageListResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            }, message_list_params.MessageListParams)),
             model=cast(Any, MessageListResponse),  # Union types cannot be passed in as arguments in the type system
         )
-
 
 class AsyncMessagesResource(AsyncAPIResource):
     @cached_property
@@ -133,22 +128,20 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         return AsyncMessagesResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        step_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[MessageListResponse, AsyncArrayPage[MessageListResponse]]:
+    def list(self,
+    step_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[MessageListResponse, AsyncArrayPage[MessageListResponse]]:
         """
         List messages for a given step.
 
@@ -177,29 +170,21 @@ class AsyncMessagesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not step_id:
-            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `step_id` but received {step_id!r}'
+          )
         return self._get_api_list(
             path_template("/v1/steps/{step_id}/messages", step_id=step_id),
-            page=AsyncArrayPage[MessageListResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    message_list_params.MessageListParams,
-                ),
-            ),
+            page = AsyncArrayPage[MessageListResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            }, message_list_params.MessageListParams)),
             model=cast(Any, MessageListResponse),  # Union types cannot be passed in as arguments in the type system
         )
-
 
 class MessagesResourceWithRawResponse:
     def __init__(self, messages: MessagesResource) -> None:
@@ -209,7 +194,6 @@ class MessagesResourceWithRawResponse:
             messages.list,
         )
 
-
 class AsyncMessagesResourceWithRawResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:
         self._messages = messages
@@ -218,7 +202,6 @@ class AsyncMessagesResourceWithRawResponse:
             messages.list,
         )
 
-
 class MessagesResourceWithStreamingResponse:
     def __init__(self, messages: MessagesResource) -> None:
         self._messages = messages
@@ -226,7 +209,6 @@ class MessagesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             messages.list,
         )
-
 
 class AsyncMessagesResourceWithStreamingResponse:
     def __init__(self, messages: AsyncMessagesResource) -> None:

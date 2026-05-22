@@ -8,7 +8,7 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from letta_client._types import Base64FileInput, omit, not_given
+from letta_client._types import not_given, omit, Base64FileInput
 from letta_client._utils import (
     PropertyInfo,
     transform as _transform,

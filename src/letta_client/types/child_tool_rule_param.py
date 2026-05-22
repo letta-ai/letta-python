@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
-
 from .._types import SequenceNotStr
 
-__all__ = ["ChildToolRuleParam", "ChildArgNode"]
+from typing import Optional, Iterable, Dict
 
+from typing_extensions import Literal, TypedDict, Required
+
+__all__ = ["ChildToolRuleParam", "ChildArgNode"]
 
 class ChildArgNode(TypedDict, total=False):
     """Typed child override for prefilled arguments.
@@ -16,7 +16,6 @@ class ChildArgNode(TypedDict, total=False):
     When used in a ChildToolRule, if this child is selected next, its `args` will be
     applied as prefilled arguments (overriding overlapping LLM-provided values).
     """
-
     name: Required[str]
     """The name of the child tool to invoke next."""
 
@@ -28,10 +27,8 @@ class ChildArgNode(TypedDict, total=False):
     the model.
     """
 
-
 class ChildToolRuleParam(TypedDict, total=False):
     """A ToolRule represents a tool that can be invoked by the agent."""
-
     children: Required[SequenceNotStr[str]]
     """The children tools that can be invoked."""
 

@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, TypedDict, Required
 
 __all__ = ["RedactedReasoningContentParam"]
 
-
 class RedactedReasoningContentParam(TypedDict, total=False):
     """Sent via the Anthropic Messages API"""
-
     data: Required[str]
     """The redacted or filtered intermediate reasoning content."""
 

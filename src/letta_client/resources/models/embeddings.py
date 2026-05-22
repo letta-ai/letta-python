@@ -4,20 +4,22 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Query, Headers, NotGiven, not_given
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
+
+from ..._compat import cached_property
+
 from ...types.models.embedding_list_response import EmbeddingListResponse
 
-__all__ = ["EmbeddingsResource", "AsyncEmbeddingsResource"]
+from ..._base_client import make_request_options
 
+from ..._types import NotGiven
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+
+__all__ = ["EmbeddingsResource", "AsyncEmbeddingsResource"]
 
 class EmbeddingsResource(SyncAPIResource):
     @cached_property
@@ -39,16 +41,14 @@ class EmbeddingsResource(SyncAPIResource):
         """
         return EmbeddingsResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmbeddingListResponse:
+    def list(self,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> EmbeddingListResponse:
         """
         List available embedding models using the asynchronous implementation for
         improved performance.
@@ -59,12 +59,9 @@ class EmbeddingsResource(SyncAPIResource):
         """
         return self._get(
             "/v1/models/embedding",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=EmbeddingListResponse,
         )
-
 
 class AsyncEmbeddingsResource(AsyncAPIResource):
     @cached_property
@@ -86,16 +83,14 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
         """
         return AsyncEmbeddingsResourceWithStreamingResponse(self)
 
-    async def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> EmbeddingListResponse:
+    async def list(self,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> EmbeddingListResponse:
         """
         List available embedding models using the asynchronous implementation for
         improved performance.
@@ -106,12 +101,9 @@ class AsyncEmbeddingsResource(AsyncAPIResource):
         """
         return await self._get(
             "/v1/models/embedding",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=EmbeddingListResponse,
         )
-
 
 class EmbeddingsResourceWithRawResponse:
     def __init__(self, embeddings: EmbeddingsResource) -> None:
@@ -121,7 +113,6 @@ class EmbeddingsResourceWithRawResponse:
             embeddings.list,
         )
 
-
 class AsyncEmbeddingsResourceWithRawResponse:
     def __init__(self, embeddings: AsyncEmbeddingsResource) -> None:
         self._embeddings = embeddings
@@ -130,7 +121,6 @@ class AsyncEmbeddingsResourceWithRawResponse:
             embeddings.list,
         )
 
-
 class EmbeddingsResourceWithStreamingResponse:
     def __init__(self, embeddings: EmbeddingsResource) -> None:
         self._embeddings = embeddings
@@ -138,7 +128,6 @@ class EmbeddingsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             embeddings.list,
         )
-
 
 class AsyncEmbeddingsResourceWithStreamingResponse:
     def __init__(self, embeddings: AsyncEmbeddingsResource) -> None:

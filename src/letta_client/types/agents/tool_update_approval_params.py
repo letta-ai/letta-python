@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Annotated
 
 from ..._utils import PropertyInfo
 
-__all__ = ["ToolUpdateApprovalParams"]
+from typing import Optional
 
+__all__ = ["ToolUpdateApprovalParams"]
 
 class ToolUpdateApprovalParams(TypedDict, total=False):
     agent_id: Required[str]

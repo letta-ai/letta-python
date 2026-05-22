@@ -4,6 +4,5 @@ from .._models import BaseModel
 
 __all__ = ["TemplateDeleteResponse"]
 
-
 class TemplateDeleteResponse(BaseModel):
     success: bool

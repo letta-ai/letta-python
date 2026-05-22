@@ -4,20 +4,22 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Query, Headers, NotGiven, not_given
-from ..._utils import path_template
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
+
+from ..._compat import cached_property
+
+from ..._utils import path_template
+
 from ..._base_client import make_request_options
 
-__all__ = ["IdentitiesResource", "AsyncIdentitiesResource"]
+from ..._types import NotGiven
 
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+
+__all__ = ["IdentitiesResource", "AsyncIdentitiesResource"]
 
 class IdentitiesResource(SyncAPIResource):
     @cached_property
@@ -39,18 +41,16 @@ class IdentitiesResource(SyncAPIResource):
         """
         return IdentitiesResourceWithStreamingResponse(self)
 
-    def attach(
-        self,
-        identity_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    def attach(self,
+    identity_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
         """
         Attach an identity to an agent.
 
@@ -66,31 +66,29 @@ class IdentitiesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not identity_id:
-            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `identity_id` but received {identity_id!r}'
+          )
         return self._patch(
-            path_template(
-                "/v1/agents/{agent_id}/identities/attach/{identity_id}", agent_id=agent_id, identity_id=identity_id
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            path_template("/v1/agents/{agent_id}/identities/attach/{identity_id}", agent_id=agent_id, identity_id=identity_id),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=object,
         )
 
-    def detach(
-        self,
-        identity_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    def detach(self,
+    identity_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
         """
         Detach an identity from an agent.
 
@@ -106,19 +104,18 @@ class IdentitiesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not identity_id:
-            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `identity_id` but received {identity_id!r}'
+          )
         return self._patch(
-            path_template(
-                "/v1/agents/{agent_id}/identities/detach/{identity_id}", agent_id=agent_id, identity_id=identity_id
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            path_template("/v1/agents/{agent_id}/identities/detach/{identity_id}", agent_id=agent_id, identity_id=identity_id),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=object,
         )
-
 
 class AsyncIdentitiesResource(AsyncAPIResource):
     @cached_property
@@ -140,18 +137,16 @@ class AsyncIdentitiesResource(AsyncAPIResource):
         """
         return AsyncIdentitiesResourceWithStreamingResponse(self)
 
-    async def attach(
-        self,
-        identity_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    async def attach(self,
+    identity_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
         """
         Attach an identity to an agent.
 
@@ -167,31 +162,29 @@ class AsyncIdentitiesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not identity_id:
-            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `identity_id` but received {identity_id!r}'
+          )
         return await self._patch(
-            path_template(
-                "/v1/agents/{agent_id}/identities/attach/{identity_id}", agent_id=agent_id, identity_id=identity_id
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            path_template("/v1/agents/{agent_id}/identities/attach/{identity_id}", agent_id=agent_id, identity_id=identity_id),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=object,
         )
 
-    async def detach(
-        self,
-        identity_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    async def detach(self,
+    identity_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
         """
         Detach an identity from an agent.
 
@@ -207,19 +200,18 @@ class AsyncIdentitiesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not identity_id:
-            raise ValueError(f"Expected a non-empty value for `identity_id` but received {identity_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `identity_id` but received {identity_id!r}'
+          )
         return await self._patch(
-            path_template(
-                "/v1/agents/{agent_id}/identities/detach/{identity_id}", agent_id=agent_id, identity_id=identity_id
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            path_template("/v1/agents/{agent_id}/identities/detach/{identity_id}", agent_id=agent_id, identity_id=identity_id),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=object,
         )
-
 
 class IdentitiesResourceWithRawResponse:
     def __init__(self, identities: IdentitiesResource) -> None:
@@ -232,7 +224,6 @@ class IdentitiesResourceWithRawResponse:
             identities.detach,
         )
 
-
 class AsyncIdentitiesResourceWithRawResponse:
     def __init__(self, identities: AsyncIdentitiesResource) -> None:
         self._identities = identities
@@ -244,7 +235,6 @@ class AsyncIdentitiesResourceWithRawResponse:
             identities.detach,
         )
 
-
 class IdentitiesResourceWithStreamingResponse:
     def __init__(self, identities: IdentitiesResource) -> None:
         self._identities = identities
@@ -255,7 +245,6 @@ class IdentitiesResourceWithStreamingResponse:
         self.detach = to_streamed_response_wrapper(
             identities.detach,
         )
-
 
 class AsyncIdentitiesResourceWithStreamingResponse:
     def __init__(self, identities: AsyncIdentitiesResource) -> None:

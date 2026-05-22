@@ -2,21 +2,23 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import TypedDict, Required, Annotated
 
-from ..._types import SequenceNotStr
+from typing import Union, Optional
+
+from datetime import datetime
+
 from ..._utils import PropertyInfo
 
-__all__ = ["PassageCreateParams"]
+from ..._types import SequenceNotStr
 
+__all__ = ["PassageCreateParams"]
 
 class PassageCreateParams(TypedDict, total=False):
     text: Required[str]
     """Text to write to archival memory."""
 
-    created_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_at: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
     """Optional timestamp for the memory (defaults to current UTC time)."""
 
     tags: Optional[SequenceNotStr[str]]

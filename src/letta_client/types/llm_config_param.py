@@ -2,18 +2,21 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, TypeAliasType, TypeAlias, TypedDict, Required
+
+from typing import Optional, Union
 
 from .provider_category import ProviderCategory
+
 from .text_response_format_param import TextResponseFormatParam
-from .json_object_response_format_param import JsonObjectResponseFormatParam
+
 from .json_schema_response_format_param import JsonSchemaResponseFormatParam
+
+from .json_object_response_format_param import JsonObjectResponseFormatParam
 
 __all__ = ["LlmConfigParam", "ResponseFormat"]
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
-
 
 class LlmConfigParam(TypedDict, total=False):
     """Configuration for Language Model (LLM) connection and generation parameters.
@@ -23,47 +26,13 @@ class LlmConfigParam(TypedDict, total=False):
         Use the schemas in letta.schemas.model (ModelSettings, OpenAIModelSettings, etc.) instead.
         For conversion, use the _to_model() method or Model._from_llm_config() method.
     """
-
     context_window: Required[int]
     """The context window size for the model."""
 
     model: Required[str]
     """LLM model name."""
 
-    model_endpoint_type: Required[
-        Literal[
-            "openai",
-            "anthropic",
-            "google_ai",
-            "google_vertex",
-            "azure",
-            "groq",
-            "ollama",
-            "webui",
-            "webui-legacy",
-            "lmstudio",
-            "lmstudio-legacy",
-            "lmstudio-chatcompletions",
-            "llamacpp",
-            "koboldcpp",
-            "vllm",
-            "hugging-face",
-            "minimax",
-            "moonshot",
-            "moonshot_coding",
-            "mistral",
-            "together",
-            "bedrock",
-            "deepseek",
-            "xai",
-            "zai",
-            "zai_coding",
-            "baseten",
-            "fireworks",
-            "openrouter",
-            "chatgpt_oauth",
-        ]
-    ]
+    model_endpoint_type: Required[Literal["openai", "anthropic", "google_ai", "google_vertex", "azure", "groq", "ollama", "webui", "webui-legacy", "lmstudio", "lmstudio-legacy", "lmstudio-chatcompletions", "llamacpp", "koboldcpp", "vllm", "hugging-face", "minimax", "moonshot", "moonshot_coding", "mistral", "together", "bedrock", "deepseek", "xai", "zai", "zai_coding", "baseten", "fireworks", "openrouter", "chatgpt_oauth"]]
     """The endpoint type for the model."""
 
     compatibility_type: Optional[Literal["gguf", "mlx"]]

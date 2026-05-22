@@ -2,36 +2,36 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-
 import httpx
 
-from ...types import ProviderType, model_list_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from .embeddings import (
-    EmbeddingsResource,
-    AsyncEmbeddingsResource,
-    EmbeddingsResourceWithRawResponse,
-    AsyncEmbeddingsResourceWithRawResponse,
-    EmbeddingsResourceWithStreamingResponse,
-    AsyncEmbeddingsResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
-from ...types.provider_type import ProviderType
-from ...types.provider_category import ProviderCategory
+
+from .embeddings import EmbeddingsResource, AsyncEmbeddingsResource, EmbeddingsResourceWithRawResponse, AsyncEmbeddingsResourceWithRawResponse, EmbeddingsResourceWithStreamingResponse, AsyncEmbeddingsResourceWithStreamingResponse
+
+from ..._compat import cached_property
+
 from ...types.model_list_response import ModelListResponse
 
-__all__ = ["ModelsResource", "AsyncModelsResource"]
+from ..._base_client import make_request_options
 
+from ..._utils import maybe_transform, async_maybe_transform
+
+from typing import Optional, List
+
+from ...types.provider_category import ProviderCategory
+
+from ..._types import Omit, omit, NotGiven
+
+from ...types.provider_type import ProviderType
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types import model_list_params
+from ...types import ProviderType
+
+__all__ = ["ModelsResource", "AsyncModelsResource"]
 
 class ModelsResource(SyncAPIResource):
     @cached_property
@@ -57,19 +57,17 @@ class ModelsResource(SyncAPIResource):
         """
         return ModelsResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        provider_category: Optional[List[ProviderCategory]] | Omit = omit,
-        provider_name: Optional[str] | Omit = omit,
-        provider_type: Optional[ProviderType] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ModelListResponse:
+    def list(self,
+    *,
+    provider_category: Optional[List[ProviderCategory]] | Omit = omit,
+    provider_name: Optional[str] | Omit = omit,
+    provider_type: Optional[ProviderType] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ModelListResponse:
         """
         List available LLM models using the asynchronous implementation for improved
         performance.
@@ -89,23 +87,13 @@ class ModelsResource(SyncAPIResource):
         """
         return self._get(
             "/v1/models/",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "provider_category": provider_category,
-                        "provider_name": provider_name,
-                        "provider_type": provider_type,
-                    },
-                    model_list_params.ModelListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "provider_category": provider_category,
+                "provider_name": provider_name,
+                "provider_type": provider_type,
+            }, model_list_params.ModelListParams)),
             cast_to=ModelListResponse,
         )
-
 
 class AsyncModelsResource(AsyncAPIResource):
     @cached_property
@@ -131,19 +119,17 @@ class AsyncModelsResource(AsyncAPIResource):
         """
         return AsyncModelsResourceWithStreamingResponse(self)
 
-    async def list(
-        self,
-        *,
-        provider_category: Optional[List[ProviderCategory]] | Omit = omit,
-        provider_name: Optional[str] | Omit = omit,
-        provider_type: Optional[ProviderType] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ModelListResponse:
+    async def list(self,
+    *,
+    provider_category: Optional[List[ProviderCategory]] | Omit = omit,
+    provider_name: Optional[str] | Omit = omit,
+    provider_type: Optional[ProviderType] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ModelListResponse:
         """
         List available LLM models using the asynchronous implementation for improved
         performance.
@@ -163,23 +149,13 @@ class AsyncModelsResource(AsyncAPIResource):
         """
         return await self._get(
             "/v1/models/",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "provider_category": provider_category,
-                        "provider_name": provider_name,
-                        "provider_type": provider_type,
-                    },
-                    model_list_params.ModelListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "provider_category": provider_category,
+                "provider_name": provider_name,
+                "provider_type": provider_type,
+            }, model_list_params.ModelListParams)),
             cast_to=ModelListResponse,
         )
-
 
 class ModelsResourceWithRawResponse:
     def __init__(self, models: ModelsResource) -> None:
@@ -193,7 +169,6 @@ class ModelsResourceWithRawResponse:
     def embeddings(self) -> EmbeddingsResourceWithRawResponse:
         return EmbeddingsResourceWithRawResponse(self._models.embeddings)
 
-
 class AsyncModelsResourceWithRawResponse:
     def __init__(self, models: AsyncModelsResource) -> None:
         self._models = models
@@ -206,7 +181,6 @@ class AsyncModelsResourceWithRawResponse:
     def embeddings(self) -> AsyncEmbeddingsResourceWithRawResponse:
         return AsyncEmbeddingsResourceWithRawResponse(self._models.embeddings)
 
-
 class ModelsResourceWithStreamingResponse:
     def __init__(self, models: ModelsResource) -> None:
         self._models = models
@@ -218,7 +192,6 @@ class ModelsResourceWithStreamingResponse:
     @cached_property
     def embeddings(self) -> EmbeddingsResourceWithStreamingResponse:
         return EmbeddingsResourceWithStreamingResponse(self._models.embeddings)
-
 
 class AsyncModelsResourceWithStreamingResponse:
     def __init__(self, models: AsyncModelsResource) -> None:

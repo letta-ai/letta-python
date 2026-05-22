@@ -1,11 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
-
 from .._models import BaseModel
 
-__all__ = ["TemplateSaveResponse"]
+from typing import Optional
 
+__all__ = ["TemplateSaveResponse"]
 
 class TemplateSaveResponse(BaseModel):
     id: str

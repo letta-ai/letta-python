@@ -1,15 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from .._models import BaseModel
+
 from typing_extensions import Literal
+
+from .provider_type import ProviderType
+
+from typing import Optional
 
 from pydantic import Field as FieldInfo
 
-from .._models import BaseModel
-from .provider_type import ProviderType
-
 __all__ = ["EmbeddingModel"]
-
 
 class EmbeddingModel(BaseModel):
     display_name: str
@@ -18,27 +19,7 @@ class EmbeddingModel(BaseModel):
     embedding_dim: int
     """The dimension of the embedding"""
 
-    embedding_endpoint_type: Literal[
-        "openai",
-        "anthropic",
-        "bedrock",
-        "google_ai",
-        "google_vertex",
-        "azure",
-        "groq",
-        "ollama",
-        "webui",
-        "webui-legacy",
-        "lmstudio",
-        "lmstudio-legacy",
-        "llamacpp",
-        "koboldcpp",
-        "vllm",
-        "hugging-face",
-        "mistral",
-        "together",
-        "pinecone",
-    ]
+    embedding_endpoint_type: Literal["openai", "anthropic", "bedrock", "google_ai", "google_vertex", "azure", "groq", "ollama", "webui", "webui-legacy", "lmstudio", "lmstudio-legacy", "llamacpp", "koboldcpp", "vllm", "hugging-face", "mistral", "together", "pinecone"]
     """Deprecated: Use 'provider_type' field instead.
 
     The endpoint type for the embedding model.
@@ -77,5 +58,5 @@ class EmbeddingModel(BaseModel):
     handle: Optional[str] = None
     """The handle for this config, in the format provider/model-name."""
 
-    api_model_type: Optional[Literal["embedding"]] = FieldInfo(alias="model_type", default=None)
+    api_model_type: Optional[Literal["embedding"]] = FieldInfo(alias = "model_type", default = None)
     """Type of model (llm or embedding)"""

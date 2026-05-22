@@ -1,11 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
-from typing_extensions import TypeAlias
+from typing import Union, List
+
+from .stdio_mcp_server import StdioMcpServer
 
 from .sse_mcp_server import SseMcpServer
-from .stdio_mcp_server import StdioMcpServer
+
 from .streamable_http_mcp_server import StreamableHTTPMcpServer
+
+from typing_extensions import TypeAliasType, TypeAlias
 
 __all__ = ["McpServerListResponse", "McpServerListResponseItem"]
 

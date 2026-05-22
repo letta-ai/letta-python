@@ -3,16 +3,15 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+
+from typing_extensions import Literal, TypedDict, Required
 
 __all__ = ["RequiresApprovalToolRuleParam"]
-
 
 class RequiresApprovalToolRuleParam(TypedDict, total=False):
     """
     Represents a tool rule configuration which requires approval before the tool can be invoked.
     """
-
     tool_name: Required[str]
     """The name of the tool. Must exist in the database for the user's organization."""
 

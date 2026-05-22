@@ -2,26 +2,31 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
-from ...types.templates import agent_create_params
+
+from ..._compat import cached_property
+
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+
 from ...types.templates.agent_create_response import AgentCreateResponse
 
-__all__ = ["AgentsResource", "AsyncAgentsResource"]
+from ..._base_client import make_request_options
 
+from ..._types import Omit, omit, SequenceNotStr, NotGiven
+
+from typing import Iterable, Dict
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ...types.templates import agent_create_params
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.templates import agent_create_params
+
+__all__ = ["AgentsResource", "AsyncAgentsResource"]
 
 class AgentsResource(SyncAPIResource):
     @cached_property
@@ -43,23 +48,21 @@ class AgentsResource(SyncAPIResource):
         """
         return AgentsResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        template_version: str,
-        *,
-        agent_name: str | Omit = omit,
-        identity_ids: SequenceNotStr[str] | Omit = omit,
-        initial_message_sequence: Iterable[agent_create_params.InitialMessageSequence] | Omit = omit,
-        memory_variables: Dict[str, str] | Omit = omit,
-        tags: SequenceNotStr[str] | Omit = omit,
-        tool_variables: Dict[str, str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentCreateResponse:
+    def create(self,
+    template_version: str,
+    *,
+    agent_name: str | Omit = omit,
+    identity_ids: SequenceNotStr[str] | Omit = omit,
+    initial_message_sequence: Iterable[agent_create_params.InitialMessageSequence] | Omit = omit,
+    memory_variables: Dict[str, str] | Omit = omit,
+    tags: SequenceNotStr[str] | Omit = omit,
+    tool_variables: Dict[str, str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentCreateResponse:
         """
         Creates an Agent or multiple Agents from a template
 
@@ -87,26 +90,22 @@ class AgentsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not template_version:
-            raise ValueError(f"Expected a non-empty value for `template_version` but received {template_version!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `template_version` but received {template_version!r}'
+          )
         return self._post(
             path_template("/v1/templates/{template_version}/agents", template_version=template_version),
-            body=maybe_transform(
-                {
-                    "agent_name": agent_name,
-                    "identity_ids": identity_ids,
-                    "initial_message_sequence": initial_message_sequence,
-                    "memory_variables": memory_variables,
-                    "tags": tags,
-                    "tool_variables": tool_variables,
-                },
-                agent_create_params.AgentCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "agent_name": agent_name,
+                "identity_ids": identity_ids,
+                "initial_message_sequence": initial_message_sequence,
+                "memory_variables": memory_variables,
+                "tags": tags,
+                "tool_variables": tool_variables,
+            }, agent_create_params.AgentCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentCreateResponse,
         )
-
 
 class AsyncAgentsResource(AsyncAPIResource):
     @cached_property
@@ -128,23 +127,21 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         return AsyncAgentsResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        template_version: str,
-        *,
-        agent_name: str | Omit = omit,
-        identity_ids: SequenceNotStr[str] | Omit = omit,
-        initial_message_sequence: Iterable[agent_create_params.InitialMessageSequence] | Omit = omit,
-        memory_variables: Dict[str, str] | Omit = omit,
-        tags: SequenceNotStr[str] | Omit = omit,
-        tool_variables: Dict[str, str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentCreateResponse:
+    async def create(self,
+    template_version: str,
+    *,
+    agent_name: str | Omit = omit,
+    identity_ids: SequenceNotStr[str] | Omit = omit,
+    initial_message_sequence: Iterable[agent_create_params.InitialMessageSequence] | Omit = omit,
+    memory_variables: Dict[str, str] | Omit = omit,
+    tags: SequenceNotStr[str] | Omit = omit,
+    tool_variables: Dict[str, str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentCreateResponse:
         """
         Creates an Agent or multiple Agents from a template
 
@@ -172,26 +169,22 @@ class AsyncAgentsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not template_version:
-            raise ValueError(f"Expected a non-empty value for `template_version` but received {template_version!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `template_version` but received {template_version!r}'
+          )
         return await self._post(
             path_template("/v1/templates/{template_version}/agents", template_version=template_version),
-            body=await async_maybe_transform(
-                {
-                    "agent_name": agent_name,
-                    "identity_ids": identity_ids,
-                    "initial_message_sequence": initial_message_sequence,
-                    "memory_variables": memory_variables,
-                    "tags": tags,
-                    "tool_variables": tool_variables,
-                },
-                agent_create_params.AgentCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "agent_name": agent_name,
+                "identity_ids": identity_ids,
+                "initial_message_sequence": initial_message_sequence,
+                "memory_variables": memory_variables,
+                "tags": tags,
+                "tool_variables": tool_variables,
+            }, agent_create_params.AgentCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentCreateResponse,
         )
-
 
 class AgentsResourceWithRawResponse:
     def __init__(self, agents: AgentsResource) -> None:
@@ -201,7 +194,6 @@ class AgentsResourceWithRawResponse:
             agents.create,
         )
 
-
 class AsyncAgentsResourceWithRawResponse:
     def __init__(self, agents: AsyncAgentsResource) -> None:
         self._agents = agents
@@ -210,7 +202,6 @@ class AsyncAgentsResourceWithRawResponse:
             agents.create,
         )
 
-
 class AgentsResourceWithStreamingResponse:
     def __init__(self, agents: AgentsResource) -> None:
         self._agents = agents
@@ -218,7 +209,6 @@ class AgentsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             agents.create,
         )
-
 
 class AsyncAgentsResourceWithStreamingResponse:
     def __init__(self, agents: AsyncAgentsResource) -> None:

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict, Required
+
+from typing import Optional, Dict
 
 from .embedding_config_param import EmbeddingConfigParam
 
 __all__ = ["FolderCreateParams"]
-
 
 class FolderCreateParams(TypedDict, total=False):
     name: Required[str]

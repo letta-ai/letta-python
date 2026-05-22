@@ -2,27 +2,34 @@
 
 from __future__ import annotations
 
-import os
-from typing import Any, cast
-
-import pytest
-
-from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
+
 from letta_client.types import PassageSearchResponse
+
 from letta_client._utils import parse_datetime
+
+from typing import cast, Any
+
+import os
+import pytest
+import httpx
+from typing_extensions import get_args
+from respx import MockRouter
+from letta_client import Letta, AsyncLetta
+from tests.utils import assert_matches_type
+from letta_client.types import passage_search_params
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-
 class TestPassages:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
+
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search(self, client: Letta) -> None:
         passage = client.passages.search()
-        assert_matches_type(PassageSearchResponse, passage, path=["response"])
+        assert_matches_type(PassageSearchResponse, passage, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -37,41 +44,39 @@ class TestPassages:
             tag_match_mode="any",
             tags=["string"],
         )
-        assert_matches_type(PassageSearchResponse, passage, path=["response"])
+        assert_matches_type(PassageSearchResponse, passage, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_search(self, client: Letta) -> None:
+
         response = client.passages.with_raw_response.search()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         passage = response.parse()
-        assert_matches_type(PassageSearchResponse, passage, path=["response"])
+        assert_matches_type(PassageSearchResponse, passage, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_search(self, client: Letta) -> None:
-        with client.passages.with_streaming_response.search() as response:
+        with client.passages.with_streaming_response.search() as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             passage = response.parse()
-            assert_matches_type(PassageSearchResponse, passage, path=["response"])
+            assert_matches_type(PassageSearchResponse, passage, path=['response'])
 
         assert cast(Any, response.is_closed) is True
-
-
 class TestAsyncPassages:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
+    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search(self, async_client: AsyncLetta) -> None:
         passage = await async_client.passages.search()
-        assert_matches_type(PassageSearchResponse, passage, path=["response"])
+        assert_matches_type(PassageSearchResponse, passage, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -86,26 +91,27 @@ class TestAsyncPassages:
             tag_match_mode="any",
             tags=["string"],
         )
-        assert_matches_type(PassageSearchResponse, passage, path=["response"])
+        assert_matches_type(PassageSearchResponse, passage, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncLetta) -> None:
+
         response = await async_client.passages.with_raw_response.search()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         passage = await response.parse()
-        assert_matches_type(PassageSearchResponse, passage, path=["response"])
+        assert_matches_type(PassageSearchResponse, passage, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncLetta) -> None:
-        async with async_client.passages.with_streaming_response.search() as response:
+        async with async_client.passages.with_streaming_response.search() as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             passage = await response.parse()
-            assert_matches_type(PassageSearchResponse, passage, path=["response"])
+            assert_matches_type(PassageSearchResponse, passage, path=['response'])
 
         assert cast(Any, response.is_closed) is True

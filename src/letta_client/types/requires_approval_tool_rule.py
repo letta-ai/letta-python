@@ -1,18 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
-from typing_extensions import Literal
-
 from .._models import BaseModel
 
-__all__ = ["RequiresApprovalToolRule"]
+from typing import Optional
 
+from typing_extensions import Literal
+
+__all__ = ["RequiresApprovalToolRule"]
 
 class RequiresApprovalToolRule(BaseModel):
     """
     Represents a tool rule configuration which requires approval before the tool can be invoked.
     """
-
     tool_name: str
     """The name of the tool. Must exist in the database for the user's organization."""
 

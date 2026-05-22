@@ -1,14 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal
-
 from ..._models import BaseModel
+
+from typing import Union, List, Optional
+
 from .letta_assistant_message_content_union import LettaAssistantMessageContentUnion
 
-__all__ = ["AssistantMessage"]
+from datetime import datetime
 
+from typing_extensions import Literal
+
+__all__ = ["AssistantMessage"]
 
 class AssistantMessage(BaseModel):
     """A message sent by the LLM in response to user input. Used in the LLM context.
@@ -19,7 +21,6 @@ class AssistantMessage(BaseModel):
         name (Optional[str]): The name of the sender of the message
         content (Union[str, List[LettaAssistantMessageContentUnion]]): The message content sent by the agent (can be a string or an array of content parts)
     """
-
     id: str
 
     content: Union[List[LettaAssistantMessageContentUnion], str]

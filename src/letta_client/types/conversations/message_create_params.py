@@ -2,32 +2,33 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import TypedDict, Required, Literal, TypeAliasType, TypeAlias
+
+from typing import Optional, Iterable, List, Union, Dict
 
 from ..agents.message_type import MessageType
-from ..message_create_param import MessageCreateParam
-from ..agents.tool_return_param import ToolReturnParam
+
 from ..agents.text_content_param import TextContentParam
+
 from ..agents.image_content_param import ImageContentParam
-from ..agents.approval_create_param import ApprovalCreateParam
-from ..agents.reasoning_content_param import ReasoningContentParam
+
 from ..agents.tool_call_content_param import ToolCallContentParam
+
 from ..agents.tool_return_content_param import ToolReturnContentParam
-from ..agents.omitted_reasoning_content_param import OmittedReasoningContentParam
+
+from ..agents.reasoning_content_param import ReasoningContentParam
+
 from ..agents.redacted_reasoning_content_param import RedactedReasoningContentParam
 
-__all__ = [
-    "MessageCreateParams",
-    "ClientSkill",
-    "ClientTool",
-    "InputUnionMember1",
-    "InputUnionMember1SummarizedReasoningContent",
-    "InputUnionMember1SummarizedReasoningContentSummary",
-    "Message",
-    "MessageToolReturnCreate",
-]
+from ..agents.omitted_reasoning_content_param import OmittedReasoningContentParam
 
+from ..agents.tool_return_param import ToolReturnParam
+
+from ..message_create_param import MessageCreateParam
+
+from ..agents.approval_create_param import ApprovalCreateParam
+
+__all__ = ["MessageCreateParams", "ClientSkill", "ClientTool", "InputUnionMember1", "InputUnionMember1SummarizedReasoningContent", "InputUnionMember1SummarizedReasoningContentSummary", "Message", "MessageToolReturnCreate"]
 
 class MessageCreateParams(TypedDict, total=False):
     agent_id: Optional[str]
@@ -159,7 +160,6 @@ class MessageCreateParams(TypedDict, total=False):
     types, but deprecated for letta_v1_agent onward.
     """
 
-
 class ClientSkill(TypedDict, total=False):
     """Schema for a client-side skill passed in the request.
 
@@ -167,7 +167,6 @@ class ClientSkill(TypedDict, total=False):
     skills) that are not stored in the agent's MemFS but should appear in the system
     prompt's available skills section.
     """
-
     description: Required[str]
     """Description of what the skill does"""
 
@@ -177,7 +176,6 @@ class ClientSkill(TypedDict, total=False):
     name: Required[str]
     """The name of the skill"""
 
-
 class ClientTool(TypedDict, total=False):
     """Schema for a client-side tool passed in the request.
 
@@ -185,7 +183,6 @@ class ClientTool(TypedDict, total=False):
     calls a client-side tool, execution pauses and returns control to the client
     to execute the tool and provide the result.
     """
-
     name: Required[str]
     """The name of the tool function"""
 
@@ -195,7 +192,6 @@ class ClientTool(TypedDict, total=False):
     parameters: Optional[Dict[str, object]]
     """JSON Schema for the function parameters"""
 
-
 class InputUnionMember1SummarizedReasoningContentSummary(TypedDict, total=False):
     index: Required[int]
     """The index of the summary part."""
@@ -203,10 +199,8 @@ class InputUnionMember1SummarizedReasoningContentSummary(TypedDict, total=False)
     text: Required[str]
     """The text of the summary part."""
 
-
 class InputUnionMember1SummarizedReasoningContent(TypedDict, total=False):
     """The style of reasoning content returned by the OpenAI Responses API"""
-
     id: Required[str]
     """The unique identifier for this reasoning step."""
 
@@ -219,18 +213,7 @@ class InputUnionMember1SummarizedReasoningContent(TypedDict, total=False):
     type: Literal["summarized_reasoning"]
     """Indicates this is a summarized reasoning step."""
 
-
-InputUnionMember1: TypeAlias = Union[
-    TextContentParam,
-    ImageContentParam,
-    ToolCallContentParam,
-    ToolReturnContentParam,
-    ReasoningContentParam,
-    RedactedReasoningContentParam,
-    OmittedReasoningContentParam,
-    InputUnionMember1SummarizedReasoningContent,
-]
-
+InputUnionMember1: TypeAlias = Union[TextContentParam, ImageContentParam, ToolCallContentParam, ToolReturnContentParam, ReasoningContentParam, RedactedReasoningContentParam, OmittedReasoningContentParam, InputUnionMember1SummarizedReasoningContent]
 
 class MessageToolReturnCreate(TypedDict, total=False):
     """Submit tool return(s) from client-side tool execution.
@@ -239,7 +222,6 @@ class MessageToolReturnCreate(TypedDict, total=False):
     client-side tool execution. It is equivalent to sending an ApprovalCreate
     with tool return approvals, but provides a cleaner API for the common case.
     """
-
     tool_returns: Required[Iterable[ToolReturnParam]]
     """List of tool returns from client-side execution"""
 
@@ -256,6 +238,5 @@ class MessageToolReturnCreate(TypedDict, total=False):
 
     type: Literal["tool_return"]
     """The message type to be created."""
-
 
 Message: TypeAlias = Union[MessageCreateParam, ApprovalCreateParam, MessageToolReturnCreate]

@@ -2,107 +2,111 @@
 
 from __future__ import annotations
 
-import gc
-import os
-import sys
-import json
-import asyncio
-import inspect
 import dataclasses
+
+import pytest
+
+import sys
+
+import httpx
+
+from letta_client import Letta, AsyncLetta
+
+from letta_client._exceptions import APITimeoutError, APIStatusError, APIResponseValidationError
+
+from typing import TypeVar, Callable, Coroutine, Iterable, Optional, Iterator, cast, Any, Union
+
+from typing_extensions import override, AsyncIterator, Literal
+
+from letta_client._types import Omit
+
+from pydantic import ValidationError
+
+from letta_client._streaming import Stream, AsyncStream
+
+from letta_client._base_client import DefaultHttpxClient, get_platform, OtherPlatform, DefaultAsyncHttpxClient
+
+from letta_client._utils import asyncify
+
+import asyncio
+import gc
+import inspect
+import json
+import os
 import tracemalloc
-from typing import Any, Union, TypeVar, Callable, Iterable, Iterator, Optional, Coroutine, cast
 from unittest import mock
-from typing_extensions import Literal, AsyncIterator, override
 
 import httpx
 import pytest
 from respx import MockRouter
-from pydantic import ValidationError
 
 from letta_client import Letta, AsyncLetta, APIResponseValidationError
-from letta_client._types import Omit
-from letta_client._utils import asyncify
-from letta_client._models import BaseModel, FinalRequestOptions
+from letta_client._models import FinalRequestOptions, BaseModel
+from letta_client._types import Headers, Query, Body, Timeout, Omit
+from letta_client._base_client import DEFAULT_TIMEOUT, HTTPX_DEFAULT_TIMEOUT, BaseClient, RequestOptions, make_request_options
 from letta_client._streaming import Stream, AsyncStream
-from letta_client._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from letta_client._base_client import (
-    DEFAULT_TIMEOUT,
-    HTTPX_DEFAULT_TIMEOUT,
-    BaseClient,
-    OtherPlatform,
-    DefaultHttpxClient,
-    DefaultAsyncHttpxClient,
-    get_platform,
-    make_request_options,
-)
-
+from letta_client._constants import RAW_RESPONSE_HEADER
+from letta_client._response import APIResponse, AsyncAPIResponse
+from letta_client._types import Omit
 from .utils import update_env
 
 T = TypeVar("T")
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 api_key = "My API Key"
 
-
 def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
-    request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-    url = httpx.URL(request.url)
-    return dict(url.params)
-
+  request = client._build_request(FinalRequestOptions(method="get", url='/foo'))
+  url = httpx.URL(request.url)
+  return dict(url.params)
 
 def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
-
 def mirror_request_content(request: httpx.Request) -> httpx.Response:
-    return httpx.Response(200, content=request.content)
-
+  return httpx.Response(200, content=request.content)
 
 # note: we can't use the httpx.MockTransport class as it consumes the request
 #       body itself, which means we can't test that the body is read lazily
 class MockTransport(httpx.BaseTransport, httpx.AsyncBaseTransport):
-    def __init__(
-        self,
-        handler: Callable[[httpx.Request], httpx.Response]
-        | Callable[[httpx.Request], Coroutine[Any, Any, httpx.Response]],
-    ) -> None:
-        self.handler = handler
+  def __init__(
+      self,
+      handler: Callable[[httpx.Request], httpx.Response]
+      | Callable[[httpx.Request], Coroutine[Any, Any, httpx.Response]],
+  ) -> None:
+      self.handler = handler
 
-    @override
-    def handle_request(
-        self,
-        request: httpx.Request,
-    ) -> httpx.Response:
-        assert not inspect.iscoroutinefunction(self.handler), "handler must not be a coroutine function"
-        assert inspect.isfunction(self.handler), "handler must be a function"
-        return self.handler(request)
+  @override
+  def handle_request(
+      self,
+      request: httpx.Request,
+  ) -> httpx.Response:
+      assert not inspect.iscoroutinefunction(self.handler), "handler must not be a coroutine function"
+      assert inspect.isfunction(self.handler), "handler must be a function"
+      return self.handler(request)
 
-    @override
-    async def handle_async_request(
-        self,
-        request: httpx.Request,
-    ) -> httpx.Response:
-        assert inspect.iscoroutinefunction(self.handler), "handler must be a coroutine function"
-        return await self.handler(request)
-
+  @override
+  async def handle_async_request(
+      self,
+      request: httpx.Request,
+  ) -> httpx.Response:
+      assert inspect.iscoroutinefunction(self.handler), "handler must be a coroutine function"
+      return await self.handler(request)
 
 @dataclasses.dataclass
 class Counter:
     value: int = 0
 
-
 def _make_sync_iterator(iterable: Iterable[T], counter: Optional[Counter] = None) -> Iterator[T]:
-    for item in iterable:
-        if counter:
-            counter.value += 1
-        yield item
-
+  for item in iterable:
+    if counter:
+      counter.value += 1
+    yield item
 
 async def _make_async_iterator(iterable: Iterable[T], counter: Optional[Counter] = None) -> AsyncIterator[T]:
-    for item in iterable:
-        if counter:
-            counter.value += 1
-        yield item
-
+  for item in iterable:
+    if counter:
+      counter.value += 1
+    yield item
 
 def _get_open_connections(client: Letta | AsyncLetta) -> int:
     transport = client._client._transport
@@ -110,7 +114,6 @@ def _get_open_connections(client: Letta | AsyncLetta) -> int:
 
     pool = transport._pool
     return len(pool._requests)
-
 
 class TestLetta:
     @pytest.mark.respx(base_url=base_url)
@@ -124,9 +127,7 @@ class TestLetta:
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response_for_binary(self, respx_mock: MockRouter, client: Letta) -> None:
-        respx_mock.post("/foo").mock(
-            return_value=httpx.Response(200, headers={"Content-Type": "application/binary"}, content='{"foo": "bar"}')
-        )
+        respx_mock.post("/foo").mock(return_value=httpx.Response(200, headers={'Content-Type':'application/binary'}, content='{"foo": "bar"}'))
 
         response = client.post("/foo", cast_to=httpx.Response)
         assert response.status_code == 200
@@ -158,59 +159,59 @@ class TestLetta:
         assert isinstance(client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = Letta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
-        )
-        assert client.default_headers["X-Foo"] == "bar"
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={
+            "X-Foo": "bar"
+        })
+        assert client.default_headers['X-Foo'] == 'bar'
 
         # does not override the already given value when not specified
         copied = client.copy()
-        assert copied.default_headers["X-Foo"] == "bar"
+        assert copied.default_headers['X-Foo'] == 'bar'
 
         # merges already given headers
-        copied = client.copy(default_headers={"X-Bar": "stainless"})
-        assert copied.default_headers["X-Foo"] == "bar"
-        assert copied.default_headers["X-Bar"] == "stainless"
+        copied = client.copy(default_headers={'X-Bar': 'stainless'})
+        assert copied.default_headers['X-Foo'] == 'bar'
+        assert copied.default_headers['X-Bar'] == 'stainless'
 
         # uses new values for any already given headers
-        copied = client.copy(default_headers={"X-Foo": "stainless"})
-        assert copied.default_headers["X-Foo"] == "stainless"
+        copied = client.copy(default_headers={'X-Foo': 'stainless'})
+        assert copied.default_headers['X-Foo'] == 'stainless'
 
         # set_default_headers
 
         # completely overrides already set values
         copied = client.copy(set_default_headers={})
-        assert copied.default_headers.get("X-Foo") is None
+        assert copied.default_headers.get('X-Foo') is None
 
-        copied = client.copy(set_default_headers={"X-Bar": "Robert"})
-        assert copied.default_headers["X-Bar"] == "Robert"
+        copied = client.copy(set_default_headers={'X-Bar': 'Robert'})
+        assert copied.default_headers['X-Bar'] == 'Robert'
 
         with pytest.raises(
-            ValueError,
-            match="`default_headers` and `set_default_headers` arguments are mutually exclusive",
+          ValueError,
+          match='`default_headers` and `set_default_headers` arguments are mutually exclusive',
         ):
-            client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
+          client.copy(set_default_headers={}, default_headers={'X-Foo': 'Bar'})
         client.close()
 
     def test_copy_default_query(self) -> None:
-        client = Letta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
-        )
-        assert _get_params(client)["foo"] == "bar"
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={
+            "foo": "bar"
+        })
+        assert _get_params(client)['foo'] == 'bar'
 
         # does not override the already given value when not specified
         copied = client.copy()
-        assert _get_params(copied)["foo"] == "bar"
+        assert _get_params(copied)['foo'] == 'bar'
 
         # merges already given params
-        copied = client.copy(default_query={"bar": "stainless"})
+        copied = client.copy(default_query={'bar': 'stainless'})
         params = _get_params(copied)
-        assert params["foo"] == "bar"
-        assert params["bar"] == "stainless"
+        assert params['foo'] == 'bar'
+        assert params['bar'] == 'stainless'
 
         # uses new values for any already given headers
-        copied = client.copy(default_query={"foo": "stainless"})
-        assert _get_params(copied)["foo"] == "stainless"
+        copied = client.copy(default_query={'foo': 'stainless'})
+        assert _get_params(copied)['foo'] == 'stainless'
 
         # set_default_query
 
@@ -218,23 +219,23 @@ class TestLetta:
         copied = client.copy(set_default_query={})
         assert _get_params(copied) == {}
 
-        copied = client.copy(set_default_query={"bar": "Robert"})
-        assert _get_params(copied)["bar"] == "Robert"
+        copied = client.copy(set_default_query={'bar': 'Robert'})
+        assert _get_params(copied)['bar'] == 'Robert'
 
         with pytest.raises(
-            ValueError,
-            # TODO: update
-            match="`default_query` and `set_default_query` arguments are mutually exclusive",
+          ValueError,
+          # TODO: update
+          match='`default_query` and `set_default_query` arguments are mutually exclusive',
         ):
-            client.copy(set_default_query={}, default_query={"foo": "Bar"})
+          client.copy(set_default_query={}, default_query={'foo': 'Bar'})
 
         client.close()
 
     def test_copy_signature(self, client: Letta) -> None:
         # ensure the same parameters that can be passed to the client are defined in the `.copy()` method
         init_signature = inspect.signature(
-            # mypy doesn't like that we access the `__init__` property.
-            client.__init__,  # type: ignore[misc]
+          # mypy doesn't like that we access the `__init__` property.
+          client.__init__,  # type: ignore[misc]
         )
         copy_signature = inspect.signature(client.copy)
         exclude_params = {"transport", "proxies", "_strict_response_validation"}
@@ -314,7 +315,9 @@ class TestLetta:
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
         assert timeout == DEFAULT_TIMEOUT
 
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo", timeout=httpx.Timeout(100.0)))
+        request = client._build_request(
+            FinalRequestOptions(method="get", url="/foo", timeout=httpx.Timeout(100.0))
+        )
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
         assert timeout == httpx.Timeout(100.0)
 
@@ -330,89 +333,75 @@ class TestLetta:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = Letta(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+          client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
-            request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-            timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
-            assert timeout == httpx.Timeout(None)
+          request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+          timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
+          assert timeout == httpx.Timeout(None)
 
-            client.close()
+          client.close()
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = Letta(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+          client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
-            request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-            timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
-            assert timeout == DEFAULT_TIMEOUT
+          request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+          timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
+          assert timeout == DEFAULT_TIMEOUT
 
-            client.close()
+          client.close()
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = Letta(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+          client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
-            request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-            timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
-            assert timeout == DEFAULT_TIMEOUT  # our default
+          request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+          timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
+          assert timeout == DEFAULT_TIMEOUT  # our default
 
-            client.close()
+          client.close()
 
     async def test_invalid_http_client(self) -> None:
-        with pytest.raises(TypeError, match="Invalid `http_client` arg"):
-            async with httpx.AsyncClient() as http_client:
-                Letta(
-                    base_url=base_url,
-                    api_key=api_key,
-                    _strict_response_validation=True,
-                    http_client=cast(Any, http_client),
-                )
+        with pytest.raises(TypeError, match='Invalid `http_client` arg') :
+            async with httpx.AsyncClient() as http_client :
+                Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=cast(Any, http_client))
 
     def test_default_headers_option(self) -> None:
-        test_client = Letta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
-        )
-        request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "bar"
-        assert request.headers.get("x-stainless-lang") == "python"
+        test_client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={
+            "X-Foo": "bar"
+        })
+        request = test_client._build_request(FinalRequestOptions(method="get", url='/foo'))
+        assert request.headers.get('x-foo') == 'bar'
+        assert request.headers.get('x-stainless-lang') == 'python'
 
-        test_client2 = Letta(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            default_headers={
-                "X-Foo": "stainless",
-                "X-Stainless-Lang": "my-overriding-header",
-            },
-        )
-        request = test_client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "stainless"
-        assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+        test_client2 = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={
+            "X-Foo": "stainless",
+            "X-Stainless-Lang": "my-overriding-header",
+        })
+        request = test_client2._build_request(FinalRequestOptions(method="get", url='/foo'))
+        assert request.headers.get('x-foo') == 'stainless'
+        assert request.headers.get('x-stainless-lang') == 'my-overriding-header'
 
         test_client.close()
         test_client2.close()
 
     def test_validate_headers(self) -> None:
         client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        request = client._build_request(FinalRequestOptions(method="get", url='/foo'))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with update_env(**{"LETTA_API_KEY": Omit()}):
+        with update_env(**{
+            "LETTA_API_KEY": Omit()
+        }) :
             client2 = Letta(base_url=base_url, api_key=None, _strict_response_validation=True)
 
-        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+        client2._build_request(FinalRequestOptions(method="get", url='/foo'))
 
     def test_default_query_option(self) -> None:
-        client = Letta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
-        )
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={
+            "query_param": "bar"
+        })
+        request = client._build_request(FinalRequestOptions(method="get", url='/foo'))
         url = httpx.URL(request.url)
         assert dict(url.params) == {"query_param": "bar"}
 
@@ -424,7 +413,7 @@ class TestLetta:
             )
         )
         url = httpx.URL(request.url)
-        assert dict(url.params) == {"foo": "baz", "query_param": "overridden"}
+        assert dict(url.params) == {'foo': 'baz', "query_param": "overridden"}
 
         client.close()
 
@@ -533,7 +522,7 @@ class TestLetta:
             ),
         )
         params = dict(request.url.params)
-        assert params == {"bar": "1", "foo": "2"}
+        assert params == {'bar': '1', 'foo': '2'}
 
         # `extra_query` takes priority over `query` when keys clash
         request = client._build_request(
@@ -547,7 +536,7 @@ class TestLetta:
             ),
         )
         params = dict(request.url.params)
-        assert params == {"foo": "2"}
+        assert params == {'foo': '2'}
 
     def test_multipart_repeating_array(self, client: Letta) -> None:
         request = client._build_request(
@@ -584,12 +573,7 @@ class TestLetta:
 
         file_content = b"Hello, this is a test file."
 
-        response = client.post(
-            "/upload",
-            content=file_content,
-            cast_to=httpx.Response,
-            options={"headers": {"Content-Type": "application/octet-stream"}},
-        )
+        response = client.post("/upload", content=file_content, cast_to=httpx.Response, options={"headers": {"Content-Type": "application/octet-stream"}})
 
         assert response.status_code == 200
         assert response.request.headers["Content-Type"] == "application/octet-stream"
@@ -604,23 +588,13 @@ class TestLetta:
             assert counter.value == 0, "the request body should not have been read"
             return httpx.Response(200, content=request.read())
 
-        with Letta(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            http_client=httpx.Client(transport=MockTransport(handler=mock_handler)),
-        ) as client:
-            response = client.post(
-                "/upload",
-                content=iterator,
-                cast_to=httpx.Response,
-                options={"headers": {"Content-Type": "application/octet-stream"}},
-            )
+        with Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=httpx.Client(transport = MockTransport(handler=mock_handler))) as client:
+          response = client.post("/upload", content=iterator, cast_to=httpx.Response, options={"headers": {"Content-Type": "application/octet-stream"}})
 
-            assert response.status_code == 200
-            assert response.request.headers["Content-Type"] == "application/octet-stream"
-            assert response.content == file_content
-            assert counter.value == 1
+          assert response.status_code == 200
+          assert response.request.headers["Content-Type"] == "application/octet-stream"
+          assert response.content == file_content
+          assert counter.value == 1
 
     @pytest.mark.respx(base_url=base_url)
     def test_binary_content_upload_with_body_is_deprecated(self, respx_mock: MockRouter, client: Letta) -> None:
@@ -631,12 +605,7 @@ class TestLetta:
         with pytest.deprecated_call(
             match="Passing raw bytes as `body` is deprecated and will be removed in a future version. Please pass raw bytes via the `content` parameter instead."
         ):
-            response = client.post(
-                "/upload",
-                body=file_content,
-                cast_to=httpx.Response,
-                options={"headers": {"Content-Type": "application/octet-stream"}},
-            )
+            response = client.post("/upload", body=file_content, cast_to=httpx.Response, options={"headers": {"Content-Type": "application/octet-stream"}})
 
         assert response.status_code == 200
         assert response.request.headers["Content-Type"] == "application/octet-stream"
@@ -650,29 +619,27 @@ class TestLetta:
         class Model2(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get('/foo').mock(return_value=httpx.Response(200, json={'foo': 'bar'}))
 
         response = client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model2)
-        assert response.foo == "bar"
-
+        assert response.foo == 'bar'
     @pytest.mark.respx(base_url=base_url)
     def test_union_response_different_types(self, respx_mock: MockRouter, client: Letta) -> None:
         """Union of objects with the same field name using a different type"""
-
         class Model1(BaseModel):
             foo: int
 
         class Model2(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get('/foo').mock(return_value=httpx.Response(200, json={'foo': 'bar'}))
 
         response = client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model2)
-        assert response.foo == "bar"
+        assert response.foo == 'bar'
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": 1}))
+        respx_mock.get('/foo').mock(return_value=httpx.Response(200, json={'foo': 1}))
 
         response = client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model1)
@@ -683,7 +650,6 @@ class TestLetta:
         """
         Response that sets Content-Type to something other than application/json but returns json data
         """
-
         class Model(BaseModel):
             foo: int
 
@@ -710,33 +676,21 @@ class TestLetta:
         client.close()
 
     def test_base_url_env(self) -> None:
-        with update_env(LETTA_BASE_URL="http://localhost:5000/from/env"):
-            client = Letta(api_key=api_key, _strict_response_validation=True)
-            assert client.base_url == "http://localhost:5000/from/env/"
+        with update_env(LETTA_BASE_URL='http://localhost:5000/from/env'):
+          client = Letta(api_key=api_key, _strict_response_validation=True)
+          assert client.base_url == 'http://localhost:5000/from/env/'
 
         # explicit environment arg requires explicitness
-        with update_env(LETTA_BASE_URL="http://localhost:5000/from/env"):
-            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                Letta(api_key=api_key, _strict_response_validation=True, environment="cloud")
+        with update_env(LETTA_BASE_URL='http://localhost:5000/from/env'):
+          with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+            Letta(api_key=api_key, _strict_response_validation=True, environment="cloud")
 
-            client = Letta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
-            assert str(client.base_url).startswith("https://api.letta.com")
+          client = Letta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
+          assert str(client.base_url).startswith("https://api.letta.com")
 
-            client.close()
+          client.close()
 
-    @pytest.mark.parametrize(
-        "client",
-        [
-            Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Letta(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                _strict_response_validation=True,
-                http_client=httpx.Client(),
-            ),
-        ],
-        ids=["standard", "custom http client"],
-    )
+    @pytest.mark.parametrize("client", [Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True), Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True, http_client=httpx.Client())], ids = ["standard", "custom http client"])
     def test_base_url_trailing_slash(self, client: Letta) -> None:
         request = client._build_request(
             FinalRequestOptions(
@@ -748,19 +702,7 @@ class TestLetta:
         assert request.url == "http://localhost:5000/custom/path/foo"
         client.close()
 
-    @pytest.mark.parametrize(
-        "client",
-        [
-            Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Letta(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                _strict_response_validation=True,
-                http_client=httpx.Client(),
-            ),
-        ],
-        ids=["standard", "custom http client"],
-    )
+    @pytest.mark.parametrize("client", [Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True), Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True, http_client=httpx.Client())], ids = ["standard", "custom http client"])
     def test_base_url_no_trailing_slash(self, client: Letta) -> None:
         request = client._build_request(
             FinalRequestOptions(
@@ -772,19 +714,7 @@ class TestLetta:
         assert request.url == "http://localhost:5000/custom/path/foo"
         client.close()
 
-    @pytest.mark.parametrize(
-        "client",
-        [
-            Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            Letta(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                _strict_response_validation=True,
-                http_client=httpx.Client(),
-            ),
-        ],
-        ids=["standard", "custom http client"],
-    )
+    @pytest.mark.parametrize("client", [Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True), Letta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True, http_client=httpx.Client())], ids = ["standard", "custom http client"])
     def test_absolute_request_url(self, client: Letta) -> None:
         request = client._build_request(
             FinalRequestOptions(
@@ -810,9 +740,9 @@ class TestLetta:
     def test_client_context_manager(self) -> None:
         test_client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with test_client as c2:
-            assert c2 is test_client
-            assert not c2.is_closed()
-            assert not test_client.is_closed()
+          assert c2 is test_client
+          assert not c2.is_closed()
+          assert not test_client.is_closed()
         assert test_client.is_closed()
 
     @pytest.mark.respx(base_url=base_url)
@@ -829,7 +759,7 @@ class TestLetta:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+          Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     def test_default_stream_cls(self, respx_mock: MockRouter, client: Letta) -> None:
@@ -852,7 +782,7 @@ class TestLetta:
         strict_client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
-            strict_client.get("/foo", cast_to=Model)
+          strict_client.get("/foo", cast_to=Model)
 
         non_strict_client = Letta(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
@@ -863,34 +793,32 @@ class TestLetta:
         non_strict_client.close()
 
     @pytest.mark.parametrize(
-        "remaining_retries,retry_after,timeout",
-        [
-            [3, "20", 20],
-            [3, "0", 0.5],
-            [3, "-10", 0.5],
-            [3, "60", 60],
-            [3, "61", 0.5],
-            [3, "Fri, 29 Sep 2023 16:26:57 GMT", 20],
-            [3, "Fri, 29 Sep 2023 16:26:37 GMT", 0.5],
-            [3, "Fri, 29 Sep 2023 16:26:27 GMT", 0.5],
-            [3, "Fri, 29 Sep 2023 16:27:37 GMT", 60],
-            [3, "Fri, 29 Sep 2023 16:27:38 GMT", 0.5],
-            [3, "99999999999999999999999999999999999", 0.5],
-            [3, "Zun, 29 Sep 2023 16:26:27 GMT", 0.5],
-            [3, "", 0.5],
-            [2, "", 0.5 * 2.0],
-            [1, "", 0.5 * 4.0],
-            [-1100, "", 8],  # test large number potentially overflowing
-        ],
-    )
+            "remaining_retries,retry_after,timeout",
+            [
+                [ 3, "20", 20 ],
+                [ 3, "0", 0.5 ],
+                [ 3, "-10", 0.5 ],
+                [ 3, "60", 60 ],
+                [ 3, "61", 0.5 ],
+                [ 3, "Fri, 29 Sep 2023 16:26:57 GMT", 20 ],
+                [ 3, "Fri, 29 Sep 2023 16:26:37 GMT", 0.5 ],
+                [ 3, "Fri, 29 Sep 2023 16:26:27 GMT", 0.5 ],
+                [ 3, "Fri, 29 Sep 2023 16:27:37 GMT", 60 ],
+                [ 3, "Fri, 29 Sep 2023 16:27:38 GMT", 0.5 ],
+                [ 3, "99999999999999999999999999999999999", 0.5 ],
+                [ 3, "Zun, 29 Sep 2023 16:26:27 GMT", 0.5 ],
+                [ 3, "", 0.5 ],
+                [ 2, "", 0.5 * 2.0 ],
+                [ 1, "", 0.5 * 4.0 ],
+                [-1100, "", 8], # test large number potentially overflowing
+            ],
+        )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
-    def test_parse_retry_after_header(
-        self, remaining_retries: int, retry_after: str, timeout: float, client: Letta
-    ) -> None:
+    def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float, client: Letta) -> None:
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
-        assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
+        assert calculated == pytest.approx(timeout, 0.5 * 0.875) # pyright: ignore[reportUnknownMemberType]
 
     @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -920,7 +848,7 @@ class TestLetta:
         client: Letta,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
-        respx_mock: MockRouter,
+        respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -931,7 +859,7 @@ class TestLetta:
             if nb_retries < failures_before_success:
                 nb_retries += 1
                 if failure_mode == "exception":
-                    raise RuntimeError("oops")
+                  raise RuntimeError("oops")
                 return httpx.Response(500)
             return httpx.Response(200)
 
@@ -945,31 +873,11 @@ class TestLetta:
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_omit_retry_count_header(self, client: Letta, failures_before_success: int, respx_mock: MockRouter) -> None:
-        client = client.with_options(max_retries=4)
-
-        nb_retries = 0
-
-        def retry_handler(_request: httpx.Request) -> httpx.Response:
-            nonlocal nb_retries
-            if nb_retries < failures_before_success:
-                nb_retries += 1
-                return httpx.Response(500)
-            return httpx.Response(200)
-
-        respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
-
-        response = client.archives.with_raw_response.create(
-            name="name", extra_headers={"x-stainless-retry-count": Omit()}
-        )
-
-        assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
-
-    @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    def test_overwrite_retry_count_header(
-        self, client: Letta, failures_before_success: int, respx_mock: MockRouter
+    def test_omit_retry_count_header(
+        self,
+        client: Letta,
+        failures_before_success: int,
+        respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -984,11 +892,35 @@ class TestLetta:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = client.archives.with_raw_response.create(
-            name="name", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = client.archives.with_raw_response.create(name="name", extra_headers={'x-stainless-retry-count': Omit()})
 
-        assert response.http_request.headers.get("x-stainless-retry-count") == "42"
+        assert len(response.http_request.headers.get_list('x-stainless-retry-count')) == 0
+
+    @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
+    @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    def test_overwrite_retry_count_header(
+        self,
+        client: Letta,
+        failures_before_success: int,
+        respx_mock: MockRouter
+    ) -> None:
+        client = client.with_options(max_retries=4)
+
+        nb_retries = 0
+
+        def retry_handler(_request: httpx.Request) -> httpx.Response:
+            nonlocal nb_retries
+            if nb_retries < failures_before_success:
+                nb_retries += 1
+                return httpx.Response(500)
+            return httpx.Response(200)
+
+        respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
+
+        response = client.archives.with_raw_response.create(name="name", extra_headers={'x-stainless-retry-count': '42'})
+
+        assert response.http_request.headers.get('x-stainless-retry-count') == '42'
 
     def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
@@ -1044,8 +976,6 @@ class TestLetta:
 
         assert exc_info.value.response.status_code == 302
         assert exc_info.value.response.headers["Location"] == f"{base_url}/redirected"
-
-
 class TestAsyncLetta:
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response(self, respx_mock: MockRouter, async_client: AsyncLetta) -> None:
@@ -1058,9 +988,7 @@ class TestAsyncLetta:
 
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response_for_binary(self, respx_mock: MockRouter, async_client: AsyncLetta) -> None:
-        respx_mock.post("/foo").mock(
-            return_value=httpx.Response(200, headers={"Content-Type": "application/binary"}, content='{"foo": "bar"}')
-        )
+        respx_mock.post("/foo").mock(return_value=httpx.Response(200, headers={'Content-Type':'application/binary'}, content='{"foo": "bar"}'))
 
         response = await async_client.post("/foo", cast_to=httpx.Response)
         assert response.status_code == 200
@@ -1092,59 +1020,59 @@ class TestAsyncLetta:
         assert isinstance(async_client.timeout, httpx.Timeout)
 
     async def test_copy_default_headers(self) -> None:
-        client = AsyncLetta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
-        )
-        assert client.default_headers["X-Foo"] == "bar"
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={
+            "X-Foo": "bar"
+        })
+        assert client.default_headers['X-Foo'] == 'bar'
 
         # does not override the already given value when not specified
         copied = client.copy()
-        assert copied.default_headers["X-Foo"] == "bar"
+        assert copied.default_headers['X-Foo'] == 'bar'
 
         # merges already given headers
-        copied = client.copy(default_headers={"X-Bar": "stainless"})
-        assert copied.default_headers["X-Foo"] == "bar"
-        assert copied.default_headers["X-Bar"] == "stainless"
+        copied = client.copy(default_headers={'X-Bar': 'stainless'})
+        assert copied.default_headers['X-Foo'] == 'bar'
+        assert copied.default_headers['X-Bar'] == 'stainless'
 
         # uses new values for any already given headers
-        copied = client.copy(default_headers={"X-Foo": "stainless"})
-        assert copied.default_headers["X-Foo"] == "stainless"
+        copied = client.copy(default_headers={'X-Foo': 'stainless'})
+        assert copied.default_headers['X-Foo'] == 'stainless'
 
         # set_default_headers
 
         # completely overrides already set values
         copied = client.copy(set_default_headers={})
-        assert copied.default_headers.get("X-Foo") is None
+        assert copied.default_headers.get('X-Foo') is None
 
-        copied = client.copy(set_default_headers={"X-Bar": "Robert"})
-        assert copied.default_headers["X-Bar"] == "Robert"
+        copied = client.copy(set_default_headers={'X-Bar': 'Robert'})
+        assert copied.default_headers['X-Bar'] == 'Robert'
 
         with pytest.raises(
-            ValueError,
-            match="`default_headers` and `set_default_headers` arguments are mutually exclusive",
+          ValueError,
+          match='`default_headers` and `set_default_headers` arguments are mutually exclusive',
         ):
-            client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
+          client.copy(set_default_headers={}, default_headers={'X-Foo': 'Bar'})
         await client.close()
 
     async def test_copy_default_query(self) -> None:
-        client = AsyncLetta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
-        )
-        assert _get_params(client)["foo"] == "bar"
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={
+            "foo": "bar"
+        })
+        assert _get_params(client)['foo'] == 'bar'
 
         # does not override the already given value when not specified
         copied = client.copy()
-        assert _get_params(copied)["foo"] == "bar"
+        assert _get_params(copied)['foo'] == 'bar'
 
         # merges already given params
-        copied = client.copy(default_query={"bar": "stainless"})
+        copied = client.copy(default_query={'bar': 'stainless'})
         params = _get_params(copied)
-        assert params["foo"] == "bar"
-        assert params["bar"] == "stainless"
+        assert params['foo'] == 'bar'
+        assert params['bar'] == 'stainless'
 
         # uses new values for any already given headers
-        copied = client.copy(default_query={"foo": "stainless"})
-        assert _get_params(copied)["foo"] == "stainless"
+        copied = client.copy(default_query={'foo': 'stainless'})
+        assert _get_params(copied)['foo'] == 'stainless'
 
         # set_default_query
 
@@ -1152,23 +1080,23 @@ class TestAsyncLetta:
         copied = client.copy(set_default_query={})
         assert _get_params(copied) == {}
 
-        copied = client.copy(set_default_query={"bar": "Robert"})
-        assert _get_params(copied)["bar"] == "Robert"
+        copied = client.copy(set_default_query={'bar': 'Robert'})
+        assert _get_params(copied)['bar'] == 'Robert'
 
         with pytest.raises(
-            ValueError,
-            # TODO: update
-            match="`default_query` and `set_default_query` arguments are mutually exclusive",
+          ValueError,
+          # TODO: update
+          match='`default_query` and `set_default_query` arguments are mutually exclusive',
         ):
-            client.copy(set_default_query={}, default_query={"foo": "Bar"})
+          client.copy(set_default_query={}, default_query={'foo': 'Bar'})
 
         await client.close()
 
     def test_copy_signature(self, async_client: AsyncLetta) -> None:
         # ensure the same parameters that can be passed to the client are defined in the `.copy()` method
         init_signature = inspect.signature(
-            # mypy doesn't like that we access the `__init__` property.
-            async_client.__init__,  # type: ignore[misc]
+          # mypy doesn't like that we access the `__init__` property.
+          async_client.__init__,  # type: ignore[misc]
         )
         copy_signature = inspect.signature(async_client.copy)
         exclude_params = {"transport", "proxies", "_strict_response_validation"}
@@ -1255,9 +1183,7 @@ class TestAsyncLetta:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncLetta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
-        )
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0))
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
@@ -1268,89 +1194,75 @@ class TestAsyncLetta:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncLetta(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+          client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
-            request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-            timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
-            assert timeout == httpx.Timeout(None)
+          request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+          timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
+          assert timeout == httpx.Timeout(None)
 
-            await client.close()
+          await client.close()
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncLetta(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+          client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
-            request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-            timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
-            assert timeout == DEFAULT_TIMEOUT
+          request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+          timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
+          assert timeout == DEFAULT_TIMEOUT
 
-            await client.close()
+          await client.close()
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncLetta(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
-            )
+          client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client)
 
-            request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-            timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
-            assert timeout == DEFAULT_TIMEOUT  # our default
+          request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+          timeout = httpx.Timeout(**request.extensions["timeout"])  # type: ignore
+          assert timeout == DEFAULT_TIMEOUT  # our default
 
-            await client.close()
+          await client.close()
 
     def test_invalid_http_client(self) -> None:
-        with pytest.raises(TypeError, match="Invalid `http_client` arg"):
-            with httpx.Client() as http_client:
-                AsyncLetta(
-                    base_url=base_url,
-                    api_key=api_key,
-                    _strict_response_validation=True,
-                    http_client=cast(Any, http_client),
-                )
+        with pytest.raises(TypeError, match='Invalid `http_client` arg') :
+            with httpx.Client() as http_client :
+                AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=cast(Any, http_client))
 
     async def test_default_headers_option(self) -> None:
-        test_client = AsyncLetta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
-        )
-        request = test_client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "bar"
-        assert request.headers.get("x-stainless-lang") == "python"
+        test_client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={
+            "X-Foo": "bar"
+        })
+        request = test_client._build_request(FinalRequestOptions(method="get", url='/foo'))
+        assert request.headers.get('x-foo') == 'bar'
+        assert request.headers.get('x-stainless-lang') == 'python'
 
-        test_client2 = AsyncLetta(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            default_headers={
-                "X-Foo": "stainless",
-                "X-Stainless-Lang": "my-overriding-header",
-            },
-        )
-        request = test_client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("x-foo") == "stainless"
-        assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+        test_client2 = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={
+            "X-Foo": "stainless",
+            "X-Stainless-Lang": "my-overriding-header",
+        })
+        request = test_client2._build_request(FinalRequestOptions(method="get", url='/foo'))
+        assert request.headers.get('x-foo') == 'stainless'
+        assert request.headers.get('x-stainless-lang') == 'my-overriding-header'
 
         await test_client.close()
         await test_client2.close()
 
     def test_validate_headers(self) -> None:
         client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        request = client._build_request(FinalRequestOptions(method="get", url='/foo'))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with update_env(**{"LETTA_API_KEY": Omit()}):
+        with update_env(**{
+            "LETTA_API_KEY": Omit()
+        }) :
             client2 = AsyncLetta(base_url=base_url, api_key=None, _strict_response_validation=True)
 
-        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
+        client2._build_request(FinalRequestOptions(method="get", url='/foo'))
 
     async def test_default_query_option(self) -> None:
-        client = AsyncLetta(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
-        )
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={
+            "query_param": "bar"
+        })
+        request = client._build_request(FinalRequestOptions(method="get", url='/foo'))
         url = httpx.URL(request.url)
         assert dict(url.params) == {"query_param": "bar"}
 
@@ -1362,7 +1274,7 @@ class TestAsyncLetta:
             )
         )
         url = httpx.URL(request.url)
-        assert dict(url.params) == {"foo": "baz", "query_param": "overridden"}
+        assert dict(url.params) == {'foo': 'baz', "query_param": "overridden"}
 
         await client.close()
 
@@ -1471,7 +1383,7 @@ class TestAsyncLetta:
             ),
         )
         params = dict(request.url.params)
-        assert params == {"bar": "1", "foo": "2"}
+        assert params == {'bar': '1', 'foo': '2'}
 
         # `extra_query` takes priority over `query` when keys clash
         request = client._build_request(
@@ -1485,7 +1397,7 @@ class TestAsyncLetta:
             ),
         )
         params = dict(request.url.params)
-        assert params == {"foo": "2"}
+        assert params == {'foo': '2'}
 
     def test_multipart_repeating_array(self, async_client: AsyncLetta) -> None:
         request = async_client._build_request(
@@ -1522,12 +1434,7 @@ class TestAsyncLetta:
 
         file_content = b"Hello, this is a test file."
 
-        response = await async_client.post(
-            "/upload",
-            content=file_content,
-            cast_to=httpx.Response,
-            options={"headers": {"Content-Type": "application/octet-stream"}},
-        )
+        response = await async_client.post("/upload", content=file_content, cast_to=httpx.Response, options={"headers": {"Content-Type": "application/octet-stream"}})
 
         assert response.status_code == 200
         assert response.request.headers["Content-Type"] == "application/octet-stream"
@@ -1542,28 +1449,16 @@ class TestAsyncLetta:
             assert counter.value == 0, "the request body should not have been read"
             return httpx.Response(200, content=await request.aread())
 
-        async with AsyncLetta(
-            base_url=base_url,
-            api_key=api_key,
-            _strict_response_validation=True,
-            http_client=httpx.AsyncClient(transport=MockTransport(handler=mock_handler)),
-        ) as client:
-            response = await client.post(
-                "/upload",
-                content=iterator,
-                cast_to=httpx.Response,
-                options={"headers": {"Content-Type": "application/octet-stream"}},
-            )
+        async with AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=httpx.AsyncClient(transport = MockTransport(handler=mock_handler))) as client:
+          response = await client.post("/upload", content=iterator, cast_to=httpx.Response, options={"headers": {"Content-Type": "application/octet-stream"}})
 
-            assert response.status_code == 200
-            assert response.request.headers["Content-Type"] == "application/octet-stream"
-            assert response.content == file_content
-            assert counter.value == 1
+          assert response.status_code == 200
+          assert response.request.headers["Content-Type"] == "application/octet-stream"
+          assert response.content == file_content
+          assert counter.value == 1
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_binary_content_upload_with_body_is_deprecated(
-        self, respx_mock: MockRouter, async_client: AsyncLetta
-    ) -> None:
+    async def test_binary_content_upload_with_body_is_deprecated(self, respx_mock: MockRouter, async_client: AsyncLetta) -> None:
         respx_mock.post("/upload").mock(side_effect=mirror_request_content)
 
         file_content = b"Hello, this is a test file."
@@ -1571,12 +1466,7 @@ class TestAsyncLetta:
         with pytest.deprecated_call(
             match="Passing raw bytes as `body` is deprecated and will be removed in a future version. Please pass raw bytes via the `content` parameter instead."
         ):
-            response = await async_client.post(
-                "/upload",
-                body=file_content,
-                cast_to=httpx.Response,
-                options={"headers": {"Content-Type": "application/octet-stream"}},
-            )
+            response = await async_client.post("/upload", body=file_content, cast_to=httpx.Response, options={"headers": {"Content-Type": "application/octet-stream"}})
 
         assert response.status_code == 200
         assert response.request.headers["Content-Type"] == "application/octet-stream"
@@ -1590,42 +1480,37 @@ class TestAsyncLetta:
         class Model2(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get('/foo').mock(return_value=httpx.Response(200, json={'foo': 'bar'}))
 
         response = await async_client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model2)
-        assert response.foo == "bar"
-
+        assert response.foo == 'bar'
     @pytest.mark.respx(base_url=base_url)
     async def test_union_response_different_types(self, respx_mock: MockRouter, async_client: AsyncLetta) -> None:
         """Union of objects with the same field name using a different type"""
-
         class Model1(BaseModel):
             foo: int
 
         class Model2(BaseModel):
             foo: str
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
+        respx_mock.get('/foo').mock(return_value=httpx.Response(200, json={'foo': 'bar'}))
 
         response = await async_client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model2)
-        assert response.foo == "bar"
+        assert response.foo == 'bar'
 
-        respx_mock.get("/foo").mock(return_value=httpx.Response(200, json={"foo": 1}))
+        respx_mock.get('/foo').mock(return_value=httpx.Response(200, json={'foo': 1}))
 
         response = await async_client.get("/foo", cast_to=cast(Any, Union[Model1, Model2]))
         assert isinstance(response, Model1)
         assert response.foo == 1
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_non_application_json_content_type_for_json_data(
-        self, respx_mock: MockRouter, async_client: AsyncLetta
-    ) -> None:
+    async def test_non_application_json_content_type_for_json_data(self, respx_mock: MockRouter, async_client: AsyncLetta) -> None:
         """
         Response that sets Content-Type to something other than application/json but returns json data
         """
-
         class Model(BaseModel):
             foo: int
 
@@ -1652,35 +1537,21 @@ class TestAsyncLetta:
         await client.close()
 
     async def test_base_url_env(self) -> None:
-        with update_env(LETTA_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncLetta(api_key=api_key, _strict_response_validation=True)
-            assert client.base_url == "http://localhost:5000/from/env/"
+        with update_env(LETTA_BASE_URL='http://localhost:5000/from/env'):
+          client = AsyncLetta(api_key=api_key, _strict_response_validation=True)
+          assert client.base_url == 'http://localhost:5000/from/env/'
 
         # explicit environment arg requires explicitness
-        with update_env(LETTA_BASE_URL="http://localhost:5000/from/env"):
-            with pytest.raises(ValueError, match=r"you must pass base_url=None"):
-                AsyncLetta(api_key=api_key, _strict_response_validation=True, environment="cloud")
+        with update_env(LETTA_BASE_URL='http://localhost:5000/from/env'):
+          with pytest.raises(ValueError, match=r"you must pass base_url=None"):
+            AsyncLetta(api_key=api_key, _strict_response_validation=True, environment="cloud")
 
-            client = AsyncLetta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
-            assert str(client.base_url).startswith("https://api.letta.com")
+          client = AsyncLetta(base_url=None, api_key=api_key, _strict_response_validation=True, environment="cloud")
+          assert str(client.base_url).startswith("https://api.letta.com")
 
-            await client.close()
+          await client.close()
 
-    @pytest.mark.parametrize(
-        "client",
-        [
-            AsyncLetta(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncLetta(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                _strict_response_validation=True,
-                http_client=httpx.AsyncClient(),
-            ),
-        ],
-        ids=["standard", "custom http client"],
-    )
+    @pytest.mark.parametrize("client", [AsyncLetta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True), AsyncLetta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True, http_client=httpx.AsyncClient())], ids = ["standard", "custom http client"])
     async def test_base_url_trailing_slash(self, client: AsyncLetta) -> None:
         request = client._build_request(
             FinalRequestOptions(
@@ -1692,21 +1563,7 @@ class TestAsyncLetta:
         assert request.url == "http://localhost:5000/custom/path/foo"
         await client.close()
 
-    @pytest.mark.parametrize(
-        "client",
-        [
-            AsyncLetta(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncLetta(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                _strict_response_validation=True,
-                http_client=httpx.AsyncClient(),
-            ),
-        ],
-        ids=["standard", "custom http client"],
-    )
+    @pytest.mark.parametrize("client", [AsyncLetta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True), AsyncLetta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True, http_client=httpx.AsyncClient())], ids = ["standard", "custom http client"])
     async def test_base_url_no_trailing_slash(self, client: AsyncLetta) -> None:
         request = client._build_request(
             FinalRequestOptions(
@@ -1718,21 +1575,7 @@ class TestAsyncLetta:
         assert request.url == "http://localhost:5000/custom/path/foo"
         await client.close()
 
-    @pytest.mark.parametrize(
-        "client",
-        [
-            AsyncLetta(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncLetta(
-                base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
-                _strict_response_validation=True,
-                http_client=httpx.AsyncClient(),
-            ),
-        ],
-        ids=["standard", "custom http client"],
-    )
+    @pytest.mark.parametrize("client", [AsyncLetta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True), AsyncLetta(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True, http_client=httpx.AsyncClient())], ids = ["standard", "custom http client"])
     async def test_absolute_request_url(self, client: AsyncLetta) -> None:
         request = client._build_request(
             FinalRequestOptions(
@@ -1759,9 +1602,9 @@ class TestAsyncLetta:
     async def test_client_context_manager(self) -> None:
         test_client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with test_client as c2:
-            assert c2 is test_client
-            assert not c2.is_closed()
-            assert not test_client.is_closed()
+          assert c2 is test_client
+          assert not c2.is_closed()
+          assert not test_client.is_closed()
         assert test_client.is_closed()
 
     @pytest.mark.respx(base_url=base_url)
@@ -1778,9 +1621,7 @@ class TestAsyncLetta:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncLetta(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
-            )
+          AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
 
     @pytest.mark.respx(base_url=base_url)
     async def test_default_stream_cls(self, respx_mock: MockRouter, async_client: AsyncLetta) -> None:
@@ -1803,7 +1644,7 @@ class TestAsyncLetta:
         strict_client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
-            await strict_client.get("/foo", cast_to=Model)
+          await strict_client.get("/foo", cast_to=Model)
 
         non_strict_client = AsyncLetta(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
@@ -1814,34 +1655,32 @@ class TestAsyncLetta:
         await non_strict_client.close()
 
     @pytest.mark.parametrize(
-        "remaining_retries,retry_after,timeout",
-        [
-            [3, "20", 20],
-            [3, "0", 0.5],
-            [3, "-10", 0.5],
-            [3, "60", 60],
-            [3, "61", 0.5],
-            [3, "Fri, 29 Sep 2023 16:26:57 GMT", 20],
-            [3, "Fri, 29 Sep 2023 16:26:37 GMT", 0.5],
-            [3, "Fri, 29 Sep 2023 16:26:27 GMT", 0.5],
-            [3, "Fri, 29 Sep 2023 16:27:37 GMT", 60],
-            [3, "Fri, 29 Sep 2023 16:27:38 GMT", 0.5],
-            [3, "99999999999999999999999999999999999", 0.5],
-            [3, "Zun, 29 Sep 2023 16:26:27 GMT", 0.5],
-            [3, "", 0.5],
-            [2, "", 0.5 * 2.0],
-            [1, "", 0.5 * 4.0],
-            [-1100, "", 8],  # test large number potentially overflowing
-        ],
-    )
+            "remaining_retries,retry_after,timeout",
+            [
+                [ 3, "20", 20 ],
+                [ 3, "0", 0.5 ],
+                [ 3, "-10", 0.5 ],
+                [ 3, "60", 60 ],
+                [ 3, "61", 0.5 ],
+                [ 3, "Fri, 29 Sep 2023 16:26:57 GMT", 20 ],
+                [ 3, "Fri, 29 Sep 2023 16:26:37 GMT", 0.5 ],
+                [ 3, "Fri, 29 Sep 2023 16:26:27 GMT", 0.5 ],
+                [ 3, "Fri, 29 Sep 2023 16:27:37 GMT", 60 ],
+                [ 3, "Fri, 29 Sep 2023 16:27:38 GMT", 0.5 ],
+                [ 3, "99999999999999999999999999999999999", 0.5 ],
+                [ 3, "Zun, 29 Sep 2023 16:26:27 GMT", 0.5 ],
+                [ 3, "", 0.5 ],
+                [ 2, "", 0.5 * 2.0 ],
+                [ 1, "", 0.5 * 4.0 ],
+                [-1100, "", 8], # test large number potentially overflowing
+            ],
+        )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
-    async def test_parse_retry_after_header(
-        self, remaining_retries: int, retry_after: str, timeout: float, async_client: AsyncLetta
-    ) -> None:
+    async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float, async_client: AsyncLetta) -> None:
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = async_client._calculate_retry_timeout(remaining_retries, options, headers)
-        assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
+        assert calculated == pytest.approx(timeout, 0.5 * 0.875) # pyright: ignore[reportUnknownMemberType]
 
     @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -1871,7 +1710,7 @@ class TestAsyncLetta:
         async_client: AsyncLetta,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
-        respx_mock: MockRouter,
+        respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1882,7 +1721,7 @@ class TestAsyncLetta:
             if nb_retries < failures_before_success:
                 nb_retries += 1
                 if failure_mode == "exception":
-                    raise RuntimeError("oops")
+                  raise RuntimeError("oops")
                 return httpx.Response(500)
             return httpx.Response(200)
 
@@ -1897,7 +1736,10 @@ class TestAsyncLetta:
     @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_omit_retry_count_header(
-        self, async_client: AsyncLetta, failures_before_success: int, respx_mock: MockRouter
+        self,
+        async_client: AsyncLetta,
+        failures_before_success: int,
+        respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1912,17 +1754,18 @@ class TestAsyncLetta:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = await client.archives.with_raw_response.create(
-            name="name", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = await client.archives.with_raw_response.create(name="name", extra_headers={'x-stainless-retry-count': Omit()})
 
-        assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
+        assert len(response.http_request.headers.get_list('x-stainless-retry-count')) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("letta_client._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncLetta, failures_before_success: int, respx_mock: MockRouter
+        self,
+        async_client: AsyncLetta,
+        failures_before_success: int,
+        respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1937,11 +1780,9 @@ class TestAsyncLetta:
 
         respx_mock.post("/v1/archives/").mock(side_effect=retry_handler)
 
-        response = await client.archives.with_raw_response.create(
-            name="name", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = await client.archives.with_raw_response.create(name="name", extra_headers={'x-stainless-retry-count': '42'})
 
-        assert response.http_request.headers.get("x-stainless-retry-count") == "42"
+        assert response.http_request.headers.get('x-stainless-retry-count') == '42'
 
     async def test_get_platform(self) -> None:
         platform = await asyncify(get_platform)()
@@ -1997,9 +1838,7 @@ class TestAsyncLetta:
         )
 
         with pytest.raises(APIStatusError) as exc_info:
-            await async_client.post(
-                "/redirect", body={"key": "value"}, options={"follow_redirects": False}, cast_to=httpx.Response
-            )
+            await async_client.post("/redirect", body={"key": "value"}, options={"follow_redirects": False}, cast_to=httpx.Response)
 
         assert exc_info.value.response.status_code == 302
         assert exc_info.value.response.headers["Location"] == f"{base_url}/redirected"

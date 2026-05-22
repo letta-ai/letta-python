@@ -1,93 +1,80 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from .._models import BaseModel
+
+from typing import Optional, Dict, List, Union
+
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypeAlias
+
+from .agents.block import Block
+
+from .agent_type import AgentType
+
+from .embedding_config import EmbeddingConfig
+
+from .vector_db_provider import VectorDBProvider
+
+from .openai_model_settings import OpenAIModelSettings
+
+from .anthropic_model_settings import AnthropicModelSettings
+
+from .google_ai_model_settings import GoogleAIModelSettings
+
+from .google_vertex_model_settings import GoogleVertexModelSettings
+
+from .azure_model_settings import AzureModelSettings
+
+from .xai_model_settings import XaiModelSettings
+
+from .groq_model_settings import GroqModelSettings
+
+from .deepseek_model_settings import DeepseekModelSettings
+
+from .together_model_settings import TogetherModelSettings
+
+from .bedrock_model_settings import BedrockModelSettings
+
+from typing_extensions import Literal, Annotated, TypeAliasType, TypeAlias
+
+from .text_response_format import TextResponseFormat
+
+from .json_schema_response_format import JsonSchemaResponseFormat
+
+from .json_object_response_format import JsonObjectResponseFormat
+
+from .._utils import PropertyInfo
 
 from pydantic import Field as FieldInfo
 
-from .tool import Tool
-from .._utils import PropertyInfo
-from .._models import BaseModel
-from .agent_type import AgentType
-from .llm_config import LlmConfig
-from .agents.block import Block
-from .init_tool_rule import InitToolRule
 from .child_tool_rule import ChildToolRule
-from .embedding_config import EmbeddingConfig
-from .parent_tool_rule import ParentToolRule
-from .stop_reason_type import StopReasonType
-from .continue_tool_rule import ContinueToolRule
+
+from .init_tool_rule import InitToolRule
+
 from .terminal_tool_rule import TerminalToolRule
-from .vector_db_provider import VectorDBProvider
-from .xai_model_settings import XaiModelSettings
-from .groq_model_settings import GroqModelSettings
-from .azure_model_settings import AzureModelSettings
-from .text_response_format import TextResponseFormat
+
 from .conditional_tool_rule import ConditionalToolRule
-from .openai_model_settings import OpenAIModelSettings
-from .bedrock_model_settings import BedrockModelSettings
-from .deepseek_model_settings import DeepseekModelSettings
-from .together_model_settings import TogetherModelSettings
-from .anthropic_model_settings import AnthropicModelSettings
-from .google_ai_model_settings import GoogleAIModelSettings
-from .agent_environment_variable import AgentEnvironmentVariable
-from .json_object_response_format import JsonObjectResponseFormat
-from .json_schema_response_format import JsonSchemaResponseFormat
-from .requires_approval_tool_rule import RequiresApprovalToolRule
-from .google_vertex_model_settings import GoogleVertexModelSettings
-from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
+
+from .continue_tool_rule import ContinueToolRule
+
 from .required_before_exit_tool_rule import RequiredBeforeExitToolRule
+
+from .max_count_per_step_tool_rule import MaxCountPerStepToolRule
+
+from .parent_tool_rule import ParentToolRule
+
+from .requires_approval_tool_rule import RequiresApprovalToolRule
+
+from .llm_config import LlmConfig
+
+from .tool import Tool
+
+from .stop_reason_type import StopReasonType
+
 from .agents.approval_request_message import ApprovalRequestMessage
 
-__all__ = [
-    "AgentState",
-    "Memory",
-    "MemoryFileBlock",
-    "Source",
-    "CompactionSettings",
-    "CompactionSettingsModelSettings",
-    "CompactionSettingsModelSettingsSgLangModelSettings",
-    "CompactionSettingsModelSettingsSgLangModelSettingsReasoning",
-    "CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat",
-    "CompactionSettingsModelSettingsMoonshotModelSettings",
-    "CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat",
-    "CompactionSettingsModelSettingsZaiModelSettings",
-    "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
-    "CompactionSettingsModelSettingsZaiModelSettingsThinking",
-    "CompactionSettingsModelSettingsMoonshotCodingModelSettings",
-    "CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat",
-    "CompactionSettingsModelSettingsMoonshotCodingModelSettingsThinking",
-    "CompactionSettingsModelSettingsBasetenModelSettings",
-    "CompactionSettingsModelSettingsOpenRouterModelSettings",
-    "CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat",
-    "CompactionSettingsModelSettingsChatGptoAuthModelSettings",
-    "CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning",
-    "Identity",
-    "IdentityProperty",
-    "ManagedGroup",
-    "ModelSettings",
-    "ModelSettingsSgLangModelSettings",
-    "ModelSettingsSgLangModelSettingsReasoning",
-    "ModelSettingsSgLangModelSettingsResponseFormat",
-    "ModelSettingsMoonshotModelSettings",
-    "ModelSettingsMoonshotModelSettingsResponseFormat",
-    "ModelSettingsZaiModelSettings",
-    "ModelSettingsZaiModelSettingsResponseFormat",
-    "ModelSettingsZaiModelSettingsThinking",
-    "ModelSettingsMoonshotCodingModelSettings",
-    "ModelSettingsMoonshotCodingModelSettingsResponseFormat",
-    "ModelSettingsMoonshotCodingModelSettingsThinking",
-    "ModelSettingsBasetenModelSettings",
-    "ModelSettingsOpenRouterModelSettings",
-    "ModelSettingsOpenRouterModelSettingsResponseFormat",
-    "ModelSettingsChatGptoAuthModelSettings",
-    "ModelSettingsChatGptoAuthModelSettingsReasoning",
-    "MultiAgentGroup",
-    "ResponseFormat",
-    "ToolRule",
-]
+from .agent_environment_variable import AgentEnvironmentVariable
 
+__all__ = ["AgentState", "Memory", "MemoryFileBlock", "Source", "CompactionSettings", "CompactionSettingsModelSettings", "CompactionSettingsModelSettingsSgLangModelSettings", "CompactionSettingsModelSettingsSgLangModelSettingsReasoning", "CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat", "CompactionSettingsModelSettingsMoonshotModelSettings", "CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat", "CompactionSettingsModelSettingsZaiModelSettings", "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat", "CompactionSettingsModelSettingsZaiModelSettingsThinking", "CompactionSettingsModelSettingsMoonshotCodingModelSettings", "CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat", "CompactionSettingsModelSettingsMoonshotCodingModelSettingsThinking", "CompactionSettingsModelSettingsBasetenModelSettings", "CompactionSettingsModelSettingsOpenRouterModelSettings", "CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat", "CompactionSettingsModelSettingsChatGptoAuthModelSettings", "CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning", "Identity", "IdentityProperty", "ManagedGroup", "ModelSettings", "ModelSettingsSgLangModelSettings", "ModelSettingsSgLangModelSettingsReasoning", "ModelSettingsSgLangModelSettingsResponseFormat", "ModelSettingsMoonshotModelSettings", "ModelSettingsMoonshotModelSettingsResponseFormat", "ModelSettingsZaiModelSettings", "ModelSettingsZaiModelSettingsResponseFormat", "ModelSettingsZaiModelSettingsThinking", "ModelSettingsMoonshotCodingModelSettings", "ModelSettingsMoonshotCodingModelSettingsResponseFormat", "ModelSettingsMoonshotCodingModelSettingsThinking", "ModelSettingsBasetenModelSettings", "ModelSettingsOpenRouterModelSettings", "ModelSettingsOpenRouterModelSettingsResponseFormat", "ModelSettingsChatGptoAuthModelSettings", "ModelSettingsChatGptoAuthModelSettingsReasoning", "MultiAgentGroup", "ResponseFormat", "ToolRule"]
 
 class MemoryFileBlock(BaseModel):
     file_id: str
@@ -162,10 +149,8 @@ class MemoryFileBlock(BaseModel):
     template_name: Optional[str] = None
     """Name of the block if it is a template."""
 
-
 class Memory(BaseModel):
     """Deprecated: Use `blocks` field instead. The in-context memory of the agent."""
-
     blocks: List[Block]
     """Memory blocks contained in the agent's in-context memory"""
 
@@ -181,12 +166,10 @@ class Memory(BaseModel):
     prompt_template: Optional[str] = None
     """Deprecated. Ignored for performance."""
 
-
 class Source(BaseModel):
     """
     (Deprecated: Use Folder) Representation of a source, which is a collection of files and passages.
     """
-
     id: str
     """The human-friendly ID of the Source"""
 
@@ -220,25 +203,17 @@ class Source(BaseModel):
     vector_db_provider: Optional[VectorDBProvider] = None
     """The vector database provider used for this source's passages"""
 
-
 class CompactionSettingsModelSettingsSgLangModelSettingsReasoning(BaseModel):
     """The reasoning configuration for the model."""
-
     reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
     """The reasoning effort to use when generating text reasoning models"""
 
-
-CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class CompactionSettingsModelSettingsSgLangModelSettings(BaseModel):
     """
     SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
     """
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -266,16 +241,10 @@ class CompactionSettingsModelSettingsSgLangModelSettings(BaseModel):
     tool_call_parser: Optional[str] = None
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
 
-
-CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class CompactionSettingsModelSettingsMoonshotModelSettings(BaseModel):
     """Moonshot/Kimi model configuration (OpenAI-compatible)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -297,26 +266,18 @@ class CompactionSettingsModelSettingsMoonshotModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
-
-CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+CompactionSettingsModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class CompactionSettingsModelSettingsZaiModelSettingsThinking(BaseModel):
     """The thinking configuration for GLM-4.5+ models."""
-
     clear_thinking: Optional[bool] = None
     """If False, preserved thinking is used (recommended for agents)."""
 
     type: Optional[Literal["enabled", "disabled"]] = None
     """Whether thinking is enabled or disabled."""
 
-
 class CompactionSettingsModelSettingsZaiModelSettings(BaseModel):
     """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -335,26 +296,18 @@ class CompactionSettingsModelSettingsZaiModelSettings(BaseModel):
     thinking: Optional[CompactionSettingsModelSettingsZaiModelSettingsThinking] = None
     """The thinking configuration for GLM-4.5+ models."""
 
-
-CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class CompactionSettingsModelSettingsMoonshotCodingModelSettingsThinking(BaseModel):
     """The thinking configuration for the model."""
-
     budget_tokens: Optional[int] = None
     """The maximum number of tokens the model can use for extended thinking."""
 
     type: Optional[Literal["enabled", "disabled"]] = None
     """The type of thinking to use."""
 
-
 class CompactionSettingsModelSettingsMoonshotCodingModelSettings(BaseModel):
     """Kimi Code model configuration (Anthropic-compatible)."""
-
     effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]] = None
     """Effort level for supported Anthropic models (controls token spending).
 
@@ -389,10 +342,8 @@ class CompactionSettingsModelSettingsMoonshotCodingModelSettings(BaseModel):
     verbosity: Optional[Literal["low", "medium", "high"]] = None
     """Soft control for how verbose model output should be, used for GPT-5 models."""
 
-
 class CompactionSettingsModelSettingsBasetenModelSettings(BaseModel):
     """Baseten model configuration (OpenAI-compatible)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -405,16 +356,10 @@ class CompactionSettingsModelSettingsBasetenModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
-
-CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class CompactionSettingsModelSettingsOpenRouterModelSettings(BaseModel):
     """OpenRouter model configuration (OpenAI-compatible)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -430,17 +375,13 @@ class CompactionSettingsModelSettingsOpenRouterModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
-
 class CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning(BaseModel):
     """The reasoning configuration for the model."""
-
     reasoning_effort: Optional[Literal["none", "low", "medium", "high", "xhigh"]] = None
     """The reasoning effort level for GPT-5.x and o-series models."""
 
-
 class CompactionSettingsModelSettingsChatGptoAuthModelSettings(BaseModel):
     """ChatGPT OAuth model configuration (uses ChatGPT backend API)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -456,31 +397,7 @@ class CompactionSettingsModelSettingsChatGptoAuthModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
-
-CompactionSettingsModelSettings: TypeAlias = Annotated[
-    Union[
-        OpenAIModelSettings,
-        CompactionSettingsModelSettingsSgLangModelSettings,
-        AnthropicModelSettings,
-        GoogleAIModelSettings,
-        GoogleVertexModelSettings,
-        AzureModelSettings,
-        XaiModelSettings,
-        CompactionSettingsModelSettingsMoonshotModelSettings,
-        CompactionSettingsModelSettingsZaiModelSettings,
-        CompactionSettingsModelSettingsMoonshotCodingModelSettings,
-        GroqModelSettings,
-        DeepseekModelSettings,
-        TogetherModelSettings,
-        BedrockModelSettings,
-        CompactionSettingsModelSettingsBasetenModelSettings,
-        CompactionSettingsModelSettingsOpenRouterModelSettings,
-        CompactionSettingsModelSettingsChatGptoAuthModelSettings,
-        None,
-    ],
-    PropertyInfo(discriminator="provider_type"),
-]
-
+CompactionSettingsModelSettings: TypeAlias = Annotated[Union[OpenAIModelSettings, CompactionSettingsModelSettingsSgLangModelSettings, AnthropicModelSettings, GoogleAIModelSettings, GoogleVertexModelSettings, AzureModelSettings, XaiModelSettings, CompactionSettingsModelSettingsMoonshotModelSettings, CompactionSettingsModelSettingsZaiModelSettings, CompactionSettingsModelSettingsMoonshotCodingModelSettings, GroqModelSettings, DeepseekModelSettings, TogetherModelSettings, BedrockModelSettings, CompactionSettingsModelSettingsBasetenModelSettings, CompactionSettingsModelSettingsOpenRouterModelSettings, CompactionSettingsModelSettingsChatGptoAuthModelSettings, None], PropertyInfo(discriminator="provider_type")]
 
 class CompactionSettings(BaseModel):
     """Configuration for conversation compaction / summarization.
@@ -488,7 +405,6 @@ class CompactionSettings(BaseModel):
     Per-model settings (temperature,
     max tokens, etc.) are derived from the default configuration for that handle.
     """
-
     clip_chars: Optional[int] = None
     """The maximum length of the summary in characters.
 
@@ -504,7 +420,7 @@ class CompactionSettings(BaseModel):
     provider/model-name). If None, uses lightweight provider-specific defaults.
     """
 
-    api_model_settings: Optional[CompactionSettingsModelSettings] = FieldInfo(alias="model_settings", default=None)
+    api_model_settings: Optional[CompactionSettingsModelSettings] = FieldInfo(alias = "model_settings", default = None)
     """Optional model settings used to override defaults for the summarizer model."""
 
     prompt: Optional[str] = None
@@ -522,10 +438,8 @@ class CompactionSettings(BaseModel):
     sliding window modes).
     """
 
-
 class IdentityProperty(BaseModel):
     """A property of an identity"""
-
     key: str
     """The key of the property"""
 
@@ -534,7 +448,6 @@ class IdentityProperty(BaseModel):
 
     value: Union[str, float, bool, Dict[str, object]]
     """The value of the property"""
-
 
 class Identity(BaseModel):
     id: str
@@ -561,10 +474,8 @@ class Identity(BaseModel):
     properties: Optional[List[IdentityProperty]] = None
     """List of properties associated with the identity"""
 
-
 class ManagedGroup(BaseModel):
     """The multi-agent group that this agent manages"""
-
     id: str
     """The id of the group. Assigned by the database."""
 
@@ -616,25 +527,17 @@ class ManagedGroup(BaseModel):
 
     turns_counter: Optional[int] = None
 
-
 class ModelSettingsSgLangModelSettingsReasoning(BaseModel):
     """The reasoning configuration for the model."""
-
     reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
     """The reasoning effort to use when generating text reasoning models"""
 
-
-ModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+ModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class ModelSettingsSgLangModelSettings(BaseModel):
     """
     SGLang model configuration (OpenAI-compatible runtime with SGLang-specific parsing).
     """
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -662,16 +565,10 @@ class ModelSettingsSgLangModelSettings(BaseModel):
     tool_call_parser: Optional[str] = None
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
 
-
-ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class ModelSettingsMoonshotModelSettings(BaseModel):
     """Moonshot/Kimi model configuration (OpenAI-compatible)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -693,26 +590,18 @@ class ModelSettingsMoonshotModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
-
-ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+ModelSettingsZaiModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class ModelSettingsZaiModelSettingsThinking(BaseModel):
     """The thinking configuration for GLM-4.5+ models."""
-
     clear_thinking: Optional[bool] = None
     """If False, preserved thinking is used (recommended for agents)."""
 
     type: Optional[Literal["enabled", "disabled"]] = None
     """Whether thinking is enabled or disabled."""
 
-
 class ModelSettingsZaiModelSettings(BaseModel):
     """Z.ai (ZhipuAI) model configuration (OpenAI-compatible)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -731,26 +620,18 @@ class ModelSettingsZaiModelSettings(BaseModel):
     thinking: Optional[ModelSettingsZaiModelSettingsThinking] = None
     """The thinking configuration for GLM-4.5+ models."""
 
-
-ModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+ModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class ModelSettingsMoonshotCodingModelSettingsThinking(BaseModel):
     """The thinking configuration for the model."""
-
     budget_tokens: Optional[int] = None
     """The maximum number of tokens the model can use for extended thinking."""
 
     type: Optional[Literal["enabled", "disabled"]] = None
     """The type of thinking to use."""
 
-
 class ModelSettingsMoonshotCodingModelSettings(BaseModel):
     """Kimi Code model configuration (Anthropic-compatible)."""
-
     effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]] = None
     """Effort level for supported Anthropic models (controls token spending).
 
@@ -785,10 +666,8 @@ class ModelSettingsMoonshotCodingModelSettings(BaseModel):
     verbosity: Optional[Literal["low", "medium", "high"]] = None
     """Soft control for how verbose model output should be, used for GPT-5 models."""
 
-
 class ModelSettingsBasetenModelSettings(BaseModel):
     """Baseten model configuration (OpenAI-compatible)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -801,16 +680,10 @@ class ModelSettingsBasetenModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
-
-ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
+ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
 class ModelSettingsOpenRouterModelSettings(BaseModel):
     """OpenRouter model configuration (OpenAI-compatible)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -826,17 +699,13 @@ class ModelSettingsOpenRouterModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
-
 class ModelSettingsChatGptoAuthModelSettingsReasoning(BaseModel):
     """The reasoning configuration for the model."""
-
     reasoning_effort: Optional[Literal["none", "low", "medium", "high", "xhigh"]] = None
     """The reasoning effort level for GPT-5.x and o-series models."""
 
-
 class ModelSettingsChatGptoAuthModelSettings(BaseModel):
     """ChatGPT OAuth model configuration (uses ChatGPT backend API)."""
-
     max_output_tokens: Optional[int] = None
     """The maximum number of tokens the model can generate."""
 
@@ -852,38 +721,13 @@ class ModelSettingsChatGptoAuthModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
-
-ModelSettings: TypeAlias = Annotated[
-    Union[
-        OpenAIModelSettings,
-        ModelSettingsSgLangModelSettings,
-        AnthropicModelSettings,
-        GoogleAIModelSettings,
-        GoogleVertexModelSettings,
-        AzureModelSettings,
-        XaiModelSettings,
-        ModelSettingsMoonshotModelSettings,
-        ModelSettingsZaiModelSettings,
-        ModelSettingsMoonshotCodingModelSettings,
-        GroqModelSettings,
-        DeepseekModelSettings,
-        TogetherModelSettings,
-        BedrockModelSettings,
-        ModelSettingsBasetenModelSettings,
-        ModelSettingsOpenRouterModelSettings,
-        ModelSettingsChatGptoAuthModelSettings,
-        None,
-    ],
-    PropertyInfo(discriminator="provider_type"),
-]
-
+ModelSettings: TypeAlias = Annotated[Union[OpenAIModelSettings, ModelSettingsSgLangModelSettings, AnthropicModelSettings, GoogleAIModelSettings, GoogleVertexModelSettings, AzureModelSettings, XaiModelSettings, ModelSettingsMoonshotModelSettings, ModelSettingsZaiModelSettings, ModelSettingsMoonshotCodingModelSettings, GroqModelSettings, DeepseekModelSettings, TogetherModelSettings, BedrockModelSettings, ModelSettingsBasetenModelSettings, ModelSettingsOpenRouterModelSettings, ModelSettingsChatGptoAuthModelSettings, None], PropertyInfo(discriminator="provider_type")]
 
 class MultiAgentGroup(BaseModel):
     """Deprecated: Use `managed_group` field instead.
 
     The multi-agent group that this agent manages.
     """
-
     id: str
     """The id of the group. Assigned by the database."""
 
@@ -935,34 +779,15 @@ class MultiAgentGroup(BaseModel):
 
     turns_counter: Optional[int] = None
 
+ResponseFormat: TypeAlias = Annotated[Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None], PropertyInfo(discriminator="type")]
 
-ResponseFormat: TypeAlias = Annotated[
-    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
-    PropertyInfo(discriminator="type"),
-]
-
-ToolRule: TypeAlias = Annotated[
-    Union[
-        ChildToolRule,
-        InitToolRule,
-        TerminalToolRule,
-        ConditionalToolRule,
-        ContinueToolRule,
-        RequiredBeforeExitToolRule,
-        MaxCountPerStepToolRule,
-        ParentToolRule,
-        RequiresApprovalToolRule,
-    ],
-    PropertyInfo(discriminator="type"),
-]
-
+ToolRule: TypeAlias = Annotated[Union[ChildToolRule, InitToolRule, TerminalToolRule, ConditionalToolRule, ContinueToolRule, RequiredBeforeExitToolRule, MaxCountPerStepToolRule, ParentToolRule, RequiresApprovalToolRule], PropertyInfo(discriminator="type")]
 
 class AgentState(BaseModel):
     """Representation of an agent's state.
 
     This is the state of the agent at a given time, and is persisted in the DB backend. The state has all the information needed to recreate a persisted agent.
     """
-
     id: str
     """The id of the agent. Assigned by the database."""
 
@@ -1076,7 +901,7 @@ class AgentState(BaseModel):
     model: Optional[str] = None
     """The model handle used by the agent (format: provider/model-name)."""
 
-    api_model_settings: Optional[ModelSettings] = FieldInfo(alias="model_settings", default=None)
+    api_model_settings: Optional[ModelSettings] = FieldInfo(alias = "model_settings", default = None)
     """The model settings used by the agent."""
 
     multi_agent_group: Optional[MultiAgentGroup] = None

@@ -2,16 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import TypedDict, Annotated
 
-from .._types import SequenceNotStr
+from typing import Optional, Dict, Iterable
+
 from .._utils import PropertyInfo
+
 from .npm_requirement_param import NpmRequirementParam
+
 from .pip_requirement_param import PipRequirementParam
 
-__all__ = ["ToolUpdateParams"]
+from .._types import SequenceNotStr
 
+__all__ = ["ToolUpdateParams"]
 
 class ToolUpdateParams(TypedDict, total=False):
     args_json_schema: Optional[Dict[str, object]]

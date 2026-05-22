@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["ConversationForkParams"]
+from typing import Optional
 
+__all__ = ["ConversationForkParams"]
 
 class ConversationForkParams(TypedDict, total=False):
     agent_id: Optional[str]

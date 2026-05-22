@@ -2,61 +2,44 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal
-
 import httpx
 
-from .steps import (
-    StepsResource,
-    AsyncStepsResource,
-    StepsResourceWithRawResponse,
-    AsyncStepsResourceWithRawResponse,
-    StepsResourceWithStreamingResponse,
-    AsyncStepsResourceWithStreamingResponse,
-)
-from .trace import (
-    TraceResource,
-    AsyncTraceResource,
-    TraceResourceWithRawResponse,
-    AsyncTraceResourceWithRawResponse,
-    TraceResourceWithStreamingResponse,
-    AsyncTraceResourceWithStreamingResponse,
-)
-from .usage import (
-    UsageResource,
-    AsyncUsageResource,
-    UsageResourceWithRawResponse,
-    AsyncUsageResourceWithRawResponse,
-    UsageResourceWithStreamingResponse,
-    AsyncUsageResourceWithStreamingResponse,
-)
-from ...types import StopReasonType, run_list_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform
-from .messages import (
-    MessagesResource,
-    AsyncMessagesResource,
-    MessagesResourceWithRawResponse,
-    AsyncMessagesResourceWithRawResponse,
-    MessagesResourceWithStreamingResponse,
-    AsyncMessagesResourceWithStreamingResponse,
-)
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ..._base_client import AsyncPaginator, make_request_options
+
+from .messages import MessagesResource, AsyncMessagesResource, MessagesResourceWithRawResponse, AsyncMessagesResourceWithRawResponse, MessagesResourceWithStreamingResponse, AsyncMessagesResourceWithStreamingResponse
+
+from ..._compat import cached_property
+
+from .usage import UsageResource, AsyncUsageResource, UsageResourceWithRawResponse, AsyncUsageResourceWithRawResponse, UsageResourceWithStreamingResponse, AsyncUsageResourceWithStreamingResponse
+
+from .steps import StepsResource, AsyncStepsResource, StepsResourceWithRawResponse, AsyncStepsResourceWithRawResponse, StepsResourceWithStreamingResponse, AsyncStepsResourceWithStreamingResponse
+
+from .trace import TraceResource, AsyncTraceResource, TraceResourceWithRawResponse, AsyncTraceResourceWithRawResponse, TraceResourceWithStreamingResponse, AsyncTraceResourceWithStreamingResponse
+
+from ..._utils import path_template, maybe_transform
+
 from ...types.agents.run import Run
+
+from ..._base_client import make_request_options, AsyncPaginator
+
+from ..._types import NotGiven, Omit, omit, SequenceNotStr
+
+from ...pagination import SyncArrayPage, AsyncArrayPage
+
+from typing import Optional
+
+from typing_extensions import Literal
+
 from ...types.stop_reason_type import StopReasonType
 
-__all__ = ["RunsResource", "AsyncRunsResource"]
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
 
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types import run_list_params
+from ...types import StopReasonType
+
+__all__ = ["RunsResource", "AsyncRunsResource"]
 
 class RunsResource(SyncAPIResource):
     @cached_property
@@ -94,17 +77,15 @@ class RunsResource(SyncAPIResource):
         """
         return RunsResourceWithStreamingResponse(self)
 
-    def retrieve(
-        self,
-        run_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Run:
+    def retrieve(self,
+    run_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Run:
         """
         Get the status of a run.
 
@@ -118,38 +99,36 @@ class RunsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `run_id` but received {run_id!r}'
+          )
         return self._get(
             path_template("/v1/runs/{run_id}", run_id=run_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Run,
         )
 
-    def list(
-        self,
-        *,
-        active: bool | Omit = omit,
-        after: Optional[str] | Omit = omit,
-        agent_id: Optional[str] | Omit = omit,
-        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        ascending: bool | Omit = omit,
-        background: Optional[bool] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        conversation_id: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        statuses: Optional[SequenceNotStr[str]] | Omit = omit,
-        stop_reason: Optional[StopReasonType] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[Run]:
+    def list(self,
+    *,
+    active: bool | Omit = omit,
+    after: Optional[str] | Omit = omit,
+    agent_id: Optional[str] | Omit = omit,
+    agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+    ascending: bool | Omit = omit,
+    background: Optional[bool] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    conversation_id: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    statuses: Optional[SequenceNotStr[str]] | Omit = omit,
+    stop_reason: Optional[StopReasonType] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[Run]:
         """
         List all runs.
 
@@ -195,34 +174,24 @@ class RunsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/runs/",
-            page=SyncArrayPage[Run],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "active": active,
-                        "after": after,
-                        "agent_id": agent_id,
-                        "agent_ids": agent_ids,
-                        "ascending": ascending,
-                        "background": background,
-                        "before": before,
-                        "conversation_id": conversation_id,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                        "statuses": statuses,
-                        "stop_reason": stop_reason,
-                    },
-                    run_list_params.RunListParams,
-                ),
-            ),
+            page = SyncArrayPage[Run],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "active": active,
+                "after": after,
+                "agent_id": agent_id,
+                "agent_ids": agent_ids,
+                "ascending": ascending,
+                "background": background,
+                "before": before,
+                "conversation_id": conversation_id,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+                "statuses": statuses,
+                "stop_reason": stop_reason,
+            }, run_list_params.RunListParams)),
             model=Run,
         )
-
 
 class AsyncRunsResource(AsyncAPIResource):
     @cached_property
@@ -260,17 +229,15 @@ class AsyncRunsResource(AsyncAPIResource):
         """
         return AsyncRunsResourceWithStreamingResponse(self)
 
-    async def retrieve(
-        self,
-        run_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Run:
+    async def retrieve(self,
+    run_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Run:
         """
         Get the status of a run.
 
@@ -284,38 +251,36 @@ class AsyncRunsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `run_id` but received {run_id!r}'
+          )
         return await self._get(
             path_template("/v1/runs/{run_id}", run_id=run_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=Run,
         )
 
-    def list(
-        self,
-        *,
-        active: bool | Omit = omit,
-        after: Optional[str] | Omit = omit,
-        agent_id: Optional[str] | Omit = omit,
-        agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        ascending: bool | Omit = omit,
-        background: Optional[bool] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        conversation_id: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        statuses: Optional[SequenceNotStr[str]] | Omit = omit,
-        stop_reason: Optional[StopReasonType] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[Run, AsyncArrayPage[Run]]:
+    def list(self,
+    *,
+    active: bool | Omit = omit,
+    after: Optional[str] | Omit = omit,
+    agent_id: Optional[str] | Omit = omit,
+    agent_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+    ascending: bool | Omit = omit,
+    background: Optional[bool] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    conversation_id: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    statuses: Optional[SequenceNotStr[str]] | Omit = omit,
+    stop_reason: Optional[StopReasonType] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[Run, AsyncArrayPage[Run]]:
         """
         List all runs.
 
@@ -361,34 +326,24 @@ class AsyncRunsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/runs/",
-            page=AsyncArrayPage[Run],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "active": active,
-                        "after": after,
-                        "agent_id": agent_id,
-                        "agent_ids": agent_ids,
-                        "ascending": ascending,
-                        "background": background,
-                        "before": before,
-                        "conversation_id": conversation_id,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                        "statuses": statuses,
-                        "stop_reason": stop_reason,
-                    },
-                    run_list_params.RunListParams,
-                ),
-            ),
+            page = AsyncArrayPage[Run],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "active": active,
+                "after": after,
+                "agent_id": agent_id,
+                "agent_ids": agent_ids,
+                "ascending": ascending,
+                "background": background,
+                "before": before,
+                "conversation_id": conversation_id,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+                "statuses": statuses,
+                "stop_reason": stop_reason,
+            }, run_list_params.RunListParams)),
             model=Run,
         )
-
 
 class RunsResourceWithRawResponse:
     def __init__(self, runs: RunsResource) -> None:
@@ -417,7 +372,6 @@ class RunsResourceWithRawResponse:
     def trace(self) -> TraceResourceWithRawResponse:
         return TraceResourceWithRawResponse(self._runs.trace)
 
-
 class AsyncRunsResourceWithRawResponse:
     def __init__(self, runs: AsyncRunsResource) -> None:
         self._runs = runs
@@ -445,7 +399,6 @@ class AsyncRunsResourceWithRawResponse:
     def trace(self) -> AsyncTraceResourceWithRawResponse:
         return AsyncTraceResourceWithRawResponse(self._runs.trace)
 
-
 class RunsResourceWithStreamingResponse:
     def __init__(self, runs: RunsResource) -> None:
         self._runs = runs
@@ -472,7 +425,6 @@ class RunsResourceWithStreamingResponse:
     @cached_property
     def trace(self) -> TraceResourceWithStreamingResponse:
         return TraceResourceWithStreamingResponse(self._runs.trace)
-
 
 class AsyncRunsResourceWithStreamingResponse:
     def __init__(self, runs: AsyncRunsResource) -> None:

@@ -2,41 +2,18 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal, TypedDict, Required
+
 from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["EmbeddingConfigParam"]
 
-
 class EmbeddingConfigParam(TypedDict, total=False):
     """Configuration for embedding model connection and processing parameters."""
-
     embedding_dim: Required[int]
     """The dimension of the embedding."""
 
-    embedding_endpoint_type: Required[
-        Literal[
-            "openai",
-            "anthropic",
-            "bedrock",
-            "google_ai",
-            "google_vertex",
-            "azure",
-            "groq",
-            "ollama",
-            "webui",
-            "webui-legacy",
-            "lmstudio",
-            "lmstudio-legacy",
-            "llamacpp",
-            "koboldcpp",
-            "vllm",
-            "hugging-face",
-            "mistral",
-            "together",
-            "pinecone",
-        ]
-    ]
+    embedding_endpoint_type: Required[Literal["openai", "anthropic", "bedrock", "google_ai", "google_vertex", "azure", "groq", "ollama", "webui", "webui-legacy", "lmstudio", "lmstudio-legacy", "llamacpp", "koboldcpp", "vllm", "hugging-face", "mistral", "together", "pinecone"]]
     """The endpoint type for the model."""
 
     embedding_model: Required[str]

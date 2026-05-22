@@ -4,21 +4,24 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Query, Headers, NotGiven, not_given
-from ..._utils import path_template
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ..._base_client import make_request_options
+
+from ..._compat import cached_property
+
+from ..._utils import path_template
+
 from ...types.steps.metric_retrieve_response import MetricRetrieveResponse
 
-__all__ = ["MetricsResource", "AsyncMetricsResource"]
+from ..._base_client import make_request_options
 
+from ..._types import NotGiven
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+
+__all__ = ["MetricsResource", "AsyncMetricsResource"]
 
 class MetricsResource(SyncAPIResource):
     @cached_property
@@ -40,17 +43,15 @@ class MetricsResource(SyncAPIResource):
         """
         return MetricsResourceWithStreamingResponse(self)
 
-    def retrieve(
-        self,
-        step_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MetricRetrieveResponse:
+    def retrieve(self,
+    step_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MetricRetrieveResponse:
         """
         Get step metrics by step ID.
 
@@ -66,15 +67,14 @@ class MetricsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not step_id:
-            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `step_id` but received {step_id!r}'
+          )
         return self._get(
             path_template("/v1/steps/{step_id}/metrics", step_id=step_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=MetricRetrieveResponse,
         )
-
 
 class AsyncMetricsResource(AsyncAPIResource):
     @cached_property
@@ -96,17 +96,15 @@ class AsyncMetricsResource(AsyncAPIResource):
         """
         return AsyncMetricsResourceWithStreamingResponse(self)
 
-    async def retrieve(
-        self,
-        step_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> MetricRetrieveResponse:
+    async def retrieve(self,
+    step_id: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> MetricRetrieveResponse:
         """
         Get step metrics by step ID.
 
@@ -122,15 +120,14 @@ class AsyncMetricsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not step_id:
-            raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `step_id` but received {step_id!r}'
+          )
         return await self._get(
             path_template("/v1/steps/{step_id}/metrics", step_id=step_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=MetricRetrieveResponse,
         )
-
 
 class MetricsResourceWithRawResponse:
     def __init__(self, metrics: MetricsResource) -> None:
@@ -140,7 +137,6 @@ class MetricsResourceWithRawResponse:
             metrics.retrieve,
         )
 
-
 class AsyncMetricsResourceWithRawResponse:
     def __init__(self, metrics: AsyncMetricsResource) -> None:
         self._metrics = metrics
@@ -149,7 +145,6 @@ class AsyncMetricsResourceWithRawResponse:
             metrics.retrieve,
         )
 
-
 class MetricsResourceWithStreamingResponse:
     def __init__(self, metrics: MetricsResource) -> None:
         self._metrics = metrics
@@ -157,7 +152,6 @@ class MetricsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             metrics.retrieve,
         )
-
 
 class AsyncMetricsResourceWithStreamingResponse:
     def __init__(self, metrics: AsyncMetricsResource) -> None:

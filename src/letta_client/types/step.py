@@ -1,16 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from .._models import BaseModel
+
+from typing import Optional, Dict, List
+
 from typing_extensions import Literal
+
+from .agents.internal_message import InternalMessage
 
 from pydantic import Field as FieldInfo
 
-from .._models import BaseModel
 from .stop_reason_type import StopReasonType
-from .agents.internal_message import InternalMessage
 
 __all__ = ["Step"]
-
 
 class Step(BaseModel):
     id: str
@@ -55,10 +57,10 @@ class Step(BaseModel):
     model: Optional[str] = None
     """The name of the model used for this step."""
 
-    api_model_endpoint: Optional[str] = FieldInfo(alias="model_endpoint", default=None)
+    api_model_endpoint: Optional[str] = FieldInfo(alias = "model_endpoint", default = None)
     """The model endpoint url used for this step."""
 
-    api_model_handle: Optional[str] = FieldInfo(alias="model_handle", default=None)
+    api_model_handle: Optional[str] = FieldInfo(alias = "model_handle", default = None)
     """The model handle (e.g., 'openai/gpt-4o-mini') used for this step."""
 
     origin: Optional[str] = None

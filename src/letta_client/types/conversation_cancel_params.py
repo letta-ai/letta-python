@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["ConversationCancelParams"]
+from typing import Optional
 
+__all__ = ["ConversationCancelParams"]
 
 class ConversationCancelParams(TypedDict, total=False):
     agent_id: Optional[str]

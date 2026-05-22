@@ -2,29 +2,35 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Literal
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncArrayPage, AsyncArrayPage
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.agents import folder_list_params
-from ...types.agent_state import AgentState
+
+from ..._compat import cached_property
+
+from ..._utils import path_template, maybe_transform
+
 from ...types.agents.folder_list_response import FolderListResponse
 
-__all__ = ["FoldersResource", "AsyncFoldersResource"]
+from ...pagination import SyncArrayPage, AsyncArrayPage
 
+from ..._base_client import make_request_options, AsyncPaginator
+
+from typing import Optional
+
+from ..._types import Omit, omit, NotGiven
+
+from typing_extensions import Literal
+
+from ...types.agent_state import AgentState
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.agents import folder_list_params
+
+__all__ = ["FoldersResource", "AsyncFoldersResource"]
 
 class FoldersResource(SyncAPIResource):
     @cached_property
@@ -46,22 +52,20 @@ class FoldersResource(SyncAPIResource):
         """
         return FoldersResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        agent_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncArrayPage[FolderListResponse]:
+    def list(self,
+    agent_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncArrayPage[FolderListResponse]:
         """
         Get the folders associated with an agent.
 
@@ -90,41 +94,32 @@ class FoldersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._get_api_list(
             path_template("/v1/agents/{agent_id}/folders", agent_id=agent_id),
-            page=SyncArrayPage[FolderListResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    folder_list_params.FolderListParams,
-                ),
-            ),
+            page = SyncArrayPage[FolderListResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            }, folder_list_params.FolderListParams)),
             model=FolderListResponse,
         )
 
-    def attach(
-        self,
-        folder_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    def attach(self,
+    folder_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Optional[AgentState]:
         """
         Attach a folder to an agent.
 
@@ -142,29 +137,29 @@ class FoldersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return self._patch(
             path_template("/v1/agents/{agent_id}/folders/attach/{folder_id}", agent_id=agent_id, folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentState,
         )
 
-    def detach(
-        self,
-        folder_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    def detach(self,
+    folder_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Optional[AgentState]:
         """
         Detach a folder from an agent.
 
@@ -182,17 +177,18 @@ class FoldersResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return self._patch(
             path_template("/v1/agents/{agent_id}/folders/detach/{folder_id}", agent_id=agent_id, folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentState,
         )
-
 
 class AsyncFoldersResource(AsyncAPIResource):
     @cached_property
@@ -214,22 +210,20 @@ class AsyncFoldersResource(AsyncAPIResource):
         """
         return AsyncFoldersResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        agent_id: str,
-        *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[FolderListResponse, AsyncArrayPage[FolderListResponse]]:
+    def list(self,
+    agent_id: str,
+    *,
+    after: Optional[str] | Omit = omit,
+    before: Optional[str] | Omit = omit,
+    limit: Optional[int] | Omit = omit,
+    order: Literal["asc", "desc"] | Omit = omit,
+    order_by: Literal["created_at"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[FolderListResponse, AsyncArrayPage[FolderListResponse]]:
         """
         Get the folders associated with an agent.
 
@@ -258,41 +252,32 @@ class AsyncFoldersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         return self._get_api_list(
             path_template("/v1/agents/{agent_id}/folders", agent_id=agent_id),
-            page=AsyncArrayPage[FolderListResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "after": after,
-                        "before": before,
-                        "limit": limit,
-                        "order": order,
-                        "order_by": order_by,
-                    },
-                    folder_list_params.FolderListParams,
-                ),
-            ),
+            page = AsyncArrayPage[FolderListResponse],
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "after": after,
+                "before": before,
+                "limit": limit,
+                "order": order,
+                "order_by": order_by,
+            }, folder_list_params.FolderListParams)),
             model=FolderListResponse,
         )
 
-    async def attach(
-        self,
-        folder_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    async def attach(self,
+    folder_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Optional[AgentState]:
         """
         Attach a folder to an agent.
 
@@ -310,29 +295,29 @@ class AsyncFoldersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return await self._patch(
             path_template("/v1/agents/{agent_id}/folders/attach/{folder_id}", agent_id=agent_id, folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentState,
         )
 
-    async def detach(
-        self,
-        folder_id: str,
-        *,
-        agent_id: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Optional[AgentState]:
+    async def detach(self,
+    folder_id: str,
+    *,
+    agent_id: str,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> Optional[AgentState]:
         """
         Detach a folder from an agent.
 
@@ -350,17 +335,18 @@ class AsyncFoldersResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not agent_id:
-            raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `agent_id` but received {agent_id!r}'
+          )
         if not folder_id:
-            raise ValueError(f"Expected a non-empty value for `folder_id` but received {folder_id!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `folder_id` but received {folder_id!r}'
+          )
         return await self._patch(
             path_template("/v1/agents/{agent_id}/folders/detach/{folder_id}", agent_id=agent_id, folder_id=folder_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentState,
         )
-
 
 class FoldersResourceWithRawResponse:
     def __init__(self, folders: FoldersResource) -> None:
@@ -376,7 +362,6 @@ class FoldersResourceWithRawResponse:
             folders.detach,
         )
 
-
 class AsyncFoldersResourceWithRawResponse:
     def __init__(self, folders: AsyncFoldersResource) -> None:
         self._folders = folders
@@ -391,7 +376,6 @@ class AsyncFoldersResourceWithRawResponse:
             folders.detach,
         )
 
-
 class FoldersResourceWithStreamingResponse:
     def __init__(self, folders: FoldersResource) -> None:
         self._folders = folders
@@ -405,7 +389,6 @@ class FoldersResourceWithStreamingResponse:
         self.detach = to_streamed_response_wrapper(
             folders.detach,
         )
-
 
 class AsyncFoldersResourceWithStreamingResponse:
     def __init__(self, folders: AsyncFoldersResource) -> None:

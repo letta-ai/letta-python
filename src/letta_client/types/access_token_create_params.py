@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import TypedDict, Required, Literal
+
+from typing import Iterable, List
 
 __all__ = ["AccessTokenCreateParams", "Policy"]
-
 
 class AccessTokenCreateParams(TypedDict, total=False):
     hostname: Required[str]
@@ -22,7 +22,6 @@ class AccessTokenCreateParams(TypedDict, total=False):
 
     If not provided, the token will expire in 5 minutes
     """
-
 
 class Policy(TypedDict, total=False):
     id: Required[str]

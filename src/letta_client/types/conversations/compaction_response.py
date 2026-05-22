@@ -4,7 +4,6 @@ from ..._models import BaseModel
 
 __all__ = ["CompactionResponse"]
 
-
 class CompactionResponse(BaseModel):
     num_messages_after: int
 

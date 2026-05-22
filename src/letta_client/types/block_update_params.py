@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
 from typing_extensions import TypedDict
+
+from typing import Optional, Dict
 
 from .._types import SequenceNotStr
 
 __all__ = ["BlockUpdateParams"]
-
 
 class BlockUpdateParams(TypedDict, total=False):
     base_template_id: Optional[str]

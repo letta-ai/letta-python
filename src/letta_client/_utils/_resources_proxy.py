@@ -16,7 +16,6 @@ class ResourcesProxy(LazyProxy[Any]):
     @override
     def __load__(self) -> Any:
         import importlib
-
         mod = importlib.import_module("letta_client.resources")
         return mod
 

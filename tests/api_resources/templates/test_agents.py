@@ -2,20 +2,26 @@
 
 from __future__ import annotations
 
-import os
-from typing import Any, cast
-
-import pytest
-
-from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
+
 from letta_client.types.templates import AgentCreateResponse
+
+from typing import cast, Any
+
+import os
+import pytest
+import httpx
+from typing_extensions import get_args
+from respx import MockRouter
+from letta_client import Letta, AsyncLetta
+from tests.utils import assert_matches_type
+from letta_client.types.templates import agent_create_params
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-
 class TestAgents:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
+
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -23,7 +29,7 @@ class TestAgents:
         agent = client.templates.agents.create(
             template_version="template_version",
         )
-        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+        assert_matches_type(AgentCreateResponse, agent, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -32,46 +38,49 @@ class TestAgents:
             template_version="template_version",
             agent_name="agent_name",
             identity_ids=["string"],
-            initial_message_sequence=[
-                {
-                    "content": "content",
-                    "role": "user",
-                    "batch_item_id": "batch_item_id",
-                    "group_id": "group_id",
-                    "name": "name",
-                    "otid": "otid",
-                    "sender_id": "sender_id",
-                }
-            ],
-            memory_variables={"foo": "string"},
+            initial_message_sequence=[{
+                "content": "content",
+                "role": "user",
+                "batch_item_id": "batch_item_id",
+                "group_id": "group_id",
+                "name": "name",
+                "otid": "otid",
+                "sender_id": "sender_id",
+            }],
+            memory_variables={
+                "foo": "string"
+            },
             tags=["-_"],
-            tool_variables={"foo": "string"},
+            tool_variables={
+                "foo": "string"
+            },
         )
-        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+        assert_matches_type(AgentCreateResponse, agent, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Letta) -> None:
+
         response = client.templates.agents.with_raw_response.create(
             template_version="template_version",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         agent = response.parse()
-        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+        assert_matches_type(AgentCreateResponse, agent, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Letta) -> None:
         with client.templates.agents.with_streaming_response.create(
             template_version="template_version",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             agent = response.parse()
-            assert_matches_type(AgentCreateResponse, agent, path=["response"])
+            assert_matches_type(AgentCreateResponse, agent, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
@@ -79,15 +88,12 @@ class TestAgents:
     @parametrize
     def test_path_params_create(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_version` but received ''"):
-            client.templates.agents.with_raw_response.create(
-                template_version="",
-            )
-
-
+          client.templates.agents.with_raw_response.create(
+              template_version="",
+          )
 class TestAsyncAgents:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
+    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -95,7 +101,7 @@ class TestAsyncAgents:
         agent = await async_client.templates.agents.create(
             template_version="template_version",
         )
-        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+        assert_matches_type(AgentCreateResponse, agent, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -104,46 +110,49 @@ class TestAsyncAgents:
             template_version="template_version",
             agent_name="agent_name",
             identity_ids=["string"],
-            initial_message_sequence=[
-                {
-                    "content": "content",
-                    "role": "user",
-                    "batch_item_id": "batch_item_id",
-                    "group_id": "group_id",
-                    "name": "name",
-                    "otid": "otid",
-                    "sender_id": "sender_id",
-                }
-            ],
-            memory_variables={"foo": "string"},
+            initial_message_sequence=[{
+                "content": "content",
+                "role": "user",
+                "batch_item_id": "batch_item_id",
+                "group_id": "group_id",
+                "name": "name",
+                "otid": "otid",
+                "sender_id": "sender_id",
+            }],
+            memory_variables={
+                "foo": "string"
+            },
             tags=["-_"],
-            tool_variables={"foo": "string"},
+            tool_variables={
+                "foo": "string"
+            },
         )
-        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+        assert_matches_type(AgentCreateResponse, agent, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLetta) -> None:
+
         response = await async_client.templates.agents.with_raw_response.create(
             template_version="template_version",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
         agent = await response.parse()
-        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+        assert_matches_type(AgentCreateResponse, agent, path=['response'])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLetta) -> None:
         async with async_client.templates.agents.with_streaming_response.create(
             template_version="template_version",
-        ) as response:
+        ) as response :
             assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
 
             agent = await response.parse()
-            assert_matches_type(AgentCreateResponse, agent, path=["response"])
+            assert_matches_type(AgentCreateResponse, agent, path=['response'])
 
         assert cast(Any, response.is_closed) is True
 
@@ -151,6 +160,6 @@ class TestAsyncAgents:
     @parametrize
     async def test_path_params_create(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `template_version` but received ''"):
-            await async_client.templates.agents.with_raw_response.create(
-                template_version="",
-            )
+          await async_client.templates.agents.with_raw_response.create(
+              template_version="",
+          )

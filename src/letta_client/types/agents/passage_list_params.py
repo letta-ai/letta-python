@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["PassageListParams"]
+from typing import Optional
 
+__all__ = ["PassageListParams"]
 
 class PassageListParams(TypedDict, total=False):
     after: Optional[str]

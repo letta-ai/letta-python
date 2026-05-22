@@ -2,15 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict, Required
 
-from .._types import SequenceNotStr
+from typing import Optional, Dict, Iterable
+
 from .npm_requirement_param import NpmRequirementParam
+
 from .pip_requirement_param import PipRequirementParam
 
-__all__ = ["ToolUpsertParams"]
+from .._types import SequenceNotStr
 
+__all__ = ["ToolUpsertParams"]
 
 class ToolUpsertParams(TypedDict, total=False):
     source_code: Required[str]
