@@ -14,3 +14,6 @@ class ConversationForkParams(TypedDict, total=False):
 
     hidden: bool
     """Whether the forked conversation should be hidden from listings"""
+
+    message_id: Optional[str]
+    """The ID of the message in the format 'message-<uuid4>'"""
