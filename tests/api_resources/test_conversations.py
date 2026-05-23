@@ -333,6 +333,7 @@ class TestConversations:
             conversation_id="default",
             agent_id="agent_id",
             hidden=True,
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -756,6 +757,7 @@ class TestAsyncConversations:
             conversation_id="default",
             agent_id="agent_id",
             hidden=True,
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 

@@ -398,6 +398,7 @@ class ConversationsResource(SyncAPIResource):
         *,
         agent_id: Optional[str] | Omit = omit,
         hidden: bool | Omit = omit,
+        message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -412,6 +413,9 @@ class ConversationsResource(SyncAPIResource):
         source conversation, but with a newly compiled system message reflecting the
         latest memory block values. The forked conversation belongs to the same agent as
         the source.
+
+        If message_id is provided, only source in-context messages up to and including
+        that message are included in the fork.
 
         **Agent-direct mode**: Pass conversation_id="default" with agent_id query
         parameter to fork the agent's default (agent-direct) message history into a new
@@ -428,6 +432,8 @@ class ConversationsResource(SyncAPIResource):
           agent_id: Agent ID for agent-direct mode with 'default' conversation
 
           hidden: Whether the forked conversation should be hidden from listings
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -450,6 +456,7 @@ class ConversationsResource(SyncAPIResource):
                     {
                         "agent_id": agent_id,
                         "hidden": hidden,
+                        "message_id": message_id,
                     },
                     conversation_fork_params.ConversationForkParams,
                 ),
@@ -879,6 +886,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         *,
         agent_id: Optional[str] | Omit = omit,
         hidden: bool | Omit = omit,
+        message_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -893,6 +901,9 @@ class AsyncConversationsResource(AsyncAPIResource):
         source conversation, but with a newly compiled system message reflecting the
         latest memory block values. The forked conversation belongs to the same agent as
         the source.
+
+        If message_id is provided, only source in-context messages up to and including
+        that message are included in the fork.
 
         **Agent-direct mode**: Pass conversation_id="default" with agent_id query
         parameter to fork the agent's default (agent-direct) message history into a new
@@ -909,6 +920,8 @@ class AsyncConversationsResource(AsyncAPIResource):
           agent_id: Agent ID for agent-direct mode with 'default' conversation
 
           hidden: Whether the forked conversation should be hidden from listings
+
+          message_id: The ID of the message in the format 'message-<uuid4>'
 
           extra_headers: Send extra headers
 
@@ -931,6 +944,7 @@ class AsyncConversationsResource(AsyncAPIResource):
                     {
                         "agent_id": agent_id,
                         "hidden": hidden,
+                        "message_id": message_id,
                     },
                     conversation_fork_params.ConversationForkParams,
                 ),
