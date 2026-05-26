@@ -71,6 +71,7 @@ class ConversationsResource(SyncAPIResource):
         *,
         agent_id: str,
         context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         hidden: bool | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
@@ -90,6 +91,9 @@ class ConversationsResource(SyncAPIResource):
 
           context_window_limit: The context window limit for this conversation (overrides agent's context
               window).
+
+          description: A generated description of the conversation used for search and bootstrap
+              context.
 
           hidden: Whether the new conversation should be hidden from listings.
 
@@ -114,6 +118,7 @@ class ConversationsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "context_window_limit": context_window_limit,
+                    "description": description,
                     "hidden": hidden,
                     "model": model,
                     "model_settings": model_settings,
@@ -172,6 +177,7 @@ class ConversationsResource(SyncAPIResource):
         *,
         archived: Optional[bool] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
@@ -193,6 +199,9 @@ class ConversationsResource(SyncAPIResource):
 
           context_window_limit: The context window limit for this conversation (overrides agent's context
               window).
+
+          description: A generated description of the conversation used for search and bootstrap
+              context.
 
           last_message_at: Timestamp of the most recent message request sent to this conversation.
 
@@ -220,6 +229,7 @@ class ConversationsResource(SyncAPIResource):
                 {
                     "archived": archived,
                     "context_window_limit": context_window_limit,
+                    "description": description,
                     "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
@@ -555,6 +565,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         *,
         agent_id: str,
         context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         hidden: bool | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
@@ -574,6 +585,9 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           context_window_limit: The context window limit for this conversation (overrides agent's context
               window).
+
+          description: A generated description of the conversation used for search and bootstrap
+              context.
 
           hidden: Whether the new conversation should be hidden from listings.
 
@@ -598,6 +612,7 @@ class AsyncConversationsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "context_window_limit": context_window_limit,
+                    "description": description,
                     "hidden": hidden,
                     "model": model,
                     "model_settings": model_settings,
@@ -658,6 +673,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         *,
         archived: Optional[bool] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
@@ -679,6 +695,9 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           context_window_limit: The context window limit for this conversation (overrides agent's context
               window).
+
+          description: A generated description of the conversation used for search and bootstrap
+              context.
 
           last_message_at: Timestamp of the most recent message request sent to this conversation.
 
@@ -706,6 +725,7 @@ class AsyncConversationsResource(AsyncAPIResource):
                 {
                     "archived": archived,
                     "context_window_limit": context_window_limit,
+                    "description": description,
                     "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,

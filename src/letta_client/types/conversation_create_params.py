@@ -51,6 +51,12 @@ class ConversationCreateParams(TypedDict, total=False):
     window).
     """
 
+    description: Optional[str]
+    """
+    A generated description of the conversation used for search and bootstrap
+    context.
+    """
+
     hidden: bool
     """Whether the new conversation should be hidden from listings."""
 
