@@ -651,6 +651,24 @@ Methods:
 - <code title="post /v1/conversations/{conversation_id}/compact">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">compact</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_compact_params.py">params</a>) -> <a href="./src/letta_client/types/conversations/compaction_response.py">CompactionResponse</a></code>
 - <code title="post /v1/conversations/{conversation_id}/stream">client.conversations.messages.<a href="./src/letta_client/resources/conversations/messages.py">stream</a>(conversation_id, \*\*<a href="src/letta_client/types/conversations/message_stream_params.py">params</a>) -> object</code>
 
+# Environments
+
+Types:
+
+```python
+from letta_client.types import (
+    EnvironmentRetrieveResponse,
+    EnvironmentListResponse,
+    EnvironmentSendMessageResponse,
+)
+```
+
+Methods:
+
+- <code title="get /v1/environments/{deviceId}">client.environments.<a href="./src/letta_client/resources/environments.py">retrieve</a>(device_id) -> <a href="./src/letta_client/types/environment_retrieve_response.py">EnvironmentRetrieveResponse</a></code>
+- <code title="get /v1/environments">client.environments.<a href="./src/letta_client/resources/environments.py">list</a>(\*\*<a href="src/letta_client/types/environment_list_params.py">params</a>) -> <a href="./src/letta_client/types/environment_list_response.py">EnvironmentListResponse</a></code>
+- <code title="post /v1/environments/{connectionId}/messages">client.environments.<a href="./src/letta_client/resources/environments.py">send_message</a>(connection_id, \*\*<a href="src/letta_client/types/environment_send_message_params.py">params</a>) -> <a href="./src/letta_client/types/environment_send_message_response.py">EnvironmentSendMessageResponse</a></code>
+
 # AccessTokens
 
 Types:

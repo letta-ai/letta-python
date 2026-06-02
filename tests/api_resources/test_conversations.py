@@ -36,6 +36,7 @@ class TestConversations:
         conversation = client.conversations.create(
             agent_id="agent_id",
             context_window_limit=0,
+            description="description",
             hidden=True,
             model="model",
             model_settings={
@@ -134,6 +135,7 @@ class TestConversations:
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
             archived=True,
             context_window_limit=0,
+            description="description",
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -333,6 +335,7 @@ class TestConversations:
             conversation_id="default",
             agent_id="agent_id",
             hidden=True,
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -459,6 +462,7 @@ class TestAsyncConversations:
         conversation = await async_client.conversations.create(
             agent_id="agent_id",
             context_window_limit=0,
+            description="description",
             hidden=True,
             model="model",
             model_settings={
@@ -557,6 +561,7 @@ class TestAsyncConversations:
             conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
             archived=True,
             context_window_limit=0,
+            description="description",
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -756,6 +761,7 @@ class TestAsyncConversations:
             conversation_id="default",
             agent_id="agent_id",
             hidden=True,
+            message_id="message-123e4567-e89b-42d3-8456-426614174000",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 

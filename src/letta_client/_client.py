@@ -60,6 +60,7 @@ if TYPE_CHECKING:
         passages,
         templates,
         mcp_servers,
+        environments,
         access_tokens,
         conversations,
     )
@@ -69,6 +70,7 @@ if TYPE_CHECKING:
     from .resources.passages import PassagesResource, AsyncPassagesResource
     from .resources.runs.runs import RunsResource, AsyncRunsResource
     from .resources.steps.steps import StepsResource, AsyncStepsResource
+    from .resources.environments import EnvironmentsResource, AsyncEnvironmentsResource
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
     from .resources.agents.agents import AgentsResource, AsyncAgentsResource
     from .resources.blocks.blocks import BlocksResource, AsyncBlocksResource
@@ -274,6 +276,12 @@ class Letta(SyncAPIClient):
         from .resources.conversations import ConversationsResource
 
         return ConversationsResource(self)
+
+    @cached_property
+    def environments(self) -> EnvironmentsResource:
+        from .resources.environments import EnvironmentsResource
+
+        return EnvironmentsResource(self)
 
     @cached_property
     def access_tokens(self) -> AccessTokensResource:
@@ -602,6 +610,12 @@ class AsyncLetta(AsyncAPIClient):
         return AsyncConversationsResource(self)
 
     @cached_property
+    def environments(self) -> AsyncEnvironmentsResource:
+        from .resources.environments import AsyncEnvironmentsResource
+
+        return AsyncEnvironmentsResource(self)
+
+    @cached_property
     def access_tokens(self) -> AsyncAccessTokensResource:
         from .resources.access_tokens import AsyncAccessTokensResource
 
@@ -844,6 +858,12 @@ class LettaWithRawResponse:
         return ConversationsResourceWithRawResponse(self._client.conversations)
 
     @cached_property
+    def environments(self) -> environments.EnvironmentsResourceWithRawResponse:
+        from .resources.environments import EnvironmentsResourceWithRawResponse
+
+        return EnvironmentsResourceWithRawResponse(self._client.environments)
+
+    @cached_property
     def access_tokens(self) -> access_tokens.AccessTokensResourceWithRawResponse:
         from .resources.access_tokens import AccessTokensResourceWithRawResponse
 
@@ -943,6 +963,12 @@ class AsyncLettaWithRawResponse:
         from .resources.conversations import AsyncConversationsResourceWithRawResponse
 
         return AsyncConversationsResourceWithRawResponse(self._client.conversations)
+
+    @cached_property
+    def environments(self) -> environments.AsyncEnvironmentsResourceWithRawResponse:
+        from .resources.environments import AsyncEnvironmentsResourceWithRawResponse
+
+        return AsyncEnvironmentsResourceWithRawResponse(self._client.environments)
 
     @cached_property
     def access_tokens(self) -> access_tokens.AsyncAccessTokensResourceWithRawResponse:
@@ -1046,6 +1072,12 @@ class LettaWithStreamedResponse:
         return ConversationsResourceWithStreamingResponse(self._client.conversations)
 
     @cached_property
+    def environments(self) -> environments.EnvironmentsResourceWithStreamingResponse:
+        from .resources.environments import EnvironmentsResourceWithStreamingResponse
+
+        return EnvironmentsResourceWithStreamingResponse(self._client.environments)
+
+    @cached_property
     def access_tokens(self) -> access_tokens.AccessTokensResourceWithStreamingResponse:
         from .resources.access_tokens import AccessTokensResourceWithStreamingResponse
 
@@ -1145,6 +1177,12 @@ class AsyncLettaWithStreamedResponse:
         from .resources.conversations import AsyncConversationsResourceWithStreamingResponse
 
         return AsyncConversationsResourceWithStreamingResponse(self._client.conversations)
+
+    @cached_property
+    def environments(self) -> environments.AsyncEnvironmentsResourceWithStreamingResponse:
+        from .resources.environments import AsyncEnvironmentsResourceWithStreamingResponse
+
+        return AsyncEnvironmentsResourceWithStreamingResponse(self._client.environments)
 
     @cached_property
     def access_tokens(self) -> access_tokens.AsyncAccessTokensResourceWithStreamingResponse:

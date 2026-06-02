@@ -53,6 +53,12 @@ class ConversationUpdateParams(TypedDict, total=False):
     window).
     """
 
+    description: Optional[str]
+    """
+    A generated description of the conversation used for search and bootstrap
+    context.
+    """
+
     last_message_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Timestamp of the most recent message request sent to this conversation."""
 

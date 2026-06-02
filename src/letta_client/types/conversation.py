@@ -332,6 +332,12 @@ class Conversation(BaseModel):
     created_by_id: Optional[str] = None
     """The id of the user that made this object."""
 
+    description: Optional[str] = None
+    """
+    A generated description of the conversation used for search and bootstrap
+    context.
+    """
+
     in_context_message_ids: Optional[List[str]] = None
     """The IDs of in-context messages for the conversation.
 
