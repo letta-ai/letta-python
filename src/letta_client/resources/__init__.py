@@ -104,6 +104,14 @@ from .mcp_servers import (
     McpServersResourceWithStreamingResponse,
     AsyncMcpServersResourceWithStreamingResponse,
 )
+from .environments import (
+    EnvironmentsResource,
+    AsyncEnvironmentsResource,
+    EnvironmentsResourceWithRawResponse,
+    AsyncEnvironmentsResourceWithRawResponse,
+    EnvironmentsResourceWithStreamingResponse,
+    AsyncEnvironmentsResourceWithStreamingResponse,
+)
 from .access_tokens import (
     AccessTokensResource,
     AsyncAccessTokensResource,
@@ -206,6 +214,12 @@ __all__ = [
     "AsyncConversationsResourceWithRawResponse",
     "ConversationsResourceWithStreamingResponse",
     "AsyncConversationsResourceWithStreamingResponse",
+    "EnvironmentsResource",
+    "AsyncEnvironmentsResource",
+    "EnvironmentsResourceWithRawResponse",
+    "AsyncEnvironmentsResourceWithRawResponse",
+    "EnvironmentsResourceWithStreamingResponse",
+    "AsyncEnvironmentsResourceWithStreamingResponse",
     "AccessTokensResource",
     "AsyncAccessTokensResource",
     "AccessTokensResourceWithRawResponse",
