@@ -1,13 +1,25 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import TYPE_CHECKING, Dict, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["EnvironmentRetrieveResponse", "Metadata"]
+__all__ = ["EnvironmentRetrieveResponse", "Metadata", "MetadataSelfUpdate"]
+
+
+class MetadataSelfUpdate(BaseModel):
+    supported: bool
+
+    writable: bool
+
+    install_path: Optional[str] = None
+
+    manual_command: Optional[str] = None
+
+    reason: Optional[str] = None
 
 
 class Metadata(BaseModel):
@@ -18,6 +30,10 @@ class Metadata(BaseModel):
     node_version: Optional[str] = FieldInfo(alias="nodeVersion", default=None)
 
     os: Optional[str] = None
+
+    self_update: Optional[MetadataSelfUpdate] = None
+
+    supported_commands: Optional[List[str]] = None
 
     working_directory: Optional[str] = FieldInfo(alias="workingDirectory", default=None)
 
