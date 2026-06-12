@@ -28,6 +28,9 @@ __all__ = [
     "ModelSettingsSgLangModelSettings",
     "ModelSettingsSgLangModelSettingsReasoning",
     "ModelSettingsSgLangModelSettingsResponseFormat",
+    "ModelSettingsMiniMaxModelSettings",
+    "ModelSettingsMiniMaxModelSettingsResponseFormat",
+    "ModelSettingsMiniMaxModelSettingsThinking",
     "ModelSettingsMoonshotModelSettings",
     "ModelSettingsMoonshotModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettings",
@@ -88,6 +91,60 @@ class ModelSettingsSgLangModelSettings(BaseModel):
 
     tool_call_parser: Optional[str] = None
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
+
+
+ModelSettingsMiniMaxModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsMiniMaxModelSettingsThinking(BaseModel):
+    """The thinking configuration for the model."""
+
+    budget_tokens: Optional[int] = None
+    """The maximum number of tokens the model can use for extended thinking."""
+
+    type: Optional[Literal["enabled", "disabled"]] = None
+    """The type of thinking to use."""
+
+
+class ModelSettingsMiniMaxModelSettings(BaseModel):
+    """MiniMax model configuration (Anthropic-compatible)."""
+
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]] = None
+    """Effort level for supported Anthropic models (controls token spending).
+
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
+    """
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["minimax"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsMiniMaxModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    strict: Optional[bool] = None
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+    thinking: Optional[ModelSettingsMiniMaxModelSettingsThinking] = None
+    """The thinking configuration for the model."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]] = None
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
 ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Annotated[
@@ -285,6 +342,7 @@ ModelSettings: TypeAlias = Annotated[
         OpenAIModelSettings,
         ModelSettingsSgLangModelSettings,
         AnthropicModelSettings,
+        ModelSettingsMiniMaxModelSettings,
         GoogleAIModelSettings,
         GoogleVertexModelSettings,
         AzureModelSettings,

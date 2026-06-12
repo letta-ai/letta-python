@@ -26,6 +26,9 @@ __all__ = [
     "CompactionSettingsModelSettingsSgLangModelSettings",
     "CompactionSettingsModelSettingsSgLangModelSettingsReasoning",
     "CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsMiniMaxModelSettings",
+    "CompactionSettingsModelSettingsMiniMaxModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsMiniMaxModelSettingsThinking",
     "CompactionSettingsModelSettingsMoonshotModelSettings",
     "CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettings",
@@ -100,6 +103,59 @@ class CompactionSettingsModelSettingsSgLangModelSettings(TypedDict, total=False)
 
     tool_call_parser: Optional[str]
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
+
+
+CompactionSettingsModelSettingsMiniMaxModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsMiniMaxModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for the model."""
+
+    budget_tokens: int
+    """The maximum number of tokens the model can use for extended thinking."""
+
+    type: Literal["enabled", "disabled"]
+    """The type of thinking to use."""
+
+
+class CompactionSettingsModelSettingsMiniMaxModelSettings(TypedDict, total=False):
+    """MiniMax model configuration (Anthropic-compatible)."""
+
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]]
+    """Effort level for supported Anthropic models (controls token spending).
+
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
+    """
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["minimax"]
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsMiniMaxModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+    thinking: CompactionSettingsModelSettingsMiniMaxModelSettingsThinking
+    """The thinking configuration for the model."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]]
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
 CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Union[
@@ -292,6 +348,7 @@ CompactionSettingsModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
     CompactionSettingsModelSettingsSgLangModelSettings,
     AnthropicModelSettingsParam,
+    CompactionSettingsModelSettingsMiniMaxModelSettings,
     GoogleAIModelSettingsParam,
     GoogleVertexModelSettingsParam,
     AzureModelSettingsParam,
