@@ -54,6 +54,7 @@ class TestAgents:
             },
             context_window_limit=0,
             description="description",
+            disable_memfs=True,
             embedding="embedding",
             embedding_chunk_size=0,
             embedding_config={
@@ -302,6 +303,7 @@ class TestAgents:
             },
             context_window_limit=0,
             description="description",
+            disable_memfs=True,
             embedding="embedding",
             embedding_config={
                 "embedding_dim": 0,
@@ -727,6 +729,7 @@ class TestAsyncAgents:
             },
             context_window_limit=0,
             description="description",
+            disable_memfs=True,
             embedding="embedding",
             embedding_chunk_size=0,
             embedding_config={
@@ -975,6 +978,7 @@ class TestAsyncAgents:
             },
             context_window_limit=0,
             description="description",
+            disable_memfs=True,
             embedding="embedding",
             embedding_config={
                 "embedding_dim": 0,
