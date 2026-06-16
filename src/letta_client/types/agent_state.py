@@ -1131,9 +1131,6 @@ class AgentState(BaseModel):
     description: Optional[str] = None
     """The description of the agent."""
 
-    disable_memfs: Optional[bool] = None
-    """If set to True, disables git-backed memory which requires sandboxing"""
-
     embedding: Optional[str] = None
     """The embedding model handle used by the agent (format: provider/model-name)."""
 

@@ -105,9 +105,6 @@ class AgentCreateParams(TypedDict, total=False):
     description: Optional[str]
     """The description of the agent."""
 
-    disable_memfs: bool
-    """If set to True, disables git-backed memory which requires sandboxing"""
-
     embedding: Optional[str]
     """The embedding model handle used by the agent (format: provider/model-name)."""
 

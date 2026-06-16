@@ -191,7 +191,6 @@ class AgentsResource(SyncAPIResource):
         compaction_settings: Optional[agent_create_params.CompactionSettings] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        disable_memfs: bool | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         embedding_chunk_size: Optional[int] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
@@ -258,8 +257,6 @@ class AgentsResource(SyncAPIResource):
           context_window_limit: The context window limit used by the agent.
 
           description: The description of the agent.
-
-          disable_memfs: If set to True, disables git-backed memory which requires sandboxing
 
           embedding: The embedding model handle used by the agent (format: provider/model-name).
 
@@ -383,7 +380,6 @@ class AgentsResource(SyncAPIResource):
                     "compaction_settings": compaction_settings,
                     "context_window_limit": context_window_limit,
                     "description": description,
-                    "disable_memfs": disable_memfs,
                     "embedding": embedding,
                     "embedding_chunk_size": embedding_chunk_size,
                     "embedding_config": embedding_config,
@@ -512,7 +508,6 @@ class AgentsResource(SyncAPIResource):
         compaction_settings: Optional[agent_update_params.CompactionSettings] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        disable_memfs: Optional[bool] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
@@ -570,8 +565,6 @@ class AgentsResource(SyncAPIResource):
           context_window_limit: The context window limit used by the agent.
 
           description: The description of the agent.
-
-          disable_memfs: If set to True, disables git-backed memory which requires sandboxing
 
           embedding: The embedding model handle used by the agent (format: provider/model-name).
 
@@ -670,7 +663,6 @@ class AgentsResource(SyncAPIResource):
                     "compaction_settings": compaction_settings,
                     "context_window_limit": context_window_limit,
                     "description": description,
-                    "disable_memfs": disable_memfs,
                     "embedding": embedding,
                     "embedding_config": embedding_config,
                     "enable_sleeptime": enable_sleeptime,
@@ -1170,7 +1162,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         compaction_settings: Optional[agent_create_params.CompactionSettings] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        disable_memfs: bool | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         embedding_chunk_size: Optional[int] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
@@ -1237,8 +1228,6 @@ class AsyncAgentsResource(AsyncAPIResource):
           context_window_limit: The context window limit used by the agent.
 
           description: The description of the agent.
-
-          disable_memfs: If set to True, disables git-backed memory which requires sandboxing
 
           embedding: The embedding model handle used by the agent (format: provider/model-name).
 
@@ -1362,7 +1351,6 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "compaction_settings": compaction_settings,
                     "context_window_limit": context_window_limit,
                     "description": description,
-                    "disable_memfs": disable_memfs,
                     "embedding": embedding,
                     "embedding_chunk_size": embedding_chunk_size,
                     "embedding_config": embedding_config,
@@ -1491,7 +1479,6 @@ class AsyncAgentsResource(AsyncAPIResource):
         compaction_settings: Optional[agent_update_params.CompactionSettings] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        disable_memfs: Optional[bool] | Omit = omit,
         embedding: Optional[str] | Omit = omit,
         embedding_config: Optional[EmbeddingConfigParam] | Omit = omit,
         enable_sleeptime: Optional[bool] | Omit = omit,
@@ -1549,8 +1536,6 @@ class AsyncAgentsResource(AsyncAPIResource):
           context_window_limit: The context window limit used by the agent.
 
           description: The description of the agent.
-
-          disable_memfs: If set to True, disables git-backed memory which requires sandboxing
 
           embedding: The embedding model handle used by the agent (format: provider/model-name).
 
@@ -1649,7 +1634,6 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "compaction_settings": compaction_settings,
                     "context_window_limit": context_window_limit,
                     "description": description,
-                    "disable_memfs": disable_memfs,
                     "embedding": embedding,
                     "embedding_config": embedding_config,
                     "enable_sleeptime": enable_sleeptime,
