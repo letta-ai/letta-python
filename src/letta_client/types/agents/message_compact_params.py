@@ -34,6 +34,9 @@ __all__ = [
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettingsThinking",
+    "CompactionSettingsModelSettingsZaiCodingModelSettings",
+    "CompactionSettingsModelSettingsZaiCodingModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsZaiCodingModelSettingsThinking",
     "CompactionSettingsModelSettingsMoonshotCodingModelSettings",
     "CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsMoonshotCodingModelSettingsThinking",
@@ -219,6 +222,43 @@ class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
     """The thinking configuration for GLM-4.5+ models."""
 
 
+CompactionSettingsModelSettingsZaiCodingModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsZaiCodingModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for GLM-4.5+ models."""
+
+    clear_thinking: bool
+    """If False, preserved thinking is used (recommended for agents)."""
+
+    type: Literal["enabled", "disabled"]
+    """Whether thinking is enabled or disabled."""
+
+
+class CompactionSettingsModelSettingsZaiCodingModelSettings(TypedDict, total=False):
+    """Z.ai coding model configuration (OpenAI-compatible, zai_coding provider)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["zai_coding"]
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsZaiCodingModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    temperature: float
+    """The temperature of the model."""
+
+    thinking: CompactionSettingsModelSettingsZaiCodingModelSettingsThinking
+    """The thinking configuration for GLM-4.5+ models."""
+
+
 CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
@@ -349,6 +389,7 @@ CompactionSettingsModelSettings: TypeAlias = Union[
     XaiModelSettingsParam,
     CompactionSettingsModelSettingsMoonshotModelSettings,
     CompactionSettingsModelSettingsZaiModelSettings,
+    CompactionSettingsModelSettingsZaiCodingModelSettings,
     CompactionSettingsModelSettingsMoonshotCodingModelSettings,
     GroqModelSettingsParam,
     DeepseekModelSettingsParam,

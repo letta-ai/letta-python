@@ -36,6 +36,9 @@ __all__ = [
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettingsThinking",
+    "ModelSettingsZaiCodingModelSettings",
+    "ModelSettingsZaiCodingModelSettingsResponseFormat",
+    "ModelSettingsZaiCodingModelSettingsThinking",
     "ModelSettingsMoonshotCodingModelSettings",
     "ModelSettingsMoonshotCodingModelSettingsResponseFormat",
     "ModelSettingsMoonshotCodingModelSettingsThinking",
@@ -216,6 +219,44 @@ class ModelSettingsZaiModelSettings(BaseModel):
     """The thinking configuration for GLM-4.5+ models."""
 
 
+ModelSettingsZaiCodingModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsZaiCodingModelSettingsThinking(BaseModel):
+    """The thinking configuration for GLM-4.5+ models."""
+
+    clear_thinking: Optional[bool] = None
+    """If False, preserved thinking is used (recommended for agents)."""
+
+    type: Optional[Literal["enabled", "disabled"]] = None
+    """Whether thinking is enabled or disabled."""
+
+
+class ModelSettingsZaiCodingModelSettings(BaseModel):
+    """Z.ai coding model configuration (OpenAI-compatible, zai_coding provider)."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["zai_coding"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsZaiCodingModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+    thinking: Optional[ModelSettingsZaiCodingModelSettingsThinking] = None
+    """The thinking configuration for GLM-4.5+ models."""
+
+
 ModelSettingsMoonshotCodingModelSettingsResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
     PropertyInfo(discriminator="type"),
@@ -349,6 +390,7 @@ ModelSettings: TypeAlias = Annotated[
         XaiModelSettings,
         ModelSettingsMoonshotModelSettings,
         ModelSettingsZaiModelSettings,
+        ModelSettingsZaiCodingModelSettings,
         ModelSettingsMoonshotCodingModelSettings,
         GroqModelSettings,
         DeepseekModelSettings,
