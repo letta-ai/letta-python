@@ -77,6 +77,8 @@ class Connection(BaseModel):
         FieldInfo(alias="currentMode", default=None)
     )
 
+    listener_instance_id: Optional[str] = FieldInfo(alias="listenerInstanceId", default=None)
+
     metadata: Optional[ConnectionMetadata] = None
 
     user_id: Optional[str] = FieldInfo(alias="userId", default=None)
