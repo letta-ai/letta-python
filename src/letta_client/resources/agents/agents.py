@@ -761,7 +761,8 @@ class AgentsResource(SyncAPIResource):
 
           before: Cursor for pagination
 
-          created_by_id: Filter agents by the user who created them.
+          created_by_id: Filter agents by the user who created them. Use "@me" to filter to agents
+              created by the requesting user.
 
           identifier_keys: Search agents by identifier keys
 
@@ -1732,7 +1733,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           before: Cursor for pagination
 
-          created_by_id: Filter agents by the user who created them.
+          created_by_id: Filter agents by the user who created them. Use "@me" to filter to agents
+              created by the requesting user.
 
           identifier_keys: Search agents by identifier keys
 

@@ -249,6 +249,7 @@ class ConversationsResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         agent_id: Optional[str] | Omit = omit,
         archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
+        created_by_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
@@ -273,6 +274,9 @@ class ConversationsResource(SyncAPIResource):
 
           archive_status: Whether to return unarchived conversations only, archived conversations only, or
               all conversations
+
+          created_by_id: Filter conversations by the user who created them. Use "@me" to filter to
+              conversations created by the requesting user.
 
           limit: Maximum number of conversations to return
 
@@ -302,6 +306,7 @@ class ConversationsResource(SyncAPIResource):
                         "after": after,
                         "agent_id": agent_id,
                         "archive_status": archive_status,
+                        "created_by_id": created_by_id,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,
@@ -745,6 +750,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         agent_id: Optional[str] | Omit = omit,
         archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
+        created_by_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
@@ -769,6 +775,9 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           archive_status: Whether to return unarchived conversations only, archived conversations only, or
               all conversations
+
+          created_by_id: Filter conversations by the user who created them. Use "@me" to filter to
+              conversations created by the requesting user.
 
           limit: Maximum number of conversations to return
 
@@ -798,6 +807,7 @@ class AsyncConversationsResource(AsyncAPIResource):
                         "after": after,
                         "agent_id": agent_id,
                         "archive_status": archive_status,
+                        "created_by_id": created_by_id,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,

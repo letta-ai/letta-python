@@ -28,6 +28,12 @@ class ConversationListParams(TypedDict, total=False):
     all conversations
     """
 
+    created_by_id: Optional[str]
+    """Filter conversations by the user who created them.
+
+    Use "@me" to filter to conversations created by the requesting user.
+    """
+
     limit: int
     """Maximum number of conversations to return"""
 
