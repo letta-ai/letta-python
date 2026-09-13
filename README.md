@@ -1,5 +1,8 @@
 # Letta Python API library
 
+> [!WARNING]
+> **This package is deprecated.** New development should use the [Letta Agent SDK](https://github.com/letta-ai/letta-agent-sdk) ([documentation](https://docs.letta.com/agent-sdk)) instead. Python applications on the current platform use the [App Server WebSocket protocol](https://docs.letta.com/platform/app-server); the Agent SDK provides the supported client for it. This package is unmaintained and receives no new features.
+
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/letta-client.svg?label=pypi%20(stable))](https://pypi.org/project/letta-client/)
 
