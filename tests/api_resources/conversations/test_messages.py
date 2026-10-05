@@ -68,6 +68,7 @@ class TestMessages:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -78,6 +79,10 @@ class TestMessages:
             ],
             override_model="override_model",
             override_system="override_system",
+            response_format={
+                "json_schema": {"foo": "bar"},
+                "type": "json_schema",
+            },
             return_logprobs=True,
             return_token_ids=True,
             stream_tokens=True,
@@ -356,6 +361,7 @@ class TestAsyncMessages:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -366,6 +372,10 @@ class TestAsyncMessages:
             ],
             override_model="override_model",
             override_system="override_system",
+            response_format={
+                "json_schema": {"foo": "bar"},
+                "type": "json_schema",
+            },
             return_logprobs=True,
             return_token_ids=True,
             stream_tokens=True,

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable
+from typing import List, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -54,6 +54,9 @@ class ScheduleResource(SyncAPIResource):
         messages: Iterable[schedule_create_params.Message],
         schedule: schedule_create_params.Schedule,
         callback_url: str | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        conversation_id: str | Omit = omit,
+        description: str | Omit = omit,
         include_return_message_types: List[
             Literal[
                 "system_message",
@@ -69,6 +72,11 @@ class ScheduleResource(SyncAPIResource):
         ]
         | Omit = omit,
         max_steps: float | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: object | Omit = omit,
+        name: str | Omit = omit,
+        target_device_id: str | Omit = omit,
+        use_sandbox: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -98,8 +106,16 @@ class ScheduleResource(SyncAPIResource):
                     "messages": messages,
                     "schedule": schedule,
                     "callback_url": callback_url,
+                    "context_window_limit": context_window_limit,
+                    "conversation_id": conversation_id,
+                    "description": description,
                     "include_return_message_types": include_return_message_types,
                     "max_steps": max_steps,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "name": name,
+                    "target_device_id": target_device_id,
+                    "use_sandbox": use_sandbox,
                 },
                 schedule_create_params.ScheduleCreateParams,
             ),
@@ -156,7 +172,10 @@ class ScheduleResource(SyncAPIResource):
         agent_id: str,
         *,
         after: str | Omit = omit,
+        include_completed: Literal["true", "false"] | Omit = omit,
         limit: str | Omit = omit,
+        schedule_type: Literal["one-time", "recurring"] | Omit = omit,
+        status: Literal["active", "paused", "completed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -168,6 +187,14 @@ class ScheduleResource(SyncAPIResource):
         List all scheduled messages for a specific agent.
 
         Args:
+          include_completed: When 'true', include schedules that already completed (one-time schedules that
+              already fired). Defaults to active and paused schedules.
+
+          schedule_type: Filter by schedule kind. one-time schedules have a fixed scheduled_at; recurring
+              schedules have a cron_expression.
+
+          status: Return only schedules with this status.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -188,7 +215,10 @@ class ScheduleResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "include_completed": include_completed,
                         "limit": limit,
+                        "schedule_type": schedule_type,
+                        "status": status,
                     },
                     schedule_list_params.ScheduleListParams,
                 ),
@@ -266,6 +296,9 @@ class AsyncScheduleResource(AsyncAPIResource):
         messages: Iterable[schedule_create_params.Message],
         schedule: schedule_create_params.Schedule,
         callback_url: str | Omit = omit,
+        context_window_limit: Optional[int] | Omit = omit,
+        conversation_id: str | Omit = omit,
+        description: str | Omit = omit,
         include_return_message_types: List[
             Literal[
                 "system_message",
@@ -281,6 +314,11 @@ class AsyncScheduleResource(AsyncAPIResource):
         ]
         | Omit = omit,
         max_steps: float | Omit = omit,
+        model: Optional[str] | Omit = omit,
+        model_settings: object | Omit = omit,
+        name: str | Omit = omit,
+        target_device_id: str | Omit = omit,
+        use_sandbox: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -310,8 +348,16 @@ class AsyncScheduleResource(AsyncAPIResource):
                     "messages": messages,
                     "schedule": schedule,
                     "callback_url": callback_url,
+                    "context_window_limit": context_window_limit,
+                    "conversation_id": conversation_id,
+                    "description": description,
                     "include_return_message_types": include_return_message_types,
                     "max_steps": max_steps,
+                    "model": model,
+                    "model_settings": model_settings,
+                    "name": name,
+                    "target_device_id": target_device_id,
+                    "use_sandbox": use_sandbox,
                 },
                 schedule_create_params.ScheduleCreateParams,
             ),
@@ -368,7 +414,10 @@ class AsyncScheduleResource(AsyncAPIResource):
         agent_id: str,
         *,
         after: str | Omit = omit,
+        include_completed: Literal["true", "false"] | Omit = omit,
         limit: str | Omit = omit,
+        schedule_type: Literal["one-time", "recurring"] | Omit = omit,
+        status: Literal["active", "paused", "completed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -380,6 +429,14 @@ class AsyncScheduleResource(AsyncAPIResource):
         List all scheduled messages for a specific agent.
 
         Args:
+          include_completed: When 'true', include schedules that already completed (one-time schedules that
+              already fired). Defaults to active and paused schedules.
+
+          schedule_type: Filter by schedule kind. one-time schedules have a fixed scheduled_at; recurring
+              schedules have a cron_expression.
+
+          status: Return only schedules with this status.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -400,7 +457,10 @@ class AsyncScheduleResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "after": after,
+                        "include_completed": include_completed,
                         "limit": limit,
+                        "schedule_type": schedule_type,
+                        "status": status,
                     },
                     schedule_list_params.ScheduleListParams,
                 ),

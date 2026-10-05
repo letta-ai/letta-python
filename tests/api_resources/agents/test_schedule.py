@@ -63,8 +63,16 @@ class TestSchedule:
                 "type": "one-time",
             },
             callback_url="https://example.com",
+            context_window_limit=0,
+            conversation_id="conversation_id",
+            description="description",
             include_return_message_types=["system_message"],
             max_steps=0,
+            model="model",
+            model_settings={},
+            name="name",
+            target_device_id="target_device_id",
+            use_sandbox=True,
         )
         assert_matches_type(ScheduleCreateResponse, schedule, path=["response"])
 
@@ -189,7 +197,10 @@ class TestSchedule:
         schedule = client.agents.schedule.list(
             agent_id="agent_id",
             after="after",
+            include_completed="true",
             limit="limit",
+            schedule_type="one-time",
+            status="active",
         )
         assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
@@ -326,8 +337,16 @@ class TestAsyncSchedule:
                 "type": "one-time",
             },
             callback_url="https://example.com",
+            context_window_limit=0,
+            conversation_id="conversation_id",
+            description="description",
             include_return_message_types=["system_message"],
             max_steps=0,
+            model="model",
+            model_settings={},
+            name="name",
+            target_device_id="target_device_id",
+            use_sandbox=True,
         )
         assert_matches_type(ScheduleCreateResponse, schedule, path=["response"])
 
@@ -452,7 +471,10 @@ class TestAsyncSchedule:
         schedule = await async_client.agents.schedule.list(
             agent_id="agent_id",
             after="after",
+            include_completed="true",
             limit="limit",
+            schedule_type="one-time",
+            status="active",
         )
         assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 

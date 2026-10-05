@@ -31,6 +31,7 @@ from ...types.agents.message_type import MessageType
 from ...types.agents.letta_response import LettaResponse
 from ...types.agents.letta_streaming_response import LettaStreamingResponse
 from ...types.conversations.compaction_response import CompactionResponse
+from ...types.json_schema_response_format_param import JsonSchemaResponseFormatParam
 
 __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
@@ -74,6 +75,7 @@ class MessagesResource(SyncAPIResource):
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
         override_system: Optional[str] | Omit = omit,
+        response_format: JsonSchemaResponseFormatParam | Omit = omit,
         return_logprobs: bool | Omit = omit,
         return_token_ids: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
@@ -152,6 +154,9 @@ class MessagesResource(SyncAPIResource):
               to the underlying LLM request and bypasses the persisted/compiled system message
               for that request.
 
+          response_format: Request-scoped JSON Schema response format. This does not persist to the
+              conversation or agent.
+
           return_logprobs: If True, returns log probabilities of the output tokens in the response. Useful
               for RL training. Only supported for OpenAI-compatible providers (including
               SGLang).
@@ -203,6 +208,7 @@ class MessagesResource(SyncAPIResource):
                     "messages": messages,
                     "override_model": override_model,
                     "override_system": override_system,
+                    "response_format": response_format,
                     "return_logprobs": return_logprobs,
                     "return_token_ids": return_token_ids,
                     "stream_tokens": stream_tokens,
@@ -510,6 +516,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         messages: Optional[Iterable[message_create_params.Message]] | Omit = omit,
         override_model: Optional[str] | Omit = omit,
         override_system: Optional[str] | Omit = omit,
+        response_format: JsonSchemaResponseFormatParam | Omit = omit,
         return_logprobs: bool | Omit = omit,
         return_token_ids: bool | Omit = omit,
         stream_tokens: bool | Omit = omit,
@@ -588,6 +595,9 @@ class AsyncMessagesResource(AsyncAPIResource):
               to the underlying LLM request and bypasses the persisted/compiled system message
               for that request.
 
+          response_format: Request-scoped JSON Schema response format. This does not persist to the
+              conversation or agent.
+
           return_logprobs: If True, returns log probabilities of the output tokens in the response. Useful
               for RL training. Only supported for OpenAI-compatible providers (including
               SGLang).
@@ -639,6 +649,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                     "messages": messages,
                     "override_model": override_model,
                     "override_system": override_system,
+                    "response_format": response_format,
                     "return_logprobs": return_logprobs,
                     "return_token_ids": return_token_ids,
                     "stream_tokens": stream_tokens,

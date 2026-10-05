@@ -1,13 +1,25 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import TYPE_CHECKING, Dict, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["EnvironmentRetrieveResponse", "Metadata"]
+__all__ = ["EnvironmentRetrieveResponse", "Metadata", "MetadataSelfUpdate"]
+
+
+class MetadataSelfUpdate(BaseModel):
+    supported: bool
+
+    writable: bool
+
+    install_path: Optional[str] = None
+
+    manual_command: Optional[str] = None
+
+    reason: Optional[str] = None
 
 
 class Metadata(BaseModel):
@@ -18,6 +30,12 @@ class Metadata(BaseModel):
     node_version: Optional[str] = FieldInfo(alias="nodeVersion", default=None)
 
     os: Optional[str] = None
+
+    sandbox_size: Optional[Literal["regular", "large", "xlarge"]] = FieldInfo(alias="sandboxSize", default=None)
+
+    self_update: Optional[MetadataSelfUpdate] = None
+
+    supported_commands: Optional[List[str]] = None
 
     working_directory: Optional[str] = FieldInfo(alias="workingDirectory", default=None)
 
@@ -47,6 +65,8 @@ class EnvironmentRetrieveResponse(BaseModel):
 
     first_seen_at: float = FieldInfo(alias="firstSeenAt")
 
+    is_owner: bool = FieldInfo(alias="isOwner")
+
     last_heartbeat: Optional[float] = FieldInfo(alias="lastHeartbeat", default=None)
 
     last_seen_at: float = FieldInfo(alias="lastSeenAt")
@@ -55,11 +75,15 @@ class EnvironmentRetrieveResponse(BaseModel):
 
     pod_id: Optional[str] = FieldInfo(alias="podId", default=None)
 
+    visibility: Literal["private", "organization"]
+
     api_key_owner: Optional[str] = FieldInfo(alias="apiKeyOwner", default=None)
 
     current_mode: Optional[Literal["default", "standard", "acceptEdits", "bypassPermissions", "unrestricted"]] = (
         FieldInfo(alias="currentMode", default=None)
     )
+
+    listener_instance_id: Optional[str] = FieldInfo(alias="listenerInstanceId", default=None)
 
     metadata: Optional[Metadata] = None
 

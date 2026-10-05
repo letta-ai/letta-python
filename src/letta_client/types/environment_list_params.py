@@ -16,6 +16,9 @@ class EnvironmentListParams(TypedDict, total=False):
 
     online_only: Annotated[str, PropertyInfo(alias="onlineOnly")]
 
+    search: str
+    """Filter by computer name (case-insensitive substring)."""
+
     source: Literal["local", "remote"]
 
     user_id: Annotated[str, PropertyInfo(alias="userId")]

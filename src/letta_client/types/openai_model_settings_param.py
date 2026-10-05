@@ -13,10 +13,13 @@ __all__ = ["OpenAIModelSettingsParam", "Reasoning", "ResponseFormat"]
 
 
 class Reasoning(TypedDict, total=False):
-    """The reasoning configuration for the model."""
+    """The reasoning configuration for the model. Null uses the provider default."""
 
-    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh"]
-    """The reasoning effort to use when generating text reasoning models"""
+    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
 
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
@@ -32,8 +35,8 @@ class OpenAIModelSettingsParam(TypedDict, total=False):
     provider_type: Literal["openai"]
     """The type of the provider."""
 
-    reasoning: Reasoning
-    """The reasoning configuration for the model."""
+    reasoning: Optional[Reasoning]
+    """The reasoning configuration for the model. Null uses the provider default."""
 
     response_format: Optional[ResponseFormat]
     """The response format for the model."""

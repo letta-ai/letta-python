@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -12,7 +12,30 @@ from .text_response_format import TextResponseFormat
 from .json_object_response_format import JsonObjectResponseFormat
 from .json_schema_response_format import JsonSchemaResponseFormat
 
-__all__ = ["LlmConfig", "ResponseFormat"]
+__all__ = ["LlmConfig", "ReasoningCapabilities", "ResponseFormat"]
+
+
+class ReasoningCapabilities(BaseModel):
+    """Provider-reported reasoning capabilities for a model."""
+
+    mandatory: bool
+    """Whether reasoning is mandatory for this model."""
+
+    default_effort: Optional[str] = None
+    """The provider's default effort when reasoning is enabled."""
+
+    default_enabled: Optional[bool] = None
+    """Whether the provider enables reasoning by default."""
+
+    supported_efforts: Optional[List[str]] = None
+    """Reasoning effort levels accepted by the provider for this model.
+
+    Null means all gateway-supported effort levels are accepted.
+    """
+
+    supports_max_tokens: Optional[bool] = None
+    """Whether the provider accepts an explicit reasoning token budget for this model."""
+
 
 ResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
@@ -136,8 +159,14 @@ class LlmConfig(BaseModel):
     thoughts.
     """
 
-    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
-    """The reasoning effort to use when generating text reasoning models"""
+    reasoning_capabilities: Optional[ReasoningCapabilities] = None
+    """Provider-reported reasoning capabilities for a model."""
+
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]] = None
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
 
     response_format: Optional[ResponseFormat] = None
     """The response format for the model's output.
