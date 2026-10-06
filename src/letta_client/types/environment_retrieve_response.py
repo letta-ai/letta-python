@@ -7,7 +7,23 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["EnvironmentRetrieveResponse", "Metadata", "MetadataSelfUpdate"]
+__all__ = ["EnvironmentRetrieveResponse", "Metadata", "MetadataMachine", "MetadataSelfUpdate"]
+
+
+class MetadataMachine(BaseModel):
+    architecture: Optional[str] = None
+
+    cpu: Optional[str] = None
+
+    gpus: Optional[List[str]] = None
+
+    memory_bytes: Optional[float] = FieldInfo(alias="memoryBytes", default=None)
+
+    model: Optional[str] = None
+
+    os_name: Optional[str] = FieldInfo(alias="osName", default=None)
+
+    os_version: Optional[str] = FieldInfo(alias="osVersion", default=None)
 
 
 class MetadataSelfUpdate(BaseModel):
@@ -26,6 +42,8 @@ class Metadata(BaseModel):
     git_branch: Optional[str] = FieldInfo(alias="gitBranch", default=None)
 
     letta_code_version: Optional[str] = FieldInfo(alias="lettaCodeVersion", default=None)
+
+    machine: Optional[MetadataMachine] = None
 
     node_version: Optional[str] = FieldInfo(alias="nodeVersion", default=None)
 

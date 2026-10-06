@@ -7,7 +7,29 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["EnvironmentListResponse", "Connection", "ConnectionMetadata", "ConnectionMetadataSelfUpdate"]
+__all__ = [
+    "EnvironmentListResponse",
+    "Connection",
+    "ConnectionMetadata",
+    "ConnectionMetadataMachine",
+    "ConnectionMetadataSelfUpdate",
+]
+
+
+class ConnectionMetadataMachine(BaseModel):
+    architecture: Optional[str] = None
+
+    cpu: Optional[str] = None
+
+    gpus: Optional[List[str]] = None
+
+    memory_bytes: Optional[float] = FieldInfo(alias="memoryBytes", default=None)
+
+    model: Optional[str] = None
+
+    os_name: Optional[str] = FieldInfo(alias="osName", default=None)
+
+    os_version: Optional[str] = FieldInfo(alias="osVersion", default=None)
 
 
 class ConnectionMetadataSelfUpdate(BaseModel):
@@ -26,6 +48,8 @@ class ConnectionMetadata(BaseModel):
     git_branch: Optional[str] = FieldInfo(alias="gitBranch", default=None)
 
     letta_code_version: Optional[str] = FieldInfo(alias="lettaCodeVersion", default=None)
+
+    machine: Optional[ConnectionMetadataMachine] = None
 
     node_version: Optional[str] = FieldInfo(alias="nodeVersion", default=None)
 
