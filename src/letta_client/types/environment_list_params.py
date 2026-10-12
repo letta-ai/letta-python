@@ -16,6 +16,8 @@ class EnvironmentListParams(TypedDict, total=False):
 
     online_only: Annotated[str, PropertyInfo(alias="onlineOnly")]
 
+    pagination_order: Annotated[Literal["id"], PropertyInfo(alias="paginationOrder")]
+
     search: str
     """Filter by computer name (case-insensitive substring)."""
 
