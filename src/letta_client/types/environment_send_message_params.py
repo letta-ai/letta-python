@@ -18,15 +18,26 @@ __all__ = [
     "MessageUnionMember1ApprovalUnionMember0",
     "MessageUnionMember1ApprovalUnionMember0ToolReturnUnionMember1",
     "MessageUnionMember1ApprovalUnionMember1",
+    "ClientToolset",
 ]
 
 
 class EnvironmentSendMessageParams(TypedDict, total=False):
+    agent_id: Required[Annotated[str, PropertyInfo(alias="agentId")]]
+
     messages: Required[Iterable[Message]]
 
-    agent_id: Annotated[str, PropertyInfo(alias="agentId")]
+    client_tool_allowlist: SequenceNotStr[str]
+
+    client_toolset: ClientToolset
 
     conversation_id: Annotated[Optional[str], PropertyInfo(alias="conversationId")]
+
+    exclude_interactive_tools: bool
+
+    external_tool_scope_ids: SequenceNotStr[str]
+
+    image_failure_mode: Literal["strict", "drop"]
 
 
 class MessageUnionMember0ContentUnionMember1(TypedDict, total=False):
@@ -89,3 +100,9 @@ class MessageUnionMember1(TypedDict, total=False):
 
 
 Message: TypeAlias = Union[MessageUnionMember0, MessageUnionMember1]
+
+
+class ClientToolset(TypedDict, total=False):
+    base: str
+
+    include: SequenceNotStr[str]
