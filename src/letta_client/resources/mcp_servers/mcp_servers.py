@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Any, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
@@ -63,6 +64,7 @@ class McpServersResource(SyncAPIResource):
         *,
         config: mcp_server_create_params.Config,
         server_name: str,
+        access: Literal["current-user"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -94,6 +96,7 @@ class McpServersResource(SyncAPIResource):
                     {
                         "config": config,
                         "server_name": server_name,
+                        "access": access,
                     },
                     mcp_server_create_params.McpServerCreateParams,
                 ),
@@ -324,6 +327,7 @@ class AsyncMcpServersResource(AsyncAPIResource):
         *,
         config: mcp_server_create_params.Config,
         server_name: str,
+        access: Literal["current-user"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -355,6 +359,7 @@ class AsyncMcpServersResource(AsyncAPIResource):
                     {
                         "config": config,
                         "server_name": server_name,
+                        "access": access,
                     },
                     mcp_server_create_params.McpServerCreateParams,
                 ),
