@@ -12,6 +12,12 @@ __all__ = ["EnvironmentListParams"]
 class EnvironmentListParams(TypedDict, total=False):
     after: str
 
+    device_id: Annotated[str, PropertyInfo(alias="deviceId")]
+    """Filter by the stable device identifier."""
+
+    instance_id: Annotated[str, PropertyInfo(alias="instanceId")]
+    """Filter by the stable listener instance identifier."""
+
     limit: str
 
     online_only: Annotated[str, PropertyInfo(alias="onlineOnly")]

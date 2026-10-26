@@ -83,6 +83,8 @@ class EnvironmentsResource(SyncAPIResource):
         self,
         *,
         after: str | Omit = omit,
+        device_id: str | Omit = omit,
+        instance_id: str | Omit = omit,
         limit: str | Omit = omit,
         online_only: str | Omit = omit,
         pagination_order: Literal["id"] | Omit = omit,
@@ -100,6 +102,10 @@ class EnvironmentsResource(SyncAPIResource):
         List all active environment connections for the organization
 
         Args:
+          device_id: Filter by the stable device identifier.
+
+          instance_id: Filter by the stable listener instance identifier.
+
           search: Filter by computer name (case-insensitive substring).
 
           extra_headers: Send extra headers
@@ -120,6 +126,8 @@ class EnvironmentsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "device_id": device_id,
+                        "instance_id": instance_id,
                         "limit": limit,
                         "online_only": online_only,
                         "pagination_order": pagination_order,
@@ -245,6 +253,8 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
         self,
         *,
         after: str | Omit = omit,
+        device_id: str | Omit = omit,
+        instance_id: str | Omit = omit,
         limit: str | Omit = omit,
         online_only: str | Omit = omit,
         pagination_order: Literal["id"] | Omit = omit,
@@ -262,6 +272,10 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
         List all active environment connections for the organization
 
         Args:
+          device_id: Filter by the stable device identifier.
+
+          instance_id: Filter by the stable listener instance identifier.
+
           search: Filter by computer name (case-insensitive substring).
 
           extra_headers: Send extra headers
@@ -282,6 +296,8 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "after": after,
+                        "device_id": device_id,
+                        "instance_id": instance_id,
                         "limit": limit,
                         "online_only": online_only,
                         "pagination_order": pagination_order,
