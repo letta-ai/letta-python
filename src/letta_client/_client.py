@@ -58,7 +58,6 @@ if TYPE_CHECKING:
         archives,
         messages,
         passages,
-        templates,
         mcp_servers,
         environments,
         access_tokens,
@@ -77,7 +76,6 @@ if TYPE_CHECKING:
     from .resources.models.models import ModelsResource, AsyncModelsResource
     from .resources.folders.folders import FoldersResource, AsyncFoldersResource
     from .resources.archives.archives import ArchivesResource, AsyncArchivesResource
-    from .resources.templates.templates import TemplatesResource, AsyncTemplatesResource
     from .resources.mcp_servers.mcp_servers import McpServersResource, AsyncMcpServersResource
     from .resources.conversations.conversations import ConversationsResource, AsyncConversationsResource
 
@@ -246,12 +244,6 @@ class Letta(SyncAPIClient):
         from .resources.steps import StepsResource
 
         return StepsResource(self)
-
-    @cached_property
-    def templates(self) -> TemplatesResource:
-        from .resources.templates import TemplatesResource
-
-        return TemplatesResource(self)
 
     @cached_property
     def tags(self) -> TagsResource:
@@ -580,12 +572,6 @@ class AsyncLetta(AsyncAPIClient):
         return AsyncStepsResource(self)
 
     @cached_property
-    def templates(self) -> AsyncTemplatesResource:
-        from .resources.templates import AsyncTemplatesResource
-
-        return AsyncTemplatesResource(self)
-
-    @cached_property
     def tags(self) -> AsyncTagsResource:
         from .resources.tags import AsyncTagsResource
 
@@ -828,12 +814,6 @@ class LettaWithRawResponse:
         return StepsResourceWithRawResponse(self._client.steps)
 
     @cached_property
-    def templates(self) -> templates.TemplatesResourceWithRawResponse:
-        from .resources.templates import TemplatesResourceWithRawResponse
-
-        return TemplatesResourceWithRawResponse(self._client.templates)
-
-    @cached_property
     def tags(self) -> tags.TagsResourceWithRawResponse:
         from .resources.tags import TagsResourceWithRawResponse
 
@@ -933,12 +913,6 @@ class AsyncLettaWithRawResponse:
         from .resources.steps import AsyncStepsResourceWithRawResponse
 
         return AsyncStepsResourceWithRawResponse(self._client.steps)
-
-    @cached_property
-    def templates(self) -> templates.AsyncTemplatesResourceWithRawResponse:
-        from .resources.templates import AsyncTemplatesResourceWithRawResponse
-
-        return AsyncTemplatesResourceWithRawResponse(self._client.templates)
 
     @cached_property
     def tags(self) -> tags.AsyncTagsResourceWithRawResponse:
@@ -1042,12 +1016,6 @@ class LettaWithStreamedResponse:
         return StepsResourceWithStreamingResponse(self._client.steps)
 
     @cached_property
-    def templates(self) -> templates.TemplatesResourceWithStreamingResponse:
-        from .resources.templates import TemplatesResourceWithStreamingResponse
-
-        return TemplatesResourceWithStreamingResponse(self._client.templates)
-
-    @cached_property
     def tags(self) -> tags.TagsResourceWithStreamingResponse:
         from .resources.tags import TagsResourceWithStreamingResponse
 
@@ -1147,12 +1115,6 @@ class AsyncLettaWithStreamedResponse:
         from .resources.steps import AsyncStepsResourceWithStreamingResponse
 
         return AsyncStepsResourceWithStreamingResponse(self._client.steps)
-
-    @cached_property
-    def templates(self) -> templates.AsyncTemplatesResourceWithStreamingResponse:
-        from .resources.templates import AsyncTemplatesResourceWithStreamingResponse
-
-        return AsyncTemplatesResourceWithStreamingResponse(self._client.templates)
 
     @cached_property
     def tags(self) -> tags.AsyncTagsResourceWithStreamingResponse:

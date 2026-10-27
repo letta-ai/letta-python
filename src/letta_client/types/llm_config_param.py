@@ -5,12 +5,36 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .provider_category import ProviderCategory
 from .text_response_format_param import TextResponseFormatParam
 from .json_object_response_format_param import JsonObjectResponseFormatParam
 from .json_schema_response_format_param import JsonSchemaResponseFormatParam
 
-__all__ = ["LlmConfigParam", "ResponseFormat"]
+__all__ = ["LlmConfigParam", "ReasoningCapabilities", "ResponseFormat"]
+
+
+class ReasoningCapabilities(TypedDict, total=False):
+    """Provider-reported reasoning capabilities for a model."""
+
+    mandatory: Required[bool]
+    """Whether reasoning is mandatory for this model."""
+
+    default_effort: Optional[str]
+    """The provider's default effort when reasoning is enabled."""
+
+    default_enabled: Optional[bool]
+    """Whether the provider enables reasoning by default."""
+
+    supported_efforts: Optional[SequenceNotStr[str]]
+    """Reasoning effort levels accepted by the provider for this model.
+
+    Null means all gateway-supported effort levels are accepted.
+    """
+
+    supports_max_tokens: Optional[bool]
+    """Whether the provider accepts an explicit reasoning token budget for this model."""
+
 
 ResponseFormat: TypeAlias = Union[TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam]
 
@@ -133,8 +157,14 @@ class LlmConfigParam(TypedDict, total=False):
     thoughts.
     """
 
-    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]]
-    """The reasoning effort to use when generating text reasoning models"""
+    reasoning_capabilities: Optional[ReasoningCapabilities]
+    """Provider-reported reasoning capabilities for a model."""
+
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]]
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
 
     response_format: Optional[ResponseFormat]
     """The response format for the model's output.

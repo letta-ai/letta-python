@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -13,7 +13,30 @@ from .text_response_format import TextResponseFormat
 from .json_object_response_format import JsonObjectResponseFormat
 from .json_schema_response_format import JsonSchemaResponseFormat
 
-__all__ = ["Model", "ResponseFormat"]
+__all__ = ["Model", "ReasoningCapabilities", "ResponseFormat"]
+
+
+class ReasoningCapabilities(BaseModel):
+    """Provider-reported reasoning capabilities for a model."""
+
+    mandatory: bool
+    """Whether reasoning is mandatory for this model."""
+
+    default_effort: Optional[str] = None
+    """The provider's default effort when reasoning is enabled."""
+
+    default_enabled: Optional[bool] = None
+    """Whether the provider enables reasoning by default."""
+
+    supported_efforts: Optional[List[str]] = None
+    """Reasoning effort levels accepted by the provider for this model.
+
+    Null means all gateway-supported effort levels are accepted.
+    """
+
+    supports_max_tokens: Optional[bool] = None
+    """Whether the provider accepts an explicit reasoning token budget for this model."""
+
 
 ResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
@@ -128,8 +151,14 @@ class Model(BaseModel):
     put_inner_thoughts_in_kwargs: Optional[bool] = None
     """Deprecated: Puts 'inner_thoughts' as a kwarg in the function call."""
 
-    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
-    """Deprecated: The reasoning effort to use when generating text reasoning models."""
+    reasoning_capabilities: Optional[ReasoningCapabilities] = None
+    """Provider-reported reasoning capabilities for a model."""
+
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]] = None
+    """Deprecated: The reasoning effort to use when generating text reasoning models.
+
+    'max' is supported only by GPT-5.6 models.
+    """
 
     response_format: Optional[ResponseFormat] = None
     """The response format for the model's output.
@@ -157,6 +186,9 @@ class Model(BaseModel):
     When true, tool schemas include strict: true and additionalProperties: false,
     guaranteeing tool outputs match JSON schemas.
     """
+
+    supports_structured_outputs: Optional[bool] = None
+    """Whether this model supports request-scoped structured outputs."""
 
     temperature: Optional[float] = None
     """Deprecated: The temperature to use when generating text with the model."""

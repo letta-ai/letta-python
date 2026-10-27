@@ -46,6 +46,7 @@ class TestMcpServers:
                 "mcp_server_type": "stdio",
             },
             server_name="server_name",
+            access="current-user",
         )
         assert_matches_type(McpServerCreateResponse, mcp_server, path=["response"])
 
@@ -355,6 +356,7 @@ class TestAsyncMcpServers:
                 "mcp_server_type": "stdio",
             },
             server_name="server_name",
+            access="current-user",
         )
         assert_matches_type(McpServerCreateResponse, mcp_server, path=["response"])
 

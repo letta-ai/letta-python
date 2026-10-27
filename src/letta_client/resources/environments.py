@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import environment_list_params, environment_send_message_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -83,8 +83,13 @@ class EnvironmentsResource(SyncAPIResource):
         self,
         *,
         after: str | Omit = omit,
+        connection_name: str | Omit = omit,
+        device_id: str | Omit = omit,
+        instance_id: str | Omit = omit,
         limit: str | Omit = omit,
         online_only: str | Omit = omit,
+        pagination_order: Literal["id"] | Omit = omit,
+        search: str | Omit = omit,
         source: Literal["local", "remote"] | Omit = omit,
         user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -98,6 +103,14 @@ class EnvironmentsResource(SyncAPIResource):
         List all active environment connections for the organization
 
         Args:
+          connection_name: Filter by exact computer name.
+
+          device_id: Filter by the stable device identifier.
+
+          instance_id: Filter by the stable listener instance identifier.
+
+          search: Filter by computer name (case-insensitive substring).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -116,8 +129,13 @@ class EnvironmentsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "connection_name": connection_name,
+                        "device_id": device_id,
+                        "instance_id": instance_id,
                         "limit": limit,
                         "online_only": online_only,
+                        "pagination_order": pagination_order,
+                        "search": search,
                         "source": source,
                         "user_id": user_id,
                     },
@@ -131,9 +149,14 @@ class EnvironmentsResource(SyncAPIResource):
         self,
         connection_id: str,
         *,
+        agent_id: str,
         messages: Iterable[environment_send_message_params.Message],
-        agent_id: str | Omit = omit,
+        client_tool_allowlist: SequenceNotStr[str] | Omit = omit,
+        client_toolset: environment_send_message_params.ClientToolset | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
+        exclude_interactive_tools: bool | Omit = omit,
+        external_tool_scope_ids: SequenceNotStr[str] | Omit = omit,
+        image_failure_mode: Literal["strict", "drop"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -159,9 +182,14 @@ class EnvironmentsResource(SyncAPIResource):
             path_template("/v1/environments/{connection_id}/messages", connection_id=connection_id),
             body=maybe_transform(
                 {
-                    "messages": messages,
                     "agent_id": agent_id,
+                    "messages": messages,
+                    "client_tool_allowlist": client_tool_allowlist,
+                    "client_toolset": client_toolset,
                     "conversation_id": conversation_id,
+                    "exclude_interactive_tools": exclude_interactive_tools,
+                    "external_tool_scope_ids": external_tool_scope_ids,
+                    "image_failure_mode": image_failure_mode,
                 },
                 environment_send_message_params.EnvironmentSendMessageParams,
             ),
@@ -229,8 +257,13 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
         self,
         *,
         after: str | Omit = omit,
+        connection_name: str | Omit = omit,
+        device_id: str | Omit = omit,
+        instance_id: str | Omit = omit,
         limit: str | Omit = omit,
         online_only: str | Omit = omit,
+        pagination_order: Literal["id"] | Omit = omit,
+        search: str | Omit = omit,
         source: Literal["local", "remote"] | Omit = omit,
         user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -244,6 +277,14 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
         List all active environment connections for the organization
 
         Args:
+          connection_name: Filter by exact computer name.
+
+          device_id: Filter by the stable device identifier.
+
+          instance_id: Filter by the stable listener instance identifier.
+
+          search: Filter by computer name (case-insensitive substring).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -262,8 +303,13 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "after": after,
+                        "connection_name": connection_name,
+                        "device_id": device_id,
+                        "instance_id": instance_id,
                         "limit": limit,
                         "online_only": online_only,
+                        "pagination_order": pagination_order,
+                        "search": search,
                         "source": source,
                         "user_id": user_id,
                     },
@@ -277,9 +323,14 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
         self,
         connection_id: str,
         *,
+        agent_id: str,
         messages: Iterable[environment_send_message_params.Message],
-        agent_id: str | Omit = omit,
+        client_tool_allowlist: SequenceNotStr[str] | Omit = omit,
+        client_toolset: environment_send_message_params.ClientToolset | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
+        exclude_interactive_tools: bool | Omit = omit,
+        external_tool_scope_ids: SequenceNotStr[str] | Omit = omit,
+        image_failure_mode: Literal["strict", "drop"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -305,9 +356,14 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
             path_template("/v1/environments/{connection_id}/messages", connection_id=connection_id),
             body=await async_maybe_transform(
                 {
-                    "messages": messages,
                     "agent_id": agent_id,
+                    "messages": messages,
+                    "client_tool_allowlist": client_tool_allowlist,
+                    "client_toolset": client_toolset,
                     "conversation_id": conversation_id,
+                    "exclude_interactive_tools": exclude_interactive_tools,
+                    "external_tool_scope_ids": external_tool_scope_ids,
+                    "image_failure_mode": image_failure_mode,
                 },
                 environment_send_message_params.EnvironmentSendMessageParams,
             ),

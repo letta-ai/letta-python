@@ -19,6 +19,7 @@ class UserMessage(BaseModel):
         id (str): The ID of the message
         date (datetime): The date the message was created in ISO format
         name (Optional[str]): The name of the sender of the message
+        created_by_id (Optional[str]): The authenticated user id that created the message
         content (Union[str, List[LettaUserMessageContentUnion]]): The message content sent by the user (can be a string or an array of multi-modal content parts)
     """
 
@@ -31,6 +32,8 @@ class UserMessage(BaseModel):
     """
 
     date: datetime
+
+    created_by_id: Optional[str] = None
 
     is_err: Optional[bool] = None
 

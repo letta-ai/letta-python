@@ -41,16 +41,23 @@ __all__ = [
     "CompactionSettingsModelSettingsSgLangModelSettings",
     "CompactionSettingsModelSettingsSgLangModelSettingsReasoning",
     "CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsMiniMaxModelSettings",
+    "CompactionSettingsModelSettingsMiniMaxModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsMiniMaxModelSettingsThinking",
     "CompactionSettingsModelSettingsMoonshotModelSettings",
     "CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettings",
     "CompactionSettingsModelSettingsZaiModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsZaiModelSettingsThinking",
+    "CompactionSettingsModelSettingsZaiCodingModelSettings",
+    "CompactionSettingsModelSettingsZaiCodingModelSettingsResponseFormat",
+    "CompactionSettingsModelSettingsZaiCodingModelSettingsThinking",
     "CompactionSettingsModelSettingsMoonshotCodingModelSettings",
     "CompactionSettingsModelSettingsMoonshotCodingModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsMoonshotCodingModelSettingsThinking",
     "CompactionSettingsModelSettingsBasetenModelSettings",
     "CompactionSettingsModelSettingsOpenRouterModelSettings",
+    "CompactionSettingsModelSettingsOpenRouterModelSettingsReasoning",
     "CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat",
     "CompactionSettingsModelSettingsChatGptoAuthModelSettings",
     "CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning",
@@ -58,16 +65,23 @@ __all__ = [
     "ModelSettingsSgLangModelSettings",
     "ModelSettingsSgLangModelSettingsReasoning",
     "ModelSettingsSgLangModelSettingsResponseFormat",
+    "ModelSettingsMiniMaxModelSettings",
+    "ModelSettingsMiniMaxModelSettingsResponseFormat",
+    "ModelSettingsMiniMaxModelSettingsThinking",
     "ModelSettingsMoonshotModelSettings",
     "ModelSettingsMoonshotModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettingsThinking",
+    "ModelSettingsZaiCodingModelSettings",
+    "ModelSettingsZaiCodingModelSettingsResponseFormat",
+    "ModelSettingsZaiCodingModelSettingsThinking",
     "ModelSettingsMoonshotCodingModelSettings",
     "ModelSettingsMoonshotCodingModelSettingsResponseFormat",
     "ModelSettingsMoonshotCodingModelSettingsThinking",
     "ModelSettingsBasetenModelSettings",
     "ModelSettingsOpenRouterModelSettings",
+    "ModelSettingsOpenRouterModelSettingsReasoning",
     "ModelSettingsOpenRouterModelSettingsResponseFormat",
     "ModelSettingsChatGptoAuthModelSettings",
     "ModelSettingsChatGptoAuthModelSettingsReasoning",
@@ -203,7 +217,11 @@ class AgentUpdateParams(TypedDict, total=False):
     """
 
     system: Optional[str]
-    """The system prompt used by the agent."""
+    """Base system prompt.
+
+    Set null to restore the code-owned default. An explicit string, including an
+    empty string, overrides the default. Omit to leave unchanged.
+    """
 
     tags: Optional[SequenceNotStr[str]]
     """The tags associated with the agent."""
@@ -227,8 +245,11 @@ class AgentUpdateParams(TypedDict, total=False):
 class CompactionSettingsModelSettingsSgLangModelSettingsReasoning(TypedDict, total=False):
     """The reasoning configuration for the model."""
 
-    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh"]
-    """The reasoning effort to use when generating text reasoning models"""
+    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
 
 
 CompactionSettingsModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Union[
@@ -267,6 +288,59 @@ class CompactionSettingsModelSettingsSgLangModelSettings(TypedDict, total=False)
 
     tool_call_parser: Optional[str]
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
+
+
+CompactionSettingsModelSettingsMiniMaxModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsMiniMaxModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for the model."""
+
+    budget_tokens: int
+    """The maximum number of tokens the model can use for extended thinking."""
+
+    type: Literal["enabled", "disabled"]
+    """The type of thinking to use."""
+
+
+class CompactionSettingsModelSettingsMiniMaxModelSettings(TypedDict, total=False):
+    """MiniMax model configuration (Anthropic-compatible)."""
+
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]]
+    """Effort level for supported Anthropic models (controls token spending).
+
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
+    """
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["minimax"]
+    """The type of the provider."""
+
+    response_format: Optional[CompactionSettingsModelSettingsMiniMaxModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+    thinking: CompactionSettingsModelSettingsMiniMaxModelSettingsThinking
+    """The thinking configuration for the model."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]]
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
 CompactionSettingsModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Union[
@@ -326,6 +400,9 @@ class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
     provider_type: Literal["zai"]
     """The type of the provider."""
 
+    reasoning_effort: Optional[Literal["low", "high", "max"]]
+    """The reasoning effort for Z.ai models that support explicit effort control."""
+
     response_format: Optional[CompactionSettingsModelSettingsZaiModelSettingsResponseFormat]
     """The response format for the model."""
 
@@ -333,6 +410,46 @@ class CompactionSettingsModelSettingsZaiModelSettings(TypedDict, total=False):
     """The temperature of the model."""
 
     thinking: CompactionSettingsModelSettingsZaiModelSettingsThinking
+    """The thinking configuration for GLM-4.5+ models."""
+
+
+CompactionSettingsModelSettingsZaiCodingModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class CompactionSettingsModelSettingsZaiCodingModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for GLM-4.5+ models."""
+
+    clear_thinking: bool
+    """If False, preserved thinking is used (recommended for agents)."""
+
+    type: Literal["enabled", "disabled"]
+    """Whether thinking is enabled or disabled."""
+
+
+class CompactionSettingsModelSettingsZaiCodingModelSettings(TypedDict, total=False):
+    """Z.ai coding model configuration (OpenAI-compatible, zai_coding provider)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["zai_coding"]
+    """The type of the provider."""
+
+    reasoning_effort: Optional[Literal["low", "high", "max"]]
+    """The reasoning effort for Z.ai models that support explicit effort control."""
+
+    response_format: Optional[CompactionSettingsModelSettingsZaiCodingModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    temperature: float
+    """The temperature of the model."""
+
+    thinking: CompactionSettingsModelSettingsZaiCodingModelSettingsThinking
     """The thinking configuration for GLM-4.5+ models."""
 
 
@@ -405,6 +522,16 @@ class CompactionSettingsModelSettingsBasetenModelSettings(TypedDict, total=False
     """The temperature of the model."""
 
 
+class CompactionSettingsModelSettingsOpenRouterModelSettingsReasoning(TypedDict, total=False):
+    """The reasoning configuration for the model."""
+
+    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
+
+
 CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
@@ -422,6 +549,9 @@ class CompactionSettingsModelSettingsOpenRouterModelSettings(TypedDict, total=Fa
     provider_type: Literal["openrouter"]
     """The type of the provider."""
 
+    reasoning: Optional[CompactionSettingsModelSettingsOpenRouterModelSettingsReasoning]
+    """The reasoning configuration for the model."""
+
     response_format: Optional[CompactionSettingsModelSettingsOpenRouterModelSettingsResponseFormat]
     """The response format for the model."""
 
@@ -432,8 +562,11 @@ class CompactionSettingsModelSettingsOpenRouterModelSettings(TypedDict, total=Fa
 class CompactionSettingsModelSettingsChatGptoAuthModelSettingsReasoning(TypedDict, total=False):
     """The reasoning configuration for the model."""
 
-    reasoning_effort: Literal["none", "low", "medium", "high", "xhigh"]
-    """The reasoning effort level for GPT-5.x and o-series models."""
+    reasoning_effort: Literal["none", "low", "medium", "high", "xhigh", "max"]
+    """The reasoning effort level for GPT-5.x and o-series models.
+
+    'max' is supported only by GPT-5.6 models.
+    """
 
 
 class CompactionSettingsModelSettingsChatGptoAuthModelSettings(TypedDict, total=False):
@@ -454,17 +587,22 @@ class CompactionSettingsModelSettingsChatGptoAuthModelSettings(TypedDict, total=
     temperature: float
     """The temperature of the model."""
 
+    verbosity: Optional[Literal["low", "medium", "high"]]
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
+
 
 CompactionSettingsModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
     CompactionSettingsModelSettingsSgLangModelSettings,
     AnthropicModelSettingsParam,
+    CompactionSettingsModelSettingsMiniMaxModelSettings,
     GoogleAIModelSettingsParam,
     GoogleVertexModelSettingsParam,
     AzureModelSettingsParam,
     XaiModelSettingsParam,
     CompactionSettingsModelSettingsMoonshotModelSettings,
     CompactionSettingsModelSettingsZaiModelSettings,
+    CompactionSettingsModelSettingsZaiCodingModelSettings,
     CompactionSettingsModelSettingsMoonshotCodingModelSettings,
     GroqModelSettingsParam,
     DeepseekModelSettingsParam,
@@ -520,8 +658,11 @@ class CompactionSettings(TypedDict, total=False):
 class ModelSettingsSgLangModelSettingsReasoning(TypedDict, total=False):
     """The reasoning configuration for the model."""
 
-    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh"]
-    """The reasoning effort to use when generating text reasoning models"""
+    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
 
 
 ModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Union[
@@ -560,6 +701,59 @@ class ModelSettingsSgLangModelSettings(TypedDict, total=False):
 
     tool_call_parser: Optional[str]
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
+
+
+ModelSettingsMiniMaxModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class ModelSettingsMiniMaxModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for the model."""
+
+    budget_tokens: int
+    """The maximum number of tokens the model can use for extended thinking."""
+
+    type: Literal["enabled", "disabled"]
+    """The type of thinking to use."""
+
+
+class ModelSettingsMiniMaxModelSettings(TypedDict, total=False):
+    """MiniMax model configuration (Anthropic-compatible)."""
+
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]]
+    """Effort level for supported Anthropic models (controls token spending).
+
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
+    """
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["minimax"]
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsMiniMaxModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    strict: bool
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: float
+    """The temperature of the model."""
+
+    thinking: ModelSettingsMiniMaxModelSettingsThinking
+    """The thinking configuration for the model."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]]
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
 ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Union[
@@ -619,6 +813,9 @@ class ModelSettingsZaiModelSettings(TypedDict, total=False):
     provider_type: Literal["zai"]
     """The type of the provider."""
 
+    reasoning_effort: Optional[Literal["low", "high", "max"]]
+    """The reasoning effort for Z.ai models that support explicit effort control."""
+
     response_format: Optional[ModelSettingsZaiModelSettingsResponseFormat]
     """The response format for the model."""
 
@@ -626,6 +823,46 @@ class ModelSettingsZaiModelSettings(TypedDict, total=False):
     """The temperature of the model."""
 
     thinking: ModelSettingsZaiModelSettingsThinking
+    """The thinking configuration for GLM-4.5+ models."""
+
+
+ModelSettingsZaiCodingModelSettingsResponseFormat: TypeAlias = Union[
+    TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
+]
+
+
+class ModelSettingsZaiCodingModelSettingsThinking(TypedDict, total=False):
+    """The thinking configuration for GLM-4.5+ models."""
+
+    clear_thinking: bool
+    """If False, preserved thinking is used (recommended for agents)."""
+
+    type: Literal["enabled", "disabled"]
+    """Whether thinking is enabled or disabled."""
+
+
+class ModelSettingsZaiCodingModelSettings(TypedDict, total=False):
+    """Z.ai coding model configuration (OpenAI-compatible, zai_coding provider)."""
+
+    max_output_tokens: int
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: bool
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Literal["zai_coding"]
+    """The type of the provider."""
+
+    reasoning_effort: Optional[Literal["low", "high", "max"]]
+    """The reasoning effort for Z.ai models that support explicit effort control."""
+
+    response_format: Optional[ModelSettingsZaiCodingModelSettingsResponseFormat]
+    """The response format for the model."""
+
+    temperature: float
+    """The temperature of the model."""
+
+    thinking: ModelSettingsZaiCodingModelSettingsThinking
     """The thinking configuration for GLM-4.5+ models."""
 
 
@@ -698,6 +935,16 @@ class ModelSettingsBasetenModelSettings(TypedDict, total=False):
     """The temperature of the model."""
 
 
+class ModelSettingsOpenRouterModelSettingsReasoning(TypedDict, total=False):
+    """The reasoning configuration for the model."""
+
+    reasoning_effort: Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
+
+
 ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Union[
     TextResponseFormatParam, JsonSchemaResponseFormatParam, JsonObjectResponseFormatParam
 ]
@@ -715,6 +962,9 @@ class ModelSettingsOpenRouterModelSettings(TypedDict, total=False):
     provider_type: Literal["openrouter"]
     """The type of the provider."""
 
+    reasoning: Optional[ModelSettingsOpenRouterModelSettingsReasoning]
+    """The reasoning configuration for the model."""
+
     response_format: Optional[ModelSettingsOpenRouterModelSettingsResponseFormat]
     """The response format for the model."""
 
@@ -725,8 +975,11 @@ class ModelSettingsOpenRouterModelSettings(TypedDict, total=False):
 class ModelSettingsChatGptoAuthModelSettingsReasoning(TypedDict, total=False):
     """The reasoning configuration for the model."""
 
-    reasoning_effort: Literal["none", "low", "medium", "high", "xhigh"]
-    """The reasoning effort level for GPT-5.x and o-series models."""
+    reasoning_effort: Literal["none", "low", "medium", "high", "xhigh", "max"]
+    """The reasoning effort level for GPT-5.x and o-series models.
+
+    'max' is supported only by GPT-5.6 models.
+    """
 
 
 class ModelSettingsChatGptoAuthModelSettings(TypedDict, total=False):
@@ -747,17 +1000,22 @@ class ModelSettingsChatGptoAuthModelSettings(TypedDict, total=False):
     temperature: float
     """The temperature of the model."""
 
+    verbosity: Optional[Literal["low", "medium", "high"]]
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
+
 
 ModelSettings: TypeAlias = Union[
     OpenAIModelSettingsParam,
     ModelSettingsSgLangModelSettings,
     AnthropicModelSettingsParam,
+    ModelSettingsMiniMaxModelSettings,
     GoogleAIModelSettingsParam,
     GoogleVertexModelSettingsParam,
     AzureModelSettingsParam,
     XaiModelSettingsParam,
     ModelSettingsMoonshotModelSettings,
     ModelSettingsZaiModelSettings,
+    ModelSettingsZaiCodingModelSettings,
     ModelSettingsMoonshotCodingModelSettings,
     GroqModelSettingsParam,
     DeepseekModelSettingsParam,
