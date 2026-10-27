@@ -145,6 +145,7 @@ class TestMessages:
             include_err=True,
             include_return_message_types=["system_message", "user_message"],
             limit=200,
+            message_type="user_message",
             order="asc",
             order_by="created_at",
         )
@@ -438,6 +439,7 @@ class TestAsyncMessages:
             include_err=True,
             include_return_message_types=["system_message", "user_message"],
             limit=200,
+            message_type="user_message",
             order="asc",
             order_by="created_at",
         )

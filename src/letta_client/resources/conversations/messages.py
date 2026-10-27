@@ -237,6 +237,7 @@ class MessagesResource(SyncAPIResource):
         include_err: Optional[bool] | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
+        message_type: Literal["user_message"] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -280,6 +281,8 @@ class MessagesResource(SyncAPIResource):
 
           limit: Maximum number of messages to return
 
+          message_type: Filter persisted messages to user messages before pagination.
+
           order: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
               newest first
 
@@ -312,6 +315,7 @@ class MessagesResource(SyncAPIResource):
                         "include_err": include_err,
                         "include_return_message_types": include_return_message_types,
                         "limit": limit,
+                        "message_type": message_type,
                         "order": order,
                         "order_by": order_by,
                     },
@@ -678,6 +682,7 @@ class AsyncMessagesResource(AsyncAPIResource):
         include_err: Optional[bool] | Omit = omit,
         include_return_message_types: Optional[List[MessageType]] | Omit = omit,
         limit: Optional[int] | Omit = omit,
+        message_type: Literal["user_message"] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -721,6 +726,8 @@ class AsyncMessagesResource(AsyncAPIResource):
 
           limit: Maximum number of messages to return
 
+          message_type: Filter persisted messages to user messages before pagination.
+
           order: Sort order for messages by creation time. 'asc' for oldest first, 'desc' for
               newest first
 
@@ -753,6 +760,7 @@ class AsyncMessagesResource(AsyncAPIResource):
                         "include_err": include_err,
                         "include_return_message_types": include_return_message_types,
                         "limit": limit,
+                        "message_type": message_type,
                         "order": order,
                         "order_by": order_by,
                     },

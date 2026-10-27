@@ -83,6 +83,7 @@ class EnvironmentsResource(SyncAPIResource):
         self,
         *,
         after: str | Omit = omit,
+        connection_name: str | Omit = omit,
         device_id: str | Omit = omit,
         instance_id: str | Omit = omit,
         limit: str | Omit = omit,
@@ -102,6 +103,8 @@ class EnvironmentsResource(SyncAPIResource):
         List all active environment connections for the organization
 
         Args:
+          connection_name: Filter by exact computer name.
+
           device_id: Filter by the stable device identifier.
 
           instance_id: Filter by the stable listener instance identifier.
@@ -126,6 +129,7 @@ class EnvironmentsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "connection_name": connection_name,
                         "device_id": device_id,
                         "instance_id": instance_id,
                         "limit": limit,
@@ -253,6 +257,7 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
         self,
         *,
         after: str | Omit = omit,
+        connection_name: str | Omit = omit,
         device_id: str | Omit = omit,
         instance_id: str | Omit = omit,
         limit: str | Omit = omit,
@@ -272,6 +277,8 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
         List all active environment connections for the organization
 
         Args:
+          connection_name: Filter by exact computer name.
+
           device_id: Filter by the stable device identifier.
 
           instance_id: Filter by the stable listener instance identifier.
@@ -296,6 +303,7 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "after": after,
+                        "connection_name": connection_name,
                         "device_id": device_id,
                         "instance_id": instance_id,
                         "limit": limit,

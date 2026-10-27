@@ -12,6 +12,9 @@ __all__ = ["EnvironmentListParams"]
 class EnvironmentListParams(TypedDict, total=False):
     after: str
 
+    connection_name: Annotated[str, PropertyInfo(alias="connectionName")]
+    """Filter by exact computer name."""
+
     device_id: Annotated[str, PropertyInfo(alias="deviceId")]
     """Filter by the stable device identifier."""
 

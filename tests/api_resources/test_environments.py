@@ -74,6 +74,7 @@ class TestEnvironments:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         environment = client.environments.list(
             after="after",
+            connection_name="x",
             device_id="deviceId",
             instance_id="instanceId",
             limit="limit",
@@ -266,6 +267,7 @@ class TestAsyncEnvironments:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         environment = await async_client.environments.list(
             after="after",
+            connection_name="x",
             device_id="deviceId",
             instance_id="instanceId",
             limit="limit",
