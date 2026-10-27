@@ -10,6 +10,9 @@ __all__ = ["ScheduleListParams"]
 class ScheduleListParams(TypedDict, total=False):
     after: str
 
+    conversation_id: str
+    """Return only schedules bound to this exact conversation ID."""
+
     include_completed: Literal["true", "false"]
     """
     When 'true', include schedules that already completed (one-time schedules that
@@ -17,6 +20,9 @@ class ScheduleListParams(TypedDict, total=False):
     """
 
     limit: str
+
+    name: str
+    """Return only schedules with this exact name."""
 
     schedule_type: Literal["one-time", "recurring"]
     """Filter by schedule kind.

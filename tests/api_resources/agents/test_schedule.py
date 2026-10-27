@@ -197,8 +197,10 @@ class TestSchedule:
         schedule = client.agents.schedule.list(
             agent_id="agent_id",
             after="after",
+            conversation_id="conversation_id",
             include_completed="true",
             limit="limit",
+            name="name",
             schedule_type="one-time",
             status="active",
         )
@@ -471,8 +473,10 @@ class TestAsyncSchedule:
         schedule = await async_client.agents.schedule.list(
             agent_id="agent_id",
             after="after",
+            conversation_id="conversation_id",
             include_completed="true",
             limit="limit",
+            name="name",
             schedule_type="one-time",
             status="active",
         )

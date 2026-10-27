@@ -172,8 +172,10 @@ class ScheduleResource(SyncAPIResource):
         agent_id: str,
         *,
         after: str | Omit = omit,
+        conversation_id: str | Omit = omit,
         include_completed: Literal["true", "false"] | Omit = omit,
         limit: str | Omit = omit,
+        name: str | Omit = omit,
         schedule_type: Literal["one-time", "recurring"] | Omit = omit,
         status: Literal["active", "paused", "completed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -187,8 +189,12 @@ class ScheduleResource(SyncAPIResource):
         List all scheduled messages for a specific agent.
 
         Args:
+          conversation_id: Return only schedules bound to this exact conversation ID.
+
           include_completed: When 'true', include schedules that already completed (one-time schedules that
               already fired). Defaults to active and paused schedules.
+
+          name: Return only schedules with this exact name.
 
           schedule_type: Filter by schedule kind. one-time schedules have a fixed scheduled_at; recurring
               schedules have a cron_expression.
@@ -215,8 +221,10 @@ class ScheduleResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "conversation_id": conversation_id,
                         "include_completed": include_completed,
                         "limit": limit,
+                        "name": name,
                         "schedule_type": schedule_type,
                         "status": status,
                     },
@@ -414,8 +422,10 @@ class AsyncScheduleResource(AsyncAPIResource):
         agent_id: str,
         *,
         after: str | Omit = omit,
+        conversation_id: str | Omit = omit,
         include_completed: Literal["true", "false"] | Omit = omit,
         limit: str | Omit = omit,
+        name: str | Omit = omit,
         schedule_type: Literal["one-time", "recurring"] | Omit = omit,
         status: Literal["active", "paused", "completed"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -429,8 +439,12 @@ class AsyncScheduleResource(AsyncAPIResource):
         List all scheduled messages for a specific agent.
 
         Args:
+          conversation_id: Return only schedules bound to this exact conversation ID.
+
           include_completed: When 'true', include schedules that already completed (one-time schedules that
               already fired). Defaults to active and paused schedules.
+
+          name: Return only schedules with this exact name.
 
           schedule_type: Filter by schedule kind. one-time schedules have a fixed scheduled_at; recurring
               schedules have a cron_expression.
@@ -457,8 +471,10 @@ class AsyncScheduleResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "after": after,
+                        "conversation_id": conversation_id,
                         "include_completed": include_completed,
                         "limit": limit,
+                        "name": name,
                         "schedule_type": schedule_type,
                         "status": status,
                     },
