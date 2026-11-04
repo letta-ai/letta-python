@@ -88,14 +88,6 @@ from .passages import (
     PassagesResourceWithStreamingResponse,
     AsyncPassagesResourceWithStreamingResponse,
 )
-from .templates import (
-    TemplatesResource,
-    AsyncTemplatesResource,
-    TemplatesResourceWithRawResponse,
-    AsyncTemplatesResourceWithRawResponse,
-    TemplatesResourceWithStreamingResponse,
-    AsyncTemplatesResourceWithStreamingResponse,
-)
 from .mcp_servers import (
     McpServersResource,
     AsyncMcpServersResource,
@@ -184,12 +176,6 @@ __all__ = [
     "AsyncStepsResourceWithRawResponse",
     "StepsResourceWithStreamingResponse",
     "AsyncStepsResourceWithStreamingResponse",
-    "TemplatesResource",
-    "AsyncTemplatesResource",
-    "TemplatesResourceWithRawResponse",
-    "AsyncTemplatesResourceWithRawResponse",
-    "TemplatesResourceWithStreamingResponse",
-    "AsyncTemplatesResourceWithStreamingResponse",
     "TagsResource",
     "AsyncTagsResource",
     "TagsResourceWithRawResponse",

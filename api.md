@@ -532,40 +532,6 @@ Methods:
 
 - <code title="get /v1/steps/{step_id}/messages">client.steps.messages.<a href="./src/letta_client/resources/steps/messages.py">list</a>(step_id, \*\*<a href="src/letta_client/types/steps/message_list_params.py">params</a>) -> <a href="./src/letta_client/types/steps/message_list_response.py">SyncArrayPage[MessageListResponse]</a></code>
 
-# Templates
-
-Types:
-
-```python
-from letta_client.types import (
-    TemplateCreateResponse,
-    TemplateUpdateResponse,
-    TemplateDeleteResponse,
-    TemplateRollbackResponse,
-    TemplateSaveResponse,
-)
-```
-
-Methods:
-
-- <code title="post /v1/templates">client.templates.<a href="./src/letta_client/resources/templates/templates.py">create</a>(\*\*<a href="src/letta_client/types/template_create_params.py">params</a>) -> <a href="./src/letta_client/types/template_create_response.py">TemplateCreateResponse</a></code>
-- <code title="patch /v1/templates/{template_name}">client.templates.<a href="./src/letta_client/resources/templates/templates.py">update</a>(template_name, \*\*<a href="src/letta_client/types/template_update_params.py">params</a>) -> <a href="./src/letta_client/types/template_update_response.py">TemplateUpdateResponse</a></code>
-- <code title="delete /v1/templates/{template_name}">client.templates.<a href="./src/letta_client/resources/templates/templates.py">delete</a>(template_name) -> <a href="./src/letta_client/types/template_delete_response.py">TemplateDeleteResponse</a></code>
-- <code title="post /v1/templates/{template_name}/rollback">client.templates.<a href="./src/letta_client/resources/templates/templates.py">rollback</a>(template_name, \*\*<a href="src/letta_client/types/template_rollback_params.py">params</a>) -> <a href="./src/letta_client/types/template_rollback_response.py">TemplateRollbackResponse</a></code>
-- <code title="post /v1/templates/{template_name}/save">client.templates.<a href="./src/letta_client/resources/templates/templates.py">save</a>(template_name, \*\*<a href="src/letta_client/types/template_save_params.py">params</a>) -> <a href="./src/letta_client/types/template_save_response.py">TemplateSaveResponse</a></code>
-
-## Agents
-
-Types:
-
-```python
-from letta_client.types.templates import AgentCreateResponse
-```
-
-Methods:
-
-- <code title="post /v1/templates/{template_version}/agents">client.templates.agents.<a href="./src/letta_client/resources/templates/agents.py">create</a>(template_version, \*\*<a href="src/letta_client/types/templates/agent_create_params.py">params</a>) -> <a href="./src/letta_client/types/templates/agent_create_response.py">AgentCreateResponse</a></code>
-
 # Tags
 
 Types:
@@ -622,19 +588,21 @@ from letta_client.types import (
     ConversationListResponse,
     ConversationCancelResponse,
     ConversationRecompileResponse,
+    ConversationSearchResponse,
 )
 ```
 
 Methods:
 
 - <code title="post /v1/conversations/">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">create</a>(\*\*<a href="src/letta_client/types/conversation_create_params.py">params</a>) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
-- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">retrieve</a>(conversation_id) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
+- <code title="get /v1/conversations/{conversation_id}">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">retrieve</a>(conversation_id, \*\*<a href="src/letta_client/types/conversation_retrieve_params.py">params</a>) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
 - <code title="patch /v1/conversations/{conversation_id}">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">update</a>(conversation_id, \*\*<a href="src/letta_client/types/conversation_update_params.py">params</a>) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
 - <code title="get /v1/conversations/">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">list</a>(\*\*<a href="src/letta_client/types/conversation_list_params.py">params</a>) -> <a href="./src/letta_client/types/conversation_list_response.py">ConversationListResponse</a></code>
 - <code title="delete /v1/conversations/{conversation_id}">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">delete</a>(conversation_id) -> object</code>
 - <code title="post /v1/conversations/{conversation_id}/cancel">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">cancel</a>(conversation_id, \*\*<a href="src/letta_client/types/conversation_cancel_params.py">params</a>) -> <a href="./src/letta_client/types/conversation_cancel_response.py">ConversationCancelResponse</a></code>
 - <code title="post /v1/conversations/{conversation_id}/fork">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">fork</a>(conversation_id, \*\*<a href="src/letta_client/types/conversation_fork_params.py">params</a>) -> <a href="./src/letta_client/types/conversation.py">Conversation</a></code>
 - <code title="post /v1/conversations/{conversation_id}/recompile">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">recompile</a>(conversation_id, \*\*<a href="src/letta_client/types/conversation_recompile_params.py">params</a>) -> str</code>
+- <code title="post /v1/conversations/search">client.conversations.<a href="./src/letta_client/resources/conversations/conversations.py">search</a>(\*\*<a href="src/letta_client/types/conversation_search_params.py">params</a>) -> <a href="./src/letta_client/types/conversation_search_response.py">ConversationSearchResponse</a></code>
 
 ## Messages
 

@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from typing import List, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
 __all__ = ["AgentRetrieveParams"]
 
@@ -37,3 +38,5 @@ class AgentRetrieveParams(TypedDict, total=False):
     this can optimize performance by reducing unnecessary joins.This is a legacy
     parameter, and no longer supported after 1.0.0 SDK versions.
     """
+
+    if_none_match: Annotated[str, PropertyInfo(alias="if-none-match")]

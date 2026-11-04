@@ -46,6 +46,9 @@ class MessageListParams(TypedDict, total=False):
     limit: Optional[int]
     """Maximum number of messages to return"""
 
+    message_type: Literal["user_message"]
+    """Filter persisted messages to user messages before pagination."""
+
     order: Literal["asc", "desc"]
     """Sort order for messages by creation time.
 

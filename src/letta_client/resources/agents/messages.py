@@ -99,11 +99,9 @@ class MessagesResource(SyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
-        **Note:** Sending multiple concurrent requests to the same agent can lead to
-        undefined behavior. Each agent processes messages sequentially, and concurrent
-        requests may interleave in unexpected ways. Wait for each request to complete
-        before sending the next one. Use separate agents or conversations for parallel
-        processing.
+        Requests execute under the same agent-scoped lock as
+        `POST /v1/conversations/default/messages`. Concurrent requests for the same
+        agent are rejected with HTTP 409 while the active run owns the lock.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -233,11 +231,9 @@ class MessagesResource(SyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
-        **Note:** Sending multiple concurrent requests to the same agent can lead to
-        undefined behavior. Each agent processes messages sequentially, and concurrent
-        requests may interleave in unexpected ways. Wait for each request to complete
-        before sending the next one. Use separate agents or conversations for parallel
-        processing.
+        Requests execute under the same agent-scoped lock as
+        `POST /v1/conversations/default/messages`. Concurrent requests for the same
+        agent are rejected with HTTP 409 while the active run owns the lock.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -367,11 +363,9 @@ class MessagesResource(SyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
-        **Note:** Sending multiple concurrent requests to the same agent can lead to
-        undefined behavior. Each agent processes messages sequentially, and concurrent
-        requests may interleave in unexpected ways. Wait for each request to complete
-        before sending the next one. Use separate agents or conversations for parallel
-        processing.
+        Requests execute under the same agent-scoped lock as
+        `POST /v1/conversations/default/messages`. Concurrent requests for the same
+        agent are rejected with HTTP 409 while the active run owns the lock.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -938,11 +932,8 @@ class MessagesResource(SyncAPIResource):
         Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
         in the request body instead.
 
-        **Note:** Sending multiple concurrent requests to the same agent can lead to
-        undefined behavior. Each agent processes messages sequentially, and concurrent
-        requests may interleave in unexpected ways. Wait for each request to complete
-        before sending the next one. Use separate agents or conversations for parallel
-        processing.
+        Requests execute under the same agent-scoped lock as
+        `POST /v1/conversations/default/messages`.
 
         This endpoint accepts a message from a user and processes it through the agent.
         It will stream the steps of the response always, and stream the tokens if
@@ -1122,11 +1113,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
-        **Note:** Sending multiple concurrent requests to the same agent can lead to
-        undefined behavior. Each agent processes messages sequentially, and concurrent
-        requests may interleave in unexpected ways. Wait for each request to complete
-        before sending the next one. Use separate agents or conversations for parallel
-        processing.
+        Requests execute under the same agent-scoped lock as
+        `POST /v1/conversations/default/messages`. Concurrent requests for the same
+        agent are rejected with HTTP 409 while the active run owns the lock.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -1256,11 +1245,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
-        **Note:** Sending multiple concurrent requests to the same agent can lead to
-        undefined behavior. Each agent processes messages sequentially, and concurrent
-        requests may interleave in unexpected ways. Wait for each request to complete
-        before sending the next one. Use separate agents or conversations for parallel
-        processing.
+        Requests execute under the same agent-scoped lock as
+        `POST /v1/conversations/default/messages`. Concurrent requests for the same
+        agent are rejected with HTTP 409 while the active run owns the lock.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -1390,11 +1377,9 @@ class AsyncMessagesResource(AsyncAPIResource):
         This endpoint accepts a
         message from a user and processes it through the agent.
 
-        **Note:** Sending multiple concurrent requests to the same agent can lead to
-        undefined behavior. Each agent processes messages sequentially, and concurrent
-        requests may interleave in unexpected ways. Wait for each request to complete
-        before sending the next one. Use separate agents or conversations for parallel
-        processing.
+        Requests execute under the same agent-scoped lock as
+        `POST /v1/conversations/default/messages`. Concurrent requests for the same
+        agent are rejected with HTTP 409 while the active run owns the lock.
 
         The response format is controlled by the `streaming` field in the request body:
 
@@ -1961,11 +1946,8 @@ class AsyncMessagesResource(AsyncAPIResource):
         Deprecated: Use the `POST /{agent_id}/messages` endpoint with `streaming=true`
         in the request body instead.
 
-        **Note:** Sending multiple concurrent requests to the same agent can lead to
-        undefined behavior. Each agent processes messages sequentially, and concurrent
-        requests may interleave in unexpected ways. Wait for each request to complete
-        before sending the next one. Use separate agents or conversations for parallel
-        processing.
+        Requests execute under the same agent-scoped lock as
+        `POST /v1/conversations/default/messages`.
 
         This endpoint accepts a message from a user and processes it through the agent.
         It will stream the steps of the response always, and stream the tokens if

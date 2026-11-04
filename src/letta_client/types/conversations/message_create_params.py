@@ -14,6 +14,7 @@ from ..agents.approval_create_param import ApprovalCreateParam
 from ..agents.reasoning_content_param import ReasoningContentParam
 from ..agents.tool_call_content_param import ToolCallContentParam
 from ..agents.tool_return_content_param import ToolReturnContentParam
+from ..json_schema_response_format_param import JsonSchemaResponseFormatParam
 from ..agents.omitted_reasoning_content_param import OmittedReasoningContentParam
 from ..agents.redacted_reasoning_content_param import RedactedReasoningContentParam
 
@@ -117,6 +118,12 @@ class MessageCreateParams(TypedDict, total=False):
 
     When set, this is passed directly to the underlying LLM request and bypasses the
     persisted/compiled system message for that request.
+    """
+
+    response_format: JsonSchemaResponseFormatParam
+    """Request-scoped JSON Schema response format.
+
+    This does not persist to the conversation or agent.
     """
 
     return_logprobs: bool

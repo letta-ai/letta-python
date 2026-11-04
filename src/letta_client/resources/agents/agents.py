@@ -343,7 +343,8 @@ class AgentsResource(SyncAPIResource):
           source_ids: Deprecated: Use `folder_ids` field instead. The ids of the sources used by the
               agent.
 
-          system: The system prompt used by the agent.
+          system: Base system prompt. Omit or set null to use the code-owned default. An explicit
+              string, including an empty string, overrides the default.
 
           tags: The tags associated with the agent.
 
@@ -450,6 +451,7 @@ class AgentsResource(SyncAPIResource):
         ]
         | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        if_none_match: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -481,6 +483,7 @@ class AgentsResource(SyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {**strip_not_given({"if-none-match": if_none_match}), **(extra_headers or {})}
         return self._get(
             path_template("/v1/agents/{agent_id}", agent_id=agent_id),
             options=make_request_options(
@@ -630,7 +633,9 @@ class AgentsResource(SyncAPIResource):
           source_ids: Deprecated: Use `folder_ids` field instead. The ids of the sources used by the
               agent.
 
-          system: The system prompt used by the agent.
+          system: Base system prompt. Set null to restore the code-owned default. An explicit
+              string, including an empty string, overrides the default. Omit to leave
+              unchanged.
 
           tags: The tags associated with the agent.
 
@@ -735,7 +740,7 @@ class AgentsResource(SyncAPIResource):
         match_all_tags: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at", "updated_at", "last_run_completion"] | Omit = omit,
+        order_by: Literal["created_at", "updated_at", "last_run_completion", "last_run_or_creation"] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         query_text: Optional[str] | Omit = omit,
         sort_by: Optional[str] | Omit = omit,
@@ -761,7 +766,8 @@ class AgentsResource(SyncAPIResource):
 
           before: Cursor for pagination
 
-          created_by_id: Filter agents by the user who created them.
+          created_by_id: Filter agents by the user who created them. Use "@me" to filter to agents
+              created by the requesting user.
 
           identifier_keys: Search agents by identifier keys
 
@@ -1314,7 +1320,8 @@ class AsyncAgentsResource(AsyncAPIResource):
           source_ids: Deprecated: Use `folder_ids` field instead. The ids of the sources used by the
               agent.
 
-          system: The system prompt used by the agent.
+          system: Base system prompt. Omit or set null to use the code-owned default. An explicit
+              string, including an empty string, overrides the default.
 
           tags: The tags associated with the agent.
 
@@ -1421,6 +1428,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         ]
         | Omit = omit,
         include_relationships: Optional[SequenceNotStr[str]] | Omit = omit,
+        if_none_match: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1452,6 +1460,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         """
         if not agent_id:
             raise ValueError(f"Expected a non-empty value for `agent_id` but received {agent_id!r}")
+        extra_headers = {**strip_not_given({"if-none-match": if_none_match}), **(extra_headers or {})}
         return await self._get(
             path_template("/v1/agents/{agent_id}", agent_id=agent_id),
             options=make_request_options(
@@ -1601,7 +1610,9 @@ class AsyncAgentsResource(AsyncAPIResource):
           source_ids: Deprecated: Use `folder_ids` field instead. The ids of the sources used by the
               agent.
 
-          system: The system prompt used by the agent.
+          system: Base system prompt. Set null to restore the code-owned default. An explicit
+              string, including an empty string, overrides the default. Omit to leave
+              unchanged.
 
           tags: The tags associated with the agent.
 
@@ -1706,7 +1717,7 @@ class AsyncAgentsResource(AsyncAPIResource):
         match_all_tags: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
-        order_by: Literal["created_at", "updated_at", "last_run_completion"] | Omit = omit,
+        order_by: Literal["created_at", "updated_at", "last_run_completion", "last_run_or_creation"] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         query_text: Optional[str] | Omit = omit,
         sort_by: Optional[str] | Omit = omit,
@@ -1732,7 +1743,8 @@ class AsyncAgentsResource(AsyncAPIResource):
 
           before: Cursor for pagination
 
-          created_by_id: Filter agents by the user who created them.
+          created_by_id: Filter agents by the user who created them. Use "@me" to filter to agents
+              created by the requesting user.
 
           identifier_keys: Search agents by identifier keys
 

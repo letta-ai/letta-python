@@ -28,16 +28,23 @@ __all__ = [
     "ModelSettingsSgLangModelSettings",
     "ModelSettingsSgLangModelSettingsReasoning",
     "ModelSettingsSgLangModelSettingsResponseFormat",
+    "ModelSettingsMiniMaxModelSettings",
+    "ModelSettingsMiniMaxModelSettingsResponseFormat",
+    "ModelSettingsMiniMaxModelSettingsThinking",
     "ModelSettingsMoonshotModelSettings",
     "ModelSettingsMoonshotModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettings",
     "ModelSettingsZaiModelSettingsResponseFormat",
     "ModelSettingsZaiModelSettingsThinking",
+    "ModelSettingsZaiCodingModelSettings",
+    "ModelSettingsZaiCodingModelSettingsResponseFormat",
+    "ModelSettingsZaiCodingModelSettingsThinking",
     "ModelSettingsMoonshotCodingModelSettings",
     "ModelSettingsMoonshotCodingModelSettingsResponseFormat",
     "ModelSettingsMoonshotCodingModelSettingsThinking",
     "ModelSettingsBasetenModelSettings",
     "ModelSettingsOpenRouterModelSettings",
+    "ModelSettingsOpenRouterModelSettingsReasoning",
     "ModelSettingsOpenRouterModelSettingsResponseFormat",
     "ModelSettingsChatGptoAuthModelSettings",
     "ModelSettingsChatGptoAuthModelSettingsReasoning",
@@ -47,8 +54,11 @@ __all__ = [
 class ModelSettingsSgLangModelSettingsReasoning(BaseModel):
     """The reasoning configuration for the model."""
 
-    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
-    """The reasoning effort to use when generating text reasoning models"""
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]] = None
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
 
 
 ModelSettingsSgLangModelSettingsResponseFormat: TypeAlias = Annotated[
@@ -88,6 +98,60 @@ class ModelSettingsSgLangModelSettings(BaseModel):
 
     tool_call_parser: Optional[str] = None
     """SGLang tool call parser name (for example 'glm47', 'qwen25', or 'hermes')."""
+
+
+ModelSettingsMiniMaxModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsMiniMaxModelSettingsThinking(BaseModel):
+    """The thinking configuration for the model."""
+
+    budget_tokens: Optional[int] = None
+    """The maximum number of tokens the model can use for extended thinking."""
+
+    type: Optional[Literal["enabled", "disabled"]] = None
+    """The type of thinking to use."""
+
+
+class ModelSettingsMiniMaxModelSettings(BaseModel):
+    """MiniMax model configuration (Anthropic-compatible)."""
+
+    effort: Optional[Literal["low", "medium", "high", "xhigh", "max"]] = None
+    """Effort level for supported Anthropic models (controls token spending).
+
+    'xhigh' and 'max' are available on Opus 4.6+. Not setting this gives similar
+    performance to 'high'.
+    """
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["minimax"]] = None
+    """The type of the provider."""
+
+    response_format: Optional[ModelSettingsMiniMaxModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    strict: Optional[bool] = None
+    """Enable strict mode for tool calling.
+
+    When true, tool outputs are guaranteed to match JSON schemas.
+    """
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+    thinking: Optional[ModelSettingsMiniMaxModelSettingsThinking] = None
+    """The thinking configuration for the model."""
+
+    verbosity: Optional[Literal["low", "medium", "high"]] = None
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
 
 
 ModelSettingsMoonshotModelSettingsResponseFormat: TypeAlias = Annotated[
@@ -149,6 +213,9 @@ class ModelSettingsZaiModelSettings(BaseModel):
     provider_type: Optional[Literal["zai"]] = None
     """The type of the provider."""
 
+    reasoning_effort: Optional[Literal["low", "high", "max"]] = None
+    """The reasoning effort for Z.ai models that support explicit effort control."""
+
     response_format: Optional[ModelSettingsZaiModelSettingsResponseFormat] = None
     """The response format for the model."""
 
@@ -156,6 +223,47 @@ class ModelSettingsZaiModelSettings(BaseModel):
     """The temperature of the model."""
 
     thinking: Optional[ModelSettingsZaiModelSettingsThinking] = None
+    """The thinking configuration for GLM-4.5+ models."""
+
+
+ModelSettingsZaiCodingModelSettingsResponseFormat: TypeAlias = Annotated[
+    Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
+    PropertyInfo(discriminator="type"),
+]
+
+
+class ModelSettingsZaiCodingModelSettingsThinking(BaseModel):
+    """The thinking configuration for GLM-4.5+ models."""
+
+    clear_thinking: Optional[bool] = None
+    """If False, preserved thinking is used (recommended for agents)."""
+
+    type: Optional[Literal["enabled", "disabled"]] = None
+    """Whether thinking is enabled or disabled."""
+
+
+class ModelSettingsZaiCodingModelSettings(BaseModel):
+    """Z.ai coding model configuration (OpenAI-compatible, zai_coding provider)."""
+
+    max_output_tokens: Optional[int] = None
+    """The maximum number of tokens the model can generate."""
+
+    parallel_tool_calls: Optional[bool] = None
+    """Whether to enable parallel tool calling."""
+
+    provider_type: Optional[Literal["zai_coding"]] = None
+    """The type of the provider."""
+
+    reasoning_effort: Optional[Literal["low", "high", "max"]] = None
+    """The reasoning effort for Z.ai models that support explicit effort control."""
+
+    response_format: Optional[ModelSettingsZaiCodingModelSettingsResponseFormat] = None
+    """The response format for the model."""
+
+    temperature: Optional[float] = None
+    """The temperature of the model."""
+
+    thinking: Optional[ModelSettingsZaiCodingModelSettingsThinking] = None
     """The thinking configuration for GLM-4.5+ models."""
 
 
@@ -229,6 +337,16 @@ class ModelSettingsBasetenModelSettings(BaseModel):
     """The temperature of the model."""
 
 
+class ModelSettingsOpenRouterModelSettingsReasoning(BaseModel):
+    """The reasoning configuration for the model."""
+
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]] = None
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
+
+
 ModelSettingsOpenRouterModelSettingsResponseFormat: TypeAlias = Annotated[
     Union[TextResponseFormat, JsonSchemaResponseFormat, JsonObjectResponseFormat, None],
     PropertyInfo(discriminator="type"),
@@ -247,6 +365,9 @@ class ModelSettingsOpenRouterModelSettings(BaseModel):
     provider_type: Optional[Literal["openrouter"]] = None
     """The type of the provider."""
 
+    reasoning: Optional[ModelSettingsOpenRouterModelSettingsReasoning] = None
+    """The reasoning configuration for the model."""
+
     response_format: Optional[ModelSettingsOpenRouterModelSettingsResponseFormat] = None
     """The response format for the model."""
 
@@ -257,8 +378,11 @@ class ModelSettingsOpenRouterModelSettings(BaseModel):
 class ModelSettingsChatGptoAuthModelSettingsReasoning(BaseModel):
     """The reasoning configuration for the model."""
 
-    reasoning_effort: Optional[Literal["none", "low", "medium", "high", "xhigh"]] = None
-    """The reasoning effort level for GPT-5.x and o-series models."""
+    reasoning_effort: Optional[Literal["none", "low", "medium", "high", "xhigh", "max"]] = None
+    """The reasoning effort level for GPT-5.x and o-series models.
+
+    'max' is supported only by GPT-5.6 models.
+    """
 
 
 class ModelSettingsChatGptoAuthModelSettings(BaseModel):
@@ -279,18 +403,23 @@ class ModelSettingsChatGptoAuthModelSettings(BaseModel):
     temperature: Optional[float] = None
     """The temperature of the model."""
 
+    verbosity: Optional[Literal["low", "medium", "high"]] = None
+    """Soft control for how verbose model output should be, used for GPT-5 models."""
+
 
 ModelSettings: TypeAlias = Annotated[
     Union[
         OpenAIModelSettings,
         ModelSettingsSgLangModelSettings,
         AnthropicModelSettings,
+        ModelSettingsMiniMaxModelSettings,
         GoogleAIModelSettings,
         GoogleVertexModelSettings,
         AzureModelSettings,
         XaiModelSettings,
         ModelSettingsMoonshotModelSettings,
         ModelSettingsZaiModelSettings,
+        ModelSettingsZaiCodingModelSettings,
         ModelSettingsMoonshotCodingModelSettings,
         GroqModelSettings,
         DeepseekModelSettings,
@@ -311,8 +440,7 @@ class Conversation(BaseModel):
     id: str
     """The unique identifier of the conversation."""
 
-    agent_id: str
-    """The ID of the agent this conversation belongs to."""
+    agent_id: Optional[str] = None
 
     archived: Optional[bool] = None
     """Whether the conversation is archived."""
@@ -344,6 +472,10 @@ class Conversation(BaseModel):
     Null means this field was not retrieved/hydrated for this response.
     """
 
+    is_pinned: Optional[bool] = None
+
+    is_subagent: Optional[bool] = None
+
     last_message_at: Optional[datetime] = None
     """Timestamp of the most recent message request sent to this conversation."""
 
@@ -359,8 +491,22 @@ class Conversation(BaseModel):
     api_model_settings: Optional[ModelSettings] = FieldInfo(alias="model_settings", default=None)
     """The model settings for this conversation (overrides agent's model settings)."""
 
+    name: Optional[str] = None
+
+    parent_agent_id: Optional[str] = None
+    """
+    The parent agent supplying permissions and runtime resources for an ephemeral
+    conversation; it does not own the conversation history.
+    """
+
     summary: Optional[str] = None
     """A summary of the conversation."""
+
+    tags: Optional[List[str]] = None
+    """The tags associated with the conversation (e.g.
+
+    provenance tags like origin:tui or channel:slack).
+    """
 
     updated_at: Optional[datetime] = None
     """The timestamp when the object was last updated."""
