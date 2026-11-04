@@ -87,6 +87,7 @@ class Model(BaseModel):
         "zai_coding",
         "openrouter",
         "chatgpt_oauth",
+        "anthropic-cortex",
     ] = FieldInfo(alias="model_endpoint_type")
     """Deprecated: Use 'provider_type' field instead. The endpoint type for the model."""
 

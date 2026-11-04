@@ -86,6 +86,7 @@ class LlmConfigParam(TypedDict, total=False):
             "fireworks",
             "openrouter",
             "chatgpt_oauth",
+            "anthropic-cortex",
         ]
     ]
     """The endpoint type for the model."""

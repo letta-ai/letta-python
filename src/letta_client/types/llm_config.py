@@ -89,6 +89,7 @@ class LlmConfig(BaseModel):
         "fireworks",
         "openrouter",
         "chatgpt_oauth",
+        "anthropic-cortex",
     ] = FieldInfo(alias="model_endpoint_type")
     """The endpoint type for the model."""
 
