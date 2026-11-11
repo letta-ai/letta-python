@@ -85,6 +85,7 @@ class EnvironmentsResource(SyncAPIResource):
         after: str | Omit = omit,
         connection_name: str | Omit = omit,
         device_id: str | Omit = omit,
+        include_member_private: str | Omit = omit,
         instance_id: str | Omit = omit,
         limit: str | Omit = omit,
         online_only: str | Omit = omit,
@@ -106,6 +107,9 @@ class EnvironmentsResource(SyncAPIResource):
           connection_name: Filter by exact computer name.
 
           device_id: Filter by the stable device identifier.
+
+          include_member_private: Include members’ private computers when the caller has VIEW_ALL_COMPUTERS. List
+              visibility only.
 
           instance_id: Filter by the stable listener instance identifier.
 
@@ -131,6 +135,7 @@ class EnvironmentsResource(SyncAPIResource):
                         "after": after,
                         "connection_name": connection_name,
                         "device_id": device_id,
+                        "include_member_private": include_member_private,
                         "instance_id": instance_id,
                         "limit": limit,
                         "online_only": online_only,
@@ -259,6 +264,7 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
         after: str | Omit = omit,
         connection_name: str | Omit = omit,
         device_id: str | Omit = omit,
+        include_member_private: str | Omit = omit,
         instance_id: str | Omit = omit,
         limit: str | Omit = omit,
         online_only: str | Omit = omit,
@@ -280,6 +286,9 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
           connection_name: Filter by exact computer name.
 
           device_id: Filter by the stable device identifier.
+
+          include_member_private: Include members’ private computers when the caller has VIEW_ALL_COMPUTERS. List
+              visibility only.
 
           instance_id: Filter by the stable listener instance identifier.
 
@@ -305,6 +314,7 @@ class AsyncEnvironmentsResource(AsyncAPIResource):
                         "after": after,
                         "connection_name": connection_name,
                         "device_id": device_id,
+                        "include_member_private": include_member_private,
                         "instance_id": instance_id,
                         "limit": limit,
                         "online_only": online_only,

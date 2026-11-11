@@ -18,6 +18,12 @@ class EnvironmentListParams(TypedDict, total=False):
     device_id: Annotated[str, PropertyInfo(alias="deviceId")]
     """Filter by the stable device identifier."""
 
+    include_member_private: Annotated[str, PropertyInfo(alias="includeMemberPrivate")]
+    """Include members’ private computers when the caller has VIEW_ALL_COMPUTERS.
+
+    List visibility only.
+    """
+
     instance_id: Annotated[str, PropertyInfo(alias="instanceId")]
     """Filter by the stable listener instance identifier."""
 
