@@ -121,6 +121,7 @@ from ...types.stop_reason_type import StopReasonType
 from ...types.create_block_param import CreateBlockParam
 from ...types.message_create_param import MessageCreateParam
 from ...types.embedding_config_param import EmbeddingConfigParam
+from ...types.agent_retrieve_response import AgentRetrieveResponse
 from ...types.agent_import_file_response import AgentImportFileResponse
 
 __all__ = ["AgentsResource", "AsyncAgentsResource"]
@@ -446,6 +447,7 @@ class AgentsResource(SyncAPIResource):
                     "agent.sources",
                     "agent.tags",
                     "agent.tools",
+                    "agent.variables",
                 ]
             ]
         ]
@@ -458,9 +460,13 @@ class AgentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
-        """
-        Get the state of the agent.
+    ) -> AgentRetrieveResponse:
+        """Get an agent by its ID.
+
+        Pass include=agent.variables to include visible
+        non-secret variables. Secret fields are never included, including when requested
+        via include or include_relationships. Use the agent vault to manage keys or the
+        dedicated secrets endpoint to retrieve values.
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
@@ -499,7 +505,7 @@ class AgentsResource(SyncAPIResource):
                     agent_retrieve_params.AgentRetrieveParams,
                 ),
             ),
-            cast_to=AgentState,
+            cast_to=AgentRetrieveResponse,
         )
 
     def update(
@@ -1423,6 +1429,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     "agent.sources",
                     "agent.tags",
                     "agent.tools",
+                    "agent.variables",
                 ]
             ]
         ]
@@ -1435,9 +1442,13 @@ class AsyncAgentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentState:
-        """
-        Get the state of the agent.
+    ) -> AgentRetrieveResponse:
+        """Get an agent by its ID.
+
+        Pass include=agent.variables to include visible
+        non-secret variables. Secret fields are never included, including when requested
+        via include or include_relationships. Use the agent vault to manage keys or the
+        dedicated secrets endpoint to retrieve values.
 
         Args:
           agent_id: The ID of the agent in the format 'agent-<uuid4>'
@@ -1476,7 +1487,7 @@ class AsyncAgentsResource(AsyncAPIResource):
                     agent_retrieve_params.AgentRetrieveParams,
                 ),
             ),
-            cast_to=AgentState,
+            cast_to=AgentRetrieveResponse,
         )
 
     async def update(

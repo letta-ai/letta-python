@@ -79,6 +79,7 @@ from .agent_recompile_params import AgentRecompileParams as AgentRecompileParams
 from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .parent_tool_rule_param import ParentToolRuleParam as ParentToolRuleParam
+from .agent_retrieve_response import AgentRetrieveResponse as AgentRetrieveResponse
 from .deepseek_model_settings import DeepseekModelSettings as DeepseekModelSettings
 from .environment_list_params import EnvironmentListParams as EnvironmentListParams
 from .message_search_response import MessageSearchResponse as MessageSearchResponse

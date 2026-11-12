@@ -11,6 +11,7 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     AgentState,
+    AgentRetrieveResponse,
     AgentImportFileResponse,
 )
 from letta_client._utils import parse_datetime
@@ -230,7 +231,7 @@ class TestAgents:
         agent = client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -241,7 +242,7 @@ class TestAgents:
             include_relationships=["string", "string"],
             if_none_match="if-none-match",
         )
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -253,7 +254,7 @@ class TestAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -265,7 +266,7 @@ class TestAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
+            assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -919,7 +920,7 @@ class TestAsyncAgents:
         agent = await async_client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -930,7 +931,7 @@ class TestAsyncAgents:
             include_relationships=["string", "string"],
             if_none_match="if-none-match",
         )
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -942,7 +943,7 @@ class TestAsyncAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = await response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -954,7 +955,7 @@ class TestAsyncAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = await response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
+            assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

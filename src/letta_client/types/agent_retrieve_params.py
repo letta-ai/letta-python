@@ -23,6 +23,7 @@ class AgentRetrieveParams(TypedDict, total=False):
                 "agent.sources",
                 "agent.tags",
                 "agent.tools",
+                "agent.variables",
             ]
         ]
     ]
