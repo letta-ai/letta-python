@@ -16,6 +16,14 @@ from .tags import (
     TagsResourceWithStreamingResponse,
     AsyncTagsResourceWithStreamingResponse,
 )
+from .goals import (
+    GoalsResource,
+    AsyncGoalsResource,
+    GoalsResourceWithRawResponse,
+    AsyncGoalsResourceWithRawResponse,
+    GoalsResourceWithStreamingResponse,
+    AsyncGoalsResourceWithStreamingResponse,
+)
 from .steps import (
     StepsResource,
     AsyncStepsResource,
@@ -79,6 +87,14 @@ from .messages import (
     AsyncMessagesResourceWithRawResponse,
     MessagesResourceWithStreamingResponse,
     AsyncMessagesResourceWithStreamingResponse,
+)
+from .monitors import (
+    MonitorsResource,
+    AsyncMonitorsResource,
+    MonitorsResourceWithRawResponse,
+    AsyncMonitorsResourceWithRawResponse,
+    MonitorsResourceWithStreamingResponse,
+    AsyncMonitorsResourceWithStreamingResponse,
 )
 from .passages import (
     PassagesResource,
@@ -194,6 +210,18 @@ __all__ = [
     "AsyncPassagesResourceWithRawResponse",
     "PassagesResourceWithStreamingResponse",
     "AsyncPassagesResourceWithStreamingResponse",
+    "GoalsResource",
+    "AsyncGoalsResource",
+    "GoalsResourceWithRawResponse",
+    "AsyncGoalsResourceWithRawResponse",
+    "GoalsResourceWithStreamingResponse",
+    "AsyncGoalsResourceWithStreamingResponse",
+    "MonitorsResource",
+    "AsyncMonitorsResource",
+    "MonitorsResourceWithRawResponse",
+    "AsyncMonitorsResourceWithRawResponse",
+    "MonitorsResourceWithStreamingResponse",
+    "AsyncMonitorsResourceWithStreamingResponse",
     "ConversationsResource",
     "AsyncConversationsResource",
     "ConversationsResourceWithRawResponse",

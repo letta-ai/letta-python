@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from .goal import Goal as Goal
 from .step import Step as Step
 from .tool import Tool as Tool
 from .model import Model as Model
 from .folder import Folder as Folder
 from .archive import Archive as Archive
+from .monitor import Monitor as Monitor
 from .passage import Passage as Passage
 from .tool_type import ToolType as ToolType
 from .agent_type import AgentType as AgentType
@@ -26,6 +28,7 @@ from .pip_requirement import PipRequirement as PipRequirement
 from .run_list_params import RunListParams as RunListParams
 from .tag_list_params import TagListParams as TagListParams
 from .embedding_config import EmbeddingConfig as EmbeddingConfig
+from .goal_list_params import GoalListParams as GoalListParams
 from .llm_config_param import LlmConfigParam as LlmConfigParam
 from .parent_tool_rule import ParentToolRule as ParentToolRule
 from .stdio_mcp_server import StdioMcpServer as StdioMcpServer
@@ -40,6 +43,9 @@ from .tag_list_response import TagListResponse as TagListResponse
 from .continue_tool_rule import ContinueToolRule as ContinueToolRule
 from .create_block_param import CreateBlockParam as CreateBlockParam
 from .folder_list_params import FolderListParams as FolderListParams
+from .goal_create_params import GoalCreateParams as GoalCreateParams
+from .goal_list_response import GoalListResponse as GoalListResponse
+from .goal_update_params import GoalUpdateParams as GoalUpdateParams
 from .terminal_tool_rule import TerminalToolRule as TerminalToolRule
 from .tool_create_params import ToolCreateParams as ToolCreateParams
 from .tool_search_params import ToolSearchParams as ToolSearchParams
@@ -56,6 +62,7 @@ from .block_update_params import BlockUpdateParams as BlockUpdateParams
 from .groq_model_settings import GroqModelSettings as GroqModelSettings
 from .message_list_params import MessageListParams as MessageListParams
 from .model_list_response import ModelListResponse as ModelListResponse
+from .monitor_list_params import MonitorListParams as MonitorListParams
 from .tool_return_message import ToolReturnMessage as ToolReturnMessage
 from .azure_model_settings import AzureModelSettings as AzureModelSettings
 from .folder_create_params import FolderCreateParams as FolderCreateParams
@@ -71,6 +78,9 @@ from .child_tool_rule_param import ChildToolRuleParam as ChildToolRuleParam
 from .conditional_tool_rule import ConditionalToolRule as ConditionalToolRule
 from .message_list_response import MessageListResponse as MessageListResponse
 from .message_search_params import MessageSearchParams as MessageSearchParams
+from .monitor_create_params import MonitorCreateParams as MonitorCreateParams
+from .monitor_list_response import MonitorListResponse as MonitorListResponse
+from .monitor_update_params import MonitorUpdateParams as MonitorUpdateParams
 from .npm_requirement_param import NpmRequirementParam as NpmRequirementParam
 from .openai_model_settings import OpenAIModelSettings as OpenAIModelSettings
 from .passage_search_params import PassageSearchParams as PassageSearchParams

@@ -49,6 +49,7 @@ if TYPE_CHECKING:
     from .resources import (
         runs,
         tags,
+        goals,
         steps,
         tools,
         agents,
@@ -57,6 +58,7 @@ if TYPE_CHECKING:
         folders,
         archives,
         messages,
+        monitors,
         passages,
         mcp_servers,
         environments,
@@ -64,8 +66,10 @@ if TYPE_CHECKING:
         conversations,
     )
     from .resources.tags import TagsResource, AsyncTagsResource
+    from .resources.goals import GoalsResource, AsyncGoalsResource
     from .resources.tools import ToolsResource, AsyncToolsResource
     from .resources.messages import MessagesResource, AsyncMessagesResource
+    from .resources.monitors import MonitorsResource, AsyncMonitorsResource
     from .resources.passages import PassagesResource, AsyncPassagesResource
     from .resources.runs.runs import RunsResource, AsyncRunsResource
     from .resources.steps.steps import StepsResource, AsyncStepsResource
@@ -262,6 +266,18 @@ class Letta(SyncAPIClient):
         from .resources.passages import PassagesResource
 
         return PassagesResource(self)
+
+    @cached_property
+    def goals(self) -> GoalsResource:
+        from .resources.goals import GoalsResource
+
+        return GoalsResource(self)
+
+    @cached_property
+    def monitors(self) -> MonitorsResource:
+        from .resources.monitors import MonitorsResource
+
+        return MonitorsResource(self)
 
     @cached_property
     def conversations(self) -> ConversationsResource:
@@ -590,6 +606,18 @@ class AsyncLetta(AsyncAPIClient):
         return AsyncPassagesResource(self)
 
     @cached_property
+    def goals(self) -> AsyncGoalsResource:
+        from .resources.goals import AsyncGoalsResource
+
+        return AsyncGoalsResource(self)
+
+    @cached_property
+    def monitors(self) -> AsyncMonitorsResource:
+        from .resources.monitors import AsyncMonitorsResource
+
+        return AsyncMonitorsResource(self)
+
+    @cached_property
     def conversations(self) -> AsyncConversationsResource:
         from .resources.conversations import AsyncConversationsResource
 
@@ -832,6 +860,18 @@ class LettaWithRawResponse:
         return PassagesResourceWithRawResponse(self._client.passages)
 
     @cached_property
+    def goals(self) -> goals.GoalsResourceWithRawResponse:
+        from .resources.goals import GoalsResourceWithRawResponse
+
+        return GoalsResourceWithRawResponse(self._client.goals)
+
+    @cached_property
+    def monitors(self) -> monitors.MonitorsResourceWithRawResponse:
+        from .resources.monitors import MonitorsResourceWithRawResponse
+
+        return MonitorsResourceWithRawResponse(self._client.monitors)
+
+    @cached_property
     def conversations(self) -> conversations.ConversationsResourceWithRawResponse:
         from .resources.conversations import ConversationsResourceWithRawResponse
 
@@ -931,6 +971,18 @@ class AsyncLettaWithRawResponse:
         from .resources.passages import AsyncPassagesResourceWithRawResponse
 
         return AsyncPassagesResourceWithRawResponse(self._client.passages)
+
+    @cached_property
+    def goals(self) -> goals.AsyncGoalsResourceWithRawResponse:
+        from .resources.goals import AsyncGoalsResourceWithRawResponse
+
+        return AsyncGoalsResourceWithRawResponse(self._client.goals)
+
+    @cached_property
+    def monitors(self) -> monitors.AsyncMonitorsResourceWithRawResponse:
+        from .resources.monitors import AsyncMonitorsResourceWithRawResponse
+
+        return AsyncMonitorsResourceWithRawResponse(self._client.monitors)
 
     @cached_property
     def conversations(self) -> conversations.AsyncConversationsResourceWithRawResponse:
@@ -1034,6 +1086,18 @@ class LettaWithStreamedResponse:
         return PassagesResourceWithStreamingResponse(self._client.passages)
 
     @cached_property
+    def goals(self) -> goals.GoalsResourceWithStreamingResponse:
+        from .resources.goals import GoalsResourceWithStreamingResponse
+
+        return GoalsResourceWithStreamingResponse(self._client.goals)
+
+    @cached_property
+    def monitors(self) -> monitors.MonitorsResourceWithStreamingResponse:
+        from .resources.monitors import MonitorsResourceWithStreamingResponse
+
+        return MonitorsResourceWithStreamingResponse(self._client.monitors)
+
+    @cached_property
     def conversations(self) -> conversations.ConversationsResourceWithStreamingResponse:
         from .resources.conversations import ConversationsResourceWithStreamingResponse
 
@@ -1133,6 +1197,18 @@ class AsyncLettaWithStreamedResponse:
         from .resources.passages import AsyncPassagesResourceWithStreamingResponse
 
         return AsyncPassagesResourceWithStreamingResponse(self._client.passages)
+
+    @cached_property
+    def goals(self) -> goals.AsyncGoalsResourceWithStreamingResponse:
+        from .resources.goals import AsyncGoalsResourceWithStreamingResponse
+
+        return AsyncGoalsResourceWithStreamingResponse(self._client.goals)
+
+    @cached_property
+    def monitors(self) -> monitors.AsyncMonitorsResourceWithStreamingResponse:
+        from .resources.monitors import AsyncMonitorsResourceWithStreamingResponse
+
+        return AsyncMonitorsResourceWithStreamingResponse(self._client.monitors)
 
     @cached_property
     def conversations(self) -> conversations.AsyncConversationsResourceWithStreamingResponse:

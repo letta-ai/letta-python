@@ -577,6 +577,38 @@ Methods:
 
 - <code title="post /v1/passages/search">client.passages.<a href="./src/letta_client/resources/passages.py">search</a>(\*\*<a href="src/letta_client/types/passage_search_params.py">params</a>) -> <a href="./src/letta_client/types/passage_search_response.py">PassageSearchResponse</a></code>
 
+# Goals
+
+Types:
+
+```python
+from letta_client.types import Goal, GoalListResponse
+```
+
+Methods:
+
+- <code title="post /v1/goals">client.goals.<a href="./src/letta_client/resources/goals.py">create</a>(\*\*<a href="src/letta_client/types/goal_create_params.py">params</a>) -> <a href="./src/letta_client/types/goal.py">Goal</a></code>
+- <code title="get /v1/goals/{goal_id}">client.goals.<a href="./src/letta_client/resources/goals.py">retrieve</a>(goal_id) -> <a href="./src/letta_client/types/goal.py">Goal</a></code>
+- <code title="patch /v1/goals/{goal_id}">client.goals.<a href="./src/letta_client/resources/goals.py">update</a>(goal_id, \*\*<a href="src/letta_client/types/goal_update_params.py">params</a>) -> <a href="./src/letta_client/types/goal.py">Goal</a></code>
+- <code title="get /v1/goals">client.goals.<a href="./src/letta_client/resources/goals.py">list</a>(\*\*<a href="src/letta_client/types/goal_list_params.py">params</a>) -> <a href="./src/letta_client/types/goal_list_response.py">GoalListResponse</a></code>
+- <code title="delete /v1/goals/{goal_id}">client.goals.<a href="./src/letta_client/resources/goals.py">delete</a>(goal_id) -> None</code>
+
+# Monitors
+
+Types:
+
+```python
+from letta_client.types import Monitor, MonitorListResponse
+```
+
+Methods:
+
+- <code title="post /v1/monitors">client.monitors.<a href="./src/letta_client/resources/monitors.py">create</a>(\*\*<a href="src/letta_client/types/monitor_create_params.py">params</a>) -> <a href="./src/letta_client/types/monitor.py">Monitor</a></code>
+- <code title="get /v1/monitors/{monitor_id}">client.monitors.<a href="./src/letta_client/resources/monitors.py">retrieve</a>(monitor_id) -> <a href="./src/letta_client/types/monitor.py">Monitor</a></code>
+- <code title="patch /v1/monitors/{monitor_id}">client.monitors.<a href="./src/letta_client/resources/monitors.py">update</a>(monitor_id, \*\*<a href="src/letta_client/types/monitor_update_params.py">params</a>) -> <a href="./src/letta_client/types/monitor.py">Monitor</a></code>
+- <code title="get /v1/monitors">client.monitors.<a href="./src/letta_client/resources/monitors.py">list</a>(\*\*<a href="src/letta_client/types/monitor_list_params.py">params</a>) -> <a href="./src/letta_client/types/monitor_list_response.py">MonitorListResponse</a></code>
+- <code title="delete /v1/monitors/{monitor_id}">client.monitors.<a href="./src/letta_client/resources/monitors.py">delete</a>(monitor_id) -> None</code>
+
 # Conversations
 
 Types:
