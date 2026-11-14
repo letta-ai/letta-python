@@ -29,4 +29,8 @@ class SseMcpServer(BaseModel):
     custom_headers: Optional[Dict[str, str]] = None
     """Custom HTTP headers to include with requests"""
 
+    has_oauth_client_secret: Optional[bool] = None
+
     mcp_server_type: Optional[Literal["sse"]] = None
+
+    oauth_client_id: Optional[str] = None
