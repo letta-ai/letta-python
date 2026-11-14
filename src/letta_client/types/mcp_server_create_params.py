@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .create_sse_mcp_server_param import CreateSseMcpServerParam
 from .create_stdio_mcp_server_param import CreateStdioMcpServerParam
@@ -18,6 +18,8 @@ class McpServerCreateParams(TypedDict, total=False):
 
     server_name: Required[str]
     """The name of the MCP server"""
+
+    access: Literal["current-user"]
 
 
 Config: TypeAlias = Union[CreateStdioMcpServerParam, CreateSseMcpServerParam, CreateStreamableHTTPMcpServerParam]

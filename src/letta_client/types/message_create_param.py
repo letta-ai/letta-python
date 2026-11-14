@@ -7,7 +7,17 @@ from typing_extensions import Literal, Required, TypedDict
 
 from .letta_message_content_union_param import LettaMessageContentUnionParam
 
-__all__ = ["MessageCreateParam"]
+__all__ = ["MessageCreateParam", "Attribution"]
+
+
+class Attribution(TypedDict, total=False):
+    """Per-message author, independent of turn authorization and billing.
+
+    Omit this object for legacy request attribution. Relaying other users requires a fully authorized service account.
+    """
+
+    acting_user_id: str
+    """Cloud user ID of the author. Omit to use the authenticated credential author."""
 
 
 class MessageCreateParam(TypedDict, total=False):
@@ -18,6 +28,13 @@ class MessageCreateParam(TypedDict, total=False):
 
     role: Required[Literal["user", "system", "assistant"]]
     """The role of the participant."""
+
+    attribution: Attribution
+    """Per-message author, independent of turn authorization and billing.
+
+    Omit this object for legacy request attribution. Relaying other users requires a
+    fully authorized service account.
+    """
 
     batch_item_id: Optional[str]
     """The id of the LLMBatchItem that this message is associated with"""

@@ -13,6 +13,7 @@ from letta_client.types import (
     Conversation,
     ConversationListResponse,
     ConversationCancelResponse,
+    ConversationSearchResponse,
 )
 from letta_client._utils import parse_datetime
 
@@ -38,6 +39,7 @@ class TestConversations:
             context_window_limit=0,
             description="description",
             hidden=True,
+            is_subagent=True,
             model="model",
             model_settings={
                 "max_output_tokens": 0,
@@ -48,7 +50,9 @@ class TestConversations:
                 "strict": True,
                 "temperature": 0,
             },
+            name="name",
             summary="summary",
+            tags=["string"],
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -82,7 +86,16 @@ class TestConversations:
     @parametrize
     def test_method_retrieve(self, client: Letta) -> None:
         conversation = client.conversations.retrieve(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Conversation, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Letta) -> None:
+        conversation = client.conversations.retrieve(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            include_context_message_ids=True,
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -90,7 +103,7 @@ class TestConversations:
     @parametrize
     def test_raw_response_retrieve(self, client: Letta) -> None:
         response = client.conversations.with_raw_response.retrieve(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -102,7 +115,7 @@ class TestConversations:
     @parametrize
     def test_streaming_response_retrieve(self, client: Letta) -> None:
         with client.conversations.with_streaming_response.retrieve(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -117,7 +130,7 @@ class TestConversations:
     def test_path_params_retrieve(self, client: Letta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.retrieve(
-                "",
+                conversation_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -136,6 +149,8 @@ class TestConversations:
             archived=True,
             context_window_limit=0,
             description="description",
+            is_pinned=True,
+            is_subagent=True,
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -147,7 +162,9 @@ class TestConversations:
                 "strict": True,
                 "temperature": 0,
             },
+            name="name",
             summary="summary",
+            tags=["string"],
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -198,10 +215,14 @@ class TestConversations:
             after="conv-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
             archive_status="unarchived",
+            created_by_id="created_by_id",
+            is_pinned=True,
             limit=200,
+            match_all_tags=True,
             order="asc",
             order_by="created_at",
             summary_search="summary_search",
+            tags=["string", "string"],
         )
         assert_matches_type(ConversationListResponse, conversation, path=["response"])
 
@@ -336,6 +357,9 @@ class TestConversations:
             agent_id="agent_id",
             hidden=True,
             message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            ephemeral=True,
+            is_subagent=True,
+            name="name",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -442,6 +466,53 @@ class TestConversations:
                 conversation_id="",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search(self, client: Letta) -> None:
+        conversation = client.conversations.search(
+            query="query",
+        )
+        assert_matches_type(ConversationSearchResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search_with_all_params(self, client: Letta) -> None:
+        conversation = client.conversations.search(
+            query="query",
+            agent_id="agent_id",
+            archive_status="unarchived",
+            limit=1,
+            search_mode="vector",
+            search_target="summary",
+        )
+        assert_matches_type(ConversationSearchResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_search(self, client: Letta) -> None:
+        response = client.conversations.with_raw_response.search(
+            query="query",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        conversation = response.parse()
+        assert_matches_type(ConversationSearchResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_search(self, client: Letta) -> None:
+        with client.conversations.with_streaming_response.search(
+            query="query",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            conversation = response.parse()
+            assert_matches_type(ConversationSearchResponse, conversation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncConversations:
     parametrize = pytest.mark.parametrize(
@@ -464,6 +535,7 @@ class TestAsyncConversations:
             context_window_limit=0,
             description="description",
             hidden=True,
+            is_subagent=True,
             model="model",
             model_settings={
                 "max_output_tokens": 0,
@@ -474,7 +546,9 @@ class TestAsyncConversations:
                 "strict": True,
                 "temperature": 0,
             },
+            name="name",
             summary="summary",
+            tags=["string"],
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -508,7 +582,16 @@ class TestAsyncConversations:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncLetta) -> None:
         conversation = await async_client.conversations.retrieve(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+        )
+        assert_matches_type(Conversation, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLetta) -> None:
+        conversation = await async_client.conversations.retrieve(
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
+            include_context_message_ids=True,
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -516,7 +599,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncLetta) -> None:
         response = await async_client.conversations.with_raw_response.retrieve(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
         )
 
         assert response.is_closed is True
@@ -528,7 +611,7 @@ class TestAsyncConversations:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncLetta) -> None:
         async with async_client.conversations.with_streaming_response.retrieve(
-            "conv-123e4567-e89b-42d3-8456-426614174000",
+            conversation_id="conv-123e4567-e89b-42d3-8456-426614174000",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -543,7 +626,7 @@ class TestAsyncConversations:
     async def test_path_params_retrieve(self, async_client: AsyncLetta) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.retrieve(
-                "",
+                conversation_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -562,6 +645,8 @@ class TestAsyncConversations:
             archived=True,
             context_window_limit=0,
             description="description",
+            is_pinned=True,
+            is_subagent=True,
             last_message_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             model="model",
             model_settings={
@@ -573,7 +658,9 @@ class TestAsyncConversations:
                 "strict": True,
                 "temperature": 0,
             },
+            name="name",
             summary="summary",
+            tags=["string"],
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -624,10 +711,14 @@ class TestAsyncConversations:
             after="conv-123e4567-e89b-42d3-8456-426614174000",
             agent_id="agent_id",
             archive_status="unarchived",
+            created_by_id="created_by_id",
+            is_pinned=True,
             limit=200,
+            match_all_tags=True,
             order="asc",
             order_by="created_at",
             summary_search="summary_search",
+            tags=["string", "string"],
         )
         assert_matches_type(ConversationListResponse, conversation, path=["response"])
 
@@ -762,6 +853,9 @@ class TestAsyncConversations:
             agent_id="agent_id",
             hidden=True,
             message_id="message-123e4567-e89b-42d3-8456-426614174000",
+            ephemeral=True,
+            is_subagent=True,
+            name="name",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -867,3 +961,50 @@ class TestAsyncConversations:
             await async_client.conversations.with_raw_response.recompile(
                 conversation_id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search(self, async_client: AsyncLetta) -> None:
+        conversation = await async_client.conversations.search(
+            query="query",
+        )
+        assert_matches_type(ConversationSearchResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search_with_all_params(self, async_client: AsyncLetta) -> None:
+        conversation = await async_client.conversations.search(
+            query="query",
+            agent_id="agent_id",
+            archive_status="unarchived",
+            limit=1,
+            search_mode="vector",
+            search_target="summary",
+        )
+        assert_matches_type(ConversationSearchResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_search(self, async_client: AsyncLetta) -> None:
+        response = await async_client.conversations.with_raw_response.search(
+            query="query",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        conversation = await response.parse()
+        assert_matches_type(ConversationSearchResponse, conversation, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_search(self, async_client: AsyncLetta) -> None:
+        async with async_client.conversations.with_streaming_response.search(
+            query="query",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            conversation = await response.parse()
+            assert_matches_type(ConversationSearchResponse, conversation, path=["response"])
+
+        assert cast(Any, response.is_closed) is True

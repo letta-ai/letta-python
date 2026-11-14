@@ -24,3 +24,7 @@ class CreateSseMcpServerParam(TypedDict, total=False):
     """Custom HTTP headers to include with requests"""
 
     mcp_server_type: Literal["sse"]
+
+    oauth_client_id: Optional[str]
+
+    oauth_client_secret: Optional[str]

@@ -3,6 +3,8 @@
 from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
+from pydantic import Field as FieldInfo
+
 from ..._models import BaseModel
 
 __all__ = [
@@ -111,3 +113,25 @@ class ScheduleRetrieveResponse(BaseModel):
     next_scheduled_time: Optional[str] = None
 
     schedule: Schedule
+
+    status: Literal["active", "paused", "completed"]
+
+    use_sandbox: bool
+
+    callback_url: Optional[str] = None
+
+    context_window_limit: Optional[int] = None
+
+    conversation_id: Optional[str] = None
+
+    created_at: Optional[str] = None
+
+    description: Optional[str] = None
+
+    model: Optional[str] = None
+
+    api_model_settings: Optional[object] = FieldInfo(alias="model_settings", default=None)
+
+    name: Optional[str] = None
+
+    target_device_id: Optional[str] = None
