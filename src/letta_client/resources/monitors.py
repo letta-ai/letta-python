@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -53,13 +53,15 @@ class MonitorsResource(SyncAPIResource):
         description: str,
         kind: Literal["command", "websocket", "script", "github_pull_request"],
         agent_id: Optional[str] | Omit = omit,
+        args: Dict[str, object] | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
         device_id: Optional[str] | Omit = omit,
         exit_code: Optional[int] | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
         output_file: Optional[str] | Omit = omit,
         persistent: bool | Omit = omit,
         started_at: Union[str, datetime, None] | Omit = omit,
-        status: Literal["running", "completed", "failed"] | Omit = omit,
+        status: Literal["running", "paused", "completed", "failed", "expired", "stopped"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -90,9 +92,11 @@ class MonitorsResource(SyncAPIResource):
                     "description": description,
                     "kind": kind,
                     "agent_id": agent_id,
+                    "args": args,
                     "conversation_id": conversation_id,
                     "device_id": device_id,
                     "exit_code": exit_code,
+                    "expires_at": expires_at,
                     "output_file": output_file,
                     "persistent": persistent,
                     "started_at": started_at,
@@ -143,15 +147,17 @@ class MonitorsResource(SyncAPIResource):
         self,
         monitor_id: str,
         *,
+        args: Dict[str, object] | Omit = omit,
         command: str | Omit = omit,
         description: str | Omit = omit,
         device_id: Optional[str] | Omit = omit,
         exit_code: Optional[int] | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
         kind: Literal["command", "websocket", "script", "github_pull_request"] | Omit = omit,
         output_file: Optional[str] | Omit = omit,
         persistent: bool | Omit = omit,
         started_at: Union[str, datetime, None] | Omit = omit,
-        status: Literal["running", "completed", "failed"] | Omit = omit,
+        status: Literal["running", "paused", "completed", "failed", "expired", "stopped"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -177,10 +183,12 @@ class MonitorsResource(SyncAPIResource):
             path_template("/v1/monitors/{monitor_id}", monitor_id=monitor_id),
             body=maybe_transform(
                 {
+                    "args": args,
                     "command": command,
                     "description": description,
                     "device_id": device_id,
                     "exit_code": exit_code,
+                    "expires_at": expires_at,
                     "kind": kind,
                     "output_file": output_file,
                     "persistent": persistent,
@@ -202,7 +210,7 @@ class MonitorsResource(SyncAPIResource):
         agent_id: Optional[str] | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
-        status: Literal["running", "completed", "failed"] | Omit = omit,
+        status: Literal["running", "paused", "completed", "failed", "expired", "stopped"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -308,13 +316,15 @@ class AsyncMonitorsResource(AsyncAPIResource):
         description: str,
         kind: Literal["command", "websocket", "script", "github_pull_request"],
         agent_id: Optional[str] | Omit = omit,
+        args: Dict[str, object] | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
         device_id: Optional[str] | Omit = omit,
         exit_code: Optional[int] | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
         output_file: Optional[str] | Omit = omit,
         persistent: bool | Omit = omit,
         started_at: Union[str, datetime, None] | Omit = omit,
-        status: Literal["running", "completed", "failed"] | Omit = omit,
+        status: Literal["running", "paused", "completed", "failed", "expired", "stopped"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -345,9 +355,11 @@ class AsyncMonitorsResource(AsyncAPIResource):
                     "description": description,
                     "kind": kind,
                     "agent_id": agent_id,
+                    "args": args,
                     "conversation_id": conversation_id,
                     "device_id": device_id,
                     "exit_code": exit_code,
+                    "expires_at": expires_at,
                     "output_file": output_file,
                     "persistent": persistent,
                     "started_at": started_at,
@@ -398,15 +410,17 @@ class AsyncMonitorsResource(AsyncAPIResource):
         self,
         monitor_id: str,
         *,
+        args: Dict[str, object] | Omit = omit,
         command: str | Omit = omit,
         description: str | Omit = omit,
         device_id: Optional[str] | Omit = omit,
         exit_code: Optional[int] | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
         kind: Literal["command", "websocket", "script", "github_pull_request"] | Omit = omit,
         output_file: Optional[str] | Omit = omit,
         persistent: bool | Omit = omit,
         started_at: Union[str, datetime, None] | Omit = omit,
-        status: Literal["running", "completed", "failed"] | Omit = omit,
+        status: Literal["running", "paused", "completed", "failed", "expired", "stopped"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -432,10 +446,12 @@ class AsyncMonitorsResource(AsyncAPIResource):
             path_template("/v1/monitors/{monitor_id}", monitor_id=monitor_id),
             body=await async_maybe_transform(
                 {
+                    "args": args,
                     "command": command,
                     "description": description,
                     "device_id": device_id,
                     "exit_code": exit_code,
+                    "expires_at": expires_at,
                     "kind": kind,
                     "output_file": output_file,
                     "persistent": persistent,
@@ -457,7 +473,7 @@ class AsyncMonitorsResource(AsyncAPIResource):
         agent_id: Optional[str] | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
         limit: int | Omit = omit,
-        status: Literal["running", "completed", "failed"] | Omit = omit,
+        status: Literal["running", "paused", "completed", "failed", "expired", "stopped"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

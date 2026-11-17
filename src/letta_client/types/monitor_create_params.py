@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -20,11 +20,15 @@ class MonitorCreateParams(TypedDict, total=False):
 
     agent_id: Optional[str]
 
+    args: Dict[str, object]
+
     conversation_id: Optional[str]
 
     device_id: Optional[str]
 
     exit_code: Optional[int]
+
+    expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
     output_file: Optional[str]
 
@@ -32,4 +36,4 @@ class MonitorCreateParams(TypedDict, total=False):
 
     started_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
-    status: Literal["running", "completed", "failed"]
+    status: Literal["running", "paused", "completed", "failed", "expired", "stopped"]

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -12,6 +12,8 @@ __all__ = ["MonitorUpdateParams"]
 
 
 class MonitorUpdateParams(TypedDict, total=False):
+    args: Dict[str, object]
+
     command: str
 
     description: str
@@ -19,6 +21,8 @@ class MonitorUpdateParams(TypedDict, total=False):
     device_id: Optional[str]
 
     exit_code: Optional[int]
+
+    expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
     kind: Literal["command", "websocket", "script", "github_pull_request"]
 
@@ -28,4 +32,4 @@ class MonitorUpdateParams(TypedDict, total=False):
 
     started_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
 
-    status: Literal["running", "completed", "failed"]
+    status: Literal["running", "paused", "completed", "failed", "expired", "stopped"]

@@ -17,4 +17,4 @@ class MonitorListParams(TypedDict, total=False):
 
     limit: int
 
-    status: Literal["running", "completed", "failed"]
+    status: Literal["running", "paused", "completed", "failed", "expired", "stopped"]
