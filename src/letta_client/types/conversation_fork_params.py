@@ -17,3 +17,9 @@ class ConversationForkParams(TypedDict, total=False):
 
     message_id: Optional[str]
     """The ID of the message in the format 'message-<uuid4>'"""
+
+    ephemeral: bool
+
+    is_subagent: bool
+
+    name: Optional[str]

@@ -13,10 +13,12 @@ from ...types import (
     conversation_list_params,
     conversation_cancel_params,
     conversation_create_params,
+    conversation_search_params,
     conversation_update_params,
+    conversation_retrieve_params,
     conversation_recompile_params,
 )
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from .messages import (
     MessagesResource,
@@ -38,6 +40,7 @@ from ..._base_client import make_request_options
 from ...types.conversation import Conversation
 from ...types.conversation_list_response import ConversationListResponse
 from ...types.conversation_cancel_response import ConversationCancelResponse
+from ...types.conversation_search_response import ConversationSearchResponse
 
 __all__ = ["ConversationsResource", "AsyncConversationsResource"]
 
@@ -73,9 +76,12 @@ class ConversationsResource(SyncAPIResource):
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
         hidden: bool | Omit = omit,
+        is_subagent: bool | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         summary: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -105,6 +111,9 @@ class ConversationsResource(SyncAPIResource):
 
           summary: A summary of the conversation.
 
+          tags: The tags to associate with the conversation (e.g. provenance tags like
+              origin:tui or channel:slack).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -120,9 +129,12 @@ class ConversationsResource(SyncAPIResource):
                     "context_window_limit": context_window_limit,
                     "description": description,
                     "hidden": hidden,
+                    "is_subagent": is_subagent,
                     "model": model,
                     "model_settings": model_settings,
+                    "name": name,
                     "summary": summary,
+                    "tags": tags,
                 },
                 conversation_create_params.ConversationCreateParams,
             ),
@@ -140,6 +152,7 @@ class ConversationsResource(SyncAPIResource):
         self,
         conversation_id: str,
         *,
+        include_context_message_ids: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -152,6 +165,9 @@ class ConversationsResource(SyncAPIResource):
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          include_context_message_ids: Include the ordered IDs of messages still in the active context (defaults to
+              true). Set false to skip loading them.
 
           extra_headers: Send extra headers
 
@@ -166,7 +182,14 @@ class ConversationsResource(SyncAPIResource):
         return self._get(
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"include_context_message_ids": include_context_message_ids},
+                    conversation_retrieve_params.ConversationRetrieveParams,
+                ),
             ),
             cast_to=Conversation,
         )
@@ -178,10 +201,14 @@ class ConversationsResource(SyncAPIResource):
         archived: Optional[bool] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        is_pinned: bool | Omit = omit,
+        is_subagent: bool | Omit = omit,
         last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         summary: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -213,6 +240,9 @@ class ConversationsResource(SyncAPIResource):
 
           summary: A summary of the conversation.
 
+          tags: The full set of tags to associate with the conversation (replaces the existing
+              set).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -230,10 +260,14 @@ class ConversationsResource(SyncAPIResource):
                     "archived": archived,
                     "context_window_limit": context_window_limit,
                     "description": description,
+                    "is_pinned": is_pinned,
+                    "is_subagent": is_subagent,
                     "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
+                    "name": name,
                     "summary": summary,
+                    "tags": tags,
                 },
                 conversation_update_params.ConversationUpdateParams,
             ),
@@ -249,10 +283,14 @@ class ConversationsResource(SyncAPIResource):
         after: Optional[str] | Omit = omit,
         agent_id: Optional[str] | Omit = omit,
         archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
+        created_by_id: Optional[str] | Omit = omit,
+        is_pinned: bool | Omit = omit,
         limit: int | Omit = omit,
+        match_all_tags: bool | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -274,13 +312,23 @@ class ConversationsResource(SyncAPIResource):
           archive_status: Whether to return unarchived conversations only, archived conversations only, or
               all conversations
 
+          created_by_id: Filter conversations by the user who created them. Use "@me" to filter to
+              conversations created by the requesting user.
+
+          is_pinned: Filter conversations by pinned state.
+
           limit: Maximum number of conversations to return
+
+          match_all_tags: If True, only returns conversations that match ALL given tags. Otherwise,
+              returns conversations that have ANY of the passed-in tags.
 
           order: Sort order for conversations. 'asc' for oldest first, 'desc' for newest first
 
           order_by: Field to sort by
 
           summary_search: Search for text within conversation summaries
+
+          tags: List of tags to filter conversations by
 
           extra_headers: Send extra headers
 
@@ -302,10 +350,14 @@ class ConversationsResource(SyncAPIResource):
                         "after": after,
                         "agent_id": agent_id,
                         "archive_status": archive_status,
+                        "created_by_id": created_by_id,
+                        "is_pinned": is_pinned,
                         "limit": limit,
+                        "match_all_tags": match_all_tags,
                         "order": order,
                         "order_by": order_by,
                         "summary_search": summary_search,
+                        "tags": tags,
                     },
                     conversation_list_params.ConversationListParams,
                 ),
@@ -409,6 +461,9 @@ class ConversationsResource(SyncAPIResource):
         agent_id: Optional[str] | Omit = omit,
         hidden: bool | Omit = omit,
         message_id: Optional[str] | Omit = omit,
+        ephemeral: bool | Omit = omit,
+        is_subagent: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -457,6 +512,14 @@ class ConversationsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._post(
             path_template("/v1/conversations/{conversation_id}/fork", conversation_id=conversation_id),
+            body=maybe_transform(
+                {
+                    "ephemeral": ephemeral,
+                    "is_subagent": is_subagent,
+                    "name": name,
+                },
+                conversation_fork_params.ConversationForkParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -535,6 +598,67 @@ class ConversationsResource(SyncAPIResource):
             cast_to=str,
         )
 
+    def search(
+        self,
+        *,
+        query: str,
+        agent_id: Optional[str] | Omit = omit,
+        archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
+        limit: int | Omit = omit,
+        search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
+        search_target: Literal["summary", "description"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConversationSearchResponse:
+        """
+        Search conversations by summary/title or generated description.
+
+        Args:
+          query: Text query for searching conversation summaries or generated descriptions.
+
+          agent_id: Filter conversations by agent ID.
+
+          archive_status: Whether to search unarchived conversations only, archived conversations only, or
+              all conversations.
+
+          limit: Maximum number of results to return.
+
+          search_mode: Search mode to use.
+
+          search_target: Which conversation text field to search: the user-facing summary/title or the
+              generated conversation description.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/conversations/search",
+            body=maybe_transform(
+                {
+                    "query": query,
+                    "agent_id": agent_id,
+                    "archive_status": archive_status,
+                    "limit": limit,
+                    "search_mode": search_mode,
+                    "search_target": search_target,
+                },
+                conversation_search_params.ConversationSearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConversationSearchResponse,
+        )
+
 
 class AsyncConversationsResource(AsyncAPIResource):
     @cached_property
@@ -567,9 +691,12 @@ class AsyncConversationsResource(AsyncAPIResource):
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
         hidden: bool | Omit = omit,
+        is_subagent: bool | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_create_params.ModelSettings] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         summary: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -599,6 +726,9 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           summary: A summary of the conversation.
 
+          tags: The tags to associate with the conversation (e.g. provenance tags like
+              origin:tui or channel:slack).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -614,9 +744,12 @@ class AsyncConversationsResource(AsyncAPIResource):
                     "context_window_limit": context_window_limit,
                     "description": description,
                     "hidden": hidden,
+                    "is_subagent": is_subagent,
                     "model": model,
                     "model_settings": model_settings,
+                    "name": name,
                     "summary": summary,
+                    "tags": tags,
                 },
                 conversation_create_params.ConversationCreateParams,
             ),
@@ -636,6 +769,7 @@ class AsyncConversationsResource(AsyncAPIResource):
         self,
         conversation_id: str,
         *,
+        include_context_message_ids: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -648,6 +782,9 @@ class AsyncConversationsResource(AsyncAPIResource):
 
         Args:
           conversation_id: The ID of the conv in the format 'conv-<uuid4>'
+
+          include_context_message_ids: Include the ordered IDs of messages still in the active context (defaults to
+              true). Set false to skip loading them.
 
           extra_headers: Send extra headers
 
@@ -662,7 +799,14 @@ class AsyncConversationsResource(AsyncAPIResource):
         return await self._get(
             path_template("/v1/conversations/{conversation_id}", conversation_id=conversation_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"include_context_message_ids": include_context_message_ids},
+                    conversation_retrieve_params.ConversationRetrieveParams,
+                ),
             ),
             cast_to=Conversation,
         )
@@ -674,10 +818,14 @@ class AsyncConversationsResource(AsyncAPIResource):
         archived: Optional[bool] | Omit = omit,
         context_window_limit: Optional[int] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        is_pinned: bool | Omit = omit,
+        is_subagent: bool | Omit = omit,
         last_message_at: Union[str, datetime, None] | Omit = omit,
         model: Optional[str] | Omit = omit,
         model_settings: Optional[conversation_update_params.ModelSettings] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         summary: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -709,6 +857,9 @@ class AsyncConversationsResource(AsyncAPIResource):
 
           summary: A summary of the conversation.
 
+          tags: The full set of tags to associate with the conversation (replaces the existing
+              set).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -726,10 +877,14 @@ class AsyncConversationsResource(AsyncAPIResource):
                     "archived": archived,
                     "context_window_limit": context_window_limit,
                     "description": description,
+                    "is_pinned": is_pinned,
+                    "is_subagent": is_subagent,
                     "last_message_at": last_message_at,
                     "model": model,
                     "model_settings": model_settings,
+                    "name": name,
                     "summary": summary,
+                    "tags": tags,
                 },
                 conversation_update_params.ConversationUpdateParams,
             ),
@@ -745,10 +900,14 @@ class AsyncConversationsResource(AsyncAPIResource):
         after: Optional[str] | Omit = omit,
         agent_id: Optional[str] | Omit = omit,
         archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
+        created_by_id: Optional[str] | Omit = omit,
+        is_pinned: bool | Omit = omit,
         limit: int | Omit = omit,
+        match_all_tags: bool | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at", "last_run_completion", "last_message_at"] | Omit = omit,
         summary_search: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -770,13 +929,23 @@ class AsyncConversationsResource(AsyncAPIResource):
           archive_status: Whether to return unarchived conversations only, archived conversations only, or
               all conversations
 
+          created_by_id: Filter conversations by the user who created them. Use "@me" to filter to
+              conversations created by the requesting user.
+
+          is_pinned: Filter conversations by pinned state.
+
           limit: Maximum number of conversations to return
+
+          match_all_tags: If True, only returns conversations that match ALL given tags. Otherwise,
+              returns conversations that have ANY of the passed-in tags.
 
           order: Sort order for conversations. 'asc' for oldest first, 'desc' for newest first
 
           order_by: Field to sort by
 
           summary_search: Search for text within conversation summaries
+
+          tags: List of tags to filter conversations by
 
           extra_headers: Send extra headers
 
@@ -798,10 +967,14 @@ class AsyncConversationsResource(AsyncAPIResource):
                         "after": after,
                         "agent_id": agent_id,
                         "archive_status": archive_status,
+                        "created_by_id": created_by_id,
+                        "is_pinned": is_pinned,
                         "limit": limit,
+                        "match_all_tags": match_all_tags,
                         "order": order,
                         "order_by": order_by,
                         "summary_search": summary_search,
+                        "tags": tags,
                     },
                     conversation_list_params.ConversationListParams,
                 ),
@@ -907,6 +1080,9 @@ class AsyncConversationsResource(AsyncAPIResource):
         agent_id: Optional[str] | Omit = omit,
         hidden: bool | Omit = omit,
         message_id: Optional[str] | Omit = omit,
+        ephemeral: bool | Omit = omit,
+        is_subagent: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -955,6 +1131,14 @@ class AsyncConversationsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._post(
             path_template("/v1/conversations/{conversation_id}/fork", conversation_id=conversation_id),
+            body=await async_maybe_transform(
+                {
+                    "ephemeral": ephemeral,
+                    "is_subagent": is_subagent,
+                    "name": name,
+                },
+                conversation_fork_params.ConversationForkParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1035,6 +1219,67 @@ class AsyncConversationsResource(AsyncAPIResource):
             cast_to=str,
         )
 
+    async def search(
+        self,
+        *,
+        query: str,
+        agent_id: Optional[str] | Omit = omit,
+        archive_status: Literal["unarchived", "archived", "all"] | Omit = omit,
+        limit: int | Omit = omit,
+        search_mode: Literal["vector", "fts", "hybrid"] | Omit = omit,
+        search_target: Literal["summary", "description"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ConversationSearchResponse:
+        """
+        Search conversations by summary/title or generated description.
+
+        Args:
+          query: Text query for searching conversation summaries or generated descriptions.
+
+          agent_id: Filter conversations by agent ID.
+
+          archive_status: Whether to search unarchived conversations only, archived conversations only, or
+              all conversations.
+
+          limit: Maximum number of results to return.
+
+          search_mode: Search mode to use.
+
+          search_target: Which conversation text field to search: the user-facing summary/title or the
+              generated conversation description.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/conversations/search",
+            body=await async_maybe_transform(
+                {
+                    "query": query,
+                    "agent_id": agent_id,
+                    "archive_status": archive_status,
+                    "limit": limit,
+                    "search_mode": search_mode,
+                    "search_target": search_target,
+                },
+                conversation_search_params.ConversationSearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ConversationSearchResponse,
+        )
+
 
 class ConversationsResourceWithRawResponse:
     def __init__(self, conversations: ConversationsResource) -> None:
@@ -1063,6 +1308,9 @@ class ConversationsResourceWithRawResponse:
         )
         self.recompile = to_raw_response_wrapper(
             conversations.recompile,
+        )
+        self.search = to_raw_response_wrapper(
+            conversations.search,
         )
 
     @cached_property
@@ -1098,6 +1346,9 @@ class AsyncConversationsResourceWithRawResponse:
         self.recompile = async_to_raw_response_wrapper(
             conversations.recompile,
         )
+        self.search = async_to_raw_response_wrapper(
+            conversations.search,
+        )
 
     @cached_property
     def messages(self) -> AsyncMessagesResourceWithRawResponse:
@@ -1132,6 +1383,9 @@ class ConversationsResourceWithStreamingResponse:
         self.recompile = to_streamed_response_wrapper(
             conversations.recompile,
         )
+        self.search = to_streamed_response_wrapper(
+            conversations.search,
+        )
 
     @cached_property
     def messages(self) -> MessagesResourceWithStreamingResponse:
@@ -1165,6 +1419,9 @@ class AsyncConversationsResourceWithStreamingResponse:
         )
         self.recompile = async_to_streamed_response_wrapper(
             conversations.recompile,
+        )
+        self.search = async_to_streamed_response_wrapper(
+            conversations.search,
         )
 
     @cached_property

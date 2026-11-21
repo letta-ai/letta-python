@@ -73,6 +73,7 @@ class TestMessages:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -174,6 +175,7 @@ class TestMessages:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -453,6 +455,7 @@ class TestMessages:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -604,6 +607,7 @@ class TestMessages:
                             }
                         ],
                         "role": "user",
+                        "attribution": {"acting_user_id": "x"},
                         "batch_item_id": "batch_item_id",
                         "group_id": "group_id",
                         "name": "name",
@@ -712,6 +716,7 @@ class TestAsyncMessages:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -813,6 +818,7 @@ class TestAsyncMessages:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -1092,6 +1098,7 @@ class TestAsyncMessages:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -1243,6 +1250,7 @@ class TestAsyncMessages:
                             }
                         ],
                         "role": "user",
+                        "attribution": {"acting_user_id": "x"},
                         "batch_item_id": "batch_item_id",
                         "group_id": "group_id",
                         "name": "name",

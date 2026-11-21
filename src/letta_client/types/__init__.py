@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from .goal import Goal as Goal
 from .step import Step as Step
 from .tool import Tool as Tool
 from .model import Model as Model
 from .folder import Folder as Folder
 from .archive import Archive as Archive
+from .monitor import Monitor as Monitor
 from .passage import Passage as Passage
 from .tool_type import ToolType as ToolType
 from .agent_type import AgentType as AgentType
@@ -26,6 +28,7 @@ from .pip_requirement import PipRequirement as PipRequirement
 from .run_list_params import RunListParams as RunListParams
 from .tag_list_params import TagListParams as TagListParams
 from .embedding_config import EmbeddingConfig as EmbeddingConfig
+from .goal_list_params import GoalListParams as GoalListParams
 from .llm_config_param import LlmConfigParam as LlmConfigParam
 from .parent_tool_rule import ParentToolRule as ParentToolRule
 from .stdio_mcp_server import StdioMcpServer as StdioMcpServer
@@ -40,6 +43,9 @@ from .tag_list_response import TagListResponse as TagListResponse
 from .continue_tool_rule import ContinueToolRule as ContinueToolRule
 from .create_block_param import CreateBlockParam as CreateBlockParam
 from .folder_list_params import FolderListParams as FolderListParams
+from .goal_create_params import GoalCreateParams as GoalCreateParams
+from .goal_list_response import GoalListResponse as GoalListResponse
+from .goal_update_params import GoalUpdateParams as GoalUpdateParams
 from .terminal_tool_rule import TerminalToolRule as TerminalToolRule
 from .tool_create_params import ToolCreateParams as ToolCreateParams
 from .tool_search_params import ToolSearchParams as ToolSearchParams
@@ -56,13 +62,13 @@ from .block_update_params import BlockUpdateParams as BlockUpdateParams
 from .groq_model_settings import GroqModelSettings as GroqModelSettings
 from .message_list_params import MessageListParams as MessageListParams
 from .model_list_response import ModelListResponse as ModelListResponse
+from .monitor_list_params import MonitorListParams as MonitorListParams
 from .tool_return_message import ToolReturnMessage as ToolReturnMessage
 from .azure_model_settings import AzureModelSettings as AzureModelSettings
 from .folder_create_params import FolderCreateParams as FolderCreateParams
 from .folder_update_params import FolderUpdateParams as FolderUpdateParams
 from .init_tool_rule_param import InitToolRuleParam as InitToolRuleParam
 from .message_create_param import MessageCreateParam as MessageCreateParam
-from .template_save_params import TemplateSaveParams as TemplateSaveParams
 from .text_response_format import TextResponseFormat as TextResponseFormat
 from .tool_search_response import ToolSearchResponse as ToolSearchResponse
 from .agent_retrieve_params import AgentRetrieveParams as AgentRetrieveParams
@@ -72,6 +78,9 @@ from .child_tool_rule_param import ChildToolRuleParam as ChildToolRuleParam
 from .conditional_tool_rule import ConditionalToolRule as ConditionalToolRule
 from .message_list_response import MessageListResponse as MessageListResponse
 from .message_search_params import MessageSearchParams as MessageSearchParams
+from .monitor_create_params import MonitorCreateParams as MonitorCreateParams
+from .monitor_list_response import MonitorListResponse as MonitorListResponse
+from .monitor_update_params import MonitorUpdateParams as MonitorUpdateParams
 from .npm_requirement_param import NpmRequirementParam as NpmRequirementParam
 from .openai_model_settings import OpenAIModelSettings as OpenAIModelSettings
 from .passage_search_params import PassageSearchParams as PassageSearchParams
@@ -80,9 +89,7 @@ from .agent_recompile_params import AgentRecompileParams as AgentRecompileParams
 from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .parent_tool_rule_param import ParentToolRuleParam as ParentToolRuleParam
-from .template_create_params import TemplateCreateParams as TemplateCreateParams
-from .template_save_response import TemplateSaveResponse as TemplateSaveResponse
-from .template_update_params import TemplateUpdateParams as TemplateUpdateParams
+from .agent_retrieve_response import AgentRetrieveResponse as AgentRetrieveResponse
 from .deepseek_model_settings import DeepseekModelSettings as DeepseekModelSettings
 from .environment_list_params import EnvironmentListParams as EnvironmentListParams
 from .message_search_response import MessageSearchResponse as MessageSearchResponse
@@ -100,10 +107,6 @@ from .google_ai_model_settings import GoogleAIModelSettings as GoogleAIModelSett
 from .mcp_server_create_params import McpServerCreateParams as McpServerCreateParams
 from .mcp_server_list_response import McpServerListResponse as McpServerListResponse
 from .mcp_server_update_params import McpServerUpdateParams as McpServerUpdateParams
-from .template_create_response import TemplateCreateResponse as TemplateCreateResponse
-from .template_delete_response import TemplateDeleteResponse as TemplateDeleteResponse
-from .template_rollback_params import TemplateRollbackParams as TemplateRollbackParams
-from .template_update_response import TemplateUpdateResponse as TemplateUpdateResponse
 from .terminal_tool_rule_param import TerminalToolRuleParam as TerminalToolRuleParam
 from .xai_model_settings_param import XaiModelSettingsParam as XaiModelSettingsParam
 from .environment_list_response import EnvironmentListResponse as EnvironmentListResponse
@@ -120,11 +123,11 @@ from .azure_model_settings_param import AzureModelSettingsParam as AzureModelSet
 from .conversation_cancel_params import ConversationCancelParams as ConversationCancelParams
 from .conversation_create_params import ConversationCreateParams as ConversationCreateParams
 from .conversation_list_response import ConversationListResponse as ConversationListResponse
+from .conversation_search_params import ConversationSearchParams as ConversationSearchParams
 from .conversation_update_params import ConversationUpdateParams as ConversationUpdateParams
 from .mcp_server_create_response import McpServerCreateResponse as McpServerCreateResponse
 from .mcp_server_update_response import McpServerUpdateResponse as McpServerUpdateResponse
 from .streamable_http_mcp_server import StreamableHTTPMcpServer as StreamableHTTPMcpServer
-from .template_rollback_response import TemplateRollbackResponse as TemplateRollbackResponse
 from .text_response_format_param import TextResponseFormatParam as TextResponseFormatParam
 from .conditional_tool_rule_param import ConditionalToolRuleParam as ConditionalToolRuleParam
 from .create_sse_mcp_server_param import CreateSseMcpServerParam as CreateSseMcpServerParam
@@ -136,6 +139,8 @@ from .update_sse_mcp_server_param import UpdateSseMcpServerParam as UpdateSseMcp
 from .access_token_create_response import AccessTokenCreateResponse as AccessTokenCreateResponse
 from .bedrock_model_settings_param import BedrockModelSettingsParam as BedrockModelSettingsParam
 from .conversation_cancel_response import ConversationCancelResponse as ConversationCancelResponse
+from .conversation_retrieve_params import ConversationRetrieveParams as ConversationRetrieveParams
+from .conversation_search_response import ConversationSearchResponse as ConversationSearchResponse
 from .google_vertex_model_settings import GoogleVertexModelSettings as GoogleVertexModelSettings
 from .max_count_per_step_tool_rule import MaxCountPerStepToolRule as MaxCountPerStepToolRule
 from .mcp_server_retrieve_response import McpServerRetrieveResponse as McpServerRetrieveResponse

@@ -24,3 +24,7 @@ class UpdateStreamableHTTPMcpServerParam(TypedDict, total=False):
     """Custom HTTP headers to include with requests"""
 
     mcp_server_type: Literal["streamable_http"]
+
+    oauth_client_id: Optional[str]
+
+    oauth_client_secret: Optional[str]

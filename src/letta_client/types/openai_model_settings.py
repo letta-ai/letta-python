@@ -13,10 +13,13 @@ __all__ = ["OpenAIModelSettings", "Reasoning", "ResponseFormat"]
 
 
 class Reasoning(BaseModel):
-    """The reasoning configuration for the model."""
+    """The reasoning configuration for the model. Null uses the provider default."""
 
-    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh"]] = None
-    """The reasoning effort to use when generating text reasoning models"""
+    reasoning_effort: Optional[Literal["none", "minimal", "low", "medium", "high", "xhigh", "max"]] = None
+    """The reasoning effort to use when generating text reasoning models.
+
+    Supported values depend on the model and provider.
+    """
 
 
 ResponseFormat: TypeAlias = Annotated[
@@ -36,7 +39,7 @@ class OpenAIModelSettings(BaseModel):
     """The type of the provider."""
 
     reasoning: Optional[Reasoning] = None
-    """The reasoning configuration for the model."""
+    """The reasoning configuration for the model. Null uses the provider default."""
 
     response_format: Optional[ResponseFormat] = None
     """The response format for the model."""

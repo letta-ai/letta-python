@@ -50,6 +50,12 @@ class RunListParams(TypedDict, total=False):
     conversation_id: Optional[str]
     """Filter runs by conversation ID."""
 
+    include_request_config: bool
+    """Include request_config in each run.
+
+    Defaults to true; set false for a slim response.
+    """
+
     limit: Optional[int]
     """Maximum number of runs to return"""
 

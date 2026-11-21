@@ -74,8 +74,14 @@ class TestEnvironments:
     def test_method_list_with_all_params(self, client: Letta) -> None:
         environment = client.environments.list(
             after="after",
+            connection_name="x",
+            device_id="deviceId",
+            include_member_private="includeMemberPrivate",
+            instance_id="instanceId",
             limit="limit",
             online_only="onlineOnly",
+            pagination_order="id",
+            search="search",
             source="local",
             user_id="userId",
         )
@@ -108,6 +114,7 @@ class TestEnvironments:
     def test_method_send_message(self, client: Letta) -> None:
         environment = client.environments.send_message(
             connection_id="connectionId",
+            agent_id="agentId",
             messages=[
                 {
                     "client_message_id": "client_message_id",
@@ -123,6 +130,7 @@ class TestEnvironments:
     def test_method_send_message_with_all_params(self, client: Letta) -> None:
         environment = client.environments.send_message(
             connection_id="connectionId",
+            agent_id="agentId",
             messages=[
                 {
                     "client_message_id": "client_message_id",
@@ -131,8 +139,15 @@ class TestEnvironments:
                     "otid": "otid",
                 }
             ],
-            agent_id="agentId",
+            client_tool_allowlist=["string"],
+            client_toolset={
+                "base": "base",
+                "include": ["string"],
+            },
             conversation_id="conversationId",
+            exclude_interactive_tools=True,
+            external_tool_scope_ids=["string"],
+            image_failure_mode="strict",
         )
         assert_matches_type(EnvironmentSendMessageResponse, environment, path=["response"])
 
@@ -141,6 +156,7 @@ class TestEnvironments:
     def test_raw_response_send_message(self, client: Letta) -> None:
         response = client.environments.with_raw_response.send_message(
             connection_id="connectionId",
+            agent_id="agentId",
             messages=[
                 {
                     "client_message_id": "client_message_id",
@@ -160,6 +176,7 @@ class TestEnvironments:
     def test_streaming_response_send_message(self, client: Letta) -> None:
         with client.environments.with_streaming_response.send_message(
             connection_id="connectionId",
+            agent_id="agentId",
             messages=[
                 {
                     "client_message_id": "client_message_id",
@@ -182,6 +199,7 @@ class TestEnvironments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connection_id` but received ''"):
             client.environments.with_raw_response.send_message(
                 connection_id="",
+                agent_id="agentId",
                 messages=[
                     {
                         "client_message_id": "client_message_id",
@@ -250,8 +268,14 @@ class TestAsyncEnvironments:
     async def test_method_list_with_all_params(self, async_client: AsyncLetta) -> None:
         environment = await async_client.environments.list(
             after="after",
+            connection_name="x",
+            device_id="deviceId",
+            include_member_private="includeMemberPrivate",
+            instance_id="instanceId",
             limit="limit",
             online_only="onlineOnly",
+            pagination_order="id",
+            search="search",
             source="local",
             user_id="userId",
         )
@@ -284,6 +308,7 @@ class TestAsyncEnvironments:
     async def test_method_send_message(self, async_client: AsyncLetta) -> None:
         environment = await async_client.environments.send_message(
             connection_id="connectionId",
+            agent_id="agentId",
             messages=[
                 {
                     "client_message_id": "client_message_id",
@@ -299,6 +324,7 @@ class TestAsyncEnvironments:
     async def test_method_send_message_with_all_params(self, async_client: AsyncLetta) -> None:
         environment = await async_client.environments.send_message(
             connection_id="connectionId",
+            agent_id="agentId",
             messages=[
                 {
                     "client_message_id": "client_message_id",
@@ -307,8 +333,15 @@ class TestAsyncEnvironments:
                     "otid": "otid",
                 }
             ],
-            agent_id="agentId",
+            client_tool_allowlist=["string"],
+            client_toolset={
+                "base": "base",
+                "include": ["string"],
+            },
             conversation_id="conversationId",
+            exclude_interactive_tools=True,
+            external_tool_scope_ids=["string"],
+            image_failure_mode="strict",
         )
         assert_matches_type(EnvironmentSendMessageResponse, environment, path=["response"])
 
@@ -317,6 +350,7 @@ class TestAsyncEnvironments:
     async def test_raw_response_send_message(self, async_client: AsyncLetta) -> None:
         response = await async_client.environments.with_raw_response.send_message(
             connection_id="connectionId",
+            agent_id="agentId",
             messages=[
                 {
                     "client_message_id": "client_message_id",
@@ -336,6 +370,7 @@ class TestAsyncEnvironments:
     async def test_streaming_response_send_message(self, async_client: AsyncLetta) -> None:
         async with async_client.environments.with_streaming_response.send_message(
             connection_id="connectionId",
+            agent_id="agentId",
             messages=[
                 {
                     "client_message_id": "client_message_id",
@@ -358,6 +393,7 @@ class TestAsyncEnvironments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `connection_id` but received ''"):
             await async_client.environments.with_raw_response.send_message(
                 connection_id="",
+                agent_id="agentId",
                 messages=[
                     {
                         "client_message_id": "client_message_id",
