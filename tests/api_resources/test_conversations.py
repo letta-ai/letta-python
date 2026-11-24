@@ -360,6 +360,7 @@ class TestConversations:
             ephemeral=True,
             is_subagent=True,
             name="name",
+            summary="summary",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
@@ -856,6 +857,7 @@ class TestAsyncConversations:
             ephemeral=True,
             is_subagent=True,
             name="name",
+            summary="summary",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 

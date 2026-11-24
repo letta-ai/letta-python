@@ -23,3 +23,5 @@ class ConversationForkParams(TypedDict, total=False):
     is_subagent: bool
 
     name: Optional[str]
+
+    summary: Optional[str]
