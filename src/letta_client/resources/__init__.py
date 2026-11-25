@@ -104,6 +104,14 @@ from .passages import (
     PassagesResourceWithStreamingResponse,
     AsyncPassagesResourceWithStreamingResponse,
 )
+from .subagents import (
+    SubagentsResource,
+    AsyncSubagentsResource,
+    SubagentsResourceWithRawResponse,
+    AsyncSubagentsResourceWithRawResponse,
+    SubagentsResourceWithStreamingResponse,
+    AsyncSubagentsResourceWithStreamingResponse,
+)
 from .mcp_servers import (
     McpServersResource,
     AsyncMcpServersResource,
@@ -216,6 +224,12 @@ __all__ = [
     "AsyncGoalsResourceWithRawResponse",
     "GoalsResourceWithStreamingResponse",
     "AsyncGoalsResourceWithStreamingResponse",
+    "SubagentsResource",
+    "AsyncSubagentsResource",
+    "SubagentsResourceWithRawResponse",
+    "AsyncSubagentsResourceWithRawResponse",
+    "SubagentsResourceWithStreamingResponse",
+    "AsyncSubagentsResourceWithStreamingResponse",
     "MonitorsResource",
     "AsyncMonitorsResource",
     "MonitorsResourceWithRawResponse",

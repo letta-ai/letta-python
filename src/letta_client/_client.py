@@ -60,6 +60,7 @@ if TYPE_CHECKING:
         messages,
         monitors,
         passages,
+        subagents,
         mcp_servers,
         environments,
         access_tokens,
@@ -72,6 +73,7 @@ if TYPE_CHECKING:
     from .resources.monitors import MonitorsResource, AsyncMonitorsResource
     from .resources.passages import PassagesResource, AsyncPassagesResource
     from .resources.runs.runs import RunsResource, AsyncRunsResource
+    from .resources.subagents import SubagentsResource, AsyncSubagentsResource
     from .resources.steps.steps import StepsResource, AsyncStepsResource
     from .resources.environments import EnvironmentsResource, AsyncEnvironmentsResource
     from .resources.access_tokens import AccessTokensResource, AsyncAccessTokensResource
@@ -272,6 +274,12 @@ class Letta(SyncAPIClient):
         from .resources.goals import GoalsResource
 
         return GoalsResource(self)
+
+    @cached_property
+    def subagents(self) -> SubagentsResource:
+        from .resources.subagents import SubagentsResource
+
+        return SubagentsResource(self)
 
     @cached_property
     def monitors(self) -> MonitorsResource:
@@ -612,6 +620,12 @@ class AsyncLetta(AsyncAPIClient):
         return AsyncGoalsResource(self)
 
     @cached_property
+    def subagents(self) -> AsyncSubagentsResource:
+        from .resources.subagents import AsyncSubagentsResource
+
+        return AsyncSubagentsResource(self)
+
+    @cached_property
     def monitors(self) -> AsyncMonitorsResource:
         from .resources.monitors import AsyncMonitorsResource
 
@@ -866,6 +880,12 @@ class LettaWithRawResponse:
         return GoalsResourceWithRawResponse(self._client.goals)
 
     @cached_property
+    def subagents(self) -> subagents.SubagentsResourceWithRawResponse:
+        from .resources.subagents import SubagentsResourceWithRawResponse
+
+        return SubagentsResourceWithRawResponse(self._client.subagents)
+
+    @cached_property
     def monitors(self) -> monitors.MonitorsResourceWithRawResponse:
         from .resources.monitors import MonitorsResourceWithRawResponse
 
@@ -977,6 +997,12 @@ class AsyncLettaWithRawResponse:
         from .resources.goals import AsyncGoalsResourceWithRawResponse
 
         return AsyncGoalsResourceWithRawResponse(self._client.goals)
+
+    @cached_property
+    def subagents(self) -> subagents.AsyncSubagentsResourceWithRawResponse:
+        from .resources.subagents import AsyncSubagentsResourceWithRawResponse
+
+        return AsyncSubagentsResourceWithRawResponse(self._client.subagents)
 
     @cached_property
     def monitors(self) -> monitors.AsyncMonitorsResourceWithRawResponse:
@@ -1092,6 +1118,12 @@ class LettaWithStreamedResponse:
         return GoalsResourceWithStreamingResponse(self._client.goals)
 
     @cached_property
+    def subagents(self) -> subagents.SubagentsResourceWithStreamingResponse:
+        from .resources.subagents import SubagentsResourceWithStreamingResponse
+
+        return SubagentsResourceWithStreamingResponse(self._client.subagents)
+
+    @cached_property
     def monitors(self) -> monitors.MonitorsResourceWithStreamingResponse:
         from .resources.monitors import MonitorsResourceWithStreamingResponse
 
@@ -1203,6 +1235,12 @@ class AsyncLettaWithStreamedResponse:
         from .resources.goals import AsyncGoalsResourceWithStreamingResponse
 
         return AsyncGoalsResourceWithStreamingResponse(self._client.goals)
+
+    @cached_property
+    def subagents(self) -> subagents.AsyncSubagentsResourceWithStreamingResponse:
+        from .resources.subagents import AsyncSubagentsResourceWithStreamingResponse
+
+        return AsyncSubagentsResourceWithStreamingResponse(self._client.subagents)
 
     @cached_property
     def monitors(self) -> monitors.AsyncMonitorsResourceWithStreamingResponse:

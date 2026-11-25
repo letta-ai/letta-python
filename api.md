@@ -593,6 +593,20 @@ Methods:
 - <code title="get /v1/goals">client.goals.<a href="./src/letta_client/resources/goals.py">list</a>(\*\*<a href="src/letta_client/types/goal_list_params.py">params</a>) -> <a href="./src/letta_client/types/goal_list_response.py">GoalListResponse</a></code>
 - <code title="delete /v1/goals/{goal_id}">client.goals.<a href="./src/letta_client/resources/goals.py">delete</a>(goal_id) -> None</code>
 
+# Subagents
+
+Types:
+
+```python
+from letta_client.types import Subagent, SubagentListResponse
+```
+
+Methods:
+
+- <code title="post /v1/subagents">client.subagents.<a href="./src/letta_client/resources/subagents.py">create</a>(\*\*<a href="src/letta_client/types/subagent_create_params.py">params</a>) -> <a href="./src/letta_client/types/subagent.py">Subagent</a></code>
+- <code title="patch /v1/subagents/{subagent_id}">client.subagents.<a href="./src/letta_client/resources/subagents.py">update</a>(subagent_id, \*\*<a href="src/letta_client/types/subagent_update_params.py">params</a>) -> <a href="./src/letta_client/types/subagent.py">Subagent</a></code>
+- <code title="get /v1/subagents">client.subagents.<a href="./src/letta_client/resources/subagents.py">list</a>(\*\*<a href="src/letta_client/types/subagent_list_params.py">params</a>) -> <a href="./src/letta_client/types/subagent_list_response.py">SubagentListResponse</a></code>
+
 # Monitors
 
 Types:

@@ -10,6 +10,7 @@ from .folder import Folder as Folder
 from .archive import Archive as Archive
 from .monitor import Monitor as Monitor
 from .passage import Passage as Passage
+from .subagent import Subagent as Subagent
 from .tool_type import ToolType as ToolType
 from .agent_type import AgentType as AgentType
 from .llm_config import LlmConfig as LlmConfig
@@ -69,6 +70,7 @@ from .folder_create_params import FolderCreateParams as FolderCreateParams
 from .folder_update_params import FolderUpdateParams as FolderUpdateParams
 from .init_tool_rule_param import InitToolRuleParam as InitToolRuleParam
 from .message_create_param import MessageCreateParam as MessageCreateParam
+from .subagent_list_params import SubagentListParams as SubagentListParams
 from .text_response_format import TextResponseFormat as TextResponseFormat
 from .tool_search_response import ToolSearchResponse as ToolSearchResponse
 from .agent_retrieve_params import AgentRetrieveParams as AgentRetrieveParams
@@ -89,6 +91,9 @@ from .agent_recompile_params import AgentRecompileParams as AgentRecompileParams
 from .bedrock_model_settings import BedrockModelSettings as BedrockModelSettings
 from .embedding_config_param import EmbeddingConfigParam as EmbeddingConfigParam
 from .parent_tool_rule_param import ParentToolRuleParam as ParentToolRuleParam
+from .subagent_create_params import SubagentCreateParams as SubagentCreateParams
+from .subagent_list_response import SubagentListResponse as SubagentListResponse
+from .subagent_update_params import SubagentUpdateParams as SubagentUpdateParams
 from .agent_retrieve_response import AgentRetrieveResponse as AgentRetrieveResponse
 from .deepseek_model_settings import DeepseekModelSettings as DeepseekModelSettings
 from .environment_list_params import EnvironmentListParams as EnvironmentListParams
