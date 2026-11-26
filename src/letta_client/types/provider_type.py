@@ -32,4 +32,7 @@ ProviderType: TypeAlias = Literal[
     "xai",
     "zai",
     "zai_coding",
+    "opencode",
+    "opencode_go",
+    "anthropic-cortex",
 ]

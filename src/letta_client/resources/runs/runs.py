@@ -138,6 +138,7 @@ class RunsResource(SyncAPIResource):
         background: Optional[bool] | Omit = omit,
         before: Optional[str] | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
+        include_request_config: bool | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
@@ -173,6 +174,9 @@ class RunsResource(SyncAPIResource):
               specified sort order. Expected format: 'run-<uuid4>'
 
           conversation_id: Filter runs by conversation ID.
+
+          include_request_config: Include request_config in each run. Defaults to true; set false for a slim
+              response.
 
           limit: Maximum number of runs to return
 
@@ -211,6 +215,7 @@ class RunsResource(SyncAPIResource):
                         "background": background,
                         "before": before,
                         "conversation_id": conversation_id,
+                        "include_request_config": include_request_config,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,
@@ -304,6 +309,7 @@ class AsyncRunsResource(AsyncAPIResource):
         background: Optional[bool] | Omit = omit,
         before: Optional[str] | Omit = omit,
         conversation_id: Optional[str] | Omit = omit,
+        include_request_config: bool | Omit = omit,
         limit: Optional[int] | Omit = omit,
         order: Literal["asc", "desc"] | Omit = omit,
         order_by: Literal["created_at"] | Omit = omit,
@@ -339,6 +345,9 @@ class AsyncRunsResource(AsyncAPIResource):
               specified sort order. Expected format: 'run-<uuid4>'
 
           conversation_id: Filter runs by conversation ID.
+
+          include_request_config: Include request_config in each run. Defaults to true; set false for a slim
+              response.
 
           limit: Maximum number of runs to return
 
@@ -377,6 +386,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "background": background,
                         "before": before,
                         "conversation_id": conversation_id,
+                        "include_request_config": include_request_config,
                         "limit": limit,
                         "order": order,
                         "order_by": order_by,

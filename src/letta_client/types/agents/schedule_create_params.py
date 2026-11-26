@@ -25,6 +25,12 @@ class ScheduleCreateParams(TypedDict, total=False):
 
     callback_url: str
 
+    context_window_limit: Optional[int]
+
+    conversation_id: str
+
+    description: str
+
     include_return_message_types: List[
         Literal[
             "system_message",
@@ -40,6 +46,16 @@ class ScheduleCreateParams(TypedDict, total=False):
     ]
 
     max_steps: float
+
+    model: Optional[str]
+
+    model_settings: object
+
+    name: str
+
+    target_device_id: str
+
+    use_sandbox: bool
 
 
 class MessageContentUnionMember0UnionMember0(TypedDict, total=False):

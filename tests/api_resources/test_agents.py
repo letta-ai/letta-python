@@ -11,6 +11,7 @@ from tests.utils import assert_matches_type
 from letta_client import Letta, AsyncLetta
 from letta_client.types import (
     AgentState,
+    AgentRetrieveResponse,
     AgentImportFileResponse,
 )
 from letta_client._utils import parse_datetime
@@ -87,6 +88,7 @@ class TestAgents:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -113,6 +115,13 @@ class TestAgents:
                 "provider_category": "base",
                 "provider_name": "provider_name",
                 "put_inner_thoughts_in_kwargs": True,
+                "reasoning_capabilities": {
+                    "mandatory": True,
+                    "default_effort": "default_effort",
+                    "default_enabled": True,
+                    "supported_efforts": ["string"],
+                    "supports_max_tokens": True,
+                },
                 "reasoning_effort": "none",
                 "response_format": {"type": "text"},
                 "return_logprobs": True,
@@ -222,7 +231,7 @@ class TestAgents:
         agent = client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -231,8 +240,9 @@ class TestAgents:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             include=["agent.blocks", "agent.identities"],
             include_relationships=["string", "string"],
+            if_none_match="if-none-match",
         )
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -244,7 +254,7 @@ class TestAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -256,7 +266,7 @@ class TestAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
+            assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -340,6 +350,13 @@ class TestAgents:
                 "provider_category": "base",
                 "provider_name": "provider_name",
                 "put_inner_thoughts_in_kwargs": True,
+                "reasoning_capabilities": {
+                    "mandatory": True,
+                    "default_effort": "default_effort",
+                    "default_enabled": True,
+                    "supported_efforts": ["string"],
+                    "supports_max_tokens": True,
+                },
                 "reasoning_effort": "none",
                 "response_format": {"type": "text"},
                 "return_logprobs": True,
@@ -760,6 +777,7 @@ class TestAsyncAgents:
                         }
                     ],
                     "role": "user",
+                    "attribution": {"acting_user_id": "x"},
                     "batch_item_id": "batch_item_id",
                     "group_id": "group_id",
                     "name": "name",
@@ -786,6 +804,13 @@ class TestAsyncAgents:
                 "provider_category": "base",
                 "provider_name": "provider_name",
                 "put_inner_thoughts_in_kwargs": True,
+                "reasoning_capabilities": {
+                    "mandatory": True,
+                    "default_effort": "default_effort",
+                    "default_enabled": True,
+                    "supported_efforts": ["string"],
+                    "supports_max_tokens": True,
+                },
                 "reasoning_effort": "none",
                 "response_format": {"type": "text"},
                 "return_logprobs": True,
@@ -895,7 +920,7 @@ class TestAsyncAgents:
         agent = await async_client.agents.retrieve(
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
         )
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -904,8 +929,9 @@ class TestAsyncAgents:
             agent_id="agent-123e4567-e89b-42d3-8456-426614174000",
             include=["agent.blocks", "agent.identities"],
             include_relationships=["string", "string"],
+            if_none_match="if-none-match",
         )
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -917,7 +943,7 @@ class TestAsyncAgents:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         agent = await response.parse()
-        assert_matches_type(AgentState, agent, path=["response"])
+        assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -929,7 +955,7 @@ class TestAsyncAgents:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             agent = await response.parse()
-            assert_matches_type(AgentState, agent, path=["response"])
+            assert_matches_type(AgentRetrieveResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1013,6 +1039,13 @@ class TestAsyncAgents:
                 "provider_category": "base",
                 "provider_name": "provider_name",
                 "put_inner_thoughts_in_kwargs": True,
+                "reasoning_capabilities": {
+                    "mandatory": True,
+                    "default_effort": "default_effort",
+                    "default_enabled": True,
+                    "supported_efforts": ["string"],
+                    "supports_max_tokens": True,
+                },
                 "reasoning_effort": "none",
                 "response_format": {"type": "text"},
                 "return_logprobs": True,

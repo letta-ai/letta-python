@@ -16,6 +16,14 @@ from .tags import (
     TagsResourceWithStreamingResponse,
     AsyncTagsResourceWithStreamingResponse,
 )
+from .goals import (
+    GoalsResource,
+    AsyncGoalsResource,
+    GoalsResourceWithRawResponse,
+    AsyncGoalsResourceWithRawResponse,
+    GoalsResourceWithStreamingResponse,
+    AsyncGoalsResourceWithStreamingResponse,
+)
 from .steps import (
     StepsResource,
     AsyncStepsResource,
@@ -80,6 +88,14 @@ from .messages import (
     MessagesResourceWithStreamingResponse,
     AsyncMessagesResourceWithStreamingResponse,
 )
+from .monitors import (
+    MonitorsResource,
+    AsyncMonitorsResource,
+    MonitorsResourceWithRawResponse,
+    AsyncMonitorsResourceWithRawResponse,
+    MonitorsResourceWithStreamingResponse,
+    AsyncMonitorsResourceWithStreamingResponse,
+)
 from .passages import (
     PassagesResource,
     AsyncPassagesResource,
@@ -88,13 +104,13 @@ from .passages import (
     PassagesResourceWithStreamingResponse,
     AsyncPassagesResourceWithStreamingResponse,
 )
-from .templates import (
-    TemplatesResource,
-    AsyncTemplatesResource,
-    TemplatesResourceWithRawResponse,
-    AsyncTemplatesResourceWithRawResponse,
-    TemplatesResourceWithStreamingResponse,
-    AsyncTemplatesResourceWithStreamingResponse,
+from .subagents import (
+    SubagentsResource,
+    AsyncSubagentsResource,
+    SubagentsResourceWithRawResponse,
+    AsyncSubagentsResourceWithRawResponse,
+    SubagentsResourceWithStreamingResponse,
+    AsyncSubagentsResourceWithStreamingResponse,
 )
 from .mcp_servers import (
     McpServersResource,
@@ -184,12 +200,6 @@ __all__ = [
     "AsyncStepsResourceWithRawResponse",
     "StepsResourceWithStreamingResponse",
     "AsyncStepsResourceWithStreamingResponse",
-    "TemplatesResource",
-    "AsyncTemplatesResource",
-    "TemplatesResourceWithRawResponse",
-    "AsyncTemplatesResourceWithRawResponse",
-    "TemplatesResourceWithStreamingResponse",
-    "AsyncTemplatesResourceWithStreamingResponse",
     "TagsResource",
     "AsyncTagsResource",
     "TagsResourceWithRawResponse",
@@ -208,6 +218,24 @@ __all__ = [
     "AsyncPassagesResourceWithRawResponse",
     "PassagesResourceWithStreamingResponse",
     "AsyncPassagesResourceWithStreamingResponse",
+    "GoalsResource",
+    "AsyncGoalsResource",
+    "GoalsResourceWithRawResponse",
+    "AsyncGoalsResourceWithRawResponse",
+    "GoalsResourceWithStreamingResponse",
+    "AsyncGoalsResourceWithStreamingResponse",
+    "SubagentsResource",
+    "AsyncSubagentsResource",
+    "SubagentsResourceWithRawResponse",
+    "AsyncSubagentsResourceWithRawResponse",
+    "SubagentsResourceWithStreamingResponse",
+    "AsyncSubagentsResourceWithStreamingResponse",
+    "MonitorsResource",
+    "AsyncMonitorsResource",
+    "MonitorsResourceWithRawResponse",
+    "AsyncMonitorsResourceWithRawResponse",
+    "MonitorsResourceWithStreamingResponse",
+    "AsyncMonitorsResourceWithStreamingResponse",
     "ConversationsResource",
     "AsyncConversationsResource",
     "ConversationsResourceWithRawResponse",

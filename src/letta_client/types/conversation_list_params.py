@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Literal, TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["ConversationListParams"]
 
 
@@ -28,8 +30,23 @@ class ConversationListParams(TypedDict, total=False):
     all conversations
     """
 
+    created_by_id: Optional[str]
+    """Filter conversations by the user who created them.
+
+    Use "@me" to filter to conversations created by the requesting user.
+    """
+
+    is_pinned: bool
+    """Filter conversations by pinned state."""
+
     limit: int
     """Maximum number of conversations to return"""
+
+    match_all_tags: bool
+    """If True, only returns conversations that match ALL given tags.
+
+    Otherwise, returns conversations that have ANY of the passed-in tags.
+    """
 
     order: Literal["asc", "desc"]
     """Sort order for conversations. 'asc' for oldest first, 'desc' for newest first"""
@@ -39,3 +56,6 @@ class ConversationListParams(TypedDict, total=False):
 
     summary_search: Optional[str]
     """Search for text within conversation summaries"""
+
+    tags: Optional[SequenceNotStr[str]]
+    """List of tags to filter conversations by"""

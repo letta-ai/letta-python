@@ -7,7 +7,41 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["EnvironmentListResponse", "Connection", "ConnectionMetadata"]
+__all__ = [
+    "EnvironmentListResponse",
+    "Connection",
+    "ConnectionMetadata",
+    "ConnectionMetadataMachine",
+    "ConnectionMetadataSelfUpdate",
+]
+
+
+class ConnectionMetadataMachine(BaseModel):
+    architecture: Optional[str] = None
+
+    cpu: Optional[str] = None
+
+    gpus: Optional[List[str]] = None
+
+    memory_bytes: Optional[float] = FieldInfo(alias="memoryBytes", default=None)
+
+    model: Optional[str] = None
+
+    os_name: Optional[str] = FieldInfo(alias="osName", default=None)
+
+    os_version: Optional[str] = FieldInfo(alias="osVersion", default=None)
+
+
+class ConnectionMetadataSelfUpdate(BaseModel):
+    supported: bool
+
+    writable: bool
+
+    install_path: Optional[str] = None
+
+    manual_command: Optional[str] = None
+
+    reason: Optional[str] = None
 
 
 class ConnectionMetadata(BaseModel):
@@ -15,9 +49,17 @@ class ConnectionMetadata(BaseModel):
 
     letta_code_version: Optional[str] = FieldInfo(alias="lettaCodeVersion", default=None)
 
+    machine: Optional[ConnectionMetadataMachine] = None
+
     node_version: Optional[str] = FieldInfo(alias="nodeVersion", default=None)
 
     os: Optional[str] = None
+
+    sandbox_size: Optional[Literal["regular", "large", "xlarge"]] = FieldInfo(alias="sandboxSize", default=None)
+
+    self_update: Optional[ConnectionMetadataSelfUpdate] = None
+
+    supported_commands: Optional[List[str]] = None
 
     working_directory: Optional[str] = FieldInfo(alias="workingDirectory", default=None)
 
@@ -47,6 +89,8 @@ class Connection(BaseModel):
 
     first_seen_at: float = FieldInfo(alias="firstSeenAt")
 
+    is_owner: bool = FieldInfo(alias="isOwner")
+
     last_heartbeat: Optional[float] = FieldInfo(alias="lastHeartbeat", default=None)
 
     last_seen_at: float = FieldInfo(alias="lastSeenAt")
@@ -55,11 +99,15 @@ class Connection(BaseModel):
 
     pod_id: Optional[str] = FieldInfo(alias="podId", default=None)
 
+    visibility: Literal["private", "organization"]
+
     api_key_owner: Optional[str] = FieldInfo(alias="apiKeyOwner", default=None)
 
     current_mode: Optional[Literal["default", "standard", "acceptEdits", "bypassPermissions", "unrestricted"]] = (
         FieldInfo(alias="currentMode", default=None)
     )
+
+    listener_instance_id: Optional[str] = FieldInfo(alias="listenerInstanceId", default=None)
 
     metadata: Optional[ConnectionMetadata] = None
 
