@@ -170,6 +170,7 @@ class SubagentsResource(SyncAPIResource):
         limit: int | Omit = omit,
         parent_agent_id: str | Omit = omit,
         parent_conversation_id: str | Omit = omit,
+        status: Literal["running", "idle", "completed", "failed", "stopped"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,7 +179,8 @@ class SubagentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SubagentListResponse:
         """
-        List subagents
+        Returns subagents ordered by most recently updated, with descending subagent ID
+        breaking ties.
 
         Args:
           extra_headers: Send extra headers
@@ -203,6 +205,7 @@ class SubagentsResource(SyncAPIResource):
                         "limit": limit,
                         "parent_agent_id": parent_agent_id,
                         "parent_conversation_id": parent_conversation_id,
+                        "status": status,
                     },
                     subagent_list_params.SubagentListParams,
                 ),
@@ -356,6 +359,7 @@ class AsyncSubagentsResource(AsyncAPIResource):
         limit: int | Omit = omit,
         parent_agent_id: str | Omit = omit,
         parent_conversation_id: str | Omit = omit,
+        status: Literal["running", "idle", "completed", "failed", "stopped"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -364,7 +368,8 @@ class AsyncSubagentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SubagentListResponse:
         """
-        List subagents
+        Returns subagents ordered by most recently updated, with descending subagent ID
+        breaking ties.
 
         Args:
           extra_headers: Send extra headers
@@ -389,6 +394,7 @@ class AsyncSubagentsResource(AsyncAPIResource):
                         "limit": limit,
                         "parent_agent_id": parent_agent_id,
                         "parent_conversation_id": parent_conversation_id,
+                        "status": status,
                     },
                     subagent_list_params.SubagentListParams,
                 ),

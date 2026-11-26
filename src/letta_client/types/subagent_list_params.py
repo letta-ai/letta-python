@@ -17,3 +17,5 @@ class SubagentListParams(TypedDict, total=False):
     parent_agent_id: str
 
     parent_conversation_id: str
+
+    status: Literal["running", "idle", "completed", "failed", "stopped"]

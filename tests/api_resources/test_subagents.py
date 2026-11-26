@@ -154,6 +154,7 @@ class TestSubagents:
             limit=1,
             parent_agent_id="x",
             parent_conversation_id="x",
+            status="running",
         )
         assert_matches_type(SubagentListResponse, subagent, path=["response"])
 
@@ -319,6 +320,7 @@ class TestAsyncSubagents:
             limit=1,
             parent_agent_id="x",
             parent_conversation_id="x",
+            status="running",
         )
         assert_matches_type(SubagentListResponse, subagent, path=["response"])
 
